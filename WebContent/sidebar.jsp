@@ -3,6 +3,7 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
+		<li><a href='#' onclick="stream('abc')">스트리밍gogo</a></li>
     <li class="nav-item active">
         <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
             <i class="fas fa-fw fa-home"></i>

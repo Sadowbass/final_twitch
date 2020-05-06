@@ -176,4 +176,9 @@ let pagemove = function(tg){
 	/*console.log(tg);*/
 	$('#content-wrapper').load(tg.id+".jsp");
 }
+let stream=function(id){
+	$.get("stream.st?"+id,function(data){
+		$('#content-wrapper').html(data);
+	});
+}
 
