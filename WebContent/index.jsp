@@ -600,5 +600,10 @@
 	<script src="./vendor/owl-carousel/owl.carousel.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="js/custom.js"></script>
+
+	<!-- 관욱 form -->
+	<form id='frm_uk' name='frm_uk' method='post'>
+		<input type='text' id='mem_id' name='mem_id'>
+	</form>
 </body>
 </html>
