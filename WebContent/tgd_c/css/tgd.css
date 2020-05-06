@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	background-color: #EEEEEE;
+}
+#top_c #main_search_form_c{
+	margin: 10px;
+}
+
+#main_c{
+	
+	margin-top:20px; 
+}
+
+#main_list_c > ul{
+	
+	list-style-type : none;
+	margin: 0;
+	padding: 0px;
+	width: 100%;
+}
+
+#main_list_c li{
+	margin: 10px;
+	border-bottom: 1px solid
+	
+}
+#main_list_c b{
+	color: #D6C7ED;
+}
+
+#main_list_c li:nth-of-type(1){
+	background-color : #9354ED;
+	color: #fff;
+}
+
+#main_menubar_c {
+	margin-top : 20px;
+	height: 40px;
+	border: 1px solid gray;
+}
+ a:link {  text-decoration: none;}
+ a:visited {  text-decoration: none;}
+ a:hover {  text-decoration: none;}
+ 
+ #streamerList .photo_c:hover img{
+ 	transform:scale(1.09);
+ 	transition-duration : 0.4s
+ }
+
+
