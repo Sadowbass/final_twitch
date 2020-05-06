@@ -169,11 +169,11 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 .sidebar {
   width: 90px !important;
-  background: #ff516b;
+   background: #ff516b; 
   /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #ff516b 0%, #826cfd 100%);
+   background: -moz-linear-gradient(-45deg, #ff516b 0%, #826cfd 100%); 
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #ff516b 0%, #826cfd 100%);
+  background: -webkit-linear-gradient(-45deg, #ff516b 0%, #826cfd 100%); 
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(135deg, #ff516b 0%, #826cfd 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -424,7 +424,7 @@ body.sidebar-toggled footer.sticky-footer {
   border: medium none;
   font-size: 14px;
   max-width: 607px !important;
-  width: 607px !important;
+  width: 330px !important;
 }
 .osahan-navbar-search {
   margin-right: 84px !important;

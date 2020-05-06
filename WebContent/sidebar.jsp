@@ -7,6 +7,8 @@
         <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span>
+            <span class="float-right">3,000</span>
+            <i class="fas fa-circle float-right" style="color: red"></i>
         </a>
     </li>
     <li class="nav-item">
