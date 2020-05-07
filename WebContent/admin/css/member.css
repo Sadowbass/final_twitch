@@ -1,0 +1,40 @@
+@charset "UTF-8";
+.member_table{
+	border:1px solid #2b3553;
+	background:none;
+	
+	
+}
+.member_table th{
+	color:hsla(0,0%,100%,.7);
+}
+.member_table thead{
+	background:#1e1e2f;
+}
+.mdl-button{
+	color:#fff;
+} 
+.mdl-button--raised.mdl-button--colored{
+	background:#e14eca;
+}
+.mdl-button--raised.mdl-button--colored:hover{
+	background:#e14eca;
+}
+.dataTables_wrapper .dt-buttons {
+	position: relative;
+    top: 15px;
+    margin-left: 18px;
+}
+button.dt-button{
+	    border: 1px solid #e14eca;
+	    background: none;
+	    color:#9a9a9a
+}
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled){
+	background:#2b3553;
+	border: 1px solid #e14eca;
+}
+.mdl-data-table td{
+	border-bottom:1px solid #2b3553;
+	border-top:1px solid #2b3553;
+}
