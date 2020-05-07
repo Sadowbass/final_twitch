@@ -17,12 +17,12 @@
 
 	<!-- bean -->
 	<!-- controller -->
-	<bean id="streamCon" class="streaming.ConUk">
+	<bean id="streamCon" class="stream_uk.ConUk">
 	</bean>
 
 	<!-- view resolver -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="./"/>
-		<property name="suffix" value=".jsp"/>
+		<property name="prefix" value="./twitch_uk/"/>
+		<property name="suffix" value="_uk.jsp"/>
 	</bean>
 </beans>
