@@ -54,19 +54,7 @@
 	</div>
 </div>
 <script>
-	let send = function() {
-		$('<div></div>').html($('div[contenteditable]').html()).appendTo(
-				'#chtArea');
-		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
-		$('div[contenteditable]').empty();
-	}
-
-	$('div[contenteditable]').keydown(function(e) {
-		if (e.keyCode === 13) {
-			if (!e.shiftKey) {
-				send();
-				return false;
-			}
-		}
-	});
+$(document).ready(function(){
+	uk.cht();
+});
 </script>

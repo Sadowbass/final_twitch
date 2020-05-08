@@ -121,40 +121,16 @@
 	</div>
 </div>
 <script>
-	$("#fold").click(function() {
-		$("#cht_div").css("display","none");
+$(document).ready(function(){
+	uk.stream();
+});
 
-		$("#video_div").removeClass("col-md-10");
-		$("#video_div").addClass("col-md-12");
+let unfold = function() {
 
-		$("<div class='col-md-2' id='unfold' style='position:fixed; right:-265px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>").appendTo("#add_unfold");
-	});
+    $("#unfold").remove();
 
-	let unfold = function() {
-
-		$("#unfold").remove();
-
-		$("#cht_div").css("display","block");
-
-		$("#video_div").removeClass("col-md-12");
-		$("#video_div").addClass("col-md-10");
-	}
-
-	$("#user_div").click(function(){
-		console.log('click11');
-		if($("#divUsers").length){
-			$("#cht_div").children().eq(1).remove();
-			$("#cht_div").children().eq(1).css("display","block");
-			$("#cht_div").children().eq(2).css("display","block");
-			$("#cht_div").children().eq(3).css("display","block");
-			$("#cht_div").children().eq(4).css("visibility","visible");
-		}else{
-			$("#cht_div").children().eq(1).css("display","none");
-			$("#cht_div").children().eq(2).css("display","none");
-			$("#cht_div").children().eq(3).css("display","none");
-			$("#cht_div").children().eq(4).css("visibility","hidden");
-			$("<div class='row'><div class='col-md-12' id='divUsers'><h1>유저 목록</h1></div></div>").insertAfter($("#cht_div").children().first());
-		}
-
-	});
+    $("#cht_div").css("display","block");
+    $("#video_div").removeClass("col-md-12");
+    $("#video_div").addClass("col-md-10");
+}
 </script>
