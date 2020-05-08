@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid member_insert">
         <div class="block-header">
             <h2>회원 입력</h2>
 
@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="body">
                             <div class="row clearfix">
                                 <div class="col-xs-12">
-                                    <img src="images/user.png" class="img-circle member_img">
+                                    <img src="images/user.png" class="img-circle member_img" id="member_img">
                                     <div class="filebox">
                                         <label for="profile_img">프로필 사진 추가</label>
                                         <input type="file" name="profile_img" id="profile_img"
@@ -142,7 +142,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-4">
-                                	<div class="input-group">
+                                
                                     	<select class="form-control show-tick">
                                         	<option>월</option>
                                         	<option>1</option>
@@ -158,7 +158,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         	<option>11</option>
                                         	<option>12</option>
                                     	</select>
-                                    </div>
+                                   
                                 </div>
                                 <div class="col-lg-2 col-sm-4">
                                     <div class="input-group">
@@ -168,6 +168,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </div>
                                 </div>
                             </div>
+                             <div class="row clearfix">
+                             	<div class="col-lg-6 col-sm-12 saveButton">
+                                 <button type="button" class="btn waves-effect">
+                                    <i class="material-icons">save</i>
+                                    <span>SAVE</span>
+                                </button>
+                                </div>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -175,7 +183,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <!-- #END# Input Group -->
 
         </div>
-
+  
+</div>
         <!-- Bootstrap Colorpicker Js -->
         <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 
@@ -208,7 +217,21 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
         <!-- Custom Js 
     <script src="js/pages/forms/advanced-form-elements.js"></script>-->
-
+    <script>
+    let btn = document.getElementById('profile_img')
+    btn.onchange = function(event){
+    	let ele =event.srcElement;
+    	let url =ele.files[0];
+    	let reader = new FileReader();
+    	reader.readAsDataURL(url);
+    	reader.onload = function(ev){
+    		let img = new Image();
+    		img.src = ev.target.result;
+    		document.getElementById('member_img').src = img.src;
+    	}
+    }
+    </script>
+	
 </body>
 
 </html>

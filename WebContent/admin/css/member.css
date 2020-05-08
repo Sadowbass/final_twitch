@@ -39,10 +39,11 @@ button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-
 
 /*end of member_select*/
 
-.bootstrap-select.btn-group:not(.input-group-btn){
+.member_header .bootstrap-select.btn-group:not(.input-group-btn){
 	display: inline-block;
     width: 125px;
 }
+
 .member_input{
 	display: inline-block;
     width: 74px;
@@ -78,13 +79,14 @@ input[type="file"]{
  	font-size: inherit;
  	line-height: normal; 
   	vertical-align: middle; 
-  	background-image: linear-gradient(to bottom left,#e14eca,#ba54f5,#e14eca);
+  	background-image: #1e1e2f;
   	cursor: pointer;
    	border-bottom-color: #e2e2e2; 
    	border-radius: .25em;
    	position: relative;
     top: 38px;
     margin-left: 5px;
+    border:1px solid #e14eca;
 }
 .filebox input[type="file"] { /* 파일 필드 숨기기 */
 position: absolute; 
@@ -102,6 +104,7 @@ width: 1px;
 .introduce{
 	margin-left: 31px;
 	width: 94%;
+	background:none;
 }
 .birth{
 	margin-left: 15px;
@@ -109,4 +112,17 @@ width: 1px;
 .birth p{
 	margin-left: 12px;
 }
-
+.saveButton{
+	text-align:center;
+}
+.saveButton button{
+	width:153px;
+	background:linear-gradient(to bottom left,#e14eca,#ba54f5,#e14eca);
+	color:#fff;
+}
+.member_insert input{
+	background:none;
+}
+.birth .bootstrap-select.btn-group:not(.input-group-btn){
+	
+}
