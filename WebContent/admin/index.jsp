@@ -166,7 +166,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">account_circle</i> <!-- 아이콘 -->
+                            <i class="material-icons">account_circle</i> <!-- 아이콘 --> 
                             <span>회원관리</span>
                         </a>
                         <ul class="ml-menu">
@@ -194,7 +194,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="admin_pages/twitch_main/live_broadcast.jsp">생방송 관리</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/twitch_main/streamer.jsp">스트리머 관리</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/streamer.jsp">스트리머 관리</a>
                                     </li>
                                 </ul>
                             </li>
