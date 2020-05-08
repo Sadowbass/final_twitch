@@ -865,6 +865,43 @@ h6 {
   font-weight: 500;
   margin: 0;
 }
+/* game cate*/
+.category-item2 img {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 0 2px #ccc;
+  height: 180px;
+  margin: 1px 0 8px;
+  object-fit: scale-down;
+  transform: scale(1);
+  width: 180px;
+}
+.category-item2:hover img {
+  transform: scale(1.09);
+  transition-duration: 0.4s;
+}
+.category-item2 {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 2px;
+  box-shadow: 0 0 6px #ececec;
+  margin: 6px 2px;
+  padding: 24px 12px;
+  text-align: center;
+}
+.top-category .category-item2 {
+  padding: 20px 11px;
+}
+.category-item2 h6 {
+  font-size: 13px;
+  margin: 5px 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-item2 p {
+  font-size: 11px;
+  font-weight: 500;
+  margin: 0;
+}
 /* Video Card */
 .video-block .mb-3 {
   margin-bottom: 30px !important;
@@ -1293,7 +1330,7 @@ h6 {
   position: absolute;
   right: 0;
 }
-.single-channel-image .img-fluid {
+.single-channel-image . {
   width: 100%;
 }
 .channel-profile-img {
