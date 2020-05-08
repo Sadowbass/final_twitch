@@ -46,3 +46,15 @@
   width: 45px;
   margin-top: 8px;
 }
+#canvas{
+	background-color: gray;
+	width: 200px;
+	height: 200px;
+	position: relative;
+}
+.box{
+	background: orange;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}

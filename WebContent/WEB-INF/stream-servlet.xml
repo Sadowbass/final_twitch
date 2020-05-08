@@ -17,8 +17,7 @@
 
 	<!-- bean -->
 	<!-- controller -->
-	<bean id="streamCon" class="stream_uk.ConUk">
-	</bean>
+	<bean id="streamCon" class="stream_uk.ConUk"/>
 
 	<!-- view resolver -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
