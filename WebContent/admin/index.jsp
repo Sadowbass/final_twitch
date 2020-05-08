@@ -171,10 +171,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="index.jsp?inc=admin_pages/member/member_select2.jsp">회원조회</a>
+                                <a href="index.jsp?inc=admin_pages/member/member_select.jsp">회원조회</a>
                             </li>
                             <li>
-                                <a href="admin_pages/member/member_insert.jsp">회원추가</a>
+                                <a href="index.jsp?inc=admin_pages/member/member_insert.jsp">회원추가</a>
                             </li>
                         </ul>
                     </li>
