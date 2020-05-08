@@ -3,9 +3,9 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
-    <h7 class="sidebar-top">팔로우 중인 채널</h7>
+    <h6 class="sidebar-top">팔로우 중인 채널</h6>
     <li class="nav-item active">
-        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+        <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
@@ -21,7 +21,7 @@
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+        <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
@@ -37,7 +37,7 @@
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+        <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
@@ -53,7 +53,7 @@
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+        <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle offline"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
@@ -101,29 +101,39 @@
         </div>
     </li>
     <li class="nav-item channel-sidebar-list">
-        <h6>SUBSCRIPTIONS</h6>
+        <h6>추천채널</h6>
         <ul>
-            <li>
-                <a href="#" id="subscriptions" onclick="pagemove(this)">
-                    <img class="img-fluid" alt="" src="img/s1.png"> Your Life
+
+            <li class="nav-item">
+                <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
+                    <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+                    <div class="sidebar-list-content">
+                        <div class="sidebar-list-text">
+                            <span>추천1</span><br/>
+                            <span class="game-category">League of Legends</span>
+                        </div>
+                        <div class="sidebar-list-viewer">
+                            <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
+                            <span style="margin: 0px">3,000</span>
+                        </div>
+                    </div>
                 </a>
             </li>
-            <li>
-                <a href="#" id="subscriptions" onclick="pagemove(this)">
-                    <img class="img-fluid" alt="" src="img/s2.png"> Unboxing <span
-                        class="badge badge-warning">2</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" id="subscriptions" onclick="pagemove(this)">
-                    <img class="img-fluid" alt="" src="img/s3.png"> Product / Service
-                </a>
-            </li>
-            <li>
-                <a href="#" id="subscriptions" onclick="pagemove(this)">
-                    <img class="img-fluid" alt="" src="img/s4.png"> Gaming
-                </a>
-            </li>
+
         </ul>
     </li>
+
+    <nav class="navbar fixed-bottom">
+        <form class="sidebar-friend-search">
+            <div class="input-group">
+                <input type="text" name="findField" id="findField">
+                <div class="input-group-append">
+                    <button class="btn btn-light" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nav>
+
 </ul>
