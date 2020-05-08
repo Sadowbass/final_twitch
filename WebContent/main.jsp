@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%request.setCharacterEncoding("utf-8"); %>
+
 <div class="container-fluid pb-0">
     <div class="top-mobile-search">
         <div class="row">
@@ -465,4 +466,3 @@
 <!-- /.container-fluid -->
 <!-- Sticky Footer -->
 <%@include file="footer.jsp" %>
-<script src="./vendor/owl-carousel/owl.carousel.js"></script>
