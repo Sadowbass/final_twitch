@@ -80,8 +80,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <!-- Image Gallery -->
             <div class="block-header">
                 <h2>
-                    IMAGE GALLERY
-                    <small>Taken from <a href="http://sachinchoolur.github.io/lightGallery/" target="_blank">sachinchoolur.github.io/lightGallery</a></small>
+                    생방송 관리
                 </h2>
             </div>
             <div class="row">
@@ -89,8 +88,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="card">
                         <div class="header">
                             <h2>
-                                GALLERY
-                                <small>All pictures taken from <a href="https://unsplash.com/" target="_blank">unsplash.com</a></small>
+                                생방송 관리
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -108,23 +106,31 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="body">
                             <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="../../images/image-gallery/1.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="../../images/image-gallery/thumb/thumb-1.jpg">
+                                    <a href="./admin_twitch_main_details.jsp" data-sub-html="Demo Description" style="text-decoration: none">
+                                        <img class="img-responsive thumbnail" src="../../images/image-gallery/thumb/thumb-1.jpg" style="margin-bottom: 0px;">
+                                        <span>스트리머1</span><br/>
+                                        <span>제목1</span>
                                     </a>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                     <a href="../../images/image-gallery/2.jpg" data-sub-html="Demo Description">
                                         <img class="img-responsive thumbnail" src="../../images/image-gallery/thumb/thumb-2.jpg">
+                                        <span>스트리머2</span>
+                                        <span>제목2</span>
                                     </a>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                     <a href="../../images/image-gallery/3.jpg" data-sub-html="Demo Description">
                                         <img class="img-responsive thumbnail" src="../../images/image-gallery/thumb/thumb-3.jpg">
+                                        <span>스트리머3</span>
+                                        <span>제목3</span>
                                     </a>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                     <a href="../../images/image-gallery/4.jpg" data-sub-html="Demo Description">
                                         <img class="img-responsive thumbnail" src="../../images/image-gallery/thumb/thumb-4.jpg">
+                                        <span>스트리머4</span>
+                                        <span>제목4</span>
                                     </a>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
