@@ -14,11 +14,29 @@ public class StreamerController_c {
 	}
 
 	@RequestMapping(value="*/streamer.tgd", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView select() {
+	public ModelAndView streamer() {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("wqdqwwq");
 		
 		mv.setViewName("streamer");
+		return mv;
+	}
+	
+	@RequestMapping(value="*/streamerMain.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView streamerMain() {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("streamerMain");
+		
+		mv.setViewName("streamerMain");
+		return mv;
+	}
+	
+	@RequestMapping(value="*/boardView.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView boardView() {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("boardView");
+		
+		mv.setViewName("board");
 		return mv;
 	}
 }
