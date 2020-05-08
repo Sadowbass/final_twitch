@@ -25,7 +25,8 @@
 <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
 <!-- uk -->
 <link rel="stylesheet" href="./twitch_uk/lib_uk/css_uk.css">
-
+<script src="https://kit.fontawesome.com/00067e904d.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="./twitch_uk/lib_uk/js_uk.js"></script>
 </head>
 <body id="page-top">
 	<%@include file="top.jsp"%>
@@ -603,7 +604,5 @@
 	<script src="./vendor/owl-carousel/owl.carousel.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="js/custom.js"></script>
-	<!-- uk -->
-	<script type="text/javascript" src="./twitch_uk/lib_uk/js_uk.js"></script>
 </body>
 </html>
