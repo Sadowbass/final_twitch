@@ -10,7 +10,7 @@
 	<div class="col-md-2 p-0 text-center">생방송 채팅</div>
 	<div class="col-md-3 p-0"></div>
 	<div class="col-md-2 p-0 text-center">
-		<i class="fas fa-user-circle fa-2x"></i>
+		<i class="fas fa-user-circle fa-2x" id="user_div"></i>
 	</div>
 </div>
 <!-- 도네현황 -->
@@ -34,13 +34,13 @@
 <!-- 메세지보내기창 -->
 <!-- 메세지보내기창 -->
 <div class="row mx-0 cht_send_uk p-2">
-	<div class="col-md-12 p-0 chtBox" contenteditable="true" onkeydown="keyuk()" ></div>
+	<div class="col-md-12 p-0 chtBox" contenteditable="true"></div>
 </div>
 <!-- 설정 등 기타 -->
 <!-- 설정 등 기타 -->
 <!-- 설정 등 기타 -->
 <div class="row mx-0 cht_bottom_uk">
-	<div class="col-md-3 p-0 text-center">
+	<div class="col-md-3 p-0 mx=0 text-center">
 		<i class="fas fa-cog"></i>
 	</div>
 	<div class="col-md-3 p-0 text-center"></div>
