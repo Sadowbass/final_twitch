@@ -194,7 +194,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 .sidebar .nav-item .nav-link {
   font-size: 14px;
-  padding: 12px 14px !important;
+  padding: 12px 14px;
   text-align: center;
   width: 90px;
   font-weight: 600;

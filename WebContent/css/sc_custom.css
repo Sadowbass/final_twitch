@@ -1,0 +1,43 @@
+.sidebar-list-img{
+    display: inline;
+    vertical-align: baseline;
+    height: 30px;
+}
+
+.offline{
+    filter: grayscale(100%);
+}
+.sidebar-list-content{
+    display: inline;
+}
+.sidebar-list-text{
+    display: inline-block;
+}
+.sidebar-top{
+    padding-top: 4px;
+    padding-left: 4px;
+    color: black;
+    font-family: "Helvetica Neue";
+    font-weight: 600;
+}
+
+.sidebar-list-text span{
+    margin: 3px !important;
+}
+
+.sidebar-list-viewer{
+    display: inline-block;
+    padding-top: 10px;
+    float: right !important;
+}
+
+.game-category{
+    font-size: 12px !important;
+}
+
+.nav-link{
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+}

@@ -26,6 +26,7 @@
 <!-- Owl Carousel -->
 <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css">
 <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
+<link rel="stylesheet" href="css/sc_custom.css">
 </head>
 <body id="page-top">
 	<%@include file="top.jsp"%>

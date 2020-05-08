@@ -3,38 +3,70 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
+    <h7 class="sidebar-top">팔로우 중인 채널</h7>
     <li class="nav-item active">
         <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
-            <i class="fas fa-fw fa-home"></i>
-            <span>Home</span>
-            <span class="float-right">3,000</span>
-            <i class="fas fa-circle float-right" style="color: red"></i>
+            <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+            <div class="sidebar-list-content">
+                <div class="sidebar-list-text">
+                    <span>방송1</span><br/>
+                    <span class="game-category">League of Legends</span>
+                </div>
+                <div class="sidebar-list-viewer">
+                    <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
+                    <span style="margin: 0px">3,000</span>
+                </div>
+            </div>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" id="channels" onclick="pagemove(this)">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Channels</span>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+            <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+            <div class="sidebar-list-content">
+                <div class="sidebar-list-text">
+                    <span>방송2</span><br/>
+                    <span class="game-category">Legends of Runetera</span>
+                </div>
+                <div class="sidebar-list-viewer">
+                    <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
+                    <span style="margin: 0px">3,000</span>
+                </div>
+            </div>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" id="single-channel" onclick="pagemove(this)">
-            <i class="fas fa-fw fa-user-alt"></i>
-            <span>Single Channel</span>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+            <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+            <div class="sidebar-list-content">
+                <div class="sidebar-list-text">
+                    <span>방송3</span><br/>
+                    <span class="game-category">World of Warcraft</span>
+                </div>
+                <div class="sidebar-list-viewer">
+                    <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
+                    <span style="margin: 0px">3,000</span>
+                </div>
+            </div>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" id="video-page" onclick="pagemove(this)">
-            <i class="fas fa-fw fa-video"></i>
-            <span>Video Page</span>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="#" id="main" onclick="pagemove(this)">
+            <img src="./img/s1.png" class="sidebar-list-img rounded-circle offline"></img>
+            <div class="sidebar-list-content">
+                <div class="sidebar-list-text">
+                    <span>방송4</span><br/>
+                    <span class="game-category">League of Legends</span>
+                </div>
+                <div class="sidebar-list-viewer">
+                    <span style="margin: 0px">오프라인</span>
+                </div>
+            </div>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" id="upload-video" onclick="pagemove(this)">
-            <i class="fas fa-fw fa-cloud-upload-alt"></i>
-            <span>Upload Video</span>
-        </a>
-    </li>
+
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false">
@@ -55,12 +87,6 @@
             <a class="dropdown-item" href="#" id="404" onclick="pagemove(this)">404 Page</a>
             <a class="dropdown-item" href="#" id="content" onclick="pagemove(this)">Contact</a>
         </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#" id="history-page" onclick="pagemove(this)">
-            <i class="fas fa-fw fa-history"></i>
-            <span>History Page</span>
-        </a>
     </li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
