@@ -4,8 +4,8 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
-    <li class="nav-item active">
-        <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
+    <li class="nav-item">
+        <a class="nav-link nav-link-sc" href="./streamer/faker" id="main">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
@@ -20,7 +20,7 @@
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
@@ -36,7 +36,7 @@
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
@@ -52,7 +52,7 @@
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle offline"></img>
             <div class="sidebar-list-content">
@@ -66,45 +66,15 @@
             </div>
         </a>
     </li>
-
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-           aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-        </a>
-        <div class="dropdown-menu">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.jsp" id="login" onclick="pagemove(this)">Login</a>
-            <a class="dropdown-item" href="register.jsp" id="register" onclick="pagemove(this)">Register</a>
-            <a class="dropdown-item" href="forgot-password.jsp" id="forgot-password" onclick="pagemove(this)">Forgot
-                Password</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="#" id="blog" onclick="pagemove(this)">Blog</a>
-            <a class="dropdown-item" href="#" id="blog-detail" onclick="pagemove(this)">Blog Detail</a>
-            <a class="dropdown-item" href="#" id="blank" onclick="pagemove(this)">Blank Page</a>
-            <a class="dropdown-item" href="#" id="404" onclick="pagemove(this)">404 Page</a>
-            <a class="dropdown-item" href="#" id="content" onclick="pagemove(this)">Contact</a>
-        </div>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-list-alt"></i>
-            <span>Categories</span>
-        </a>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="#" id="categories" onclick="pagemove(this)">Movie</a>
-            <a class="dropdown-item" href="#" id="categories" onclick="pagemove(this)">Music</a>
-            <a class="dropdown-item" href="#" id="categories" onclick="pagemove(this)">Television</a>
-        </div>
-    </li>
+    <div>
+        <button class="btn btn-link">
+            <span style="color: #ffffff; font-size: 15px">더 보기</span>
+        </button>
+    </div>
     <li class="nav-item channel-sidebar-list">
         <h6>추천채널</h6>
         <ul>
-
-            <li class="nav-item">
+            <li class="nav-item" style="margin-bottom: 0;">
                 <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
                     <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
                     <div class="sidebar-list-content">
@@ -119,21 +89,19 @@
                     </div>
                 </a>
             </li>
-
         </ul>
+        <div>
+            <button class="btn btn-link">
+                <span style="color: #ffffff; font-size: 15px">더 보기</span>
+            </button>
+        </div>
     </li>
-
-    <nav class="navbar fixed-bottom">
-        <form class="sidebar-friend-search">
-            <div class="input-group">
-                <input type="text" name="findField" id="findField">
-                <div class="input-group-append">
-                    <button class="btn btn-light" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </nav>
-
 </ul>
+<form class="sidebar-friend-search fixed-bottom" style="right: auto;">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+        </div>
+        <input type="text" class="form-control" placeholder="검색할 친구를 입력하세요" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+</form>

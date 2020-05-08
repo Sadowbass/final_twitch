@@ -17,7 +17,7 @@
   
   <servlet-mapping>
     <servlet-name>sc_servlet</servlet-name>
-    <url-pattern>*.sc</url-pattern>
+    <url-pattern>/streamer/*</url-pattern>
   </servlet-mapping>
   
 </web-app>

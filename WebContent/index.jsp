@@ -16,7 +16,7 @@
 <title>JHTA-Twitch</title>
 <!-- Favicon Icon -->
 <link rel="icon" type="image/png" href="img/favicon.png">
-<!-- Bootstrap core CSS-->
+<!-- Bootstrap core CSS--> 
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"

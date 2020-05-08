@@ -125,6 +125,6 @@ $(document).keydown(function (e) {
 })(jQuery); // End of use strict
 
 let pagemove = function(tg){
-	$('#content-wrapper').load(tg.id+".jsp");
+	$('#content-wrapper').load(tg.id+".sc");
 }
 
