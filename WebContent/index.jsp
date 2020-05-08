@@ -12,7 +12,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Askbootstrap">
-    <meta name="author" content="Askbootstrap">
+    <meta name="author" content="Askbootstrap">                                                                                              
     <title>JHTA-Twitch</title>
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="img/favicon.png">
@@ -26,6 +26,7 @@
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
+
 </head>
 <body id="page-top">
 <%@include file="top.jsp" %>
@@ -49,6 +50,7 @@
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <!-- Owl Carousel -->
+<script src="./vendor/owl-carousel/owl.carousel.js"></script>
 <!-- Custom scripts for all pages-->
 <script src="js/custom.js"></script>
 </body>
