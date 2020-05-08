@@ -123,3 +123,10 @@ width: 1px;
 .member_insert input{
 	background:none;
 }
+
+/*member_view shop-list*/
+
+.member_shop_list{
+	width: 140px;
+    height: 140px;
+}

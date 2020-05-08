@@ -5970,7 +5970,7 @@ fieldset[disabled] .form-control {
     .media .media-body .media-heading {
       font-size: 16px;
       font-weight: bold;
-      color: #333; }
+      color: #fff; }
 
 /* Form Wizard ================================= */
 .wizard,

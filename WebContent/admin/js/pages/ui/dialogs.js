@@ -49,34 +49,35 @@ function showSuccessMessage() {
 
 function showConfirmMessage() {
     swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        title: "정말 정지하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "정지",
+        cancelButtonText: "취소",
         closeOnConfirm: false
     }, function () {
-        swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        swal("정지 완료 됨", "해당 계정이 정지되었습니다", "success");
     });
 }
 
 function showCancelMessage() {
     swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        title: "정말 삭제하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel plx!",
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "삭제",
+        cancelButtonText: "취소",
         closeOnConfirm: false,
         closeOnCancel: false
     }, function (isConfirm) {
         if (isConfirm) {
-            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            swal("삭제 완료 됨", "해당 계정이 삭제되었습니다", "success");
         } else {
-            swal("Cancelled", "Your imaginary file is safe :)", "error");
+            swal("취소됨", "계정 삭제가 취소되었습니다", "error");
         }
     });
 }
