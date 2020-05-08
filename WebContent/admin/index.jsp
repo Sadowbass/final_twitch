@@ -128,7 +128,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
     <nav class="navbar">
-        <%@include file='top.jsp' %>
+        <%@include file='./top.jsp' %>
     </nav>
     <!-- #Top Bar -->
     <section>
@@ -191,7 +191,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/twitch_main/live_broadcast.jsp">생방송 관리</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast.jsp">생방송 관리</a>
                                     </li>
                                     <li>
                                         <a href="index.jsp?inc=admin_pages/twitch_main/streamer.jsp">스트리머 관리</a>
