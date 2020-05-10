@@ -15,15 +15,14 @@ public class SCController {
         System.out.println("컨트롤러 생성");
     }
     
-    @RequestMapping(value="/*" , method=RequestMethod.GET)
+    @RequestMapping(value="*" , method=RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req) {
     	ModelAndView mv = new ModelAndView();
+    	mv.setViewName("video-page");
     	System.out.println("123");
     	System.out.println(req.getRequestURI());
     	System.out.println(req.getRequestURL());
     	
     	return mv;
     }
-    
-    
 }

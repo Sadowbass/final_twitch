@@ -17,7 +17,17 @@
   
   <servlet-mapping>
     <servlet-name>sc_servlet</servlet-name>
-    <url-pattern>/streamer/*</url-pattern>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.js</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>*.css</url-pattern>
   </servlet-mapping>
   
 </web-app>
