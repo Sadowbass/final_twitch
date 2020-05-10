@@ -8,7 +8,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -19,12 +18,10 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/tgd_c/css/tgd.css">
-	
 <script src="<%=request.getContextPath()%>/tgd_c/js/tgd.js"></script>
-
 </head>
 <body>
-
+	<%-- 
 	<% 
 		String inc_top="top.jsp";
 		if( request.getParameter("inc_top") != null){
@@ -35,12 +32,39 @@
 			inc_main=request.getParameter("inc_main");
 		}
 	%>
-	
-	<div id="top_c">
-		<jsp:include page="<%=inc_top%>"/>
+	 --%>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="header">
+					<%@ include file="top.jsp"%>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2">
+				<div id="sideMenu">
+					<%@ include file="side.jsp"%>
+				</div>
+			</div>
+			<div class="col-sm-10">
+				<div id="content">
+					<%@ include file="main.jsp"%>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="footer">
+					<%@include file="footer.jsp"%>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<div class="container" id="main_c" >
+
+
+	<!-- <div class="container" id="main_c" >
 		<div class="row">
 			<div id="main_list_c" class="col-xs-2" style="padding: 0; margin :0;  width: 150px;">
 				<ul>
@@ -62,17 +86,17 @@
 			</div>
 			<div class="col-xs-10 " id="main-content">
 				<div id="main_main">
-					<jsp:include page="<%=inc_main %>"/>					
+										
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div id="footer">
-		<%@include file="footer.jsp" %>
-	</div>
+	</div> -->
 
-<script>tgd_c.func()</script>
+
+
+	<script>
+		tgd_c.func()
+	</script>
 </body>
 </html>
 

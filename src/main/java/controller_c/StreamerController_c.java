@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/tgd_c")
 public class StreamerController_c {
 	
 	public StreamerController_c() {
@@ -13,7 +14,7 @@ public class StreamerController_c {
 		
 	}
 
-	@RequestMapping(value="*/streamer.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/streamer.tgd", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView streamer() {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("wqdqwwq");
@@ -22,7 +23,7 @@ public class StreamerController_c {
 		return mv;
 	}
 	
-	@RequestMapping(value="*/streamerMain.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/streamerMain.tgd", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView streamerMain() {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("streamerMain");
@@ -31,7 +32,7 @@ public class StreamerController_c {
 		return mv;
 	}
 	
-	@RequestMapping(value="*/boardView.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/boardView.tgd", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView boardView() {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("boardView");
