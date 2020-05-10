@@ -230,7 +230,7 @@
 						</div>
 						<div class="col-xl-3 col-sm-6 mb-3">
 							<div class="video-card">
-								<div class="video-card-image">
+								<div class="video-card-image" onclick="go()">
 									<a class="play-icon" href="#">
 										<i class="fas fa-play-circle"></i>
 									</a>
