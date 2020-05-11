@@ -16,6 +16,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/tgd_c/js/summernote-lite.js"></script>
+<script src="<%=request.getContextPath()%>/tgd_c/js/summernote-ko-KR.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/tgd_c/css/summernote-lite.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/tgd_c/css/tgd.css">
 <script src="<%=request.getContextPath()%>/tgd_c/js/tgd.js"></script>
@@ -99,6 +103,16 @@
 						</c:forEach>
 					</div>
 
+					<div class="row" style="margin-top: 60px">
+						<form action="">
+							<div class="col-xs-12">
+								<textarea name="editordata" id="summernote"></textarea>
+							</div>
+							<div class="col-xs-12" style="margin-top : 10px; text-align : right;">
+								<input type="button" class="btn" value="댓글쓰기" style=""/>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -110,6 +124,17 @@
 			</div>
 		</div>
 	</div>
-
+	<script>
+		$('#summernote').summernote({
+			height : 100,
+			minHeight : null,
+			maxHeight : null,
+			focus : true,
+			lang : "ko-KR",
+			placeholder : '내용을 작성해주세요^^'
+		})
+		
+		document.documentElement.scrollTop = 0;
+	</script>
 </body>
 </html>

@@ -37,7 +37,25 @@ public class StreamerController_c {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("boardView");
 		
-		mv.setViewName("board");
+		mv.setViewName("boardView");
+		return mv;
+	}
+	
+	@RequestMapping(value="/boardInsert.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView boardInsert() {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("boardInsert");
+		
+		mv.setViewName("boardInsert");
+		return mv;
+	}
+	
+	@RequestMapping(value="/boardAll.tgd", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView boardAll() {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("boardAll");
+		
+		mv.setViewName("boardAll");
 		return mv;
 	}
 }

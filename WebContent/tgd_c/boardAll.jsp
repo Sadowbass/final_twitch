@@ -39,27 +39,22 @@
 				<div id="content">
 					<div class="row">
 						<h1>
-							<a href="#">괴물쥐</a>
+							<a href="#">전체글 보기</a>
 						</h1>
 						<div id="article-list" align="center">
 							<div id="article-list-category">
-								<a href="#"><i class="glyphicon glyphicon-home"></i></a>
-								<ul>
-									<c:forEach var="i" begin="1" end="5">
+								<a onclick="location.href='boardAll.tgd'"><i
+									class="glyphicon glyphicon-home"></i></a>
 
-										<li><a>메뉴${i }</a></li>
-
-									</c:forEach>
-								</ul>
 							</div>
 							<br />
-							<div id="streamer-board">
+							<div id="board-all">
 								<c:forEach var="i" begin="1" end="20">
 									<div class="row">
 										<div class="col-xs-12" id="board-list">
 
 											<div class="col-xs-2 category">
-												<span>카테고리</span>
+												<span>스트리머 게시판</span>
 											</div>
 											<div class="col-xs-7">
 												<span class="board-subject"
@@ -79,9 +74,6 @@
 								</c:forEach>
 
 							</div>
-							<div style="margin-top: 20px; float: right;">
-								<input type="button" id="board_insert_c" class="btn" value="글쓰기" />
-							</div>
 							<!-- 페이지 전환 -->
 							<div id="paging" class='col-xs-11'>
 								<br> <br> <input type="button" class="btn" value="이전"
@@ -91,10 +83,25 @@
 								</c:forEach>
 								<input type="button" class="btn" value="다음" onclick="">
 							</div>
-
+							<div class="col-xs-1"></div>
 						</div>
 
-						<br> <br>
+					</div>
+					<div class="row" style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+						<div class="col-xs-11">
+							<form action="" class="form-inline">
+								<select name="" id="" class="form-control">
+									<option value="" selected>제목+내용</option>
+									<option value="">닉네임</option>
+								</select> <input type="text" class="form-control" placeholder="검색어"
+									style="width: 300px;" />
+								<button type="button" class="btn"
+									style="background-color: white !important">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</form>
+						</div>
+
 					</div>
 
 				</div>

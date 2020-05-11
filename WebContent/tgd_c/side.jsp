@@ -6,7 +6,7 @@
 		<li style="margin: 0; padding: 8px; text-align: center"><i
 			class="glyphicon glyphicon-align-justify"></i> <B
 			style="color: #fff;">트게더 전체 메뉴</B></li>
-		<li><a href=""><b>A</b> 전체 글 보기</a></li>
+		<li><a onclick="location.href='boardAll.tgd'"><b>A</b> 전체 글 보기</a></li>
 		<li><a onclick="location.href='streamer.tgd'"><b>B</b> 스트리머 게시판</a></li>
 		<li><a href=""><b>C</b> 커뮤니티</a></li>
 		<li><a href=""><b>H</b> 핫클립</a></li>
