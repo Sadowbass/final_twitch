@@ -1,0 +1,132 @@
+@charset "UTF-8";
+.member_table{
+	border:1px solid #2b3553;
+	background:none;
+}
+.member_table th{
+	color:hsla(0,0%,100%,.7);
+}
+.member_table thead{
+	background:#1e1e2f;
+}
+.mdl-button{
+	color:#fff;
+} 
+.mdl-button--raised.mdl-button--colored{
+	background:#e14eca;
+}
+.mdl-button--raised.mdl-button--colored:hover{
+	background:#e14eca;
+}
+.dataTables_wrapper .dt-buttons {
+	position: relative;
+    top: 15px;
+    margin-left: 18px;
+}
+button.dt-button{
+	    border: 1px solid #e14eca;
+	    background: none;
+	    color:#9a9a9a
+}
+button.dt-button:hover:not(.disabled), div.dt-button:hover:not(.disabled), a.dt-button:hover:not(.disabled){
+	background:#2b3553;
+	border: 1px solid #e14eca;
+}
+.mdl-data-table td{
+	border-bottom:1px solid #2b3553;
+	border-top:1px solid #2b3553;
+}
+
+/*end of member_select*/
+
+.member_header .bootstrap-select.btn-group:not(.input-group-btn){
+	display: inline-block;
+    width: 125px;
+}
+
+.member_input{
+	display: inline-block;
+    width: 74px;
+}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option{
+	top:2px;
+}
+
+.member_img{
+	width: 118px;
+    margin-left: 15px;
+}
+input[type="file"]{
+	/*display: inline-block;
+    position: relative;
+    top: 45px;
+    margin-left: 13px;*/
+}
+
+@media (max-width:535px){
+   input[type="file"]{
+   	/*display: block;
+    position: unset;
+    margin-top: 23px;*/
+
+   }
+}
+
+.filebox label { 
+	display: inline-block; 
+	padding: .5em .75em;
+ 	color: #fff; 
+ 	font-size: inherit;
+ 	line-height: normal; 
+  	vertical-align: middle; 
+  	background-image: #1e1e2f;
+  	cursor: pointer;
+   	border-bottom-color: #e2e2e2; 
+   	border-radius: .25em;
+   	position: relative;
+    top: 38px;
+    margin-left: 5px;
+    border:1px solid #e14eca;
+}
+.filebox input[type="file"] { /* 파일 필드 숨기기 */
+position: absolute; 
+width: 1px;
+ height: 1px;
+  padding: 0; 
+  margin: -1px; 
+  overflow: hidden;
+   clip:rect(0,0,0,0); 
+   border: 0; 
+   }
+.filebox{
+	display:inline-block;
+}
+.introduce{
+	margin-left: 31px;
+	width: 94%;
+	background:none;
+}
+.birth{
+	margin-left: 15px;
+}
+.birth p{
+	margin-left: 12px;
+}
+.saveButton{
+	text-align:center;
+}
+.saveButton button{
+	width:153px;
+	background:linear-gradient(to bottom left,#e14eca,#ba54f5,#e14eca);
+	color:#fff;
+}
+.member_insert input{
+	background:none;
+}
+
+/*member_view shop-list*/
+
+.member_shop_list{
+	width: 140px;
+    height: 140px;
+}
