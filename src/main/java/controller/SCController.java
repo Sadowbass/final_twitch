@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class SCController {
 	
-    public SCController() {
+    public SCController() { 
         System.out.println("컨트롤러 생성");
     }
     
