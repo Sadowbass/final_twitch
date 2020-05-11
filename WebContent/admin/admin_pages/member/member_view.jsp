@@ -260,28 +260,144 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title">
-                                <b>Message Content</b>
-                                <p>
-                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem
-                                    an. Pri ut tation electram moderatius.
-                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                    sadipscing mel.
-                                </p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
                                 <div class="row clearfix">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="card">
                                             <div class="header">
-                                                <h2>
-                                                   	 최근 쇼핑 내역 
-                                                </h2>
-                                         
+                                                <h2>이주 방송 시청 시간</h2><span>총 시청 시간:200시간</span>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
                                             </div>
                                             <div class="body">
-                                                <div class="bs-example" data-example-id="media-alignment">
-                                                 <c:forEach var="i" begin="1" end="10">
+                                                <canvas id="myChart" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>자주 보는 게임 카테고리</h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body">
+                                                <canvas id="category_chart" height="170"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                결제 내역 
+                                <small>구독하거나 도네이션 한 내역을 보여줍니다.</small>
+                            </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>날짜</th>
+                                        <th>받은 스트리머 아이디</th>
+                                        <th>금액</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach begin="1" end="5" var="i">
+                                	 <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+           
+                                </div>
+                          
+                        </div>
+                                
+                        <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>1년간 결제 금액</h2> <span>결제 총액:2000원</span>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle"
+                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);">Action</a></li>
+                                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="body">
+                                            <canvas id="shop_buy_chart" height="80"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>
+                                                최근 쇼핑 내역
+                                            </h2>
+
+                                        </div>
+                                        <div class="body">
+                                            <div class="bs-example" data-example-id="media-alignment">
+                                                <c:forEach var="i" begin="1" end="10">
                                                     <div class="media">
                                                         <div class="media-left media-middle">
                                                             <a href="javascript:void(0);">
@@ -292,18 +408,17 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         <div class="media-body">
                                                             <h4 class="media-heading">2020-12-02</h4>
                                                             <p>
-                                                               DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글
+                                                                DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글
                                                             </p>
                                                             <p>
-                                                               175,000원
+                                                                175,000원
                                                             </p>
                                                             <p>
-                                                               	배송완료
+                                                                배송완료
                                                             </p>
                                                         </div>
                                                     </div>
-                                                   </c:forEach>
-                                                </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>
@@ -314,7 +429,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 </div>
             </div>
         </div>
-        <!-- #END# Tabs With Icon Title -->
+    </div>
+    <!-- #END# Tabs With Icon Title -->
 
 
     </div>
@@ -360,6 +476,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 
+    <!-- chart-js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+
     <script src="js/member.js"></script>
     <script>
         $(document).ready(function () {
@@ -403,6 +524,89 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 table.table().container()
             );
         });
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                    borderColor: 'rgba(0, 188, 212, 0.75)',
+                    backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                    pointBorderColor: 'rgba(0, 188, 212, 0)',
+                    pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+                    pointBorderWidth: 1
+                },{
+                	 label: "My Second dataset",
+                     data: [28, 48, 40, 19, 86, 27, 90],
+                     borderColor: 'rgba(233, 30, 99, 0.75)',
+                     backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                     pointBorderColor: 'rgba(233, 30, 99, 0)',
+                     pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                     pointBorderWidth: 1
+                }]
+            },
+            options: {
+            	responsive: true,
+                legend: false
+            }
+        });
+        var ctx2 = document.getElementById('shop_buy_chart').getContext('2d');
+        var chart = new Chart(ctx2, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My First dataset',
+                    data: [0, 10, 5, 2, 20, 30, 45],
+                    borderColor: 'rgba(0, 188, 212, 0.75)',
+                    backgroundColor: 'rgba(0, 188, 212, 0.3)',
+                    pointBorderColor: 'rgba(0, 188, 212, 0)',
+                    pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+                    pointBorderWidth: 1
+                }]
+            },
+            options: {
+            	responsive: true,
+                legend: false
+            }
+        });
+        
+        var ctx3 = document.getElementById('category_chart').getContext('2d');
+        var myPieChart = new Chart(ctx3, {
+            type: 'pie',
+            data:  {
+                datasets: [{
+                    data: [10, 20, 60,10],
+                    backgroundColor: [
+                        "rgb(233, 30, 99)",
+                        "rgb(255, 193, 7)",
+                        "rgb(0, 188, 212)",
+                        "rgb(139, 195, 74)"
+                	],
+                }],
+                labels: [
+                	 "Pink",
+                     "Amber",
+                     "Cyan",
+                     "Light Green"
+                ]
+        	},
+        	options: {
+                responsive: true,
+                
+            }
+            
+        });
+        
     </script>
 
 

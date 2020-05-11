@@ -6,174 +6,218 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Image Gallery | Bootstrap Based Admin Template - Material Design</title>
+    <title>Twitch_Admin 생방송 관리</title>
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="css/live_broadcast.css" rel="stylesheet">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="../vendor/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="../vendor/owl-carousel/owl.theme.css">
 
-    <!-- Favicon-->
-    <link rel="icon" href="./images/favicon.png" type="image/png">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="./plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="./plugins/node-waves/waves.css" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="./plugins/animate-css/animate.css" rel="stylesheet" />
-
-    <!-- Light Gallery Plugin Css -->
-    <link href="./plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
-
-    <!-- Custom Css -->
-    <link href="./css/style.css" rel="stylesheet">
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="./css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
-        <div class="container-fluid">
-            <!-- Image Gallery -->
-            <div class="block-header">
-                <h2>
-                    생방송 관리
-                </h2>
+<div class="container-fluid">
+    <!-- Image Gallery -->
+    <div class="block-header">
+        <h2>
+            생방송 관리
+        </h2>
+    </div>
+    <div class="row clearfix">
+        <div class="col-xs-12">
+            <div class="main-title">
+                <div class="btn-group float-right right-action">
+                    <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"> Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu pull-right">
+                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a> <a
+                            class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a> <a
+                            class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                    </div>
+                </div>
+                <h6>생방송 목록</h6>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                생방송 관리
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./admin_pages/twitch_main/admin_twitch_main_details.jsp" data-sub-html="Demo Description" style="text-decoration: none">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-1.jpg" style="margin-bottom: 0px;">
-                                        <span>스트리머1</span><br/>
-                                        <span>제목1</span>
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./admin_pages/twitch_main/admin_twitch_main_details.jsp" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-2.jpg">
-                                        <span>스트리머2</span><br/>
-                                        <span>제목2</span>
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./admin_pages/twitch_main/admin_twitch_main_details.jsp" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-3.jpg">
-                                        <span>스트리머3</span><br/>
-                                        <span>제목3</span>
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./admin_pages/twitch_main/admin_twitch_main_details.jsp" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-4.jpg">
-                                        <span>스트리머4</span><br/>
-                                        <span>제목4</span>
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/5.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-5.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/6.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-6.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/7.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-7.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/8.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-8.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/9.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-9.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/10.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-10.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/11.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-11.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/12.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-12.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/13.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-13.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/14.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-14.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/15.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-15.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/16.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-16.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/17.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-17.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/18.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-18.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/19.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-19.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                    <a href="./images/image-gallery/20.jpg" data-sub-html="Demo Description">
-                                        <img class="img-responsive thumbnail" src="./images/image-gallery/thumb/thumb-20.jpg">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v1.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-success">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v2.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-success">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v3.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-danger">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v4.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-success">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v5.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-success">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v6.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-danger">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v7.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-success">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="video-card">
+                <div class="video-card-image">
+                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
+                    <a href="#"><img class="img-fluid" src="../img/v8.png" alt=""></a>
+                    <div class="time">3:50</div>
+                </div>
+                <div class="video-card-body">
+                    <div class="video-title">
+                        <a href="#">There are many variations of passages of Lorem</a>
+                    </div>
+                    <div class="video-page text-success">
+                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
+                    </div>
+                    <div class="video-view">
+                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
+                        ago
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../js/custom.js"></script>
+<script src="../vendor/owl-carousel/owl.carousel.js"></script>
