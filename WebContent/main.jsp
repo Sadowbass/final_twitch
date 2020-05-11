@@ -438,7 +438,7 @@
 						</div>
 						<div class="channels-view">382,323 subscribers</div>
 					</div>
-				</div>
+				</div> 
 			</div>
 			<div class="col-xl-3 col-sm-6 mb-3">
 				<div class="channels-card">
@@ -463,6 +463,5 @@
 </div>
 <!-- /.container-fluid -->
 <!-- Sticky Footer -->
-
 <%@include file="footer.jsp"%>
-
+	<script src="js/carousel.js"></script>
