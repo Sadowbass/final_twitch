@@ -204,10 +204,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/twitch_main/category_select.jsp">카테고리 조회</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/category_select.jsp">카테고리 조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/twitch_main/category_insert.jsp">카테고리 추가</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/category_insert.jsp">카테고리 추가</a>
+                                    </li>
+                                     <li>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/tag_management.jsp">태그 관리</a>
                                     </li>
                                 </ul>
                             </li>

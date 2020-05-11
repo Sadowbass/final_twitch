@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <div class="container-fluid">
     <div class="block-header">
-        <h2>태그</h2>
+        <h2>카테고리</h2>
     </div>
 
     <!-- Vertical Layout -->
@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="card">
                 <div class="header">
                     <h2>
-                        카테고리 입력
+                        태그 추가·삭제
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -62,36 +62,19 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 </div>
                 <div class="body">
                     <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12  col-xs-12 category_insert">
-                            <img src="images/tft.PNG" class="img-rounded category_img" id="category_img">
-                            <div class="input-group category_name">
-                                <div>카테고리 이름</div>
-                                <div class="form-line">
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>
-                                <div>태그</div>
-                                <div class="form-group demo-tagsinput-area">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" data-role="tagsinput"
-                                            value="Amsterdam,Washington,Sydney,Beijing,Cairo">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-lg-12 col-md-12  col-xs-12">
+                        <div class="input-group serach_input_group">
+  <span class="input-group-addon" id=""><i class="material-icons" id="search_icon">search</i></span>
+  <input type="text" class="form-control input-lg search_input" placeholder="Username" aria-describedby="basic-addon1">
+</div>
+             </div>
+             <div class="col-lg-12 col-md-12  col-xs-12">
+  					<div class="form-group demo-tagsinput-area">
+                        <div class="form-line">
+                            <input type="text" class="form-control" data-role="tagsinput"
+                                value="Amsterdam,Washington,Sydney,Beijing,Cairo">
                         </div>
-                        <div class="col-lg-12 col-md-12 col-xs-12">
-                            <div class="filebox2">
-                                <label for="category_btn">카테고리 사진 추가</label>
-                                <input type="file" name="category_btn" id="category_btn" class="profile_img_button" />
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-6 col-sm-12 saveButton">
-                                <button type="button" class="btn waves-effect">
-                                    <i class="material-icons">save</i>
-                                    <span>SAVE</span>
-                                </button>
-                            </div>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </div>

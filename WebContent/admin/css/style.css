@@ -4279,8 +4279,10 @@ section.content {
     font-size: 14px; }
   .thumbnail h3 {
     font-weight: bold;
-    font-size: 17px; }
-
+    font-size: 17px;
+    color: #fff;
+    margin:0px; }
+   
 /* Modals ====================================== */
 .modal .modal-header {
   border: none;
@@ -4569,7 +4571,7 @@ section.content {
   background-color: #2b982b; }
 
 .label-info {
-  background-color: #00b0e4; }
+  background-color:#e14eca; }
 
 .label-warning {
   background-color: #ff9600; }
