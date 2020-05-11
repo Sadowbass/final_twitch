@@ -5,7 +5,9 @@
     <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
     </button> &nbsp;&nbsp;
-    <a class="navbar-brand mr-1" href="#" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/logo.png"></a>
+
+    <a class="navbar-brand mr-1" href="#" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/favicon.png"> &nbsp;Twitch</a>
+
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
         <div class="input-group">
@@ -60,8 +62,8 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#" id="account" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My
                     Account</a>
-                <a class="dropdown-item" href="#" id="subscriptions" onclick="pagemove(this)"><i class="fas fa-fw fa-video"></i> &nbsp;
-                    Subscriptions</a>
+                <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i class="fas fa-fw fa-video"></i> &nbsp;
+                    방송하기</a>
                 <a class="dropdown-item" href="#" id="settings" onclick="pagemove(this)"><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i
