@@ -43,13 +43,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v1.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v1.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-success">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -65,13 +65,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v2.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v2.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-success">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -87,13 +87,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v3.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v3.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-danger">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -109,13 +109,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v4.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v4.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-success">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -131,13 +131,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v5.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v5.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-success">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -153,13 +153,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v6.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v6.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-danger">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -175,13 +175,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v7.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v7.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-success">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
@@ -195,15 +195,16 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                    <a href="#"><img class="img-fluid" src="../img/v8.png" alt=""></a>
+                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i class="fas fa-play-circle"></i></a>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid" src="../img/v8.png" alt=""></a>
                     <div class="time">3:50</div>
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="#">There are many variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many variations of passages of Lorem</a>
                     </div>
                     <div class="video-page text-success">
                         Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
