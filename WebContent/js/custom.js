@@ -125,6 +125,12 @@ $(document).keydown(function (e) {
 })(jQuery); // End of use strict
 
 let pagemove = function(tg){
-	$('#content-wrapper').load(tg.id+".sc");
+
+	if(tg.id == "broadCasting/index"){
+		location.href="broadCasting/index.jsp";
+	}else{
+	$('#content-wrapper').load(tg.id+".jsp");
+	}
+
 }
 
