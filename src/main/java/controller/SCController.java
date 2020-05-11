@@ -15,7 +15,7 @@ public class SCController {
         System.out.println("컨트롤러 생성");
     }
     
-    @RequestMapping(value="*" , method=RequestMethod.GET)
+    @RequestMapping(value="*.sc" , method=RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req) {
     	ModelAndView mv = new ModelAndView();
     	mv.setViewName("video-page");

@@ -5,7 +5,7 @@
 <ul class="sidebar navbar-nav">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
     <li class="nav-item">
-        <a class="nav-link nav-link-sc" href="faker" id="main">
+        <a class="nav-link nav-link-sc" href="faker.sc" id="main">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
