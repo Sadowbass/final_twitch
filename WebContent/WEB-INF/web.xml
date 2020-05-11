@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
@@ -12,6 +13,19 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+  
+  <servlet>
+		<servlet-name>tgd_mvc</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>tgd_mvc</servlet-name>
+		<url-pattern>*.tgd</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>sc_servlet</servlet-name>
