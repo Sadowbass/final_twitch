@@ -5,7 +5,6 @@
 	request.setCharacterEncoding("utf-8");
 %>
 
-
 <div class="container-fluid pb-0">
 	<div class="top-mobile-search">
 		<div class="row">
@@ -466,11 +465,4 @@
 <!-- Sticky Footer -->
 
 <%@include file="footer.jsp"%>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- Owl Carousel -->
-<script src="./vendor/owl-carousel/owl.carousel.js"></script>
-<script src='./js/carousel.js'></script>
 

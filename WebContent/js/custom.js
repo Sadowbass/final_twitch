@@ -124,7 +124,7 @@ $(document).keydown(function (e) {
   });
 })(jQuery); // End of use strict
 
-let pagemove = function(tg){
+var pagemove = function(tg){
 
 	if(tg.id == "broadCasting/index"){
 		location.href="broadCasting/index.jsp";
