@@ -36,7 +36,19 @@
 		<servlet-name>sc_servlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>broadCasting_mvc</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+	</servlet>
 	
+	<servlet-mapping>
+		<servlet-name>broadCasting_mvc</servlet-name>
+		<url-pattern>*.bc</url-pattern>
+	</servlet-mapping>
+  
  	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
@@ -47,6 +59,5 @@
 		<url-pattern>*.woff</url-pattern>
 		<url-pattern>*.ttf</url-pattern>
 	</servlet-mapping>
-	
 	
 </web-app>
