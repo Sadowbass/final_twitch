@@ -130,3 +130,136 @@ width: 1px;
 	width: 140px;
     height: 140px;
 }
+.total_buy{
+	display: inline-block !important;
+    margin-left: 10px;
+}
+
+/*category_insert*/
+.category_img{
+	width: 183px;
+    height:241px;
+    margin-left: 15px;
+}
+.filebox2 label { 
+	display: inline-block; 
+	padding: .5em .75em;
+ 	color: #fff; 
+ 	font-size: inherit;
+ 	line-height: normal; 
+  	vertical-align: middle; 
+  	background-image: #1e1e2f;
+  	cursor: pointer;
+   	border-bottom-color: #e2e2e2; 
+   	border-radius: .25em;
+   	position: relative;
+    margin-left: 30px;
+    border:1px solid #e14eca;
+}
+.filebox2 input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute; 	
+	width: 1px;
+ 	height: 1px;
+  	padding: 0; 
+  	margin: -1px; 
+  	overflow: hidden;
+   	clip:rect(0,0,0,0); 
+   	border: 0; 
+   }
+.category_insert{
+	display: flex;
+}
+.category_name{
+	margin-left: 26px;
+	margin-top: 59px;
+}
+.category_name input{
+	background:none;
+}
+.btn-defalt{
+	background-color:  #e14eca;
+	color:#fff;
+}
+.category_name_modify{
+	background: none;
+    margin-left: 14px;
+}
+.cate_name_label{
+	margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 14px;
+}
+.cate_tag_label{
+	margin-top: 10px;
+    margin-bottom: 5px;
+}
+.demo-tagsinput-area{
+    margin-left: 14px;
+}
+.modal-title{
+	color: #fff;
+}
+.btn-modal{
+	background: #e14eca;
+    color: #fff;
+}
+.cate_modi_content{
+	background: #1e1e2f;
+}
+/*tag_management*/
+#search_icon{
+	font-size: 38px;
+}
+.search_input{
+	background: none;
+}
+.serach_input_group{
+	border: 1px solid  #e14eca;
+}
+.teg_manage .bootstrap-tagsinput .tag {
+	display: inline-block;
+    margin-bottom: 10px;
+}
+.teg_manage .label{
+	font-size: 100%;
+}
+@media(max-width:881px){
+	#rightsidebar{
+		display:none;
+	}
+	.media{
+		width:82%;
+	}
+	.control{
+		width:82%;
+	}
+}
+@media(min-width:881px){
+	.media{
+		width:75%;
+	}
+	.control{
+		width:75%;
+	}
+}
+
+/*streamer_detail*/
+.streamer_profile{
+	background:none;
+	border: 1px solid  #e14eca;
+}
+.str_profile_label{
+	margin-top:10px;
+	margin-bottom:10px;
+	
+}
+.new_help_header .dropdown{
+	width: 121px !important;
+    margin-left: 10px;
+}
+.new_help_save{
+	margin-top:17px;
+}
+.help_detail_btn{
+	text-align:center;
+}
