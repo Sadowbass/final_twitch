@@ -6,7 +6,7 @@
         <i class="fas fa-bars"></i>
     </button> &nbsp;&nbsp;
 
-    <a class="navbar-brand mr-1" href="#" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/favicon.png"> &nbsp;Twitch</a>
+    <a class="navbar-brand mr-1" href="/final_twitch" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/favicon.png"> &nbsp;Twitch</a>
 
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">

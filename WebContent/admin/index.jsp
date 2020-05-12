@@ -33,6 +33,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="css/member.css" rel="stylesheet">
     
     
+    
      <!-- JQuery DataTable Css -->
    	<link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet"/>
  	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet"/>
@@ -204,10 +205,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/twitch_main/category_select.jsp">카테고리 조회</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/category_select.jsp">카테고리 조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/twitch_main/category_insert.jsp">카테고리 추가</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/category_insert.jsp">카테고리 추가</a>
+                                    </li>
+                                     <li>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/tag_management.jsp">태그 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -220,10 +224,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="admin_pages/twitch_main/advertise.jsp">광고 관리</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/twitch_main/subscribe_profit.jsp">구독 수익 관리</a>
-                                    </li>
-                                    <li>
-                                        <a href="admin_pages/twitch_main/donation_profit.jsp">도네 수익 관리</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/profit_management.jsp">수익 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -232,9 +233,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <a href="javascript:void(0);" class="menu-toggle">
                                     <span>게시판 관리</span>
                                 </a>
-                                <ul class="ml-menu">
+                                <ul class="ml-menu"> 
                                     <li>
-                                        <a href="admin_pages/twitch_main/q&a.jsp">고객 Q&A</a>
+                                        <a href="index.jsp?inc=admin_pages/twitch_main/help.jsp">도움말 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -252,7 +253,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/shop/product_select.jsp">상품조회</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a>
                                     </li>
                                     <li>
                                         <a href="admin_pages/shop/product_insert.jsp">상품추가</a>
