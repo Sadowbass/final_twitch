@@ -13,15 +13,15 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-  
+
   <servlet>
 		<servlet-name>tgd_mvc</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
-		
+
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>tgd_mvc</servlet-name>
 		<url-pattern>*.tgd</url-pattern>
@@ -35,6 +35,16 @@
 	<servlet-mapping>
 		<servlet-name>sc_servlet</servlet-name>
 		<url-pattern>*.sc</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ukServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ukServlet</servlet-name>
+		<url-pattern>/cht</url-pattern>
 	</servlet-mapping>
 
 </web-app>

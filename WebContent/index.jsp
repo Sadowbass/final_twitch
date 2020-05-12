@@ -16,7 +16,7 @@
 <title>JHTA-Twitch</title>
 <!-- Favicon Icon -->
 <link rel="icon" type="image/png" href="img/favicon.png">
-<!-- Bootstrap core CSS--> 
+<!-- Bootstrap core CSS-->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -35,6 +35,8 @@
 	<script src="./vendor/owl-carousel/owl.carousel.js"></script>
 	<!-- Custom scripts for all pages-->
 	<script src="js/custom.js"></script>
+	<!-- uk -->
+	<script src="twitch_uk/lib_uk/js_uk.js"></script>
 
 </head>
 <body id="page-top">
