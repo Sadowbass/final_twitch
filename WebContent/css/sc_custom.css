@@ -1,0 +1,47 @@
+.sidebar-list-img {
+    display: inline;
+    vertical-align: baseline;
+    height: 30px;
+}
+
+.offline {
+    filter: grayscale(100%);
+}
+
+.sidebar-list-content {
+    display: inline;
+}
+
+.sidebar-list-text {
+    display: inline-block;
+}
+
+.sidebar-top {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: 9px;
+    margin-left: 14px;
+}
+
+.sidebar-list-text span {
+    margin: 3px !important;
+}
+
+.sidebar-list-viewer {
+    display: inline-block;
+    padding-top: 10px;
+    float: right !important;
+}
+
+.game-category {
+    font-size: 12px !important;
+}
+
+.nav-link-sc {
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+}
