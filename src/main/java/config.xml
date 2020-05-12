@@ -4,6 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-config.dtd"
 >
 <configuration>
+
 	<properties resource="config.properties" />
 	
    <environments default="development">
@@ -19,7 +20,9 @@
    </environments>
    
    <mappers>
-   	  <mapper resource="mybatis/broadCasting.xml" />	 
+   	 <mapper resource="mybatis/broadCasting.xml" />
+     <mapper resource="mybatis/pagemove.xml"/>
    </mappers>
+
 
 </configuration>
