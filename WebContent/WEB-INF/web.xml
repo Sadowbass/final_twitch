@@ -13,15 +13,14 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-  
+
   <servlet>
 		<servlet-name>tgd_mvc</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
-		
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>tgd_mvc</servlet-name>
 		<url-pattern>*.tgd</url-pattern>
@@ -38,6 +37,7 @@
 	</servlet-mapping>
 
 	<servlet>
+
 		<servlet-name>broadCasting_mvc</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
@@ -47,6 +47,15 @@
 	<servlet-mapping>
 		<servlet-name>broadCasting_mvc</servlet-name>
 		<url-pattern>*.bc</url-pattern>
+	</servlet-mapping>
+
+	<servlet-name>ukServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ukServlet</servlet-name>
+		<url-pattern>/cht</url-pattern>
 	</servlet-mapping>
   
  	<servlet-mapping>
@@ -59,5 +68,5 @@
 		<url-pattern>*.woff</url-pattern>
 		<url-pattern>*.ttf</url-pattern>
 	</servlet-mapping>
-	
+
 </web-app>

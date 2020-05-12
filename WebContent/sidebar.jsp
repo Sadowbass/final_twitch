@@ -94,6 +94,14 @@
             <button class="btn btn-link">
                 <span style="color: #ffffff; font-size: 15px">더 보기</span>
             </button>
+
+            <!-- 관욱 테스트 -->
+            <p/>
+            <button class="btn btn-link" onclick="uk.streamGo()">
+                <span style="color: #ffffff; font-size: 15px">streaming_page</span>
+            </button>
+            <!-- 관욱 테스트 -->
+
         </div>
     </li>
 </ul>

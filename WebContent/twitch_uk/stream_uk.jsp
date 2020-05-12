@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8" %>
 <%
@@ -190,6 +191,19 @@
 </a>
 <!-- Logout Modal-->
 <%@include file="../logout-modal.jsp" %>
+<script>
+$(document).ready(function(){
+	uk.stream();
+});
 
+let unfold = function() {
+
+    $("#unfold").remove();
+
+    $("#cht_div").css("display","block");
+    $("#video_div").removeClass("col-md-12");
+    $("#video_div").addClass("col-md-10");
+}
+</script>
 </body>
 </html>
