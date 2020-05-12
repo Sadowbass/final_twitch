@@ -130,6 +130,10 @@ width: 1px;
 	width: 140px;
     height: 140px;
 }
+.total_buy{
+	display: inline-block !important;
+    margin-left: 10px;
+}
 
 /*category_insert*/
 .category_img{
@@ -239,3 +243,23 @@ width: 1px;
 	}
 }
 
+/*streamer_detail*/
+.streamer_profile{
+	background:none;
+	border: 1px solid  #e14eca;
+}
+.str_profile_label{
+	margin-top:10px;
+	margin-bottom:10px;
+	
+}
+.new_help_header .dropdown{
+	width: 121px !important;
+    margin-left: 10px;
+}
+.new_help_save{
+	margin-top:17px;
+}
+.help_detail_btn{
+	text-align:center;
+}

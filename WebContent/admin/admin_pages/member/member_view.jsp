@@ -261,56 +261,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title">
                                 <div class="row clearfix">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="card">
-                                            <div class="header">
-                                                <h2>이주 방송 시청 시간</h2><span>총 시청 시간:200시간</span>
-                                                <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="body">
-                                                <canvas id="myChart" height="100"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="card">
-                                            <div class="header">
-                                                <h2>자주 보는 게임 카테고리</h2>
-                                                <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="body">
-                                                <canvas id="category_chart" height="170"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
@@ -354,6 +305,57 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                     </div>
                 </div>
+                            
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>자주 보는 게임 카테고리</h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body">
+                                                <canvas id="category_chart" height="170"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>이주 방송 시청 시간</h2><span>총 시청 시간:200시간</span>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body">
+                                                <canvas id="myChart" height="150"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+             
            
                                 </div>
                           
@@ -361,10 +363,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 
                         <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
                             <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="card">
                                         <div class="header">
-                                            <h2>1년간 결제 금액</h2> <span>결제 총액:2000원</span>
+                                            <h2>1년간 결제 금액 <small class="total_buy">결제 총액:122221원</small></h2> 
                                             <ul class="header-dropdown m-r--5">
                                                 <li class="dropdown">
                                                     <a href="javascript:void(0);" class="dropdown-toggle"
@@ -381,11 +383,37 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             </ul>
                                         </div>
                                         <div class="body">
-                                            <canvas id="shop_buy_chart" height="80"></canvas>
+                                            <canvas id="shop_buy_chart" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                         
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>자주 이용하는 카테고리</h2>
+                                            <ul class="header-dropdown m-r--5">
+                                                <li class="dropdown">
+                                                    <a href="javascript:void(0);" class="dropdown-toggle"
+                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="material-icons">more_vert</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li><a href="javascript:void(0);">Action</a></li>
+                                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="body">
+                                            <canvas id="shop_cate_chart" height="100"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                           
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="card">
@@ -606,6 +634,34 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             }
             
         });
+        var ctx4 = document.getElementById('shop_cate_chart').getContext('2d');
+        var myPieChart = new Chart(ctx4, {
+            type: 'pie',
+            data:  {
+                datasets: [{
+                    data: [10, 20, 60,10],
+                    backgroundColor: [
+                        "rgb(233, 30, 99)",
+                        "rgb(255, 193, 7)",
+                        "rgb(0, 188, 212)",
+                        "rgb(139, 195, 74)"
+                	],
+                }],
+                labels: [
+                	 "Pink",
+                     "Amber",
+                     "Cyan",
+                     "Light Green"
+                ]
+        	},
+        	options: {
+                responsive: true,
+                
+            }
+            
+        });
+        
+     
         
     </script>
 

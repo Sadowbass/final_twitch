@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+	<link href="css/member.css" rel="stylesheet">
 </head>
 <div class="container-fluid">
     <div class="block-header">
@@ -34,12 +34,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </ul>
                 </div>
                 <div class="body">
-                	<label>아이디</label>
-                    <input type="text" class="form-control" placeholder="">
-                    <label>닉네임</label>
-                    <input type="text" class="form-control" placeholder="">
-                    <label>팔로워수</label>
-                    <input type="text" class="form-control" placeholder="">
+                	<label class="str_profile_label">아이디</label>
+                    <input type="text" class="form-control streamer_profile" placeholder="">
+                    <label class="str_profile_label">닉네임</label>
+                    <input type="text" class="form-control streamer_profile" placeholder="">
                 </div>
             </div>
         </div>
