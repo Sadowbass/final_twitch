@@ -5,23 +5,23 @@
 <ul class="sidebar navbar-nav">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
     <li class="nav-item">
-        <a class="nav-link nav-link-sc" href="faker" id="main">
+        <div class="nav-link nav-link-sc" onclick="javascript:test(this)" id="faker">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
                     <span>방송1</span><br/>
                     <span class="game-category">League of Legends</span>
-                </div>
+                </div>  
                 <div class="sidebar-list-viewer">
                     <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
-                    <span style="margin: 0px">3,000</span>
+                    <span style="margin: 0px">${cnt}</span>
                 </div>
             </div>
-        </a>
+        </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
+        <a class="nav-link nav-link-sc" href="test" id="main" onclick="pagemove(this)">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
