@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
    
         <div class="container-fluid">
             <div class="block-header">
-                <h2>게시판 관리</h2>
+                <h2>공지사항 관리</h2>
             </div>
 
             <!-- CKEditor -->
@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="card">
                         <div class="header">
                             <h2>
-                                도움말 글 수정
+                                공지사항 글 수정
                              </h2>
                              <div class="new_help_header">
                              <label>글 분류</label>

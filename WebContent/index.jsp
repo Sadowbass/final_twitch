@@ -38,12 +38,11 @@
 
 </head>
 <body id="page-top">
-<<<<<<< HEAD
 <%@include file="top.jsp" %>
 <div id="wrapper">
     <%@include file="sidebar.jsp" %>
     <div id="content-wrapper">
- 	<%@include file="video-page.jsp" %>
+ 	<%@include file="main.jsp" %>
     </div>
     <!-- /.content-wrapper -->
 </div>
@@ -62,23 +61,6 @@
 <!-- Owl Carousel -->
 <!-- Custom scripts for all pages-->
 <script src="js/custom.js"></script>
-=======
-	<%@include file="top.jsp"%>
-	<div id="wrapper">
-		<%@include file="sidebar.jsp"%>
-		<div id="content-wrapper">
-			<jsp:include page="main.jsp"></jsp:include>
-		</div>
-		<!-- /.content-wrapper -->
-	</div>
-	<!-- /#wrapper -->
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-	<!-- Logout Modal-->
-	<%@include file="logout-modal.jsp"%>
 
->>>>>>> 80164165cdaf272162125b606c7d9cc40558e94a
 </body>
 </html>
