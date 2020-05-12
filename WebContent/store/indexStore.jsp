@@ -36,7 +36,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
   <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
   <meta property="og:url" content="-CUSTOMER VALUE-">
 
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="shortcut icon" href="../img/favicon.png">
 
   <!-- Fonts START -->
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">

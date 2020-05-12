@@ -40,7 +40,6 @@
     <script src="js/js_uk.js"></script>
 </head>
 <body id="page-top">
-
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -76,21 +75,6 @@
 </a>
 <!-- Logout Modal-->
 <%@include file="logout-modal.jsp" %>
-	<%@include file="top.jsp"%>
-	<div id="wrapper">
-		<%@include file="sidebar.jsp"%>
-		<div id="content-wrapper">
-			<jsp:include page="main.jsp"></jsp:include>
-		</div>
-		<!-- /.content-wrapper -->
-	</div>
-	<!-- /#wrapper -->
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-	<!-- Logout Modal-->
-	<%@include file="logout-modal.jsp"%>
 
 </body>
 </html>

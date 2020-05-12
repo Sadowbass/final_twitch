@@ -25,13 +25,13 @@ public class StoreController {
 	}
 
 	@RequestMapping(value="*/productView.str", method= {RequestMethod.POST})
-	public ModelAndView productView() {
+	public ModelAndView productView(HttpServletRequest req) {
     	System.out.println("제발2");
 		
     	ModelAndView mv = new ModelAndView();
     	
+    	System.out.println(mv);
 		mv.setViewName("productDetail");
-    	
     	return mv;
     }
 	

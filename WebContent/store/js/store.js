@@ -232,13 +232,12 @@ store.viewItem = function(){
 		     data : fd,
 		     contentType : false,
 		     processData : false,
-		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
+		     error : function(xhr, status, error){
 		    	 console.log(error);
 		     },
-				success : function(data, xhr, status){
-					$("#sh_main").html(data);
-				}
+			success : function(data, xhr, status){
+				$("#sh_main").html(data);
+			}
 			})
 	
 	
