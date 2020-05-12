@@ -18,8 +18,9 @@ public class StoreMybatisDao {
 	SqlSession sqlsession;
 	
 	public StoreMybatisDao() {
-		System.out.println("ssss");
+		
 		sqlsession = Factory.getFactory().openSession();
+		System.out.println("factory...");
 	}
 	
 }

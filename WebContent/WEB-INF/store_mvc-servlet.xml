@@ -17,12 +17,12 @@
     <context:annotation-config></context:annotation-config>
 
        <!-- bean -->
-       <bean id="strDao" class="bean.storeMybatisDao"/>
+       <bean id="strDao" class="bean.StoreMybatisDao"/>
        
        
        <!-- controller --> 
-       <bean id="str_controller" class="controller.storeController">
-       <constructor-arg ref = "strDao"/>  
+       <bean id="str_controller" class="controller.StoreController">
+       <constructor-arg ref="strDao"/>  
        </bean>
        
        <!-- view resolver -->  
