@@ -12,11 +12,11 @@
 	System.out.println(request.getAttribute("pagename"));
 	String inc = null;
 	if(request.getAttribute("pagename") != null){ 
-		inc = (String)request.getAttribute("pagename");
+		inc = (String)request.getAttribute("pagename")+".jsp";
 	} else {
-		inc = "main";
+		inc = "main.jsp";
 	}
 %>
-	<%@include file=" " %>
+	<jsp:include page="<%=inc %>" flush="false" />
 </body>
 </html>

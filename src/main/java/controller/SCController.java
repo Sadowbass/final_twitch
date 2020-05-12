@@ -20,7 +20,7 @@ public class SCController {
     	ModelAndView mv = new ModelAndView();
 
     	mv.addObject("pagename","video-page");
-    	mv.setViewName("test");
+    	mv.setViewName("index");
     	System.out.println("123");
     	System.out.println(req.getRequestURI());
     	System.out.println(req.getRequestURL());

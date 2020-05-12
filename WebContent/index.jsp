@@ -38,11 +38,21 @@
 
 </head>
 <body id="page-top">
+<%
+	request.setCharacterEncoding("utf-8");
+	System.out.println(request.getAttribute("pagename"));
+	String inc = null;
+	if(request.getAttribute("pagename") != null){ 
+		inc = (String)request.getAttribute("pagename")+".jsp";
+	} else {
+		inc = "main.jsp";
+	}
+%>
 	<%@include file="top.jsp"%>
 	<div id="wrapper">
 		<%@include file="sidebar.jsp"%>
 		<div id="content-wrapper">
-			<jsp:include page="main.jsp"></jsp:include>
+			<jsp:include page="<%=inc %>" flush="false" />
 		</div>
 		<!-- /.content-wrapper -->
 	</div>
