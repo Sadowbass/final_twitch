@@ -72,7 +72,7 @@ overflow-x: hidden;
 															value=""
 															style="background-color: rgb(58, 58, 60); color: white" id='broadCastingCate'>
 															<ul id="cate-list">
-        															</ul>
+        													</ul>
 															
 															</td>
 														

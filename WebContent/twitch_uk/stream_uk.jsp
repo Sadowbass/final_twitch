@@ -79,16 +79,16 @@
 						<div class="row mx-0">
 							<div class="col-md-3">
 								<div class="row mx-0 pt-1">
-									<div class="col-md-5 text-left pl-2">
+									<div class="col-md-9 text-left pl-2">
 										<img src="img/s1.png" alt="" class="rounded-circle" style="height: 35px; width: 35px;" />
 										<a href="#">
-											따효니
+											${vo.mem_Id}
 											<span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified">
 										<i class="fas fa-check-circle"></i>
 									</span>
 										</a>
 									</div>
-									<div class="col-md-7 text-left p-0">
+									<div class="col-md-3 text-left p-0">
 										<div class="onAir">생방송</div>
 									</div>
 								</div>

@@ -1,7 +1,10 @@
 package bean;
 
-import config.Factory;
 import org.apache.ibatis.session.SqlSession;
+
+import mybatis.Factory;
+
+import java.util.List;
 
 public class SCDao {
 
@@ -11,7 +14,13 @@ public class SCDao {
 		this.sqlSession = Factory.getFactory().openSession();
 	}
 
-	public StreamingVo test(String mId) {
+	public List<StreamingVo> nowStreaming(){
+		List<StreamingVo> list = sqlSession.selectList("test.nowStreaming");
+
+		return list;
+	}
+
+	public StreamingVo streamInfo(String mId) {
 		StreamingVo vo = sqlSession.selectOne("test.select", mId);
 		return vo;
 	}

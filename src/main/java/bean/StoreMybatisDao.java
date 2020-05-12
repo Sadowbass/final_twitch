@@ -5,7 +5,8 @@ package bean;
 
 import org.apache.ibatis.session.SqlSession;
 
-import config.Factory;
+import mybatis.Factory;
+
 
 
 

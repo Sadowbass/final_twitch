@@ -30,7 +30,6 @@ public class BroadCastingController {
 	public String selectTag() {
 		List<String> list = dao.selectTag();
 		Gson gson = new Gson();
-		System.out.println(gson.toJson(list));
 		return gson.toJson(list);
 	}
 
@@ -38,13 +37,11 @@ public class BroadCastingController {
 	@RequestMapping(value = "*/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public String selectCate() {
-		System.out.println("컨트롤러 찾음");
 		List<BroadCastingCateVo> list = dao.selectCate();
 		String result = "";
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
 		JsonArray jsonArray = new JsonArray();
-		
 		
 		for(int i=0; i<list.size(); i++) {
 			jsonObject = new JsonObject();
@@ -55,10 +52,8 @@ public class BroadCastingController {
 			jsonArray.add(jsonObject);
 			
 		}
-		
 		result = gson.toJson(jsonArray);
 		return result;
-		
 	}
 	
 }

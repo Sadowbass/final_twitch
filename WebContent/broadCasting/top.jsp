@@ -8,7 +8,7 @@
 	style='background-color: rgb(24, 24, 27) !important'>
 
 
-	&nbsp;<a class="navbar-brand mr-1" href="../index.jsp" id="main"
+	&nbsp;<a class="navbar-brand mr-1" href="../" id="main"
 		onclick="pagemove(this)"><img class="img-fluid" alt=""
 		src="../img/favicon.png">&nbsp;<font color="white">Twitch</font></a>
 
