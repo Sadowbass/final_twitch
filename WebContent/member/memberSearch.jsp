@@ -23,7 +23,11 @@
 						</div>
 					</div>
 					<div class=" text-center">
+<<<<<<< HEAD
 					<a href = "idQna.jsp">
+=======
+					<a href = "">
+>>>>>>> mr
 					<p>이메일이나 전화에 문제가 있나요?</p>
 					</a>
 					</div>
