@@ -16,6 +16,7 @@ public class Handler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("session:::"+session);
+		System.out.println("session.getAttributes:::"+session.getAttributes());
 		System.out.println("세션아이디["+session.getId()+"] 입장.");
 		sessions.put(session.getId(), session);
 		session.sendMessage(new TextMessage(session.getId()+"님 입장하였습니다."));

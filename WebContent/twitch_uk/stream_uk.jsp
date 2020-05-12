@@ -57,7 +57,7 @@
 								<div class="channels-card-image-btn">
 									<button type="button" class="btn btn-outline-secondary btn-sm">
 										<strong>
-											<i class="far fa-heart"></i>
+											<i class="fa fa-heart"></i>
 										</strong>
 										팔로우
 									</button>
@@ -67,7 +67,7 @@
 								<div class="channels-card-image-btn">
 									<button type="button" class="btn btn-outline-secondary btn-sm">
 										<strong>
-											<i class="far fa-star"></i>
+											<i class="fa fa-star"></i>
 										</strong>
 										구독하기
 									</button>
