@@ -38,6 +38,31 @@
 
 </head>
 <body id="page-top">
+<<<<<<< HEAD
+<%@include file="top.jsp" %>
+<div id="wrapper">
+    <%@include file="sidebar.jsp" %>
+    <div id="content-wrapper">
+ 	<%@include file="video-page.jsp" %>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<%@include file="logout-modal.jsp" %>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Owl Carousel -->
+<!-- Custom scripts for all pages-->
+<script src="js/custom.js"></script>
+=======
 	<%@include file="top.jsp"%>
 	<div id="wrapper">
 		<%@include file="sidebar.jsp"%>
@@ -54,5 +79,6 @@
 	<!-- Logout Modal-->
 	<%@include file="logout-modal.jsp"%>
 
+>>>>>>> 80164165cdaf272162125b606c7d9cc40558e94a
 </body>
 </html>
