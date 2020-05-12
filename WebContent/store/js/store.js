@@ -224,10 +224,10 @@ store.viewItem = function(){
 	
 	// let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
-		
+	console.log('제발1');
 		$.ajax({
 			
-			 url : 'productDetail.jsp',
+			 url : 'productView.str',
 		     type : 'post',
 		     data : fd,
 		     contentType : false,
@@ -319,3 +319,8 @@ store.pl = function(){
 		
 	
 }
+
+
+   
+
+
