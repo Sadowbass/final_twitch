@@ -19,7 +19,7 @@
 				<div class="row mx-0">
 					<div class="col-md-3">
 						<div class="row mx-0 pt-1">
-							<div class="col-md-5 text-left pl-2">
+							<div class="col-md-6 text-left pl-2">
 								<img src="img/s1.png" alt="" class="rounded-circle" style="height: 35px; width: 35px;" />
 								<a href="#">
 									따효니
@@ -28,7 +28,7 @@
 									</span>
 								</a>
 							</div>
-							<div class="col-md-7 text-left p-0">
+							<div class="col-md-6 text-left p-0">
 								<div class="onAir">생방송</div>
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="row mx-0" id="add_unfold">
-							<div class="col-md-8 text-right p-0" id="follow">
+							<div class="col-md-7 text-right p-0" id="follow">
 								<div class="channels-card-image-btn">
 									<button type="button" class="btn btn-outline-secondary btn-sm">
 										<strong>
@@ -63,7 +63,7 @@
 									</button>
 								</div>
 							</div>
-							<div class="col-md-4 text-right p-0">
+							<div class="col-md-5 text-right p-0">
 								<div class="channels-card-image-btn">
 									<button type="button" class="btn btn-outline-secondary btn-sm">
 										<strong>
@@ -101,6 +101,19 @@
 							<div class="col-md-12">카테고리: just Chatting</div>
 						</div>
 						<div class="row mx-0">
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
+							<div class="col-md-12">#리얼라이프</div>
 							<div class="col-md-12">#리얼라이프</div>
 						</div>
 					</div>
