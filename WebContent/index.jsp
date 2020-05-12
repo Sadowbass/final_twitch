@@ -32,7 +32,7 @@
 <div id="wrapper">
     <%@include file="sidebar.jsp" %>
     <div id="content-wrapper">
- 	<%@include file="main.jsp" %>
+ 	<%@include file="video-page.jsp" %>
     </div>
     <!-- /.content-wrapper -->
 </div>

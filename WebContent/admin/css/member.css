@@ -212,3 +212,30 @@ width: 1px;
 .serach_input_group{
 	border: 1px solid  #e14eca;
 }
+.teg_manage .bootstrap-tagsinput .tag {
+	display: inline-block;
+    margin-bottom: 10px;
+}
+.teg_manage .label{
+	font-size: 100%;
+}
+@media(max-width:881px){
+	#rightsidebar{
+		display:none;
+	}
+	.media{
+		width:82%;
+	}
+	.control{
+		width:82%;
+	}
+}
+@media(min-width:881px){
+	.media{
+		width:75%;
+	}
+	.control{
+		width:75%;
+	}
+}
+

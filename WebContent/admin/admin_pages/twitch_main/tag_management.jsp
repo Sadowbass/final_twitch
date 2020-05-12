@@ -63,69 +63,71 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 <div class="body">
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12  col-xs-12">
-                        <div class="input-group serach_input_group">
-  <span class="input-group-addon" id=""><i class="material-icons" id="search_icon">search</i></span>
-  <input type="text" class="form-control input-lg search_input" placeholder="Username" aria-describedby="basic-addon1">
-</div>
-             </div>
-             <div class="col-lg-12 col-md-12  col-xs-12">
-  					<div class="form-group demo-tagsinput-area">
-                        <div class="form-line">
-                            <input type="text" class="form-control" data-role="tagsinput"
-                                value="Amsterdam,Washington,Sydney,Beijing,Cairo">
+                            <div class="input-group serach_input_group">
+                                <span class="input-group-addon" id=""><i class="material-icons"
+                                        id="search_icon">search</i></span>
+                                <input type="text" class="form-control input-lg search_input" placeholder="Username"
+                                    aria-describedby="basic-addon1">
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-lg-12 col-md-12  col-xs-12">
+                            <div class="form-group demo-tagsinput-area teg_manage">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" data-role="tagsinput"
+                                        value="Amsterdam,Washington,Sydney,Beijing,Cairo,dssd,fgs,sdsd,htegesg,asdadetegfb,asftewtrhfsasfq,sadsads,dgretewfds,fdsfwetewg,dgsdfehj,dfsdfasfref,ewrsafdgw,sdfwetsfds,rtrgsdgwt,etwefdsg,weewfghtyew,ewtew,dgjaieroivh,testtt,etetetet,sdsaqer">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- #END# Vertical Layout -->
-
+        <!-- #END# Vertical Layout -->
 </div>
-<!-- Bootstrap Colorpicker Js -->
-<script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    </div>
+    <!-- Bootstrap Colorpicker Js -->
+    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 
-<!-- Dropzone Plugin Js -->
-<script src="plugins/dropzone/dropzone.js"></script>
+    <!-- Dropzone Plugin Js -->
+    <script src="plugins/dropzone/dropzone.js"></script>
 
-<!-- Input Mask Plugin Js -->
-<script src="plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
+    <!-- Input Mask Plugin Js -->
+    <script src="plugins/jquery-inputmask/jquery.inputmask.bundle.js"></script>
 
-<!-- Multi Select Plugin Js -->
-<script src="plugins/multi-select/js/jquery.multi-select.js"></script>
+    <!-- Multi Select Plugin Js -->
+    <script src="plugins/multi-select/js/jquery.multi-select.js"></script>
 
-<!-- Jquery Spinner Plugin Js -->
-<script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+    <!-- Jquery Spinner Plugin Js -->
+    <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
 
-<!-- Bootstrap Tags Input Plugin Js -->
-<script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <!-- Bootstrap Tags Input Plugin Js -->
+    <script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 
-<!-- Jquery Validation Plugin Css -->
-<script src="plugins/jquery-validation/jquery.validate.js"></script>
+    <!-- Jquery Validation Plugin Css -->
+    <script src="plugins/jquery-validation/jquery.validate.js"></script>
 
-<!-- JQuery Steps Plugin Js -->
-<script src="plugins/jquery-steps/jquery.steps.js"></script>
+    <!-- JQuery Steps Plugin Js -->
+    <script src="plugins/jquery-steps/jquery.steps.js"></script>
 
-<!-- Sweet Alert Plugin Js -->
-<script src="plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Sweet Alert Plugin Js -->
+    <script src="plugins/sweetalert/sweetalert.min.js"></script>
 
-<!-- Bootstrap Tags Input Plugin Js -->
-<script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-<script>
-    let btn = document.getElementById('category_btn')
-    btn.onchange = function (event) {
-        let ele = event.srcElement;
-        let url = ele.files[0];
-        let reader = new FileReader();
-        reader.readAsDataURL(url);
-        reader.onload = function (ev) {
-            let img = new Image();
-            img.src = ev.target.result;
-            document.getElementById('category_img').src = img.src;
+    <!-- Bootstrap Tags Input Plugin Js -->
+    <script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script>
+        let btn = document.getElementById('category_btn')
+        btn.onchange = function (event) {
+            let ele = event.srcElement;
+            let url = ele.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(url);
+            reader.onload = function (ev) {
+                let img = new Image();
+                img.src = ev.target.result;
+                document.getElementById('category_img').src = img.src;
+            }
         }
-    }
-</script>
-</body>
+    </script>
+    </body>
 
 </html>
