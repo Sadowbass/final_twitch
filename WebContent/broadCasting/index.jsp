@@ -11,7 +11,6 @@
 <meta charset="EUC-KR">
 <title>JHTA-Twitch-방송관리자</title>
 <link rel="icon" type="image/png" href="../img/favicon.png">
-
 <script src="../vendor/jquery/jquery.min.js"></script>
 <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -22,6 +21,16 @@
 <link rel="stylesheet" href="../css/broadCasting.css">
 <script src="../js/broadCasting.js"></script>
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=WpsYh9WB"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+.ui-autocomplete {
+max-height: 100px;
+overflow-y: auto;
+/* prevent horizontal scrollbar */
+overflow-x: hidden;
+}
+</style>
 </head>
 <body>
 	<div id='broadCastingPage'>	
@@ -52,23 +61,29 @@
 
 													</tr>
 													<tr style="line-height: 32px;">
-														<td style="color: white">생방송 알림</td>
+														<td style="color: white">방송 알림</td>
 														<td><textarea rows="" cols=""
 																style="width: 100%; background-color: rgb(58, 58, 60); color: white" id='broadCastingPush'></textarea></td>
 
 													</tr>
 													<tr>
 														<td style="color: white">카테고리</td>
-														<td><input type="tel" name="tel" class="form-control"
+														<td><input type="text" name="findCate" id='findCate' class="form-control"
 															value=""
-															style="background-color: rgb(58, 58, 60); color: white" id='broadCastingCate'></td>
+															style="background-color: rgb(58, 58, 60); color: white" id='broadCastingCate'>
+															<ul id="cate-list">
+        															</ul>
+															
+															</td>
 														
 													</tr>					
 													<tr>
 														<td style="color: white">태그</td>
-														<td><input type="text" name="findTag" id="findTag" class="form-control"
+														<td>
+														<input type="text" name="findTag" id="findTag" class="form-control"
 															value=""
-															style="background-color: rgb(58, 58, 60); color: white;" >
+															style="background-color: rgb(58, 58, 60); color: white;" autocomplete="off" >
+
 															        <ul id="tag-list">
         															</ul>
 															<button id='updateBroadCasting' class="btn btn-outline-primary" type="button" style="float: right;margin-top: 2%;display: none">수정</button>
@@ -336,6 +351,7 @@
 		});
 		
 		// 헤시태그------------------------------------------------------------------
+		/*
         var tag = [];
         var counter = 0;
 
@@ -375,16 +391,12 @@
                 e.preventDefault(); 
             }
         });
+        */
 
         // 삭제 버튼 
-        $(document).on("click", ".del-btn", function (e) {
-            var index = $(this).attr("idx");
-            tag.splice(index,1);
-            counter--;
-            $(this).parent().remove();
-        });
 
 	});
 	</script>
+	<script>bc.func()</script>
 </body>
 </html>
