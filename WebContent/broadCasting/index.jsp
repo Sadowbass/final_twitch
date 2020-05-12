@@ -349,10 +349,17 @@
             var self = $(this);
             // input 에 focus 되있을 때 엔터 
             if (e.key === "Enter") {
+<<<<<<< HEAD
             if(counter > 4){
                alert("태그는 3개까지만 등록가능합니다.")
                return;
             }
+=======
+				if(counter > 4){
+					alert("태그는 3개까지만 등록가능합니다.")
+					return;
+				}
+>>>>>>> yt
                 var tagValue = self.val(); // 값 가져오기
 
                 // 값이 없으면 동작 ㄴㄴ
