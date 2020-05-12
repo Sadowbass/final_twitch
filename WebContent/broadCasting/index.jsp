@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("utf-8");
+   request.setCharacterEncoding("utf-8");
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -11,17 +11,26 @@
 <meta charset="EUC-KR">
 <title>JHTA-Twitch-방송관리자</title>
 <link rel="icon" type="image/png" href="../img/favicon.png">
-
 <script src="../vendor/jquery/jquery.min.js"></script>
 <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- <script src="../js/broadCasting.js"></script>-->
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
+   type="text/css">
 <link href="../css/osahan.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/broadCasting.css">
 <script src="../js/broadCasting.js"></script>
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=WpsYh9WB"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+.ui-autocomplete {
+max-height: 100px;
+overflow-y: auto;
+/* prevent horizontal scrollbar */
+overflow-x: hidden;
+}
+</style>
 </head>
 <body>
 	<div id='broadCastingPage'>	
@@ -48,30 +57,36 @@
 													<tr style="line-height: 32px;">
 														<td style="color: white">제목</td>
 														<td><textarea rows="" cols=""
-																style="width: 100%; background-color: rgb(58, 58, 60); color: white"></textarea></td>
+																style="width: 100%; background-color: rgb(58, 58, 60); color: white" id='broadCastingTitle'></textarea></td>
 
 													</tr>
 													<tr style="line-height: 32px;">
-														<td style="color: white">생방송 알림</td>
+														<td style="color: white">방송 알림</td>
 														<td><textarea rows="" cols=""
-																style="width: 100%; background-color: rgb(58, 58, 60); color: white"></textarea></td>
+																style="width: 100%; background-color: rgb(58, 58, 60); color: white" id='broadCastingPush'></textarea></td>
 
 													</tr>
 													<tr>
 														<td style="color: white">카테고리</td>
-														<td><input type="tel" name="tel" class="form-control"
+														<td><input type="text" name="findCate" id='findCate' class="form-control"
 															value=""
-															style="background-color: rgb(58, 58, 60); color: white"></td>
+															style="background-color: rgb(58, 58, 60); color: white" id='broadCastingCate'>
+															<ul id="cate-list">
+        															</ul>
+															
+															</td>
 														
 													</tr>					
 													<tr>
 														<td style="color: white">태그</td>
-														<td><input type="text" name="findTag" id="findTag" class="form-control"
+														<td>
+														<input type="text" name="findTag" id="findTag" class="form-control"
 															value=""
-															style="background-color: rgb(58, 58, 60); color: white;">
+															style="background-color: rgb(58, 58, 60); color: white;" autocomplete="off" >
+
 															        <ul id="tag-list">
         															</ul>
-															<button id='appendTag' class="btn btn-outline-primary" type="button" style="float: right;margin-top: 2%">추가</button>
+															<button id='updateBroadCasting' class="btn btn-outline-primary" type="button" style="float: right;margin-top: 2%;display: none">수정</button>
 															</td>
 														
 													</tr>
@@ -90,7 +105,7 @@
 									</div>
 									<div class="card-body">
 
-										<input type="text" name="gps_radius" class="form-control"
+										<input type="text" id="streamKey" name="streamKey" class="form-control" 
 											value=""
 											style="display: inline-block; background-color: rgb(58, 58, 60); color: white">
 
@@ -319,11 +334,26 @@
 	</div>
 	<script>
 
-	$(document).ready(function(){
+	$(document).ready(function(){ 
+		$('#updateBroadCasting').hide();
+		// 방송스위치 --------------------------------------------------------------
 		$('#pk_switch').on('click', function(){
 			$(this).toggleClass('on');
+			if($(this).hasClass('on')===true){ // 방송 켜졌을 때
+				$('#updateBroadCasting').show();
+				$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
+				
+			}else{ // 방송 꺼졌을때
+				$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
+				$('#streamKey').prop('readonly',false);
+			
+			}
 		});
 		
+		// 헤시태그------------------------------------------------------------------
+		/*
+
+
         var tag = [];
         var counter = 0;
 
@@ -332,43 +362,15 @@
             tag[counter] = value; 
             counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
         }
-
-        $('#appendTag').click(function() {
-        	if(counter > 2){
-				alert("태그는 3개까지만 등록가능합니다.")
-				return;
-			}
-            var tagValue = $('#findTag').val(); // 값 가져오기
-
-            // 값이 없으면 동작 ㄴㄴ
-            if (tagValue !== "") {
-
-                // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return
-                var result = Object.values(tag).filter(function (word) {
-                    return word === tagValue;
-                })
-            
-                // 태그 중복 검사
-                if (result.length == 0) { 
-                    $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
-                    addTag(tagValue);
-                    self.val("");
-                } else {
-                    alert("태그값이 중복됩니다.");
-                }
-            }
-            e.preventDefault(); 
-		})
-        
         
         $("#findTag").on("keypress", function (e) {
             var self = $(this);
             // input 에 focus 되있을 때 엔터 
             if (e.key === "Enter") {
-				if(counter > 2){
-					alert("태그는 3개까지만 등록가능합니다.")
-					return;
-				}
+            if(counter > 4){
+               alert("태그는 3개까지만 등록가능합니다.")
+               return;
+            }
                 var tagValue = self.val(); // 값 가져오기
 
                 // 값이 없으면 동작 ㄴㄴ
@@ -391,16 +393,13 @@
                 e.preventDefault(); 
             }
         });
+        */
 
         // 삭제 버튼 
-        $(document).on("click", ".del-btn", function (e) {
-            var index = $(this).attr("idx");
-            tag.splice(index,1);
-            counter--;
-            $(this).parent().remove();
-        });
 
 	});
 	</script>
+	<script>bc.func()</script>
+
 </body>
 </html>

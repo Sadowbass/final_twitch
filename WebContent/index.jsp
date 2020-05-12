@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%
-	request.setCharacterEncoding("utf-8");
+    request.setCharacterEncoding("utf-8");
 %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +41,42 @@
 
 </head>
 <body id="page-top">
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'get',
+            url: './sidebar.sc',
+            success: function (data) {
+                $('#sidebarplace').html(data);
+            }
+        })
+        $.ajax({
+            type:'get',
+            url:'main.sc',
+            success:function (data) {
+                $('#content-wrapper').html(data);
+            }
+        })
+    })
+</script>
+<div id="topplace">
+    <%@include file="top.jsp" %>
+</div>
+<div id="wrapper">
+    <div id="sidebarplace">
+    </div>
+    <div id="content-wrapper">
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<%@include file="logout-modal.jsp" %>
 	<%@include file="top.jsp"%>
 	<div id="wrapper">
 		<%@include file="sidebar.jsp"%>
