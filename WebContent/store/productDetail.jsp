@@ -6,6 +6,16 @@
 <meta charset="UTF-8">
 <script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
 <title>Insert title here</title>
+<style type="text/css">
+  .imgs_wrap{
+    width: 800px;
+   
+  }
+  .imgs_wrap img {
+    max-width: 200px;
+    margin: 3px;
+  }
+</style>
 </head>
 <body>
 <div class="main">
@@ -251,6 +261,16 @@ Nostrud duis molestie at dolore.</p>
                           <textarea class="form-control" rows="8" id="review"></textarea>
                         </div>
                         <div class="form-group">
+		                    <label for="file_input">File input </label>
+		                
+		                    <input type="file" id ="input_imgs" multiple="multiple">
+		                    <p class="help-block">some help text here.</p>
+							<div>
+								<div class="imgs_wrap">
+								</div>
+							</div>
+                		</div>
+                        <div class="form-group">
                           <label for="email">Rating</label>
                           <input type="range" value="4" step="0.25" id="backing5">
                           <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
@@ -299,6 +319,7 @@ Nostrud duis molestie at dolore.</p>
     <!-- END BRANDS -->
     <script src="./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
     <script type="text/javascript">
+    //가격 범위
     $(function(){
     	$( "#slider-range" ).slider({
             range: true,
@@ -320,7 +341,7 @@ Nostrud duis molestie at dolore.</p>
     $(".quantity-down").html("<i class='fa fa-angle-down'></i>");
     $(".quantity-up").html("<i class='fa fa-angle-up'></i>");
     
-    
+   //매뉴 드랍다운 
     $(".sidebar .dropdown > a").click(function (event) {
             if ($(this).next().hasClass('dropdown-menu')) {
                 event.preventDefault();
@@ -333,6 +354,39 @@ Nostrud duis molestie at dolore.</p>
                 }
             } 
         });
+    
+  //store review 이미지 등록
+
+    var sel_files = [];
+    
+    $(document).ready(function(){
+    $('#input_imgs').on("change", handleImages);
+    
+   });
+   
+function handleImages(e){
+    
+    var files = e.target.files;
+    var fileArr = Array.prototype.slice.call(files);
+    
+    fileArr.forEach(function(f){
+    	if(!f.type.match("image.*")){
+        	alert("이미지 확장자만 업로드 가능합니다.");
+            return;
+        }
+       
+        	sel_files.push(f);
+            var reader = new FileReader();
+            reader.onload = function(e){
+            	var html = "<img src =\""+ e.target.result + "\" />";
+                $('.imgs_wrap').append(html);
+                index++;
+            };
+            reader.readAsDataURL(f);
+        
+    })
+}
+
     </script>
 </body>
 </html>
