@@ -13,7 +13,7 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Askbootstrap">
     <meta name="author" content="Askbootstrap">
-    <title>JHTA-Twitch ahahahahah</title>
+    <title>JHTA-Twitch</title>
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="img/favicon.png">
     <!-- Bootstrap core CSS-->
