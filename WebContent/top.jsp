@@ -21,8 +21,6 @@
     </form>
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
-    <!-- 지워야함 -->
-    	<li><a href="#"  onclick="imsi()">임시스트리밍</a></li>
         <li class="nav-item mx-1">
             <a class="nav-link" href="#" id="upload" onclick="pagemove(this)">
                 <i class="fas fa-plus-circle fa-fw"></i>

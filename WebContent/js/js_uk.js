@@ -64,9 +64,3 @@ uk.cht = function() {
 	});
 }*/
 
-
-/*지워야함*/
-let imsi=function(){
-	console.log('click');
-	$('#content-wrapper').load("twitch_uk/stream_uk.jsp");
-}
