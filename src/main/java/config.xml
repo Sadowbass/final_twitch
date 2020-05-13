@@ -19,6 +19,7 @@
 	<mappers>
 <!-- 		<mapper resource="mybatis/board.xml"/>
 		<mapper resource="mybatis/member.xml"/> -->
+		<mapper resource="mybatis/pagemove.xml"/>
 	</mappers>
 </configuration>
 
