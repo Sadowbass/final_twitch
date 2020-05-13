@@ -9,14 +9,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	<link href="css/member.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+	
 </head>
 
 
    
         <div class="container-fluid">
             <div class="block-header">
-                <h2>게시판 관리</h2>
+                <h2>공지사항 관리</h2>
             </div>
 
             <!-- CKEditor -->
@@ -25,7 +26,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="card">
                         <div class="header">
                             <h2>
-                                도움말 글 수정
+                                새로운 글 쓰기
                              </h2>
                              <div class="new_help_header">
                              <label>글 분류</label>
@@ -52,8 +53,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </ul>
                         </div>
                         <div class="body">
-                        <form method="post">
-                            <textarea id="summernote" name="editordata">
+                          <form method="post">
+                            <textarea id="summernote2" name="editordata">
                                 <h2>WYSIWYG Editor</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper sapien non nisl facilisis bibendum in quis tellus. Duis in urna bibendum turpis pretium fringilla. Aenean neque velit, porta eget mattis ac, imperdiet quis nisi. Donec non dui et tortor vulputate luctus. Praesent consequat rhoncus velit, ut molestie arcu venenatis sodales.</p>
                                 <h3>Lacinia</h3>
@@ -68,6 +69,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <p>Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor, eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</p>
                             </textarea>
                            </form>
+                
                 <div class="saveButton new_help_save">
                                  <button type="button" class="btn waves-effect">
                                     <i class="material-icons">save</i>
@@ -85,26 +87,20 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 
 
-    <!-- Ckeditor -->
-   <!--<script src="plugins/ckeditor/ckeditor.js"></script>
-
- 
-
-    <!-- Custom Js -->
-    <!-- <script src="js/pages/forms/editors.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 	<!-- (Optional) Latest compiled and minified JavaScript translation files -->	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-    <!-- include summernote css/js -->
+    
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 
 	<script>
     $(document).ready(function() {
-        $('#summernote').summernote();
+        $('#summernote2').summernote();
     });
-  </script>
+    </script>
+
 
 </body>
 

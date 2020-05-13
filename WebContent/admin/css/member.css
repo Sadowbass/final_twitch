@@ -263,3 +263,33 @@ width: 1px;
 .help_detail_btn{
 	text-align:center;
 }
+/*shop_category*/
+.dd-handle{
+	height: 43px !important;
+}
+.dd3-handle:before{
+	 top: 8px !important;
+}
+.shop_menu_input{
+	background: none;
+    border: none;
+    font-size: 25px;
+}
+.shop_menu_delete{
+	display: inline-block;
+    float: right;
+    margin-top: 3px;
+}
+.dd3-content{
+	background:none !important;
+	color:#ccc !important;
+}
+.shop_plus_text{
+	position: relative;
+    display: inline-block;
+    top: -5px;
+	font-size: 20px;
+}
+.shop_menu_plus{
+	display: inline-block;
+}
