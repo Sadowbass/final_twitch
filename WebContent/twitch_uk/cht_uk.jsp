@@ -17,7 +17,7 @@
 <!-- 도네현황 -->
 <!-- 도네현황 -->
 <div class="row mx-0">
-	<div class="col-md-12 text-center">
+	<div class="col-md-12 text-center" onclick='close()'>
 		<h1>도네이션 현황</h1>
 	</div>
 </div>
@@ -55,27 +55,24 @@
 </div>
 <script>
 
-
-$(document).ready(function(){
-	uk.cht();
-});
-
 var ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht");
 
 ws.onopen = function (event) {console.log("open:::",event);}
 ws.onclose = function (event) {console.log("close:::",event);}
-
-
 ws.onerror = function (event) { console.log("error:::",event); };
 
 ws.onmessage = function (event) {
-    console.log("event:::",event+'\n');
-    console.log("data:::",event.data+'\n');
+	console.log(event.data);
+    $('<div></div>').html(event.data).appendTo('#chtArea');
 };
 
 let ms=function(){
 	  let msg = $('div[contenteditable]').html();
 	  ws.send(msg);
+}
+
+let clsoe=function(){
+	ws.close();
 }
 
 
