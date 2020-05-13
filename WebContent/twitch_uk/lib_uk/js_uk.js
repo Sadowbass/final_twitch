@@ -7,7 +7,7 @@ uk.stream=function(){
 		$("#video_div").removeClass("col-md-10");
 		$("#video_div").addClass("col-md-12");
 
-		$("<div class='col-md-2' id='unfold' style='position:fixed; right:-265px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>").appendTo("#add_unfold");
+		$("<div class='col-md-2' id='unfold' style='position:fixed; right:-240px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>").appendTo("#add_unfold");
 	});
 
 	$("#user_div").click(function(){

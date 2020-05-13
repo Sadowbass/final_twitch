@@ -60,7 +60,7 @@ $(document).ready(function(){
 	uk.cht();
 });
 
-var ws = new WebSocket("ws://192.168.0.57:8888/twitch/cht");
+var ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht");
 
 ws.onopen = function (event) {console.log("open:::",event);}
 ws.onclose = function (event) {console.log("close:::",event);}

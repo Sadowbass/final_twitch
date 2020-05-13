@@ -14,12 +14,12 @@ import java.util.List;
 
 @RestController
 public class SCController {
-	
-    public SCController() { 
+
+    public SCController() {
         System.out.println("컨트롤러 생성");
     }
 
-	@RequestMapping(value = "main.sc", method = RequestMethod.GET)
+	@RequestMapping(value = "/main.sc", method = RequestMethod.GET)
 	public ModelAndView test2(HttpServletRequest req){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main");
@@ -39,14 +39,14 @@ public class SCController {
 
     	return mv;
 	}
-    
+
     @RequestMapping(value="/{id}" , method=RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req, @PathVariable String id) {
     	ModelAndView mv = new ModelAndView();
 		SCDao dao = new SCDao();
 		StreamingVo vo = dao.streamInfo(id);
-		
-		if(vo == null){ 
+
+		if(vo == null){
 			mv.setViewName("404");
 		} else {
 			mv.setViewName("./twitch_uk/stream_uk");
