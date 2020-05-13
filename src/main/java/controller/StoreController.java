@@ -25,7 +25,6 @@ public class StoreController {
 	}
 
     @RequestMapping(value="/productView.str", method={ RequestMethod.GET, RequestMethod.POST })
-	@ResponseBody
 	public ModelAndView productView(HttpServletRequest req) {
     	System.out.println("제발2");
 		
@@ -52,12 +51,13 @@ public class StoreController {
     }
 	
 	@RequestMapping(value="productList.str", method= {RequestMethod.POST})
-	public ModelAndView productSlecet(HttpServletRequest req, HttpServletResponse resp) {
-    	
+	public ModelAndView productSlecet() {
+    	System.out.println("들어왔다 컨트롤러");
+		
     	ModelAndView mv = new ModelAndView();
     	
     	System.out.println(mv);
-		mv.setViewName("productList");
+		mv.setViewName("store/productList.jsp");
 
     	
     	return mv;

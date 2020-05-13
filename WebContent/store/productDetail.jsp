@@ -215,7 +215,7 @@ Nostrud duis molestie at dolore.</p>
                     </div>
                     <div class="tab-pane fade in active" id="Reviews">
                       <!--<p>There are no reviews for this product.</p>-->
-                      <div class="review-item clearfix">
+                      <div class="review-item clearfix" onclick="">
                         <div class="review-item-submitted">
                           <strong>Bob</strong>
                           <em>30/12/2013 - 07:37</em>

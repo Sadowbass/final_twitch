@@ -27,7 +27,7 @@
        
        <!-- view resolver -->  
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    
+           <property name="prefix" value="/store/"></property>
            <property name="suffix" value=".jsp"></property>
         </bean>           
                      

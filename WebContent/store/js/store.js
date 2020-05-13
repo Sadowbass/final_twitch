@@ -309,7 +309,7 @@ store.pl = function(){
 	
 	$.ajax({
 		
-		 url : 'productList.jsp',
+		 url : 'productList.str',
 	     type : 'post',
 	     data : fd,
 	     contentType : false,
