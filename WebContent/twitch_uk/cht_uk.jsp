@@ -17,7 +17,7 @@
 <!-- 도네현황 -->
 <!-- 도네현황 -->
 <div class="row mx-0">
-	<div class="col-md-12 text-center" onclick='close()'>
+	<div class="col-md-12 text-center" onclick='closeddd()'>
 		<h1>도네이션 현황</h1>
 	</div>
 </div>
@@ -68,10 +68,12 @@ ws.onmessage = function (event) {
 
 let ms=function(){
 	  let msg = $('div[contenteditable]').html();
+	  console.log(ws.readyState)
+	  if(ws.readyState===1)
 	  ws.send(msg);
 }
 
-let clsoe=function(){
+let closeddd=function(){
 	ws.close();
 }
 

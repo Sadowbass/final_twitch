@@ -44,13 +44,15 @@ public class Handler extends TextWebSocketHandler{
 
 		System.out.println(session.getAttributes().get("mid")+"님(이) 퇴장하였습니다.");
 
+		users.remove((String)session.getAttributes().get("mid"), session);
+
 		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {
 			String userId=oid.next();
 			users.get(userId).sendMessage(new TextMessage(userId+"님(이) 퇴장하였습니다."));
 		}
 
-		users.remove((String)session.getAttributes().get("mid"), session);
+
 	}
 
 
