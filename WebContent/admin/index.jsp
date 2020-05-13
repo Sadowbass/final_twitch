@@ -256,7 +256,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/product_insert.jsp">상품추가</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/product_insert.jsp">상품추가</a>
                                     </li>
                                 </ul>
 
