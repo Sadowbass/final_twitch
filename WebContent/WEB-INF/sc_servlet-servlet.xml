@@ -20,6 +20,8 @@
 		<property name='prefix' value='./board/' /> <property name='suffix' value='.jsp' 
 		/> </bean> -->
 
+	
+	<!-- bean -->
 	<!--controller -->
 	<bean id="sc_controller" class="controller.SCController">
 	</bean>
@@ -28,6 +30,8 @@
 	<bean class='org.springframework.web.servlet.view.InternalResourceViewResolver'>
 		<property name="suffix" value=".jsp" />
 	</bean>
+
+
 
 </beans>	
 
