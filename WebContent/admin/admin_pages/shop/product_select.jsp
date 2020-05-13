@@ -24,6 +24,7 @@
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+<script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
 </head>
 
 <body>
@@ -53,6 +54,7 @@
 										<option selected>상품명</option>
 										<option>제조사</option>
 									</select> <input type="text" class="form-control" />
+									<input type="button" class="form-control" value="검색" />
 								</div>
 
 							</div>
@@ -61,86 +63,96 @@
 					</form>
 
 					<div class="body" style="text-align: center">
-						<div class="row" id="board1_c">
-							<div class="col-xs-1">
-								<span class="no_c">번호</span>
+						<div class="row" id="board1_c" style="text-align: left">
+							<div class="no_c" style="display: inline-block; width : 5%; text-align: center;">
+								<span>번호</span>
 							</div>
-							<div class="col-xs-2">
+							<div style="display: inline-block; width : 20%; text-align: center;">
+								<span class="save_c">상품 사진</span>
+							</div>
+							
+							<div style="display: inline-block; width : 20%; text-align: center;">
 								<span class="name_c">상품명</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 15%; text-align: center">
 								<span class="price_c">판매가</span>
 							</div>
-							<div class="col-xs-1">
-								<span class="save_c">적립금</span>
-							</div>
-							<div class="col-xs-1">
+							
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="status_c">상태</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="hit_c">조회</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="order_c">주문</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="sell_c">판매</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="interest_c">관심</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="put_c">담기</span>
 							</div>
-							<div class="col-xs-1">
+							<div style="display: inline-block; width : 5%; text-align: center">
 								<span class="stock_c">재고</span>
 							</div>
 
 						</div>
 						<div>
 							<c:forEach var="i" begin="1" end="10">
-								<div class="row">
-									<div class="col-xs-1">
-										<span class="no_c">${i} </span>
+								<div class="row" style="text-align: left; margin-top: 10px;">
+									<div class="no_c" style="display: inline-block; width : 5%; text-align: center;">
+										<span >${i} </span>
 									</div>
-									<div class="col-xs-2" style="text-align: left;">
-										<input type="text" class="form-control" value="상품명${i}"
+									
+									<div style="display: inline-block; width : 20%; text-align: center;">
+										<img src="https://via.placeholder.com/150 " alt="" />
+									</div>
+									<div style="display: inline-block; width : 20%; text-align: center;" onclick="cmh.productView(${i});">
+										<span>상품명${i}</span>
+									
+										<%-- <input type="text" class="form-control" value="상품명${i}"
 											style="width: 100px; float: left"></input><input
 											type="button" class="btn" value="수정"
-											style="margin-left: 30px;" />
+											style="margin-left: 30px;" /> --%>
 									</div>
-									<div class="col-xs-1">
-										<input type="text" class="form-control" value="10000"
-											style="width: 80px">
+									<div style="display: inline-block; width : 15%; text-align: center;">
+										<span>10000</span>
+										<!-- <input type="text" class="form-control" value="10000"
+											style="width: 80px"> -->
 									</div>
-									<div class="col-xs-1">
+									<!-- <div class="col-xs-1">
 										<input type="text" class="form-control" value="200"
 											style="width: 80px">
-									</div>
-									<div class="col-xs-1">
-										<select class="selectpicker form-control">
+									</div> -->
+									<div style="display: inline-block; width : 5%; text-align: center;">
+										<span>정상</span>
+										<!-- <select class="selectpicker form-control">
 											<option selected>정상</option>
 											<option>품절</option>
 											<option>숨김</option>
-										</select>
+										</select> -->
 										<%-- <span class="status_c">상태${i}</span> --%>
 									</div>
-									<div class="col-xs-1">
+									<div style="display: inline-block; width : 5%; text-align: center;">
 										<span class="hit_c">${i}</span>
 									</div>
-									<div class="col-xs-1">
+									<div style="display: inline-block; width : 5%; text-align: center;">
 										<span class="order_c">${i}</span>
 									</div>
-									<div class="col-xs-1">
+									<div style="display: inline-block; width : 5%; text-align: center;">
 										<span class="sell_c">${i}</span>
 									</div>
-									<div class="col-xs-1">
+									<div style="display: inline-block; width : 5%; text-align: center;">
 										<span class="interest_c">${i}</span>
 									</div>
-									<div class="col-xs-1">
+									<div style="display: inline-block; width : 5%; text-align: center;">
 										<span class="put_c">${i}</span>
 									</div>
-									<div class="col-xs-1">
+									<div style="display: inline-block; width : 5%; text-align: center;">
 										<span class="stock_c">${i}</span>
 									</div>
 								</div>

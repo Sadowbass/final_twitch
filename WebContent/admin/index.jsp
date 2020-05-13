@@ -267,10 +267,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/shop/order_select.jsp">주문조회</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/order_select.jsp">주문조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/order_treat.jsp">주문처리</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/order_treat.jsp">주문처리</a>
                                     </li>
                                 </ul>
 
