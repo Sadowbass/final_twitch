@@ -22,7 +22,7 @@
        
        <!-- controller --> 
        <bean id="str_controller" class="controller.StoreController">
-       <constructor-arg ref = "strDao"/>  
+       <constructor-arg ref="strDao"/>  
        </bean>
        
        <!-- view resolver -->  
