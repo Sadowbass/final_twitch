@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- top -->
 <!-- top -->
 <!-- top -->
@@ -47,7 +47,7 @@
 	<div class="col-md-3 p-0 text-center">
 		<i class="fa fa-smile"></i>
 	</div>
-	<div class="col-md-3 p-0 text-center" onclick="ms()">
+	<div class="col-md-3 p-0 text-center" onclick="ths()">
 		<a href='#'>
 			<i class="fa fa-paper-plane"></i>
 		</a>
@@ -56,10 +56,6 @@
 <script>
 
 
-/* $(document).ready(function(){
-	uk.cht();
-}); */
-
 var ws = new WebSocket("ws://192.168.0.57:8888/twitch/cht");
 
 ws.onopen = function (event) {console.log("open:::",event);}
@@ -67,24 +63,13 @@ ws.onclose = function (event) {console.log("close:::",event);}
 ws.onerror = function (event) { console.log("error:::",event); };
 
 ws.onmessage = function (event) {
-	$('<div></div>').html(event.data).appendTo('#chtArea');
-	$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+	event.data
 };
 
-let ms=function(){
-	console.log('click');
-  let msg = $('div[contenteditable]').html();
+let ths=function(){
+   let msg = $('div[contenteditable]').html();
   ws.send(msg);
 }
 
-/* $('div[contenteditable]').keydown(function(e) {
-	if (e.keyCode === 13) {
-		if (!e.shiftKey) {
-			send();
-			return false;
-		}
-	}
-}); */
 
-
-</script>
+</script> --%>

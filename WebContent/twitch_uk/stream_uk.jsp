@@ -79,7 +79,7 @@
 				<!-- video -->
 				<!-- video -->
 				<!-- video -->
-				<jsp:include page="./video_uk/video_uk.jsp" />
+				<jsp:include page="./video_uk.jsp" />
 				<!-- video_info -->
 				<!-- video_info -->
 				<!-- video_info -->
@@ -128,7 +128,7 @@
 			<!-- 채팅화면 -->
 			<!-- 채팅화면 -->
 			<div class="col-md-2 cht_main_uk pt-2" id="cht_div">
-				<jsp:include page="./cht_uk/cht_uk.jsp"></jsp:include>
+				<jsp:include page="./cht_uk.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
