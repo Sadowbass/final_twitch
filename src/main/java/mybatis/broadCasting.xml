@@ -10,8 +10,28 @@
 	<select id='selectCate' resultType="bean.BroadCastingCateVo">
 		select * from final_category
 	</select>
+	<update id='updateKey' parameterType='bean.BroadCastingAirVo' >
+		update final_member
+		SET 
+		mem_skey = #{mem_skey}
+		WHERE
+		mem_id = #{air_mid}
+	</update>
+	<insert id='startAir' parameterType='bean.BroadCastingAirVo' >
+		insert into final_onair(air_serial,air_mid,air_subject,air_content,air_starttime,air_gname,air_tnames)
+		values(seq_onair.nextVal,#{air_mid},#{air_subject},#{air_content},sysdate,#{air_gname},#{air_tnames})
+	</insert>
+	<update id='updateAir' parameterType='bean.BroadCastingAirVo' >
+		update final_onair
+		SET 
+		air_subject = #{air_subject},
+		air_content = #{air_content},
+		air_gname = #{air_gname},
+		air_tnames = #{air_tnames}
+		WHERE
+		air_mid = #{air_mid}
+	</update>
 	
-	
-	
+
 </mapper>
    

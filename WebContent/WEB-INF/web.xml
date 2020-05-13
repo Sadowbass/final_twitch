@@ -13,6 +13,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
 
 	<servlet>
 		<servlet-name>tgd_mvc</servlet-name>
@@ -42,6 +43,7 @@
 	<servlet-mapping>
 		<servlet-name>broadCasting_mvc</servlet-name>
 		<url-pattern>*.bc</url-pattern>
+		
 	</servlet-mapping>
 
 	<servlet>
@@ -78,5 +80,44 @@
       <servlet-name>store_mvc</servlet-name>
       <url-pattern>*.str</url-pattern>
    </servlet-mapping>
+   
+   	<filter>
+
+		<filter-name>encodingFilter</filter-name>
+
+		<filter-class>
+
+			org.springframework.web.filter.CharacterEncodingFilter
+
+		</filter-class>
+
+		<init-param>
+
+			<param-name>encoding</param-name>
+
+			<param-value>UTF-8</param-value>
+
+		</init-param>
+
+		<init-param>
+
+			<param-name>forceEncoding</param-name>
+
+			<param-value>true</param-value>
+
+		</init-param>
+
+	</filter>
+
+	<filter-mapping>
+
+		<filter-name>encodingFilter</filter-name>
+
+		<url-pattern>/*</url-pattern>
+
+	</filter-mapping>
+
+
+   
 
 </web-app>

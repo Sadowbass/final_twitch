@@ -46,6 +46,8 @@ overflow-x: hidden;
 
 						<form name="pk_broadCastingData" id="pk_broadCastingData" method="post">
 							<input type='hidden' name='mId' value='BJ민호'/>
+							<input type='hidden' name='tags' id='takTag'/>
+							<input type='hidden' name='gameName' id='takGame'/>
 							<div class="col-sm-12 pt-3">
 								<div class="card"
 									style='background-color: rgb(24, 24, 27) !important'>
@@ -340,8 +342,7 @@ overflow-x: hidden;
 		$('#pk_switch').on('click', function(){
 			$(this).toggleClass('on');
 			if($(this).hasClass('on')===true){ // 방송 켜졌을 때
-				$('#updateBroadCasting').show();
-				$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
+				
 				startAir();
 				
 			}else{ // 방송 꺼졌을때
