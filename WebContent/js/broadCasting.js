@@ -1,6 +1,28 @@
 let bc = {}
 var tag = [];
 var counter = 0;
+var gameName = "";
+
+
+
+function startAir(){
+	
+	let param = $('#pk_broadCastingData').serialize();
+	
+	
+	$.post("insertAir.bc?tags=" + tag +"&gameName=" + gameName , param, function(data, state){
+		
+	});
+	
+	
+}
+
+function stopAir() {
+	
+	
+}
+
+
 
 function addTag (value,value2) {
 	
@@ -79,6 +101,7 @@ bc.func = function(){
           	$('.tag-cate').remove();
           	counter = counter - numItems;
           	$("#cate-list").html('');
+          	gameName = ui.item.value;
           	$("#cate-list").append("<li class='cate-item'><span style='color:white'><img width = '40px'src='../img/cate/" + ui.item.test + "'/>&nbsp;"+ ui.item.value +"</span></li>");
           	
         	
