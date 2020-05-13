@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- top -->
 <!-- top -->
 <!-- top -->
@@ -45,38 +45,31 @@
 	</div>
 	<div class="col-md-3 p-0 text-center"></div>
 	<div class="col-md-3 p-0 text-center">
-		<i class="far fa-smile"></i>
+		<i class="fa fa-smile"></i>
 	</div>
-	<div class="col-md-3 p-0 text-center" onclick="ms()">
+	<div class="col-md-3 p-0 text-center" onclick="ths()">
 		<a href='#'>
-			<i class="far fa-paper-plane"></i>
+			<i class="fa fa-paper-plane"></i>
 		</a>
 	</div>
 </div>
 <script>
 
 
-$(document).ready(function(){
-	uk.cht();
-});
-
 var ws = new WebSocket("ws://192.168.0.57:8888/twitch/cht");
 
 ws.onopen = function (event) {console.log("open:::",event);}
 ws.onclose = function (event) {console.log("close:::",event);}
-
-
 ws.onerror = function (event) { console.log("error:::",event); };
 
 ws.onmessage = function (event) {
-    console.log("event:::",event+'\n');
-    console.log("data:::",event.data+'\n');
+	event.data
 };
 
-let ms=function(){
-	  let msg = $('div[contenteditable]').html();
-	  ws.send(msg);
+let ths=function(){
+   let msg = $('div[contenteditable]').html();
+  ws.send(msg);
 }
 
 
-</script>
+</script> --%>

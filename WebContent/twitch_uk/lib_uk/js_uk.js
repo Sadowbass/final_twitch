@@ -42,7 +42,7 @@ uk.stream=function(){
 
 }
 
-uk.send = function() {
+/*uk.send = function() {
     $('<div></div>').html($('div[contenteditable]').html()).appendTo('#chtArea');
 		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		$('div[contenteditable]').empty();
@@ -70,7 +70,7 @@ function onError(event){
 }
 function onMessage(event){
 	console.log(event)
-}
+}*/
 
 uk.streamGo=function(){
 	$('#content-wrapper').load("twitch_uk/stream_uk.jsp");
