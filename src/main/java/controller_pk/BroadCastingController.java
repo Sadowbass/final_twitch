@@ -1,8 +1,8 @@
 package controller_pk;
 
-import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,6 @@ public class BroadCastingController {
 	public String selectTag() {
 		List<String> list = dao.selectTag();
 		Gson gson = new Gson();
-		System.out.println(gson.toJson(list));
 		return gson.toJson(list);
 	}
 
@@ -38,13 +37,11 @@ public class BroadCastingController {
 	@RequestMapping(value = "*/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public String selectCate() {
-		System.out.println("컨트롤러 찾음");
 		List<BroadCastingCateVo> list = dao.selectCate();
 		String result = "";
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
 		JsonArray jsonArray = new JsonArray();
-		
 		
 		for(int i=0; i<list.size(); i++) {
 			jsonObject = new JsonObject();
@@ -55,9 +52,30 @@ public class BroadCastingController {
 			jsonArray.add(jsonObject);
 			
 		}
-		
 		result = gson.toJson(jsonArray);
 		return result;
+	}
+	
+	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+	public String insertAir(HttpServletRequest req, HttpServletResponse resp) {
+		String msg = "성공";
+		
+		String mId = req.getParameter("mId");
+		String title = req.getParameter("broadCastingTitle");
+		String content = req.getParameter("broadCastingContent");
+		String sKey = req.getParameter("streamKey");
+		String tags = req.getParameter("tags");
+		String gameName = req.getParameter("gameName");
+		
+		System.out.println(mId);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(sKey);
+		System.out.println(tags);
+		System.out.println(gameName);
+		
+		
+		return msg;
 		
 	}
 	

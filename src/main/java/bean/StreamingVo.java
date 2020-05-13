@@ -5,6 +5,7 @@ public class StreamingVo {
     private String mem_Skey;
     private String air_mId;
     private String air_subject;
+    private String air_gName;
 
     public String getMem_Id() {
         return mem_Id;
@@ -36,5 +37,13 @@ public class StreamingVo {
 
     public void setAir_subject(String air_subject) {
         this.air_subject = air_subject;
+    }
+
+    public String getAir_gName() {
+        return air_gName;
+    }
+
+    public void setAir_gName(String air_gName) {
+        this.air_gName = air_gName;
     }
 }

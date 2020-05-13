@@ -6,4 +6,7 @@
     <select id="select" parameterType="String" resultType="bean.StreamingVo">
         select m.mem_Id, m.mem_Skey, o.AIR_MID, o.AIR_SUBJECT from FINAL_MEMBER m join FINAL_ONAIR o on m.MEM_ID=o.AIR_MID where mem_Id = #{value }
     </select>
+    <select id="nowStreaming" resultType="bean.StreamingVo">
+        select * from FINAL_ONAIR
+    </select>
 </mapper>

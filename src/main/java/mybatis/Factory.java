@@ -13,7 +13,6 @@ public class Factory {
 		try {
 			Reader r = Resources.getResourceAsReader("config.xml");
 			factory = new SqlSessionFactoryBuilder().build(r);
-			System.out.println("연결 성공!");
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}

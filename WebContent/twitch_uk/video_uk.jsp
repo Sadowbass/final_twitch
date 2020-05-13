@@ -13,11 +13,9 @@
 
 			width : "100%",
 
-			height : "406",
-
 			primary : "flash",
 
-			autostart : "false",
+			autostart : "true",
 
 			//repeat: 'always',
 
@@ -30,9 +28,9 @@
 			aspectratio : "16:9",
 
 			sources : [ {
-				file : "rtmp://192.168.0.77/hls/${vo.mem_Skey}",
+				file : "rtmp://localhost/hls/${vo.mem_Skey}",
 			}, {
-				file : "http://192.168.0.77:8882/hls/${vo.mem_Skey}.m3u8"
+				file : "http://localhost:8845/hls/${vo.mem_Skey}.m3u8"
 			} ]
 		});
 	</script>
