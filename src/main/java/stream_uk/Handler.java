@@ -16,21 +16,39 @@ public class Handler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 
-		System.out.println(session.getAttributes().get("mid")+"님(이) 입장하였습니다.");
+		if((String)session.getAttributes().get("mid")==null) {
+			System.out.println("seesion.id:::::"+session.getId()+"님(이) 입장하였습니다.");
+		}else {
+			System.out.println("mid:::::"+session.getAttributes().get("mid")+"님(이) 입장하였습니다.");
+		}
 
-		Iterator<String> oid=users.keySet().iterator();
+/*		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {
 			String userId=oid.next();
 			users.get(userId).sendMessage(new TextMessage(userId+"님(이) 입장하였습니다."));
 		}
 
 		users.put((String)session.getAttributes().get("mid"), session);
+*/		Iterator<String> oid=users.keySet().iterator();
+		while(oid.hasNext()) {
+			String userId=oid.next();
+			users.get(userId).sendMessage(new TextMessage(userId+"님(이) 입장하였습니다."));
+		}
+		if((String)session.getAttributes().get("mid")==null) {
+			users.put(session.getId(), session);
+		}else {
+			users.put((String)session.getAttributes().get("mid"), session);
+		}
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-		System.out.println(session.getAttributes().get("mid")+": "+message.getPayload());
+		if((String)session.getAttributes().get("mid")==null) {
+			System.out.println(session.getId()+"::: "+message.getPayload());
+		}else {
+			System.out.println(session.getAttributes().get("mid")+"::: "+message.getPayload());
+		}
 
 		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {
@@ -42,9 +60,18 @@ public class Handler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
-		System.out.println(session.getAttributes().get("mid")+"님(이) 퇴장하였습니다.");
+		if((String)session.getAttributes().get("mid")==null) {
+			System.out.println("seesion.id:::::"+session.getId()+"님(이) 퇴장하였습니다.");
+		}else {
+			System.out.println("mid:::::"+session.getAttributes().get("mid")+"님(이) 퇴장하였습니다.");
+		}
 
-		users.remove((String)session.getAttributes().get("mid"), session);
+
+		if((String)session.getAttributes().get("mid")==null) {
+			users.remove(session.getId(), session);
+		}else {
+			users.remove((String)session.getAttributes().get("mid"), session);
+		}
 
 		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {

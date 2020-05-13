@@ -69,13 +69,25 @@ ws.onmessage = function (event) {
 let ms=function(){
 	  let msg = $('div[contenteditable]').html();
 	  console.log(ws.readyState)
-	  if(ws.readyState===1)
-	  ws.send(msg);
+	  if(ws.readyState===1){
+		  ws.send(msg);
+		  $('div[contenteditable]').empty();
+	  }
+
 }
 
 let closeddd=function(){
 	ws.close();
 }
+
+$('div[contenteditable]').keydown(function(e) {
+	if (e.keyCode === 13) {
+		if (!e.shiftKey) {
+			ms();
+			return false;
+		}
+	}
+});
 
 
 </script>

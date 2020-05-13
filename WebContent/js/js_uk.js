@@ -10,7 +10,7 @@ uk.stream = function() {
 						$("#video_div").addClass("col-md-12");
 
 						$(
-								"<div class='col-md-2' id='unfold' style='position:fixed; right:-265px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>")
+								"<div class='col-md-2' id='unfold' style='position:fixed; right:-240px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>")
 								.appendTo("#add_unfold");
 					});
 
@@ -46,7 +46,7 @@ uk.stream = function() {
 
 }
 
-let send = function() {
+/*let send = function() {
 	$('<div></div>').html($('div[contenteditable]').html())
 			.appendTo('#chtArea');
 	$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
@@ -62,12 +62,11 @@ uk.cht = function() {
 			}
 		}
 	});
-}
+}*/
 
-let go = function() {
-	$.get("stream.st", function(data) {
-		$('#content-wrapper').html(data);
-	});
-	/* var ws = new WebSocket("ws://localhost:8888/final_twitch/ws?bno=1234"); */
 
+/*지워야함*/
+let imsi=function(){
+	console.log('click');
+	$('#content-wrapper').load("twitch_uk/stream_uk.jsp");
 }
