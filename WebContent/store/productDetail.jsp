@@ -21,7 +21,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="indexStore.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -150,19 +150,10 @@ Nostrud duis molestie at dolore.</p>
                     <div class="pull-left">
                       <label class="control-label">Size:</label>
                       <select class="form-control input-sm">
-                        <option>L</option>
-                        <option>M</option>
-                        <option>XL</option>
+                        <option>FREE</option>
                       </select>
                     </div>
-                    <div class="pull-left">
-                      <label class="control-label">Color:</label>
-                      <select class="form-control input-sm">
-                        <option>Red</option>
-                        <option>Blue</option>
-                        <option>Black</option>
-                      </select>
-                    </div>
+                    
                   </div>
                   <div class="product-page-cart">
                     <div class="product-quantity">
@@ -246,18 +237,18 @@ Nostrud duis molestie at dolore.</p>
                       </div>
 
                       <!-- BEGIN FORM-->
-                      <form action="#" class="reviews-form" role="form">
+                      <form action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
                         <h2>Write a review</h2>
                         <div class="form-group">
                           <label for="name">Name <span class="require">*</span></label>
                           <input type="text" class="form-control" id="name">
                         </div>
                         <div class="form-group">
-                          <label for="email">Email</label>
+                          <label for="email">Subject</label>
                           <input type="text" class="form-control" id="email">
                         </div>
                         <div class="form-group">
-                          <label for="review">Review <span class="require">*</span></label>
+                          <label for="review">Content <span class="require">*</span></label>
                           <textarea class="form-control" rows="8" id="review"></textarea>
                         </div>
                         <div class="form-group">
@@ -297,26 +288,7 @@ Nostrud duis molestie at dolore.</p>
       </div>
     </div>
 
-    <!-- BEGIN BRANDS -->
-    <div class="brands">
-      <div class="container">
-            <div class="owl-carousel owl-carousel6-brands">
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
-            </div>
-        </div>
-    </div>
-    <!-- END BRANDS -->
+    
     <script src="./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
     <script type="text/javascript">
     //가격 범위

@@ -220,15 +220,23 @@ store.wishList = function(){
 	
 }
 
+
+
+
+
 store.viewItem = function(){
+	
+	
+		
+
 	
 	// let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
 	console.log('제발1');
 		$.ajax({
 			
-			 url : 'productView.str',
-		     type : 'post',
+			 url : 'productDetail.jsp',
+		     type : 'POST',
 		     data : fd,
 		     contentType : false,
 		     processData : false,
@@ -237,6 +245,7 @@ store.viewItem = function(){
 		     },
 			success : function(data, xhr, status){
 				$("#sh_main").html(data);
+				console.log(data)
 			}
 			})
 	
@@ -297,22 +306,22 @@ store.pl = function(){
 		
        // let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
+	
+	$.ajax({
 		
-		$.ajax({
-			
-			 url : 'productList.jsp',
-		     type : 'post',
-		     data : fd,
-		     contentType : false,
-		     processData : false,
-		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
-				success : function(data, xhr, status){
-					$("#sh_main").html(data);
-				}
-			})
+		 url : 'productList.jsp',
+	     type : 'post',
+	     data : fd,
+	     contentType : false,
+	     processData : false,
+	     error : function(xhr, status, error){},
+	     sucess : function(data, xhr, status){
+	    	 console.log(error);
+	     },
+			success : function(data, xhr, status){
+				$("#sh_main").html(data);
+			}
+		})
 		
 	
 		

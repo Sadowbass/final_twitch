@@ -1,16 +1,16 @@
 package controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import bean.StoreMybatisDao;
+
 
 
 
@@ -24,8 +24,9 @@ public class StoreController {
 	 this.dao = dao;
 	}
 
-	@RequestMapping(value="productView.str", method= {RequestMethod.POST})
-	public ModelAndView productView() {
+    @RequestMapping(value="/productView.str", method={ RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public ModelAndView productView(HttpServletRequest req) {
     	System.out.println("제발2");
 		
     	ModelAndView mv = new ModelAndView();
@@ -33,11 +34,34 @@ public class StoreController {
     	System.out.println(mv);
 		mv.setViewName("productDetail");
 		
-		System.out.println("제발3");
+	 	System.out.println(req.getRequestURI());
+		
+    	return mv;
+    }
+	
+	@RequestMapping(value="reviewInsert.str", method= {RequestMethod.POST})
+	public ModelAndView reviewInsert(HttpServletRequest req, HttpServletResponse resp) {
+    	
+    	ModelAndView mv = new ModelAndView();
+    	
+    	//FileUpload
+    	
+
     	
     	return mv;
     }
 	
+	@RequestMapping(value="productList.str", method= {RequestMethod.POST})
+	public ModelAndView productSlecet(HttpServletRequest req, HttpServletResponse resp) {
+    	
+    	ModelAndView mv = new ModelAndView();
+    	
+    	System.out.println(mv);
+		mv.setViewName("productList");
+
+    	
+    	return mv;
+    }
 
 	
 }
