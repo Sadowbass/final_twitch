@@ -6,36 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title> 
-	<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <style>
+    	#test{
+			color: white;
+    	}
+    </style>
 </head>
 <body>
-<div id="topplace">
-	<jsp:include page="./top.jsp"/>
-</div>
-<div id="sideplace"></div>
-<div id="content-wrapper"></div>
-<script>
-	$(document).ready(function () {
-		let path = window.location.pathname;
-		if(path.indexOf("/final_twitch") >=0 ){
-			path = path.replace("/final_twitch","");
-		}
-		console.log(path);
-		$.ajax({
-			type:'get',
-			url:'./sidebar.sc',
-			success:function (data) {
-				$('#sideplace').html(data);
-			}
-		})
-		$.ajax({
-			type:'get',
-			url:'faker',
-			success:function (data) {
-				$('#content-wrapper').html(data);
-			}
-		})
-	})
-</script>
+	<div id="test" style="background-color: rgba(255,0,0,0);"></div>
+	<script>
+		$(document).ready(function(){ 
+			setInterval(function(){ 
+				$('#test').html('qwdqwdwqdqwd');
+			},2000) 
+		};
+	</script>
+	
 </body>
 </html>

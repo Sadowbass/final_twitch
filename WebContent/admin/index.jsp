@@ -33,6 +33,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="css/member.css" rel="stylesheet">
     
     
+    
      <!-- JQuery DataTable Css -->
    	<link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet"/>
  	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet"/>
@@ -252,10 +253,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/shop/product_select.jsp">상품조회</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/product_insert.jsp">상품추가</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/product_insert.jsp">상품추가</a>
                                     </li>
                                 </ul>
 
