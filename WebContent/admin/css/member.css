@@ -223,25 +223,6 @@ width: 1px;
 .teg_manage .label{
 	font-size: 100%;
 }
-@media(max-width:881px){
-	#rightsidebar{
-		display:none;
-	}
-	.media{
-		width:82%;
-	}
-	.control{
-		width:82%;
-	}
-}
-@media(min-width:881px){
-	.media{
-		width:75%;
-	}
-	.control{
-		width:75%;
-	}
-}
 
 /*streamer_detail*/
 .streamer_profile{
@@ -274,6 +255,7 @@ width: 1px;
 	background: none;
     border: none;
     font-size: 25px;
+    WIDTH: 86%;
 }
 .shop_menu_delete{
 	display: inline-block;
@@ -292,4 +274,116 @@ width: 1px;
 }
 .shop_menu_plus{
 	display: inline-block;
+}
+.shop_menu_plus:hover{
+	cursor:pointer;
+	color:#fff;
+}
+.shop_menu_delete:hover{
+	cursor:pointer;
+	color:#fff;
+}
+/*shop_statistic*/
+.goods_img{
+	width:53%;
+}
+
+/*review*/
+.review_img{
+	width:94px;
+	float:right;
+}
+.review_1{
+	display:inline_block !important;
+}
+.review_2{
+	display:inline_block !important;
+}
+
+@media(max-width:1622px){
+	.review_img{
+		width:100%;
+	}
+}
+.review_content{
+	list-style:none;
+	padding:inherit;
+	color: #fff;
+}
+.review_li{
+			
+	 overflow: hidden;
+     text-overflow: ellipsis;
+     display: -webkit-box;
+     -webkit-line-clamp: 4; 
+     -webkit-box-orient: vertical;
+}
+.review_search{
+	width: 50%;
+    margin-bottom: 20px;
+    border: 1px solid #e14eca;
+    float: right;
+}
+.review_search_icon{
+	font-size: 25px;
+}
+.review_search_input{
+	background:none;
+}
+.page_div{
+	text-align: center;
+}
+.review_row:hover{
+	cursor:pointer;
+	background:#606684;
+}
+.review_row{
+	background: #363C5C;
+}
+.review_detail_content{
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+}
+.review_slide{
+	width: 394px;
+}
+.review_footer{
+	text-align: -webkit-center;
+}
+@media(max-width:615px){
+	.review_slide{
+		width:100%;
+	}
+}
+.review_detail_stars{
+	list-style: none;
+    padding: initial;
+    margin-bottom: 0px;
+}
+.star_label{
+	margin-top: 11px;
+}
+.review_detail_panel{
+	border-color:#27293d;
+}
+.review_detail_panel>.panel_heading{
+	border-color: #27293d;
+}
+.review_detail_panel_body{
+	 background: #27293d;
+}
+/*notice_detail*/
+.shop_notice_hit{
+	 margin-top: 13px;
+}
+.shop_notice_cont{
+	margin-top: 16px;
+}
+/*QandA*/
+.qa_title{
+	background-color: #fa516d !important;
+}
+.panel-group .panel-primary{
+	border:1px solid #fa516d;
 }

@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="body">
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">공지사항</a></li>
+                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">글 상세보기</a></li>
                                     
                                 </ul>
 
@@ -41,27 +41,67 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                     <div class="post-heading">
                                                        <label>제목</label> 
                                                        <input type="text" class="form-control" placeholder="Text input"/>
-                                                       <label class="shop_notice_hit">조회수</label> 
-                                                       <input type="text" class="form-control" placeholder="Text input"/>
+                                                       <label class="star_label">별점</label>
+                                                       <ul class="review_detail_stars">
+                                       				 <li class="">
+
+			                                            <i class="material-icons shop_star">star</i>
+			                                            <i class="material-icons shop_star">star</i>
+			                                            <i class="material-icons shop_star">star</i>
+			                                            <i class="material-icons shop_star">star_half</i>
+			                                            <i class="material-icons shop_star">star_border</i>
+
+
+                                       				 </li>
+                                    </ul>
                                                     </div>
                                                     <div class="post-content">
                                                     
                                                      <div class=" review_detail_content">
-                                                       	  <textarea  class="form-control shop_notice_" rows="5"></textarea>
+                                                       	  <textarea  class="form-control" rows="5"></textarea>
                                                        	</div>
                                                        	
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="panel-footer review_footer">
-                          
+                                               
+                                               <div id="carousel-example-generic" class="carousel slide review_slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img src="images/image-gallery/11.jpg" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/image-gallery/12.jpg" />
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/image-gallery/19.jpg" />
+                                    </div>
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
                                             </div>
                                         </div>
                                              <div class="js-sweetalert help_detail_btn">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20" id="notice_modify_btn">수정</button> 
-                                            
                                         </p>
                                     </div>
                                     </div>

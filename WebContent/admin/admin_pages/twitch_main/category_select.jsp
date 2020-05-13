@@ -43,7 +43,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="row">
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/tft.PNG">
+                                <img src="./images/tft.PNG">
                                 <div class="caption">
                                     <h3>Teamfight Tactics</h3>
                                     <p>
@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/just_chat.PNG">
+                                <img src="./images/just_chat.PNG">
                                 <div class="caption">
                                     <h3>Just Chatting</h3>
                                     <p>
@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/valorant.PNG">
+                                <img src="./images/valorant.PNG">
                                 <div class="caption">
                                     <h3>VALORANT</h3>
                                     <p>
@@ -97,7 +97,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/lol.PNG">
+                                <img src="./images/lol.PNG">
                                 <div class="caption">
                                     <h3>League of Legend</h3>
                                     <p>
@@ -114,7 +114,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/overwatch.PNG">
+                                <img src="./images/overwatch.PNG">
                                 <div class="caption">
                                     <h3>Overwatch</h3>
                                     <p>
@@ -132,7 +132,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/bg.PNG">
+                                <img src="./images/bg.PNG">
                                 <div class="caption">
                                     <h3>BATTLEGROUNDS</h3>
                                     <p>

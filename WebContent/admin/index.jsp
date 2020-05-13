@@ -286,7 +286,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/notice.jsp">공지사항</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/review.jsp">리뷰</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/review.jsp">리뷰</a>
+                                    </li>
+                                      <li>
+                                        <a href="index.jsp?inc=admin_pages/shop/QandA.jsp">Q&A</a>
                                     </li>
                                 </ul>
 

@@ -94,22 +94,24 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                            <div class="row clearfix">
+                             <div class="col-md-8  col-xs-12 col-md-offset-2">
                                 <div class="body">
                                     <div class="row clearfix">
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 ">
                                             <img src="images/user.png" class="img-circle member_img" id="member_img">
 
                                         </div>
                                     </div>
                                     <div class="row clearfix">
-                                        <div class="col-md-6 col-sm-8">
+                                        <div class="col-md-12 col-sm-12">
                                             <textarea class="form-control introduce" rows="3"
                                                 placeholder="자기소개(300자 미만)"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="row clearfix">
-                                        <div class="col-md-6 col-sm-8">
+                                        <div class="col-md-12 col-sm-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">star</i>
@@ -122,7 +124,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </div>
 
                                     <div class="row clearfix">
-                                        <div class="col-md-6 col-sm-8">
+                                        <div class="col-md-12 col-sm-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">person</i>
@@ -135,7 +137,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </div>
 
                                     <div class="row clearfix">
-                                        <div class="col-md-6 col-sm-8">
+                                        <div class="col-md-12 col-sm-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     <i class="material-icons">@</i>
@@ -185,7 +187,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         </div>
                                     </div>
                                     <div class="row clearfix js-sweetalert">
-                                        <div class="col-lg-6 col-sm-12 saveButton">
+                                        <div class="col-lg-12 col-sm-12 saveButton">
                                             <button type="button" class="btn waves-effect" data-type="confirm">
                                                 <i class="material-icons">block</i>
                                                 <span>계정 이용 정지</span>
@@ -196,7 +198,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             </button>
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
+                            </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
                                 <div class="row clearfix">

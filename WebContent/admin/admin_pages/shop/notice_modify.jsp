@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
    
         <div class="container-fluid">
             <div class="block-header">
-                <h2>공지사항 관리</h2>
+                <h2>게시글 관리</h2>
             </div>
 
             <!-- CKEditor -->
@@ -25,15 +25,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="card">
                         <div class="header">
                             <h2>
-                                공지사항 글 수정
+                                게시판 글 수정
                              </h2>
                              <div class="new_help_header">
                              <label>글 분류</label>
                              
                                     <select class="selectpicker form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
+                                        <option>공지사항</option>
+                                        <option>Q&A</option>
                                     </select>
                              
                              </div>

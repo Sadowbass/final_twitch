@@ -65,6 +65,8 @@
 		<url-pattern>*.ttf</url-pattern>
 		<url-pattern>*.ico</url-pattern>
 		<url-pattern>*.swf</url-pattern>
+		<url-pattern>*.PNG</url-pattern>
+		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
 	
 	 <!-- store -->

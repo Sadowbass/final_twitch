@@ -143,23 +143,26 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <table id="he_table" class="hover mdl-data-table member_table" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>상품번호</th>
-                                		<th>이름</th>
-                                		<th>이메일</th>
-                                		<th>구분</th>
+                                    	<th>순위</th>
+                                        <th style="width:11% !important">제품이미지</th>
+                                		<th>상품번호</th>
+                                		<th>상품이름</th>
+                                		<th>재고</th>
                                 		<th>등록일</th>
-                                		<th>총수익</th>
+                                		<th>가격</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                      <c:forEach var="i" begin="1" end="57"><!-- 속성 list 값이 하나씩 vo에 들어옴 -->
                                 	<tr onclick="member_view()">
-	                                    <td>Tiger Nixon</td>
-	                                    <td>System Architect</td>
-	                                    <td>Edinburgh</td>
+                                		<td>1</td>
+	                                    <td><img src="images/goods.jpg" class="goods_img"></td>
+	                                    <td>1233454-232131254</td>
+	                                    <td> DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글</td>
 	                                    <td>61</td>
 	                                    <td>2011/04/25</td>
 	                                    <td>$320,800</td>
+	                               
                                    </tr>
                                  </c:forEach>
                          
@@ -307,7 +310,7 @@ var myPieChart = new Chart(ctx4, {
 $(document).ready(function () {
     var table = $('#he_table').DataTable({
         columnDefs: [{
-            targets: [0, 1, 2],
+            targets: [0, 1, 2,3,4,5,6],
             className: 'mdl-data-table__cell--non-numeric'
         }]
     });

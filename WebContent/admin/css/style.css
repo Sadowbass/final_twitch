@@ -4279,7 +4279,7 @@ section.content {
     font-size: 14px; }
   .thumbnail h3 {
     font-weight: bold;
-    font-size: 17px;
+    font-size: 104%;
     color: #fff;
     margin:0px; }
    
@@ -7961,7 +7961,7 @@ fieldset[disabled] .form-control {
   -ms-border-radius: 0;
   border-radius: 0; }
   .panel-post .panel-heading {
-    background-color: #fff;
+    background-color: #27293d;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
@@ -7987,7 +7987,7 @@ fieldset[disabled] .form-control {
       .panel-post .panel-body .post .post-heading p {
         margin-bottom: 0; }
   .panel-post .panel-footer {
-    background-color: #fff;
+    background-color: #27293d;
     border: none; }
     .panel-post .panel-footer ul {
       margin: 0;

@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
             <!-- Input Group -->
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
                     <div class="card">
                         <div class="header member_header">
                             <div class="member_input">등급 구분</div>
@@ -73,14 +73,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="col-md-6 col-sm-8">
+                                <div class="col-md-12 col-sm-12">
                                     <textarea class="form-control introduce" rows="3"
                                         placeholder="자기소개(300자 미만)"></textarea>
                                 </div>
                             </div>
 
                             <div class="row clearfix">
-                                <div class="col-md-6 col-sm-8">
+                                <div class="col-md-12 col-sm-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">star</i>
@@ -93,7 +93,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </div>
 
                             <div class="row clearfix">
-                                <div class="col-md-6 col-sm-8">
+                                <div class="col-md-12 col-sm-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">person</i>
@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </div>
 
                             <div class="row clearfix">
-                                <div class="col-md-6 col-sm-8">
+                                <div class="col-md-12 col-sm-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">@</i>
@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </div>
 
                             <div class="row clearfix">
-                                <div class="col-md-6 col-sm-8">
+                                <div class="col-md-12 col-sm-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="material-icons">lock</i>
@@ -169,7 +169,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </div>
                             </div>
                              <div class="row clearfix">
-                             	<div class="col-lg-6 col-sm-12 saveButton">
+                             	<div class="col-lg-12 col-sm-12 saveButton">
                                  <button type="button" class="btn waves-effect">
                                     <i class="material-icons">save</i>
                                     <span>SAVE</span>
