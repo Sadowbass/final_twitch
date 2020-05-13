@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("utf-8");
+   request.setCharacterEncoding("utf-8");
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- <script src="../js/broadCasting.js"></script>-->
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
+   type="text/css">
 <link href="../css/osahan.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/broadCasting.css">
 <script src="../js/broadCasting.js"></script>
@@ -354,6 +354,7 @@ overflow-x: hidden;
 		
 		// 헤시태그------------------------------------------------------------------
 		/*
+
         var tag = [];
         var counter = 0;
 
@@ -367,10 +368,10 @@ overflow-x: hidden;
             var self = $(this);
             // input 에 focus 되있을 때 엔터 
             if (e.key === "Enter") {
-				if(counter > 4){
-					alert("태그는 3개까지만 등록가능합니다.")
-					return;
-				}
+            if(counter > 4){
+               alert("태그는 3개까지만 등록가능합니다.")
+               return;
+            }
                 var tagValue = self.val(); // 값 가져오기
 
                 // 값이 없으면 동작 ㄴㄴ
@@ -400,5 +401,6 @@ overflow-x: hidden;
 	});
 	</script>
 	<script>bc.func()</script>
+
 </body>
 </html>
