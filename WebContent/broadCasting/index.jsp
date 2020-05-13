@@ -44,8 +44,8 @@ overflow-x: hidden;
 					</div>
 					<div class='col-12' style="height: 850px">
 
-						<form name="pk_broadCastingData" method="post">
-
+						<form name="pk_broadCastingData" id="pk_broadCastingData" method="post">
+							<input type='hidden' name='mId' value='BJ민호'/>
 							<div class="col-sm-12 pt-3">
 								<div class="card"
 									style='background-color: rgb(24, 24, 27) !important'>
@@ -57,13 +57,13 @@ overflow-x: hidden;
 													<tr style="line-height: 32px;">
 														<td style="color: white">제목</td>
 														<td><textarea rows="" cols=""
-																style="width: 100%; background-color: rgb(58, 58, 60); color: white" id='broadCastingTitle'></textarea></td>
+																style="width: 100%; background-color: rgb(58, 58, 60); color: white" name= 'broadCastingTitle' id='broadCastingTitle'></textarea></td>
 
 													</tr>
 													<tr style="line-height: 32px;">
-														<td style="color: white">방송 알림</td>
+														<td style="color: white">내용</td>
 														<td><textarea rows="" cols=""
-																style="width: 100%; background-color: rgb(58, 58, 60); color: white" id='broadCastingPush'></textarea></td>
+																style="width: 100%; background-color: rgb(58, 58, 60); color: white" name='broadCastingContent' id='broadCastingContent'></textarea></td>
 
 													</tr>
 													<tr>
@@ -84,8 +84,8 @@ overflow-x: hidden;
 															value=""
 															style="background-color: rgb(58, 58, 60); color: white;" autocomplete="off" >
 
-															        <ul id="tag-list">
-        															</ul>
+															<ul id="tag-list">
+        												    </ul>
 															<button id='updateBroadCasting' class="btn btn-outline-primary" type="button" style="float: right;margin-top: 2%;display: none">수정</button>
 															</td>
 														
@@ -342,10 +342,12 @@ overflow-x: hidden;
 			if($(this).hasClass('on')===true){ // 방송 켜졌을 때
 				$('#updateBroadCasting').show();
 				$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
+				startAir();
 				
 			}else{ // 방송 꺼졌을때
 				$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
 				$('#streamKey').prop('readonly',false);
+				stopAir();
 			
 			}
 		});

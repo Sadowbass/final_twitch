@@ -1,8 +1,8 @@
 package controller_pk;
 
-import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -54,6 +54,29 @@ public class BroadCastingController {
 		}
 		result = gson.toJson(jsonArray);
 		return result;
+	}
+	
+	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+	public String insertAir(HttpServletRequest req, HttpServletResponse resp) {
+		String msg = "¼º°ø";
+		
+		String mId = req.getParameter("mId");
+		String title = req.getParameter("broadCastingTitle");
+		String content = req.getParameter("broadCastingContent");
+		String sKey = req.getParameter("streamKey");
+		String tags = req.getParameter("tags");
+		String gameName = req.getParameter("gameName");
+		
+		System.out.println(mId);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(sKey);
+		System.out.println(tags);
+		System.out.println(gameName);
+		
+		
+		return msg;
+		
 	}
 	
 }
