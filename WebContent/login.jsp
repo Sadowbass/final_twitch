@@ -23,11 +23,9 @@
       <script src="./js/login_m.js"></script>
    </head>
    <body class="login-main-body">
-<<<<<<< HEAD
+
       <section class="login-main-wrapper_m">
-=======
-      <section class="login-main-wrapper">
->>>>>>> mr
+
                      <form action="index.jsp">
                         <div class="form-group">
                            <label>아이디</label>
