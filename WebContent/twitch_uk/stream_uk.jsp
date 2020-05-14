@@ -57,8 +57,8 @@
 <div id="wrapper">
 	<div id="sidebarplace">
 	</div>
-	<div id="content-wrapper">
-		<div class="container-fluid pb-0" style="padding: 0px 0px 0px 225px;">
+	<div id="content-wrapper" style="margin-top: 53px;">
+		<div class="container-fluid pb-0" style="padding: 0px 0px 0px 225px; ">
 			<div class="video-block-right-list section-padding">
 				<!-- stream view start -->
 				<!-- stream view start -->
