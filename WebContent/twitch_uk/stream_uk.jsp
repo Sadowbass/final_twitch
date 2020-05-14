@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8" %>
+       pageEncoding="UTF-8" %>
 <%
-	request.setCharacterEncoding("utf-8");
+   request.setCharacterEncoding("utf-8");
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -175,7 +175,9 @@
 					<!-- 채팅화면 -->
 					<!-- 채팅화면 -->
 					<div class="col-md-2 cht_main_uk pt-2" id="cht_div">
-						<jsp:include page="./cht_uk.jsp"></jsp:include>
+                  <jsp:include page="./cht_uk.jsp">
+                  	<jsp:param value="${vo.mem_Id }" name="mid"/>
+                  </jsp:include>
 					</div>
 				</div>
 			</div>
@@ -186,13 +188,13 @@
 <!-- /#wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
+      class="fas fa-angle-up"></i>
 </a>
 <!-- Logout Modal-->
 <%@include file="../logout-modal.jsp" %>
 <script>
 $(document).ready(function(){
-	uk.stream();
+   uk.stream();
 });
 let unfold = function() {
     $("#unfold").remove();

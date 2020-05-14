@@ -17,8 +17,8 @@
 <!-- 도네현황 -->
 <!-- 도네현황 -->
 <div class="row mx-0">
-	<div class="col-md-12 text-center">
-		<h1>도네이션 현황</h1>
+	<div class="col-md-12 text-center" onclick='WSclose()'>
+		<h1>도네이션 현황<br/>${vo.mem_Id }</h1>
 	</div>
 </div>
 <!-- mid(메인 채팅창) -->
@@ -47,36 +47,16 @@
 	<div class="col-md-3 p-0 text-center">
 		<i class="far fa-smile"></i>
 	</div>
-	<div class="col-md-3 p-0 text-center" onclick="ms()">
+	<div class="col-md-3 p-0 text-center" onclick="WSsend()">
 		<a href='#'>
 			<i class="far fa-paper-plane"></i>
 		</a>
 	</div>
 </div>
+<input type="hidden" value="${vo.mem_Id }"/>
 <script>
-
-
+var ws
 $(document).ready(function(){
-	uk.cht();
+	 uk.connectWS($('input[type="hidden"]').val());
 });
-
-var ws = new WebSocket("ws://192.168.0.57:8888/twitch/cht");
-
-ws.onopen = function (event) {console.log("open:::",event);}
-ws.onclose = function (event) {console.log("close:::",event);}
-
-
-ws.onerror = function (event) { console.log("error:::",event); };
-
-ws.onmessage = function (event) {
-    console.log("event:::",event+'\n');
-    console.log("data:::",event.data+'\n');
-};
-
-let ms=function(){
-	  let msg = $('div[contenteditable]').html();
-	  ws.send(msg);
-}
-
-
 </script>
