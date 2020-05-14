@@ -17,7 +17,7 @@
 <!-- 도네현황 -->
 <!-- 도네현황 -->
 <div class="row mx-0">
-	<div class="col-md-12 text-center" onclick='closeddd()'>
+	<div class="col-md-12 text-center" onclick='WSclose()'>
 		<h1>도네이션 현황</h1>
 	</div>
 </div>
@@ -47,7 +47,7 @@
 	<div class="col-md-3 p-0 text-center">
 		<i class="far fa-smile"></i>
 	</div>
-	<div class="col-md-3 p-0 text-center" onclick="ms()">
+	<div class="col-md-3 p-0 text-center" onclick="WSsend()">
 		<a href='#'>
 			<i class="far fa-paper-plane"></i>
 		</a>
@@ -56,70 +56,6 @@
 <script>
 var ws
 $(document).ready(function(){
-	 connectWS();
-	/* connectJS(); */
+	 uk.connectWS();
 });
-
-let connectWS=function(){
-
-	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht");
-
-	ws.onopen = function (event) {console.log("open:::",event);}
-	ws.onclose = function (event) {console.log("close:::",event);}
-	ws.onerror = function (event) { console.log("error:::",event); };
-
-	ws.onmessage = function (event) {
-		console.log(event.data);
-	    $('<div></div>').html(event.data).appendTo('#chtArea');
-	};
-
-
-}
-
-let ms=function(){
-	  let msg = $('div[contenteditable]').html();
-	  console.log(ws.readyState)
-	  if(ws.readyState===1){
-		  ws.send(msg);
-		  $('div[contenteditable]').empty();
-	  }
-
-}
-
-$('div[contenteditable]').keydown(function(e) {
-	if (e.keyCode === 13) {
-		if (!e.shiftKey) {
-			ms();
-			return false;
-		}
-	}
-});
-
-
-let closeddd=function(){
-	ws.close();
-}
-
-
-let connectJS=function(){
-
-	var sock = new SockJS("ws://192.168.0.57:8888/final_twitch/cht");
-
-	sock.onopen = function () {
-		console.log('Info: connection opened.');
-		sock.send("hi~");
-
-		sock.onmessage = function (event) {
-			console.log(event.data+'\n');
-		}
-
-		sock.onclose = function (event) {
-			console.log('Info: connection closed.');
-		}
-	}
-
-}
-
-
-
 </script>
