@@ -1,14 +1,12 @@
 package login;
 
-public class MemberVo {
+public class MemberVo_m {
 	String mem_Id;
 	String mem_pwd;
-	int mem_birth;
+	String mem_birth;
 	String mem_name;
 	String mem_profile;
 	String mem_email;
-	
-	
 	
 	public String getMem_Id() {
 		return mem_Id;
@@ -22,10 +20,10 @@ public class MemberVo {
 	public void setMem_pwd(String mem_pwd) {
 		this.mem_pwd = mem_pwd;
 	}
-	public int getMem_birth() {
+	public String getMem_birth() {
 		return mem_birth;
 	}
-	public void setMem_birth(int mem_birth) {
+	public void setMem_birth(String mem_birth) {
 		this.mem_birth = mem_birth;
 	}
 	public String getMem_name() {
@@ -48,6 +46,8 @@ public class MemberVo {
 	}
 	
 	
+	
+
 	
 	
 	

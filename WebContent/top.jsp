@@ -135,4 +135,59 @@
         </li>
 
     </ul>
+<<<<<<< Updated upstream
 </nav>
+=======
+</nav>
+<!-- 영탁 -->
+    <!-- 로그인 명렬-->
+ <c:if test="${empty session_id }">
+    <button type="button" class="btn btn-primary" id="btnloginm" data-toggle="modal" data-target="#myModal"> 로그인  </button>
+    </c:if>
+			   <div class="modal fade" id="myModal">
+				    <div class="modal-dialog modal-dialog-centered">
+				      <div class="modal-content">
+				      
+				        <!-- Modal Header -->
+				        <div class="modal-header">
+				          <h4 class="modal-title">트위치에 로그인 하세요</h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        </div>
+				        
+				        <!-- Modal body -->
+				        <div class="modal-body">
+				      		<%@include file="login.jsp" %>
+				      		
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+    <c:if test="${session_id != null }">
+		[${session_id } 님 방가~~]
+		<input type='button' value='로그아웃' id='btnLogoutm' />
+	</c:if>		
+    
+     <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal1"> 회원가입 </button>
+ 			   <div class="modal fade" id="myModal1" style="height : auto;">
+				    <div class="modal-dialog modal-dialog-centered">
+				      <div class="modal-content">
+				      
+				        <!-- Modal Header -->
+				        <div class="modal-header">
+				          <h4 class="modal-title">트위치에 회원가입 하세요</h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        
+				        </div>
+				        
+				        <!-- Modal body -->
+				        <div class="modal-body">
+				      <%@include file="insertm.jsp" %>
+	
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+<script></script>
+      
+    </html>
+>>>>>>> Stashed changes

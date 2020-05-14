@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lm">
+	<!-- 회원가입 -->
+	<insert id='insert' parameterType="login.MemberVo_m">
+		insert into final_member(mem_id, mem_pwd, mem_birth, mem_email, mem_profile)
+		values(#{mem_Id}, #{mem_pwd}, #{mem_birth}, #{mem_email}, #{mem_profile})
+	</insert>
+	<!-- 로그인 -->
+	<select id='login' parameterType='login.MemberVo_m' resultType='boolean'>
+		select case
+			when count(mId)>0 then 1
+			else 0
+		end result
+		from member
+		where mem_Id=#{mem_mId} and mem_pwd=#{mem_pwd}
+	</select>
+	
+</mapper>

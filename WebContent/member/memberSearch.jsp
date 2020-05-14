@@ -17,17 +17,17 @@
 				</div>
 				<div>
 					<div class='text-center'>
-						<label >이메일이나 전화번호를 입력하세요</label>
+						<label >이메일을 입력하세요</label>
 						<div>
 							<input type="text" class="serEmail" id="serEmailm" aria-label="이메일 또는 전화번호"/>
 						</div>
 					</div>
 					<div class=" text-center">
-<<<<<<< HEAD
+
 					<a href = "idQna.jsp">
-=======
+
 					<a href = "">
->>>>>>> mr
+
 					<p>이메일이나 전화에 문제가 있나요?</p>
 					</a>
 					</div>
