@@ -175,9 +175,7 @@
 					<!-- 채팅화면 -->
 					<!-- 채팅화면 -->
 					<div class="col-md-2 cht_main_uk pt-2" id="cht_div">
-                  <jsp:include page="./cht_uk.jsp">
-                  	<jsp:param value="${vo.mem_Id }" name="mid"/>
-                  </jsp:include>
+                  		<jsp:include page="./cht_uk.jsp"/>
 					</div>
 				</div>
 			</div>
@@ -194,7 +192,7 @@
 <%@include file="../logout-modal.jsp" %>
 <script>
 $(document).ready(function(){
-   uk.stream();
+   uk_main.stream();
 });
 let unfold = function() {
     $("#unfold").remove();

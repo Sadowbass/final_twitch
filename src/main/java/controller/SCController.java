@@ -65,6 +65,16 @@ public class SCController {
 		mv.setViewName("donstreamer");
 		return mv;
 	}
+	
+	@RequestMapping(value = "/{id}/chat-view", method = RequestMethod.GET)
+    public ModelAndView chatViewPage(HttpServletRequest req, @PathVariable String id){
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("mId",id);
+		System.out.println(req.getRequestURI());
+
+		mv.setViewName("/chtstreamer");
+		return mv;
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/view-donation-list.sc", method = RequestMethod.POST)

@@ -18,24 +18,18 @@ public class Handler extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-
 		String streamer=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1);
-
 		List<Object> list=new ArrayList<Object>();
 		list.add(streamer);
 		list.add(session);
-
 		Iterator<String> oids=users.keySet().iterator();
-
 		while(oids.hasNext()) {
 			String oid=oids.next();
 			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
-
 			if(users.get(oid).get(0).equals(streamer)) {
 				WebSocketSession um= (WebSocketSession) users.get(oid).get(1);
 				um.sendMessage(new TextMessage(Messenger+"님(이) 입장하였습니다."));
 			}
-
 		}
 		if((String)session.getAttributes().get("mid")==null) {
 			users.put(session.getId(), list);
@@ -46,53 +40,39 @@ public class Handler extends TextWebSocketHandler{
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-
 		String streamer=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1);
-
 		List<Object> list=new ArrayList<Object>();
 		list.add(streamer);
 		list.add(session);
-
 		Iterator<String> oids=users.keySet().iterator();
-
 		while(oids.hasNext()) {
 			String oid=oids.next();
 			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
-
 			if(users.get(oid).get(0).equals(streamer)) {
 				WebSocketSession um= (WebSocketSession) users.get(oid).get(1);
-				um.sendMessage(new TextMessage(Messenger+": "+message.getPayload()));
+				um.sendMessage(new TextMessage("<span class='sender'>"+Messenger+"</span>"+"<span class='messages'> : "+message.getPayload()+"</span>"));
 			}
 		}
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-
 		if((String)session.getAttributes().get("mid")==null) {
 			users.remove(session.getId());
 		}else {
 			users.remove((String)session.getAttributes().get("mid"));
 		}
-
-
 		String streamer=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1);
-
 		Iterator<String> oids=users.keySet().iterator();
-
 		while(oids.hasNext()) {
 			String oid=oids.next();
 			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
-
 			if(users.get(oid).get(0).equals(streamer)) {
 				WebSocketSession um= (WebSocketSession) users.get(oid).get(1);
 				um.sendMessage(new TextMessage(Messenger+"님(이) 퇴장하였습니다."));
 			}
-
 		}
-
 	}
-
 
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
