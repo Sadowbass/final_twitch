@@ -13,6 +13,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
 
 	<servlet>
 		<servlet-name>tgd_mvc</servlet-name>
@@ -42,6 +43,7 @@
 	<servlet-mapping>
 		<servlet-name>broadCasting_mvc</servlet-name>
 		<url-pattern>*.bc</url-pattern>
+		
 	</servlet-mapping>
 
 	<servlet>
@@ -70,6 +72,7 @@
 		<url-pattern>*.swf</url-pattern>
 		<url-pattern>*.PNG</url-pattern>
 		<url-pattern>*.html</url-pattern>
+		<url-pattern>*.mp4</url-pattern>
 	</servlet-mapping>
 
 	 <!-- store -->

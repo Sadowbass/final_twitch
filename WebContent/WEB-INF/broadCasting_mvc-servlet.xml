@@ -21,8 +21,10 @@
 		<constructor-arg ref="broadCastingDao"></constructor-arg>
 	</bean>
 	<!--  view resolver -->    
+	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
-		<property name="prefix" value="./broadCasting/" />
+		<!--<property name="prefix" value="./broadCasting/" />-->
 		<property name="suffix" value=".jsp" />
 	</bean>
+	 
 </beans>
