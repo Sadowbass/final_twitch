@@ -145,17 +145,7 @@
                     <div class="pull-left">
                       <label class="control-label">Size:</label>
                       <select class="form-control input-sm">
-                        <option>L</option>
-                        <option>M</option>
-                        <option>XL</option>
-                      </select>
-                    </div>
-                    <div class="pull-left">
-                      <label class="control-label">Color:</label>
-                      <select class="form-control input-sm">
-                        <option>Red</option>
-                        <option>Blue</option>
-                        <option>Black</option>
+                        <option>FREE</option>
                       </select>
                     </div>
                   </div>
@@ -164,7 +154,7 @@
                         <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
                     </div>
                     <button class="btn btn-primary" type="submit">Add to cart</button>
-                    <a href="#" onclick="store.viewItem()" class="btn btn-default">More details</a>
+                    <button onclick="store.viewItem()" class="btn btn-default">More details</button>
                   </div>
                 </div>
 

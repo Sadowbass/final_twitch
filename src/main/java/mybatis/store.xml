@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+
+	<insert id="review_insert" parameterType="store.StoreReviewVo">
+	  
+	  insert into review(review_id, mem_id, product_id, subject, content, image1, image2, review_like, review_date)
+      values( seq_storereview, #{mId}, #{pId}, #{subject}, #{content}, #{image1}, #{image2}, #{rLike} sysdate)
+	  
+	</insert>
+	
+	
+</mapper>

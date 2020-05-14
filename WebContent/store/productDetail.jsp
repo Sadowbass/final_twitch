@@ -21,7 +21,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="indexStore.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -81,12 +81,7 @@
             </ul>
 
             <div class="sidebar-filter margin-bottom-25">
-              <h2>Filter</h2>
-              <h3>Availability</h3>
-              <div class="checkbox-list">
-                <label><input type="checkbox"> Not Available (3)</label>
-                <label><input type="checkbox"> In Stock (26)</label>
-              </div>
+              
 
               <h3>Price</h3>
               <p>
@@ -138,9 +133,7 @@
                       <strong><span>$</span>47.00</strong>
                       <em>$<span>62.00</span></em>
                     </div>
-                    <div class="availability">
-                      Availability: <strong>In Stock</strong>
-                    </div>
+        
                   </div>
                   <div class="description">
                     <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed nonumy nibh sed euismod laoreet dolore magna aliquarm erat volutpat 
@@ -150,19 +143,10 @@ Nostrud duis molestie at dolore.</p>
                     <div class="pull-left">
                       <label class="control-label">Size:</label>
                       <select class="form-control input-sm">
-                        <option>L</option>
-                        <option>M</option>
-                        <option>XL</option>
+                        <option>FREE</option>
                       </select>
                     </div>
-                    <div class="pull-left">
-                      <label class="control-label">Color:</label>
-                      <select class="form-control input-sm">
-                        <option>Red</option>
-                        <option>Blue</option>
-                        <option>Black</option>
-                      </select>
-                    </div>
+                    
                   </div>
                   <div class="product-page-cart">
                     <div class="product-quantity">
@@ -224,7 +208,7 @@ Nostrud duis molestie at dolore.</p>
                     </div>
                     <div class="tab-pane fade in active" id="Reviews">
                       <!--<p>There are no reviews for this product.</p>-->
-                      <div class="review-item clearfix">
+                      <div class="review-item clearfix" onclick="">
                         <div class="review-item-submitted">
                           <strong>Bob</strong>
                           <em>30/12/2013 - 07:37</em>
@@ -246,24 +230,24 @@ Nostrud duis molestie at dolore.</p>
                       </div>
 
                       <!-- BEGIN FORM-->
-                      <form action="#" class="reviews-form" role="form">
+                      <form id="frm_store" action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
                         <h2>Write a review</h2>
                         <div class="form-group">
                           <label for="name">Name <span class="require">*</span></label>
-                          <input type="text" class="form-control" id="name">
+                          <input type="text" class="form-control" name="mId">
                         </div>
                         <div class="form-group">
-                          <label for="email">Email</label>
-                          <input type="text" class="form-control" id="email">
+                          <label for="subject">Subject</label>
+                          <input type="text" class="form-control" name="rSubject">
                         </div>
                         <div class="form-group">
-                          <label for="review">Review <span class="require">*</span></label>
-                          <textarea class="form-control" rows="8" id="review"></textarea>
+                          <label for="review">Content <span class="require">*</span></label>
+                          <textarea class="form-control" rows="8" id="review" name="rContent"></textarea>
                         </div>
                         <div class="form-group">
 		                    <label for="file_input">File input </label>
 		                
-		                    <input type="file" id ="input_imgs" multiple="multiple">
+		                    <input type="file" name="fileName" id ="input_imgs" multiple="multiple">
 		                    <p class="help-block">some help text here.</p>
 							<div>
 								<div class="imgs_wrap">
@@ -272,13 +256,15 @@ Nostrud duis molestie at dolore.</p>
                 		</div>
                         <div class="form-group">
                           <label for="email">Rating</label>
-                          <input type="range" value="4" step="0.25" id="backing5">
+                          <input type="range" value="4" step="0.25" id="backing5" name="rLike">
                           <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                           </div>
                         </div>
                         <div class="padding-top-20">                  
-                          <button type="submit" class="btn btn-primary">Send</button>
+                         <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send">
                         </div>
+                        <input type="hidden" name="pId">
+                     
                       </form>
                       <!-- END FORM--> 
                     </div>
@@ -297,26 +283,7 @@ Nostrud duis molestie at dolore.</p>
       </div>
     </div>
 
-    <!-- BEGIN BRANDS -->
-    <div class="brands">
-      <div class="container">
-            <div class="owl-carousel owl-carousel6-brands">
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
-              <a href="shop-product-list.html"><img src="assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
-            </div>
-        </div>
-    </div>
-    <!-- END BRANDS -->
+    
     <script src="./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
     <script type="text/javascript">
     //가격 범위
