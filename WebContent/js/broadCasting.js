@@ -4,21 +4,100 @@ var counter = 0;
 var gameName = "";
 
 
-
 function startAir(){
 	
+	$('#takTag').val(tag); // 태그 저장
+	$('#takGame').val(gameName); // 게임이름 저장
 	let param = $('#pk_broadCastingData').serialize();
+
+	$.ajax({
+		url : 'insertAir.bc',
+		type : 'post',
+		data : param,
+		error : function(xhr, status, error){
+			
+		},
+		success : function(data, xhr, status ){	
+			if(data == '입력성공'){
+				Swal.fire({
+					  position: 'center',
+					  icon: 'success',
+					  title: '<font color="white">방송 송출이 시작되었습니다.</font>',
+					  background: '#18181b',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+				$('#updateBroadCasting').show();
+				$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
+			}else{
+				Swal.fire({
+					  position: 'center',
+					  icon: 'error',
+					  title: '<font color="white">방송 송출에 실패하셨습니다.</font>',
+					  background: '#18181b',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+				if($('#pk_switch').hasClass('on') === true){ 
+						
+					$('#pk_switch').toggleClass('on');
+						
+				}
+			}
+			
+		}
+			
+	})
 	
 	
-	$.post("insertAir.bc?tags=" + tag +"&gameName=" + gameName , param, function(data, state){
-		
-	});
 	
 	
 }
 
 function stopAir() {
 	
+	let param = $('#pk_broadCastingData').serialize();
+	
+	$.ajax({
+		url : 'deleteAir.bc',
+		type : 'post',
+		data : param,
+		error : function(xhr, status, error){
+
+		},
+		success : function(data, xhr, status ){	
+			if(data=='삭제성공'){
+				Swal.fire({
+					  position: 'center',
+					  icon: 'success',
+					  title: '<font color="white">방송 송출이 중지되었습니다.</font>',
+					  background: '#18181b',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					
+				$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
+				$('#streamKey').prop('readonly',false);
+			}else{
+				Swal.fire({
+					  position: 'center',
+					  icon: 'error',
+					  title: '<font color="white">방송 중지에 실패하였습니다.</font>',
+					  background: '#18181b',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					
+					if($('#pk_switch').hasClass('on') === false){ 
+						
+						$('#pk_switch').toggleClass('on');
+							
+					}
+					
+			}	
+		}
+			
+	})
 	
 }
 
@@ -69,6 +148,54 @@ function delTag(idx) {
 bc.func = function(){
 	
 
+	$('#updateBroadCasting').click(function() {
+		$('#takTag').val(tag); // 태그 저장
+		$('#takGame').val(gameName); // 게임이름 저장
+		let param = $('#pk_broadCastingData').serialize();
+		
+		/*
+		$.post("updateAir.bc", param, function(data, state){
+			alert(data);
+		});
+		*/
+		
+		$.ajax({
+			url : 'updateAir.bc',
+			type : 'post',
+			data : param,
+			error : function(xhr, status, error){
+				
+			},
+			success : function(data, xhr, status ){	
+				if(data == '수정에 성공하셨습니다.'){
+					Swal.fire({
+						  position: 'center',
+						  icon: 'success',
+						  title: '<font color="white">수정에 성공하셨습니다.</font>',
+						  background: '#18181b',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+				}else{
+					Swal.fire({
+						  position: 'center',
+						  icon: 'error',
+						  title: '<font color="white">수정에 실패하셨습니다.</font>',
+						  background: '#18181b',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+				}
+				
+			}
+				
+		})
+		
+		
+	})
+	
+	
+	
 	$("#findCate").autocomplete({
 		matchContains: true,
         source : function( request, response ) {
@@ -186,9 +313,6 @@ bc.func = function(){
         .appendTo( ul );
  };
 };
-
-
-
 
 
 

@@ -5,7 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 %>
 
-<div class="container-fluid pb-0">
+<div class="container-fluid pb-0" style="margin-top: 53px;">
 	<div class="top-mobile-search">
 		<div class="row">
 			<div class="col-md-12">

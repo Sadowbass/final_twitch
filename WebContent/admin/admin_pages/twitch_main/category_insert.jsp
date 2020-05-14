@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <!-- Vertical Layout -->
     <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-odffset-2">
             <div class="card">
                 <div class="header">
                     <h2>
@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </div>
                         </div>
                         <div class="row clearfix">
-                            <div class="col-lg-6 col-sm-12 saveButton">
+                            <div class="col-lg-12 col-sm-12 saveButton">
                                 <button type="button" class="btn waves-effect">
                                     <i class="material-icons">save</i>
                                     <span>SAVE</span>

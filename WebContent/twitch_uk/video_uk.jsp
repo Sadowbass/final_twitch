@@ -30,7 +30,7 @@
 			sources : [ {
 				file : "rtmp://localhost/hls/${vo.mem_Skey}",
 			}, {
-				file : "http://localhost:8845/hls/${vo.mem_Skey}.m3u8"
+				file : "http://localhost:8882/hls/${vo.mem_Skey}.m3u8"
 			} ]
 		});
 	</script>
