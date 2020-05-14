@@ -4,8 +4,6 @@ var counter = 0;
 var gameName = "";
 
 
-
-
 function startAir(){
 	
 	$('#takTag').val(tag); // 태그 저장
@@ -58,6 +56,48 @@ function startAir(){
 
 function stopAir() {
 	
+	let param = $('#pk_broadCastingData').serialize();
+	
+	$.ajax({
+		url : 'deleteAir.bc',
+		type : 'post',
+		data : param,
+		error : function(xhr, status, error){
+
+		},
+		success : function(data, xhr, status ){	
+			if(data=='삭제성공'){
+				Swal.fire({
+					  position: 'center',
+					  icon: 'success',
+					  title: '<font color="white">방송 송출이 중지되었습니다.</font>',
+					  background: '#18181b',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					
+				$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
+				$('#streamKey').prop('readonly',false);
+			}else{
+				Swal.fire({
+					  position: 'center',
+					  icon: 'error',
+					  title: '<font color="white">방송 중지에 실패하였습니다.</font>',
+					  background: '#18181b',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					
+					if($('#pk_switch').hasClass('on') === false){ 
+						
+						$('#pk_switch').toggleClass('on');
+							
+					}
+					
+			}	
+		}
+			
+	})
 	
 }
 
@@ -273,9 +313,6 @@ bc.func = function(){
         .appendTo( ul );
  };
 };
-
-
-
 
 
 

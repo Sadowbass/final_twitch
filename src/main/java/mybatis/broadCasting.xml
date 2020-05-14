@@ -31,6 +31,20 @@
 		WHERE
 		air_mid = #{air_mid}
 	</update>
+	<delete id='deleteAir' parameterType='String'>
+		delete from final_onair where air_mid = #{_parameter}
+	</delete>
+	<select id='selectDonation' resultType="bean.BroadCastingDonationVo" parameterType='String'>
+		select * from final_donation where don_push='0' and don_mid = #{mId}
+	</select>
+	<update id='readDonation' parameterType='Integer'>
+		update final_donation
+		SET 
+		don_push = '1'
+		WHERE
+		don_serial = ${serial}
+	</update>
+	
 	
 
 </mapper>

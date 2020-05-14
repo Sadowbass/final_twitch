@@ -45,7 +45,7 @@ overflow-x: hidden;
 					<div class='col-12' style="height: 850px">
 
 						<form name="pk_broadCastingData" id="pk_broadCastingData" method="post">
-							<input type='hidden' name='mId' value='BJ민호'/>
+							<input type='hidden' name='mId' id='mId' value='BJ민호'/>
 							<input type='hidden' name='tags' id='takTag'/>
 							<input type='hidden' name='gameName' id='takGame'/>
 							<div class="col-sm-12 pt-3">
@@ -136,8 +136,10 @@ overflow-x: hidden;
 						<div style="padding-top: 60%">이곳에서 새로운 팔로우,구독,후원목록을 표시합니다.</div>
 					</div>
 					-->
-					<div class='col-12' style="height: 850px;">
+					<div class='col-12' style="height: 300px;overflow: auto;" id='donationDiv'>
+						<!--
 						<div class='row' style="margin-top: 2%">
+						
 							<div class='col-1'>
 								<i class="fas fa-heart fa-3x"></i>
 							</div>
@@ -205,6 +207,32 @@ overflow-x: hidden;
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
+													<div class='row' style="margin-top: 2%">
+							<div class='col-1'>
+								<img 
+									src="../img/favicon.png" style="width: 40px">
+							</div>
+							<div class='col-8'>
+							
+								<div class='col-12' style="color: white">
+									asdf1234
+								</div>
+								<div class='col-12'>
+									1개월 구독하셨습니다.
+								</div>
+
+							</div>
+							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
+						</div>
+						-->
+					</div>
+					<div class='col-12' style="border-bottom: 1px solid white;border-top: 1px solid white">
+						<font style='color: white'>방송 미리보기</font>
+					</div>
+					<div class='col-12' style="height: 500px;">
+						<div class='row' style="">
+							  <jsp:include page="./video_tak.jsp" />
+						</div>
 					</div>
 					
 				</div>
@@ -214,7 +242,10 @@ overflow-x: hidden;
 					<div class='col-12' style="border-bottom: 1px solid white;">
 						<font style='color: white'>시청자 목록</font>
 					</div>
-					<div class='col-12' style="height: 200px;overflow: auto;">
+					<div class='col-12' style="height: 300px;overflow: auto;">
+						
+						
+						
 						<div class='row' style="margin-top: 2%">
 								<div class='col-1'><i class="fas fa-crown" style="color: yellow;"></i></div>
 								<div class='col-11' style="padding: 0">tac890</div>
@@ -260,9 +291,9 @@ overflow-x: hidden;
 					<div class='col-12' style="border-bottom: 1px solid white;border-top:1px solid white">
 						<font style='color: white'>생방송 채팅</font>
 					</div>
-					<div class='col-12' style="height: 650px; padding: 0">
+					<div class='col-12' style="height: 550px; padding: 0">
 
-						<div class='col-12' style="height: 600px">
+						<div class='col-12' style="height: 500px">
 							<!-- <div style="padding-top: 5%;">채팅방에 오신것을 환영합니다!</div>-->
 							<div class='row' style="margin-top: 2%">
 								<div class='col-1'><i class="fas fa-crown" style="color: yellow;"></i></div>
@@ -341,17 +372,64 @@ overflow-x: hidden;
 		// 방송스위치 --------------------------------------------------------------
 		$('#pk_switch').on('click', function(){
 			$(this).toggleClass('on');
-			if($(this).hasClass('on')===true){ // 방송 켜졌을 때
-				
+			if($(this).hasClass('on')===true){ // 방송 켜졌을 때		
 				startAir();
 				
 			}else{ // 방송 꺼졌을때
-				$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
-				$('#streamKey').prop('readonly',false);
 				stopAir();
 			
 			}
 		});
+		
+		var time1 = setInterval(function() {			
+			let param = $('#mId').val();	
+			$.ajax({
+				url : 'selectDonation.bc?mId='+ param,
+				type : 'post',
+				dataType : 'json',
+				error : function(xhr, status, error){
+					console.log('실패');
+				},
+				success : function(data, xhr, status ){	
+					console.log(data);
+					if(data != null){
+					      for(let i = 0; i<data.length; i++){
+					        let html = '';
+					    	if(data[i].type == '0'){
+					        html += '<div class="row" style="margin-top: 2%" onclick="voiceDonation()">';
+					        }else if(data[i].type =='1'){
+					    	html += '<div class="row" style="margin-top: 2%" onclick="videoDonation()">';
+					        }
+					        html += "<div class='col-1'>";
+					        if(data[i].type == '0'){
+					        	html += "<i class='fas fa-volume-up fa-3x'></i>";
+					        }else if(data[i].type =='1'){
+					        	html += "<i class='fas fa-video fa-3x'></i>";
+					        }
+					        html += "</div>";
+					        html += "<div class='col-8'>";
+					        html += "<div class='col-12' style='color: white'>";
+					        html += data[i].don_oid;
+					        html += "</div>";
+					        html += "<div class='col-12'>";
+					        html += data[i].don_content;
+					        html += "</div>";
+					        html += "</div>";
+					        html += "<div class='col-3' style='text-align: center;padding-top: 10px'>";
+					        html += data[i].don_rdate;
+					        html += "</div>";
+					        $('#donationDiv').append(html);
+
+					}
+					
+					}
+					 
+					
+				}});
+
+	      }, 5000);
+		
+	
 		
 		// 헤시태그------------------------------------------------------------------
 		/*

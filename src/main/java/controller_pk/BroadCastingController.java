@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 
 import bean.BroadCastingAirVo;
 import bean.BroadCastingCateVo;
+import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
 
 @Controller
@@ -117,6 +118,63 @@ public class BroadCastingController {
 		return msg;
 		
 	}
+	
+	@RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String deleteAir(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("컨트롤러들어옴");
+		String msg = "";
+		String mId = req.getParameter("mId"); // 스트리머 아이디
+		
+		msg = dao.deleteAir(mId);
+		return msg;
+		
+	}
+	
+	@RequestMapping(value = "*/selectDonation.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String selectDonation(HttpServletRequest req, HttpServletResponse resp) {
+		String result = "";
+		String mId = req.getParameter("mId"); // 스트리머 아이디
+		List<BroadCastingDonationVo> list = dao.selectDonation(mId);
+		
+		Gson gson = new Gson();
+		JsonObject jsonObject = null;
+		JsonArray jsonArray = new JsonArray();
+		
+		if(list.size()>0) {
+		for(int i=0; i<list.size(); i++) {
+			jsonObject = new JsonObject();
+			jsonObject.addProperty("don_serial", list.get(i).getDon_serial());
+			jsonObject.addProperty("don_mid", list.get(i).getDon_mid());
+			jsonObject.addProperty("don_oid", list.get(i).getDon_oid());
+			jsonObject.addProperty("don_price", list.get(i).getDon_price());
+			jsonObject.addProperty("don_rdate", list.get(i).getDon_rdate());
+			jsonObject.addProperty("don_push", list.get(i).getDon_push());
+			jsonObject.addProperty("don_content", list.get(i).getDon_content());
+			jsonObject.addProperty("url", list.get(i).getUrl());
+			jsonObject.addProperty("type", list.get(i).getType());
+			jsonArray.add(jsonObject);
+			
+			}
+		result = gson.toJson(jsonArray);
+		System.out.println(result);
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
