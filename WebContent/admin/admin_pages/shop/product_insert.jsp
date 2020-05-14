@@ -23,7 +23,7 @@
 <body class="theme-red">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h2>상품 등록</h2>
+			<h2>상품 추가</h2>
 		</div>
 		<!-- Color Pickers -->
 		<div class="row">
@@ -32,20 +32,19 @@
 					<div class="header">
 						<div class="row">
 							<div class="col-xs-2">
-								<h2>
-									등록
-									<!-- <small>Taken from <a href="https://github.com/mjolnic/bootstrap-colorpicker/" target="_blank">github.com/mjolnic/bootstrap-colorpicker</a></small> -->
-								</h2>
+								<h2>등록</h2>
 							</div>
 							<div class="col-xs-8"></div>
 							<div class="col-xs-2" style="text-align: right;">
-								<input type="button" class="btn" value="등록" style="color: black" />
-								<input type="button" class="btn" value="취소" style="color: black" />
+
+								<input type="button" id="productInsert_c" class="btn btn-info" value="등록"
+									style="color: white" /> <input type="button"
+									class="btn btn-info" value="취소" style="color: white" />
 							</div>
 						</div>
 					</div>
 					<div class="body">
-						<form>
+						<form id="productInsertForm_c" method="post" enctype='multipart/form-data'>
 							<div class="row">
 								<div class="col-xs-3">
 									<div class="row">
