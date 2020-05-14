@@ -3,10 +3,12 @@
    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-config.dtd"
 >
-<configuration>
 
-	<properties resource="config.properties" />
-	
+<configuration>
+   <properties resource="config.properties" />
+   <settings>
+      <setting name="localCacheScope" value="STATEMENT" /> <!-- STATEMENT / SESSION -->
+   </settings>
    <environments default="development">
       <environment id="development">
          <transactionManager type="JDBC"></transactionManager>
@@ -18,11 +20,9 @@
          </dataSource>
       </environment>
    </environments>
-   
    <mappers>
    	 <mapper resource="mybatis/broadCasting.xml" />
      <mapper resource="mybatis/scbatis.xml"/>
    </mappers>
-
 
 </configuration>
