@@ -23,32 +23,28 @@
 <body class="theme-red">
 	<div class="container-fluid">
 		<div class="block-header">
-			<h2>상품 등록</h2>
+			<h2>상품 추가</h2>
 		</div>
 		<!-- Color Pickers -->
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="card">
 					<div class="header">
-						<h2>
-							상품 등록
-							<!-- <small>Taken from <a href="https://github.com/mjolnic/bootstrap-colorpicker/" target="_blank">github.com/mjolnic/bootstrap-colorpicker</a></small> -->
-						</h2>
-						<ul class="header-dropdown m-r--5">
-							<li class="dropdown"><a href="javascript:void(0);"
-								class="dropdown-toggle" data-toggle="dropdown" role="button"
-								aria-haspopup="true" aria-expanded="false"> <i
-									class="material-icons">more_vert</i>
-							</a>
-								<ul class="dropdown-menu pull-right">
-									<li><a href="javascript:void(0);">Action</a></li>
-									<li><a href="javascript:void(0);">Another action</a></li>
-									<li><a href="javascript:void(0);">Something else here</a></li>
-								</ul></li>
-						</ul>
+						<div class="row">
+							<div class="col-xs-2">
+								<h2>등록</h2>
+							</div>
+							<div class="col-xs-8"></div>
+							<div class="col-xs-2" style="text-align: right;">
+
+								<input type="button" id="productInsert_c" class="btn btn-info" value="등록"
+									style="color: white" /> <input type="button"
+									class="btn btn-info" value="취소" style="color: white" />
+							</div>
+						</div>
 					</div>
 					<div class="body">
-						<form>
+						<form id="productInsertForm_c" method="post" enctype='multipart/form-data'>
 							<div class="row">
 								<div class="col-xs-3">
 									<div class="row">
@@ -122,16 +118,40 @@
 									<span>제품 사진</span>
 								</div>
 								<div class="col-xs-4">
-									<input type="file" id="file1" onchange="LoadImg(this,1)" style="display: none;"/>
-									<img src="https://via.placeholder.com/300" id="target1" style="width: 300px;height: 300px;" onclick="document.getElementById('file1').click()">
+									<input type="file" id="file1" onchange="LoadImg(this,1)"
+										style="display: none;" />
+
+									<div>
+										<div
+											style="width: 300px; height: 300px; background-image: url('https://via.placeholder.com/300'); background-size: 300px"
+											id="target1"
+											onclick="document.getElementById('file1').click()"></div>
+										<i class="material-icons" id="close1">close</i>
+									</div>
 								</div>
 								<div class="col-xs-4">
-									<input type="file" id="file2" onchange="LoadImg(this,2)" style="display: none;"/>
-									<img src="https://via.placeholder.com/300" id="target2" style="width: 300px;height: 300px;" onclick="document.getElementById('file2').click()">
+									<input type="file" id="file2" onchange="LoadImg(this,2)"
+										style="display: none;" />
+
+									<div>
+										<div
+											style="width: 300px; height: 300px; background-image: url('https://via.placeholder.com/300'); background-size: 300px"
+											id="target2"
+											onclick="document.getElementById('file2').click()"></div>
+										<i class="material-icons" id="close2">close</i>
+									</div>
 								</div>
 								<div class="col-xs-4">
-									<input type="file" id="file3" onchange="LoadImg(this,3)" style="display: none;"/>
-									<img src="https://via.placeholder.com/300" id="target3" style="width: 300px;height: 300px;" onclick="document.getElementById('file3').click()">
+									<input type="file" id="file3" onchange="LoadImg(this,3)"
+										style="display: none;" />
+
+									<div>
+										<div
+											style="width: 300px; height: 300px; background-image: url('https://via.placeholder.com/300'); background-size: 300px"
+											id="target3"
+											onclick="document.getElementById('file3').click()"></div>
+										<i class="material-icons" id="close3">close</i>
+									</div>
 								</div>
 
 							</div>
@@ -144,7 +164,9 @@
 			</div>
 		</div>
 	</div>
-
+	<script>
+		cmh.func();
+	</script>
 </body>
 
 </html>

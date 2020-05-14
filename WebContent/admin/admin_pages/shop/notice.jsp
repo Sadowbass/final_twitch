@@ -1,27 +1,27 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet"/>
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet"/>
-    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet">
 </head>
 
 
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>공지사항</h2>
-            </div>
-            <!-- #END# Bordered Table -->
-            <!-- Hover Rows -->
-           <div class="row clearfix">
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>공지사항</h2>
+    </div>
+    <!-- #END# Bordered Table -->
+    <!-- Hover Rows -->
+    <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
@@ -30,8 +30,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                               role="button" aria-haspopup="true" aria-expanded="false">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
@@ -46,23 +46,24 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="table-responsive">
                         <table id="he_table" class="hover mdl-data-table member_table" style="width:100%">
                             <thead>
-                            <tr>
-                                <th>작성자</th>
-                                <th>제목</th>
-                                <th>등록일</th>
-                                <th>조회수</th>
-                            </tr>
+                                <tr>
+                                    <th>작성자</th>
+                                    <th>제목</th>
+                                    <th>등록일</th>
+                                    <th>조회수</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="i" begin="1" end="57"><!-- 속성 list 값이 하나씩 vo에 들어옴 -->
-                                	<tr onclick="notice_view()">
-	                                    <td>관리자1</td>
-	                                    <td>쇼핑몰 공지사항 입니다</td>
-	                                    <td>2011/04/25</td>
-	                                    <td>113</td>
-                                   </tr>
-                                 </c:forEach>
-                         
+                                <c:forEach var="i" begin="1" end="57">
+                                    <!-- 속성 list 값이 하나씩 vo에 들어옴 -->
+                                    <tr onclick="notice_view()">
+                                        <td>관리자1</td>
+                                        <td>쇼핑몰 공지사항 입니다</td>
+                                        <td>2011/04/25</td>
+                                        <td>113</td>
+                                    </tr>
+                                </c:forEach>
+
                             </tbody>
 
                         </table>
@@ -74,8 +75,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             </div>
         </div>
     </div>
-            <!-- #END# Hover Rows -->
-            </div>
+    <!-- #END# Hover Rows -->
+</div>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.material.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
@@ -91,18 +92,18 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     $(document).ready(function () {
         var table = $('#he_table').DataTable({
             columnDefs: [{
-                targets: [0, 1, 2,3],
+                targets: [0, 1, 2, 3],
                 className: 'mdl-data-table__cell--non-numeric'
-                
-                
+
+
             }]
         });
 
         new $.fn.dataTable.Buttons(table, {
             buttons: [{
-                dom: 'Bfrtip',
-                text: 'excel',
-                extend: 'excel'
+                    dom: 'Bfrtip',
+                    text: 'excel',
+                    extend: 'excel'
                 },
                 {
                     dom: 'Bfrtip',
@@ -123,11 +124,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     dom: 'Bfrtip',
                     text: 'print',
                     extend: 'print'
-                },{
-                	text:'새글 등록',
-                	action:function(e,dt,node,conf){
-                		location.href="index.jsp?inc=admin_pages/shop/new_notice.jsp"
-                	}
+                }, {
+                    text: '새글 등록',
+                    action: function (e, dt, node, conf) {
+                        location.href = "index.jsp?inc=admin_pages/shop/new_notice.jsp"
+                    }
                 }
             ]
         });

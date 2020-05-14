@@ -50,7 +50,7 @@
             }
         })
         $.ajax({
-            type:'get', 
+            type:'get',
             url:'main.sc',
             success:function (data) {
                 $('#content-wrapper').html(data);
@@ -75,6 +75,7 @@
 </a>
 <!-- Logout Modal-->
 <%@include file="logout-modal.jsp" %>
+
 
 </body>
 </html>
