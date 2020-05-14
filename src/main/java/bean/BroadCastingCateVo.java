@@ -2,6 +2,7 @@ package bean;
 
 public class BroadCastingCateVo {
 
+	
 	String cat_gname;
 	String cat_genre;
 	String cat_orifile;

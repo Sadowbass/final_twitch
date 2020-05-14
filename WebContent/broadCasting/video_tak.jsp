@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<script src="./vendor/jwplayer7/jwplayer.js"></script>
+	<script src="../vendor/jwplayer7/jwplayer.js"></script>
 	<script>
 		jwplayer.key = 'iiL9xxalkP7di2nLZ3tPLw0NLBCHdHBe8i3QDQ==';
 	</script>
@@ -19,18 +19,18 @@
 
 			//repeat: 'always',
 
-			androidhls : true,
+			androidhls : false,
 
 			abouttext : "얍얍",
+			
+			image: "../img/loding.png",
 
 			aboutlink : "http://www.jhta.co.kr",
 
-			aspectratio : "16:9",
-
 			sources : [ {
-				file : "rtmp://localhost/hls/${vo.mem_Skey}",
+				file : "rtmp://192.168.0.77/hls/${vo.mem_Skey}",
 			}, {
-				file : "http://localhost:8882/hls/${vo.mem_Skey}.m3u8"
+				file : "http://192.168.0.77:8845/hls/${vo.mem_Skey}.m3u8"
 			} ]
 		});
 	</script>
