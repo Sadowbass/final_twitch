@@ -81,12 +81,7 @@
             </ul>
 
             <div class="sidebar-filter margin-bottom-25">
-              <h2>Filter</h2>
-              <h3>Availability</h3>
-              <div class="checkbox-list">
-                <label><input type="checkbox"> Not Available (3)</label>
-                <label><input type="checkbox"> In Stock (26)</label>
-              </div>
+              
 
               <h3>Price</h3>
               <p>
@@ -138,9 +133,7 @@
                       <strong><span>$</span>47.00</strong>
                       <em>$<span>62.00</span></em>
                     </div>
-                    <div class="availability">
-                      Availability: <strong>In Stock</strong>
-                    </div>
+        
                   </div>
                   <div class="description">
                     <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed nonumy nibh sed euismod laoreet dolore magna aliquarm erat volutpat 
@@ -237,15 +230,15 @@ Nostrud duis molestie at dolore.</p>
                       </div>
 
                       <!-- BEGIN FORM-->
-                      <form action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
+                      <form id="frm_store" action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
                         <h2>Write a review</h2>
                         <div class="form-group">
                           <label for="name">Name <span class="require">*</span></label>
                           <input type="text" class="form-control" id="name">
                         </div>
                         <div class="form-group">
-                          <label for="email">Subject</label>
-                          <input type="text" class="form-control" id="email">
+                          <label for="subject">Subject</label>
+                          <input type="text" class="form-control" id="subject">
                         </div>
                         <div class="form-group">
                           <label for="review">Content <span class="require">*</span></label>

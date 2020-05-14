@@ -24,13 +24,13 @@ public class StoreController {
 	 this.dao = dao;
 	}
 
-    @RequestMapping(value="/productView.str", method={ RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value="/store/productDetail.str", method={ RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView productView(HttpServletRequest req) {
-    	System.out.println("제발2");
+    	System.out.println("pd.....");
 		
     	ModelAndView mv = new ModelAndView();
     	
-    	System.out.println(mv);
+    	//System.out.println(mv);
 		mv.setViewName("productDetail");
 		
 	 	System.out.println(req.getRequestURI());
@@ -50,16 +50,18 @@ public class StoreController {
     	return mv;
     }
 	
-	@RequestMapping(value="productList.str", method= {RequestMethod.POST})
+	@RequestMapping(value="/store/productList.str",  method={ RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView productSlecet() {
-    	System.out.println("들어왔다 컨트롤러");
-		
-    	ModelAndView mv = new ModelAndView();
-    	
-    	System.out.println(mv);
-		mv.setViewName("store/productList.jsp");
+    	System.out.println("들어왔다 컨트롤러........................1");
+       	ModelAndView mv = new ModelAndView();
+     	try {
+	    	
+			mv.setViewName("productList");
+	    	System.out.println(mv + ".......................1");
 
-    	
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
     	return mv;
     }
 

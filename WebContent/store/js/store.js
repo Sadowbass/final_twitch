@@ -235,7 +235,7 @@ store.viewItem = function(){
 	console.log('제발1');
 		$.ajax({
 			
-			 url : 'productDetail.jsp',
+			 url : 'productDetail.str',
 		     type : 'POST',
 		     data : fd,
 		     contentType : false,
@@ -294,6 +294,7 @@ store.checkout = function(){
 		     },
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
+					
 				}
 			})
 	
@@ -307,19 +308,24 @@ store.pl = function(){
        // let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
 	
+	console.log('chk.................')
+	//$('#sh_main').load('productList.str')
+	
 	$.ajax({
 		
 		 url : 'productList.str',
-	     type : 'post',
-	     data : fd,
+	     type : 'POST',
+	     data : null,
 	     contentType : false,
 	     processData : false,
-	     error : function(xhr, status, error){},
-	     sucess : function(data, xhr, status){
-	    	 console.log(error);
+	     error : function(xhr, status, error){
+	    	 console.log(error)
 	     },
+	    
 			success : function(data, xhr, status){
+				console.log(data + status)
 				$("#sh_main").html(data);
+				
 			}
 		})
 		
