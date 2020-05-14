@@ -6,6 +6,31 @@
 let store = {}
 
 store.func = function(){
+	
+	//review 입력
+       console.log('리뷰');
+	  $('#btnSubmitReview').click(function(){
+			
+	    let fd = new FormData($('#frm_store')[0]);
+		
+			
+			$.ajax({
+				
+				 url : 'reviewInsert.str',
+			     type : 'post',
+			     data : fd,
+			     contentType : false,
+			     processData : false,
+			     error : function(xhr, status, error){},
+			     
+					success : function(data, xhr, status){
+						$("#sh_main").html(data);
+					}
+				})
+			
+		
+			
+		})
 
   //My Page 눌렀을때 mypage 페이지로 이동	
   $('#myPage').click(function(){
@@ -21,9 +46,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -47,9 +70,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -73,9 +94,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -99,9 +118,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -124,9 +141,7 @@ store.inquiry = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -145,9 +160,7 @@ store.qna = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -166,9 +179,7 @@ store.addressInsert = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -187,9 +198,7 @@ store.myPage = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -209,9 +218,7 @@ store.wishList = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -220,15 +227,23 @@ store.wishList = function(){
 	
 }
 
+
+
+
+
 store.viewItem = function(){
+	
+	
+		
+
 	
 	// let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
 	console.log('제발1');
 		$.ajax({
 			
-			 url : 'productView.str',
-		     type : 'post',
+			 url : 'productDetail.str',
+		     type : 'POST',
 		     data : fd,
 		     contentType : false,
 		     processData : false,
@@ -237,6 +252,7 @@ store.viewItem = function(){
 		     },
 			success : function(data, xhr, status){
 				$("#sh_main").html(data);
+				console.log(data)
 			}
 			})
 	
@@ -256,9 +272,7 @@ store.viewCart = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		   
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -280,11 +294,10 @@ store.checkout = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
+					
 				}
 			})
 	
@@ -297,22 +310,27 @@ store.pl = function(){
 		
        // let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
+	
+	console.log('chk.................')
+	//$('#sh_main').load('productList.str')
+	
+	$.ajax({
 		
-		$.ajax({
-			
-			 url : 'productList.jsp',
-		     type : 'post',
-		     data : fd,
-		     contentType : false,
-		     processData : false,
-		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
-				success : function(data, xhr, status){
-					$("#sh_main").html(data);
-				}
-			})
+		 url : 'productList.str',
+	     type : 'POST',
+	     data : null,
+	     contentType : false,
+	     processData : false,
+	     error : function(xhr, status, error){
+	    	 console.log(error)
+	     },
+	    
+			success : function(data, xhr, status){
+				console.log(data + status)
+				$("#sh_main").html(data);
+				
+			}
+		})
 		
 	
 		

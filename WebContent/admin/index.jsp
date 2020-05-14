@@ -147,9 +147,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="admin_pages/member/profile.jsp"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="index.jsp?inc=admin_pages/member/profile.jsp"><i class="material-icons">person</i>Profile</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="javascript:void(0);" onclick="logout_modal()" ><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -267,10 +267,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/shop/order_select.jsp">주문조회</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/order_select.jsp">주문조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/order_treat.jsp">주문처리</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/order_treat.jsp">주문처리</a>
                                     </li>
                                 </ul>
 
@@ -286,7 +286,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/notice.jsp">공지사항</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/review.jsp">리뷰</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/review.jsp">리뷰</a>
+                                    </li>
+                                      <li>
+                                        <a href="index.jsp?inc=admin_pages/shop/QandA.jsp">Q&A</a>
                                     </li>
                                 </ul>
 
@@ -294,11 +297,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             <li>
                                 <a href="index.jsp?inc=admin_pages/shop/shop_category.jsp">
                                     <span>메뉴 관리</span>
-                                </a>
-                            </li>
-                             <li>
-                                <a href="admin_pages/shop/stock.jsp">
-                                    <span>재고 관리</span>
                                 </a>
                             </li>
                              <li>
@@ -700,7 +698,31 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <section class="content">
       <jsp:include page="<%=inc%>" />
     </section>
+    
+    <!-- 로그아웃 모달 -->
+    <button type="button" data-toggle="modal" data-target="#logoutModal" style="display:none;" id="admin_logout_btn">로그아웃</button>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content logout_content">
+                        <div class="modal-header logout_header">
+                        <i><img src="images/favicon.png"/><img src="images/Twitch_logo.png" class="logout_logo"/></i>
+                        </div>
+                        <div class="modal-body logout_body">
+                           	<p>정말 로그아웃 하시겠습니까? </p>
+                           <p>로그아웃 하시면 트위치 메인 페이지로 이동합니다.</p>
+                        </div>
+                        <div class="modal-footer logout_footer">
+                            <button type="button" class="btn btn-link waves-effect logout_modal_btn">네</button>
+                            <button type="button" class="btn btn-link waves-effect logout_modal_btn" data-dismiss="modal">아니요</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
   
 </body>
-
+<script>
+ var logout_modal = function(){
+	 $('#admin_logout_btn').trigger('click');
+ }
+</script>
 </html>

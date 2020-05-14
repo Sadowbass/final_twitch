@@ -43,8 +43,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <div class="row">
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/tft.PNG">
-                                <div class="caption">
+                                <img src="./images/tft.PNG">
+                                <div class="caption cate_thumnail">
                                     <h3>Teamfight Tactics</h3>
                                     <p>
                                         <span class="label bg-indigo">전략</span>
@@ -53,7 +53,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="js-sweetalert">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20"
+                                            <button type="button" class="btn btn-defalt waves-effect"
                                                 data-toggle="modal" data-target="#defaultModal">수정</button>
                                         </p>
                                     </div>
@@ -62,8 +62,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/just_chat.PNG">
-                                <div class="caption">
+                                <img src="./images/just_chat.PNG">
+                                <div class="caption cate_thumnail">
                                     <h3>Just Chatting</h3>
                                     <p>
                                         <span class="label bg-indigo">리얼라이프</span>
@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="js-sweetalert">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20"
+                                            <button type="button" class="btn btn-defalt waves-effect"
                                                 data-toggle="modal" data-target="#defaultModal">수정</button> </p>
                                     </div>
                                 </div>
@@ -79,8 +79,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="col-sm-6 col-md-2">
                             <div class="thumbnail">
-                                <img src="images/valorant.PNG">
-                                <div class="caption">
+                                <img src="./images/valorant.PNG">
+                                <div class="caption cate_thumnail">
                                     <h3>VALORANT</h3>
                                     <p>
                                         <span class="label bg-indigo">슈팅 장르</span>
@@ -89,15 +89,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="js-sweetalert">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20"
+                                            <button type="button" class="btn btn-defalt waves-effect"
                                                 data-toggle="modal" data-target="#defaultModal">수정</button> </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail">
-                                <img src="images/lol.PNG">
+                            <div class="thumbnail cate_thumnail">
+                                <img src="./images/lol.PNG">
                                 <div class="caption">
                                     <h3>League of Legend</h3>
                                     <p>
@@ -106,15 +106,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="js-sweetalert">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20"
+                                            <button type="button" class="btn btn-defalt waves-effect"
                                                 data-toggle="modal" data-target="#defaultModal">수정</button> </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail">
-                                <img src="images/overwatch.PNG">
+                            <div class="thumbnail cate_thumnail">
+                                <img src="./images/overwatch.PNG">
                                 <div class="caption">
                                     <h3>Overwatch</h3>
                                     <p>
@@ -124,15 +124,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="js-sweetalert">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20"
+                                            <button type="button" class="btn btn-defalt waves-effect"
                                                 data-toggle="modal" data-target="#defaultModal">수정</button> </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail">
-                                <img src="images/bg.PNG">
+                            <div class="thumbnail cate_thumnail">
+                                <img src="./images/bg.PNG">
                                 <div class="caption">
                                     <h3>BATTLEGROUNDS</h3>
                                     <p>
@@ -142,7 +142,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="js-sweetalert">
                                         <p>
                                             <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect m-r-20"
+                                            <button type="button" class="btn btn-defalt waves-effect"
                                                 data-toggle="modal" data-target="#defaultModal">수정</button> </p>
                                     </div>
                                 </div>
