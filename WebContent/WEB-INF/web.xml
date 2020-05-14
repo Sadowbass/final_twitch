@@ -24,6 +24,16 @@
 		<servlet-name>tgd_mvc</servlet-name>
 		<url-pattern>*.tgd</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mh_mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>mh_mvc</servlet-name>
+		<url-pattern>*.mh</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>sc_servlet</servlet-name>

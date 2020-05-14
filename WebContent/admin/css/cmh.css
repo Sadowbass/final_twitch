@@ -2,11 +2,19 @@
 
 
 
-
 /* .no_c {
-	display: inline-block;
-	width : 50px !important ; padding-left:20px !important;
+	display: inline-block !important;
+	width: 5% !important;
+	text-align: center !important;
+} */
+.list_c :hover{
+	color : black;
+	background-color: white;
 }
+.list_list{
+	padding: 15px;
+}
+/*
 .name_c{
 	display: inline-block;
 	width: 200px !important ; 
