@@ -3,7 +3,7 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Sidebar -->
-<ul class="sidebar navbar-nav">
+<ul class="sidebar navbar-nav" style="margin-top: 53px;">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
 
     <c:forEach var="i" items="${list}">

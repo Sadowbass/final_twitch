@@ -50,7 +50,7 @@
             }
         })
         $.ajax({
-            type:'get', 
+            type:'get',
             url:'main.sc',
             success:function (data) {
                 $('#content-wrapper').html(data);

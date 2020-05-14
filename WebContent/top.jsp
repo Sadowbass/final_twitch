@@ -3,20 +3,14 @@
          pageEncoding="UTF-8" %>
 
 <%request.setCharacterEncoding("utf-8"); %>
-
-<nav class="navbar navbar-expand navbar-light bg-white static-top osahan-nav sticky-top">
-
+<nav class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top "><!-- sticky-top static-top fixed-top -->
     <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
 
         <i class="fas fa-bars"></i>
 
     </button> &nbsp;&nbsp;
 
- 
-
     <a class="navbar-brand mr-1" href="/final_twitch" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/favicon.png"> &nbsp;Twitch</a>
-
- 
 
     <!-- Navbar Search -->
 
@@ -39,9 +33,7 @@
         </div>
 
     </form>
-
     <!-- Navbar -->
-
     <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
 
         <li class="nav-item mx-1">
@@ -143,5 +135,4 @@
         </li>
 
     </ul>
-
 </nav>

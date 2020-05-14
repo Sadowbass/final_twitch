@@ -49,12 +49,15 @@
 	<servlet>
 		<servlet-name>ukServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<async-supported>true</async-supported>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>ukServlet</servlet-name>
 		<url-pattern>/cht</url-pattern>
 	</servlet-mapping>
+
+
 
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
@@ -67,9 +70,11 @@
 		<url-pattern>*.ttf</url-pattern>
 		<url-pattern>*.ico</url-pattern>
 		<url-pattern>*.swf</url-pattern>
+		<url-pattern>*.PNG</url-pattern>
+		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.mp4</url-pattern>
 	</servlet-mapping>
-	
+
 	 <!-- store -->
    <servlet>
       <servlet-name>store_mvc</servlet-name>
@@ -83,42 +88,23 @@
    </servlet-mapping>
    
    	<filter>
-
 		<filter-name>encodingFilter</filter-name>
-
 		<filter-class>
-
 			org.springframework.web.filter.CharacterEncodingFilter
-
 		</filter-class>
-
 		<init-param>
-
 			<param-name>encoding</param-name>
-
 			<param-value>UTF-8</param-value>
-
 		</init-param>
-
 		<init-param>
-
 			<param-name>forceEncoding</param-name>
-
 			<param-value>true</param-value>
-
 		</init-param>
-
 	</filter>
-
 	<filter-mapping>
-
 		<filter-name>encodingFilter</filter-name>
-
 		<url-pattern>/*</url-pattern>
-
 	</filter-mapping>
-
-
-   
+	<!-- 한글설정 END -->
 
 </web-app>
