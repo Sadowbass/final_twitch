@@ -256,7 +256,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a>
                                     </li>
                                     <li>
-                                        <a href="admin_pages/shop/product_insert.jsp">상품추가</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/product_insert.jsp">상품추가</a>
                                     </li>
                                 </ul>
 
@@ -276,27 +276,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
                             </li>
                         
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>통계</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="admin_pages/shop/customer_statistic.jsp">고객 통계</a>
-                                    </li>
-                                    <li>
-                                        <a href="admin_pages/shop/product_statistic.jsp">상품 통계</a>
-                                    </li>
-                                </ul>
-
-                            </li>
+                          
                             <li>
                                 <a href="javascript:void(0);" class="menu-toggle">
                                     <span>게시판 관리</span>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/shop/notice.jsp">공지사항</a>
+                                        <a href="index.jsp?inc=admin_pages/shop/notice.jsp">공지사항</a>
                                     </li>
                                     <li>
                                         <a href="admin_pages/shop/review.jsp">리뷰</a>
@@ -305,13 +292,18 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
                             </li>
                             <li>
-                                <a href="admin_pages/shop/shop_category.jsp">
-                                    <span>카테고리 관리</span>
+                                <a href="index.jsp?inc=admin_pages/shop/shop_category.jsp">
+                                    <span>메뉴 관리</span>
                                 </a>
                             </li>
                              <li>
                                 <a href="admin_pages/shop/stock.jsp">
                                     <span>재고 관리</span>
+                                </a>
+                            </li>
+                             <li>
+                                <a href="index.jsp?inc=admin_pages/shop/shop_statistic.jsp">
+                                    <span>통계 관리</span>
                                 </a>
                             </li>
 

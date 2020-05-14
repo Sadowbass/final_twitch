@@ -38,7 +38,6 @@
     <script src="js/custom.js"></script>
     <script src="js/sc_custom.js"></script>
     <script src="js/js_uk.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 </head>
 <body id="page-top">
 <script>
