@@ -8,6 +8,7 @@
 	}
 	#chtArea{
 	overflow-y:hidden;
+	max-height:100% !important;
 	}
 	.sender {
 	color: rgb(255, 255, 255);

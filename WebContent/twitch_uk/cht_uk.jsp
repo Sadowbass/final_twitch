@@ -16,7 +16,7 @@
 </div>
 <!-- 도네현황 -->
 <div class="row mx-0">
-	<div class="col-md-12 text-center" onclick='WSclose()'>
+	<div class="col-md-12 text-center" >
 		<h1>도네이션 현황<br/>${vo.mem_Id }</h1>
 	</div>
 </div>
