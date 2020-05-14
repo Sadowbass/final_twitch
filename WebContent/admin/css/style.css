@@ -3102,7 +3102,7 @@ section.content {
     .info-box .content .number {
       font-weight: normal;
       font-size: 26px;
-      margin-top: -4px;
+      margin-top: 3px;
       color: #fff; }
 
 .info-box.hover-zoom-effect .icon {

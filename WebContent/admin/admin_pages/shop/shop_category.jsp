@@ -21,7 +21,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <!-- Draggable Handles -->
     <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
             <div class="card">
                 <div class="header">
                     <h2>
@@ -186,12 +186,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </ol>
                         </div>
                     </div>
-                      <div class="saveButton new_help_save">
-                                 <button type="button" class="btn waves-effect">
-                                    <i class="material-icons">save</i>
-                                    <span>SAVE</span>
-                                </button>
-                                </div>
+                    <div class="saveButton new_help_save">
+                        <button type="button" class="btn waves-effect">
+                            <i class="material-icons">save</i>
+                            <span>SAVE</span>
+                        </button>
+                    </div>
                     <b>Output JSON</b>
                     <textarea cols="30" rows="3" class="form-control no-resize"
                         readonly>[{"id":13},{"id":14},{"id":15,"children":[{"id":17},{"id":16}]},{"id":18,"children":[{"id":19},{"id":20},{"id":21},{"id":22}]},{"id":23},{"id":24,"children":[{"id":25},{"id":26}]}]</textarea>

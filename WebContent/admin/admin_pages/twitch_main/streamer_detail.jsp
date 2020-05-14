@@ -6,19 +6,19 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<link href="css/member.css" rel="stylesheet">
+    <link href="css/member.css" rel="stylesheet">
 </head>
 <div class="container-fluid">
     <div class="block-header">
         <h2>
-           스트리머 상세 정보 
+            스트리머 상세 정보
         </h2>
     </div>
-     <div class="row clearfix">
+    <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>스트리머  프로필</h2>
+                    <h2>스트리머 프로필</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </ul>
                 </div>
                 <div class="body">
-                	<label class="str_profile_label">아이디</label>
+                    <label class="str_profile_label">아이디</label>
                     <input type="text" class="form-control streamer_profile" placeholder="">
                     <label class="str_profile_label">닉네임</label>
                     <input type="text" class="form-control streamer_profile" placeholder="">

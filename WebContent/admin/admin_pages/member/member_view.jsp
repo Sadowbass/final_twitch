@@ -94,113 +94,114 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
-                            <div class="row clearfix">
-                             <div class="col-md-8  col-xs-12 col-md-offset-2">
-                                <div class="body">
-                                    <div class="row clearfix">
-                                        <div class="col-xs-12 ">
-                                            <img src="images/user.png" class="img-circle member_img" id="member_img">
+                                <div class="row clearfix">
+                                    <div class="col-md-8  col-xs-12 col-md-offset-2">
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-xs-12 ">
+                                                    <img src="images/user.png" class="img-circle member_img"
+                                                        id="member_img">
 
-                                        </div>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <div class="col-md-12 col-sm-12">
-                                            <textarea class="form-control introduce" rows="3"
-                                                placeholder="자기소개(300자 미만)"></textarea>
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <textarea class="form-control introduce" rows="3"
+                                                        placeholder="자기소개(300자 미만)"></textarea>
+                                                </div>
+                                            </div>
 
-                                    <div class="row clearfix">
-                                        <div class="col-md-12 col-sm-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">star</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input class="form-control" type="text" placeholder="아이디">
+                                            <div class="row clearfix">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">star</i>
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input class="form-control" type="text" placeholder="아이디">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">person</i>
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" placeholder="이름">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="material-icons">@</i>
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="email" class="form-control" placeholder="이메일">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix birth">
+                                                <p>생일</p>
+                                                <div class="col-lg-2 col-sm-4 ">
+                                                    <div class="input-group">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" placeholder="년">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-sm-4">
+
+                                                    <select class="form-control show-tick">
+                                                        <option>월</option>
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                        <option>6</option>
+                                                        <option>7</option>
+                                                        <option>8</option>
+                                                        <option>9</option>
+                                                        <option>10</option>
+                                                        <option>11</option>
+                                                        <option>12</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-lg-2 col-sm-4">
+                                                    <div class="input-group">
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" placeholder="일">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row clearfix js-sweetalert">
+                                                <div class="col-lg-12 col-sm-12 saveButton">
+                                                    <button type="button" class="btn waves-effect" data-type="confirm">
+                                                        <i class="material-icons">block</i>
+                                                        <span>계정 이용 정지</span>
+                                                    </button>
+                                                    <button type="button" class="btn waves-effect" data-type="cancel">
+                                                        <i class="material-icons">delete</i>
+                                                        <span>계정 삭제</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row clearfix">
-                                        <div class="col-md-12 col-sm-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">person</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" placeholder="이름">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row clearfix">
-                                        <div class="col-md-12 col-sm-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="material-icons">@</i>
-                                                </span>
-                                                <div class="form-line">
-                                                    <input type="email" class="form-control" placeholder="이메일">
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row clearfix birth">
-                                        <p>생일</p>
-                                        <div class="col-lg-2 col-sm-4 ">
-                                            <div class="input-group">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" placeholder="년">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2 col-sm-4">
-
-                                            <select class="form-control show-tick">
-                                                <option>월</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                            </select>
-
-                                        </div>
-                                        <div class="col-lg-2 col-sm-4">
-                                            <div class="input-group">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" placeholder="일">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row clearfix js-sweetalert">
-                                        <div class="col-lg-12 col-sm-12 saveButton">
-                                            <button type="button" class="btn waves-effect" data-type="confirm">
-                                                <i class="material-icons">block</i>
-                                                <span>계정 이용 정지</span>
-                                            </button>
-                                            <button type="button" class="btn waves-effect" data-type="cancel">
-                                                <i class="material-icons">delete</i>
-                                                <span>계정 삭제</span>
-                                            </button>
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
                                 <div class="row clearfix">
@@ -265,51 +266,54 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title">
                                 <div class="row clearfix">
-                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                결제 내역 
-                                <small>구독하거나 도네이션 한 내역을 보여줍니다.</small>
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>날짜</th>
-                                        <th>받은 스트리머 아이디</th>
-                                        <th>금액</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach begin="1" end="5" var="i">
-                                	 <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                            
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>
+                                                    결제 내역
+                                                    <small>구독하거나 도네이션 한 내역을 보여줍니다.</small>
+                                                </h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>날짜</th>
+                                                            <th>받은 스트리머 아이디</th>
+                                                            <th>금액</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach begin="1" end="5" var="i">
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
                                             <div class="header">
@@ -324,7 +328,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         <ul class="dropdown-menu pull-right">
                                                             <li><a href="javascript:void(0);">Action</a></li>
                                                             <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -348,7 +353,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         <ul class="dropdown-menu pull-right">
                                                             <li><a href="javascript:void(0);">Action</a></li>
                                                             <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -358,99 +364,102 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             </div>
                                         </div>
                                     </div>
-                                    
-             
-           
-                                </div>
-                          
-                        </div>
-                                
-                        <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
-                            <div class="row clearfix">
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h2>1년간 결제 금액 <small class="total_buy">결제 총액:122221원</small></h2> 
-                                            <ul class="header-dropdown m-r--5">
-                                                <li class="dropdown">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle"
-                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="material-icons">more_vert</i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li><a href="javascript:void(0);">Action</a></li>
-                                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="body">
-                                            <canvas id="shop_buy_chart" height="100"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                         
-                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h2>자주 이용하는 카테고리</h2>
-                                            <ul class="header-dropdown m-r--5">
-                                                <li class="dropdown">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle"
-                                                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        <i class="material-icons">more_vert</i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li><a href="javascript:void(0);">Action</a></li>
-                                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="body">
-                                            <canvas id="shop_cate_chart" height="100"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="card">
-                                        <div class="header">
-                                            <h2>
-                                                최근 쇼핑 내역
-                                            </h2>
 
+
+
+                                </div>
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
+                                <div class="row clearfix">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>1년간 결제 금액 <small class="total_buy">결제 총액:122221원</small></h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body">
+                                                <canvas id="shop_buy_chart" height="100"></canvas>
+                                            </div>
                                         </div>
-                                        <div class="body">
-                                            <div class="bs-example" data-example-id="media-alignment">
-                                                <c:forEach var="i" begin="1" end="10">
-                                                    <div class="media">
-                                                        <div class="media-left media-middle">
-                                                            <a href="javascript:void(0);">
-                                                                <img class="media-object member_shop_list"
-                                                                    src="images/goods.jpg">
-                                                            </a>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>자주 이용하는 카테고리</h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="body">
+                                                <canvas id="shop_cate_chart" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>
+                                                    최근 쇼핑 내역
+                                                </h2>
+
+                                            </div>
+                                            <div class="body">
+                                                <div class="bs-example" data-example-id="media-alignment">
+                                                    <c:forEach var="i" begin="1" end="10">
+                                                        <div class="media">
+                                                            <div class="media-left media-middle">
+                                                                <a href="javascript:void(0);">
+                                                                    <img class="media-object member_shop_list"
+                                                                        src="images/goods.jpg">
+                                                                </a>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h4 class="media-heading">2020-12-02</h4>
+                                                                <p>
+                                                                    DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글
+                                                                </p>
+                                                                <p>
+                                                                    175,000원
+                                                                </p>
+                                                                <p>
+                                                                    배송완료
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="media-body">
-                                                            <h4 class="media-heading">2020-12-02</h4>
-                                                            <p>
-                                                                DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글
-                                                            </p>
-                                                            <p>
-                                                                175,000원
-                                                            </p>
-                                                            <p>
-                                                                배송완료
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
+                                                    </c:forEach>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -461,8 +470,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- #END# Tabs With Icon Title -->
+        <!-- #END# Tabs With Icon Title -->
 
 
     </div>
@@ -573,18 +581,18 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     pointBorderColor: 'rgba(0, 188, 212, 0)',
                     pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
                     pointBorderWidth: 1
-                },{
-                	 label: "My Second dataset",
-                     data: [28, 48, 40, 19, 86, 27, 90],
-                     borderColor: 'rgba(233, 30, 99, 0.75)',
-                     backgroundColor: 'rgba(233, 30, 99, 0.3)',
-                     pointBorderColor: 'rgba(233, 30, 99, 0)',
-                     pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
-                     pointBorderWidth: 1
+                }, {
+                    label: "My Second dataset",
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                    borderColor: 'rgba(233, 30, 99, 0.75)',
+                    backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                    pointBorderColor: 'rgba(233, 30, 99, 0)',
+                    pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                    pointBorderWidth: 1
                 }]
             },
             options: {
-            	responsive: true,
+                responsive: true,
                 legend: false
             }
         });
@@ -607,66 +615,63 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 }]
             },
             options: {
-            	responsive: true,
+                responsive: true,
                 legend: false
             }
         });
-        
+
         var ctx3 = document.getElementById('category_chart').getContext('2d');
         var myPieChart = new Chart(ctx3, {
             type: 'pie',
-            data:  {
+            data: {
                 datasets: [{
-                    data: [10, 20, 60,10],
+                    data: [10, 20, 60, 10],
                     backgroundColor: [
                         "rgb(233, 30, 99)",
                         "rgb(255, 193, 7)",
                         "rgb(0, 188, 212)",
                         "rgb(139, 195, 74)"
-                	],
+                    ],
                 }],
                 labels: [
-                	 "Pink",
-                     "Amber",
-                     "Cyan",
-                     "Light Green"
+                    "Pink",
+                    "Amber",
+                    "Cyan",
+                    "Light Green"
                 ]
-        	},
-        	options: {
+            },
+            options: {
                 responsive: true,
-                
+
             }
-            
+
         });
         var ctx4 = document.getElementById('shop_cate_chart').getContext('2d');
         var myPieChart = new Chart(ctx4, {
             type: 'pie',
-            data:  {
+            data: {
                 datasets: [{
-                    data: [10, 20, 60,10],
+                    data: [10, 20, 60, 10],
                     backgroundColor: [
                         "rgb(233, 30, 99)",
                         "rgb(255, 193, 7)",
                         "rgb(0, 188, 212)",
                         "rgb(139, 195, 74)"
-                	],
+                    ],
                 }],
                 labels: [
-                	 "Pink",
-                     "Amber",
-                     "Cyan",
-                     "Light Green"
+                    "Pink",
+                    "Amber",
+                    "Cyan",
+                    "Light Green"
                 ]
-        	},
-        	options: {
+            },
+            options: {
                 responsive: true,
-                
+
             }
-            
+
         });
-        
-     
-        
     </script>
 
 
