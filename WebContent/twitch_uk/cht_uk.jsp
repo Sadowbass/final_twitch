@@ -18,7 +18,7 @@
 <!-- 도네현황 -->
 <div class="row mx-0">
 	<div class="col-md-12 text-center" onclick='WSclose()'>
-		<h1>도네이션 현황</h1>
+		<h1>도네이션 현황<br/>${vo.mem_Id }</h1>
 	</div>
 </div>
 <!-- mid(메인 채팅창) -->
@@ -53,9 +53,10 @@
 		</a>
 	</div>
 </div>
+<input type="hidden" value="${vo.mem_Id }"/>
 <script>
 var ws
 $(document).ready(function(){
-	 uk.connectWS();
+	 uk.connectWS($('input[type="hidden"]').val());
 });
 </script>

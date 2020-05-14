@@ -25,16 +25,20 @@ uk.stream = function() {
 	});
 }
 
-uk.connectWS=function(){
+uk.connectWS=function(mid){
+	console.log("mid::"+mid);
 
-	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht");
+	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht?"+mid);
 
 	ws.onopen = function (event) {console.log("open:::",event);}
 	ws.onclose = function (event) {console.log("close:::",event);}
 	ws.onerror = function (event) { console.log("error:::",event); };
 
 	ws.onmessage = function (event) {
-	    $('<div></div>').html(event.data).appendTo('#chtArea');
+		$('<div></div>').html(event.data).appendTo('#chtArea');
+		console.log("top",$('#chtArea').scrollTop());
+		console.log("height",$('#chtArea').prop('scrollHeight'))
+		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 	};
 
 
@@ -52,7 +56,6 @@ let WSsend=function(){
 	  let msg = $('div[contenteditable]').html();
 	  if(ws.readyState===1&& msg.trim().length!=0){
 		  ws.send(msg);
-		  $('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		  $('div[contenteditable]').empty();
 	  }
 

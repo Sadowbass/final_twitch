@@ -175,7 +175,9 @@
                <!-- 채팅화면 -->
                <!-- 채팅화면 -->
                <div class="col-md-2 cht_main_uk pt-2" id="cht_div">
-                  <jsp:include page="./cht_uk.jsp"></jsp:include>
+                  <jsp:include page="./cht_uk.jsp">
+                  	<jsp:param value="${vo.mem_Id }" name="mid"/>
+                  </jsp:include>
                </div>
             </div>
          </div>
