@@ -54,17 +54,27 @@
 	</div>
 </div>
 <script>
+var ws
+$(document).ready(function(){
+	 connectWS();
+	/* connectJS(); */
+});
 
-var ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht");
+let connectWS=function(){
 
-ws.onopen = function (event) {console.log("open:::",event);}
-ws.onclose = function (event) {console.log("close:::",event);}
-ws.onerror = function (event) { console.log("error:::",event); };
+	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht");
 
-ws.onmessage = function (event) {
-	console.log(event.data);
-    $('<div></div>').html(event.data).appendTo('#chtArea');
-};
+	ws.onopen = function (event) {console.log("open:::",event);}
+	ws.onclose = function (event) {console.log("close:::",event);}
+	ws.onerror = function (event) { console.log("error:::",event); };
+
+	ws.onmessage = function (event) {
+		console.log(event.data);
+	    $('<div></div>').html(event.data).appendTo('#chtArea');
+	};
+
+
+}
 
 let ms=function(){
 	  let msg = $('div[contenteditable]').html();
@@ -76,10 +86,6 @@ let ms=function(){
 
 }
 
-let closeddd=function(){
-	ws.close();
-}
-
 $('div[contenteditable]').keydown(function(e) {
 	if (e.keyCode === 13) {
 		if (!e.shiftKey) {
@@ -88,6 +94,32 @@ $('div[contenteditable]').keydown(function(e) {
 		}
 	}
 });
+
+
+let closeddd=function(){
+	ws.close();
+}
+
+
+let connectJS=function(){
+
+	var sock = new SockJS("ws://192.168.0.57:8888/final_twitch/cht");
+
+	sock.onopen = function () {
+		console.log('Info: connection opened.');
+		sock.send("hi~");
+
+		sock.onmessage = function (event) {
+			console.log(event.data+'\n');
+		}
+
+		sock.onclose = function (event) {
+			console.log('Info: connection closed.');
+		}
+	}
+
+}
+
 
 
 </script>

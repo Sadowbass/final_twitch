@@ -22,17 +22,11 @@ public class Handler extends TextWebSocketHandler{
 			System.out.println("mid:::::"+session.getAttributes().get("mid")+"님(이) 입장하였습니다.");
 		}
 
-/*		Iterator<String> oid=users.keySet().iterator();
+		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {
 			String userId=oid.next();
-			users.get(userId).sendMessage(new TextMessage(userId+"님(이) 입장하였습니다."));
-		}
-
-		users.put((String)session.getAttributes().get("mid"), session);
-*/		Iterator<String> oid=users.keySet().iterator();
-		while(oid.hasNext()) {
-			String userId=oid.next();
-			users.get(userId).sendMessage(new TextMessage(userId+"님(이) 입장하였습니다."));
+			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
+			users.get(userId).sendMessage(new TextMessage(Messenger+"님(이) 입장하였습니다."));
 		}
 		if((String)session.getAttributes().get("mid")==null) {
 			users.put(session.getId(), session);
@@ -53,7 +47,8 @@ public class Handler extends TextWebSocketHandler{
 		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {
 			String userId=oid.next();
-			users.get(userId).sendMessage(new TextMessage(userId+": "+message.getPayload()));
+			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
+			users.get(userId).sendMessage(new TextMessage(Messenger+": "+message.getPayload()));
 		}
 	}
 
@@ -76,7 +71,8 @@ public class Handler extends TextWebSocketHandler{
 		Iterator<String> oid=users.keySet().iterator();
 		while(oid.hasNext()) {
 			String userId=oid.next();
-			users.get(userId).sendMessage(new TextMessage(userId+"님(이) 퇴장하였습니다."));
+			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
+			users.get(userId).sendMessage(new TextMessage(Messenger+"님(이) 퇴장하였습니다."));
 		}
 
 
