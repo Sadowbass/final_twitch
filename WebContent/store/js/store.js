@@ -6,6 +6,31 @@
 let store = {}
 
 store.func = function(){
+	
+	//review 입력
+       console.log('리뷰');
+	  $('#btnSubmitReview').click(function(){
+			
+	    let fd = new FormData($('#frm_store')[0]);
+		
+			
+			$.ajax({
+				
+				 url : 'reviewInsert.str',
+			     type : 'post',
+			     data : fd,
+			     contentType : false,
+			     processData : false,
+			     error : function(xhr, status, error){},
+			     
+					success : function(data, xhr, status){
+						$("#sh_main").html(data);
+					}
+				})
+			
+		
+			
+		})
 
   //My Page 눌렀을때 mypage 페이지로 이동	
   $('#myPage').click(function(){
@@ -21,9 +46,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -47,9 +70,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -73,9 +94,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -99,9 +118,7 @@ store.func = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -124,9 +141,7 @@ store.inquiry = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -145,9 +160,7 @@ store.qna = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -166,9 +179,7 @@ store.addressInsert = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -187,9 +198,7 @@ store.myPage = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -209,9 +218,7 @@ store.wishList = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		     
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -265,9 +272,7 @@ store.viewCart = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		   
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 				}
@@ -289,9 +294,7 @@ store.checkout = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){},
-		     sucess : function(data, xhr, status){
-		    	 console.log(error);
-		     },
+		    
 				success : function(data, xhr, status){
 					$("#sh_main").html(data);
 					
