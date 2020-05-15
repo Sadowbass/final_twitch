@@ -11,11 +11,11 @@
 	<!-- 로그인 -->
 	<select id='login' parameterType='login.MemberVo_m' resultType='boolean'>
 		select case
-			when count(mId)>0 then 1
+			when count(mem_Id)>0 then 1
 			else 0
 		end result
-		from member
-		where mem_Id=#{mem_mId} and mem_pwd=#{mem_pwd}
+		from final_member
+		where mem_Id=#{mem_Id} and mem_pwd=#{mem_pwd}
 	</select>
 	
 </mapper>

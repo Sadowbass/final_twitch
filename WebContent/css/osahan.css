@@ -425,9 +425,12 @@ body.sidebar-toggled footer.sticky-footer {
   font-size: 14px;
   max-width: 607px !important;
   width: 330px !important;
+
 }
 .osahan-navbar-search {
   margin-right: 84px !important;
+    position: relative;
+        right: 400px;
 }
 .osahan-navbar-search .btn {
   background: #eceff0 none repeat scroll 0 0;
@@ -552,6 +555,7 @@ body.sidebar-toggled footer.sticky-footer {
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff516b', endColorstr='#826cfd',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */
+
 }
 .btn-outline-primary {
   border-color: #ff516b;
@@ -1943,3 +1947,5 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+

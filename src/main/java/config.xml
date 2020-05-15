@@ -21,12 +21,11 @@
    
    <mappers>
    	 <mapper resource="mybatis/broadCasting.xml" />
-<<<<<<< Updated upstream
+
      <mapper resource="mybatis/scbatis.xml"/>
-=======
-     <mapper resource="mybatis/pagemove.xml"/>
+    <!--  <mapper resource="mybatis/pagemove.xml"/> -->
      <mapper resource="mybatis/member.xml"/>
->>>>>>> Stashed changes
+
    </mappers>
 
 

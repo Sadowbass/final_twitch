@@ -3,8 +3,11 @@
          pageEncoding="UTF-8" %>
 
 <%request.setCharacterEncoding("utf-8"); %>
-<nav class="navbar navbar-expand navbar-light bg-white osahan-nav fixed-top "><!-- sticky-top static-top fixed-top -->
+
+<nav class="navbar navbar-expand navbar-light bg-white osahan-nav "><!-- sticky-top static-top fixed-top -->
+
     <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
+    
 
         <i class="fas fa-bars"></i>
 
@@ -34,7 +37,7 @@
 
     </form>
     <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
+    <ul class="navbar-nav ml-auto ml-md-0 osahan-left-navbar">
 
         <li class="nav-item mx-1">
 
@@ -135,17 +138,33 @@
         </li>
 
     </ul>
-<<<<<<< Updated upstream
-</nav>
-=======
-</nav>
-<!-- 영탁 -->
-    <!-- 로그인 명렬-->
+
  <c:if test="${empty session_id }">
-    <button type="button" class="btn btn-primary" id="btnloginm" data-toggle="modal" data-target="#myModal"> 로그인  </button>
+    <button type="button" class="btn btn-primary" id="btnloginm" data-toggle="modal" data-target="#myModal" style="float: right; margin-right : 10px; margin-left : 10px;"> 로그인  </button>
+     <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal1" style="float: right;"> 회원가입 </button>
+ 			   <div class="modal fade" id="myModal1" style="height : auto;">
+				    <div class="modal-dialog modal-dialog-centered fixed-top">
+				      <div class="modal-content">
+				      
+				        <!-- Modal Header -->
+				        <div class="modal-header">
+				          <h4 class="modal-title">트위치에 회원가입 하세요</h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        
+				        </div>
+				        
+				        <!-- Modal body -->
+				        <div class="modal-body">
+				      <%@include file="insertm.jsp" %>
+	
+				        </div>
+				      </div>
+				    </div>
+				  </div>	 
+    
     </c:if>
 			   <div class="modal fade" id="myModal">
-				    <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-dialog modal-dialog-centered fixed-top" >
 				      <div class="modal-content">
 				      
 				        <!-- Modal Header -->
@@ -164,30 +183,18 @@
 				  </div>
     <c:if test="${session_id != null }">
 		[${session_id } 님 방가~~]
-		<input type='button' value='로그아웃' id='btnLogoutm' />
+		<input type='button' value='로그아웃' id='btn_logout_m' />
 	</c:if>		
     
-     <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal1"> 회원가입 </button>
- 			   <div class="modal fade" id="myModal1" style="height : auto;">
-				    <div class="modal-dialog modal-dialog-centered">
-				      <div class="modal-content">
-				      
-				        <!-- Modal Header -->
-				        <div class="modal-header">
-				          <h4 class="modal-title">트위치에 회원가입 하세요</h4>
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        
-				        </div>
-				        
-				        <!-- Modal body -->
-				        <div class="modal-body">
-				      <%@include file="insertm.jsp" %>
-	
-				        </div>
-				      </div>
-				    </div>
-				  </div>
-<script></script>
+    
+
+</nav>
+<!-- 영탁 -->
+ <!-- 로그인 명렬-->
+
+
+
+<script>lm.func();</script>
       
     </html>
->>>>>>> Stashed changes
+

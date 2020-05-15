@@ -97,7 +97,6 @@
       <url-pattern>*.str</url-pattern>
    </servlet-mapping>
    
-<<<<<<< Updated upstream
    	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>
@@ -117,7 +116,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- 한글설정 END -->
-=======
+
    <servlet>
       <servlet-name>member_mvc</servlet-name>
       <servlet-class>
@@ -128,6 +127,6 @@
       <servlet-name>member_mvc</servlet-name>
       <url-pattern>*.lm</url-pattern>
    </servlet-mapping>
->>>>>>> Stashed changes
+
 
 </web-app>

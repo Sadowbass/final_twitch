@@ -28,6 +28,7 @@
 
 	<!-- view resolver -->
 	<bean class='org.springframework.web.servlet.view.InternalResourceViewResolver'>
+		
 		<property name="suffix" value=".jsp" />
 	</bean>
 

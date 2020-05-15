@@ -106,16 +106,15 @@
 			
 			
 	 //로그인
-	 $('#btnloginm').click(function(){
+	 $('#btn_login_m').click(function(){
 		let param = $('#frm_loginm').serialize();
 		$.post("login.lm", param, function(data, state){
-			location.href='login.jsp';
+			location.href='index.jsp';
 		});
 	})	
 	//로그아웃
-	$('#btnlogoutm').click(function(){
+	$('#btn_logout_m').click(function(){
 		$.post("logout.lm", null, function(data, state){
-			alert(data);
 			location.href='index.jsp';
 		});
 		

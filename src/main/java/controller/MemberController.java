@@ -21,6 +21,7 @@ public class MemberController {
 	MemberDao_m dao;
 	
 	public MemberController(MemberDao_m dao) {
+		System.out.println("123");
 		this.dao = dao;
 	}
 //회원가입
@@ -45,20 +46,23 @@ public class MemberController {
 	
 	msg = dao.insert(vo);
 	mv.addObject("msg", msg);
-	mv.setViewName("login");
+	mv.setViewName("result");
 	return mv;
 }
 @RequestMapping(value="/login.lm", method= {RequestMethod.POST}, produces="application/text;charset=utf-8")
 @ResponseBody
 public String login(HttpServletRequest req) {
-	
-	String msg = "환영~~";
+	String msg = "";
 	MemberVo_m vo = new MemberVo_m();
-	String mem_Id = req.getParameter("mId");
-	String mem_pwd = req.getParameter("pwd");
+	String mem_Id = req.getParameter("logidm");
+	String mem_pwd = req.getParameter("logpwdm");
 	
 	vo.setMem_Id(mem_Id);
 	vo.setMem_pwd(mem_pwd);
+
+
+	
+	
 	boolean loginResult = dao.login(vo);
 	if( loginResult ) {
 		HttpSession session = req.getSession();
@@ -69,4 +73,17 @@ public String login(HttpServletRequest req) {
 
 	return msg;
 }	
+
+@RequestMapping(value="/logout.lm", method= {RequestMethod.POST},produces="application/text;charset=utf-8")
+@ResponseBody
+public String logout(HttpServletRequest req) {
+	
+	String msg ="";
+
+	HttpSession session = req.getSession();
+	session.removeAttribute("session_id");
+	return msg;
+}	
+
+
 }
