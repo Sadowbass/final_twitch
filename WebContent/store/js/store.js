@@ -8,11 +8,12 @@ let store = {}
 store.func = function(){
 	
 	//review 입력
-       console.log('리뷰');
-	  $('#btnSubmitReview').click(function(){
-			
+      
+	$(document).on('click', '#btnSubmitReview', function(){
+		  console.log('리뷰');
 	    let fd = new FormData($('#frm_store')[0]);
-		
+		  fd.append('mId', $('#mId').val());
+		  console.log($('#mId').val());
 			
 			$.ajax({
 				
@@ -21,9 +22,12 @@ store.func = function(){
 			     data : fd,
 			     contentType : false,
 			     processData : false,
-			     error : function(xhr, status, error){},
-			     
+			     error : function(xhr, status, error){
+			    	 swal("실패", "We couldn't connect to the server!", "error");
+			     },
+			         
 					success : function(data, xhr, status){
+						 swal("Success!", "리뷰가 등록되었습니다", "success");
 						$("#sh_main").html(data);
 					}
 				})

@@ -3,6 +3,8 @@
  */
 package bean;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import mybatis.Factory;
@@ -24,16 +26,30 @@ public class StoreMybatisDao {
 		System.out.println("factory...");
 	}
 	
-	public String insertReview(StoreReviewVo vo) {
+	public String insertReview(List<StoreReviewVo> list) {
 		String msg = "자료가 정상적으로 입력되었습니다.";
+		System.out.println("dao inset들어옴");
 		
+		int size = list.size();
+		for(int i=0; i<size; i++) {
+			StoreReviewVo vo = list.get(i);
+		
+			
 		try {
-
-			int cnt = sqlsession.insert("store.review_insert", vo);
-
-			if (cnt < 1) {
-				throw new Exception("본문 저장 중 오류 발생");
+            
+			if(i==0) {
+			
+				int cnt = sqlsession.insert("store.review_insert1", vo);
+			
+			
+	
+			}else {
+				
+				int cnt = sqlsession.insert("store.review_insert2", vo);
+	
 			}
+			
+			
 
 			sqlsession.commit();
 
@@ -44,15 +60,15 @@ public class StoreMybatisDao {
 			msg = e1.getMessage();
 			
 
-		} finally {
-
-			//sqlSession.close();
-			return msg;
-
 		}
+
 		
+		
+	
+	
 	}
+		return msg;
 	
-	
+	}
 	
 }

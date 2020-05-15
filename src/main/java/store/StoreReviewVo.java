@@ -1,6 +1,7 @@
 package store;
 
 import java.util.Date;
+import java.util.List;
 
 public class StoreReviewVo {
 	
@@ -14,11 +15,18 @@ public class StoreReviewVo {
 	Double rLike;
 	Date rDate;
 	
+	//List<StoreReviewVo> list;
 	
 	
 	public StoreReviewVo(String mId, int pId, String rSubject, String rContent, String image1, String image2,
 			Double rLike) {
-		// TODO Auto-generated constructor stub
+		this.mId = mId;
+		this.pId = pId;
+		this.rSubject = rSubject;
+		this.rContent = rContent;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.rLike = rLike;
 	}
 	public int getrSerial() {
 		return rSerial;

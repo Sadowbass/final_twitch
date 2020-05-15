@@ -131,6 +131,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript"></script><!-- for slider-range -->
     <script src="./assets/corporate/scripts/layout.js" type="text/javascript"></script>
     <script src="./assets/pages/scripts/bs-carousel.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- swal -->
     <script type="text/javascript">
         jQuery(document).ready(function() {
             Layout.init();    

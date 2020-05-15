@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +50,7 @@ public class StoreController {
     	return mv;
     }
 	
-	@RequestMapping(value="/store/reviewInsert.str", method= {RequestMethod.POST})
+	@RequestMapping(value="/store/reviewInsert.str", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView reviewInsert(HttpServletRequest req, HttpServletResponse resp) {
     	
 		System.out.println("리뷰입력");
@@ -59,7 +61,9 @@ public class StoreController {
     	// c.getRealPath("상대경로") 를 통해 파일을 저장할 절대 경로를 구해온다.
 	    // 운영체제 및 프로젝트가 위치할 환경에 따라 경로가 다르기 때문에 아래처럼 구해오는게 좋음
     	
-	    String uploadPath = c.getRealPath("/reviewimages");
+	    String uploadPath = req.getSession().getServletContext().getRealPath("/store/reviewimages");
+	     //String uploadPath = "C:\\Users\\silve\\eclipse-workspace\\final_twitch\\WebContent\\store\\reviewimages";
+	    System.out.println(uploadPath);
 	    
 	    /*
 		 * uploadFile : 경로 maxSize : 크기 제한 설정 encoding: 인코딩 타입 설정 new
@@ -70,10 +74,10 @@ public class StoreController {
 	    int maxSize =1024 *1024 *10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
 	    
 	    String mId = "";
-	    int pId = 0;
+	    int pId;
 	    String rContent ="";
 	    String rSubject ="";
-	    Double rLike = 0.0;
+	    Double rLike;
 	    
 	     
 	    String image1 ="";// 중복처리된 이름
@@ -86,6 +90,7 @@ public class StoreController {
 	    
 	    StoreMybatisDao dao = new StoreMybatisDao();
 	    StoreReviewVo vo;
+	    List<StoreReviewVo> list = new ArrayList<StoreReviewVo>();
 	
 	     
 	    try{
@@ -102,7 +107,9 @@ public class StoreController {
 	        rContent = multi.getParameter("rContent");
 	        // name="rSubject" 인 녀석 value를 가져옴
 	        rSubject = multi.getParameter("rSubject");
-	         
+	     // name="rLike" 인 녀석 value를 가져옴
+	        rLike = Double.parseDouble(multi.getParameter("rLike"));
+	        
 	        // 전송한 전체 파일이름들을 가져옴
 	        Enumeration files = multi.getFileNames();
 	         
@@ -122,8 +129,12 @@ public class StoreController {
 	            fileSize = file.length();
 	            
 	            vo = new StoreReviewVo(mId, pId, rSubject, rContent, image1, image2, rLike);
+	            list.add(vo);
 	            
-	            String msg = dao.insertReview(vo);
+	            System.out.println(list.get(pId));
+	            
+	            
+	            String msg = dao.insertReview(list);
 	        }
 	    }catch(Exception e){
 	        e.printStackTrace();
@@ -132,6 +143,8 @@ public class StoreController {
     	
 
     	mv.setViewName("productDetail");
+    	
+    	System.out.println(req.getRequestURI());
     	return mv;
     }
 	

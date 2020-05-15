@@ -234,11 +234,11 @@ Nostrud duis molestie at dolore.</p>
                         <h2>Write a review</h2>
                         <div class="form-group">
                           <label for="name">Name <span class="require">*</span></label>
-                          <input type="text" class="form-control" name="mId">
+                          <input type="text" class="form-control" id="mId" name="mId">
                         </div>
                         <div class="form-group">
                           <label for="subject">Subject</label>
-                          <input type="text" class="form-control" name="rSubject">
+                          <input type="text" class="form-control" id="rSubject" name="rSubject">
                         </div>
                         <div class="form-group">
                           <label for="review">Content <span class="require">*</span></label>
@@ -256,14 +256,14 @@ Nostrud duis molestie at dolore.</p>
                 		</div>
                         <div class="form-group">
                           <label for="email">Rating</label>
-                          <input type="range" value="4" step="0.25" id="backing5" name="rLike">
+                          <input type="range" id="rLike" value="4" step="0.25" id="backing5" name="rLike">
                           <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                           </div>
                         </div>
                         <div class="padding-top-20">                  
                          <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send">
                         </div>
-                        <input type="hidden" name="pId">
+                        <input type="hidden" id="pId" name="pId" value="3">
                      
                       </form>
                       <!-- END FORM--> 
