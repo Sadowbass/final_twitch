@@ -95,7 +95,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
                                 <div class="row clearfix">
-                                    <div class="col-md-8  col-xs-12 col-md-offset-2">
+                                    <div class="col-md-12  col-xs-12">
                                         <div class="body">
                                             <div class="row clearfix">
                                                 <div class="col-xs-12 ">
@@ -107,86 +107,129 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-12 col-sm-12">
                                                     <textarea class="form-control introduce" rows="3"
-                                                        placeholder="자기소개(300자 미만)"></textarea>
+                                                         >${vo.mem_profile }</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="row clearfix">
-                                                <div class="col-md-12 col-sm-12">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">star</i>
+                                                          		  아이디
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" placeholder="아이디">
+                                                            <input class="form-control" type="text" value="${vo.mem_id }" >
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row clearfix">
-                                                <div class="col-md-12 col-sm-12">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">person</i>
+                                                          		 구분
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" placeholder="이름">
+                                                            <input class="form-control" type="text" value="${vo.mem_admin }">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row clearfix">
-                                                <div class="col-md-12 col-sm-12">
+                                                <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
-                                                            <i class="material-icons">@</i>
+                                                            	이름
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="email" class="form-control" placeholder="이메일">
+                                                            <input type="text" class="form-control" value=${vo.mem_name }>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-md-6 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            	현재상태
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" value="${vo.mem_status }">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row clearfix">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            	이메일	
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="email" class="form-control" value="${vo.mem_email }">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            		보유잔액
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="email" class="form-control" value="${vo.mem_money }">
                                                         </div>
 
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row clearfix birth">
-                                                <p>생일</p>
-                                                <div class="col-lg-2 col-sm-4 ">
+                                            <div class="row clearfix">
+                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            	등록일	
+                                                        </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" placeholder="년">
+                                                            <input type="date" class="form-control" value="${vo.mem_rDate }">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                 <div class="col-md-6 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            	생일	
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="date" class="form-control" value="${vo.mem_birth }">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                             <div class="row clearfix">
+                                                <div class="col-md-3 col-sm-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            	우편번호
+                                                        </span>
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" value="${vo.mem_zcode }">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 col-sm-4">
-
-                                                    <select class="form-control show-tick">
-                                                        <option>월</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                        <option>6</option>
-                                                        <option>7</option>
-                                                        <option>8</option>
-                                                        <option>9</option>
-                                                        <option>10</option>
-                                                        <option>11</option>
-                                                        <option>12</option>
-                                                    </select>
-
-                                                </div>
-                                                <div class="col-lg-2 col-sm-4">
+                                                 <div class="col-md-9 col-sm-12">
                                                     <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            	집주소 
+                                                        </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" placeholder="일">
+                                                            <input type="text" class="form-control" value="${vo.add1 } ${vo.add2}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="row clearfix js-sweetalert">
                                                 <div class="col-lg-12 col-sm-12 saveButton">
                                                     <button type="button" class="btn waves-effect" data-type="confirm">

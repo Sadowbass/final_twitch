@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="member">
+    <select id="select" resultType="bean.MemberVo">
+		select mem_id,mem_name,mem_email,mem_admin,to_char(mem_rdate,'rrrr-mm-dd') mem_rdate,mem_status from final_member
+	</select>
+    <select id='view' parameterType="String" resultType="bean.MemberVo">
+    	select mem_id,mem_name,mem_email,mem_admin,to_char(mem_rdate,'rrrr-mm-dd') mem_rdate,mem_status,mem_birth,
+    	mem_profile,mem_money,mem_zcode,mem_add1,mem_add2 
+    	from final_member where mem_id= '${_parameter}'
+    </select>
+	
+    <!--<select id="count" parameterType ="bean.Page" resultType="Integer">
+    	select count(serial) cnt from board
+    	where subject like '%${findStr}%'
+    	or content like '%${findStr}%'
+    </select>
+    <insert id="insert" parameterType='mybatis.BoardVo'>
+    	insert into board(serial,subject,content,id,mdate,hit,pwd)
+    	values(seq_board.nextval,#{subject},#{content},#{id},sysdate,0,#{pwd})
+    </insert>
+    <insert id="insert_att" parameterType ='mybatis.AttVo'>
+    	insert into boardAtt(serial,pserial,orifile,sysfile)
+    	values(seq_boardAtt.nextval,seq_board.currval,#{orifile},#{sysfile})
+    </insert>
+    <select id='att_list' parameterType="Integer" resultType="mybatis.AttVo">
+    	select serial,pserial,orifile,sysfile
+    	from boardAtt
+    	where pserial = ${pserial}
+    </select>
+    <update id='update' parameterType="mybatis.BoardVo">
+    	update board set subject=#{subject}, content=#{content}
+    	where serial=#{serial} and pwd=#{pwd} 
+    </update>
+    <insert id="att_insert2" parameterType ='mybatis.AttVo'>
+    	insert into boardAtt(serial,pserial,orifile,sysfile)
+    	values(seq_boardAtt.nextval,#{serial},#{orifile},#{sysfile})
+    </insert>
+    <delete id='att_delete' parameterType="mybatis.AttVo">
+		delete from boardAtt
+		where sysfile =#{sysfile} or pserial=${serial} 
+    </delete>
+    <select id='repl_cnt' parameterType="Integer" resultType="Integer">
+ 		select count(serial) cnt from board where pserial =${_parameter}
+    </select>
+    <delete id='delete' parameterType="mybatis.BoardVo">
+    	delete from board where serial=${serial} and pwd=#{pwd}
+    </delete>
+    <insert id='repl' parameterType="mybatis.BoardVo">
+    	insert into board(serial,subject,content,id,mdate,hit,pwd,pserial)
+    	values(seq_board.nextval,#{subject},#{content},#{id},sysdate,0,#{pwd},#{pSerial})
+    </insert>
+    <update id="hit_up" parameterType="mybatis.BoardVo">
+    	update board set hit =#{hit} where serial=#{serial} 
+    </update>-->
+
+    <!--<resultMap id ="my_map"/>
+    <update/>
+    <insert/>
+    <delete/>
+    --> 
+</mapper>
