@@ -192,7 +192,7 @@
 <%@include file="../logout-modal.jsp" %>
 <script>
 $(document).ready(function(){
-   uk_main.stream();
+   uk.stream();
 });
 let unfold = function() {
     $("#unfold").remove();

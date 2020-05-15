@@ -46,7 +46,6 @@
 </div>
 <input type="hidden"  id="link" value="${vo.mem_Id }">
 <script>
-var ws
 $(document).ready(function(){
 	 uk.connectWS($('input[type="hidden"]').val());
 });

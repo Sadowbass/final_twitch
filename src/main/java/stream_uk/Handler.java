@@ -18,6 +18,7 @@ public class Handler extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("입장:::::"+session.getId());
 		String streamer=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1);
 		List<Object> list=new ArrayList<Object>();
 		list.add(streamer);
@@ -52,6 +53,10 @@ public class Handler extends TextWebSocketHandler{
 				WebSocketSession um= (WebSocketSession) users.get(oid).get(1);
 				um.sendMessage(new TextMessage("<span class='sender'>"+Messenger+"</span>"+"<span class='messages'> : "+message.getPayload()+"</span>"));
 			}
+		}
+
+		/*채팅 유저 목록*/
+		if(message.getPayload().equals("UserList")) {
 		}
 	}
 

@@ -1,9 +1,9 @@
-let uk = {}
+let chtstreamer = {}
 
-uk.connectWS=function(mid){
-	console.log("mid::"+mid);
+var ws;
 
-	ws = new WebSocket("ws://192.168.0.77:8845/final_twitch/cht?"+mid);
+chtstreamer.connectWS=function(mid){
+	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht?"+mid);
 
 	ws.onopen = function (event) {console.log("open:::",event);}
 	ws.onclose = function (event) {console.log("close:::",event);}
@@ -14,23 +14,23 @@ uk.connectWS=function(mid){
 		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 	};
 
-	$('div[contenteditable]').keydown(function(e) {
+/*	$('div[contenteditable]').keydown(function(e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
 				WSsend();
 				return false;
 			}
 		}
-	});
+	});*/
 }
 
-let WSsend=function(){
+/*let WSsend=function(){
 	  let msg = $('div[contenteditable]').html();
 	  if(ws.readyState===1&& msg.trim().length!=0){
 		  ws.send(msg);
 		  $('div[contenteditable]').empty();
 	  }
-}
+}*/
 
 let WSclose=function(){
 	ws.close();

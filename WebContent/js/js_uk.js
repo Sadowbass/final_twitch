@@ -1,10 +1,10 @@
-let uk_main = {}
+let uk = {}
 
-uk_main.stream = function() {
+var ws;
+
+uk.stream = function() {
 	$("#fold").click(function() {
 		$("#cht_div").css("display", "none");
-		$("#video_div").removeClass("col-md-10");
-		$("#video_div").addClass("col-md-12");
 		$("<div class='col-md-2' id='unfold' style='position:fixed; right:-240px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>").appendTo("#add_unfold");
 	});
 
@@ -21,17 +21,16 @@ uk_main.stream = function() {
 			$("#cht_div").children().eq(3).css("display","none");
 			$("#cht_div").children().eq(4).css("visibility","hidden");
 			$("<div class='row'><div class='col-md-12' id='divUsers'><h1>유저 목록</h1></div></div>").insertAfter($("#cht_div").children().first());
+			ws.send("UserList");
 		}
 	});
 }
 
 
-/*
- * 보류
-uk.connectWS=function(mid){
-	console.log("mid::"+mid);
 
-	ws = new WebSocket("ws://192.168.0.77:8845/final_twitch/cht?"+mid);
+uk.connectWS=function(mid){
+
+	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht?"+mid);
 
 	ws.onopen = function (event) {console.log("open:::",event);}
 	ws.onclose = function (event) {console.log("close:::",event);}
@@ -39,8 +38,6 @@ uk.connectWS=function(mid){
 
 	ws.onmessage = function (event) {
 		$('<div></div>').html(event.data).appendTo('#chtArea');
-		console.log("top",$('#chtArea').scrollTop());
-		console.log("height",$('#chtArea').prop('scrollHeight'))
 		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 	};
 
@@ -65,6 +62,6 @@ let WSsend=function(){
 let WSclose=function(){
 	ws.close();
 }
-*/
+
 
 
