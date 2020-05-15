@@ -1,9 +1,11 @@
 package controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import bean.DonationVo;
 import bean.SCDao;
+import bean.SCFriendListVo;
 import bean.StreamingVo;
 import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +49,12 @@ public class SCController {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         StreamingVo vo = dao.streamInfo(id);
+        HttpSession session = req.getSession();
+        String user = (String) session.getAttribute("session_id");
+
+        if(user != null){
+            mv.addObject("session_id", user);
+        }
 
         if (vo == null) {
             mv.setViewName("404");
@@ -95,8 +103,19 @@ public class SCController {
         vo = new SCDao().donationView(mId);
         Gson gson = new Gson();
         String json = gson.toJson(vo);
-
         return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "searchFriends.sc", method = RequestMethod.POST)
+    public String searchFriend(HttpServletRequest req){
+        String result="";
+        String mId = req.getParameter("value");
+        SCDao dao = new SCDao();
+        Gson gson = new Gson();
+        result = gson.toJson(dao.findFriends(mId));
+
+        return result;
     }
 
 }

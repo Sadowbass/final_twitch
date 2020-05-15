@@ -33,5 +33,10 @@ public class SCDao {
 		return vo;
 	}
 
+	public List<SCFriendListVo> findFriends(String mId){
+		List<SCFriendListVo> list = new ArrayList<SCFriendListVo>();
+		list = sqlSession.selectList("scbatis.findFriends",mId);
+		return list;
+	}
 
 }

@@ -3,7 +3,7 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Sidebar -->
-<ul class="sidebar navbar-nav" style="margin-top: 53px;" id="sidebar-navmain">
+<ul class="sidebar navbar-nav" id="sidebar-navmain">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
 
     <c:forEach var="i" items="${list}">
@@ -54,13 +54,13 @@
         <div>
             <button class="btn btn-link">
                 <span style="color: #ffffff; font-size: 15px">더 보기</span>
-            </button>
+            </button>  
 
         </div>
     </li>
 </ul>
 
-<ul class="sidebar navbar-nav" style="margin-top: 53px;" id="sidebar-friendlist">
+<ul class="sidebar navbar-nav" id="sidebar-friendlist">
     <li class="nav-item">
         <div class="nav-link nav-link-sc" id="<c:out value="${i.air_mId}"/>" onclick="">
             <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
@@ -83,7 +83,7 @@
                 <i class="fas fa-search"></i>
             </span>
         </div>
-        <input type="text" id='sidebar-friend-search' class="form-control"
+        <input type="text" id='sidebar-friend-search' class="form-control" id="search-bar"
                placeholder="검색할 친구를 입력하세요" aria-label="Username"
                aria-describedby="basic-addon1">
     </div>

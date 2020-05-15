@@ -62,7 +62,7 @@
     <%@include file="top.jsp" %>
 </div>
 <div id="wrapper">
-    <div id="sidebarplace">
+    <div id="sidebarplace" style="margin-top: 52px;">
     </div>
     <div id="content-wrapper">
     </div>

@@ -4,18 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="scbatis">
+    <!--특정 1명의 스트리밍 정보-->
     <select id="select" parameterType="String" resultType="bean.StreamingVo">
         select m.mem_Id, m.mem_Skey, o.AIR_MID, o.AIR_SUBJECT from FINAL_MEMBER m join FINAL_ONAIR o on m.MEM_ID=o.AIR_MID where mem_Id = #{value }
     </select>
+
+    <!--현재 생방송들의 정보-->
     <select id="nowStreaming" resultType="bean.StreamingVo">
         select * from FINAL_ONAIR
     </select>
 
+    <!--스트리머가 재생한 도네이션 확인-->
     <select id="donationView" parameterType="String" resultType="bean.DonationVo">
         select * from FINAL_DONATION where DON_PUSH = 2 and DON_MID = #{value}
     </select>
 
+    <!--도네이션 체크 완료하고 상태변경-->
     <update id="donationStatusChange" parameterType="Integer">
         update FINAL_DONATION set DON_PUSH = 3 where DON_SERIAL = #{value }
     </update>
+
+    <!--친구 검색-->
+    <select id="findFriends" parameterType="String" resultType="bean.SCFriendListVo">
+        select m.mem_id, m.MEM_NAME, p.PH_SYSFILE from FINAL_MEMBER m left outer join FINAL_PHOTO p on m.MEM_ID=p.PH_ID where m.MEM_ID like '%${value }%'
+    </select>
 </mapper>
