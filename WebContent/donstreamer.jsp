@@ -58,7 +58,7 @@ span {
 </head>
 <body>
 	<form id="user-info">
-		<input type="hidden" name="mId" id="mId" value="faker">
+		<input type="hidden" name="mId" id="mId" value="${mId}">
 	</form>
 
 	<div id="text-view">
@@ -90,10 +90,10 @@ span {
 							var autoPlay = "?autoplay=1&mute=0";
 							
 
-							let fd = $('#user-info').serialize();
+							let fd = $('#user-info').serialize(); 
 							(function poll() {
 								$.ajax({
-									url : "view-donation-list.sc",
+									url : "../view-donation-list.sc",
 									type : 'post',
 									data : fd,
 									async : false,
