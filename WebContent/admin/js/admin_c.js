@@ -1,5 +1,6 @@
 
 function LoadImg(value,i){
+	if(i!=null){
 	if(value.files && value.files[0]){
 		var reader = new FileReader();
 		reader.onload = function(e){
@@ -10,58 +11,117 @@ function LoadImg(value,i){
 		/* alert(value.files[0]) */
 		reader.readAsDataURL(value.files[0])
 	}
-}
-
-function LoadImg(value) {
-	if (value.files && value.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			/* alert(e.target.result); */
-			/* $('#target'+i).attr('src',e.target.result); */
-			$('#adminImgTarget').attr('src', e.target.result);
+	}else if(i == null){
+		if (value.files && value.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				 alert(e.target.result); 
+				 $('#target'+i).attr('src',e.target.result); 
+				$('#adminImgTarget').attr('src', e.target.result);
+			}
+			 alert(value.files[0]) 
+			reader.readAsDataURL(value.files[0])
 		}
-		/* alert(value.files[0]) */
-		reader.readAsDataURL(value.files[0])
 	}
 }
+
+/*
+ * function LoadImg(value) { if (value.files && value.files[0]) { var reader =
+ * new FileReader(); reader.onload = function(e) { alert(e.target.result);
+ * $('#target'+i).attr('src',e.target.result); $('#adminImgTarget').attr('src',
+ * e.target.result); } alert(value.files[0])
+ * reader.readAsDataURL(value.files[0]) } }
+ */
 
 var cmh = {}
 
 cmh.func = function(){
 	
-	/*product_insert.jsp*/
-
+	/* product_insert.jsp */
 	$('#close1').click(function(){
-		$('#target1').css({'background-image':'url(https://via.placeholder.com/300)'})
+		$('#target1').css({'background-image':'url(https://via.placeholder.com/250)'})
+		$('#file1').val('');
 	})
 	$('#close2').click(function(){
-		$('#target2').css({'background-image':'url(https://via.placeholder.com/300)'})
+		$('#target2').css({'background-image':'url(https://via.placeholder.com/250)'})
+		$('#file2').val('');
 	})
 	$('#close3').click(function(){
-		$('#target3').css({'background-image':'url(https://via.placeholder.com/300)'})
+		$('#target3').css({'background-image':'url(https://via.placeholder.com/250)'})
+		$('#file3').val('');
+	})
+	$('#close4').click(function(){
+		$('#target4').css({'background-image':'url(https://via.placeholder.com/250)'})
+		$('#file4').val('');
 	})
 	
+	// 등록버튼
 	$('#productInsert_c').click(function(){
 		
-		
-		let fd = new FormData($('#productInsertForm_c')[0]);
-		
-		$.ajax({
-			url : 'productInsert.mh',
-			type:'post',
-			data:fd,
-			contentType : false,
-			processData : false,
-			error : function(xhr, status, error){
-				alert("안된다")
-			},
-			success : function(data, xhr, status){
-					alert(data);
+		var fileCheck = document.getElementById('file1').value;
+		if(fileCheck==''){
+			swal("사진을 넣어주세요","","warning");
+		}else{
+			
+			var f = $('#first option:selected').val();
+			
+			switch(f){
+			case "HOODIES":
+				$('#category').val("HOODIES");
+				break;
+			case "TEES":
+				$('#category').val("TEES");
+				break; 
+			case "DOG":
+				$('#category').val("DOG");
+				break; 
+			case "BOTTOMS":
+				$('#category').val($('#sel1 option:selected').val());
+				break; 	
+			case "BAGS & ACCESSORIES":
+				$('#category').val($('#sel2 option:selected').val());
+				break; 	
+			case "STEALS":
+				$('#category').val($('#sel2 option:selected').val());
+				break; 	
 			}
-		})
+		
+			let fd = new FormData($('#productInsertForm_c')[0]);
+			
+			$.ajax({
+				url : 'productInsert.mh',
+				type:'post',
+				data:fd,
+				contentType : false,
+				processData : false,
+				error : function(xhr, status, error){
+					alert("안된다")
+				},
+				success : function(data, xhr, status){
+					swal({
+						title:"등록 완료",
+						text:data,
+						icon:"success",
+						buttons:true,
+						dangerMode:false,
+					}).then((willDelete)=>{
+						if(willDelete){
+							location.reload();
+						}
+					});
+						
+				}
+			})
+		}
 	})
 	
-	/* end product_insert.jsp*/
+	/*초기화 버튼 누루면*/
+	$('#btn_reset').click(function(){
+		location.reload();
+	})
+	
+	
+	/* end product_insert.jsp */
 	
 	$('.swalUpdate').click(function(){
 		swal({

@@ -11,8 +11,11 @@
       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<context:annotation-config />
+	<bean id="StoreMybatisDao_mh" class="bean.StoreMybatisDao_mh"></bean>
+	
 	
 	<bean id="AdminController_mh" class="controller_c.AdminController_mh">
+		<constructor-arg ref="StoreMybatisDao_mh"></constructor-arg>
 	</bean>
 
 	<!-- view resolver -->

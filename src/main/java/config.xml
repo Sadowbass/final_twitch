@@ -24,6 +24,7 @@
    	 <mapper resource="mybatis/broadCasting.xml" />
      <mapper resource="mybatis/scbatis.xml"/>
      <mapper resource="mybatis/store.xml"/>
+     <mapper resource="mybatis/storeAdmin.xml" />
    </mappers>
 
 </configuration>
