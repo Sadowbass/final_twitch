@@ -3,7 +3,7 @@ let uk = {}
 uk.connectWS=function(mid){
 	console.log("mid::"+mid);
 
-	ws = new WebSocket("ws://192.168.0.77:8845/final_twitch/cht?"+mid);
+	ws = new WebSocket("ws://daum123.gonetis.com/final_twitch/cht?"+mid);
 
 	ws.onopen = function (event) {console.log("open:::",event);}
 	ws.onclose = function (event) {console.log("close:::",event);}
@@ -17,7 +17,7 @@ uk.connectWS=function(mid){
 	$('div[contenteditable]').keydown(function(e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				WSsend();
+				WSsend(); 
 				return false;
 			}
 		}

@@ -3,6 +3,12 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Sidebar -->
+<style>
+    .rounded-circle{
+        width: 28px;
+        height: 28px;
+    }
+</style>
 <ul class="sidebar navbar-nav" id="sidebar-navmain">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
 
@@ -10,7 +16,15 @@
         <li class="nav-item">
             <div class="nav-link nav-link-sc" onclick="javascript:onair('<c:out value="${i.air_mId}"/>')"
                  id="<c:out value="${i.air_mId}"/>">
-                <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+                <c:choose>
+                    <c:when test="${i.ph_sysfile == null}">
+                        <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${i.ph_sysfile}" class="sidebar-list-img rounded-circle"></img>
+                    </c:otherwise>
+                </c:choose>
+
                 <div class="sidebar-list-content">
                     <div class="sidebar-list-text">
                         <span>${i.air_mId}</span><br/>
@@ -54,7 +68,7 @@
         <div>
             <button class="btn btn-link">
                 <span style="color: #ffffff; font-size: 15px">더 보기</span>
-            </button>  
+            </button>
 
         </div>
     </li>

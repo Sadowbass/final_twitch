@@ -20,7 +20,7 @@
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-		  type="text/css">
+		  type="text/css"> 
 	<!-- Custom styles for this template-->
 	<link href="css/osahan.css" rel="stylesheet">
 	<!-- Owl Carousel -->
@@ -55,7 +55,7 @@
 	<%@include file="../top.jsp" %>
 </div>
 <div id="wrapper">
-	<div id="sidebarplace">
+	<div id="sidebarplace" style="margin-top: 53px;">
 	</div>
 	<div id="content-wrapper" style="margin-top: 53px;">
 		<div class="container-fluid pb-0" style="padding: 0px 0px 0px 225px; ">
@@ -69,7 +69,15 @@
 							<div class="col-md-3">
 								<div class="row mx-0 pt-1">
 									<div class="col-md-9 text-left pl-2">
-										<img src="img/s1.png" alt="" class="rounded-circle" style="height: 35px; width: 35px;" />
+										<c:choose>
+											<c:when test="${vo.ph_sysfile == null}">
+												<img src="img/s1.png" class="rounded-circle" style="height: 35px; width: 35px;" />
+											</c:when>
+											<c:otherwise>
+												<img src="${vo.ph_sysfile}" class="rounded-circle" style="height: 35px; width: 35px;" />
+											</c:otherwise>
+										</c:choose>
+
 										<a href="#">
 											${vo.mem_Id}
 											<span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified">

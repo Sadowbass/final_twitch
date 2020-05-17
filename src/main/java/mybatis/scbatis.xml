@@ -6,12 +6,12 @@
 <mapper namespace="scbatis">
     <!--특정 1명의 스트리밍 정보-->
     <select id="select" parameterType="String" resultType="bean.StreamingVo">
-        select m.mem_Id, m.mem_Skey, o.AIR_MID, o.AIR_SUBJECT from FINAL_MEMBER m join FINAL_ONAIR o on m.MEM_ID=o.AIR_MID where mem_Id = #{value }
+        select m.mem_Id, m.mem_Skey, o.AIR_MID, o.AIR_SUBJECT, p.PH_SYSFILE from FINAL_MEMBER m join FINAL_ONAIR o on m.MEM_ID=o.AIR_MID left outer join FINAL_PHOTO p on p.PH_ID = m.MEM_ID where mem_Id = #{value }
     </select>
 
     <!--현재 생방송들의 정보-->
     <select id="nowStreaming" resultType="bean.StreamingVo">
-        select * from FINAL_ONAIR
+        select * from FINAL_ONAIR o left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID
     </select>
 
     <!--스트리머가 재생한 도네이션 확인-->

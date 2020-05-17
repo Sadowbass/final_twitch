@@ -6,6 +6,7 @@ public class StreamingVo {
     private String air_mId;
     private String air_subject;
     private String air_gName;
+    private String ph_sysfile;
 
     public String getMem_Id() {
         return mem_Id;
@@ -45,5 +46,13 @@ public class StreamingVo {
 
     public void setAir_gName(String air_gName) {
         this.air_gName = air_gName;
+    }
+
+    public String getPh_sysfile() {
+        return ph_sysfile;
+    }
+
+    public void setPh_sysfile(String ph_sysfile) {
+        this.ph_sysfile = ph_sysfile;
     }
 }
