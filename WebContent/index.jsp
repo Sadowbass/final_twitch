@@ -15,7 +15,7 @@
     <meta name="author" content="Askbootstrap">
     <title>JHTA-Twitch</title>
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/favicon.png"> 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->

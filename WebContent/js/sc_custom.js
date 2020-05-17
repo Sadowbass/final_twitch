@@ -17,21 +17,28 @@ $(document).on('keyup', '#sidebar-friend-search', function () {
                 console.log(error);
             },
             success: function (data) {
-                console.log(data);
+                let json = JSON.parse(data);
                 $('#sidebar-navmain').attr('style', "display:none;");
                 $('#sidebar-friendlist').attr('style', 'display:flex;');
+                $('#sidebar-friendlist').html("");
 
-                for (i of data) {
+                for (i of json) {
+                    console.log(i);
                     var newLi = document.createElement('li');
                     newLi.className = 'nav-item';
 
                     var newDiv = document.createElement('div');
                     newDiv.className = "nav-link nav-link-sc";
-                    newDiv.id = i.mem_id;
+                    newDiv.id = i.mem_Id;
 
                     var newImg = document.createElement('img');
                     newImg.className = "sidebar-list-img rounded-circle";
-                    newImg.setAttribute("src", "./img/s1.png");
+                    if(i.ph_sysfile == null){
+                        newImg.setAttribute("src", "./img/s1.png");
+                    } else {
+                        newImg.setAttribute("src", i.ph_sysfile);
+                    }
+
 
                     var newDiv2 = document.createElement('div');
                     newDiv2.className = "sidebar-list-content";
@@ -40,7 +47,7 @@ $(document).on('keyup', '#sidebar-friend-search', function () {
                     newDiv3.className = "sidebar-list-text";
 
                     var newSpan = document.createElement('span');
-                    newSpan.appendChild(i.mem_id);
+                    newSpan.innerText = i.mem_Id;
 
                     var newDiv4 = document.createElement('div');
                     newDiv4.className = "sidebar-list-viewer";
@@ -55,6 +62,8 @@ $(document).on('keyup', '#sidebar-friend-search', function () {
                     newDiv.appendChild(newImg);
                     newDiv.appendChild(newDiv2);
                     newLi.appendChild(newDiv);
+
+                    $('#sidebar-friendlist').append(newLi);
                 };
 
             }

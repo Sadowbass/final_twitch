@@ -5,8 +5,8 @@
 <!-- Sidebar -->
 <style>
     .rounded-circle{
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
     }
 </style>
 <ul class="sidebar navbar-nav" id="sidebar-navmain">
@@ -69,7 +69,6 @@
             <button class="btn btn-link">
                 <span style="color: #ffffff; font-size: 15px">더 보기</span>
             </button>
-
         </div>
     </li>
 </ul>
