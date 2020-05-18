@@ -11,8 +11,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class Handler extends TextWebSocketHandler{
+import com.google.gson.JsonObject;
 
+public class Handler extends TextWebSocketHandler{
 
 		Map<String, List<Object>> users=new HashMap<String, List<Object>>();
 
@@ -32,23 +33,25 @@ public class Handler extends TextWebSocketHandler{
 				um.sendMessage(new TextMessage(Messenger+"님(이) 입장하였습니다."));
 			}
 		}
-		if((String)session.getAttributes().get("mid")==null) {
+		if((String)session.getAttributes().get("session_id")==null) {
 			users.put(session.getId(), list);
 		}else {
-			users.put((String)session.getAttributes().get("mid"), list);
+			users.put((String)session.getAttributes().get("session_id"), list);
 		}
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+
 		String streamer=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1);
+		System.out.println(session.getId()+"&&&"+streamer+"&&&"+message.getPayload());
 		List<Object> list=new ArrayList<Object>();
 		list.add(streamer);
 		list.add(session);
 		Iterator<String> oids=users.keySet().iterator();
 		while(oids.hasNext()) {
 			String oid=oids.next();
-			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
+			String Messenger=((String)session.getAttributes().get("session_id")!=null)? (String)session.getAttributes().get("session_id") : session.getId();
 			if(users.get(oid).get(0).equals(streamer)) {
 				WebSocketSession um= (WebSocketSession) users.get(oid).get(1);
 				um.sendMessage(new TextMessage("<span class='sender'>"+Messenger+"</span>"+"<span class='messages'> : "+message.getPayload()+"</span>"));
@@ -56,7 +59,10 @@ public class Handler extends TextWebSocketHandler{
 		}
 
 		/*채팅 유저 목록*/
+
 		if(message.getPayload().equals("UserList")) {
+			JsonObject jsonObject=new JsonObject();
+
 		}
 	}
 
@@ -65,13 +71,13 @@ public class Handler extends TextWebSocketHandler{
 		if((String)session.getAttributes().get("mid")==null) {
 			users.remove(session.getId());
 		}else {
-			users.remove((String)session.getAttributes().get("mid"));
+			users.remove((String)session.getAttributes().get("session_id"));
 		}
 		String streamer=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1);
 		Iterator<String> oids=users.keySet().iterator();
 		while(oids.hasNext()) {
 			String oid=oids.next();
-			String Messenger=((String)session.getAttributes().get("mid")!=null)? (String)session.getAttributes().get("mid") : session.getId();
+			String Messenger=((String)session.getAttributes().get("session_id")!=null)? (String)session.getAttributes().get("mid") : session.getId();
 			if(users.get(oid).get(0).equals(streamer)) {
 				WebSocketSession um= (WebSocketSession) users.get(oid).get(1);
 				um.sendMessage(new TextMessage(Messenger+"님(이) 퇴장하였습니다."));

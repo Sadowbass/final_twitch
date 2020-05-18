@@ -1,17 +1,14 @@
 package controller_pk;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -36,11 +33,11 @@ public class BroadCastingController {
 	public String selectTag() {
 		List<String> list = dao.selectTag();
 		Gson gson = new Gson();
-	
+
 		return gson.toJson(list);
 	}
 
-	
+
 	@RequestMapping(value = "*/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public String selectCate() {
@@ -49,8 +46,8 @@ public class BroadCastingController {
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
 		JsonArray jsonArray = new JsonArray();
-		
-		
+
+
 		for(int i=0; i<list.size(); i++) {
 			jsonObject = new JsonObject();
 			jsonObject.addProperty("cat_gname", list.get(i).getCat_gname());
@@ -58,90 +55,90 @@ public class BroadCastingController {
 			jsonObject.addProperty("cat_orifile", list.get(i).getCat_orifile());
 			jsonObject.addProperty("cat_sysfile", list.get(i).getCat_sysfile());
 			jsonArray.add(jsonObject);
-			
+
 		}
-		
+
 		result = gson.toJson(jsonArray);
 		return result;
-		
+
 	}
-	
+
 	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String insertAir(HttpServletRequest req, HttpServletResponse resp) {
 		String msg = "";
-		
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµð
-		String title = req.getParameter("broadCastingTitle"); // Á¦¸ñ
-		String content = req.getParameter("broadCastingContent"); // ³»¿ë
-		String sKey = req.getParameter("streamKey"); // ½ºÆ®¸² Å°
-		String tags = req.getParameter("tags"); // ÅÂ±× µé
-		String gameName = req.getParameter("gameName"); // °ÔÀÓ ÀÌ¸§
-		
+
+		String mId = req.getParameter("mId"); // ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+		String title = req.getParameter("broadCastingTitle"); // ï¿½ï¿½ï¿½ï¿½
+		String content = req.getParameter("broadCastingContent"); // ï¿½ï¿½ï¿½ï¿½
+		String sKey = req.getParameter("streamKey"); // ï¿½ï¿½Æ®ï¿½ï¿½ Å°
+		String tags = req.getParameter("tags"); // ï¿½Â±ï¿½ ï¿½ï¿½
+		String gameName = req.getParameter("gameName"); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+
 		BroadCastingAirVo vo = new BroadCastingAirVo();
-		
+
 		vo.setAir_mid(mId);
 		vo.setAir_subject(title);
 		vo.setAir_content(content);
 		vo.setMem_skey(sKey);
 		vo.setAir_tnames(tags);
 		vo.setAir_gname(gameName);
-		
+
 		msg = dao.startAir(vo);
-		
+
 		return msg;
-		
+
 	}
-	
-	
-	
+
+
+
 	@RequestMapping(value = "*/updateAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String updateAir(HttpServletRequest req, HttpServletResponse resp) {
 		String msg = "";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµð
-		String title = req.getParameter("broadCastingTitle"); // Á¦¸ñ
-		String content = req.getParameter("broadCastingContent"); // ³»¿ë
-		String tags = req.getParameter("tags"); // ÅÂ±× µé
-		String gameName = req.getParameter("gameName"); // °ÔÀÓ ÀÌ¸§
-		
-		
+		String mId = req.getParameter("mId"); // ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+		String title = req.getParameter("broadCastingTitle"); // ï¿½ï¿½ï¿½ï¿½
+		String content = req.getParameter("broadCastingContent"); // ï¿½ï¿½ï¿½ï¿½
+		String tags = req.getParameter("tags"); // ï¿½Â±ï¿½ ï¿½ï¿½
+		String gameName = req.getParameter("gameName"); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+
+
 		BroadCastingAirVo vo = new BroadCastingAirVo();
-		
+
 		vo.setAir_mid(mId);
 		vo.setAir_subject(title);
 		vo.setAir_content(content);
 		vo.setAir_tnames(tags);
 		vo.setAir_gname(gameName);
-		
+
 		msg = dao.updateAir(vo);
 		return msg;
-		
+
 	}
-	
+
 	@RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String deleteAir(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("ÄÁÆ®·Ñ·¯µé¾î¿È");
+		System.out.println("ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½");
 		String msg = "";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµð
-		
+		String mId = req.getParameter("mId"); // ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+
 		msg = dao.deleteAir(mId);
 		return msg;
-		
+
 	}
-	
+
 	@RequestMapping(value = "*/selectDonation.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String selectDonation(HttpServletRequest req, HttpServletResponse resp) {
 		String result = "";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµð
+		String mId = req.getParameter("mId"); // ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
 		List<BroadCastingDonationVo> list = dao.selectDonation(mId);
-		
+
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
 		JsonArray jsonArray = new JsonArray();
-		
+
 		if(list.size()>0) {
 		for(int i=0; i<list.size(); i++) {
 			jsonObject = new JsonObject();
@@ -155,26 +152,26 @@ public class BroadCastingController {
 			jsonObject.addProperty("url", list.get(i).getUrl());
 			jsonObject.addProperty("type", list.get(i).getType());
 			jsonArray.add(jsonObject);
-			
+
 			}
 		result = gson.toJson(jsonArray);
 		System.out.println(result);
 		}
-		
+
 		return result;
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

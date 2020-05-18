@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis_uk">
+	<insert id="enter" parameterType="bean.UserList">
+		insert into final_userlist(serial, streamer, mid, status, enter_time, exit_time)
+		values(final_userlist_seq.nextval, #{streamer}, #{mid}, #{status}, sysdate, sysdate)
+	</insert>
+
+	<update id="exit" parameterType="bean.UserList">
+		update final_userlist
+		set status=#{status}, exit_time=sysdate
+		where streamer=#{streamer}
+		and mid=#{mid}
+		and status=1
+	</update>
+
+	<select id="users" parameterType="String" resultType="String">
+		select mid from final_userlist
+		where streamer=#{_parameter}
+		and status=1
+	</select>
+</mapper>

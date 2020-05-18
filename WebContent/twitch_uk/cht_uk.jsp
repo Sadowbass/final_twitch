@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="js/uk_cht.js"></script>
-<link rel="stylesheet" href="css/css_uk.css">
 <!-- top -->
 <div class="row mx-0">
 	<div class="col-md-2 p-0 text-center">
@@ -16,8 +13,8 @@
 </div>
 <!-- 도네현황 -->
 <div class="row mx-0">
-	<div class="col-md-12 text-center" >
-		<h1>도네이션 현황<br/>${vo.mem_Id }</h1>
+	<div class="col-md-12 text-center" onclick='WSclose()'>
+		<h1>도네이션 현황</h1>
 	</div>
 </div>
 <!-- mid(메인 채팅창) -->
@@ -45,9 +42,10 @@
 	</div>
 </div>
 <input type="hidden"  id="link" value="${vo.mem_Id }">
+<input type="hidden"  id="session_id" value="${session_id }">
 <script>
 $(document).ready(function(){
-	 uk.connectWS($('input[type="hidden"]').val());
+	 uk.connectWS($('input#link').val(), $('input#session_id').val());
 });
 </script>
 
