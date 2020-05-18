@@ -13,6 +13,37 @@ public class MemberVo {
 	String mem_status;
 	String mem_zcode;
 	String mem_add1;
+	String mem_add2;
+	
+	String ph_serial;
+	String ph_orifile;
+	String ph_sysfile;
+	String ph_id;
+	
+	public String getPh_serial() {
+		return ph_serial;
+	}
+	public void setPh_serial(String ph_serial) {
+		this.ph_serial = ph_serial;
+	}
+	public String getPh_orifile() {
+		return ph_orifile;
+	}
+	public void setPh_orifile(String ph_orifile) {
+		this.ph_orifile = ph_orifile;
+	}
+	public String getPh_sysfile() {
+		return ph_sysfile;
+	}
+	public void setPh_sysfile(String ph_sysfile) {
+		this.ph_sysfile = ph_sysfile;
+	}
+	public String getPh_id() {
+		return ph_id;
+	}
+	public void setPh_id(String ph_id) {
+		this.ph_id = ph_id;
+	}
 	public String getMem_id() {
 		return mem_id;
 	}
@@ -91,5 +122,4 @@ public class MemberVo {
 	public void setMem_add2(String mem_add2) {
 		this.mem_add2 = mem_add2;
 	}
-	String mem_add2;
 }

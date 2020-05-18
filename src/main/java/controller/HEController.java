@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import bean.HEDao;
 import bean.MemberVo;
+import config.HE_FileUpload;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,12 +57,54 @@ public class HEController {
 		return mv;
 	}
 	
+	@RequestMapping(value="*/member_result.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView insertResult(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		HE_FileUpload fu = new HE_FileUpload(req, resp);
+		HttpServletRequest req2 = fu.boardUploading();
+		
+		MemberVo vo = (MemberVo)req2.getAttribute("vo");
+		
+		String msg = dao.member_insert(vo, req2);
+		mv.addObject("msg", msg);
+		mv.setViewName("member/result"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/member_modify.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView modifyM(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/member_modify"); 
+		return mv;
+	}
+	
 	@RequestMapping(value="*/member_view.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView viewM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
+		MemberVo vo =  null;
 		String mid =(String)req.getParameter("he_serial");
-		MemberVo vo=dao.member_view(mid);
-		System.out.println(vo.getMem_name());
+		vo=dao.member_view(mid);
+		
+		if(vo != null) {
+			if(vo.getMem_admin()!=null && vo.getMem_status()!=null) {
+				
+				if(vo.getMem_admin().equals("0")) {
+					vo.setMem_admin("일반회원");
+				}else {
+					vo.setMem_admin("관리자");
+				}
+				
+				if(vo.getMem_status().equals("0")) {
+					vo.setMem_status("오프라인");
+				}else if(vo.getMem_status().equals("1")) {
+					vo.setMem_status("온라인");
+				}else {
+					vo.setMem_status("방송중");
+				}
+			}
+		}
+		
+		
 		mv.addObject("vo", vo);
 		mv.setViewName("member/member_view"); 
 		return mv;

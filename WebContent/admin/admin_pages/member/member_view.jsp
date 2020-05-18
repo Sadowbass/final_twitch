@@ -26,7 +26,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <!-- noUISlider Css -->
     <link href="plugins/nouislider/nouislider.min.css" rel="stylesheet" />
-    <link href="css/member.css" rel="stylesheet" />
 
     <!-- Sweet Alert Css -->
     <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
@@ -35,7 +34,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
-    <link href="css/member.css" rel="stylesheet">
+    
+
+    <link href="css/member.css" rel="stylesheet" />
+    
+    <script src="js/member.js"></script>
 
 
 
@@ -97,10 +100,17 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <div class="row clearfix">
                                     <div class="col-md-12  col-xs-12">
                                         <div class="body">
+                                            <form id="he_form" name="he_form" method="post">
                                             <div class="row clearfix">
-                                                <div class="col-xs-12 ">
+                                       	 		<div class="col-xs-12 ">
+                                                 <c:if test="${empty vo.ph_serial}">
                                                     <img src="images/user.png" class="img-circle member_img"
                                                         id="member_img">
+                                                 </c:if>
+                                                 <c:if test="${not empty vo.ph_serial}">
+                                                    <img src="../img/user-photo/${vo.ph_sysfile }" class="img-circle member_img"
+                                                        id="member_img">
+                                                 </c:if>
 
                                                 </div>
                                             </div>
@@ -224,21 +234,26 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	집주소 
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.add1 } ${vo.add2}">
+                                                            <input type="text" class="form-control" value="${vo.mem_add1 } ${vo.mem_add2}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                           </form>
                                             
                                             <div class="row clearfix js-sweetalert">
                                                 <div class="col-lg-12 col-sm-12 saveButton">
-                                                    <button type="button" class="btn waves-effect" data-type="confirm">
+                                                    <button type="button" class="btn waves-effect" data-toggle="modal" data-target="#stopModal">
                                                         <i class="material-icons">block</i>
                                                         <span>계정 이용 정지</span>
                                                     </button>
                                                     <button type="button" class="btn waves-effect" data-type="cancel">
                                                         <i class="material-icons">delete</i>
                                                         <span>계정 삭제</span>
+                                                    </button>
+                                                    <button type="button" class="btn waves-effect" id="modify_btn">
+                                                        <i class="material-icons">build</i>
+                                                        <span>수정</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -514,6 +529,37 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             </div>
         </div>
         <!-- #END# Tabs With Icon Title -->
+  <!-- 정지 모달 -->      
+  <div class="modal fade" id="stopModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content cate_modi_content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">정지 항목</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                     <div>
+	        			<input type="checkbox" />
+    	    			<span>방송 정지</span>
+                     </div>
+                     <div>
+	        			<input type="checkbox" />
+    	    			<span>채팅 정지</span>
+                     </div>
+                     <div>
+	        			<input type="checkbox" />
+    	    			<span>전체 정지</span>
+                     </div>    
+                </div>
+              
+            </div>
+            <div class="modal-footer js-sweetalert">
+                <button class="btn btn-modal waves-effect" data-type="confirm">정지</button>
+                <button type="button" class="btn btn-modal waves-effect" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     </div>
@@ -546,8 +592,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <!-- alert dialog -->
     <script src="js/pages/ui/dialogs.js"></script>
-
-    <!-- table -->
+    
+  
+   
+	
+	<!-- table -->
 
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.material.min.js"></script>
@@ -564,7 +613,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 
 
-    <script src="js/member.js"></script>
     <script>
         $(document).ready(function () {
             var table = $('#he_table').DataTable({
@@ -715,6 +763,20 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             }
 
         });
+        
+        var member_modify =  function(){
+        	$('#modify_btn').click=function(){
+        		console.log('test');
+        		let param = $('#he_form').serialize();
+        		$.post("member_modify.he",param,function(data,state){
+        			$('#main_body').html(data);
+        		})
+        	}
+        }
+
+
+        
+      
     </script>
 
 

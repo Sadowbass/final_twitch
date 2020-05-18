@@ -9,9 +9,20 @@
 	</select>
     <select id='view' parameterType="String" resultType="bean.MemberVo">
     	select mem_id,mem_name,mem_email,mem_admin,to_char(mem_rdate,'rrrr-mm-dd') mem_rdate,mem_status,mem_birth,
-    	mem_profile,mem_money,mem_zcode,mem_add1,mem_add2 
-    	from final_member where mem_id= '${_parameter}'
+    	mem_profile,mem_money,mem_zcode,mem_add1,mem_add2,ph_serial,ph_orifile,ph_sysfile,ph_Id
+    	from final_member m join final_photo p 
+    	on m.mem_id = p.ph_id(+)
+    	where m.mem_id='${_parameter}'
     </select>
+     <insert id="insert" parameterType='bean.MemberVo'>
+    	insert into final_member(mem_id,mem_name,mem_email,mem_admin,mem_rdate,mem_status,mem_birth,mem_profile,mem_pwd)
+    	values(#{mem_id},#{mem_name},#{mem_email},#{mem_admin},sysdate,0,#{mem_birth},#{mem_profile},#{mem_pwd})
+    </insert>
+     <insert id="insert_p" parameterType ='bean.MemberVo'>
+    	insert into final_photo(ph_serial,ph_orifile,ph_sysfile,ph_id)
+    	values(seq_Mphoto.nextval,#{ph_orifile},#{ph_sysfile},#{ph_id})
+    </insert>
+
 	
     <!--<select id="count" parameterType ="bean.Page" resultType="Integer">
     	select count(serial) cnt from board
