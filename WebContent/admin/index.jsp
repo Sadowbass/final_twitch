@@ -84,7 +84,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     
     <!-- Demo Js -->
     <script src="js/demo.js"></script>
-    
+    <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
   
 </head>
 <%
@@ -253,7 +253,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a>
+                                    	<a href="javascript:void(0);" onclick="cmh.init();">상품조회</a>
+                                        <!-- <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a> -->
                                     </li>
                                     <li>
                                         <a href="index.jsp?inc=admin_pages/shop/product_insert.jsp">상품추가</a>
@@ -695,7 +696,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <!-- #END# Right Sidebar -->
     </section>
 
-    <section class="content">
+    <section class="content" id="mainContent">
       <jsp:include page="<%=inc%>" />
     </section>
     

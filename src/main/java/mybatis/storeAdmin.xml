@@ -3,14 +3,14 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="adminStore">
+<mapper namespace="storeAdmin">
 
 	<!-- 상품 등록 -->
 	<insert id='product_insert' parameterType='bean.ProductVo_mh'>
 		insert into
-		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size)
+		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size,product_state)
 		values(seq_product.nextval, #{product_name}, #{product_explain},
-		${product_price}, #{product_cate}, ${product_count},#{product_size})
+		${product_price}, #{product_cate}, ${product_count},#{product_size},0)
 	</insert>
 	
 	<!-- 사진등록 -->
@@ -18,7 +18,37 @@
 		insert into product_photo(photo_serial, product_id, orifile, sysfile)
 		values(seq_productAtt.nextval, seq_product.currval, #{orifile}, #{sysfile})
 	</insert>
-
+	
+	<select id='count' parameterType='bean.mh_Page' resultType="Integer">
+		select count(product_id) from product where product_name like '%${findStr}%'
+	</select>
+	
+	<resultMap id="storeAdmin_map" type="bean.ProductVo_mh">
+		<result column="product_id" property="product_id" />
+		<result column="product_name" property="product_name" />
+		<result column="product_explain" property="product_explain" />
+		<result column="product_price" property="product_price" />
+		<result column="product_cate" property="product_cate" />
+		<result column="product_count" property="product_count" />
+		<result column="product_state" property="product_state" />
+		<result column="product_size" property="product_size" />
+		<collection property="photos" javaType="bean.ProductPhoto_mh">
+			<result column="photo_serial" property="photo_serial"/>
+			<result column="product_id" property="product_id"/>
+			<result column="orifile" property="orifile"/>
+			<result column="sysfile" property="sysfile"/>
+		</collection>
+	</resultMap>
+	
+	<select id="select" parameterType="bean.mh_Page" resultMap="storeAdmin_map">
+		
+		select * from (select rownum rno, a.* from(select p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_state, product_size, photo_serial,orifile,sysfile 
+		from product p left outer join product_photo ph
+		on p.product_id = ph.product_id
+		where product_name like '%${findStr}%'
+		order by p.product_id desc)a)where rno between ${startNo} and ${endNo} 
+		
+	</select>
 
 
 	<!-- <select id='selectTag' resultType="String"> SELECT tag_name FROM FINAL_TAG 

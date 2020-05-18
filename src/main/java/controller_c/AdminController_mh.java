@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.tools.DocumentationTool.Location;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +19,10 @@ import bean.ProductPhotoUpload_mh;
 import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
 import bean.StoreMybatisDao_mh;
+import bean.mh_Page;
 
 @Controller
+
 public class AdminController_mh {
 	
 	StoreMybatisDao_mh dao;
@@ -27,6 +32,7 @@ public class AdminController_mh {
 		System.out.println("★★★★AdminController_mh 들어옴★★★★★★★");
 		this.dao = dao;
 	}
+	
 	
 	@RequestMapping(value="*/productInsert.mh", method=RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody
@@ -53,9 +59,31 @@ public class AdminController_mh {
 	}
 	
 	@RequestMapping(value="*/product_select.mh", method= {RequestMethod.GET,RequestMethod.POST}, produces="application/text; charset=utf8")
+	public String productSelect(Model model,String product_search,String nowPage) {
+		System.out.println("컨트롤러 -> product_select.mh 실행");		
+		
+		mh_Page p = new mh_Page();
+		p.setFindStr(product_search);
+		if(nowPage == null) {
+			p.setNowPage(1);
+		}else {
+			p.setNowPage(Integer.parseInt(nowPage));
+		}
+		System.out.println("★★★★★" + p.getNowPage());
+		System.out.println("★★★★★" + p.getFindStr());
+		List<ProductVo_mh> list =  dao.select(p);
+		
+		model.addAttribute("p",p);
+		model.addAttribute("list",list);
+		
+		return "product_select";
+	}
+	
 	@ResponseBody
-	public void productSelect() {
+	@RequestMapping(value="*/test.mh", method= {RequestMethod.GET, RequestMethod.POST},produces="application/text; charset=utf8")
+	public String test() {
 		
-		
+		System.out.println("test");
+		return "test";
 	}
 }

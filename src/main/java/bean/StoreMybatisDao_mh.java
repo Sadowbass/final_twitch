@@ -12,38 +12,59 @@ import mybatis.Factory;
 
 public class StoreMybatisDao_mh {
 
-	SqlSession sqlsession;
-	
+	SqlSession sqlSession;
+
 	public StoreMybatisDao_mh() {
-		
-		sqlsession = Factory.getFactory().openSession();
+
+		sqlSession = Factory.getFactory().openSession();
 		System.out.println("★★★★★ 민호 DAO들어옴★★★★★");
 	}
-	
-	public String insert(ProductVo_mh vo , List<ProductPhoto_mh> attList) {
+
+	public String insert(ProductVo_mh vo, List<ProductPhoto_mh> attList) {
 		String msg = "상품이 정상적으로 입력되었습니다.";
-		
+
 		try {
-			int cnt = sqlsession.insert("adminStore.product_insert", vo);
+			int cnt = sqlSession.insert("storeAdmin.product_insert", vo);
 			if (cnt < 1) {
 				throw new Exception("상품 등록 중 오류 발생");
 			}
-			for(ProductPhoto_mh attVo : attList) {
-				cnt = sqlsession.insert("adminStore.att_insert",attVo);
-				if(cnt<1) {
+			for (ProductPhoto_mh attVo : attList) {
+				cnt = sqlSession.insert("storeAdmin.att_insert", attVo);
+				if (cnt < 1) {
 					throw new Exception("사진 등록 중 오류 발생");
 				}
 			}
-			sqlsession.commit();
+			sqlSession.commit();
 		} catch (Exception ex) {
-			sqlsession.rollback();
+			sqlSession.rollback();
 			ex.printStackTrace();
-			msg = ex.getMessage();		
-		} finally {			
+			msg = ex.getMessage();
+		} finally {
 			return msg;
-		}		
+		}
 	}
-	
-	
-	
+
+	public List<ProductVo_mh> select(mh_Page p) {
+		List<ProductVo_mh> list = null;
+
+		try {
+			System.out.println("★★★★★★★여기★★★★★★★"+p.getFindStr());
+			int totList = sqlSession.selectOne("storeAdmin.count", p);
+			
+			
+			System.out.println("★★★★★" + totList);
+			p.setTotListSize(totList);
+			p.pageCompute();
+			
+			list = sqlSession.selectList("storeAdmin.select", p);
+			System.out.println(list.size());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// sqlSession.close();
+			return list;
+		}
+
+	}
+
 }

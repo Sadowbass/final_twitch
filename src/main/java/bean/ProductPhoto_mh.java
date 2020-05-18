@@ -13,8 +13,6 @@ public class ProductPhoto_mh {
 		this.orifile = ori;
 		this.sysfile = sys;
 	}
-	
-	
 	public int getPhoto_serial() {
 		return photo_serial;
 	}
@@ -39,6 +37,9 @@ public class ProductPhoto_mh {
 	public void setSysfile(String sysfile) {
 		this.sysfile = sysfile;
 	}
+	
+	
+	
 	
 	
 }

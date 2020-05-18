@@ -13,7 +13,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import bean.Page;
+import bean.mh_Page;
 
 public class FileUpload {
 	public static String upload = "D:/Java_Study/late/WebContent/upload/";
@@ -38,7 +38,7 @@ public class FileUpload {
 		BoardVo vo = new BoardVo();
 		List<MemberPhoto> attList = new ArrayList<MemberPhoto>();
 		List<MemberPhoto> delList = new ArrayList<MemberPhoto>();
-		Page p = new Page();
+		mh_Page p = new mh_Page();
 
 		DiskFileItemFactory factory = new DiskFileItemFactory(); // 아파치에 파일업로드를 하기위한 클래스
 		factory.setSizeThreshold(4096); // 파일 업로드할때 사용할 버퍼 메모리 크기
@@ -118,7 +118,7 @@ public class FileUpload {
 		MemberVo vo = new MemberVo();
 		List<MemberPhoto> attList = new ArrayList<MemberPhoto>();
 		List<MemberPhoto> delList = new ArrayList<MemberPhoto>();
-		Page p = new Page();
+		mh_Page p = new mh_Page();
 		String mId = "";
 
 		DiskFileItemFactory factory = new DiskFileItemFactory(); // 아파치에 파일업로드를 하기위한 클래스

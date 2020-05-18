@@ -1,5 +1,8 @@
 package bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductVo_mh {
 	int product_id;
 	String product_name;
@@ -7,11 +10,25 @@ public class ProductVo_mh {
 	int product_price;
 	String product_cate;
 	int product_count;
+	int product_state;
 	String product_size;
+	List<ProductPhoto_mh> photos = new ArrayList<ProductPhoto_mh>();
 	
 	
 	
 	
+	public int getProduct_state() {
+		return product_state;
+	}
+	public void setProduct_state(int product_state) {
+		this.product_state = product_state;
+	}
+	public List<ProductPhoto_mh> getPhotos() {
+		return photos;
+	}
+	public void setPhotos(List<ProductPhoto_mh> photos) {
+		this.photos = photos;
+	}
 	public String getProduct_explain() {
 		return product_explain;
 	}

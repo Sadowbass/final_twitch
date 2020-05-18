@@ -115,7 +115,7 @@ cmh.func = function(){
 		}
 	})
 	
-	/*초기화 버튼 누루면*/
+	/* 초기화 버튼 누루면 */
 	$('#btn_reset').click(function(){
 		location.reload();
 	})
@@ -148,8 +148,21 @@ cmh.func = function(){
 			$('#adminModifyBtn').attr('disabled',true);
 		}
 	})
+	/* end profile.jsp */
 	
-}	
+	/* product_select.jsp*/
+	
+	$('btn_search_mh').click(function(){
+		frm_product_select.nowPage.value = 1;
+		let param = $('#frm_product_select').serialize();
+		$.post("product_select.mh", param, function(data, state){
+			$('#mainContent').html(data)
+		});
+	})
+	
+	
+}
+/*end chm_func()*/
 
 cmh.productView = function(serial){
 	location.href = "index.jsp?inc=admin_pages/shop/product_view.jsp";
@@ -157,4 +170,29 @@ cmh.productView = function(serial){
 
 cmh.orderView = function(serial){
 	location.href = "index.jsp?inc=admin_pages/shop/order_view.jsp";
+}
+
+cmh.init = function(){
+	/*location.href="test.mh";*/
+	/*location.href="index.jsp?inc=admin_pages/shop/product_select.jsp";*/
+	$.ajax({
+		url : "product_select.mh",
+		type : "get",
+		error : function(xhr,status,error){
+			alert(error)
+		},
+		success : function(data, xhr, status){
+			$('#mainContent').html(data);
+		}
+		
+	})
+	
+}
+
+cmh.go = function(nowPage){
+	frm_product_select.nowPage.value = nowPage;
+	let param = $('#frm_product_select').serialize();
+	$.post("product_select.mh", param, function(data, state){
+		$('#mainContent').html(data)
+	});
 }
