@@ -1,5 +1,5 @@
 let onair = function (loc) {
-    location.href = loc;
+    location.href = "/"+loc;
 }
 
 $(document).on('keyup', '#sidebar-friend-search', function () {
@@ -12,7 +12,7 @@ $(document).on('keyup', '#sidebar-friend-search', function () {
         $.ajax({
             type: 'post',
             data: {"value" : value},
-            url: 'searchFriends.sc',
+            url: '/searchFriends.sc',
             error: function (error) {
                 console.log(error);
             },
@@ -71,3 +71,4 @@ $(document).on('keyup', '#sidebar-friend-search', function () {
     } // end of if/else
 
 })
+

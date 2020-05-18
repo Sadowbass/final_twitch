@@ -10,16 +10,13 @@
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd
          http://www.springframework.org/schema/aop
-         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+">
 
 	<context:annotation-config />
 
-	<!-- bean <bean id='brdDao' class='bean.BoardMybatisDao'/> controller <bean 
-		id='brd_controller' class='controller.BoardController'> <constructor-arg 
-		ref='brdDao'/> </bean> view resolver <bean class='org.springframework.web.servlet.view.InternalResourceViewResolver'> 
-		<property name='prefix' value='./board/' /> <property name='suffix' value='.jsp' 
-		/> </bean> -->
-	
 	<!-- bean -->
 	<!--controller -->
 	<bean id="sc_controller" class="controller.SCController">
@@ -30,5 +27,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-</beans>	
+</beans>
+
+
 

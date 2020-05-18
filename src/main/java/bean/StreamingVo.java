@@ -6,7 +6,7 @@ public class StreamingVo {
     private String air_mId;
     private String air_subject;
     private String air_gName;
-    private String ph_sysfile;
+    private String ph_sysfile; 
 
     public String getMem_Id() {
         return mem_Id;

@@ -13,15 +13,15 @@
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
 
     <c:forEach var="i" items="${list}">
-        <li class="nav-item">
+        <li class="nav-item"> 
             <div class="nav-link nav-link-sc" onclick="javascript:onair('<c:out value="${i.air_mId}"/>')"
-                 id="<c:out value="${i.air_mId}"/>">
+                 id="${i.air_mId }">
                 <c:choose>
                     <c:when test="${i.ph_sysfile == null}">
-                        <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+                        <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
                     </c:when>
                     <c:otherwise>
-                        <img src="${i.ph_sysfile}" class="sidebar-list-img rounded-circle"></img>
+                        <img src="/img/user-photo/${i.ph_sysfile}" class="sidebar-list-img rounded-circle"></img>
                     </c:otherwise>
                 </c:choose>
 
@@ -50,7 +50,7 @@
         <ul>
             <li class="nav-item" style="margin-bottom: 0;">
                 <a class="nav-link nav-link-sc" href="#" id="main" onclick="pagemove(this)">
-                    <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+                    <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
                     <div class="sidebar-list-content">
                         <div class="sidebar-list-text">
                             <span>추천1</span><br/>
@@ -75,8 +75,8 @@
 
 <ul class="sidebar navbar-nav" id="sidebar-friendlist">
     <li class="nav-item">
-        <div class="nav-link nav-link-sc" id="<c:out value="${i.air_mId}"/>" onclick="">
-            <img src="./img/s1.png" class="sidebar-list-img rounded-circle"></img>
+        <div class="nav-link nav-link-sc" id="<c:out value="${i.air_mId}"/>">
+            <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
                     <span>${i.air_mId}</span><br/>

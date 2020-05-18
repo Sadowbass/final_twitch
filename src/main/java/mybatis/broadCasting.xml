@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="broadCasting"> 
+<mapper namespace="broadCasting">
 
-	<select id='selectTag' resultType="String">
-		SELECT tag_name FROM FINAL_TAG
-	</select>	       
-	<select id='selectCate' resultType="bean.BroadCastingCateVo">
-		select * from final_category
-	</select>
-	<update id='updateKey' parameterType='bean.BroadCastingAirVo' >
-		update final_member
-		SET 
-		mem_skey = #{mem_skey}
-		WHERE
-		mem_id = #{air_mid}
-	</update>
-	<insert id='startAir' parameterType='bean.BroadCastingAirVo' >
-		insert into final_onair(air_serial,air_mid,air_subject,air_content,air_starttime,air_gname,air_tnames)
-		values(seq_onair.nextVal,#{air_mid},#{air_subject},#{air_content},sysdate,#{air_gname},#{air_tnames})
-	</insert>
-	<update id='updateAir' parameterType='bean.BroadCastingAirVo' >
-		update final_onair
-		SET 
-		air_subject = #{air_subject},
-		air_content = #{air_content},
-		air_gname = #{air_gname},
-		air_tnames = #{air_tnames}
-		WHERE
-		air_mid = #{air_mid}
-	</update>
-	<delete id='deleteAir' parameterType='String'>
-		delete from final_onair where air_mid = #{_parameter}
-	</delete>
-	<select id='selectDonation' resultType="bean.BroadCastingDonationVo" parameterType='String'>
-		select * from final_donation where don_push='0' and don_mid = #{mId}
-	</select>
-	<update id='readDonation' parameterType='Integer'>
-		update final_donation
-		SET 
-		don_push = '1'
-		WHERE
-		don_serial = ${serial}
-	</update>
-	
-	
+    <select id='selectTag' resultType="String">
+        SELECT tag_name
+        FROM FINAL_TAG
+    </select>
+    <select id='selectCate' resultType="bean.BroadCastingCateVo">
+        select *
+        from final_category
+    </select>
+    <update id='updateKey' parameterType='bean.BroadCastingAirVo'>
+        update final_member
+        SET mem_skey = #{mem_skey}
+        WHERE mem_id = #{air_mid}
+    </update>
+    <insert id='startAir' parameterType='bean.BroadCastingAirVo'>
+        insert into final_onair(air_serial, air_mid, air_subject, air_content, air_starttime, air_gname, air_tnames)
+        values (seq_onair.nextVal, #{air_mid}, #{air_subject}, #{air_content}, sysdate, #{air_gname}, #{air_tnames})
+    </insert>
+    <update id='updateAir' parameterType='bean.BroadCastingAirVo'>
+        update final_onair
+        SET air_subject = #{air_subject},
+            air_content = #{air_content},
+            air_gname   = #{air_gname},
+            air_tnames  = #{air_tnames}
+        WHERE air_mid = #{air_mid}
+    </update>
+    <delete id='deleteAir' parameterType='String'>
+        delete
+        from final_onair
+        where air_mid = #{_parameter}
+    </delete>
+    <select id='selectDonation' resultType="bean.BroadCastingDonationVo" parameterType='String'>
+        select *
+        from final_donation
+        where don_push = '0'
+          and don_mid = #{mId}
+    </select>
+    <update id='readDonation' parameterType='Integer'>
+        update final_donation
+        SET don_push = '1'
+        WHERE don_serial = ${serial}
+    </update>
+
 
 </mapper>
    

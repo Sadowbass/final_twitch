@@ -49,7 +49,6 @@
             	console.log(error)
             },
             success: function (data) {
-            	console.log("sidebar")
                 $('#sidebarplace').html(data);
             }
         })

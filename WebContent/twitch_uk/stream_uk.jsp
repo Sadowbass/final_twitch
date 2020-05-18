@@ -103,7 +103,7 @@
 										<a href="#">클립</a>
 									</div>
 									<div class="col-md-1 p-0">
-										<a href="#">팔로워</a>
+										<a href="/${vo.mem_Id}/followers">팔로워</a>
 										<div class="col-md-4  p-0"></div>
 									</div>
 								</div>
