@@ -1,30 +1,25 @@
 package bean;
 
 public class UserList {
-	String status;
-	String streamer;
 	String mid;
-
-	public UserList() {
-		System.out.println("userlist constructor");
-	}
-
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getStreamer() {
-		return streamer;
-	}
-	public void setStreamer(String streamer) {
-		this.streamer = streamer;
-	}
+	String oid;
+	int status;
 	public String getMid() {
 		return mid;
 	}
 	public void setMid(String mid) {
 		this.mid = mid;
+	}
+	public String getOid() {
+		return oid;
+	}
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }

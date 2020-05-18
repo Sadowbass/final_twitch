@@ -2,6 +2,7 @@ let uk = {}
 
 let ws;
 let streamerId;
+let loginId
 
 uk.stream = function() {
 	$("#fold").click(function() {
@@ -22,14 +23,17 @@ uk.stream = function() {
 			$("#cht_div").children().eq(3).css("display","none");
 			$("#cht_div").children().eq(4).css("visibility","hidden");
 			$("<div class='row'><div class='col-md-12' id='divUsers'><h1>유저 목록</h1></div></div>").insertAfter($("#cht_div").children().first());
+
 			let param={streamer: streamerId}
+
 			$.getJSON('users.uk', param, function(data){
-				console.log(data);
+
 				let buffer="";
+
 				data.forEach(function(item){
-					console.log(item);
 					buffer+="<span>"+item+"</span><br/>";
 				});
+
 				$('#divUsers').html(buffer);
 
 			});
@@ -39,49 +43,27 @@ uk.stream = function() {
 
 
 
-uk.connectWS=function(streamer, loginId){
+uk.connectWS=function(streamer, login){
 
 	streamerId=streamer;
-
-	console.log("streamerID"+streamerId)
-	console.log("loginID"+loginId)
-
-	ws = new WebSocket("ws://192.168.0.57:8888/final_twitch/cht?"+streamerId);
-
-	ws.onopen = function (event) {
-
-		console.log("open:::",event);
-
-		let param={
-				streamer: streamerId,
-				mid : "rain",
-				status: 1
-		}
-		$.get("enter.uk", param, function(data){
-			console.log(data);
-		});
-	}
+	/*loginId=login;*/
+	loginId='임시';
 
 
-	ws.onclose = function (event) {
-		console.log("close:::",event);
+	ws = new WebSocket("ws://localhost/cht?"+streamerId);
 
-		let param={
-				streamer: streamerId,
-				mid : "rain",
-				status: 0
-		}
-		$.get("exit.uk", param, function(data){
-			console.log(data);
-		});
-
-	}
-
-	ws.onerror = function (event) { console.log("error:::",event); };
+	ws.onopen = function (event) {console.log("채팅 서버 접속 완료");}
+	ws.onclose = function (event) {console.log("채팅 서버 접속 종료");}
+	ws.onerror = function (event) { console.log("에러 발생 !!! "); };
 
 	ws.onmessage = function (event) {
-		$('<div></div>').html(event.data).appendTo('#chtArea');
-		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+		let jsonTxt=JSON.parse(event.data);
+		console.log(jsonTxt);
+
+		if(jsonTxt.cht_mid&&jsonTxt.cht_txt){
+			$('<div></div>').html(jsonTxt.cht_oid+': '+jsonTxt.cht_txt).appendTo('#chtArea');
+			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+		}
 	};
 
 	$('div[contenteditable]').keydown(function(e) {
@@ -95,36 +77,19 @@ uk.connectWS=function(streamer, loginId){
 }
 
 let WSsend=function(){
-	  let msg ={"m":$('div[contenteditable]').html()}
-	//여기 체크해보기
-	console.log($('#session_id').val());
-	console.log(msg.length!=0);
-	  if(ws.readyState===1 && $('#session_id').val() && msg.length!=0){
+	  let msg ={
+		cht_mid:streamerId,
+		cht_oid:loginId,
+		cht_txt:$('div[contenteditable]').html()
+	  }
+
+
+	  if(ws.readyState===1 && loginId){
 		  ws.send(JSON.stringify(msg));
 		  $('div[contenteditable]').empty();
 	  }
 }
 
 let WSclose=function(){
-	console.log('click');
 	ws.close();
-}
-
-/*ajax json*/
-var obj = {"name": "kim", "age": 30};
-
-function jsontest() {
-    $.ajax({
-        url: "enter.uk",
-        type: "post",
-        data: JSON.stringify(obj),
-        dataType: "json",
-        contentType: "application/json",
-        success: function(data) {
-            alert("성공");
-        },
-        error: function(errorThrown) {
-            alert(errorThrown.statusText);
-        }
-    });
 }
