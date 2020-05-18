@@ -56,13 +56,13 @@ public class BroadCastingMybatisDao {
 			list = sqlSession.selectList("broadCasting.selectDonation",mId);
 			System.out.println(list.size());
 			
-			/*
+			
 			if(list != null) {
 			for(int i=0; i < list.size(); i++) {
 				readDonation(list.get(i).don_serial);
 			}
 			}
-			*/
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -90,6 +90,28 @@ public class BroadCastingMybatisDao {
 			}
 		}
 	}
+	
+	public String sendDonation(int serial) {
+		int result = 0;
+		String msg = "";
+		try {
+			result = sqlSession.update("broadCasting.sendDonation", serial);
+		}catch (Exception e) {
+			e.printStackTrace();
+			msg = "송출실패";
+			sqlSession.rollback();
+			//sqlSession.close();
+		}finally {
+			if(result>0) {
+				msg = "송출성공";
+				sqlSession.commit();
+				//sqlSession.close();
+			}
+			
+			return msg;
+		}
+	}
+	
 	
 	
 	

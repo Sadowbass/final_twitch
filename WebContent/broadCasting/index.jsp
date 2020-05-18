@@ -23,6 +23,12 @@
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=WpsYh9WB"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel='stylesheet'
+   href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' />
+<link rel='stylesheet'
+   href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' />
+<script
+   src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
 <style>
 .ui-autocomplete {
 max-height: 100px;
@@ -230,7 +236,7 @@ overflow-x: hidden;
 						<font style='color: white'>방송 미리보기</font>
 					</div>
 					<div class='col-12' style="height: 500px;">
-						<div class='row' style="">
+						<div class='row' style="" id='videoView'>
 							  <jsp:include page="./video_tak.jsp" />
 						</div>
 					</div>
@@ -375,6 +381,8 @@ overflow-x: hidden;
 			if($(this).hasClass('on')===true){ // 방송 켜졌을 때		
 				startAir();
 				
+		
+				
 			}else{ // 방송 꺼졌을때
 				stopAir();
 			
@@ -396,9 +404,9 @@ overflow-x: hidden;
 					      for(let i = 0; i<data.length; i++){
 					        let html = '';
 					    	if(data[i].type == '0'){
-					        html += '<div class="row" style="margin-top: 2%" onclick="voiceDonation()">';
+					        html += '<div class="row" style="margin-top: 2%" onclick="voiceDonation(' + data[i].don_serial + ')">';
 					        }else if(data[i].type =='1'){
-					    	html += '<div class="row" style="margin-top: 2%" onclick="videoDonation()">';
+					    	html += '<div class="row" style="margin-top: 2%" onclick="videoDonation(' + data[i].don_serial + ')">';
 					        }
 					        html += "<div class='col-1'>";
 					        if(data[i].type == '0'){
@@ -419,6 +427,34 @@ overflow-x: hidden;
 					        html += data[i].don_rdate;
 					        html += "</div>";
 					        $('#donationDiv').append(html);
+					        
+					             
+					         toastr.options = {
+					                 "closeButton": false,
+					                 "debug": false,
+					                 "newestOnTop": false,
+					                 "progressBar": false,
+					                 "positionClass": "toast-top-center",
+					                 "preventDuplicates": false,
+					                 "onclick": null,
+					                 "showDuration": "300",
+					                 "hideDuration": "1000",
+					                 "timeOut": "3000",
+					                 "extendedTimeOut": "1000",
+					                 "showEasing": "swing",
+					                 "hideEasing": "linear",
+					                 "showMethod": "fadeIn",
+					                 "hideMethod": "fadeOut",
+					                 "bdColor": "#444"
+					               }
+					         
+						    	if(data[i].type == '0'){
+						    			toastr.success('음성후원이 도착하였습니다');
+							        }else if(data[i].type =='1'){
+							        	toastr.success('영상후원이 도착하였습니다');
+							        }
+					         
+        
 
 					}
 					

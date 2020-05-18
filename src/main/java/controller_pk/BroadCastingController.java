@@ -66,11 +66,11 @@ public class BroadCastingController {
 		
 	}
 	
-	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String insertAir(HttpServletRequest req, HttpServletResponse resp) {
+	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView insertAir(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("컨트롤러넘어옴");
 		String msg = "";
-		
+		ModelAndView mv = new ModelAndView();
 		String mId = req.getParameter("mId"); // 스트리머 아이디
 		String title = req.getParameter("broadCastingTitle"); // 제목
 		String content = req.getParameter("broadCastingContent"); // 내용
@@ -88,8 +88,15 @@ public class BroadCastingController {
 		vo.setAir_gname(gameName);
 		
 		msg = dao.startAir(vo);
+		if(msg.equals("입력성공")) {
+			mv.setViewName("video_tak");
+		}else if(msg.equals("입력실패")) {
+			mv.setViewName("video_tak2");
+		}
+		mv.addObject("sKey",sKey);
+		mv.addObject("msg",msg);
 		
-		return msg;
+		return mv;
 		
 	}
 	
@@ -119,15 +126,24 @@ public class BroadCastingController {
 		
 	}
 	
-	@RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String deleteAir(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("컨트롤러들어옴");
+	@RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView deleteAir(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
 		String msg = "";
 		String mId = req.getParameter("mId"); // 스트리머 아이디
+		String sKey = req.getParameter("streamKey"); // 스트림 키
+		
 		
 		msg = dao.deleteAir(mId);
-		return msg;
+		
+		if(msg.equals("삭제성공")) {
+			mv.setViewName("video_tak2");
+		}else if(msg.equals("삭제실패")) {
+			mv.setViewName("video_tak");
+		}
+		mv.addObject("sKey",sKey);
+		mv.addObject("msg",msg);
+		return mv;
 		
 	}
 	
@@ -166,15 +182,15 @@ public class BroadCastingController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value = "*/sendDonation.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String sendDonation(HttpServletRequest req, HttpServletResponse resp) {
+		String result = "";
+		String serial = req.getParameter("serial"); // 스트리머 아이디
+		result = dao.sendDonation(Integer.parseInt(serial));
+		
+		return result;
+		
+	}
 	
 }

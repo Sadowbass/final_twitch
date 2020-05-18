@@ -10,7 +10,8 @@
 
 	&nbsp;<a class="navbar-brand mr-1" href="../" id="main"
 		onclick="pagemove(this)"><img class="img-fluid" alt=""
-		src="../img/favicon.png">&nbsp;<font color="white">Twitch</font></a>
+		src="../img/favicon.png">&nbsp;<img class="img-fluid" alt=""
+		src="../img/Twitch_logo.png" width="100px"></a>
 
 
 	<div
