@@ -110,6 +110,8 @@ public class StoreController {
 	     // name="rLike" 인 녀석 value를 가져옴
 	        rLike = Double.parseDouble(multi.getParameter("rLike"));
 	        
+	        System.out.println(mId);
+	        
 	        // 전송한 전체 파일이름들을 가져옴
 	        Enumeration files = multi.getFileNames();
 	         
@@ -131,7 +133,7 @@ public class StoreController {
 	            vo = new StoreReviewVo(mId, pId, rSubject, rContent, image1, image2, rLike);
 	            list.add(vo);
 	            
-	            System.out.println(list.get(pId));
+	       
 	            
 	            
 	            String msg = dao.insertReview(list);

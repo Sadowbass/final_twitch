@@ -261,7 +261,7 @@ Nostrud duis molestie at dolore.</p>
                           </div>
                         </div>
                         <div class="padding-top-20">                  
-                         <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send">
+                         <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send" onclick="store.rInsert()">
                         </div>
                         <input type="hidden" id="pId" name="pId" value="3">
                      
@@ -284,52 +284,59 @@ Nostrud duis molestie at dolore.</p>
     </div>
 
     
-    <script src="./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
+   
     <script type="text/javascript">
-    //가격 범위
-    $(function(){
-    	$( "#slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [ 50, 250 ],
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-    })
-    
-    $(".product-quantity .form-control").TouchSpin({
-        buttondown_class: "btn quantity-down",
-        buttonup_class: "btn quantity-up"
-    });
-    $(".quantity-down").html("<i class='fa fa-angle-down'></i>");
-    $(".quantity-up").html("<i class='fa fa-angle-up'></i>");
-    
-   //매뉴 드랍다운 
-    $(".sidebar .dropdown > a").click(function (event) {
-            if ($(this).next().hasClass('dropdown-menu')) {
-                event.preventDefault();
-                if ($(this).hasClass("collapsed") == false) {
-                    $(this).addClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideDown(300);
-                } else {
-                    $(this).removeClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideUp(300);
-                }
-            } 
-        });
+ 
+   $(function(){
+	   alert('asdsf');
+   })
     
   //store review 이미지 등록
 
     var sel_files = [];
     
     $(document).ready(function(){
-    $('#input_imgs').on("change", handleImages);
-    
-   });
+	    $('#input_imgs').on("change", handleImages);
+	    
+	    
+	    
+	    //가격 범위
+	    $(function(){
+	    	$( "#slider-range" ).slider({
+	            range: true,
+	            min: 0,
+	            max: 500,
+	            values: [ 50, 250 ],
+	            slide: function( event, ui ) {
+	              $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+	            }
+	          });
+	          $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+	          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	    })
+	    
+	    $(".product-quantity .form-control").TouchSpin({
+	        buttondown_class: "btn quantity-down",
+	        buttonup_class: "btn quantity-up"
+	    });
+	    $(".quantity-down").html("<i class='fa fa-angle-down'></i>");
+	    $(".quantity-up").html("<i class='fa fa-angle-up'></i>");
+	    
+	   //매뉴 드랍다운 
+	    $(".sidebar .dropdown > a").click(function (event) {
+	            if ($(this).next().hasClass('dropdown-menu')) {
+	                event.preventDefault();
+	                if ($(this).hasClass("collapsed") == false) {
+	                    $(this).addClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideDown(300);
+	                } else {
+	                    $(this).removeClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideUp(300);
+	                }
+	            } 
+	        });
+
+	   });
    
 function handleImages(e){
     
@@ -352,7 +359,8 @@ function handleImages(e){
             reader.readAsDataURL(f);
         
     })
-}
+}  
+   
 
     </script>
 </body>

@@ -29,6 +29,7 @@ public class StoreMybatisDao {
 	public String insertReview(List<StoreReviewVo> list) {
 		String msg = "자료가 정상적으로 입력되었습니다.";
 		System.out.println("dao inset들어옴");
+	
 		
 		int size = list.size();
 		for(int i=0; i<size; i++) {
@@ -49,7 +50,7 @@ public class StoreMybatisDao {
 	
 			}
 			
-			
+			System.out.println(list.get(i).getmId());
 
 			sqlsession.commit();
 

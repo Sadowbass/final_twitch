@@ -3,38 +3,16 @@
  * silver
  */
 
+
 let store = {}
 
 store.func = function(){
 	
-	//review 입력
-      
-	$(document).on('click', '#btnSubmitReview', function(){
-		  console.log('리뷰');
-	    let fd = new FormData($('#frm_store')[0]);
-		  fd.append('mId', $('#mId').val());
-		  console.log($('#mId').val());
-			
-			$.ajax({
-				
-				 url : 'reviewInsert.str',
-			     type : 'post',
-			     data : fd,
-			     contentType : false,
-			     processData : false,
-			     error : function(xhr, status, error){
-			    	 swal("실패", "We couldn't connect to the server!", "error");
-			     },
-			         
-					success : function(data, xhr, status){
-						 swal("Success!", "리뷰가 등록되었습니다", "success");
-						$("#sh_main").html(data);
-					}
-				})
+	
 			
 		
 			
-		})
+	
 
   //My Page 눌렀을때 mypage 페이지로 이동	
   $('#myPage').click(function(){
@@ -338,6 +316,35 @@ store.pl = function(){
 		
 	
 		
+	
+}
+
+store.rInsert = function(){
+	
+	//review 입력
+    
+
+	  console.log('리뷰');
+  let fd = new FormData($('#frm_store')[0]);
+	  fd.append('mId', $('#mId').val());
+	  console.log($('#mId').val());
+	  console.log($('#pId').val());	
+		$.ajax({
+			
+			 url : 'reviewInsert.str',
+		     type : 'post',
+		     data : fd,
+		     contentType : false,
+		     processData : false,
+		     error : function(xhr, status, error){
+		    	 swal("실패", "We couldn't connect to the server!", "error");
+		     },
+		         
+				success : function(data, xhr, status){
+					 swal("Success!", "리뷰가 등록되었습니다", "success");
+					$("#sh_main").html(data);
+				}
+			})
 	
 }
 
