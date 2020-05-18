@@ -264,7 +264,20 @@ bc.func = function(){
 
 
 
-function videoDonation(serial) {
+function videoDonation(serial,oid,content,price,url) {
+    var youtubeUrl = "https://www.youtube.com/embed/";
+    var autoPlay = "?autoplay=1&mute=0";
+	let donationData = '';
+	donationData += '<iframe id="ytplayer" type="text/html" width="500" height="230" frameborder="0" src="' + youtubeUrl+url+autoPlay+'" allowfullscreen></iframe>';
+	donationData += '<br />';
+	donationData += '<span id="text-id" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">' + oid +'님이</span> '
+	donationData += '<span id="text-amount" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
+	donationData += '<br />'
+	donationData += '<span id="text-content" style="color:white">'+content+'</span>';
+	donationData += '</div>';
+    
 	Swal.fire({
 		  title: '<font color="white">영상 후원</font>',
 		  width: 600,
@@ -275,19 +288,77 @@ function videoDonation(serial) {
 		  cancelButtonText: '닫기',
 		  cancelButtonColor: 'purple',
 		  background: '#18181b',
-		  html : '<video id="myVideo" width="400px" src="../upload/jyt.mp4" controls autoplay></video>',
+		  html : donationData,
 		  backdrop: `
 		    rgba(0,0,123,0.4)
 		    left top
 		    no-repeat
 		  `
-	})
+	}).then((result) => {
+		  if (result.value) {
+			   
+				$.ajax({
+					url : 'sendDonation.bc',
+					type : 'post',
+					data : {"serial":serial} ,
+					error : function(xhr, status, error){
+						
+					},
+					success : function(data, xhr, status ){	
+						
+						if(data == "송출성공"){
+							
+							Swal.fire({
+								  position: 'center',
+								  icon: 'success',
+								  title: '<font color="white">도네이션 송출에 성공하였습니다.</font>',
+								  background: '#18181b',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+							
+	
+						}else if(data =="송출실패"){
+							Swal.fire({
+								  position: 'center',
+								  icon: 'error',
+								  title: '<font color="white">도네이션 송출에 실패하였습니다.</font>',
+								  background: '#18181b',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+							
+							
+						}
+					}
+						
+				})
+
+			  
+			  // if 끝
+			  }
+			})
 }
 
-function voiceDonation(serial) {
+function voiceDonation(serial,oid,content,price) {
 	
-	//responsiveVoice.speak(text,type);
+	responsiveVoice.speak(content,"Korean Female");
+
 	
+	let donationData = '';
+	donationData += '<i class="fas fa-volume-up fa-3x"></i>';
+	donationData += '<div id="text-view">';
+	donationData += '<img src="https://toothcdn.xyz:8432/uploaded/c5ebb8db982555470878a53cc8304ab5/alert_donation_1.img?v=1" style="width: 40%; top:-10%">';
+	donationData += '<br />';
+	donationData += '<span id="text-id" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">' + oid +'님이</span> '
+	donationData += '<span id="text-amount" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
+	donationData += '<br />'
+	donationData += '<span id="text-content" style="color:white">'+content+'</span>';
+	donationData += '</div>';
+	
+
 	Swal.fire({
 		  title: '<font color="white">음성 후원</font>',
 		  width: 600,
@@ -297,7 +368,7 @@ function voiceDonation(serial) {
 		  confirmButtonColor: 'purple',
 		  cancelButtonText: '닫기',
 		  cancelButtonColor: 'purple',
-		  html: '<i class="fas fa-volume-up fa-3x"></i>',
+		  html: donationData,
 		  background: '#18181b',
 		  backdrop: `
 		    rgba(0,0,123,0.4)
@@ -350,6 +421,38 @@ function voiceDonation(serial) {
 			})
 }
 
+function broadCastingSetting() {
+	let mId = $('#mId').val();
+	
+	$.ajax({
+		url : 'selectRoulette.bc',
+		type : 'post',
+		data : {"mId":mId},
+		dataType : 'json',
+		error : function(xhr, status, error){
 
+		},
+		success : function(data, xhr, status ){	
+			
+			if(data != null){
+				if(data[0].rul_result == '조회성공'){
+				let array = data[0].rul_data.split(',');
+				for(let i = 0; i<array.length;i++){
+					console.log(array[i]);
+					$('#rul'+(i+1)).val(array[i]);
+				}
+				$('#flagRul').val('true');
+				}else if(data[0].rul_result == '조회실패'){
+					$('#flagRul').val('false');
+				}
+				
+			}
+		}
+			
+	})
+	
+	$('#modalBox').modal('show');
+
+}
 
 

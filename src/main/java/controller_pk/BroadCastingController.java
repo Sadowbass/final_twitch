@@ -1,13 +1,17 @@
 package controller_pk;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +25,7 @@ import bean.BroadCastingAirVo;
 import bean.BroadCastingCateVo;
 import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
+import bean.RouletteVo;
 
 @Controller
 public class BroadCastingController {
@@ -174,7 +179,6 @@ public class BroadCastingController {
 			
 			}
 		result = gson.toJson(jsonArray);
-		System.out.println(result);
 		}
 		
 		return result;
@@ -191,6 +195,68 @@ public class BroadCastingController {
 		
 		return result;
 		
-	}
+	} 
 	
+	@RequestMapping(value = "*/selectRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String selectRoulette(HttpServletRequest req, HttpServletResponse resp) {
+		String result = "조회실패";
+		String mId = req.getParameter("mId"); // 스트리머 아이디
+		RouletteVo vo = dao.selectRoulette(mId);
+		Gson gson = new Gson();
+		JsonObject jsonObject = null;
+		JsonArray jsonArray = new JsonArray();
+	
+		
+		if(vo != null) {
+			jsonObject = new JsonObject();
+			jsonObject.addProperty("rul_serial", vo.getRul_serial());
+			jsonObject.addProperty("rul_mid", vo.getRul_mId());
+			jsonObject.addProperty("rul_data", vo.getRul_data());
+			jsonObject.addProperty("rul_result", "조회성공");
+
+			jsonArray.add(jsonObject);
+				
+		result = gson.toJson(jsonArray);
+		}else {
+			System.out.println("데이터 없음");
+			jsonObject = new JsonObject();
+			jsonObject.addProperty("rul_result", "조회실패");
+			jsonArray.add(jsonObject);
+			result = gson.toJson(jsonArray);
+		}
+		return result;
+	} 
+	
+	@RequestMapping(value = "*/saveRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String saveRoulette(HttpServletRequest req, HttpServletResponse resp) {
+		String result = "";
+		String serial = req.getParameter("mId");
+		String rul1 = req.getParameter("rul1");
+		String rul2 = req.getParameter("rul2");
+		String rul3 = req.getParameter("rul3");
+		String rul4 = req.getParameter("rul4");
+		String rul5 = req.getParameter("rul5");
+		String flagRul = req.getParameter("flagRul");
+		String data = rul1 + "," + rul2 + "," + rul3 + "," + rul4 + "," + rul5;
+		List<String> list = new ArrayList<String>();
+		StringTokenizer tokens = new StringTokenizer(data, "," );
+		while(tokens.hasMoreElements()) {
+			list.add(tokens.nextToken());
+		}
+		
+		String rouletteData = list.toString();
+		
+		//System.out.println(Arrays.toString(dataArr));
+		String newRouletteData = rouletteData.substring(1, rouletteData.length()-1);
+		System.out.println(newRouletteData);
+
+		
+		
+		return result;
+		
+	} 
+	
+
 }

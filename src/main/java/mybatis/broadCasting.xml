@@ -54,7 +54,9 @@
 		WHERE
 		don_serial = ${serial}
 	</update>
-	
+	<select id='selectRoulette' resultType="bean.RouletteVo" parameterType='String'>
+		select * from final_roulette where rul_mId = #{_parameter}
+	</select>
 	
 
 </mapper>

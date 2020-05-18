@@ -186,5 +186,17 @@ public class BroadCastingMybatisDao {
 		
 	}
 	
+	public RouletteVo selectRoulette(String mId) {
+		RouletteVo vo = null;	
+		try {
+			vo = sqlSession.selectOne("broadCasting.selectRoulette",mId);
+		}catch (Exception e) {
+			System.out.println("∑Í∑ø¡∂»∏¿‘ºΩº«!!");
+		}finally {
+			return vo;
+		}
+		
+
+	}
 	
 }

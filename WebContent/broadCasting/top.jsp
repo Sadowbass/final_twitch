@@ -44,7 +44,7 @@
 				aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="../index.jsp" id="account"><i
 					class="fas fa-fw fa-user-circle"></i> &nbsp; Twitch 돌아가기</a> <a
-					class="dropdown-item" href="#" id="settings"><i
+					class="dropdown-item" id="broadCastingSetting" onclick="broadCastingSetting()"><i
 					class="fas fa-fw fa-cog"></i> &nbsp; 설정</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="#" data-toggle="modal"
