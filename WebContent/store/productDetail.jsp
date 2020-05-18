@@ -4,7 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <style type="text/css">
   .imgs_wrap{
@@ -21,7 +24,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="indexStore.jsp">Home</a></li>
+            <li><a href="localhost/store/index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -149,7 +152,7 @@ Nostrud duis molestie at dolore.</p>
                     
                   </div>
                   <div class="product-page-cart">
-                    <div class="product-quantity">
+                     <div class="product-quantity">
                         <input id="product-quantity" type="text" value="1" readonly class="form-control input-sm">
                     </div>
                     <button class="btn btn-primary" type="submit">Add to cart</button>
@@ -247,7 +250,7 @@ Nostrud duis molestie at dolore.</p>
                         <div class="form-group">
 		                    <label for="file_input">File input </label>
 		                
-		                    <input type="file" name="fileName" id ="input_imgs" multiple="multiple">
+		                    <input type="file" name="fileName" id ="input_imgs"  multiple>
 		                    <p class="help-block">some help text here.</p>
 							<div>
 								<div class="imgs_wrap">
@@ -282,9 +285,52 @@ Nostrud duis molestie at dolore.</p>
        
       </div>
     </div>
+    <script>
+    $(document).ready(function(){
+		$("#input_imgs").on("change", handleImages);
+		
+		 $(".sidebar .dropdown > a").click(function (event) {
+	            if ($(this).next().hasClass('dropdown-menu')) {
+	                event.preventDefault();
+	                if ($(this).hasClass("collapsed") == false) {
+	                    $(this).addClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideDown(300);
+	                } else {
+	                    $(this).removeClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideUp(300);
+	                }
+	            } 
+	        });
+		
+	});
     
-
-
-
+	function handleImages(e){	
+		
+		var sel_files = [];
+		var files = e.target.files;
+	    var fileArr = Array.prototype.slice.call(files);
+	    
+	    fileArr.forEach(function(f){
+	    	if(!f.type.match("image.*")){
+	        	alert("이미지 확장자만 업로드 가능합니다.");
+	            return;
+	        }
+	       
+	        	sel_files.push(f);
+	            var reader = new FileReader();
+	            reader.onload = function(e){
+	            	//alert(e.target.result);
+	            	var html = "<img src =\""+ e.target.result + "\" />";
+	                $('.imgs_wrap').append(html);
+	               
+	            }
+	            reader.readAsDataURL(f);
+	});
+	
+	}	
+	
+	
+	
+    </script>
 </body>
 </html>

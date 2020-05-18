@@ -7,9 +7,6 @@
 let store = {}
 
 store.func = function(){
-	
-	
-			
 		
 			
 	
@@ -355,6 +352,6 @@ store.rInsert = function(){
 }
 
 
-   
+ 
 
 

@@ -71,6 +71,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
   
   
   <script src="./js/store.js?ver=<%=System.currentTimeMillis() %>"></script>
+
   
   <!-- Theme styles END -->
 </head>
@@ -113,7 +114,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <!--[if lt IE 9]>
     <script src="./assets/plugins/respond.min.js?ver=<%=System.currentTimeMillis() %>"></script>  
     <![endif]-->
-    <script src="./lib/jquery-3.4.1.js?ver=<%=System.currentTimeMillis() %>"></script>
+    <!--  <script src="./lib/jquery-3.4.1.js?ver=<%=System.currentTimeMillis() %>"></script>  -->
     <script src="./assets/plugins/jquery.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript">
   
     </script>
@@ -155,6 +156,10 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <script type="text/javascript">
    
       store.func();
+      
+	
+      
+     
      
     </script>
     <!-- END PAGE LEVEL JAVASCRIPTS -->

@@ -10,7 +10,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="indexStore.jsp">Home</a></li>
+            <li><a href="index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -331,11 +331,20 @@
         </div>
     </div>
     <!-- END BRANDS -->
+    <script type="text/javascript">
+    $(".sidebar .dropdown > a").click(function (event) {
+        if ($(this).next().hasClass('dropdown-menu')) {
+            event.preventDefault();
+            if ($(this).hasClass("collapsed") == false) {
+                $(this).addClass("collapsed");
+                $(this).siblings(".dropdown-menu").slideDown(300);
+            } else {
+                $(this).removeClass("collapsed");
+                $(this).siblings(".dropdown-menu").slideUp(300);
+            }
+        } 
+    });
+    </script>
 
-     <script type="text/javascript">
-	   
-	   alert('adss');	      
-	  
-	   </script>
 </body>
 </html>
