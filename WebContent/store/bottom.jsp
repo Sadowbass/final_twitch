@@ -163,6 +163,8 @@
             </div>
     </div>
     <!-- END fast view of a product -->
+       <script src="./js/add.js"></script>
+	
 
 </body>
 </html>

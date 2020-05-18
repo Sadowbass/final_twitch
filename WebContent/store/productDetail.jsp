@@ -282,86 +282,9 @@ Nostrud duis molestie at dolore.</p>
        
       </div>
     </div>
+    
 
-    
-   
-    <script type="text/javascript">
- 
-   $(function(){
-	   alert('asdsf');
-   })
-    
-  //store review 이미지 등록
 
-    var sel_files = [];
-    
-    $(document).ready(function(){
-	    $('#input_imgs').on("change", handleImages);
-	    
-	    
-	    
-	    //가격 범위
-	    $(function(){
-	    	$( "#slider-range" ).slider({
-	            range: true,
-	            min: 0,
-	            max: 500,
-	            values: [ 50, 250 ],
-	            slide: function( event, ui ) {
-	              $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-	            }
-	          });
-	          $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-	          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-	    })
-	    
-	    $(".product-quantity .form-control").TouchSpin({
-	        buttondown_class: "btn quantity-down",
-	        buttonup_class: "btn quantity-up"
-	    });
-	    $(".quantity-down").html("<i class='fa fa-angle-down'></i>");
-	    $(".quantity-up").html("<i class='fa fa-angle-up'></i>");
-	    
-	   //매뉴 드랍다운 
-	    $(".sidebar .dropdown > a").click(function (event) {
-	            if ($(this).next().hasClass('dropdown-menu')) {
-	                event.preventDefault();
-	                if ($(this).hasClass("collapsed") == false) {
-	                    $(this).addClass("collapsed");
-	                    $(this).siblings(".dropdown-menu").slideDown(300);
-	                } else {
-	                    $(this).removeClass("collapsed");
-	                    $(this).siblings(".dropdown-menu").slideUp(300);
-	                }
-	            } 
-	        });
 
-	   });
-   
-function handleImages(e){
-    
-    var files = e.target.files;
-    var fileArr = Array.prototype.slice.call(files);
-    
-    fileArr.forEach(function(f){
-    	if(!f.type.match("image.*")){
-        	alert("이미지 확장자만 업로드 가능합니다.");
-            return;
-        }
-       
-        	sel_files.push(f);
-            var reader = new FileReader();
-            reader.onload = function(e){
-            	var html = "<img src =\""+ e.target.result + "\" />";
-                $('.imgs_wrap').append(html);
-                index++;
-            };
-            reader.readAsDataURL(f);
-        
-    })
-}  
-   
-
-    </script>
 </body>
 </html>

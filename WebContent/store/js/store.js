@@ -215,13 +215,19 @@ store.wishList = function(){
 
 store.viewItem = function(){
 	
+	let param = null;
+		//$('#frm_mm').serialize();
+	$.post('productDetail.str', param, function(data, state){
+		$('#sh_main').html(data);
 	
 		
+	});
+		
 
-	
+	/*
 	// let fd = new FormData($('#frm_brd')[0]);
 	let fd = 0;
-	console.log('제발1');
+	//console.log('제발1');
 		$.ajax({
 			
 			 url : 'productDetail.str',
@@ -237,7 +243,7 @@ store.viewItem = function(){
 				console.log(data)
 			}
 			})
-	
+	*/
 	
 }
 
@@ -337,7 +343,7 @@ store.rInsert = function(){
 		     contentType : false,
 		     processData : false,
 		     error : function(xhr, status, error){
-		    	 swal("실패", "We couldn't connect to the server!", "error");
+		    	 swal("실패", "리뷰 등록에 실패했습니다!", "error");
 		     },
 		         
 				success : function(data, xhr, status){

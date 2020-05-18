@@ -114,7 +114,9 @@ public class StoreController {
 	        
 	        // 전송한 전체 파일이름들을 가져옴
 	        Enumeration files = multi.getFileNames();
-	         
+	        
+	        
+	        
 	        while(files.hasMoreElements()){
 	            // form 태그에서 <input type="file" name="여기에 지정한 이름" />을 가져온다.
 	            String file1 = (String)files.nextElement();// 파일 input에 지정한 이름을 가져옴
