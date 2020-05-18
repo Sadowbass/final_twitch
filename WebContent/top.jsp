@@ -85,7 +85,6 @@
                 console.log(error);
             },
             success:(data)=>{
-                console.log("lala");
                 let json = JSON.parse(data);
                 $('#top-userphoto').attr('src', "/img/user-photo/"+json.ph_sysfile);
                 $('#top-username').html(json.mem_id);

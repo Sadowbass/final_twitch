@@ -133,6 +133,7 @@
                         </c:forEach>
                     </div>
                 </c:if>
+
                 <c:if test="${URI == 1}">
                     <div class='row' style='margin-top: 2%' id="gameRow">
                         <c:forEach var="i" items="${list}">
@@ -157,10 +158,6 @@
                         </c:forEach>
                     </div>
                 </c:if>
-
-
-
-
 
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center pagination-sm mb-0">
