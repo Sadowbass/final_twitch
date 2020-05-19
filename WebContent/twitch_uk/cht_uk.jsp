@@ -41,11 +41,11 @@
 		</a>
 	</div>
 </div>
-<input type="hidden"  id="link" value="${vo.mem_Id }">
-<input type="hidden"  id="session_id" value="${session_id }">
+<input type="hidden"  id="streamer_id" value="${vo.mem_Id }"> <!-- 스트리머 아이디 -->
+<input type="hidden"  id="session_id" value="${session_id }"> <!-- 채팅방 입장할 로그인한 유저 아이디 -->
 <script>
 $(document).ready(function(){
-	 uk.connectWS($('input#link').val(), $('input#session_id').val());
+	 uk.connectWS($('input#streamer_id').val(), $('input#session_id').val());
 });
 </script>
 

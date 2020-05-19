@@ -20,6 +20,8 @@
 <link href="../css/osahan.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/broadCasting.css">
 <script src="../js/broadCasting.js"></script>
+<!-- 관욱 스크립트 -->
+<script src="../js/js_uk.js"></script>
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=WpsYh9WB"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -33,7 +35,7 @@ overflow-x: hidden;
 </style>
 </head>
 <body>
-	<div id='broadCastingPage'>	
+	<div id='broadCastingPage'>
 	<%@include file="top.jsp"%>
 		<div class='container-fluid'>
 			<div class='row'>
@@ -75,10 +77,10 @@ overflow-x: hidden;
 															style="background-color: rgb(58, 58, 60); color: white" id='broadCastingCate'>
 															<ul id="cate-list">
         													</ul>
-															
+
 															</td>
-														
-													</tr>					
+
+													</tr>
 													<tr>
 														<td style="color: white">태그</td>
 														<td>
@@ -90,7 +92,7 @@ overflow-x: hidden;
         												    </ul>
 															<button id='updateBroadCasting' class="btn btn-outline-primary" type="button" style="float: right;margin-top: 2%;display: none">수정</button>
 															</td>
-														
+
 													</tr>
 												</tbody>
 											</table>
@@ -107,7 +109,7 @@ overflow-x: hidden;
 									</div>
 									<div class="card-body">
 
-										<input type="text" id="streamKey" name="streamKey" class="form-control" 
+										<input type="text" id="streamKey" name="streamKey" class="form-control"
 											value=""
 											style="display: inline-block; background-color: rgb(58, 58, 60); color: white">
 
@@ -131,7 +133,7 @@ overflow-x: hidden;
 					<div class='col-12' style="border-bottom: 1px solid white;">
 						<font style='color: white'>뉴스피드</font>
 					</div>
-					<!-- 
+					<!--
 					<div class='col-12' style="height: 850px; text-align: center;">
 						<div style="padding-top: 60%">이곳에서 새로운 팔로우,구독,후원목록을 표시합니다.</div>
 					</div>
@@ -139,12 +141,12 @@ overflow-x: hidden;
 					<div class='col-12' style="height: 300px;overflow: auto;" id='donationDiv'>
 						<!--
 						<div class='row' style="margin-top: 2%">
-						
+
 							<div class='col-1'>
 								<i class="fas fa-heart fa-3x"></i>
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									tac890
 								</div>
@@ -155,13 +157,13 @@ overflow-x: hidden;
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
-						
+
 												<div class='row' style="margin-top: 2%">
 							<div class='col-1'>
 								<i class="fas fa-volume-up fa-3x"></i>
 							</div>
 							<div class='col-8' onclick="voiceDonation('게임을 그 정도밖에 못하냐?','Korean Female');">
-							
+
 								<div class='col-12' style="color: white">
 									shredless
 								</div>
@@ -172,13 +174,13 @@ overflow-x: hidden;
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
-						
+
 												<div class='row' style="margin-top: 2%" onclick="videoDonation()">
 							<div class='col-1'>
 								<i class="fas fa-video fa-3x"></i>
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									company12
 								</div>
@@ -189,14 +191,14 @@ overflow-x: hidden;
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
-						
+
 												<div class='row' style="margin-top: 2%">
 							<div class='col-1'>
-								<img 
+								<img
 									src="../img/favicon.png" style="width: 40px">
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									asdf1234
 								</div>
@@ -209,11 +211,11 @@ overflow-x: hidden;
 						</div>
 													<div class='row' style="margin-top: 2%">
 							<div class='col-1'>
-								<img 
+								<img
 									src="../img/favicon.png" style="width: 40px">
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									asdf1234
 								</div>
@@ -234,60 +236,60 @@ overflow-x: hidden;
 							  <jsp:include page="./video_tak.jsp" />
 						</div>
 					</div>
-					
+
 				</div>
 				<div class='col-12 col-sm-4'
 					style='border: 1px solid black; background-color: rgb(24, 24, 27) !important; padding: 0'>
-					
+
 					<div class='col-12' style="border-bottom: 1px solid white;">
 						<font style='color: white'>시청자 목록</font>
 					</div>
 					<div class='col-12' style="height: 300px;overflow: auto;">
-						
-						
-						
+
+
+
 						<div class='row' style="margin-top: 2%">
 								<div class='col-1'><i class="fas fa-crown" style="color: yellow;"></i></div>
 								<div class='col-11' style="padding: 0">tac890</div>
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-10'>frend</div>
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-10'>company11</div>
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-1'><i class="fas fa-wrench" style="color:green"></i></div>
 								<div class='col-11' style='padding: 0'>dragon123</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-10'>kizaru</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-10'>aio</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-10'>dark</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-10'>white</div>
 
 							</div>
-						
-						
+
+
 					</div>
-					
+
 					<div class='col-12' style="border-bottom: 1px solid white;border-top:1px solid white">
 						<font style='color: white'>생방송 채팅</font>
 					</div>
@@ -301,43 +303,43 @@ overflow-x: hidden;
 								<div class='col-9'>모두 어여들 들어오라고!</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-2'>frend</div>
 								<div class='col-9'>안녕하세요</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-2'>company11</div>
 								<div class='col-9'>추하다 민호야</div>
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-1'><i class="fas fa-wrench" style="color:green"></i></div>
 								<div class='col-2' style='padding: 0'>dragon123</div>
 								<div class='col-9'>저게 사람이냐?</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-2'>kizaru</div>
 								<div class='col-9'>????????</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-2'>aio</div>
 								<div class='col-9'>엄준식이다!</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-2'>dark</div>
 								<div class='col-9'>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div>
 
 							</div>
-							
+
 							<div class='row' style="margin-top: 2%">
 								<div class='col-2'>white</div>
 								<div class='col-9'>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div>
@@ -367,22 +369,22 @@ overflow-x: hidden;
 	</div>
 	<script>
 
-	$(document).ready(function(){ 
+	$(document).ready(function(){
 		$('#updateBroadCasting').hide();
 		// 방송스위치 --------------------------------------------------------------
 		$('#pk_switch').on('click', function(){
 			$(this).toggleClass('on');
-			if($(this).hasClass('on')===true){ // 방송 켜졌을 때		
+			if($(this).hasClass('on')===true){ // 방송 켜졌을 때
 				startAir();
-				
+
 			}else{ // 방송 꺼졌을때
 				stopAir();
-			
+
 			}
 		});
-		
-		var time1 = setInterval(function() {			
-			let param = $('#mId').val();	
+
+		var time1 = setInterval(function() {
+			let param = $('#mId').val();
 			$.ajax({
 				url : 'selectDonation.bc?mId='+ param,
 				type : 'post',
@@ -390,7 +392,7 @@ overflow-x: hidden;
 				error : function(xhr, status, error){
 					console.log('실패');
 				},
-				success : function(data, xhr, status ){	
+				success : function(data, xhr, status ){
 					console.log(data);
 					if(data != null){
 					      for(let i = 0; i<data.length; i++){
@@ -421,16 +423,16 @@ overflow-x: hidden;
 					        $('#donationDiv').append(html);
 
 					}
-					
+
 					}
-					 
-					
+
+
 				}});
 
 	      }, 5000);
-		
-	
-		
+
+
+
 		// 헤시태그------------------------------------------------------------------
 		/*
 
@@ -440,13 +442,13 @@ overflow-x: hidden;
 
         // 태그를 추가한다.
         function addTag (value) {
-            tag[counter] = value; 
+            tag[counter] = value;
             counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
         }
-        
+
         $("#findTag").on("keypress", function (e) {
             var self = $(this);
-            // input 에 focus 되있을 때 엔터 
+            // input 에 focus 되있을 때 엔터
             if (e.key === "Enter") {
             if(counter > 4){
                alert("태그는 3개까지만 등록가능합니다.")
@@ -461,9 +463,9 @@ overflow-x: hidden;
                     var result = Object.values(tag).filter(function (word) {
                         return word === tagValue;
                     })
-                
+
                     // 태그 중복 검사
-                    if (result.length == 0) { 
+                    if (result.length == 0) {
                         $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
                         addTag(tagValue);
                         self.val("");
@@ -471,16 +473,17 @@ overflow-x: hidden;
                         alert("태그값이 중복됩니다.");
                     }
                 }
-                e.preventDefault(); 
+                e.preventDefault();
             }
         });
         */
 
-        // 삭제 버튼 
+        // 삭제 버튼
 
 	});
 	</script>
 	<script>bc.func()</script>
+	<script>uk.connectWS($('input#mId'));</script>
 
 </body>
 </html>

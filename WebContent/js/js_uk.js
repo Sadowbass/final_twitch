@@ -50,7 +50,7 @@ uk.connectWS=function(streamer, login){
 	loginId='임시';
 
 
-	ws = new WebSocket("ws://localhost/cht?"+streamerId);
+	ws = new WebSocket("ws://192.168.0.57/cht?"+streamerId);
 
 	ws.onopen = function (event) {console.log("채팅 서버 접속 완료");}
 	ws.onclose = function (event) {console.log("채팅 서버 접속 종료");}
@@ -60,7 +60,7 @@ uk.connectWS=function(streamer, login){
 		let jsonTxt=JSON.parse(event.data);
 		console.log(jsonTxt);
 
-		if(jsonTxt.cht_mid&&jsonTxt.cht_txt){
+		if(jsonTxt.cht_oid&&jsonTxt.cht_txt){
 			$('<div></div>').html(jsonTxt.cht_oid+': '+jsonTxt.cht_txt).appendTo('#chtArea');
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		}
@@ -77,15 +77,15 @@ uk.connectWS=function(streamer, login){
 }
 
 let WSsend=function(){
-	  let msg ={
+	  /*let msg ={
 		cht_mid:streamerId,
 		cht_oid:loginId,
 		cht_txt:$('div[contenteditable]').html()
-	  }
+	  }*/
 
 
 	  if(ws.readyState===1 && loginId){
-		  ws.send(JSON.stringify(msg));
+		  ws.send($('div[contenteditable]').html());
 		  $('div[contenteditable]').empty();
 	  }
 }
