@@ -10,8 +10,17 @@ chtstreamer.connectWS=function(mid){
 	ws.onerror = function (event) { console.log("error:::",event); };
 
 	ws.onmessage = function (event) {
-		$('<div class="item"></div>').html(event.data).appendTo('#chtArea');
-		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+
+		let jsObj=JSON.parse(event.data);
+
+		/*채팅! 발신자랑 채팅내용 chtArea에 붙이기*/
+		if(jsObj.cht_oid && jsObj.cht_txt && $('#chtArea').length){
+			$('<div class="item"></div>').html(jsObj.cht_oid+': '+jsObj.cht_txt).appendTo('#chtArea');
+			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+		}
+
+		/*$('<div class="item"></div>').html(event.data).appendTo('#chtArea');
+		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));*/
 	};
 
 /*	$('div[contenteditable]').keydown(function(e) {

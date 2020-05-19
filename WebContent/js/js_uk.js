@@ -2,48 +2,14 @@ let uk = {}
 
 let ws;
 let streamerId;
-let loginId
+let loginId;
+let loginUserCnt=0;
 
-uk.stream = function() {
-	$("#fold").click(function() {
-		$("#cht_div").css("display", "none");
-		$("<div class='col-md-2' id='unfold' style='position:fixed; right:-240px; margin-top:5px;'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180' onclick='unfold()'></i></div>").appendTo("#add_unfold");
-	});
-
-	$("#user_div").click(function() {
-		if ($("#divUsers").length) {
-			$("#cht_div").children().eq(1).remove();
-			$("#cht_div").children().eq(1).css("display","block");
-			$("#cht_div").children().eq(2).css("display","block");
-			$("#cht_div").children().eq(3).css("display","block");
-			$("#cht_div").children().eq(4).css("visibility","visible");
-		} else {
-			$("#cht_div").children().eq(1).css("display","none");
-			$("#cht_div").children().eq(2).css("display","none");
-			$("#cht_div").children().eq(3).css("display","none");
-			$("#cht_div").children().eq(4).css("visibility","hidden");
-			$("<div class='row'><div class='col-md-12' id='divUsers'><h1>유저 목록</h1></div></div>").insertAfter($("#cht_div").children().first());
-
-			let param={streamer: streamerId}
-
-			$.getJSON('users.uk', param, function(data){
-
-				let buffer="";
-
-				data.forEach(function(item){
-					buffer+="<span>"+item+"</span><br/>";
-				});
-
-				$('#divUsers').html(buffer);
-
-			});
-		}
-	});
-}
 
 
 
 uk.connectWS=function(streamer, login){
+	let totalUserCnt=0;
 
 	streamerId=streamer;
 	/*loginId=login;*/
@@ -57,15 +23,63 @@ uk.connectWS=function(streamer, login){
 	ws.onerror = function (event) { console.log("에러 발생 !!! "); };
 
 	ws.onmessage = function (event) {
-		let jsonTxt=JSON.parse(event.data);
-		console.log(jsonTxt);
+		let jsObj=JSON.parse(event.data); /* cht_oid cht_txt users addUser delUser accUser */
 
-		if(jsonTxt.cht_oid&&jsonTxt.cht_txt){
-			$('<div></div>').html(jsonTxt.cht_oid+': '+jsonTxt.cht_txt).appendTo('#chtArea');
+		/*로그인+로그아웃 total 시청자 수*/
+		if(jsObj.totalSession){
+			totalUserCnt=jsObj.totalSession;
+			console.log('totalUserCnt1111',totalUserCnt);
+			console.log('jsObj.totalSession2222',jsObj.totalSession);
+		}
+		if(jsObj.addTotalSession){
+			totalUserCnt+=jsObj.addTotalSession;
+			console.log('totalUserCnt3333',totalUserCnt);
+			console.log('jsObj.addTotalSession4444',jsObj.addTotalSession)
+			$('#totalUserCnt').html(totalUserCnt);
+		}
+
+		/*채팅! 발신자랑 채팅내용 chtArea에 붙이기*/
+		if(jsObj.cht_oid && jsObj.cht_txt && $('#chtArea').length){
+			$('<div></div>').html(jsObj.cht_oid+': '+jsObj.cht_txt).appendTo('#chtArea');
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		}
-	};
 
+
+		/*유저목록! 로그인한 시청자 목록 userList에 추가하고 나간사람 지우기 */
+		if($('#userList').length){
+			/*처음 들어왔을때 기존 채팅방 참여 유저 목록 출력*/
+			if(jsObj.users){
+				$(jsObj.users).each(function(index, item){
+					$('<div class='+item+'></div>').html(item).appendTo('#userList');
+				});
+				/*처음 들어왔을때 로그인 한 기존 채팅방 참여 유저 수*/
+				loginUserCnt=jsObj.users.length;
+			}
+			/*새로운 사람 들어오면 유저리스트에 추가하기*/
+			if(jsObj.addUser){
+				$('<div class='+jsObj.addUser+'></div>').html(jsObj.addUser).appendTo('#userList');
+				loginUserCnt++;
+			}
+			/*나간 유저 지우기*/
+			if(jsObj.delUser){
+				$('div[class='+jsObj.delUser+']').remove();
+				loginUserCnt--;
+			}
+		}
+
+		/*누적 시청자수!*/
+		if($('#accArea').length && jsObj.accUser){
+			$('#accArea').html(jsObj.accUser);
+		}
+
+		/*현재 보고있는 로그인한 유저 수*/
+		if($('#loginUserCnt').length){
+			$('#loginUserCnt').html(loginUserCnt);
+		}
+
+	}
+
+	/*엔터키 누르면 전송 내꺼*/
 	$('div[contenteditable]').keydown(function(e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
@@ -74,22 +88,50 @@ uk.connectWS=function(streamer, login){
 			}
 		}
 	});
+	/*엔터키 누르면 전송 영탁형꺼*/
+	$('input#sendArea').keydown(function(e) {
+		if (e.keyCode === 13) {
+			if (!e.shiftKey) {
+				WSsend();
+				return false;
+			}
+		}
+	});
+
 }
-
+/*socket 전송 메소드*/
 let WSsend=function(){
-	  /*let msg ={
-		cht_mid:streamerId,
-		cht_oid:loginId,
-		cht_txt:$('div[contenteditable]').html()
-	  }*/
 
-
-	  if(ws.readyState===1 && loginId){
+	  /*내꺼 전송*/
+	  if(ws.readyState===1 && loginId && $('div[contenteditable]').html()){
 		  ws.send($('div[contenteditable]').html());
 		  $('div[contenteditable]').empty();
 	  }
-}
+	  /*영탁형꺼 전송*/
+	  if(ws.readyState===1 && $('input#sendArea').val()){
+		  ws.send($('input#sendArea').val());
+		  $('input#sendArea').val('');
+	  }
 
+}
+/*socket close 메소드*/
 let WSclose=function(){
 	ws.close();
 }
+
+/*유저목록이랑 채팅창 변경*/
+let usersOrcht=function(){
+	if($('div#chtArea').css('display')=='block'){
+		$('#statusBoard').html('유저 목록('+loginUserCnt+')');
+		$('div#chtArea').css('display','none');
+		$('div#userList').css('display','block');
+	}else{
+		$('#statusBoard').html('도네이션 현황');
+		$('div#chtArea').css('display','block');
+		$('div#userList').css('display','none');
+	}
+}
+
+
+
+

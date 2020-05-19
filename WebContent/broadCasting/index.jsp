@@ -20,11 +20,12 @@
 <link href="../css/osahan.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/broadCasting.css">
 <script src="../js/broadCasting.js"></script>
-<!-- 관욱 스크립트 -->
-<script src="../js/js_uk.js"></script>
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=WpsYh9WB"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- 관욱-->
+<script src="../js/js_uk.js"></script>
+<link rel="stylesheet" href="../css/css_uk.css">
 <style>
 .ui-autocomplete {
 max-height: 100px;
@@ -244,8 +245,7 @@ overflow-x: hidden;
 					<div class='col-12' style="border-bottom: 1px solid white;">
 						<font style='color: white'>시청자 목록</font>
 					</div>
-					<div class='col-12' style="height: 300px;overflow: auto;">
-
+					<div class='col-12' style="height: 300px;overflow: auto;" id='userList'>
 
 
 						<div class='row' style="margin-top: 2%">
@@ -295,7 +295,7 @@ overflow-x: hidden;
 					</div>
 					<div class='col-12' style="height: 550px; padding: 0">
 
-						<div class='col-12' style="height: 500px">
+						<div class='col-12 chtArea' style="height: 500px" id="chtArea">
 							<!-- <div style="padding-top: 5%;">채팅방에 오신것을 환영합니다!</div>-->
 							<div class='row' style="margin-top: 2%">
 								<div class='col-1'><i class="fas fa-crown" style="color: yellow;"></i></div>
@@ -348,9 +348,9 @@ overflow-x: hidden;
 						</div>
 						<div class='col-12'>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="메시지 보내기"
+								<input type="text" class="form-control" placeholder="메시지 보내기" id="sendArea"
 									style="border: 1px solid red; background-color: rgb(58, 58, 60); color: white">
-								<div class="input-group-prepend">
+								<div class="input-group-prepend" onclick="WSsend()">
 									<button class="btn btn-outline-primary" type="button">채팅</button>
 								</div>
 
@@ -483,7 +483,7 @@ overflow-x: hidden;
 	});
 	</script>
 	<script>bc.func()</script>
-	<script>uk.connectWS($('input#mId'));</script>
+	<script>uk.connectWS($('input#mId').val());</script>
 
 </body>
 </html>

@@ -20,8 +20,8 @@
 	</div>
 	<div
 		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>
-		<div style='text-align: center; color: white'>0</div>
-		<div style='text-align: center'>시청자 수</div>
+		<div style='text-align: center; color: white' id='accArea'></div>
+		<div style='text-align: center'>누적 시청자 수</div>
 	</div>
 	<div
 		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>

@@ -147,9 +147,9 @@
 							<div class="col-md-6">${vo.air_subject}</div>
 							<div class="col-md-4 text-right">
 								<i class="far fa-user mr-1"></i>
-								<span>5,233</span>
+								<span id='totalUserCnt'></span>
 								<i class="fas fa-eye mr-1 ml-2"></i>
-								<span>37,681,571</span>
+								<span id='accArea'></span>
 								<i class="fas fa-share-alt mx-2"></i>
 								<i class="fas fa-ellipsis-v mx-2"></i>
 							</div>
@@ -190,16 +190,5 @@
 </a>
 <!-- Logout Modal-->
 <%@include file="../logout-modal.jsp" %>
-<script>
-$(document).ready(function(){
-   uk.stream();
-});
-let unfold = function() {
-    $("#unfold").remove();
-    $("#cht_div").css("display","block");
-    $("#video_div").removeClass("col-md-12");
-    $("#video_div").addClass("col-md-10");
-}
-</script>
 </body>
 </html>

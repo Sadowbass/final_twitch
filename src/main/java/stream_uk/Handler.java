@@ -34,10 +34,22 @@ public class Handler extends TextWebSocketHandler{
 		List<String> usersList=new ArrayList<String>(); /*스트리머가 같은 새로 들어온 유저에게 보낼 기존 유저목록*/
 		Map<String, Object> usersListToNewUsers=new HashMap<String, Object>(); /*{usesrs : 유저목록} 새로운 유저에게 보낼맵 */
 		Map<String, Object> addAndAccToEverybody=new HashMap<String, Object>(); /*{addUser : oid}, {accUser : accumulate.get(mid)} 모든 유저에게 보낼 새로 들어온 유저 아이디 &누적 시청자수 담은 맵*/
+		int totalUserCnt=0; /*스트리머가 같은 새로 들어온 유저에게 보낼 모든 시청자 수*/
 
 		String mid=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1); /*스트리머*/
 		String oid="손님"+(session.getId()).substring(0, 5);
 		//String oid=(String)session.getAttributes().get("session_id"); /*로그인 기능 작동하면 위에꺼 지우고 이거(로그인한 유저) 넣어야함*/
+
+
+		/*새로 들어온 유저에게 mid가 같은 모든 시청자 수 보내줌 (totalUserCnt)*/
+		Iterator<WebSocketSession> totalUserCntsSet=everybody.keySet().iterator();
+		while(totalUserCntsSet.hasNext()) {
+			WebSocketSession totalSession= totalUserCntsSet.next();
+			if(everybody.get(totalSession).equals(mid)) {
+				totalUserCnt++;
+			}
+		}
+
 
 		everybody.put(session, mid); /*모든 세션 추가*/
 
@@ -54,7 +66,16 @@ public class Handler extends TextWebSocketHandler{
 		body[0]=mid;
 		body[1]=session;
 
-		/*새로 들어온 유저에게 mid가 같은 사람 목록 보내줌 (출력해야할 로그인유저 리스트)*/
+//		/*새로 들어온 유저에게 mid가 같은 모든 시청자 수 보내줌 (totalUserCnt)*/
+//		Iterator<WebSocketSession> totalUserCntsSet=everybody.keySet().iterator();
+//		while(totalUserCntsSet.hasNext()) {
+//			WebSocketSession totalSession= totalUserCntsSet.next();
+//			if(everybody.get(totalSession).equals(mid)) {
+//				totalUserCnt++;
+//			}
+//		}
+
+		/*새로 들어온 유저에게 mid가 같은 사람 users목록 보내줌 (출력해야할 로그인유저 리스트)*/
 		Iterator<String> usersIterator=users.keySet().iterator();
 		while(usersIterator.hasNext()) {
 			String user=usersIterator.next();
@@ -62,6 +83,7 @@ public class Handler extends TextWebSocketHandler{
 				usersList.add(user);
 			}
 		}
+		usersListToNewUsers.put("totalSession",totalUserCnt);
 		usersListToNewUsers.put("users",usersList);
 		String jsonUsersListToNewUsers=gson.toJson(usersListToNewUsers);
 		session.sendMessage(new TextMessage(jsonUsersListToNewUsers)); /*새로 들어온 사람에게 유저목록 & 누적유저수 보냄*/
@@ -71,6 +93,7 @@ public class Handler extends TextWebSocketHandler{
 			users.put(oid, body); /*유저 목록에 로그인한 유저 추가*/
 
 			addAndAccToEverybody.put("addUser", oid); /*스트리머가 같은 모든 유저에게 보낼 새로 들어온 유저 아이디 추가*/
+			addAndAccToEverybody.put("addTotalSession", 1); /*스트리머가 같은 모든 유저에게 보낼 새로 들어온 유저 아이디 추가*/
 
 			/*userList에 저장*/
 			userList.setMid(mid);
