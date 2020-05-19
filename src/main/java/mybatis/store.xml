@@ -4,19 +4,25 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
-	<insert id="review_insert1" parameterType="store.StoreReviewVo">
+	<insert id="review_insert" parameterType="store.StoreReviewVo">
 	  
-	  insert into review(review_serial, review_id, mem_id, product_id, rsubject, rcontent, image1, image2, review_like, review_date)
-      values( seq_storereview_serial.nextval, seq_storereview.nextval , #{mId, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, #{rSubject, jdbcType=VARCHAR}, #{rContent, jdbcType=VARCHAR}, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR}, #{rLike, jdbcType=VARCHAR},  sysdate)
+	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
+      values( seq_storereview.nextval , #{mId, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, #{rSubject, jdbcType=VARCHAR}, #{rContent, jdbcType=VARCHAR}, #{rLike, jdbcType=VARCHAR},  sysdate)
 	  
 	</insert>
 	
-	<insert id="review_insert2" parameterType="store.StoreReviewVo">
+	<insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
 	  
-	  insert into review(review_serial, review_id, mem_id, product_id, rsubject, rcontent, image1, image2, review_like, review_date)
-      values( seq_storereview_serial.nextval, seq_storereview.currval , #{mId, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, #{rSubject, jdbcType=VARCHAR}, #{rContent, jdbcType=VARCHAR}, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR}, #{rLike, jdbcType=VARCHAR},  sysdate)
+	  insert into review_photo(review_pid, review_id, image1, image2, rp_date)
+      values( seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR},  sysdate)
 	  
 	</insert>
+	
+	<select id="review_select" parameterType="store.StoreReviewVo">
+	   
+	   select from review
+	   
+	</select>
 	
 	
 </mapper>

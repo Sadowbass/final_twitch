@@ -322,16 +322,11 @@ store.pl = function(){
 	
 }
 
+//review 입력(insert)
 store.rInsert = function(){
-	
-	//review 입력
-    
 
-	  console.log('리뷰');
-  let fd = new FormData($('#frm_store')[0]);
-	  fd.append('mId', $('#mId').val());
-	  console.log($('#mId').val());
-	  console.log($('#pId').val());	
+       let fd = new FormData($('#frm_store')[0]);
+  
 		$.ajax({
 			
 			 url : 'reviewInsert.str',
@@ -348,10 +343,23 @@ store.rInsert = function(){
 					$("#sh_main").html(data);
 				}
 			})
+			
+			
 	
 }
 
 
- 
+store.rSelect = function(){
+	
+	//console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
+	let param = $('#frm_review').serialize();
+	$.post("reviewSelect.str", param, function(data, state){
+		$('#sh_main').html(data)
+	});
+	
+	
+}
+
+
 
 
