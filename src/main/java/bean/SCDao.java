@@ -4,10 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import mybatis.Factory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class SCDao {
@@ -27,9 +25,13 @@ public class SCDao {
 	
 	/*현재 로그인중인 회원 정보*/
 	public UserInfoVo userInfo(String mId){
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss SS");
+		Date d = new Date();
+		System.out.println("dao"+sdf.format(d));
 		UserInfoVo vo = new UserInfoVo();
 		vo = sqlSession.selectOne("scbatis.userInfo", mId);
-
+		d= new Date();
+		System.out.println("batis"+sdf.format(d));
 		return vo;
 	}
 

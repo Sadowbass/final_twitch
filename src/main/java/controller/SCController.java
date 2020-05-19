@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.DataOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
@@ -105,6 +103,9 @@ public class SCController {
     @ResponseBody
     @RequestMapping(value = "/userinfo.sc", method = RequestMethod.POST)
     public String topPage(HttpServletRequest req) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss SS");
+        Date d = new Date();
+        System.out.println("시작"+sdf.format(d));
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
         session.setAttribute("mId", "faker");
@@ -112,6 +113,8 @@ public class SCController {
         Gson gson = new Gson();
         String result = gson.toJson(dao.userInfo(mId));
 
+        d = new Date();
+        System.out.println("끝"+sdf.format(d)+"\n");
         return result;
     }
 
