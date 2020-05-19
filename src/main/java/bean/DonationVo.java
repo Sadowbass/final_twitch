@@ -10,6 +10,7 @@ public class DonationVo {
     String don_content;
     String url;
     int type;
+    String rul_data; // ·ê·¿ ¸ñ·Ï
 
     public int getDon_serial() {
         return don_serial;
@@ -82,4 +83,14 @@ public class DonationVo {
     public void setType(int type) {
         this.type = type;
     }
+
+	public String getRul_data() {
+		return rul_data;
+	}
+
+	public void setRul_data(String rul_data) {
+		this.rul_data = rul_data;
+	}
+    
+    
 }

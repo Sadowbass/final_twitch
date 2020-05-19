@@ -61,7 +61,7 @@
 						<form name="pk_broadCastingData" id="pk_broadCastingData"
 							method="post">
 							<input type='hidden' name='flagRul' id='flagRul' />
-							<input type='hidden' name='mId' id='mId' value='BJ민호' /> <input
+							<input type='hidden' name='mId' id='mId' value='faker' /> <input
 								type='hidden' name='tags' id='takTag' /> <input type='hidden'
 								name='gameName' id='takGame' />
 							<div id="modalBox" class="modal fade" id="myModal" tabindex="-1"

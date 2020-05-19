@@ -20,10 +20,10 @@ import java.util.stream.Stream;
 public class SCController {
 
     public SCController() {
-        System.out.println("컨트롤러 생성");
+        System.out.println("而⑦�몃·�� ����");
     }
 
-    /*카테고리 첫 페이지 띄웠을때*/
+    /*移댄��怨�由� 泥� ���댁� ��������*/
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ModelAndView categories(HttpServletRequest req){
         ModelAndView mv = new ModelAndView();
@@ -36,7 +36,7 @@ public class SCController {
 
         return mv;
     }
-    /*카테고리 스크롤링으로 추가 정보 요청할때*/
+    /*移댄��怨�由� �ㅽ�щ·留��쇰� 異�媛� ��蹂� ��泥�����*/
     @ResponseBody
     @RequestMapping(value = "/categoryPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public String categoryPaging(HttpServletRequest req){
@@ -48,7 +48,7 @@ public class SCController {
         return result;
     }
 
-    /*생방송중인 리스트 불러오기*/
+    /*��諛⑹�≪��� 由ъ�ㅽ�� 遺��ъ�ㅺ린*/
     @RequestMapping(value = "categories/all", method = RequestMethod.GET)
     public ModelAndView liveAll(HttpServletRequest req){
         ModelAndView mv = new ModelAndView();
@@ -178,6 +178,7 @@ public class SCController {
     @ResponseBody
     @RequestMapping(value = "/view-donation-list.sc", method = RequestMethod.POST)
     public String dtest(HttpServletRequest req) {
+    	System.out.println("승철 리스트 들어옴");
         DonationVo vo = new DonationVo();
         String mId = req.getParameter("mId");
         vo = new SCDao().donationView(mId);

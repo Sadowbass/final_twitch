@@ -60,10 +60,10 @@
 
     <!--스트리머가 재생한 도네이션 확인-->
     <select id="donationView" parameterType="String" resultType="bean.DonationVo">
-        select *
-        from FINAL_DONATION
-        where DON_PUSH = 2
-          and DON_MID = #{value}
+        select fd.don_serial, fd.don_mid, fd.don_oid, fd.don_price, fd.don_rdate, fd.don_content,fd.url,fd.type,fr.rul_data
+		from final_donation fd, final_roulette fr
+		where fd.don_mid = fr.rul_mid(+) and fd.DON_PUSH = 2
+		and DON_MID = #{value}
     </select>
 
     <!--도네이션 체크 완료하고 상태변경-->

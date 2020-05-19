@@ -45,7 +45,6 @@
         $.ajax({
             type: 'get',
             url: 'sidebar.sc', 
-            async:false,
             error:function(){
             	console.log(error)
             },
@@ -55,7 +54,6 @@
         })
         $.ajax({
             type:'get',
-            async:false,
             url:'main.sc',
             success:function (data) {
                 $('#content-wrapper').html(data);
