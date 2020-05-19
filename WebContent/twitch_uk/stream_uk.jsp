@@ -93,10 +93,10 @@
 								<div class="row mx-0">
 									<div class="col-md-4 p-0"></div>
 									<div class="col-md-1 p-0">
-										<a href="#">홈</a>
+										<a href="/${vo.mem_Id}">홈</a>
 									</div>
 									<div class="col-md-1 p-0">
-										<a href="#">동영상</a>
+										<a href="/${vo.mem_Id}/video">동영상</a>
 									</div>
 									<div class="col-md-1 p-0">
 										<a href="#">클립</a>

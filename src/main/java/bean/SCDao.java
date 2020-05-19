@@ -5,7 +5,9 @@ import org.apache.ibatis.session.SqlSession;
 import mybatis.Factory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class SCDao {
@@ -41,6 +43,22 @@ public class SCDao {
 	public StreamingVo streamInfo(String mId) {
 		StreamingVo vo = sqlSession.selectOne("scbatis.select", mId);
 		return vo;
+	}
+
+	/*특정 스트리머의 지난방송 리스트*/
+	public List<BeforeVo> lateVideo(String mId){
+		List<BeforeVo> list = new ArrayList<BeforeVo>();
+		list=sqlSession.selectList("scbatis.videoList",mId);
+		return list;
+	}
+
+	/*지난방송 페이징*/
+	public List<BeforeVo> videoPaging(String mId, int rno){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("rno", rno);
+		List<BeforeVo> list = sqlSession.selectList("scbatis.videoPaging", map);
+		return list;
 	}
 
 	/*도네이션 출력을 위한 메소스*/
