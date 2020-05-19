@@ -152,7 +152,7 @@ cmh.func = function(){
 	
 	/* product_select.jsp*/
 	
-	$('btn_search_mh').click(function(){
+	$('#btn_search_mh').click(function(){
 		frm_product_select.nowPage.value = 1;
 		let param = $('#frm_product_select').serialize();
 		$.post("product_select.mh", param, function(data, state){
@@ -164,8 +164,14 @@ cmh.func = function(){
 }
 /*end chm_func()*/
 
-cmh.productView = function(serial){
-	location.href = "index.jsp?inc=admin_pages/shop/product_view.jsp";
+cmh.productView = function(product_id){
+	/*location.href = "index.jsp?inc=admin_pages/shop/product_view.jsp";*/
+	$('#productSerial').val(product_id);
+	let param = $('#frm_product_select').serialize();
+	
+	$.post("product_view.mh",param, function(data,state){
+		$('#mainContent').html(data);
+	});
 }
 
 cmh.orderView = function(serial){

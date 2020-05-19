@@ -15,62 +15,14 @@
 	padding: 15px;
 }
 .here{
-	background : #D1B2FF;
+	background : #00D8FF;
 }
-/*
-.name_c{
-	display: inline-block;
-	width: 200px !important ; 
+.product_name_c :hover{
+	font-weight: 900;
+	color: #FFFFC6;
 }
-.price_c{
-	display: inline-block;
-	width: 50px !important ;
+.product_list_c{
+	border-top: 1px solid #c0c0c0;
+	margin-top: 0;
+	text-align: left;
 }
-.save_c{
-	display: inline-block;
-	width: 100px !important ;
-	
-	
-}
-.status_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-}
-.hit_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-}
-.order_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-}
-.sell_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-}
-.interest_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-}
-.put_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-}
-.stock_c{
-	display: inline-block;
-	width: 50px !important ;
-	
-	
-} */

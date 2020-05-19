@@ -41,14 +41,42 @@
 	</resultMap>
 	
 	<select id="select" parameterType="bean.mh_Page" resultMap="storeAdmin_map">
-		
-		select * from (select rownum rno, a.* from(select p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_state, product_size, photo_serial,orifile,sysfile 
+		select * from (select rownum rno, a.* from(select ROW_NUMBER() over(partition by p.product_id order by photo_serial asc) as rnum, p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_state, product_size, photo_serial,orifile,sysfile 
 		from product p left outer join product_photo ph
 		on p.product_id = ph.product_id
 		where product_name like '%${findStr}%'
-		order by p.product_id desc)a)where rno between ${startNo} and ${endNo} 
-		
+		order by p.product_id desc)a where rnum=1)where rno between ${startNo} and ${endNo}	
 	</select>
+	
+	<select id="totalCount" resultType="Integer">
+		select count(product_id) from product
+	</select>
+	
+	<select id="nomalCount" resultType="Integer">
+		select count(product_id)
+		from product
+		where PRODUCT_STATE=0
+	</select>
+	
+		<select id="soldOutCount" resultType="Integer">
+		select count(product_id)
+		from product
+		where PRODUCT_STATE=1
+	</select>	
+	
+	<select id="hideCount" resultType="Integer">
+		select count(product_id)
+		from product
+		where PRODUCT_STATE=2
+	</select>
+	
+	<select id="productView" parameterType="Integer" resultMap="storeAdmin_map">
+		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, PRODUCT_STATE, product_size, photo_serial, orifile, sysfile
+		FROM product p left outer join product_photo ph
+		on p.product_id = ph.product_id
+		where p.product_id=${_parameter}
+	</select>
+	
 
 
 	<!-- <select id='selectTag' resultType="String"> SELECT tag_name FROM FINAL_TAG 

@@ -72,11 +72,31 @@ public class AdminController_mh {
 		System.out.println("★★★★★" + p.getNowPage());
 		System.out.println("★★★★★" + p.getFindStr());
 		List<ProductVo_mh> list =  dao.select(p);
+		List<Integer> productStateCount = dao.productStateCount();
 		
+		model.addAttribute("productStateCount",productStateCount);
 		model.addAttribute("p",p);
 		model.addAttribute("list",list);
 		
 		return "product_select";
+	}
+	
+	
+	@RequestMapping(value="*/product_view.mh", method=RequestMethod.POST, produces="application/text; charset-utf8")
+	public String product_view(Model model, int productSerial, int nowPage, String product_search) {
+		
+		ProductVo_mh vo = null;
+		mh_Page p = new mh_Page();
+		
+		vo = dao.productView(productSerial);
+		
+		p.setFindStr(product_search);
+		p.setNowPage(nowPage);
+		
+		model.addAttribute("vo",vo);
+		model.addAttribute("p",p);
+		
+		return "product_view";
 	}
 	
 	@ResponseBody
@@ -86,4 +106,6 @@ public class AdminController_mh {
 		System.out.println("test");
 		return "test";
 	}
+	
+	
 }

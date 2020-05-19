@@ -39,13 +39,13 @@
 								<h2>상품 조회</h2>
 							</div>
 							<div style="float: right; margin-right: 20px;">
-								<span>총 </span> <span> 0</span>&nbsp; <span>정상 </span> <span>
-									0</span>&nbsp; <span>품절 </span> <span> 0</span>&nbsp; <span>숨김
-								</span> <span> 0</span>
+								<span>총 </span> <span> ${productStateCount.get(0) }</span>&nbsp; <span>정상 </span> <span>
+									${productStateCount.get(1) }</span>&nbsp; <span>품절 </span> <span> ${productStateCount.get(2) }</span>&nbsp; <span>숨김
+								</span> <span> ${productStateCount.get(3) }</span>
 							</div>
 						</div>
 						<br>
-						<form action="" method="post" name="frm_product_select"
+						<form method="post" name="frm_product_select"
 							id="frm_product_select">
 							<div class="row" style="margin-top: 10px; text-align: right;">
 								<div class="col-sm-12">
@@ -56,9 +56,10 @@
 											<option>제조사</option>
 										</select> <input type="text" class="form-control" id="product_search"
 											name="product_search" value="${p.findStr }" /> <input
-											type="hidden" name="nowPage" value="${p.nowPage }" /> <input
-											type="button" class="form-control" value="검색"
+											type="hidden" name="nowPage" value="${p.nowPage }" /> 
+											<input type="button" class="form-control" value="검색"
 											id="btn_search_mh" name="btn_search_mh" />
+											<input type="hidden" id="productSerial" name="productSerial">
 									</div>
 
 								</div>
@@ -118,7 +119,7 @@
 							</div>
 							<div>
 								<c:forEach var="i" items="${list }">
-									<div class="row" style="text-align: left; margin-top: 10px;">
+									<div class="row product_list_c">
 										<div class="no_c"
 											style="display: inline-block; width: 5%; text-align: center;">
 											<span>${i.product_id} </span>
@@ -128,10 +129,10 @@
 											style="display: inline-block; width: 20%; text-align: center;">
 											<img
 												src="<%=request.getContextPath() %>/admin/admin_pages/product_photo/${i.photos[0].sysfile}"
-												alt="" style="width : 50px; height: 50px;"/>
+												alt="" style="width : 70px; height: 70px;"/>
 										</div>
 										<div
-											style="display: inline-block; width: 20%; text-align: center;"
+											style="display: inline-block; width: 20%; text-align: center;" class="product_name_c"
 											onclick="cmh.productView(${i.product_id});">
 											<span>${i.product_name}</span>											
 										</div>
@@ -190,18 +191,18 @@
 										<br>
 										<div id='paging'>
 											<c:if test="${p.startPage>p.blockSize }">
-												<input type='button' value=' 이전 '
+												<input type='button' value=' 이전 ' class="btn"
 													onclick='cmh.go(${p.startPage-1})' />
 											</c:if>
 
 											<c:forEach var='i' begin='${p.startPage }'
 												end='${p.endPage }'>
 												<input type='button' value=' ${i } '
-													class="${(i==p.nowPage)? 'here' : '' }"
+													class="btn ${(i==p.nowPage)? 'here' : '' }"
 													onclick='cmh.go(${i})' />
 											</c:forEach>
 											<c:if test="${p.endPage < p.totPage }">
-												<input type='button' value=' 다음 '
+												<input type='button' value=' 다음 ' class="btn"
 													onclick='cmh.go(${p.endPage+1})' />
 											</c:if>
 

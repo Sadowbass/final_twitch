@@ -3,9 +3,11 @@
  */
 package bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionException;
 
 import mybatis.Factory;
 
@@ -65,6 +67,32 @@ public class StoreMybatisDao_mh {
 			return list;
 		}
 
+	}
+	
+	public List<Integer> productStateCount() {
+		List<Integer> productState = new ArrayList<Integer>();
+			
+		try {
+			productState.add(sqlSession.selectOne("storeAdmin.totalCount"));
+			productState.add(sqlSession.selectOne("storeAdmin.nomalCount"));
+			productState.add(sqlSession.selectOne("storeAdmin.soldOutCount"));
+			productState.add(sqlSession.selectOne("storeAdmin.hideCount"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}			
+		return productState;
+	}
+	
+	public ProductVo_mh productView(int product_id) {
+		ProductVo_mh vo = null;
+		
+		try {
+			vo=sqlSession.selectOne("storeAdmin.productView",product_id);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
 	}
 
 }
