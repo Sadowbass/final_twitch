@@ -81,6 +81,7 @@
         $.ajax({
             url:"/userinfo.sc",
             type:'post',
+            async:false,
             error:function (error) {
                 console.log(error);
             },

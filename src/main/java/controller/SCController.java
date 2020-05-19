@@ -23,6 +23,7 @@ public class SCController {
         System.out.println("컨트롤러 생성");
     }
 
+    /*카테고리 첫 페이지 띄웠을때*/
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ModelAndView categories(HttpServletRequest req){
         ModelAndView mv = new ModelAndView();
@@ -35,7 +36,19 @@ public class SCController {
 
         return mv;
     }
+    /*카테고리 스크롤링으로 추가 정보 요청할때*/
+    @ResponseBody
+    @RequestMapping(value = "/categoryPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public String categoryPaging(HttpServletRequest req){
+        Gson gson = new Gson();
+        String rno = req.getParameter("rno");
+        SCDao dao = new SCDao();
+        List<CategoriesVo> list = dao.categories(rno);
+        String result = gson.toJson(list);
+        return result;
+    }
 
+    /*생방송중인 리스트 불러오기*/
     @RequestMapping(value = "categories/all", method = RequestMethod.GET)
     public ModelAndView liveAll(HttpServletRequest req){
         ModelAndView mv = new ModelAndView();
@@ -48,6 +61,17 @@ public class SCController {
         mv.setViewName("/categories");
 
         return mv;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/streamingPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public String streamingPaging(HttpServletRequest req){
+        Gson gson = new Gson();
+        String rno = req.getParameter("rno");
+        SCDao dao = new SCDao();
+        List<StreamingVo> list = dao.allStreaming(rno);
+        String result = gson.toJson(list);
+        return result;
     }
 
     @ResponseBody

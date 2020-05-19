@@ -76,14 +76,42 @@ public class SCDao {
 			}
 			list.get(i).setGenreList(temp);
 		}
-
 		return list;
 	}
 
+	/*카테고리 페이징(오버로딩)*/
+	public List<CategoriesVo> categories(String rno){
+		SCDao dao = new SCDao();
+		List<CategoriesVo> list = new ArrayList<CategoriesVo>();
+		list = sqlSession.selectList("scbatis.categoryPaging", rno);
+		for(int i = 0 ; i < list.size() ; i++){
+			List<String> temp = new ArrayList<String>();
+			String genre = list.get(i).getCat_genre();
+			String[] gl = genre.split(",");
+			for(int j = 0 ; j < gl.length ; j++){
+				String agl = gl[j];
+				temp.add(agl);
+				if(j == 1) {
+					break;
+				}
+			}
+			list.get(i).setGenreList(temp);
+		}
+		return list;
+	}
+
+	/*생방송중인 스트리밍 정보*/
 	public List<StreamingVo> allStreaming(){
 		List<StreamingVo> list = new ArrayList<StreamingVo>();
 		list = sqlSession.selectList("scbatis.nowStreaming");
 		return list;
 	}
+	/*생방송 페이징(오버로딩)*/
+	public List<StreamingVo> allStreaming(String rno){
+		List<StreamingVo> list = new ArrayList<StreamingVo>();
+		list = sqlSession.selectList("scbatis.streamingPaging", rno);
+		return list;
+	}
+
 
 }

@@ -13,29 +13,30 @@
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
 
     <c:forEach var="i" items="${list}">
-        <li class="nav-item"> 
-            <div class="nav-link nav-link-sc" onclick="javascript:onair('<c:out value="${i.air_mId}"/>')"
-                 id="${i.air_mId }">
-                <c:choose>
-                    <c:when test="${i.ph_sysfile == null}">
-                        <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
-                    </c:when>
-                    <c:otherwise>
-                        <img src="/img/user-photo/${i.ph_sysfile}" class="sidebar-list-img rounded-circle"></img>
-                    </c:otherwise>
-                </c:choose>
+        <li class="nav-item">
+            <a href="/${i.air_mId}">
+                <div class="nav-link nav-link-sc" id="${i.air_mId }">
+                    <c:choose>
+                        <c:when test="${i.ph_sysfile == null}">
+                            <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/img/user-photo/${i.ph_sysfile}" class="sidebar-list-img rounded-circle"></img>
+                        </c:otherwise>
+                    </c:choose>
 
-                <div class="sidebar-list-content">
-                    <div class="sidebar-list-text">
-                        <span>${i.air_mId}</span><br/>
-                        <span class="game-category">${i.air_gName}</span>
-                    </div>
-                    <div class="sidebar-list-viewer">
-                        <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
-                        <span style="margin: 0px;">4,000</span>
+                    <div class="sidebar-list-content">
+                        <div class="sidebar-list-text">
+                            <span>${i.air_mId}</span><br/>
+                            <span class="game-category">${i.air_gName}</span>
+                        </div>
+                        <div class="sidebar-list-viewer">
+                            <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
+                            <span style="margin: 0px;">4,000</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </li>
     </c:forEach>
 

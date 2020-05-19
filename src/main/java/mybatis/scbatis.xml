@@ -6,12 +6,18 @@
 <mapper namespace="scbatis">
     <!--팔로워 리스트-->
     <select id="followers" parameterType="String" resultType="bean.UserInfoVo">
-        select fm.MFO_MID mem_id, fp.PH_SYSFILE from FINAL_MFOLLOW fm left outer join FINAL_PHOTO fp on fm.MFO_MID = fp.PH_ID where fm.MFO_OID = #{value }
+        select fm.MFO_MID mem_id, fp.PH_SYSFILE
+        from FINAL_MFOLLOW fm
+                 left outer join FINAL_PHOTO fp on fm.MFO_MID = fp.PH_ID
+        where fm.MFO_OID = #{value }
     </select>
 
     <!--로그인중인 회원 정보-->
     <select id="userInfo" parameterType="String" resultType="bean.UserInfoVo">
-        select * from FINAL_MEMBER fm left outer join FINAL_PHOTO fp on fm.MEM_ID=fp.PH_ID where MEM_ID = #{value }
+        select *
+        from FINAL_MEMBER fm
+                 left outer join FINAL_PHOTO fp on fm.MEM_ID = fp.PH_ID
+        where MEM_ID = #{value }
     </select>
 
     <!--특정 1명의 스트리밍 정보-->
@@ -25,11 +31,21 @@
 
     <!--현재 생방송들의 정보-->
     <select id="nowStreaming" resultType="bean.StreamingVo">
-        select *
-        from FINAL_ONAIR o
-                 left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID
+        select rownum rno, a.*
+        from (select *
+              from FINAL_ONAIR o
+                       left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID) a
+        where ROWNUM between 1 and 3
     </select>
-
+    <!--생방송 페이징-->
+    <select id="streamingPaging" parameterType="String" resultType="bean.StreamingVo">
+        select *
+        from (select rownum rno, a.*
+              from (select *
+                    from FINAL_ONAIR o
+                             left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID) a)
+        where rno between ${value } + 1 and ${value} + 3
+    </select>
     <!--팔로우중인 이용자의 생방송정보-->
     <select id="nowStreaming2" resultType="bean.StreamingVo">
         SELECT *
@@ -67,6 +83,16 @@
 
     <!--카테고리 검색-->
     <select id="categories" resultType="bean.CategoriesVo">
-        select * from FINAL_CATEGORY
+        select rownum rno, a.*
+        from (select * from FINAL_CATEGORY) a
+        where rownum between 1 and 3
     </select>
+    <!--카테고리 페이징-->
+    <select id="categoryPaging" parameterType="Integer" resultType="bean.CategoriesVo">
+        select *
+        from (select rownum rno, a.* from (select * from FINAL_CATEGORY) a)
+        where rno between ${value } + 1 and ${value } + 3
+    </select>
+
+
 </mapper>

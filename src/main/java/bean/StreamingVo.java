@@ -1,12 +1,21 @@
 package bean;
 
 public class StreamingVo {
+    private int rno;
     private String mem_Id;
     private String mem_Skey;
     private String air_mId;
     private String air_subject;
     private String air_gName;
-    private String ph_sysfile; 
+    private String ph_sysfile;
+
+    public int getRno() {
+        return rno;
+    }
+
+    public void setRno(int rno) {
+        this.rno = rno;
+    }
 
     public String getMem_Id() {
         return mem_Id;

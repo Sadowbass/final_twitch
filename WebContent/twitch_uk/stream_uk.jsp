@@ -15,36 +15,36 @@
 	<meta name="author" content="Askbootstrap">
 	<title>JHTA-Twitch</title>
 	<!-- Favicon Icon -->
-	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="icon" type="image/png" href="/img/favicon.png">
 	<!-- Bootstrap core CSS-->
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
-	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 		  type="text/css"> 
 	<!-- Custom styles for this template-->
-	<link href="css/osahan.css" rel="stylesheet">
+	<link href="/css/osahan.css" rel="stylesheet">
 	<!-- Owl Carousel -->
-	<link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css">
-	<link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
-	<link rel="stylesheet" href="css/sc_custom.css">
-	<link rel="stylesheet" href="css/css_uk.css">
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="/vendor/owl-carousel/owl.carousel.css">
+	<link rel="stylesheet" href="/vendor/owl-carousel/owl.theme.css">
+	<link rel="stylesheet" href="/css/sc_custom.css">
+	<link rel="stylesheet" href="/css/css_uk.css">
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 	<!-- Owl Carousel -->
-	<script src="./vendor/owl-carousel/owl.carousel.js"></script>
+	<script src="/vendor/owl-carousel/owl.carousel.js"></script>
 	<!-- Custom scripts for all pages-->
-	<script src="js/custom.js"></script>
-	<script src="js/sc_custom.js"></script>
-	<script src="js/js_uk.js"></script>
+	<script src="/js/custom.js"></script>
+	<script src="/js/sc_custom.js"></script>
+	<script src="/js/js_uk.js"></script>
 </head>
 <body id="page-top">
 <script>
 	$(document).ready(function () {
 		$.ajax({
 			type: 'get',
-			url: './sidebar.sc',
+			url: '/sidebar.sc',
 			success: function (data) {
 				$('#sidebarplace').html(data);
 			}
@@ -52,7 +52,7 @@
 	})
 </script>
 <div id="topplace">
-	<%@include file="../top.jsp" %>
+	<%@include file="/top.jsp" %>
 </div>
 <div id="wrapper">
 	<div id="sidebarplace" style="margin-top: 53px;">
@@ -71,13 +71,12 @@
 									<div class="col-md-9 text-left pl-2">
 										<c:choose>
 											<c:when test="${vo.ph_sysfile == null}">
-												<img src="img/s1.png" class="rounded-circle" style="height: 35px; width: 35px;" />
+												<img src="/img/user-photo/guest-icon.png" class="rounded-circle" style="height: 35px; width: 35px;" />
 											</c:when>
 											<c:otherwise>
-												<img src="${vo.ph_sysfile}" class="rounded-circle" style="height: 35px; width: 35px;" />
+												<img src="/img/user-photo/${vo.ph_sysfile}" class="rounded-circle" style="height: 35px; width: 35px;" />
 											</c:otherwise>
 										</c:choose>
-
 										<a href="#">
 											${vo.mem_Id}
 											<span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified">

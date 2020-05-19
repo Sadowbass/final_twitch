@@ -3,11 +3,20 @@ package bean;
 import java.util.List;
 
 public class CategoriesVo {
+    private int rno;
     private int cat_serial;
     private String cat_gname;
     private String cat_genre;
     private String cat_sysfile;
     private List<String> genreList;
+
+    public int getRno() {
+        return rno;
+    }
+
+    public void setRno(int rno) {
+        this.rno = rno;
+    }
 
     public int getCat_serial() {
         return cat_serial;

@@ -37,14 +37,15 @@
     <!-- Custom scripts for all pages-->
     <script src="js/custom.js"></script>
     <script src="js/sc_custom.js"></script>
-    <script src="js/js_uk.js"></script>
+    <script src="js/js_uk.js"></script> 
 </head>
 <body id="page-top">
 <script>
     $(document).ready(function () {
         $.ajax({
             type: 'get',
-            url: 'sidebar.sc',
+            url: 'sidebar.sc', 
+            async:false,
             error:function(){
             	console.log(error)
             },
@@ -54,6 +55,7 @@
         })
         $.ajax({
             type:'get',
+            async:false,
             url:'main.sc',
             success:function (data) {
                 $('#content-wrapper').html(data);

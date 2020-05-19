@@ -50,6 +50,113 @@
             }
         })
     })
+    $(window).scroll(function () {
+        var rno = $('.category-item2:last').attr('rownum');
+        if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+            console.log("ajax start")
+
+            <c:if test="${URI == 0}">
+            $.ajax({
+                type:'post',
+                url:"/categoryPaging.sc",
+                data:{'rno':rno},
+                async:false,
+                error:(error)=>{
+                    console.log(error);
+                },
+                success:(data)=>{
+                    for(i of data){
+                        let divCol = document.createElement('div');
+                        divCol.className="col-xl-2 col-sm-6 mb-3";
+                        let divitem2 = document.createElement('div');
+                        divitem2.className="category-item2 mt-0 mb-0";
+                        divitem2.setAttribute("rownum",i.rno);
+                        let a = document.createElement('a');
+                        let img = document.createElement('img');
+                        img.className = "img-fluid";
+                        img.src = "/img/cate/"+i.cat_sysfile;
+                        let h6 = document.createElement('h6');
+                        h6.innerText = i.cat_gname;
+                        let p = document.createElement('p');
+                        p.innerText = "74,853 views";
+                        let col12 = document.createElement('div');
+                        col12.className = "col-xs-12";
+                        col12.style.marginTop = "3%";
+
+                        a.appendChild(img);
+                        a.appendChild(h6);
+                        a.appendChild(p);
+
+                        for(j of i.genreList){
+                            let tag = document.createElement('div');
+                            tag.style.borderRadius = "2em";
+                            tag.style.backgroundColor = "pink";
+                            tag.style.color = 'black';
+                            tag.style.display = 'inline';
+                            tag.style.padding = '3px';
+                            tag.innerHTML = j
+                            col12.appendChild(tag);
+                        }
+
+                        divitem2.appendChild(a);
+                        divitem2.appendChild(col12);
+
+                        divCol.appendChild(divitem2);
+                        $('.itemrow').append(divCol);
+                    }
+                }
+            })
+            </c:if>
+            <c:if test="${URI == 1}">
+                $.ajax({
+                    type:'post',
+                    url:"/streamingPaging.sc",
+                    data:{'rno':rno},
+                    async:false,
+                    error:(error)=>{
+                        console.log(error);
+                    },
+                    success:(data)=>{
+                        console.log(data);
+                        for(i of data){
+                            let divCol = document.createElement('div');
+                            divCol.className="col-xl-2 col-sm-6 mb-3";
+                            let divitem2 = document.createElement('div');
+                            divitem2.className="category-item2 mt-0 mb-0";
+                            divitem2.setAttribute("rownum",i.rno);
+                            let a = document.createElement('a');
+                            let img = document.createElement('img');
+                            img.className = "img-fluid";
+                            if(i.ph_sysfile == null){
+                                img.src = "/img/user-photo/guest-icon.png";
+                            } else {
+                                img.src = "/img/user-photo/"+i.ph_sysfile;
+                            }
+                            let h6 = document.createElement('h6');
+                            h6.innerText = i.air_mId
+                            let p = document.createElement('p');
+                            p.innerText = "74,853 views";
+                            let col12 = document.createElement('div');
+                            col12.className = "col-xs-12";
+                            col12.style.marginTop = "3%";
+
+                            a.appendChild(img);
+                            a.appendChild(h6);
+                            a.appendChild(p);
+
+                            divitem2.appendChild(a);
+                            divitem2.appendChild(col12);
+
+                            divCol.appendChild(divitem2);
+                            $('.itemrow').append(divCol);
+                        }
+                    }
+                })
+            </c:if>
+
+
+        }
+    })
 </script>
 <div id="topplace">
     <%@include file="/top.jsp" %>
@@ -109,18 +216,13 @@
                     </div>
                 </div>
                 <c:if test="${URI == 0}">
-                    <div class='row' style='margin-top: 2%' id="gameRow">
+                    <div class='row itemrow' style='margin-top: 2%' id="gameRow">
                         <c:forEach var="i" items="${list}">
                             <div class="col-xl-2 col-sm-6 mb-3">
-                                <div class="category-item2 mt-0 mb-0">
+                                <div class="category-item2 mt-0 mb-0" rownum="${i.rno}">
                                     <a href="shop.jsp">
                                         <img class="img-fluid" src="/img/cate/${i.cat_sysfile}"/>
-                                        <h6>${i.cat_gname}
-                                            <span title="" data-placement="top" data-toggle="tooltip"
-                                                  data-original-title="Verified">
-											<i class="fas fa-check-circle text-success"></i>
-										</span>
-                                        </h6>
+                                        <h6>${i.cat_gname}</h6>
                                         <p>74,853 views</p>
                                     </a>
                                     <div class="col-xs-12" style="margin-top: 3%">
@@ -135,10 +237,10 @@
                 </c:if>
 
                 <c:if test="${URI == 1}">
-                    <div class='row' style='margin-top: 2%' id="gameRow">
+                    <div class='row itemrow' style='margin-top: 2%' id="gameRow">
                         <c:forEach var="i" items="${list}">
                             <div class="col-xl-2 col-sm-6 mb-3">
-                                <div class="category-item2 mt-0 mb-0">
+                                <div class="category-item2 mt-0 mb-0" rownum="${i.rno}">
                                     <a href="shop.jsp">
                                         <c:choose>
                                             <c:when test="${i.ph_sysfile == null}">
@@ -158,17 +260,6 @@
                         </c:forEach>
                     </div>
                 </c:if>
-
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center pagination-sm mb-0">
-                        <li class="page-item disabled"><a class="page-link" href="#"
-                                                          tabindex="-1">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
             </div>
             <script>
                 $(function () {
