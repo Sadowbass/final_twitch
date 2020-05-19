@@ -232,7 +232,7 @@ public class BroadCastingController {
 	@ResponseBody
 	public String saveRoulette(HttpServletRequest req, HttpServletResponse resp) {
 		String result = "";
-		String serial = req.getParameter("mId");
+		String mId = req.getParameter("mId");
 		String rul1 = req.getParameter("rul1");
 		String rul2 = req.getParameter("rul2");
 		String rul3 = req.getParameter("rul3");
@@ -243,17 +243,28 @@ public class BroadCastingController {
 		List<String> list = new ArrayList<String>();
 		StringTokenizer tokens = new StringTokenizer(data, "," );
 		while(tokens.hasMoreElements()) {
-			list.add(tokens.nextToken());
+			list.add(tokens.nextToken().trim());
+			
+		}
+		for(int i=0; i < list.size();i++) {
+			System.out.println(list.get(i));
 		}
 		
 		String rouletteData = list.toString();
-		
-		//System.out.println(Arrays.toString(dataArr));
 		String newRouletteData = rouletteData.substring(1, rouletteData.length()-1);
-		System.out.println(newRouletteData);
-
+		result = dao.saveRoulette(mId, newRouletteData, flagRul);
 		
+		return result;
 		
+	} 
+	
+	
+	@RequestMapping(value = "*/deleteRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String deleteRoulette(HttpServletRequest req, HttpServletResponse resp) {
+		String result = "";
+		String mId = req.getParameter("mId");
+		result = dao.deleteRoulette(mId);	
 		return result;
 		
 	} 

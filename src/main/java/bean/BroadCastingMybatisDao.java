@@ -1,6 +1,7 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -198,5 +199,56 @@ public class BroadCastingMybatisDao {
 		
 
 	}
+	
+	public String saveRoulette(String mId,String newRouletteData,String flagRul) {
+		String result = "";
+		int flag = 0;
+		HashMap<String,  Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("newRouletteData", newRouletteData);
+
+		try {
+			
+			if(flagRul.equals("true")) { // 기존에 데이터가 있음 업데이트
+				flag = sqlSession.update("broadCasting.saveRoulette1", map);
+				if(flag<1) throw new Exception("룰렛 업데이트 에러");
+			}else if(flagRul.equals("false")) { // 기존에 데이터가 없음 인서트
+				flag = sqlSession.insert("broadCasting.saveRoulette2", map);
+				
+				if(flag<1) throw new Exception("룰렛 인서트 에러");
+			}
+					
+		}catch (Exception e) {
+			sqlSession.rollback();
+			result = "실패";
+		}finally {
+			if(flag>0) {
+				sqlSession.commit();
+				result = "성공";
+			}
+			return result;
+		}
+		
+		
+	}
+	
+	public String deleteRoulette(String mId) {
+		String result = "";
+		int flag = 0;
+		try {
+			flag = sqlSession.delete("broadCasting.deleteRoulette", mId);
+			if(flag<1) throw new Exception("룰렛 딜리트 에러");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			result = "실패";
+		}finally {
+			if(flag>0) {
+				sqlSession.commit();
+				result = "성공";
+			}
+			return result;
+		}
+	}
+	
 	
 }

@@ -4,9 +4,6 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="broadCasting">
 	
-	
-
-
 	<select id='selectTag' resultType="String">
 		SELECT tag_name FROM FINAL_TAG
 	</select>	       
@@ -57,7 +54,19 @@
 	<select id='selectRoulette' resultType="bean.RouletteVo" parameterType='String'>
 		select * from final_roulette where rul_mId = #{_parameter}
 	</select>
-	
-
+	<update id='saveRoulette1' parameterType='hashMap'>
+		update FINAL_ROULETTE
+		SET 
+		rul_data = #{newRouletteData}
+		WHERE
+		rul_mId = #{mId}
+	</update>
+	<insert id='saveRoulette2' parameterType='hashMap'>
+		INSERT into FINAL_ROULETTE
+		VALUES (seq_roulette.nextVal, #{mId}, #{newRouletteData})
+	</insert>
+	<delete id='deleteRoulette' parameterType = 'String'>
+		delete from FINAL_ROULETTE where rul_mId = #{_parameter}
+	</delete>
 </mapper>
    

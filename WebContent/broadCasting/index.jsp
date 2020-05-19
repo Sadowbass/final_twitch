@@ -60,7 +60,7 @@
 
 						<form name="pk_broadCastingData" id="pk_broadCastingData"
 							method="post">
-							<input type='text' name='flagRul' id='flagRul' />
+							<input type='hidden' name='flagRul' id='flagRul' />
 							<input type='hidden' name='mId' id='mId' value='BJ민호' /> <input
 								type='hidden' name='tags' id='takTag' /> <input type='hidden'
 								name='gameName' id='takGame' />
@@ -96,27 +96,27 @@
 														<hr/>
 														<div class='col-3' style='color:White'>룰렛1</div>
 														<div class='col-9'>
-															<input type='text' id='rul1' name='rul1' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
+															<input type='text' autocomplete="off" id='rul1' name='rul1' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
 														</div>
 														<hr/>
 														<div class='col-3' style='color:White'>룰렛2</div>
 														<div class='col-9'>
-															<input type='text' id='rul2' name='rul2' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
+															<input type='text' autocomplete="off" id='rul2' name='rul2' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
 														</div>
 														<hr/>
 														<div class='col-3' style='color:White'>룰렛3</div>
 														<div class='col-9'>
-															<input type='text' id='rul3' name='rul3' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
+															<input type='text' autocomplete="off" id='rul3' name='rul3' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
 														</div>
 														<hr/>
 														<div class='col-3' style='color:White'>룰렛4</div>
 														<div class='col-9'>
-															<input type='text' id='rul4' name='rul4' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
+															<input type='text' autocomplete="off" id='rul4' name='rul4' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
 														</div>
 														<hr/>
 														<div class='col-3' style='color:White'>룰렛5</div>
 														<div class='col-9'>
-															<input type='text' id='rul5' name='rul5' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
+															<input type='text' autocomplete="off" id='rul5' name='rul5' style='border-radius:2em;background-color: rgb(58, 58, 60);color:white;text-align: center;width: 100% '/>
 														</div>
 														<hr/>
 														<hr/>
@@ -496,7 +496,68 @@
 								console.log("click close");
 							});
 							$('#saveModalBtn').on('click', function() {
-									
+								
+								let count = 0;
+								
+								for(let i=1; i<6; i++){
+									if($('#rul'+i).val() != ''){
+										count++;
+									}
+								}
+								
+								if(count == 0){
+									let mId = $('#mId').val();
+		
+									$.ajax({
+										url : 'deleteRoulette.bc',
+										type : 'post',
+										data : {"mId": mId},
+										error : function(xhr, status, error){
+								
+										},
+										success : function(data, xhr, status ){	
+											if(data =="성공"){
+												Swal.fire({
+													  position: 'center',
+													  icon: 'success',
+													  title: '<font color="white">저장되었습니다.</font>',
+													  background: '#18181b',
+													  showConfirmButton: false,
+													  timer: 1500
+													})
+													$('#flagRul').val('false');
+											}else if(data =="실패"){
+												Swal.fire({
+													  position: 'center',
+													  icon: 'error',
+													  title: '<font color="white">저장에 실패하였습니다.</font>',
+													  background: '#18181b',
+													  showConfirmButton: false,
+													  timer: 1500
+													})
+											}
+										}
+											
+									})
+															
+									return;
+											
+								}
+
+								if(count < 2){
+									Swal.fire({
+										  position: 'center',
+										  icon: 'error',
+										  title: '<font color="white">2개 이상의 값을 입력해주세요.</font>',
+										  background: '#18181b',
+										  showConfirmButton: false,
+										  timer: 1500
+										})
+										
+										return;
+								}
+								
+								
 								let param = $('#pk_broadCastingData').serialize();
 	
 									$.ajax({
@@ -507,7 +568,26 @@
 								
 										},
 										success : function(data, xhr, status ){	
-											
+											if(data =="성공"){
+												Swal.fire({
+													  position: 'center',
+													  icon: 'success',
+													  title: '<font color="white">저장되었습니다.</font>',
+													  background: '#18181b',
+													  showConfirmButton: false,
+													  timer: 1500
+													})
+													$('#flagRul').val('true');
+											}else if(data =="실패"){
+												Swal.fire({
+													  position: 'center',
+													  icon: 'error',
+													  title: '<font color="white">저장에 실패하였습니다.</font>',
+													  background: '#18181b',
+													  showConfirmButton: false,
+													  timer: 1500
+													})
+											}
 										}
 											
 									})
@@ -557,13 +637,14 @@
 																divRow.className = "row";
 																divRow.style.marginTop = "2%";
 
-																if (data[i].type == '0') {
+																if (data[i].type == '0' || data[i].type =='2') {
 																	divRow.onclick = function() {
 																		voiceDonation(
 																				data[i].don_serial,
 																				data[i].don_oid,
 																				data[i].don_content,
-																				data[i].don_price);
+																				data[i].don_price,
+																				data[i].type);
 																	};
 
 																} else if (data[i].type == '1') {
@@ -587,6 +668,8 @@
 																	j.className = "fas fa-volume-up fa-3x";
 																} else if (data[i].type == '1') {
 																	j.className = "fas fa-video fa-3x";
+																} else if (data[i].type == '2'){
+																	j.className = "fas fa-question fa-3x";
 																}
 
 																let divCol8 = document
@@ -679,10 +762,20 @@
 																	"bdColor" : "#444"
 																}
 																toastr.options.onclick = function() {
-																	if (data[i].type == '0') {
-																		voiceDonation(data[i].don_serial);
+																	if (data[i].type == '0' || data[i].type =='2') {
+																		voiceDonation(
+																				data[i].don_serial,
+																				data[i].don_oid,
+																				data[i].don_content,
+																				data[i].don_price,
+																				data[i].type);
 																	} else if (data[i].type == '1') {
-																		videoDonation(data[i].don_serial);
+																		videoDonation(
+																				data[i].don_serial,
+																				data[i].don_oid,
+																				data[i].don_content,
+																				data[i].don_price,
+																				data[i].url)
 																	}
 																}
 
@@ -692,6 +785,9 @@
 																} else if (data[i].type == '1') {
 																	toastr
 																			.success('영상후원이 도착하였습니다');
+																} else if (data[i].type == '2'){
+																	toastr
+																		    .success('룰렛후원이 도착하였습니다');
 																}
 
 															}
