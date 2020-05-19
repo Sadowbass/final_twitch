@@ -3,11 +3,13 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.omg.CORBA.BAD_INV_ORDER;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import bean.BroadCastingCateVo;
 import bean.HEDao;
 import bean.MemberVo;
 import config.HE_FileUpload;
@@ -74,6 +76,11 @@ public class HEController {
 	@RequestMapping(value="*/member_modify.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView modifyM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
+		MemberVo vo =  null;
+		String mid =(String)req.getParameter("member_id");
+		vo=dao.member_view(mid);
+		
+		mv.addObject("vo", vo);
 		mv.setViewName("member/member_modify"); 
 		return mv;
 	}
@@ -110,6 +117,30 @@ public class HEController {
 		return mv;
 	}
 	
+	@RequestMapping(value="*/modify_result.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView modifyResult(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		HE_FileUpload fu = new HE_FileUpload(req, resp);
+		HttpServletRequest req2 = fu.boardUploading();
+		
+		MemberVo vo = (MemberVo)req2.getAttribute("vo");
+		
+		String msg = dao.member_modify(vo, req2);
+		mv.addObject("msg", msg);
+		mv.setViewName("member/result"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/delete_result.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView deleteResult(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		String mid = (String)req.getParameter("member_id");
+		String msg = dao.member_delete(mid,req);
+		mv.addObject("msg", msg);
+		mv.setViewName("member/result"); 
+		return mv;
+	}
+	
 	@RequestMapping(value="*/live_broadcast.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView LiveBroadcast(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
@@ -130,7 +161,24 @@ public class HEController {
 	@RequestMapping(value="*/category_select.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView selectC(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
+		List<BroadCastingCateVo> list;
+		list = dao.cate_select();
 
+		mv.addObject("list", list);
+
+		mv.setViewName("twitch_main/category_select"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/category_view.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView viewC(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		BroadCastingCateVo vo;
+		String serial = req.getParameter("he_serial");
+		vo = dao.cate_view(serial);
+
+		mv.addObject("cate", vo);
+		System.out.println(vo.getCat_gname());
 		mv.setViewName("twitch_main/category_select"); 
 		return mv;
 	}

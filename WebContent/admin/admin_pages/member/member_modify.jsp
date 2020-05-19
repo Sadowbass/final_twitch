@@ -83,6 +83,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <div class="row clearfix">
                                     <div class="col-md-12  col-xs-12">
                                         <div class="body">
+                                         <form id="he_form" name="he_form" method="post" enctype='multipart/form-data'>
                                             <div class="row clearfix">
                                                 <div class="col-xs-12 ">
                                                  <c:if test="${empty vo.ph_serial}">
@@ -90,15 +91,20 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         id="member_img">
                                                  </c:if>
                                                  <c:if test="${not empty vo.ph_serial}">
-                                                    <img src="images/${vo.ph_sysfile }" class="img-circle member_img"
+                                                    <img src="../img/user-photo/${vo.ph_sysfile }" class="img-circle member_img"
                                                         id="member_img">
                                                  </c:if>
+                                                 <div class="filebox">
+                                        			<label for="profile_img">프로필 사진 수정</label>
+                                       			 	<input type="file" name="profile_img" id="profile_img"
+                                            			class="profile_img_button" />
+                                    			</div>
 
                                                 </div>
                                             </div>
                                             <div class="row clearfix">
                                                 <div class="col-md-12 col-sm-12">
-                                                    <textarea class="form-control introduce" rows="3"
+                                                    <textarea class="form-control introduce" rows="3" name="member_introduce"
                                                          >${vo.mem_profile }</textarea>
                                                 </div>
                                             </div>
@@ -110,7 +116,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                           		  아이디
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" value="${vo.mem_id }" >
+                                                            <input class="form-control" type="text" value="${vo.mem_id }" name="member_id">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,7 +126,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                           		 구분
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" value="${vo.mem_admin }">
+                                                            <!--<input class="form-control" type="text" value="${vo.mem_admin }" name="member_grade">-->
+                                                            <select class="form-control show-tick" name="member_grade">
+                                								<option <c:if test="${vo.mem_admin == 0 }">selected</c:if> value="0">일반회원</option>
+                                								<option <c:if test="${vo.mem_admin == 1 }">selected</c:if> value="1">관리자</option>
+                            								</select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -133,7 +143,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	이름
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value=${vo.mem_name }>
+                                                            <input type="text" class="form-control" value="${vo.mem_name }" name="member_name">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,7 +153,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	현재상태
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.mem_status }">
+                                                            <!--<input type="text" class="form-control" value="${vo.mem_status }" name="member_status">-->
+                                                            <select class="form-control show-tick" name="member_status">
+                                								<option <c:if test="${vo.mem_admin == 0 }">selected</c:if> value="0">오프라인</option>
+                                								<option <c:if test="${vo.mem_admin == 1 }">selected</c:if> value="1">온라인</option>
+                                								<option <c:if test="${vo.mem_admin == 2 }">selected</c:if> value="2">방송중</option>
+                            								</select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,7 +171,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	이메일	
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="email" class="form-control" value="${vo.mem_email }">
+                                                            <input type="email" class="form-control" value="${vo.mem_email }" name="member_email">
                                                         </div>
 
                                                     </div>
@@ -167,7 +182,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             		보유잔액
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="email" class="form-control" value="${vo.mem_money }">
+                                                            <input type="email" class="form-control" value="${vo.mem_money }" name="member_money">
                                                         </div>
 
                                                     </div>
@@ -181,7 +196,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	등록일	
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="date" class="form-control" value="${vo.mem_rDate }">
+                                                            <input type="date" class="form-control" value="${vo.mem_rDate }" name="member_rdate">
                                                         </div>
 
                                                     </div>
@@ -192,7 +207,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	생일	
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="date" class="form-control" value="${vo.mem_birth }">
+                                                            <input type="date" class="form-control" value="${vo.mem_birth }" name="member_birth">
                                                         </div>
 
                                                     </div>
@@ -206,17 +221,25 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             	우편번호
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.mem_zcode }">
+                                                            <input type="text" class="form-control" value="${vo.mem_zcode }" name="member_zcode">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 <div class="col-md-9 col-sm-12">
+                                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
                                                             	집주소 
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.mem_add1 } ${vo.mem_add2}">
+                                                            <input type="text" class="form-control" value="${vo.mem_add1 }" name="member_add1 ">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12" >
+                                                    <div class="input-group">
+                                                       
+                                                        <div class="form-line">
+                                                            <input type="text" class="form-control" value="${vo.mem_add2}" name="member_add2">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -228,8 +251,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         <i class="material-icons">build</i>
                                                         <span>수정 저장</span>
                                                     </button>
+                                                    <button type="button" class="btn waves-effect">
+                                                    <i class="material-icons">cached</i>
+                                                        <span>취소</span>
+                                                    </button>
                                                 </div>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -295,155 +323,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <script src="js/member.js"></script>
     <script>
-        $(document).ready(function () {
-            var table = $('#he_table').DataTable({
-                columnDefs: [{
-                    targets: [0, 1, 2],
-                    className: 'mdl-data-table__cell--non-numeric'
-                }]
-            });
-
-            new $.fn.dataTable.Buttons(table, {
-                buttons: [{
-                        dom: 'Bfrtip',
-                        text: 'excel',
-                        extend: 'excel'
-                    },
-                    {
-                        dom: 'Bfrtip',
-                        text: 'csv',
-                        extend: 'csv'
-                    },
-                    {
-                        dom: 'Bfrtip',
-                        text: 'copy',
-                        extend: 'copy'
-                    },
-                    {
-                        dom: 'Bfrtip',
-                        text: 'pdf',
-                        extend: 'pdf'
-                    },
-                    {
-                        dom: 'Bfrtip',
-                        text: 'print',
-                        extend: 'print'
-                    }
-                ]
-            });
-
-            table.buttons(0, null).container().prependTo(
-                table.table().container()
-            );
-        });
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First dataset',
-                    data: [0, 10, 5, 2, 20, 30, 45],
-                    borderColor: 'rgba(0, 188, 212, 0.75)',
-                    backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                    pointBorderColor: 'rgba(0, 188, 212, 0)',
-                    pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                    pointBorderWidth: 1
-                }, {
-                    label: "My Second dataset",
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    borderColor: 'rgba(233, 30, 99, 0.75)',
-                    backgroundColor: 'rgba(233, 30, 99, 0.3)',
-                    pointBorderColor: 'rgba(233, 30, 99, 0)',
-                    pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
-                    pointBorderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                legend: false
-            }
-        });
-        var ctx2 = document.getElementById('shop_buy_chart').getContext('2d');
-        var chart = new Chart(ctx2, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First dataset',
-                    data: [0, 10, 5, 2, 20, 30, 45],
-                    borderColor: 'rgba(0, 188, 212, 0.75)',
-                    backgroundColor: 'rgba(0, 188, 212, 0.3)',
-                    pointBorderColor: 'rgba(0, 188, 212, 0)',
-                    pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                    pointBorderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                legend: false
-            }
-        });
-
-        var ctx3 = document.getElementById('category_chart').getContext('2d');
-        var myPieChart = new Chart(ctx3, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [10, 20, 60, 10],
-                    backgroundColor: [
-                        "rgb(233, 30, 99)",
-                        "rgb(255, 193, 7)",
-                        "rgb(0, 188, 212)",
-                        "rgb(139, 195, 74)"
-                    ],
-                }],
-                labels: [
-                    "Pink",
-                    "Amber",
-                    "Cyan",
-                    "Light Green"
-                ]
-            },
-            options: {
-                responsive: true,
-
-            }
-
-        });
-        var ctx4 = document.getElementById('shop_cate_chart').getContext('2d');
-        var myPieChart = new Chart(ctx4, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [10, 20, 60, 10],
-                    backgroundColor: [
-                        "rgb(233, 30, 99)",
-                        "rgb(255, 193, 7)",
-                        "rgb(0, 188, 212)",
-                        "rgb(139, 195, 74)"
-                    ],
-                }],
-                labels: [
-                    "Pink",
-                    "Amber",
-                    "Cyan",
-                    "Light Green"
-                ]
-            },
-            options: {
-                responsive: true,
-
-            }
-
-        });
+    	modify_result();
     </script>
 
 

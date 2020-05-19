@@ -38,9 +38,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <link href="css/member.css" rel="stylesheet" />
     
-    <script src="js/member.js"></script>
-
-
 
 
 
@@ -128,7 +125,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                           		  아이디
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" value="${vo.mem_id }" >
+                                                            <input class="form-control" type="text" value="${vo.mem_id }" name="member_id" >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -251,7 +248,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         <i class="material-icons">delete</i>
                                                         <span>계정 삭제</span>
                                                     </button>
-                                                    <button type="button" class="btn waves-effect" id="modify_btn">
+                                                    <button type="button" class="btn waves-effect" id="modify_btn" onclick="member_modify2()">
                                                         <i class="material-icons">build</i>
                                                         <span>수정</span>
                                                     </button>
@@ -593,7 +590,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <!-- alert dialog -->
     <script src="js/pages/ui/dialogs.js"></script>
     
-  
+  	<script src="js/member.js"></script>
    
 	
 	<!-- table -->

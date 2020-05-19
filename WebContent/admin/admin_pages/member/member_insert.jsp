@@ -44,8 +44,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="header member_header">
                             <div class="member_input">등급 구분</div>
                             <select class="form-control show-tick" name="member_grade">
-                                <option>일반회원</option>
-                                <option>관리자</option>
+                                <option value="0">일반회원</option>
+                                <option value="1">관리자</option>
                             </select>
 
                             <ul class="header-dropdown m-r--5">
