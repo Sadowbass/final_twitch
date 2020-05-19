@@ -1,6 +1,7 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -56,13 +57,13 @@ public class BroadCastingMybatisDao {
 			list = sqlSession.selectList("broadCasting.selectDonation",mId);
 			System.out.println(list.size());
 			
-			/*
+			
 			if(list != null) {
 			for(int i=0; i < list.size(); i++) {
 				readDonation(list.get(i).don_serial);
 			}
 			}
-			*/
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -90,6 +91,28 @@ public class BroadCastingMybatisDao {
 			}
 		}
 	}
+	
+	public String sendDonation(int serial) {
+		int result = 0;
+		String msg = "";
+		try {
+			result = sqlSession.update("broadCasting.sendDonation", serial);
+		}catch (Exception e) {
+			e.printStackTrace();
+			msg = "송출실패";
+			sqlSession.rollback();
+			//sqlSession.close();
+		}finally {
+			if(result>0) {
+				msg = "송출성공";
+				sqlSession.commit();
+				//sqlSession.close();
+			}
+			
+			return msg;
+		}
+	}
+	
 	
 	
 	
@@ -162,6 +185,69 @@ public class BroadCastingMybatisDao {
 		}
 	
 		
+	}
+	
+	public RouletteVo selectRoulette(String mId) {
+		RouletteVo vo = null;	
+		try {
+			vo = sqlSession.selectOne("broadCasting.selectRoulette",mId);
+		}catch (Exception e) {
+			System.out.println("룰렛조회입섹션!!");
+		}finally {
+			return vo;
+		}
+		
+
+	}
+	
+	public String saveRoulette(String mId,String newRouletteData,String flagRul) {
+		String result = "";
+		int flag = 0;
+		HashMap<String,  Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("newRouletteData", newRouletteData);
+
+		try {
+			
+			if(flagRul.equals("true")) { // 기존에 데이터가 있음 업데이트
+				flag = sqlSession.update("broadCasting.saveRoulette1", map);
+				if(flag<1) throw new Exception("룰렛 업데이트 에러");
+			}else if(flagRul.equals("false")) { // 기존에 데이터가 없음 인서트
+				flag = sqlSession.insert("broadCasting.saveRoulette2", map);
+				
+				if(flag<1) throw new Exception("룰렛 인서트 에러");
+			}
+					
+		}catch (Exception e) {
+			sqlSession.rollback();
+			result = "실패";
+		}finally {
+			if(flag>0) {
+				sqlSession.commit();
+				result = "성공";
+			}
+			return result;
+		}
+		
+		
+	}
+	
+	public String deleteRoulette(String mId) {
+		String result = "";
+		int flag = 0;
+		try {
+			flag = sqlSession.delete("broadCasting.deleteRoulette", mId);
+			if(flag<1) throw new Exception("룰렛 딜리트 에러");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			result = "실패";
+		}finally {
+			if(flag>0) {
+				sqlSession.commit();
+				result = "성공";
+			}
+			return result;
+		}
 	}
 	
 	

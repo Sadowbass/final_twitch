@@ -29,9 +29,9 @@
 			aboutlink : "http://www.jhta.co.kr",
 
 			sources : [ {
-				file : "rtmp://192.168.0.77/hls/${sKey}",
+				file : "rtmp://192.168.0.77/hls/",
 			}, {
-				file : "http://192.168.0.77:8845/hls/${sKey}.m3u8"
+				file : "http://192.168.0.77:8845/hls/.m3u8"
 			} ]
 		});
 		

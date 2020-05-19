@@ -15,36 +15,12 @@ function startAir(){
 		type : 'post',
 		data : param,
 		error : function(xhr, status, error){
-			
+			  console.log(xhr);
 		},
 		success : function(data, xhr, status ){	
-			if(data == '입력성공'){
-				Swal.fire({
-					  position: 'center',
-					  icon: 'success',
-					  title: '<font color="white">방송 송출이 시작되었습니다.</font>',
-					  background: '#18181b',
-					  showConfirmButton: false,
-					  timer: 1500
-					})
-				$('#updateBroadCasting').show();
-				$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
-			}else{
-				Swal.fire({
-					  position: 'center',
-					  icon: 'error',
-					  title: '<font color="white">방송 송출에 실패하셨습니다.</font>',
-					  background: '#18181b',
-					  showConfirmButton: false,
-					  timer: 1500
-					})
-				if($('#pk_switch').hasClass('on') === true){ 
-						
-					$('#pk_switch').toggleClass('on');
-						
-				}
-			}
 			
+			$('#videoView').html(data);
+					
 		}
 			
 	})
@@ -66,35 +42,7 @@ function stopAir() {
 
 		},
 		success : function(data, xhr, status ){	
-			if(data=='삭제성공'){
-				Swal.fire({
-					  position: 'center',
-					  icon: 'success',
-					  title: '<font color="white">방송 송출이 중지되었습니다.</font>',
-					  background: '#18181b',
-					  showConfirmButton: false,
-					  timer: 1500
-					})
-					
-				$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
-				$('#streamKey').prop('readonly',false);
-			}else{
-				Swal.fire({
-					  position: 'center',
-					  icon: 'error',
-					  title: '<font color="white">방송 중지에 실패하였습니다.</font>',
-					  background: '#18181b',
-					  showConfirmButton: false,
-					  timer: 1500
-					})
-					
-					if($('#pk_switch').hasClass('on') === false){ 
-						
-						$('#pk_switch').toggleClass('on');
-							
-					}
-					
-			}	
+			$('#videoView').html(data);
 		}
 			
 	})
@@ -316,7 +264,20 @@ bc.func = function(){
 
 
 
-let videoDonation = function() {
+function videoDonation(serial,oid,content,price,url) {
+    var youtubeUrl = "https://www.youtube.com/embed/";
+    var autoPlay = "?autoplay=1&mute=0";
+	let donationData = '';
+	donationData += '<iframe id="ytplayer" type="text/html" width="500" height="230" frameborder="0" src="' + youtubeUrl+url+autoPlay+'" allowfullscreen></iframe>';
+	donationData += '<br />';
+	donationData += '<span id="text-id" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">' + oid +'님이</span> '
+	donationData += '<span id="text-amount" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
+	donationData += '<br />'
+	donationData += '<span id="text-content" style="color:white">'+content+'</span>';
+	donationData += '</div>';
+    
 	Swal.fire({
 		  title: '<font color="white">영상 후원</font>',
 		  width: 600,
@@ -327,21 +288,85 @@ let videoDonation = function() {
 		  cancelButtonText: '닫기',
 		  cancelButtonColor: 'purple',
 		  background: '#18181b',
-		  html : '<video id="myVideo" width="400px" src="../upload/jyt.mp4" controls autoplay></video>',
+		  html : donationData,
 		  backdrop: `
 		    rgba(0,0,123,0.4)
 		    left top
 		    no-repeat
 		  `
-	})
+	}).then((result) => {
+		  if (result.value) {
+			   
+				$.ajax({
+					url : 'sendDonation.bc',
+					type : 'post',
+					data : {"serial":serial} ,
+					error : function(xhr, status, error){
+						
+					},
+					success : function(data, xhr, status ){	
+						
+						if(data == "송출성공"){
+							
+							Swal.fire({
+								  position: 'center',
+								  icon: 'success',
+								  title: '<font color="white">도네이션 송출에 성공하였습니다.</font>',
+								  background: '#18181b',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+							
+	
+						}else if(data =="송출실패"){
+							Swal.fire({
+								  position: 'center',
+								  icon: 'error',
+								  title: '<font color="white">도네이션 송출에 실패하였습니다.</font>',
+								  background: '#18181b',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+							
+							
+						}
+					}
+						
+				})
+
+			  
+			  // if 끝
+			  }
+			})
 }
 
-let voiceDonation = function(text,type) {
+function voiceDonation(serial,oid,content,price,type) {
 	
-	responsiveVoice.speak(text,type);
+	responsiveVoice.speak(content,"Korean Female");
+
 	
+	let donationData = '';
+	let dType = '';
+	donationData += '<i class="fas fa-volume-up fa-3x"></i>';
+	donationData += '<div id="text-view">';
+	donationData += '<img src="https://toothcdn.xyz:8432/uploaded/c5ebb8db982555470878a53cc8304ab5/alert_donation_1.img?v=1" style="width: 40%; top:-10%">';
+	donationData += '<br />';
+	donationData += '<span id="text-id" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">' + oid +'님이</span> '
+	donationData += '<span id="text-amount" class="added-text"></span>';
+	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
+	donationData += '<br />'
+	donationData += '<span id="text-content" style="color:white">'+content+'</span>';
+	donationData += '</div>';
+	
+	if(type == '0'){
+		dType = '음성 후원'
+	}else if (type == '2'){
+		dType = '룰렛 후원'
+	}
+
 	Swal.fire({
-		  title: '<font color="white">음성 후원</font>',
+		  title: '<font color="white">'+ dType + '</font>',
 		  width: 600,
 		  padding: '3em',
 		  showCancelButton: true,
@@ -349,16 +374,96 @@ let voiceDonation = function(text,type) {
 		  confirmButtonColor: 'purple',
 		  cancelButtonText: '닫기',
 		  cancelButtonColor: 'purple',
-		  html: '<i class="fas fa-volume-up fa-3x"></i>',
+		  html: donationData,
 		  background: '#18181b',
 		  backdrop: `
 		    rgba(0,0,123,0.4)
 		    left top
 		    no-repeat
 		  `
-	})
+	}).then((result) => {
+		  if (result.value) {
+			   
+				$.ajax({
+					url : 'sendDonation.bc',
+					type : 'post',
+					data : {"serial":serial} ,
+					error : function(xhr, status, error){
+						
+					},
+					success : function(data, xhr, status ){	
+						
+						if(data == "송출성공"){
+							
+							Swal.fire({
+								  position: 'center',
+								  icon: 'success',
+								  title: '<font color="white">도네이션 송출에 성공하였습니다.</font>',
+								  background: '#18181b',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+							
+	
+						}else if(data =="송출실패"){
+							Swal.fire({
+								  position: 'center',
+								  icon: 'error',
+								  title: '<font color="white">도네이션 송출에 실패하였습니다.</font>',
+								  background: '#18181b',
+								  showConfirmButton: false,
+								  timer: 1500
+								})
+							
+							
+						}
+					}
+						
+				})
+
+			  
+			  // if 끝
+			  }
+			})
 }
 
+function broadCastingSetting() {
+	let mId = $('#mId').val();
+	$('#rul1').val('');
+	$('#rul2').val('');
+	$('#rul3').val('');
+	$('#rul4').val('');
+	$('#rul5').val('');
+	
+	$.ajax({
+		url : 'selectRoulette.bc',
+		type : 'post',
+		data : {"mId":mId},
+		dataType : 'json',
+		error : function(xhr, status, error){
 
+		},
+		success : function(data, xhr, status ){	
+			
+			if(data != null){
+				if(data[0].rul_result == '조회성공'){
+				let array = data[0].rul_data.split(',');
+				for(let i = 0; i<array.length;i++){
+					console.log(array[i]);
+					$('#rul'+(i+1)).val(array[i].trim());
+				}
+				$('#flagRul').val('true');
+				}else if(data[0].rul_result == '조회실패'){
+					$('#flagRul').val('false');
+				}
+				
+			}
+		}
+			
+	})
+	
+	$('#modalBox').modal('show');
+
+}
 
 
