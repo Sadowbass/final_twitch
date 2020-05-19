@@ -37,11 +37,11 @@
                            <input type="password" class="form-control loginTest" placeholder="Password" 
                            id='text_pwdm' name="logpwdm">
                         </div>
+                        <div id="login_msg" class= "login_msg"></div>
                         <div class ="pwd_m">
                         	<a href = "./member/memberSearch.jsp">
                         		<p class="pwd_longin_m">로그인이 안되세요?</p>
-                        	</a>	
-							                        	
+                        	</a>	                        	
                         </div>
                     
                         <div class="mt-4">

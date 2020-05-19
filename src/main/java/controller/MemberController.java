@@ -1,17 +1,24 @@
 package controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import login.MemberDao_m;
 import login.MemberVo_m;
+
 
 
 
@@ -21,7 +28,6 @@ public class MemberController {
 	MemberDao_m dao;
 	
 	public MemberController(MemberDao_m dao) {
-		System.out.println("123");
 		this.dao = dao;
 	}
 //회원가입
@@ -49,6 +55,26 @@ public class MemberController {
 	mv.setViewName("result");
 	return mv;
 }
+
+
+//아이디 비밀번호 찾기 이메일 보내기
+@RequestMapping(value="/member/email.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
+public ModelAndView sendEmailAction (HttpServletRequest req, HttpServletResponse resp) throws Exception{
+	
+	ModelAndView mv = new ModelAndView();
+	
+	String mem_email = req.getParameter("mem_email");
+	
+	String msg = dao.email(mem_email);
+	
+	
+	mv.addObject("msg", msg);
+	mv.setViewName("result");
+	return mv;
+}
+
+
+
 @RequestMapping(value="/login.lm", method= {RequestMethod.POST}, produces="application/text;charset=utf-8")
 @ResponseBody
 public String login(HttpServletRequest req) {
@@ -61,14 +87,12 @@ public String login(HttpServletRequest req) {
 	vo.setMem_pwd(mem_pwd);
 
 
-	
-	
 	boolean loginResult = dao.login(vo);
 	if( loginResult ) {
 		HttpSession session = req.getSession();
 		session.setAttribute("session_id", mem_Id);
 	}else {
-		msg = "아이디나 암호 다시 확인 !!! ";
+		msg = "아이디나 비밀번호를 다시 확인 해주세요. ";
 	}
 
 	return msg;
@@ -78,12 +102,13 @@ public String login(HttpServletRequest req) {
 @ResponseBody
 public String logout(HttpServletRequest req) {
 	
-	String msg ="";
+	String msg ="로그아웃되었습니다.";
 
 	HttpSession session = req.getSession();
 	session.removeAttribute("session_id");
 	return msg;
 }	
+
 
 
 }

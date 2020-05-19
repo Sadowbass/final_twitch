@@ -18,4 +18,10 @@
 		where mem_Id=#{mem_Id} and mem_pwd=#{mem_pwd}
 	</select>
 	
+	<select id='email' parameterType='String' resultType="login.MemberVo_m">
+		select mem_Id, mem_pwd, mem_email
+		from final_member
+		where mem_email=#{_parameter}
+	</select>
+	
 </mapper>

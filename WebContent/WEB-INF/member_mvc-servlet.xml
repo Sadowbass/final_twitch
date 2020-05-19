@@ -26,6 +26,7 @@
 	<constructor-arg ref="lm_dao"/>
 	</bean>
 
+
 	<!-- view resolver -->
 	<bean class='org.springframework.web.servlet.view.InternalResourceViewResolver'>
 		

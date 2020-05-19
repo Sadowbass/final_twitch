@@ -22,7 +22,7 @@
    <mappers>
    	 <mapper resource="mybatis/broadCasting.xml" />
 
-     <mapper resource="mybatis/scbatis.xml"/>
+      <mapper resource="mybatis/scbatis.xml"/>
     <!--  <mapper resource="mybatis/pagemove.xml"/> -->
      <mapper resource="mybatis/member.xml"/>
 

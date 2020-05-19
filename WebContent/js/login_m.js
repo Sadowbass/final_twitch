@@ -19,7 +19,7 @@
 					$(msg).text('띄어쓰기 없이 입력해 주세요.');
 					$(msg).css('color', '#ff0055');
 					$(this).css('border', '1px solid #ff0055');
-				}else if(kor <= 0){
+				}else if(kor >= 0 ){
 					$(msg).text('한글은 사용할 수 없습니다.');
 					$(msg).css('color', '#ff0055');
 					$(this).css('border', '1px solid #ff0055');
@@ -108,8 +108,12 @@
 	 //로그인
 	 $('#btn_login_m').click(function(){
 		let param = $('#frm_loginm').serialize();
+		var msg = $('#login_msg');
 		$.post("login.lm", param, function(data, state){
-			location.href='index.jsp';
+			
+				location.href='index.jsp';
+				$(msg).text(data);
+				$(msg).css('color', '#ff0055');				
 		});
 	})	
 	//로그아웃
@@ -120,6 +124,17 @@
 		
 	})
 	
+	//아이디 및 비밀번호 찾기  이메일 전송
+$('#btnNextm').click(function(){
+	let param = $('#signupform').serialize();
+	
+	$('#signupform').attr('action','email.lm').submit();
+	
+	/*$.post("email.lm", param ,function(data, state){
+		alert(data);
+		location.href='../result.jsp';
+	});*/
+})
 	
 	
 	

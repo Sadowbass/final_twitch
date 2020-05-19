@@ -13,7 +13,7 @@
 
     </button> &nbsp;&nbsp;
 
-    <a class="navbar-brand mr-1" href="/final_twitch" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/favicon.png"> &nbsp;Twitch</a>
+    <a class="navbar-brand mr-1" href="/" id="main" onclick="pagemove(this)"><img class="img-fluid" alt="" src="img/favicon.png"> &nbsp;Twitch</a>
 
     <!-- Navbar Search -->
 
@@ -103,8 +103,8 @@
 
         </li>
 
-        <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
 
+        <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
             <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button"
 
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,6 +114,7 @@
                 Osahan
 
             </a>
+       
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 
@@ -140,7 +141,7 @@
     </ul>
 
  <c:if test="${empty session_id }">
-    <button type="button" class="btn btn-primary" id="btnloginm" data-toggle="modal" data-target="#myModal" style="float: right; margin-right : 10px; margin-left : 10px;"> 로그인  </button>
+    <button type="button" class="btn btn-primary" id="btnloginm" data-backdrop="static" data-toggle="modal" data-target="#myModal" style="float: right; margin-right : 10px; margin-left : 10px;"> 로그인  </button>
      <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal1" style="float: right;"> 회원가입 </button>
  			   <div class="modal fade" id="myModal1" style="height : auto;">
 				    <div class="modal-dialog modal-dialog-centered fixed-top">
@@ -195,6 +196,8 @@
 
 
 <script>lm.func();</script>
-      
+ 
+
+
     </html>
 
