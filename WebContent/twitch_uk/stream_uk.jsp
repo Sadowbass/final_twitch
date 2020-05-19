@@ -58,22 +58,11 @@
 	<div id="sidebarplace">
 	</div>
 	<div id="content-wrapper" style="margin-top: 53px;">
-		<div class="container-fluid pb-0" style="padding: 0px 0px 0px 225px; ">
-			<div class="video-block-right-list section-padding">
-				<!-- stream view start -->
-				<!-- stream view start -->
-				<!-- stream view start -->
+		<div class="container-fluid py-0 " style="padding-left: 211px; padding-right: 26px;">
 				<!-- stream view start -->
 				<div class="row mx-0">
 					<!-- main-view -->
-					<!-- main-view -->
-					<!-- main-view -->
-					<!-- main-view -->
-					<!-- main-view -->
-					<!-- main-view -->
-					<div class="col-md-10" style="padding-left: 0px; padding-right: 37px;" id="video_div">
-						<!-- video_top -->
-						<!-- video_top -->
+					<div class="col-md-10" id="video_div">
 						<!-- video_top -->
 						<div class="row mx-0">
 							<div class="col-md-3">
@@ -111,7 +100,7 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="row mx-0" id="add_unfold">
+								<div class="row mx-0">
 									<div class="col-md-8 text-right p-0" id="follow">
 										<div class="channels-card-image-btn">
 											<button type="button" class="btn btn-outline-secondary btn-sm">
@@ -128,7 +117,7 @@
 												<strong>
 													<i class="far fa-star"></i>
 												</strong>
-												구독하기
+												구독
 											</button>
 										</div>
 									</div>
@@ -136,11 +125,7 @@
 							</div>
 						</div>
 						<!-- video -->
-						<!-- video -->
-						<!-- video -->
 						<jsp:include page="./video_uk.jsp" />
-						<!-- video_info -->
-						<!-- video_info -->
 						<!-- video_info -->
 						<div class="row mx-0">
 							<div class="col-md-2">방송 제목</div>
@@ -166,19 +151,12 @@
 							</div>
 						</div>
 					</div>
-					<!-- 채팅화면 -->
-					<!-- 채팅화면 -->
-					<!-- 채팅화면 -->
-					<!-- 채팅화면 -->
-					<!-- 채팅화면 -->
-					<!-- 채팅화면 -->
-					<!-- 채팅화면 -->
+					<div class='unfold mr-1' id='unfold' onclick='unfold()'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1' ></i></div>
 					<!-- 채팅화면 -->
 					<div class="col-md-2 cht_main_uk pt-2" id="cht_div">
                   		<jsp:include page="./cht_uk.jsp"/>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	<!-- /.content-wrapper -->

@@ -2,7 +2,7 @@
 <!-- top -->
 <div class="row mx-0">
 	<div class="col-md-2 p-0 text-center">
-		<i id="fold"class="fas fa-sign-in-alt fa-2x"></i>
+		<i class="fas fa-sign-in-alt fa-2x" onclick='fold()'></i>
 	</div>
 	<div class="col-md-3 p-0"></div>
 	<div class="col-md-2 p-0 text-center">생방송 채팅</div>

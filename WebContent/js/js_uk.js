@@ -5,9 +5,6 @@ let streamerId;
 let loginId;
 let loginUserCnt=0;
 
-
-
-
 uk.connectWS=function(streamer, login){
 	let totalUserCnt=0;
 
@@ -132,6 +129,21 @@ let usersOrcht=function(){
 	}
 }
 
-
+/*strea.uk fold*/
+let fold=function(){
+	console.log('fold');
+	$("#cht_div").css("display", "none");
+	$('#unfold').css('display','block');
+	$("#video_div").removeClass("col-md-10");
+    $("#video_div").addClass("col-md-12");
+}
+/*strea.uk unfold*/
+let unfold=function(){
+	console.log('unfold');
+	$('#unfold').css('display','none');
+	$("#cht_div").css("display", "block");
+	$("#video_div").removeClass("col-md-12");
+    $("#video_div").addClass("col-md-10");
+}
 
 
