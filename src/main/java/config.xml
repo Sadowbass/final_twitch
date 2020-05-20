@@ -13,6 +13,8 @@
       <environment id="development">
          <transactionManager type="JDBC"></transactionManager>
          <dataSource type="POOLED">
+       		  <property name="poolMaximumCheckoutTime" value="1500"/>
+            <property name="poolTimeToWait" value="1500"/>
             <property name="driver" value="${driver}"/>
             <property name="url" value="${url}"/>
             <property name="username" value="${username}"/>
@@ -29,6 +31,7 @@
      <mapper resource="mybatis/mybatis_uk.xml"/>
      <mapper resource="mybatis/member.xml"/>
      <mapper resource="mybatis/category.xml"/>
+     <mapper resource="mybatis/storeAdmin.xml" />
    </mappers>
 
 </configuration>

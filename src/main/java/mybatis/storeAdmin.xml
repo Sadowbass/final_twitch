@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="storeAdmin">
+
+	<!-- 상품 등록 -->
+	<insert id='product_insert' parameterType='bean.ProductVo_mh'>
+		insert into
+		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size,product_state)
+		values(seq_product.nextval, #{product_name}, #{product_explain},
+		${product_price}, #{product_cate}, ${product_count},#{product_size},0)
+	</insert>
+	
+	<!-- 사진등록 -->
+	<insert id='att_insert' parameterType='bean.ProductPhoto_mh'>
+		insert into product_photo(photo_serial, product_id, orifile, sysfile)
+		values(seq_productAtt.nextval, seq_product.currval, #{orifile}, #{sysfile})
+	</insert>
+	
+	<select id='count' parameterType='bean.mh_Page' resultType="Integer">
+		select count(product_id) from product where product_name like '%${findStr}%'
+	</select>
+	
+	<resultMap id="storeAdmin_map" type="bean.ProductVo_mh">
+		<result column="product_id" property="product_id" />
+		<result column="product_name" property="product_name" />
+		<result column="product_explain" property="product_explain" />
+		<result column="product_price" property="product_price" />
+		<result column="product_cate" property="product_cate" />
+		<result column="product_count" property="product_count" />
+		<result column="product_state" property="product_state" />
+		<result column="product_size" property="product_size" />
+		<collection property="photos" javaType="bean.ProductPhoto_mh">
+			<result column="photo_serial" property="photo_serial"/>
+			<result column="product_id" property="product_id"/>
+			<result column="orifile" property="orifile"/>
+			<result column="sysfile" property="sysfile"/>
+		</collection>
+	</resultMap>
+	
+	<select id="select" parameterType="bean.mh_Page" resultMap="storeAdmin_map">
+		select * from (select rownum rno, a.* from(select ROW_NUMBER() over(partition by p.product_id order by photo_serial asc) as rnum, p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_state, product_size, photo_serial,orifile,sysfile 
+		from product p left outer join product_photo ph
+		on p.product_id = ph.product_id
+		where product_name like '%${findStr}%'
+		order by p.product_id desc)a where rnum=1)where rno between ${startNo} and ${endNo}	
+	</select>
+	
+	<select id="totalCount" resultType="Integer">
+		select count(product_id) from product
+	</select>
+	
+	<select id="nomalCount" resultType="Integer">
+		select count(product_id)
+		from product
+		where PRODUCT_STATE=0
+	</select>
+	
+		<select id="soldOutCount" resultType="Integer">
+		select count(product_id)
+		from product
+		where PRODUCT_STATE=1
+	</select>	
+	
+	<select id="hideCount" resultType="Integer">
+		select count(product_id)
+		from product
+		where PRODUCT_STATE=2
+	</select>
+	
+	<select id="productView" parameterType="Integer" resultMap="storeAdmin_map">
+		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, PRODUCT_STATE, product_size, photo_serial, orifile, sysfile
+		FROM product p left outer join product_photo ph
+		on p.product_id = ph.product_id
+		where p.product_id=${_parameter}
+	</select>
+	
+
+
+	<!-- <select id='selectTag' resultType="String"> SELECT tag_name FROM FINAL_TAG 
+		</select> <select id='selectCate' resultType="bean.BroadCastingCateVo"> select 
+		* from final_category </select> <update id='updateKey' parameterType='bean.BroadCastingAirVo' 
+		> update final_member SET mem_skey = #{mem_skey} WHERE mem_id = #{air_mid} 
+		</update> <insert id='startAir' parameterType='bean.BroadCastingAirVo' > 
+		insert into final_onair(air_serial,air_mid,air_subject,air_content,air_starttime,air_gname,air_tnames) 
+		values(seq_onair.nextVal,#{air_mid},#{air_subject},#{air_content},sysdate,#{air_gname},#{air_tnames}) 
+		</insert> <update id='updateAir' parameterType='bean.BroadCastingAirVo' > 
+		update final_onair SET air_subject = #{air_subject}, air_content = #{air_content}, 
+		air_gname = #{air_gname}, air_tnames = #{air_tnames} WHERE air_mid = #{air_mid} 
+		</update> <delete id='deleteAir' parameterType='String'> delete from final_onair 
+		where air_mid = #{_parameter} </delete> <select id='selectDonation' resultType="bean.BroadCastingDonationVo" 
+		parameterType='String'> select * from final_donation where don_push='0' and 
+		don_mid = #{mId} </select> <update id='readDonation' parameterType='Integer'> 
+		update final_donation SET don_push = '1' WHERE don_serial = ${serial} </update> -->
+
+
+</mapper>
+   
