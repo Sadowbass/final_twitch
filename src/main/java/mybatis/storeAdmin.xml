@@ -4,13 +4,35 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="storeAdmin">
+	
+	
+	<delete id="product_delete" parameterType="Integer">
+		delete from product where product_id=${_parameter}
+	</delete>
+
+	<insert id='att_modify' parameterType='bean.ProductPhoto_mh'>
+		insert into product_photo(photo_serial, product_id, orifile, sysfile)
+		values(seq_productAtt.nextval, ${product_id}, #{orifile}, #{sysfile})
+	</insert>
+
+	<!-- 상품 사진 전체 삭제 -->
+	<delete id="att_delete_all" parameterType="Integer">
+		delete from product_photo where product_id = ${_parameter}
+	</delete>
+
+	<!-- 상품 수정 -->
+	<update id="product_modify" parameterType="bean.ProductVo_mh">
+		update product set product_name = #{product_name}, product_explain = #{product_explain}, product_price = ${product_price},
+			   product_cate = #{product_cate}, product_count = ${product_count},  product_size=#{product_size}
+		where  product_id=${product_id} 
+	</update>
 
 	<!-- 상품 등록 -->
 	<insert id='product_insert' parameterType='bean.ProductVo_mh'>
 		insert into
-		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size,product_state)
+		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size)
 		values(seq_product.nextval, #{product_name}, #{product_explain},
-		${product_price}, #{product_cate}, ${product_count},#{product_size},0)
+		${product_price}, #{product_cate}, ${product_count},#{product_size})
 	</insert>
 	
 	<!-- 사진등록 -->
@@ -30,7 +52,6 @@
 		<result column="product_price" property="product_price" />
 		<result column="product_cate" property="product_cate" />
 		<result column="product_count" property="product_count" />
-		<result column="product_state" property="product_state" />
 		<result column="product_size" property="product_size" />
 		<collection property="photos" javaType="bean.ProductPhoto_mh">
 			<result column="photo_serial" property="photo_serial"/>
@@ -41,15 +62,17 @@
 	</resultMap>
 	
 	<select id="select" parameterType="bean.mh_Page" resultMap="storeAdmin_map">
-		select * from (select rownum rno, a.* from(select ROW_NUMBER() over(partition by p.product_id order by photo_serial asc) as rnum, p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_state, product_size, photo_serial,orifile,sysfile 
+		select * from (select rownum rno, a.* from(select ROW_NUMBER() over(partition by p.product_id order by photo_serial asc) as rnum, p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_size, photo_serial,orifile,sysfile 
 		from product p left outer join product_photo ph
 		on p.product_id = ph.product_id
 		where product_name like '%${findStr}%'
 		order by p.product_id desc)a where rnum=1)where rno between ${startNo} and ${endNo}	
 	</select>
 	
-	<select id="totalCount" resultType="Integer">
+	<!-- <select id="totalCount" resultType="Integer">
 		select count(product_id) from product
+		
+		
 	</select>
 	
 	<select id="nomalCount" resultType="Integer">
@@ -68,10 +91,10 @@
 		select count(product_id)
 		from product
 		where PRODUCT_STATE=2
-	</select>
+	</select> -->
 	
 	<select id="productView" parameterType="Integer" resultMap="storeAdmin_map">
-		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, PRODUCT_STATE, product_size, photo_serial, orifile, sysfile
+		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, product_size, photo_serial, orifile, sysfile
 		FROM product p left outer join product_photo ph
 		on p.product_id = ph.product_id
 		where p.product_id=${_parameter}

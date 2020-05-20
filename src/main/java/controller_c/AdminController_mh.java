@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.tools.DocumentationTool.Location;
 
+import org.apache.ibatis.javassist.expr.Instanceof;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
 import bean.StoreMybatisDao_mh;
 import bean.mh_Page;
+import oracle.ucp.jdbc.oracle.rlb.OracleDatabaseInstanceInfoList.INSTANCE_CATEGORY_FOR_DATA_AFFINITY;
 
 @Controller
 
@@ -33,6 +35,18 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="*/productDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
+	@ResponseBody
+	public void productDelete(String product_id) {
+		System.out.println("★★★controller->productDelete()★★★");
+		
+		
+		String msg = dao.delete(product_id);
+		
+		System.out.println(msg);
+		
+		
+	}
 	
 	@RequestMapping(value="*/productInsert.mh", method=RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody
@@ -72,9 +86,9 @@ public class AdminController_mh {
 		System.out.println("★★★★★" + p.getNowPage());
 		System.out.println("★★★★★" + p.getFindStr());
 		List<ProductVo_mh> list =  dao.select(p);
-		List<Integer> productStateCount = dao.productStateCount();
+		/*List<Integer> productStateCount = dao.productStateCount();*/
 		
-		model.addAttribute("productStateCount",productStateCount);
+		/*model.addAttribute("productStateCount",productStateCount);*/
 		model.addAttribute("p",p);
 		model.addAttribute("list",list);
 		
@@ -98,6 +112,36 @@ public class AdminController_mh {
 		
 		return "product_view";
 	}
+	
+	@RequestMapping(value="*/productModify.mh", method=RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String productModify(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("★★★controller -> productModify() 들어옴★★★");
+		String msg=null;
+		
+		ProductVo_mh vo = new ProductVo_mh();
+		ProductPhotoUpload_mh fu= new ProductPhotoUpload_mh(req, resp);
+		fu.uploading();
+		
+		vo = (ProductVo_mh)req.getAttribute("vo");
+		List<ProductPhoto_mh> attList = (List<ProductPhoto_mh>)req.getAttribute("attList");
+		
+		System.out.println(vo.getProduct_id());
+		System.out.println(vo.getProduct_name());
+		System.out.println(vo.getProduct_cate());
+		System.out.println(vo.getProduct_count());
+		System.out.println(vo.getProduct_explain());
+		System.out.println(vo.getProduct_price());
+		System.out.println(vo.getProduct_size());
+		
+		msg=dao.modify(vo,attList);		
+		System.out.println("컨트롤러에서 msg : "+msg);
+		return msg;
+	}
+	
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="*/test.mh", method= {RequestMethod.GET, RequestMethod.POST},produces="application/text; charset=utf8")

@@ -53,6 +53,8 @@ public class ProductPhotoUpload_mh {
 				
 				if(fi.isFormField()) {
 					switch(k) {
+					case "product_id" :
+						vo.setProduct_id(Integer.parseInt(v));break;
 					case "productName": // <input type='text' name='Id'/>
 						vo.setProduct_name(v);break;
 					case "productPrice":
@@ -65,6 +67,7 @@ public class ProductPhotoUpload_mh {
 						vo.setProduct_count(Integer.parseInt(v));break;
 					case "category":
 						vo.setProduct_cate(v);break;	
+					
 						
 					/*case "delFile":
 						ProductPhoto_mh attVo = new ProductPhoto_mh();

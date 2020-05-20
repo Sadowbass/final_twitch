@@ -38,10 +38,8 @@
 							<div style="float: left; margin-left: 20px;">
 								<h2>상품 조회</h2>
 							</div>
-							<div style="float: right; margin-right: 20px;">
-								<span>총 </span> <span> ${productStateCount.get(0) }</span>&nbsp; <span>정상 </span> <span>
-									${productStateCount.get(1) }</span>&nbsp; <span>품절 </span> <span> ${productStateCount.get(2) }</span>&nbsp; <span>숨김
-								</span> <span> ${productStateCount.get(3) }</span>
+							<div align="right" style="margin-right: 10px;">
+								<input type="button" class="btn btn-info" id="btn_refleshList_c" value="새로고침"/>
 							</div>
 						</div>
 						<br>
@@ -60,6 +58,7 @@
 											<input type="button" class="form-control" value="검색"
 											id="btn_search_mh" name="btn_search_mh" />
 											<input type="hidden" id="productSerial" name="productSerial">
+											
 									</div>
 
 								</div>
@@ -87,10 +86,10 @@
 									<span class="price_c">판매가</span>
 								</div>
 
-								<div
+								<!-- <div
 									style="display: inline-block; width: 5%; text-align: center">
 									<span class="status_c">상태</span>
-								</div>
+								</div> -->
 								<div
 									style="display: inline-block; width: 5%; text-align: center">
 									<span class="hit_c">조회</span>
@@ -119,6 +118,7 @@
 							</div>
 							<div>
 								<c:forEach var="i" items="${list }">
+									<%-- <input type="hidden" id="productState" name="productState" value="${i.product_state }" /> --%>
 									<div class="row product_list_c">
 										<div class="no_c"
 											style="display: inline-block; width: 5%; text-align: center;">
@@ -139,23 +139,14 @@
 										<div
 											style="display: inline-block; width: 15%; text-align: center;">
 											<span>${i.product_price }</span>
-											<!-- <input type="text" class="form-control" value="10000"
-											style="width: 80px"> -->
+											
 										</div>
-										<!-- <div class="col-xs-1">
-										<input type="text" class="form-control" value="200"
-											style="width: 80px">
-									</div> -->
-										<div
+										
+										<%-- <div
 											style="display: inline-block; width: 5%; text-align: center;">
 											<span>${i.product_state }</span>
-											<!-- <select class="selectpicker form-control">
-											<option selected>정상</option>
-											<option>품절</option>
-											<option>숨김</option>
-										</select> -->
-											<%-- <span class="status_c">상태${i}</span> --%>
-										</div>
+											
+										</div> --%>
 										<div
 											style="display: inline-block; width: 5%; text-align: center;">
 											<span class="hit_c">0</span>
