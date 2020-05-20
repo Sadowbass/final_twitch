@@ -173,8 +173,8 @@ Nostrud duis molestie at dolore.</p>
 
                 <div class="product-page-content">
                   <ul id="myTab" class="nav nav-tabs">
-                    <li><a href="#Description" data-toggle="tab">Description</a></li>
-                    <li><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews (2)</a></li>
+                    <li id="item1"><a href="#Description"  data-toggle="tab">Description</a></li>
+                    <li id="item2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews (2)</a></li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">
@@ -184,11 +184,11 @@ Nostrud duis molestie at dolore.</p>
                     <div class="tab-pane fade in active" id="Reviews">
                       <!--<p>There are no reviews for this product.</p>-->
                       <c:forEach var='i' items='${list }'>
-                      <div class="review-item clearfix" onclick="">
+                      <div class="review-item clearfix" onclick="store.reviewView()">
                         <div class="review-item-submitted">
                           <strong>${i.mem_id }</strong>
                           <em>${i.review_date }</em>
-                          <div class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                         </div>                                              
 	                        <div class="review-item-content">
 	                            <p>${i.rContent }</p>
@@ -204,11 +204,11 @@ Nostrud duis molestie at dolore.</p>
                       <form id="frm_store" action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
                         <h2>Write a review</h2>
                         <div class="form-group">
-                          <label for="name">Name <span class="require">*</span></label>
+                          <label for="mId">Name <span class="require">*</span></label>
                           <input type="text" class="form-control" id="mId" name="mId">
                         </div>
                         <div class="form-group">
-                          <label for="subject">Subject <span class="require">*</span></label>
+                          <label for="rSubject">Subject <span class="require">*</span></label>
                           <input type="text" class="form-control" id="rSubject" name="rSubject">
                         </div>
                         <div class="form-group">
@@ -216,7 +216,7 @@ Nostrud duis molestie at dolore.</p>
                           <textarea class="form-control" rows="8" id="review" name="rContent"></textarea>
                         </div>
                         <div class="form-group">
-		                    <label for="file_input">File input </label>
+		                    <label for="input_imgs">File input </label>
 		                
 		                    <input type="file" name="reviewFile" id ="input_imgs"  multiple>
 		                    <p class="help-block">사진은 3장까지 가능합니다.</p>
@@ -226,8 +226,8 @@ Nostrud duis molestie at dolore.</p>
 							</div>
                 		</div>
                         <div class="form-group">
-                          <label for="email">Rating</label>
-                          <input type="range" id="rLike" value="4" step="0.25" id="backing5" name="rLike">
+                          <label for="backing5">Rating</label>
+                          <input type="range" value="4" step="0.25" id="backing5" name="rLike">
                           <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                           </div>
                         </div>
@@ -252,10 +252,17 @@ Nostrud duis molestie at dolore.</p>
 
        
       </div>
+      
+      
 
- 
+    <script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
     <script>
+    
+   
+    
     $(document).ready(function(){
+    	
+    	
 		$("#input_imgs").on("change", handleImages);
 		
 		 $(".sidebar .dropdown > a").click(function (event) {
@@ -295,11 +302,17 @@ Nostrud duis molestie at dolore.</p>
 	            }
 	            reader.readAsDataURL(f);
 	});
+	    
+	    
 	
 	}	
 	
 	
 	
+	
+	
     </script>
+      
+    
 </body>
 </html>

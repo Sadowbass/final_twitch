@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -176,23 +178,22 @@ public class StoreController {
 		return mm ;
 	}
 
-	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView reviewSelect(HttpServletRequest req) {
-       int p =0;
-       	ModelAndView mv = new ModelAndView();
+	@ResponseBody
+	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST }, produces="application/json; charset=utf-8")
+	public String reviewSelect(HttpServletRequest req) {
+        int p =0;
+        String result;
+     
+        Gson gson = new Gson();
+      
         List<StoreReviewVo> list = dao.reviewSelect();
+        result = gson.toJson(list);
+        
         System.out.println("reviewselectsdsdasa");
         
-        mv.addObject("list", list);
-        
-        
-	    mv.setViewName("productDetail");
-	
-
 		
-    	return mv;
+    	return result;
     }
-
 
 	
 	

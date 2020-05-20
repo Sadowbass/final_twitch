@@ -10,6 +10,10 @@ public class StoreReviewPhotoVo {
     String image2;
     Date rp_date;
     
+    public StoreReviewPhotoVo() {
+    	
+    }
+    
     public StoreReviewPhotoVo(String image1, String image2 ) {
     	this.image1 = image1;
     	this.image2 = image2;

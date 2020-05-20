@@ -16,6 +16,9 @@ public class StoreReviewVo {
 
 	//List<StoreReviewVo> list;
 	
+	public StoreReviewVo() {
+		
+	}
 	
 
 	public StoreReviewVo(String mem_id, int product_id, String rSubject, String rContent, Double review_like) {

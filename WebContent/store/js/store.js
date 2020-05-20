@@ -172,13 +172,59 @@ store.rInsert = function(){
 store.rSelect = function(){
 	
 	//console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
-	//let param = $('#frm_review').serialize();
-	$.post('reviewSelect.str', function(data, state){
-		$('#sh_main').html(data)
-	});
 	
+	
+	$.post('reviewSelect.str', function(data, state){
+		
+		console.log(data);
+		$('#Reviews').html('');
+		
+		$('#item1').attr("class", "");
+		$('#item2').attr("class", "active");
+		
+		for(temp of data){
+			let divClearfix = document.createElement('div');
+            divClearfix.className="review-item clearfix";
+            let divSubmitted = document.createElement('div');
+            divSubmitted.className="review-item-submitted";
+            let title = document.createElement('strong');
+            title.innerText = temp.mem_id;
+            let rdate = document.createElement('em');
+            rdate.innerText = temp.review_date;
+            let rLike = document.createElement('div');
+            rLike.className="rateit";
+            rLike.setAttribute('data-rateit-value', temp.review_like);
+            rLike.setAttribute('data-rateit-ispreset', true);
+            rLike.setAttribute('data-rateit-readonly', true);
+            let ric = document.createElement('div');
+            ric.className="review-item-content";
+            let ricp = document.createElement('p');
+            ricp.innerText = temp.rContent;
+            
+            ric.appendChild(ricp);
+            divSubmitted.appendChild(title);
+            divSubmitted.appendChild(rdate);
+            divSubmitted.appendChild(rLike);
+            divClearfix.appendChild(divSubmitted);
+            divClearfix.appendChild(ric);
+            
+            $('#Reviews').append(divClearfix);
+            
+		}
+
+		
+	});
+
+	
+	store.reviewView= function(){
+		
+		
+		
+	}
 	
 }
+
+
 
 
 

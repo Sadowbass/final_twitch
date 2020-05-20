@@ -23,7 +23,7 @@
 	
 	<select id="review_select"  resultType="store.StoreReviewVo">
 	   
-	   select review_id , product_id , rSubject, rContent, review_like , review_date  from review
+	   select review_id , mem_id, product_id , rSubject, rContent, review_like , review_date  from review
 	   
 	</select>
 	
