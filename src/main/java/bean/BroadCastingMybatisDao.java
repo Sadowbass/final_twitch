@@ -49,7 +49,7 @@ public class BroadCastingMybatisDao {
 	}
 	
 	public List<BroadCastingDonationVo> selectDonation(String mId){
-		System.out.println("µµ³×ÀÌ¼ÇºêÀÌ¿Àµé¾î¿È");
+		System.out.println("ë„ë„¤ì´ì…˜ë¸Œì´ì˜¤ë“¤ì–´ì˜´");
 		System.out.println(mId);
 		List<BroadCastingDonationVo> list = new ArrayList<BroadCastingDonationVo>();
 		
@@ -80,12 +80,12 @@ public class BroadCastingMybatisDao {
 			result = sqlSession.update("broadCasting.readDonation", serial);
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("¼öÁ¤½ÇÆĞ");
+			System.out.println("ìˆ˜ì •ì‹¤íŒ¨");
 			sqlSession.rollback();
 			//sqlSession.close();
 		}finally {
 			if(result>0) {
-				System.out.println("¼öÁ¤¿Ï·á");
+				System.out.println("ìˆ˜ì •ì™„ë£Œ");
 				sqlSession.commit();
 				//sqlSession.close();
 			}
@@ -99,12 +99,12 @@ public class BroadCastingMybatisDao {
 			result = sqlSession.update("broadCasting.sendDonation", serial);
 		}catch (Exception e) {
 			e.printStackTrace();
-			msg = "¼ÛÃâ½ÇÆĞ";
+			msg = "ì†¡ì¶œì‹¤íŒ¨";
 			sqlSession.rollback();
 			//sqlSession.close();
 		}finally {
 			if(result>0) {
-				msg = "¼ÛÃâ¼º°ø";
+				msg = "ì†¡ì¶œì„±ê³µ";
 				sqlSession.commit();
 				//sqlSession.close();
 			}
@@ -123,21 +123,21 @@ public class BroadCastingMybatisDao {
 		int flag = 0;
 		try {
 			flag = sqlSession.update("broadCasting.updateKey",vo);
-			if(flag<1) throw new Exception("¾÷µ¥ÀÌÆ® ¿¡·¯");
+			if(flag<1) throw new Exception("ì—…ë°ì´íŠ¸ ì—ëŸ¬");
 			
 			flag = sqlSession.insert("broadCasting.startAir",vo);
-			if(flag<1) throw new Exception("ÀÎ¼­Æ® ¿¡·¯");
+			if(flag<1) throw new Exception("ì¸ì„œíŠ¸ ì—ëŸ¬");
 			
 	
 			
 		}catch(Exception ex) {
 			ex.printStackTrace();
-			result="ÀÔ·Â½ÇÆĞ";
+			result="ì…ë ¥ì‹¤íŒ¨";
 			sqlSession.rollback();
 		}finally {
 			if(flag>0) {
 			sqlSession.commit();
-			result="ÀÔ·Â¼º°ø";
+			result="ì…ë ¥ì„±ê³µ";
 			}
 			return result;
 		}
@@ -150,15 +150,15 @@ public class BroadCastingMybatisDao {
 		
 		try {
 			flag = sqlSession.update("broadCasting.updateAir",vo);
-			if(flag<1) throw new Exception("¾÷µ¥ÀÌÆ® ¿¡·¯");
+			if(flag<1) throw new Exception("ì—…ë°ì´íŠ¸ ì—ëŸ¬");
 		}catch (Exception e) {
 			e.printStackTrace();
-			result="¼öÁ¤¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.";
+			result="ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.";
 			sqlSession.rollback();
 		}finally {
 			if(flag>0) {
 			sqlSession.commit();
-			result="¼öÁ¤¿¡ ¼º°øÇÏ¼Ì½À´Ï´Ù.";
+			result="ìˆ˜ì •ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤.";
 			}
 			return result;
 		}
@@ -171,15 +171,15 @@ public class BroadCastingMybatisDao {
 		
 		try {
 			flag = sqlSession.delete("broadCasting.deleteAir",mId);
-			if(flag<1) throw new Exception("»èÁ¦ ¿¡·¯");
+			if(flag<1) throw new Exception("ì‚­ì œ ì—ëŸ¬");
 		}catch (Exception e) {
 			e.printStackTrace();
-			result="»èÁ¦½ÇÆĞ";
+			result="ì‚­ì œì‹¤íŒ¨";
 			sqlSession.rollback();
 		}finally {
 			if(flag>0) {
 			sqlSession.commit();
-			result="»èÁ¦¼º°ø";
+			result="ì‚­ì œì„±ê³µ";
 			}
 			return result;
 		}
@@ -192,7 +192,7 @@ public class BroadCastingMybatisDao {
 		try {
 			vo = sqlSession.selectOne("broadCasting.selectRoulette",mId);
 		}catch (Exception e) {
-			System.out.println("·ê·¿Á¶È¸ÀÔ¼½¼Ç!!");
+			System.out.println("ë£°ë ›ì¡°íšŒì…ì„¹ì…˜!!");
 		}finally {
 			return vo;
 		}
@@ -209,22 +209,22 @@ public class BroadCastingMybatisDao {
 
 		try {
 			
-			if(flagRul.equals("true")) { // ±âÁ¸¿¡ µ¥ÀÌÅÍ°¡ ÀÖÀ½ ¾÷µ¥ÀÌÆ®
+			if(flagRul.equals("true")) { // ê¸°ì¡´ì— ë°ì´í„°ê°€ ìˆìŒ ì—…ë°ì´íŠ¸
 				flag = sqlSession.update("broadCasting.saveRoulette1", map);
-				if(flag<1) throw new Exception("·ê·¿ ¾÷µ¥ÀÌÆ® ¿¡·¯");
-			}else if(flagRul.equals("false")) { // ±âÁ¸¿¡ µ¥ÀÌÅÍ°¡ ¾øÀ½ ÀÎ¼­Æ®
+				if(flag<1) throw new Exception("ë£°ë › ì—…ë°ì´íŠ¸ ì—ëŸ¬");
+			}else if(flagRul.equals("false")) { // ê¸°ì¡´ì— ë°ì´í„°ê°€ ì—†ìŒ ì¸ì„œíŠ¸
 				flag = sqlSession.insert("broadCasting.saveRoulette2", map);
 				
-				if(flag<1) throw new Exception("·ê·¿ ÀÎ¼­Æ® ¿¡·¯");
+				if(flag<1) throw new Exception("ë£°ë › ì¸ì„œíŠ¸ ì—ëŸ¬");
 			}
 					
 		}catch (Exception e) {
 			sqlSession.rollback();
-			result = "½ÇÆĞ";
+			result = "ì‹¤íŒ¨";
 		}finally {
 			if(flag>0) {
 				sqlSession.commit();
-				result = "¼º°ø";
+				result = "ì„±ê³µ";
 			}
 			return result;
 		}
@@ -237,14 +237,14 @@ public class BroadCastingMybatisDao {
 		int flag = 0;
 		try {
 			flag = sqlSession.delete("broadCasting.deleteRoulette", mId);
-			if(flag<1) throw new Exception("·ê·¿ µô¸®Æ® ¿¡·¯");
+			if(flag<1) throw new Exception("ë£°ë › ë”œë¦¬íŠ¸ ì—ëŸ¬");
 		}catch (Exception e) {
 			sqlSession.rollback();
-			result = "½ÇÆĞ";
+			result = "ì‹¤íŒ¨";
 		}finally {
 			if(flag>0) {
 				sqlSession.commit();
-				result = "¼º°ø";
+				result = "ì„±ê³µ";
 			}
 			return result;
 		}
