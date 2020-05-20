@@ -344,7 +344,7 @@
 					<div class='col-12' style="border-bottom: 1px solid white;">
 						<font style='color: white'>시청자 목록</font>
 					</div>
-					<div class='col-12' style="height: 300px; overflow: auto;">
+					<div class='col-12' style="height: 300px; overflow: auto;" id="userList">
 
 
 
@@ -484,7 +484,7 @@
 							// 방송스위치 --------------------------------------------------------------
 							$('#pk_switch').on('click', function() {
 								$(this).toggleClass('on');
-								if ($(this).hasClass('on') === true) { // 방송 켜졌을 때		
+								if ($(this).hasClass('on') === true) { // 방송 켜졌을 때
 									startAir();
 
 								} else { // 방송 꺼졌을때
@@ -495,30 +495,30 @@
 
 							$('#closeModalBtn').on('click', function() {
 								$('#modalBox').modal('hide');
-								
+
 								console.log("click close");
 							});
 							$('#saveModalBtn').on('click', function() {
-								
+
 								let count = 0;
-								
+
 								for(let i=1; i<6; i++){
 									if($('#rul'+i).val() != ''){
 										count++;
 									}
 								}
-								
+
 								if(count == 0){
 									let mId = $('#mId').val();
-		
+
 									$.ajax({
 										url : 'deleteRoulette.bc',
 										type : 'post',
 										data : {"mId": mId},
 										error : function(xhr, status, error){
-								
+
 										},
-										success : function(data, xhr, status ){	
+										success : function(data, xhr, status ){
 											if(data =="성공"){
 												Swal.fire({
 													  position: 'center',
@@ -540,11 +540,11 @@
 													})
 											}
 										}
-											
+
 									})
-															
+
 									return;
-											
+
 								}
 
 								if(count < 2){
@@ -556,21 +556,21 @@
 										  showConfirmButton: false,
 										  timer: 1500
 										})
-										
+
 										return;
 								}
-								
-								
+
+
 								let param = $('#pk_broadCastingData').serialize();
-	
+
 									$.ajax({
 										url : 'saveRoulette.bc',
 										type : 'post',
 										data : param,
 										error : function(xhr, status, error){
-								
+
 										},
-										success : function(data, xhr, status ){	
+										success : function(data, xhr, status ){
 											if(data =="성공"){
 												Swal.fire({
 													  position: 'center',
@@ -592,12 +592,12 @@
 													})
 											}
 										}
-											
+
 									})
-								
-	
+
+
 							});
-						
+
 							$('#modalBox').on('show.bs.modal', function(e) {
 								console.log("show.bs.modal");
 							});
@@ -610,10 +610,10 @@
 							$('#modalBox').on('hidden.bs.modal', function(e) {
 								console.log("hidden.bs.modal");
 							});
-							
-							
-							
-							
+
+
+
+
 							var time1 = setInterval(
 									function() {
 										let param = $('#mId').val();
@@ -743,7 +743,7 @@
 																html += data[i].don_rdate;
 																html += "</div>";
 																$('#donationDiv').append(html);
-																
+
 																 */
 
 																toastr.options = {
@@ -811,13 +811,13 @@
 
 							// 태그를 추가한다.
 							function addTag (value) {
-							    tag[counter] = value; 
+							    tag[counter] = value;
 							    counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
 							}
-							
+
 							$("#findTag").on("keypress", function (e) {
 							    var self = $(this);
-							    // input 에 focus 되있을 때 엔터 
+							    // input 에 focus 되있을 때 엔터
 							    if (e.key === "Enter") {
 							    if(counter > 4){
 							       alert("태그는 3개까지만 등록가능합니다.")
@@ -832,9 +832,9 @@
 							            var result = Object.values(tag).filter(function (word) {
 							                return word === tagValue;
 							            })
-							        
+
 							            // 태그 중복 검사
-							            if (result.length == 0) { 
+							            if (result.length == 0) {
 							                $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
 							                addTag(tagValue);
 							                self.val("");
@@ -842,17 +842,18 @@
 							                alert("태그값이 중복됩니다.");
 							            }
 							        }
-							        e.preventDefault(); 
+							        e.preventDefault();
 							    }
 							});
 							 */
 
-							// 삭제 버튼 
+							// 삭제 버튼
 						});
 	</script>
 	<script>
 		bc.func()
 	</script>
+	<script>uk.connectWS();</script>
 
 </body>
 </html>

@@ -26,6 +26,16 @@
 	</div>
 	<div
 		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>
+		<div style='text-align: center; color: white' id='totalUserCnt'></div>
+		<div style='text-align: center'>현재 시청자 수</div>
+	</div>
+	<div
+		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>
+		<div style='text-align: center; color: white' id='loginUserCnt'></div>
+		<div style='text-align: center'>채팅방 인원 수</div>
+	</div>
+	<div
+		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>
 		<div style='text-align: center; color: white'>0</div>
 		<div style='text-align: center'>팔로워</div>
 	</div>
