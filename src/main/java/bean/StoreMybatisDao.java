@@ -3,6 +3,7 @@
  */
 package bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -61,7 +62,7 @@ public class StoreMybatisDao {
 			}
 	
 	public List<StoreReviewVo> reviewSelect(){
-		List<StoreReviewVo> list = null;	
+		List<StoreReviewVo> list = new ArrayList<StoreReviewVo>();	
 		System.out.println("reviewselectdao,xncm");
 		try {
 

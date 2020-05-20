@@ -6,10 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-  src="https://code.jquery.com/jquery-3.5.1.js"
-  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>
+
 <title>Insert title here</title>
 <style type="text/css">
   .imgs_wrap{
@@ -189,9 +186,9 @@ Nostrud duis molestie at dolore.</p>
                       <c:forEach var='i' items='${list }'>
                       <div class="review-item clearfix" onclick="">
                         <div class="review-item-submitted">
-                          <strong>${i.mId }</strong>
-                          <em>${i.rDate }</em>
-                          <div class="rateit" data-rateit-value="${i.rLike }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                          <strong>${i.mem_id }</strong>
+                          <em>${i.review_date }</em>
+                          <div class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                         </div>                                              
 	                        <div class="review-item-content">
 	                            <p>${i.rContent }</p>
@@ -255,7 +252,8 @@ Nostrud duis molestie at dolore.</p>
 
        
       </div>
-    </div>
+
+ 
     <script>
     $(document).ready(function(){
 		$("#input_imgs").on("change", handleImages);

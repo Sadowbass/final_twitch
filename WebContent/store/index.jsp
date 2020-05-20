@@ -132,12 +132,9 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <script src='./assets/plugins/zoom/jquery.zoom.min.js?ver=<%=System.currentTimeMillis() %>' type="text/javascript"></script><!-- product zoom -->
     <script src="./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script><!-- Quantity -->
     <script src="./assets/plugins/uniform/jquery.uniform.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
-    <script src="./assets/plugins/rateit/src/jquery.rateit.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript">
  
-    </script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript">
-
-	</script><!-- for slider-range -->
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script><!-- for slider-range -->
+       <script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
     <script src="./assets/corporate/scripts/layout.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
     <script src="./assets/pages/scripts/bs-carousel.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js?ver=<%=System.currentTimeMillis() %>"></script> <!-- swal -->

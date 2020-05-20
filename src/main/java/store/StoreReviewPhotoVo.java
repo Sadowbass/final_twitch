@@ -4,29 +4,18 @@ import java.util.Date;
 
 public class StoreReviewPhotoVo {
 	
-	int rPid;
-	int rId;
+	int review_pid;
+	int review_id;
     String image1;
     String image2;
-    Date rpDate;
+    Date rp_date;
     
     public StoreReviewPhotoVo(String image1, String image2 ) {
     	this.image1 = image1;
     	this.image2 = image2;
     }
     
-	public int getrPid() {
-		return rPid;
-	}
-	public void setrPid(int rPid) {
-		this.rPid = rPid;
-	}
-	public int getrId() {
-		return rId;
-	}
-	public void setrId(int rId) {
-		this.rId = rId;
-	}
+	
 	public String getImage1() {
 		return image1;
 	}
@@ -39,13 +28,38 @@ public class StoreReviewPhotoVo {
 	public void setImage2(String image2) {
 		this.image2 = image2;
 	}
-	public Date getRpDate() {
-		return rpDate;
+
+
+	public int getReview_pid() {
+		return review_pid;
 	}
-	public void setRpDate(Date rpDate) {
-		this.rpDate = rpDate;
+
+
+	public void setReview_pid(int review_pid) {
+		this.review_pid = review_pid;
 	}
-    
+
+
+	public int getReview_id() {
+		return review_id;
+	}
+
+
+	public void setReview_id(int review_id) {
+		this.review_id = review_id;
+	}
+
+
+	public Date getRp_date() {
+		return rp_date;
+	}
+
+
+	public void setRp_date(Date rp_date) {
+		this.rp_date = rp_date;
+	}
+	
+	
     
 
 }
