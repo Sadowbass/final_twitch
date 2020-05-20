@@ -5,80 +5,85 @@ import java.util.List;
 
 public class StoreReviewVo {
 	
-    int rId;
-	String mId;
-	int pId;
+    int review_id;
+	String mem_id;
+	int product_id;
 	String rSubject;
 	String rContent;
-	Double rLike;
-	Date rDate;
+	Double review_like;
+	Date review_date;
 	
+
 	//List<StoreReviewVo> list;
 	
 	
-	public StoreReviewVo(String mId, int pId, String rSubject, String rContent, Double rLike) {
-		this.mId = mId;
-		this.pId = pId;
+
+	public StoreReviewVo(String mem_id, int product_id, String rSubject, String rContent, Double review_like) {
+		this.mem_id = mem_id;
+		this.product_id = product_id;
 		this.rSubject = rSubject;
 		this.rContent = rContent;
 	
-		this.rLike = rLike;
-	}
-	
-	
-	
-	public int getrId() {
-		return rId;
+		this.review_like = review_like;
 	}
 
-
-
-	public void setrId(int rId) {
-		this.rId = rId;
+	public int getReview_id() {
+		return review_id;
 	}
 
-
-
-	public String getmId() {
-		return mId;
-	}
-	public void setmId(String mId) {
-		this.mId = mId;
-	}
-	public int getpId() {
-		return pId;
-	}
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setReview_id(int review_id) {
+		this.review_id = review_id;
 	}
 
-	
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public int getProduct_id() {
+		return product_id;
+	}
+
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
+	}
+
 	public String getrSubject() {
 		return rSubject;
 	}
+
 	public void setrSubject(String rSubject) {
 		this.rSubject = rSubject;
 	}
+
 	public String getrContent() {
 		return rContent;
 	}
+
 	public void setrContent(String rContent) {
 		this.rContent = rContent;
 	}
+
+	public Double getReview_like() {
+		return review_like;
+	}
+
+	public void setReview_like(Double review_like) {
+		this.review_like = review_like;
+	}
+
+	public Date getReview_date() {
+		return review_date;
+	}
+
+	public void setReview_date(Date review_date) {
+		this.review_date = review_date;
+	}
 	
 	
-	public Double getrLike() {
-		return rLike;
-	}
-	public void setrLike(Double rLike) {
-		this.rLike = rLike;
-	}
-	public Date getrDate() {
-		return rDate;
-	}
-	public void setrDate(Date rDate) {
-		this.rDate = rDate;
-	}
 	
 	
 	
