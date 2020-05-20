@@ -18,10 +18,10 @@ import java.util.stream.Stream;
 public class SCController {
 
     public SCController() {
-        System.out.println("컨트롤러 넘어옴");
+        System.out.println("컨트롤러 생성");
     }
 
-    /*移댄��怨�由� 泥� ���댁� ��������*/
+    /*카테고리 첫 페이지 띄웠을때*/
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ModelAndView categories(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
@@ -47,7 +47,7 @@ public class SCController {
         return result;
     }
 
-    /*��諛⑹�≪��� 由ъ�ㅽ�� 遺��ъ�ㅺ린*/
+    /*생방송중인 리스트 불러오기*/
     @RequestMapping(value = "categories/all", method = RequestMethod.GET)
     public ModelAndView liveAll(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
