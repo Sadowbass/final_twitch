@@ -21,10 +21,15 @@
 	</insert>
 	
 	
-	<select id="review_select"  resultType="store.StoreReviewVo">
+	<select id="review_select" parameterType="Integer" resultType="store.StoreReviewVo">
 	   
-	   select review_id , mem_id, product_id , rSubject, rContent, review_like , review_date  from review
+	   select review_id , mem_id, product_id , rSubject, rContent, review_like , review_date  from review where product_id= ${_parameter}
 	   
 	</select>
+	
+  
+  <select id="review_photo" parameterType='Integer' resultType='store.StoreReviewPhotoVo'>
+     select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=${_parameter}
+  </select>
 	
 </mapper>

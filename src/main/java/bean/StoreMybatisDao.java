@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 
 
 import mybatis.Factory;
+
 import store.StoreReviewPhotoVo;
 import store.StoreReviewVo;
 
@@ -61,12 +62,12 @@ public class StoreMybatisDao {
 				
 			}
 	
-	public List<StoreReviewVo> reviewSelect(){
+	public List<StoreReviewVo> reviewSelect(int product_id){
 		List<StoreReviewVo> list = new ArrayList<StoreReviewVo>();	
 		System.out.println("reviewselectdao,xncm");
 		try {
 
-			list = sqlsession.selectList("store.review_select");
+			list = sqlsession.selectList("store.review_select", product_id);
 
 		} catch (Exception e1) {
 
@@ -79,5 +80,23 @@ public class StoreMybatisDao {
 
 		}
 	}
+	
+	
+	
+	public List<StoreReviewPhotoVo> getrpList(int review_id){
+		   
+		   List<StoreReviewPhotoVo> rpList = null;
+		    try {
+		       
+		       rpList =sqlsession.selectList("store.review_photo",review_id);
+		       
+		    }catch(Exception ex) {
+		       ex.printStackTrace();
+		    }finally {
+		       //sqlSession.close();
+		       return rpList;
+		    }
+	}
+		    
 	
 }

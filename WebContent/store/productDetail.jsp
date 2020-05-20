@@ -181,23 +181,42 @@ Nostrud duis molestie at dolore.</p>
                       <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. </p>
                     </div>
                     
+                   
                     <div class="tab-pane fade in active" id="Reviews">
                       <!--<p>There are no reviews for this product.</p>-->
                       <c:forEach var='i' items='${list }'>
-                      <div class="review-item clearfix" onclick="store.reviewView()">
-                        <div class="review-item-submitted">
-                          <strong>${i.mem_id }</strong>
-                          <em>${i.review_date }</em>
-                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                        </div>                                              
-	                        <div class="review-item-content">
-	                            <p>${i.rContent }</p>
-	                        </div>
+                     <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <div class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" onclick="location.href='#accordion1_1';">
+                     
+		                        <div class="review-item clearfix" >
+		                         <div class="review-item-submitted">
+		                          <strong>${i.rSubject }</strong>
+		                          <em>${i.review_date }</em>
+		                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+		                         </div>                                              
+			                        <div class="review-item-content">
+			                            <p>${i.rContent }</p>
+			                        </div>
+		                        </div>
+                         </div>
+                       </div>
+                       </div>
+                       <div id="accordion1_1" class="panel-collapse collapse  in">
+                       <div class="panel-body"> 
+                        <div style="background-color: pink;">
+                        
                         </div>
+                        </div>
+                        </div>
+                        
                         </c:forEach>
+                        
                       </div>
+                      
                       <form name="frm_review" id="frm_review" method="post">
-					    <input type="hidden" name="serial" value="q">
+					    <input type="hidden" name="product_id" value=${param.product_id }>
+					    <input type="hidden" name="review_id" value=${param.review_id }>
 					  </form>
 
                       <!-- BEGIN FORM-->

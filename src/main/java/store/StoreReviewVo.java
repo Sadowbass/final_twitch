@@ -14,8 +14,10 @@ public class StoreReviewVo {
 	Date review_date;
 	
 
-	//List<StoreReviewVo> list;
+	List<StoreReviewPhotoVo> list;
 	
+
+
 	public StoreReviewVo() {
 		
 	}
@@ -29,6 +31,18 @@ public class StoreReviewVo {
 	
 		this.review_like = review_like;
 	}
+	
+	
+
+	public List<StoreReviewPhotoVo> getList() {
+		return list;
+	}
+
+
+	public void setList(List<StoreReviewPhotoVo> list) {
+		this.list = list;
+	}
+
 
 	public int getReview_id() {
 		return review_id;

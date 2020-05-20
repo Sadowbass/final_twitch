@@ -2,13 +2,13 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import bean.StoreMybatisDao;
 import store.StoreReviewPhotoVo;
@@ -181,18 +179,42 @@ public class StoreController {
 	@ResponseBody
 	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST }, produces="application/json; charset=utf-8")
 	public String reviewSelect(HttpServletRequest req) {
-        int p =0;
-        String result;
+		
+        int product_id =Integer.parseInt(req.getParameter("product_id"));
+        int review_id= Integer.parseInt(req.getParameter("review_id"));
+        
+        String result = "";
      
         Gson gson = new Gson();
       
-        List<StoreReviewVo> list = dao.reviewSelect();
-        result = gson.toJson(list);
+        List<StoreReviewVo> list = dao.reviewSelect(product_id);
+        
+        List<StoreReviewPhotoVo> rpList = dao.getrpList(review_id);
+        
         
         System.out.println("reviewselectsdsdasa");
         
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("result1", list);
+        map.put("result2", rpList);
+        
+        result = gson.toJson(map);
+        
 		
     	return result;
+    }
+	
+	@RequestMapping(value="/store/reviewView.str", method={ RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView reviewView(HttpServletRequest req) {
+    	
+    	ModelAndView mv = new ModelAndView();
+    	
+    	//System.out.println(mv);
+		mv.setViewName("productDetail");
+		
+	 	System.out.println(req.getRequestURI());
+		
+    	return mv;
     }
 
 	

@@ -172,9 +172,12 @@ store.rInsert = function(){
 store.rSelect = function(){
 	
 	//console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
+	frm_review.product_id.value = product_id;
+	frm_review.review_id.value = review_id;
 	
+	let param = $('#frm_review').serialize();
 	
-	$.post('reviewSelect.str', function(data, state){
+	$.post('reviewSelect.str',param , function(data, state){
 		
 		console.log(data);
 		$('#Reviews').html('');
@@ -188,7 +191,7 @@ store.rSelect = function(){
             let divSubmitted = document.createElement('div');
             divSubmitted.className="review-item-submitted";
             let title = document.createElement('strong');
-            title.innerText = temp.mem_id;
+            title.innerText = temp.rSubject;
             let rdate = document.createElement('em');
             rdate.innerText = temp.review_date;
             let rLike = document.createElement('div');
@@ -216,11 +219,6 @@ store.rSelect = function(){
 	});
 
 	
-	store.reviewView= function(){
-		
-		
-		
-	}
 	
 }
 
