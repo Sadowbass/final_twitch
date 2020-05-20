@@ -7,7 +7,9 @@
 	<insert id="review_insert" parameterType="store.StoreReviewVo">
 	  
 	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
-      values( seq_storereview.nextval , #{mId, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, #{rSubject, jdbcType=VARCHAR}, #{rContent, jdbcType=VARCHAR}, #{rLike, jdbcType=VARCHAR},  sysdate)
+      values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
+      		#{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String}, 
+      		#{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},  sysdate)
 	  
 	</insert>
 	
@@ -18,11 +20,11 @@
 	  
 	</insert>
 	
-	<select id="review_select" parameterType="store.StoreReviewVo">
+	
+	<select id="review_select"  resultType="store.StoreReviewVo">
 	   
-	   select from review
+	   select review_id , product_id , rSubject, rContent, review_like , review_date  from review
 	   
 	</select>
-	
 	
 </mapper>

@@ -178,12 +178,14 @@ public class StoreController {
 
 	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView reviewSelect(HttpServletRequest req) {
-    
+       int p =0;
        	ModelAndView mv = new ModelAndView();
         List<StoreReviewVo> list = dao.reviewSelect();
         System.out.println("reviewselectsdsdasa");
         
         mv.addObject("list", list);
+        
+        
 	    mv.setViewName("productDetail");
 	
 
