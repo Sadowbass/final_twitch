@@ -15,7 +15,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -41,11 +40,11 @@ public class BroadCastingController {
 	public String selectTag() {
 		List<String> list = dao.selectTag();
 		Gson gson = new Gson();
-	
+
 		return gson.toJson(list);
 	}
 
-	
+
 	@RequestMapping(value = "*/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public String selectCate() {
@@ -54,8 +53,8 @@ public class BroadCastingController {
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
 		JsonArray jsonArray = new JsonArray();
-		
-		
+
+
 		for(int i=0; i<list.size(); i++) {
 			jsonObject = new JsonObject();
 			jsonObject.addProperty("cat_gname", list.get(i).getCat_gname());
@@ -63,12 +62,12 @@ public class BroadCastingController {
 			jsonObject.addProperty("cat_orifile", list.get(i).getCat_orifile());
 			jsonObject.addProperty("cat_sysfile", list.get(i).getCat_sysfile());
 			jsonArray.add(jsonObject);
-			
+
 		}
-		
+
 		result = gson.toJson(jsonArray);
 		return result;
-		
+
 	}
 	
 	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
@@ -84,14 +83,14 @@ public class BroadCastingController {
 		String gameName = req.getParameter("gameName"); // 게임 이름
 		
 		BroadCastingAirVo vo = new BroadCastingAirVo();
-		
+
 		vo.setAir_mid(mId);
 		vo.setAir_subject(title);
 		vo.setAir_content(content);
 		vo.setMem_skey(sKey);
 		vo.setAir_tnames(tags);
 		vo.setAir_gname(gameName);
-		
+
 		msg = dao.startAir(vo);
 		if(msg.equals("입력성공")) {
 			mv.setViewName("video_tak");
@@ -104,9 +103,9 @@ public class BroadCastingController {
 		return mv;
 		
 	}
-	
-	
-	
+
+
+
 	@RequestMapping(value = "*/updateAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String updateAir(HttpServletRequest req, HttpServletResponse resp) {
@@ -119,16 +118,16 @@ public class BroadCastingController {
 		
 		
 		BroadCastingAirVo vo = new BroadCastingAirVo();
-		
+
 		vo.setAir_mid(mId);
 		vo.setAir_subject(title);
 		vo.setAir_content(content);
 		vo.setAir_tnames(tags);
 		vo.setAir_gname(gameName);
-		
+
 		msg = dao.updateAir(vo);
 		return msg;
-		
+
 	}
 	
 	@RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
@@ -151,18 +150,18 @@ public class BroadCastingController {
 		return mv;
 		
 	}
-	
+
 	@RequestMapping(value = "*/selectDonation.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String selectDonation(HttpServletRequest req, HttpServletResponse resp) {
 		String result = "";
 		String mId = req.getParameter("mId"); // 스트리머 아이디
 		List<BroadCastingDonationVo> list = dao.selectDonation(mId);
-		
+
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
 		JsonArray jsonArray = new JsonArray();
-		
+
 		if(list.size()>0) {
 		for(int i=0; i<list.size(); i++) {
 			jsonObject = new JsonObject();
@@ -176,13 +175,13 @@ public class BroadCastingController {
 			jsonObject.addProperty("url", list.get(i).getUrl());
 			jsonObject.addProperty("type", list.get(i).getType());
 			jsonArray.add(jsonObject);
-			
+
 			}
 		result = gson.toJson(jsonArray);
 		}
-		
+
 		return result;
-		
+
 	}
 	
 	

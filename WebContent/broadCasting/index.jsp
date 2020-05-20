@@ -33,6 +33,9 @@
 	href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' />
 <script
 	src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
+<!-- 관욱-->
+<script src="/js/js_uk.js"></script>
+<link rel="stylesheet" href="/css/css_uk.css">
 <style>
 .ui-autocomplete {
 	max-height: 100px;
@@ -171,7 +174,9 @@
 															style="background-color: rgb(58, 58, 60); color: white"
 															id='broadCastingCate'>
 															<ul id="cate-list">
-															</ul></td>
+        													</ul>
+
+															</td>
 
 													</tr>
 													<tr>
@@ -182,11 +187,9 @@
 															autocomplete="off">
 
 															<ul id="tag-list">
-															</ul>
-															<button id='updateBroadCasting'
-																class="btn btn-outline-primary" type="button"
-																style="float: right; margin-top: 2%; display: none">수정</button>
-														</td>
+        												    </ul>
+															<button id='updateBroadCasting' class="btn btn-outline-primary" type="button" style="float: right;margin-top: 2%;display: none">수정</button>
+															</td>
 
 													</tr>
 												</tbody>
@@ -204,8 +207,8 @@
 									</div>
 									<div class="card-body">
 
-										<input type="text" id="streamKey" name="streamKey"
-											class="form-control" value=""
+										<input type="text" id="streamKey" name="streamKey" class="form-control"
+											value=""
 											style="display: inline-block; background-color: rgb(58, 58, 60); color: white">
 
 									</div>
@@ -228,7 +231,7 @@
 					<div class='col-12' style="border-bottom: 1px solid white;">
 						<font style='color: white'>뉴스피드</font>
 					</div>
-					<!-- 
+					<!--
 					<div class='col-12' style="height: 850px; text-align: center;">
 						<div style="padding-top: 60%">이곳에서 새로운 팔로우,구독,후원목록을 표시합니다.</div>
 					</div>
@@ -237,12 +240,12 @@
 						id='donationDiv'>
 						<!--
 						<div class='row' style="margin-top: 2%">
-						
+
 							<div class='col-1'>
 								<i class="fas fa-heart fa-3x"></i>
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									tac890
 								</div>
@@ -253,13 +256,13 @@
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
-						
+
 												<div class='row' style="margin-top: 2%">
 							<div class='col-1'>
 								<i class="fas fa-volume-up fa-3x"></i>
 							</div>
 							<div class='col-8' onclick="voiceDonation('게임을 그 정도밖에 못하냐?','Korean Female');">
-							
+
 								<div class='col-12' style="color: white">
 									shredless
 								</div>
@@ -270,13 +273,13 @@
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
-						
+
 												<div class='row' style="margin-top: 2%" onclick="videoDonation()">
 							<div class='col-1'>
 								<i class="fas fa-video fa-3x"></i>
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									company12
 								</div>
@@ -287,14 +290,14 @@
 							</div>
 							<div class='col-3' style="text-align: center;padding-top: 10px">16:43 ago</div>
 						</div>
-						
+
 												<div class='row' style="margin-top: 2%">
 							<div class='col-1'>
-								<img 
+								<img
 									src="../img/favicon.png" style="width: 40px">
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									asdf1234
 								</div>
@@ -307,11 +310,11 @@
 						</div>
 													<div class='row' style="margin-top: 2%">
 							<div class='col-1'>
-								<img 
+								<img
 									src="../img/favicon.png" style="width: 40px">
 							</div>
 							<div class='col-8'>
-							
+
 								<div class='col-12' style="color: white">
 									asdf1234
 								</div>
@@ -397,7 +400,7 @@
 					</div>
 					<div class='col-12' style="height: 550px; padding: 0">
 
-						<div class='col-12' style="height: 500px">
+						<div class='col-12 chtArea' style="height: 500px" id="chtArea">
 							<!-- <div style="padding-top: 5%;">채팅방에 오신것을 환영합니다!</div>-->
 							<div class='row' style="margin-top: 2%">
 								<div class='col-1'>
@@ -454,9 +457,9 @@
 						</div>
 						<div class='col-12'>
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="메시지 보내기"
+								<input type="text" class="form-control" placeholder="메시지 보내기" id="sendArea"
 									style="border: 1px solid red; background-color: rgb(58, 58, 60); color: white">
-								<div class="input-group-prepend">
+								<div class="input-group-prepend" onclick="WSsend()">
 									<button class="btn btn-outline-primary" type="button">채팅</button>
 								</div>
 

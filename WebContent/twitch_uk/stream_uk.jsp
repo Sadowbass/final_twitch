@@ -58,12 +58,11 @@
 	<div id="sidebarplace" style="margin-top: 53px;">
 	</div>
 	<div id="content-wrapper" style="margin-top: 53px;">
-		<div class="container-fluid pb-0" style="padding: 0px 0px 0px 225px; ">
-			<div class="video-block-right-list section-padding">
+		<div class="container-fluid py-0 " style="padding-left: 211px; padding-right: 26px;">
 				<!-- stream view start -->
 				<div class="row mx-0">
 					<!-- main-view -->
-					<div class="col-md-10" style="padding-left: 0px; padding-right: 37px;" id="video_div">
+					<div class="col-md-10" id="video_div">
 						<!-- video_top -->
 						<div class="row mx-0">
 							<div class="col-md-3">
@@ -108,7 +107,7 @@
 								</div>
 							</div>
 							<div class="col-md-3">
-								<div class="row mx-0" id="add_unfold">
+								<div class="row mx-0">
 									<div class="col-md-8 text-right p-0" id="follow">
 										<div class="channels-card-image-btn">
 											<button type="button" class="btn btn-outline-secondary btn-sm">
@@ -125,7 +124,7 @@
 												<strong>
 													<i class="far fa-star"></i>
 												</strong>
-												구독하기
+												구독
 											</button>
 										</div>
 									</div>
@@ -140,9 +139,9 @@
 							<div class="col-md-6">${vo.air_subject}</div>
 							<div class="col-md-4 text-right">
 								<i class="far fa-user mr-1"></i>
-								<span>5,233</span>
+								<span id='totalUserCnt'></span>
 								<i class="fas fa-eye mr-1 ml-2"></i>
-								<span>37,681,571</span>
+								<span id='accArea'></span>
 								<i class="fas fa-share-alt mx-2"></i>
 								<i class="fas fa-ellipsis-v mx-2"></i>
 							</div>
@@ -159,12 +158,12 @@
 							</div>
 						</div>
 					</div>
+					<div class='unfold mr-1' id='unfold' onclick='unfold()'><i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1' ></i></div>
 					<!-- 채팅화면 -->
 					<div class="col-md-2 cht_main_uk pt-2" id="cht_div">
                   		<jsp:include page="./cht_uk.jsp"/>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	<!-- /.content-wrapper -->
@@ -176,16 +175,5 @@
 </a>
 <!-- Logout Modal-->
 <%@include file="../logout-modal.jsp" %>
-<script>
-$(document).ready(function(){
-   uk_main.stream();
-});
-let unfold = function() {
-    $("#unfold").remove();
-    $("#cht_div").css("display","block");
-    $("#video_div").removeClass("col-md-12");
-    $("#video_div").addClass("col-md-10");
-}
-</script>
 </body>
 </html>
