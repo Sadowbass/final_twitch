@@ -10,7 +10,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">My Page</li>
         </ul>

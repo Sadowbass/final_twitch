@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <style type="text/css">
   .imgs_wrap{
@@ -21,7 +26,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="indexStore.jsp">Home</a></li>
+            <li><a href="localhost/store/index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -149,7 +154,7 @@ Nostrud duis molestie at dolore.</p>
                     
                   </div>
                   <div class="product-page-cart">
-                    <div class="product-quantity">
+                     <div class="product-quantity">
                         <input id="product-quantity" type="text" value="1" readonly class="form-control input-sm">
                     </div>
                     <button class="btn btn-primary" type="submit">Add to cart</button>
@@ -172,73 +177,42 @@ Nostrud duis molestie at dolore.</p>
                 <div class="product-page-content">
                   <ul id="myTab" class="nav nav-tabs">
                     <li><a href="#Description" data-toggle="tab">Description</a></li>
-                    <li><a href="#Information" data-toggle="tab">Information</a></li>
-                    <li class="active"><a href="#Reviews" data-toggle="tab">Reviews (2)</a></li>
+                    <li><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews (2)</a></li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">
                       <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. </p>
                     </div>
-                    <div class="tab-pane fade" id="Information">
-                      <table class="datasheet">
-                        <tr>
-                          <th colspan="2">Additional features</th>
-                        </tr>
-                        <tr>
-                          <td class="datasheet-features-type">Value 1</td>
-                          <td>21 cm</td>
-                        </tr>
-                        <tr>
-                          <td class="datasheet-features-type">Value 2</td>
-                          <td>700 gr.</td>
-                        </tr>
-                        <tr>
-                          <td class="datasheet-features-type">Value 3</td>
-                          <td>10 person</td>
-                        </tr>
-                        <tr>
-                          <td class="datasheet-features-type">Value 4</td>
-                          <td>14 cm</td>
-                        </tr>
-                        <tr>
-                          <td class="datasheet-features-type">Value 5</td>
-                          <td>plastic</td>
-                        </tr>
-                      </table>
-                    </div>
+                    
                     <div class="tab-pane fade in active" id="Reviews">
                       <!--<p>There are no reviews for this product.</p>-->
+                      <c:forEach var='i' items='${list }'>
                       <div class="review-item clearfix" onclick="">
                         <div class="review-item-submitted">
-                          <strong>Bob</strong>
-                          <em>30/12/2013 - 07:37</em>
-                          <div class="rateit" data-rateit-value="5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                          <strong>${i.mId }</strong>
+                          <em>${i.rDate }</em>
+                          <div class="rateit" data-rateit-value="${i.rLike }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                         </div>                                              
-                        <div class="review-item-content">
-                            <p>Sed velit quam, auctor id semper a, hendrerit eget justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis vel arcu pulvinar dolor tempus feugiat id in orci. Phasellus sed erat leo. Donec luctus, justo eget ultricies tristique, enim mauris bibendum orci, a sodales lectus purus ut lorem.</p>
+	                        <div class="review-item-content">
+	                            <p>${i.rContent }</p>
+	                        </div>
                         </div>
+                        </c:forEach>
                       </div>
-                      <div class="review-item clearfix">
-                        <div class="review-item-submitted">
-                          <strong>Mary</strong>
-                          <em>13/12/2013 - 17:49</em>
-                          <div class="rateit" data-rateit-value="2.5" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                        </div>                                              
-                        <div class="review-item-content">
-                            <p>Sed velit quam, auctor id semper a, hendrerit eget justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis vel arcu pulvinar dolor tempus feugiat id in orci. Phasellus sed erat leo. Donec luctus, justo eget ultricies tristique, enim mauris bibendum orci, a sodales lectus purus ut lorem.</p>
-                        </div>
-                      </div>
+                      <form name="frm_review" id="frm_review" method="post">
+					    <input type="hidden" name="serial" value="q">
+					  </form>
 
                       <!-- BEGIN FORM-->
                       <form id="frm_store" action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
                         <h2>Write a review</h2>
                         <div class="form-group">
                           <label for="name">Name <span class="require">*</span></label>
-                          <input type="text" class="form-control" name="mId">
+                          <input type="text" class="form-control" id="mId" name="mId">
                         </div>
                         <div class="form-group">
-                          <label for="subject">Subject</label>
-                          <input type="text" class="form-control" name="rSubject">
+                          <label for="subject">Subject <span class="require">*</span></label>
+                          <input type="text" class="form-control" id="rSubject" name="rSubject">
                         </div>
                         <div class="form-group">
                           <label for="review">Content <span class="require">*</span></label>
@@ -247,8 +221,8 @@ Nostrud duis molestie at dolore.</p>
                         <div class="form-group">
 		                    <label for="file_input">File input </label>
 		                
-		                    <input type="file" name="fileName" id ="input_imgs" multiple="multiple">
-		                    <p class="help-block">some help text here.</p>
+		                    <input type="file" name="reviewFile" id ="input_imgs"  multiple>
+		                    <p class="help-block">사진은 3장까지 가능합니다.</p>
 							<div>
 								<div class="imgs_wrap">
 								</div>
@@ -256,15 +230,15 @@ Nostrud duis molestie at dolore.</p>
                 		</div>
                         <div class="form-group">
                           <label for="email">Rating</label>
-                          <input type="range" value="4" step="0.25" id="backing5" name="rLike">
+                          <input type="range" id="rLike" value="4" step="0.25" id="backing5" name="rLike">
                           <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                           </div>
                         </div>
                         <div class="padding-top-20">                  
-                         <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send">
+                         <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send" onclick="store.rInsert()">
                         </div>
-                        <input type="hidden" name="pId">
-                     
+                        <input type="hidden" id="pId" name="pId" value="3">
+                       
                       </form>
                       <!-- END FORM--> 
                     </div>
@@ -282,78 +256,52 @@ Nostrud duis molestie at dolore.</p>
        
       </div>
     </div>
-
-    
-    <script src="./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
-    <script type="text/javascript">
-    //가격 범위
-    $(function(){
-    	$( "#slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [ 50, 250 ],
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-    })
-    
-    $(".product-quantity .form-control").TouchSpin({
-        buttondown_class: "btn quantity-down",
-        buttonup_class: "btn quantity-up"
-    });
-    $(".quantity-down").html("<i class='fa fa-angle-down'></i>");
-    $(".quantity-up").html("<i class='fa fa-angle-up'></i>");
-    
-   //매뉴 드랍다운 
-    $(".sidebar .dropdown > a").click(function (event) {
-            if ($(this).next().hasClass('dropdown-menu')) {
-                event.preventDefault();
-                if ($(this).hasClass("collapsed") == false) {
-                    $(this).addClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideDown(300);
-                } else {
-                    $(this).removeClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideUp(300);
-                }
-            } 
-        });
-    
-  //store review 이미지 등록
-
-    var sel_files = [];
-    
+    <script>
     $(document).ready(function(){
-    $('#input_imgs').on("change", handleImages);
+		$("#input_imgs").on("change", handleImages);
+		
+		 $(".sidebar .dropdown > a").click(function (event) {
+	            if ($(this).next().hasClass('dropdown-menu')) {
+	                event.preventDefault();
+	                if ($(this).hasClass("collapsed") == false) {
+	                    $(this).addClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideDown(300);
+	                } else {
+	                    $(this).removeClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideUp(300);
+	                }
+	            } 
+	        });
+		
+	});
     
-   });
-   
-function handleImages(e){
-    
-    var files = e.target.files;
-    var fileArr = Array.prototype.slice.call(files);
-    
-    fileArr.forEach(function(f){
-    	if(!f.type.match("image.*")){
-        	alert("이미지 확장자만 업로드 가능합니다.");
-            return;
-        }
-       
-        	sel_files.push(f);
-            var reader = new FileReader();
-            reader.onload = function(e){
-            	var html = "<img src =\""+ e.target.result + "\" />";
-                $('.imgs_wrap').append(html);
-                index++;
-            };
-            reader.readAsDataURL(f);
-        
-    })
-}
-
+	function handleImages(e){	
+		
+		var sel_files = [];
+		var files = e.target.files;
+	    var fileArr = Array.prototype.slice.call(files);
+	    
+	    fileArr.forEach(function(f){
+	    	if(!f.type.match("image.*")){
+	        	alert("이미지 확장자만 업로드 가능합니다.");
+	            return;
+	        }
+	       
+	        	sel_files.push(f);
+	            var reader = new FileReader();
+	            reader.onload = function(e){
+	            	//alert(e.target.result);
+	            	var html = "<img src =\""+ e.target.result + "\" />";
+	                $('.imgs_wrap').append(html);
+	               
+	            }
+	            reader.readAsDataURL(f);
+	});
+	
+	}	
+	
+	
+	
     </script>
 </body>
 </html>

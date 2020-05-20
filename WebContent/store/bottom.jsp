@@ -163,6 +163,8 @@
             </div>
     </div>
     <!-- END fast view of a product -->
+  
+	
 
 </body>
 </html>

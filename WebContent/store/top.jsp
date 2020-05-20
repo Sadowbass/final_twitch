@@ -51,7 +51,7 @@
     <!-- BEGIN HEADER -->
     <div class="header">
       <div class="container">
-        <a class="site-logo" href="indexStore.jsp"><img src="./assets/corporate/img/logos/twitchlogo111.png" ></a>
+        <a class="site-logo" href="index.jsp"><img src="./assets/corporate/img/logos/twitchlogo111.png" ></a>
 
         <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
 

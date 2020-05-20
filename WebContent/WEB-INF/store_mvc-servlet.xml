@@ -29,6 +29,14 @@
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
            <property name="prefix" value="/store/"></property>
            <property name="suffix" value=".jsp"></property>
-        </bean>           
+        </bean>    
+        
+         <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+            <property name="defaultEncoding" value="EUC-KR" /> <!-- 인코딩-->
+            <property name="maxUploadSize" value="99999999999" /> <!--  최대 사이즈-->
+
+        </bean>
+   
                      
 </beans>

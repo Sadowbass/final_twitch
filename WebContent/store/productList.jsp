@@ -10,7 +10,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="indexStore.jsp">Home</a></li>
+            <li><a href="index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -331,36 +331,20 @@
         </div>
     </div>
     <!-- END BRANDS -->
-
-    <script>
-    $(function(){
-    	$( "#slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [ 50, 250 ],
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-    })
-    
-    
+    <script type="text/javascript">
     $(".sidebar .dropdown > a").click(function (event) {
-            if ($(this).next().hasClass('dropdown-menu')) {
-                event.preventDefault();
-                if ($(this).hasClass("collapsed") == false) {
-                    $(this).addClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideDown(300);
-                } else {
-                    $(this).removeClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideUp(300);
-                }
-            } 
-        });
-    
+        if ($(this).next().hasClass('dropdown-menu')) {
+            event.preventDefault();
+            if ($(this).hasClass("collapsed") == false) {
+                $(this).addClass("collapsed");
+                $(this).siblings(".dropdown-menu").slideDown(300);
+            } else {
+                $(this).removeClass("collapsed");
+                $(this).siblings(".dropdown-menu").slideUp(300);
+            }
+        } 
+    });
     </script>
+
 </body>
 </html>

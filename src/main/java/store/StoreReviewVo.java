@@ -1,31 +1,44 @@
 package store;
 
 import java.util.Date;
+import java.util.List;
 
 public class StoreReviewVo {
 	
-	int rSerial;
+    int rId;
 	String mId;
 	int pId;
 	String rSubject;
 	String rContent;
-	String image1;
-	String image2;
 	Double rLike;
 	Date rDate;
 	
+	//List<StoreReviewVo> list;
 	
 	
-	public StoreReviewVo(String mId, int pId, String rSubject, String rContent, String image1, String image2,
-			Double rLike) {
-		// TODO Auto-generated constructor stub
+	public StoreReviewVo(String mId, int pId, String rSubject, String rContent, Double rLike) {
+		this.mId = mId;
+		this.pId = pId;
+		this.rSubject = rSubject;
+		this.rContent = rContent;
+	
+		this.rLike = rLike;
 	}
-	public int getrSerial() {
-		return rSerial;
+	
+	
+	
+	public int getrId() {
+		return rId;
 	}
-	public void setrSerial(int rSerial) {
-		this.rSerial = rSerial;
+
+
+
+	public void setrId(int rId) {
+		this.rId = rId;
 	}
+
+
+
 	public String getmId() {
 		return mId;
 	}
@@ -52,18 +65,7 @@ public class StoreReviewVo {
 	public void setrContent(String rContent) {
 		this.rContent = rContent;
 	}
-	public String getImage1() {
-		return image1;
-	}
-	public void setImage1(String image1) {
-		this.image1 = image1;
-	}
-	public String getImage2() {
-		return image2;
-	}
-	public void setImage2(String image2) {
-		this.image2 = image2;
-	}
+	
 	
 	public Double getrLike() {
 		return rLike;
