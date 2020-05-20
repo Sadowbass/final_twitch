@@ -132,5 +132,10 @@ public class SCDao {
 		return list;
 	}
 
+	public List<ProductVo> productListControl(){
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		list = sqlSession.selectList("store.test");
+		return list;
+	}
 
 }

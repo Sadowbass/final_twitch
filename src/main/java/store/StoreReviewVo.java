@@ -15,15 +15,22 @@ public class StoreReviewVo {
 	
 
 	//List<StoreReviewVo> list;
-	
-	
+
+
+	@Override
+	public String toString() {
+		String msg = "리뷰아이디 : " + this.review_id + " 멤버 아이디 : " + this.mem_id;
+		return msg;
+	}
+
+	public StoreReviewVo() {
+	}
 
 	public StoreReviewVo(String mem_id, int product_id, String rSubject, String rContent, Double review_like) {
 		this.mem_id = mem_id;
 		this.product_id = product_id;
 		this.rSubject = rSubject;
 		this.rContent = rContent;
-	
 		this.review_like = review_like;
 	}
 
@@ -83,9 +90,4 @@ public class StoreReviewVo {
 		this.review_date = review_date;
 	}
 	
-	
-	
-	
-	
-
 }

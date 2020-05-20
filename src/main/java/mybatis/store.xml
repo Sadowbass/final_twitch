@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
-	<insert id="review_insert" parameterType="store.StoreReviewVo">
-	  
-	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
-      values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
-      		#{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String}, 
-      		#{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},  sysdate)
-	  
-	</insert>
-	
-	<insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
-	  
-	  insert into review_photo(review_pid, review_id, image1, image2, rp_date)
-      values( seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR},  sysdate)
-	  
-	</insert>
-	
-	
-	<select id="review_select"  resultType="store.StoreReviewVo">
-	   
-	   select review_id , product_id , rSubject, rContent, review_like , review_date  from review
-	   
-	</select>
-	
+    <insert id="review_insert" parameterType="store.StoreReviewVo">
+
+        insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
+        values (seq_storereview.nextval, #{mem_id, jdbcType=VARCHAR, javaType=String},
+                #{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String},
+                #{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},
+                sysdate)
+
+    </insert>
+
+    <insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
+
+        insert into review_photo(review_pid, review_id, image1, image2, rp_date)
+        values (seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR},
+                #{image2, jdbcType=VARCHAR}, sysdate)
+
+    </insert>
+
+
+    <select id="review_select" resultType="store.StoreReviewVo">
+        select review_id, MEM_ID, product_id, rSubject, rContent, review_like, review_date
+        from review
+    </select>
+
+    <select id="test" resultType="bean.ProductVo">
+        select p.PRODUCT_ID product_id, p.PRODUCT_PRICE product_price, pp.SYSFILE sysfile, p.PRODUCT_NAME product_name
+        from PRODUCT p
+                 join PRODUCT_PHOTO PP on p.PRODUCT_ID = PP.PRODUCT_ID
+        order by p.PRODUCT_ID, PHOTO_SERIAL
+    </select>
+
 </mapper>

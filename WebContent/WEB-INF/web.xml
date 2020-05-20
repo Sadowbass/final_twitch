@@ -88,8 +88,6 @@
 		<url-pattern>*.uk</url-pattern>
 	</servlet-mapping>
 
-
-
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
@@ -104,6 +102,7 @@
 		<url-pattern>*.PNG</url-pattern>
 		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.mp4</url-pattern>
+		<url-pattern>*.gif</url-pattern>
 	</servlet-mapping>
 
 	 <!-- store -->

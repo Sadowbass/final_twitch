@@ -10,9 +10,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -167,30 +169,23 @@ public class StoreController {
     	System.out.println(req.getRequestURI());
     	return mv;
     }
-	
-	
-	
+
 	private String getExtension(String image2) {
 		String mm = "jpg";
 		// TODO Auto-generated method stub
 		return mm ;
 	}
 
-	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView reviewSelect(HttpServletRequest req) {
+	@ResponseBody
+	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST }, produces = "application/json; charset=utf-8")
+	public String reviewSelect(HttpServletRequest req) {
        int p =0;
-       	ModelAndView mv = new ModelAndView();
-        List<StoreReviewVo> list = dao.reviewSelect();
-        System.out.println("reviewselectsdsdasa");
-        
-        mv.addObject("list", list);
-        
-        
-	    mv.setViewName("productDetail");
-	
+       String result = "";
+       List<StoreReviewVo> list = dao.reviewSelect();
+		Gson gson = new Gson();
+		result = gson.toJson(list);
 
-		
-    	return mv;
+       return result;
     }
 
 

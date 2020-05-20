@@ -21,6 +21,8 @@
 	<!--controller -->
 	<bean id="sc_controller" class="controller.SCController">
 	</bean>
+	<bean id="test_controller" class="controller.TestController">
+	</bean>
 
 	<!-- view resolver -->
 	<bean class='org.springframework.web.servlet.view.InternalResourceViewResolver'>

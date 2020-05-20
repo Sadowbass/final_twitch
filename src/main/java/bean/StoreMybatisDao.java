@@ -62,12 +62,14 @@ public class StoreMybatisDao {
 			}
 	
 	public List<StoreReviewVo> reviewSelect(){
-		List<StoreReviewVo> list = new ArrayList<StoreReviewVo>();	
+		List<StoreReviewVo> list = new ArrayList<StoreReviewVo>();
+
 		System.out.println("reviewselectdao,xncm");
 		try {
-
 			list = sqlsession.selectList("store.review_select");
-
+			for(StoreReviewVo temp : list){
+				System.out.println("123"+temp.toString());
+			}
 		} catch (Exception e1) {
 
 			e1.printStackTrace();
