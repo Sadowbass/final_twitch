@@ -58,9 +58,9 @@
             <c:if test="${URI == 0}">
             $.ajax({
                 type:'post',
+                async:false,
                 url:"/categoryPaging.sc",
                 data:{'rno':rno},
-                async:false,
                 error:(error)=>{
                     console.log(error);
                 },

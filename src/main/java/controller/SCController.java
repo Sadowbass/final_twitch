@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.DataOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Stream;
 
 @RestController
@@ -25,21 +23,22 @@ public class SCController {
 
     /*카테고리 첫 페이지 띄웠을때*/
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
-    public ModelAndView categories(HttpServletRequest req){
+    public ModelAndView categories(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         List<CategoriesVo> list = dao.categories();
 
-        mv.addObject("URI",0);
-        mv.addObject("list",list);
+        mv.addObject("URI", 0);
+        mv.addObject("list", list);
         mv.setViewName("categories");
 
         return mv;
     }
+
     /*카테고리 스크롤링으로 추가 정보 요청할때*/
     @ResponseBody
     @RequestMapping(value = "/categoryPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    public String categoryPaging(HttpServletRequest req){
+    public String categoryPaging(HttpServletRequest req) {
         Gson gson = new Gson();
         String rno = req.getParameter("rno");
         SCDao dao = new SCDao();
@@ -50,22 +49,23 @@ public class SCController {
 
     /*생방송중인 리스트 불러오기*/
     @RequestMapping(value = "categories/all", method = RequestMethod.GET)
-    public ModelAndView liveAll(HttpServletRequest req){
+    public ModelAndView liveAll(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         List<StreamingVo> list = new ArrayList<StreamingVo>();
         list = dao.allStreaming();
 
-        mv.addObject("URI",1);
-        mv.addObject("list",list);
+        mv.addObject("URI", 1);
+        mv.addObject("list", list);
         mv.setViewName("/categories");
 
         return mv;
     }
 
+    /*스트리밍 페이징*/
     @ResponseBody
     @RequestMapping(value = "/streamingPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    public String streamingPaging(HttpServletRequest req){
+    public String streamingPaging(HttpServletRequest req) {
         Gson gson = new Gson();
         String rno = req.getParameter("rno");
         SCDao dao = new SCDao();
@@ -74,9 +74,38 @@ public class SCController {
         return result;
     }
 
+    /*비디오 다시보기 페이지 첫 로딩*/
+    @RequestMapping(value = "/{id}/video", method = RequestMethod.GET)
+    public ModelAndView videoPage(HttpServletRequest req, @PathVariable String id){
+        ModelAndView mv = new ModelAndView();
+        SCDao dao = new SCDao();
+        List<BeforeVo> list = dao.lateVideo(id);
+
+        mv.addObject("list",list);
+        mv.setViewName("/history-page");
+        return mv;
+    }
+    /*비디오 다시보기 페이징*/
+    @ResponseBody
+    @RequestMapping(value = "/{id}/videoPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public String videoPaging(HttpServletRequest req, @PathVariable String id){
+        SCDao dao = new SCDao();
+        String srno = req.getParameter("rno");
+        int rno = Integer.parseInt(srno);
+        List<BeforeVo> list = dao.videoPaging(id, rno);
+
+        Gson gson = new Gson();
+
+        return gson.toJson(list);
+    }
+
+    /*로그인한 회원 정보*/
     @ResponseBody
     @RequestMapping(value = "/userinfo.sc", method = RequestMethod.POST)
-    public String topPage(HttpServletRequest req){
+    public String topPage(HttpServletRequest req) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss SS");
+        Date d = new Date();
+        System.out.println("시작"+sdf.format(d));
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
         session.setAttribute("mId", "faker");
@@ -84,20 +113,24 @@ public class SCController {
         Gson gson = new Gson();
         String result = gson.toJson(dao.userInfo(mId));
 
+        d = new Date();
+        System.out.println("끝"+sdf.format(d)+"\n");
         return result;
     }
 
+    /*메인페이지 로드*/
     @RequestMapping(value = "/main.sc", method = RequestMethod.GET)
     public ModelAndView mainLoad(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
 
         HttpSession session = req.getSession();
-        session.setAttribute("mId","faker");
+        session.setAttribute("mId", "faker");
 
         mv.setViewName("main");
         return mv;
     }
 
+    /*사이드메뉴*/
     @RequestMapping(value = "/sidebar.sc", method = RequestMethod.GET)
     public ModelAndView sideBar(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
@@ -113,6 +146,7 @@ public class SCController {
         return mv;
     }
 
+    /*특정유저의 페이지 접속*/
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
@@ -121,7 +155,7 @@ public class SCController {
         HttpSession session = req.getSession();
         String user = (String) session.getAttribute("session_id");
 
-        if(user != null){
+        if (user != null) {
             mv.addObject("session_id", user);
         }
 
@@ -134,6 +168,7 @@ public class SCController {
         return mv;
     } // end of pagemove
 
+    /*도네이션 창 로드*/
     @RequestMapping(value = "/{id}/donation-view", method = RequestMethod.GET)
     public ModelAndView donationViewPage(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
@@ -150,6 +185,7 @@ public class SCController {
         return mv;
     }
 
+    /*채팅방 표시*/
     @RequestMapping(value = "/{id}/chat-view", method = RequestMethod.GET)
     public ModelAndView chatViewPage(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
@@ -164,8 +200,9 @@ public class SCController {
         return mv;
     }
 
+    /*팔로워 정보*/
     @RequestMapping(value = "/{id}/followers", method = RequestMethod.GET)
-    public ModelAndView follwers(HttpServletRequest req, @PathVariable String id){
+    public ModelAndView follwers(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         List<UserInfoVo> list = dao.followers(id);
@@ -175,6 +212,7 @@ public class SCController {
         return mv;
     }
 
+    /*도네이션 출력*/
     @ResponseBody
     @RequestMapping(value = "/view-donation-list.sc", method = RequestMethod.POST)
     public String dtest(HttpServletRequest req) {
@@ -186,10 +224,11 @@ public class SCController {
         return json;
     }
 
+    /*친구검색*/
     @ResponseBody
     @RequestMapping(value = "searchFriends.sc", method = RequestMethod.POST)
-    public String searchFriend(HttpServletRequest req){
-        String result="";
+    public String searchFriend(HttpServletRequest req) {
+        String result = "";
         String mId = req.getParameter("value");
         SCDao dao = new SCDao();
         Gson gson = new Gson();
@@ -197,5 +236,4 @@ public class SCController {
 
         return result;
     }
-
 }

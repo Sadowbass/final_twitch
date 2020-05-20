@@ -147,7 +147,7 @@ div.power_controls
 							let fd = $('#user-info').serialize(); 
 							(function poll() {
 								$.ajax({
-									url : "../view-donation-list.sc",
+									url : "/view-donation-list.sc",
 									type : 'post',
 									data : fd,
 									async : false,

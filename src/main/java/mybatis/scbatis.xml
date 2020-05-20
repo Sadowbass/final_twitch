@@ -46,6 +46,7 @@
                              left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID) a)
         where rno between ${value } + 1 and ${value} + 3
     </select>
+
     <!--팔로우중인 이용자의 생방송정보-->
     <select id="nowStreaming2" resultType="bean.StreamingVo">
         SELECT *
@@ -87,6 +88,7 @@
         from (select * from FINAL_CATEGORY) a
         where rownum between 1 and 3
     </select>
+
     <!--카테고리 페이징-->
     <select id="categoryPaging" parameterType="Integer" resultType="bean.CategoriesVo">
         select *
@@ -94,5 +96,18 @@
         where rno between ${value } + 1 and ${value } + 3
     </select>
 
+    <!--지난방송 리스트-->
+    <select id="videoList" parameterType="String" resultType="bean.BeforeVo">
+        select rownum rno, a.*
+        from (select * from FINAL_BEFORE where BEF_MID = #{value } order by BEF_SERIAL desc) a
+        where ROWNUM between 1 and 3
+    </select>
+    <!--지난방송 페이징-->
+    <select id="videoPaging" parameterType="hashMap" resultType="bean.BeforeVo">
+        select *
+        from (select rownum rno, a.*
+              from (select * from FINAL_BEFORE where BEF_MID = #{mId } order by BEF_SERIAL desc) a)
+        where rno between ${rno}+1 and ${rno}+3
+    </select>
 
 </mapper>
