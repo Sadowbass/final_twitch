@@ -199,19 +199,9 @@ store.rSelect = function () {
 
 
 let test = function (subject, retailprice, saleprice, content, img) {
-    let test = [];
-
     let fix1 = img.replace("[","");
     let fix2 = fix1.replace("]","");
     let arr = fix2.split(",");
-/*
-    for(var i = 1 ; i < arr.length ; i++){
-        if (i == 1){
-            test.push(`<a href="javascript:;" class="active"><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[i].trim()}"></a>`)
-        } else {
-            test.push(`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[i].trim()}"></a>`)
-        }
-    }*/
 
     function tt(strings, tArr){
         var ttr;
@@ -225,7 +215,6 @@ let test = function (subject, retailprice, saleprice, content, img) {
             return str1 + tArr.trim() + str2;
         }
     }
-
 
     let result = `<div class="product-page product-pop-up">
               <div class="row">
