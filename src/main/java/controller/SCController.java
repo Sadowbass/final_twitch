@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class SCController {
 
     public SCController() {
-        System.out.println("而⑦�몃·�� ����");
+        System.out.println("컨트롤러 넘어옴");
     }
 
     /*移댄��怨�由� 泥� ���댁� ��������*/

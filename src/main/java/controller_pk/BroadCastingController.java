@@ -73,15 +73,15 @@ public class BroadCastingController {
 	
 	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView insertAir(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("ÄÁÆ®·Ñ·¯³Ñ¾î¿È");
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ë„˜ì–´ì˜´");
 		String msg = "";
 		ModelAndView mv = new ModelAndView();
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµğ
-		String title = req.getParameter("broadCastingTitle"); // Á¦¸ñ
-		String content = req.getParameter("broadCastingContent"); // ³»¿ë
-		String sKey = req.getParameter("streamKey"); // ½ºÆ®¸² Å°
-		String tags = req.getParameter("tags"); // ÅÂ±× µé
-		String gameName = req.getParameter("gameName"); // °ÔÀÓ ÀÌ¸§
+		String mId = req.getParameter("mId"); // ìŠ¤íŠ¸ë¦¬ë¨¸ ì•„ì´ë””
+		String title = req.getParameter("broadCastingTitle"); // ì œëª©
+		String content = req.getParameter("broadCastingContent"); // ë‚´ìš©
+		String sKey = req.getParameter("streamKey"); // ìŠ¤íŠ¸ë¦¼ í‚¤
+		String tags = req.getParameter("tags"); // íƒœê·¸ ë“¤
+		String gameName = req.getParameter("gameName"); // ê²Œì„ ì´ë¦„
 		
 		BroadCastingAirVo vo = new BroadCastingAirVo();
 		
@@ -93,9 +93,9 @@ public class BroadCastingController {
 		vo.setAir_gname(gameName);
 		
 		msg = dao.startAir(vo);
-		if(msg.equals("ÀÔ·Â¼º°ø")) {
+		if(msg.equals("ì…ë ¥ì„±ê³µ")) {
 			mv.setViewName("video_tak");
-		}else if(msg.equals("ÀÔ·Â½ÇÆĞ")) {
+		}else if(msg.equals("ì…ë ¥ì‹¤íŒ¨")) {
 			mv.setViewName("video_tak2");
 		}
 		mv.addObject("sKey",sKey);
@@ -111,11 +111,11 @@ public class BroadCastingController {
 	@ResponseBody
 	public String updateAir(HttpServletRequest req, HttpServletResponse resp) {
 		String msg = "";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµğ
-		String title = req.getParameter("broadCastingTitle"); // Á¦¸ñ
-		String content = req.getParameter("broadCastingContent"); // ³»¿ë
-		String tags = req.getParameter("tags"); // ÅÂ±× µé
-		String gameName = req.getParameter("gameName"); // °ÔÀÓ ÀÌ¸§
+		String mId = req.getParameter("mId"); // ìŠ¤íŠ¸ë¦¬ë¨¸ ì•„ì´ë””
+		String title = req.getParameter("broadCastingTitle"); // ì œëª©
+		String content = req.getParameter("broadCastingContent"); // ë‚´ìš©
+		String tags = req.getParameter("tags"); // íƒœê·¸ ë“¤
+		String gameName = req.getParameter("gameName"); // ê²Œì„ ì´ë¦„
 		
 		
 		BroadCastingAirVo vo = new BroadCastingAirVo();
@@ -135,15 +135,15 @@ public class BroadCastingController {
 	public ModelAndView deleteAir(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		String msg = "";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµğ
-		String sKey = req.getParameter("streamKey"); // ½ºÆ®¸² Å°
+		String mId = req.getParameter("mId"); // ìŠ¤íŠ¸ë¦¬ë¨¸ ì•„ì´ë””
+		String sKey = req.getParameter("streamKey"); // ìŠ¤íŠ¸ë¦¼ í‚¤
 		
 		
 		msg = dao.deleteAir(mId);
 		
-		if(msg.equals("»èÁ¦¼º°ø")) {
+		if(msg.equals("ì‚­ì œì„±ê³µ")) {
 			mv.setViewName("video_tak2");
-		}else if(msg.equals("»èÁ¦½ÇÆĞ")) {
+		}else if(msg.equals("ì‚­ì œì‹¤íŒ¨")) {
 			mv.setViewName("video_tak");
 		}
 		mv.addObject("sKey",sKey);
@@ -156,7 +156,7 @@ public class BroadCastingController {
 	@ResponseBody
 	public String selectDonation(HttpServletRequest req, HttpServletResponse resp) {
 		String result = "";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµğ
+		String mId = req.getParameter("mId"); // ìŠ¤íŠ¸ë¦¬ë¨¸ ì•„ì´ë””
 		List<BroadCastingDonationVo> list = dao.selectDonation(mId);
 		
 		Gson gson = new Gson();
@@ -190,7 +190,7 @@ public class BroadCastingController {
 	@ResponseBody
 	public String sendDonation(HttpServletRequest req, HttpServletResponse resp) {
 		String result = "";
-		String serial = req.getParameter("serial"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµğ
+		String serial = req.getParameter("serial"); // ìŠ¤íŠ¸ë¦¬ë¨¸ ì•„ì´ë””
 		result = dao.sendDonation(Integer.parseInt(serial));
 		
 		return result;
@@ -200,8 +200,8 @@ public class BroadCastingController {
 	@RequestMapping(value = "*/selectRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String selectRoulette(HttpServletRequest req, HttpServletResponse resp) {
-		String result = "Á¶È¸½ÇÆĞ";
-		String mId = req.getParameter("mId"); // ½ºÆ®¸®¸Ó ¾ÆÀÌµğ
+		String result = "ì¡°íšŒì‹¤íŒ¨";
+		String mId = req.getParameter("mId"); // ìŠ¤íŠ¸ë¦¬ë¨¸ ì•„ì´ë””
 		RouletteVo vo = dao.selectRoulette(mId);
 		Gson gson = new Gson();
 		JsonObject jsonObject = null;
@@ -213,15 +213,15 @@ public class BroadCastingController {
 			jsonObject.addProperty("rul_serial", vo.getRul_serial());
 			jsonObject.addProperty("rul_mid", vo.getRul_mId());
 			jsonObject.addProperty("rul_data", vo.getRul_data());
-			jsonObject.addProperty("rul_result", "Á¶È¸¼º°ø");
+			jsonObject.addProperty("rul_result", "ì¡°íšŒì„±ê³µ");
 
 			jsonArray.add(jsonObject);
 				
 		result = gson.toJson(jsonArray);
 		}else {
-			System.out.println("µ¥ÀÌÅÍ ¾øÀ½");
+			System.out.println("ë°ì´í„° ì—†ìŒ");
 			jsonObject = new JsonObject();
-			jsonObject.addProperty("rul_result", "Á¶È¸½ÇÆĞ");
+			jsonObject.addProperty("rul_result", "ì¡°íšŒì‹¤íŒ¨");
 			jsonArray.add(jsonObject);
 			result = gson.toJson(jsonArray);
 		}
