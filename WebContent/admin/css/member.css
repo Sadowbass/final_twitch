@@ -544,6 +544,28 @@ input[type="file"] {
 .home_box_content {
 	padding-top: 16px;
 }
+
+@media(max-width:1600px) {
+	.cate_width {
+		width: 25%;
+	}
+}
+
+@media(max-width:900px) {
+	.cate_width {
+		width: 50%;
+	}
+}
+
+@media(max-width:770px) {
+	.cate_width {
+		width: 100%;
+	}
+}
+.cate_tag{
+	margin-right:2px;
+}
+
 .cate_thumnail{
 	text-align:center;
 }

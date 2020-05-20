@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.List;
+
 public class BroadCastingCateVo {
 
 	
@@ -7,12 +9,21 @@ public class BroadCastingCateVo {
 	String cat_genre;
 	String cat_orifile;
 	String cat_sysfile;
+	String cat_serial;
 	
+
+
+
 	public BroadCastingCateVo() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	public String getCat_serial() {
+		return cat_serial;
+	}
+	public void setCat_serial(String cat_serial) {
+		this.cat_serial = cat_serial;
+	}
 	public String getCat_gname() {
 		return cat_gname;
 	}

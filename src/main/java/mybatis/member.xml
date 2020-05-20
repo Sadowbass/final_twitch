@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="member">
+    <select id="select" resultType="bean.MemberVo">
+		select mem_id,mem_name,mem_email,mem_admin,to_char(mem_rdate,'rrrr-mm-dd') mem_rdate,mem_status from final_member
+	</select>
+    <select id='view' parameterType="String" resultType="bean.MemberVo">
+    	select mem_id,mem_name,mem_email,mem_admin,to_char(mem_rdate,'rrrr-mm-dd') mem_rdate,mem_status,mem_birth,
+    	mem_profile,mem_money,mem_zcode,mem_add1,mem_add2,ph_serial,ph_orifile,ph_sysfile,ph_Id
+    	from final_member m join final_photo p 
+    	on m.mem_id = p.ph_id(+)
+    	where m.mem_id='${_parameter}'
+    </select>
+     <insert id="insert" parameterType='bean.MemberVo'>
+    	insert into final_member(mem_id,mem_name,mem_email,mem_admin,mem_rdate,mem_status,mem_birth,mem_profile,mem_pwd)
+    	values(#{mem_id},#{mem_name},#{mem_email},#{mem_admin},sysdate,0,#{mem_birth},#{mem_profile},#{mem_pwd})
+    </insert>
+     <insert id="insert_p" parameterType ='bean.MemberVo'>
+    	insert into final_photo(ph_serial,ph_orifile,ph_sysfile,ph_id)
+    	values(seq_Mphoto.nextval,#{ph_orifile},#{ph_sysfile},#{ph_id})
+    </insert>
+    <update id='update' parameterType="bean.MemberVo">
+    	update final_member set mem_name=#{mem_name}, mem_email=#{mem_email}, mem_admin=#{mem_admin},mem_rdate=#{mem_rDate},
+    	mem_status=#{mem_status}, mem_birth=#{mem_birth}, mem_profile=#{mem_profile}, mem_money=#{mem_money}, mem_zcode=#{mem_zcode},
+    	mem_add1=#{mem_add1},mem_add2=#{mem_add2}
+    	where mem_id=#{mem_id} 
+    </update>
+    <select id="ph_sysfile" parameterType ="bean.MemberVo" resultType="bean.MemberVo">
+    	select ph_sysfile from final_photo
+    	where ph_id=#{ph_id}
+    </select>
+     <update id='ph_modify' parameterType="bean.MemberVo">
+    	update final_photo set ph_orifile=#{ph_orifile}, ph_sysfile=#{ph_sysfile}
+    	where ph_id=#{ph_id} 
+    </update>
+    <insert id="ph_insert" parameterType ='bean.MemberVo'>
+    	insert into final_photo(ph_serial,ph_orifile,ph_sysfile,ph_id)
+    	values(seq_Mphoto.nextval,#{ph_orifile},#{ph_sysfile},#{ph_id})
+    </insert>
+    <delete id='delete' parameterType="String">
+    	delete from final_member where mem_id='${_parameter}'
+    </delete>
+    <delete id='ph_delete' parameterType="String">
+		delete from final_photo
+		where ph_id = '${_parameter}'
+    </delete>
+    <!--<select id="count" parameterType ="bean.Page" resultType="Integer">
+    	select count(serial) cnt from board
+    	where subject like '%${findStr}%'
+    	or content like '%${findStr}%'
+    </select>
+    <insert id="insert" parameterType='mybatis.BoardVo'>
+    	insert into board(serial,subject,content,id,mdate,hit,pwd)
+    	values(seq_board.nextval,#{subject},#{content},#{id},sysdate,0,#{pwd})
+    </insert>
+    <insert id="insert_att" parameterType ='mybatis.AttVo'>
+    	insert into boardAtt(serial,pserial,orifile,sysfile)
+    	values(seq_boardAtt.nextval,seq_board.currval,#{orifile},#{sysfile})
+    </insert>
+    <select id='att_list' parameterType="Integer" resultType="mybatis.AttVo">
+    	select serial,pserial,orifile,sysfile
+    	from boardAtt
+    	where pserial = ${pserial}
+    </select>
+    <update id='update' parameterType="mybatis.BoardVo">
+    	update board set subject=#{subject}, content=#{content}
+    	where serial=#{serial} and pwd=#{pwd} 
+    </update>
+    <insert id="att_insert2" parameterType ='mybatis.AttVo'>
+    	insert into boardAtt(serial,pserial,orifile,sysfile)
+    	values(seq_boardAtt.nextval,#{serial},#{orifile},#{sysfile})
+    </insert>
+    <delete id='att_delete' parameterType="mybatis.AttVo">
+		delete from boardAtt
+		where sysfile =#{sysfile} or pserial=${serial} 
+    </delete>
+    <select id='repl_cnt' parameterType="Integer" resultType="Integer">
+ 		select count(serial) cnt from board where pserial =${_parameter}
+    </select>
+    <delete id='delete' parameterType="mybatis.BoardVo">
+    	delete from board where serial=${serial} and pwd=#{pwd}
+    </delete>
+    <insert id='repl' parameterType="mybatis.BoardVo">
+    	insert into board(serial,subject,content,id,mdate,hit,pwd,pserial)
+    	values(seq_board.nextval,#{subject},#{content},#{id},sysdate,0,#{pwd},#{pSerial})
+    </insert>
+    <update id="hit_up" parameterType="mybatis.BoardVo">
+    	update board set hit =#{hit} where serial=#{serial} 
+    </update>-->
+
+    <!--<resultMap id ="my_map"/>
+    <update/>
+    <insert/>
+    <delete/>
+    --> 
+</mapper>

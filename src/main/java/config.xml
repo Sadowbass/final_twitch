@@ -27,6 +27,8 @@
      <mapper resource="mybatis/scbatis.xml"/>
      <mapper resource="mybatis/store.xml"/>
      <mapper resource="mybatis/mybatis_uk.xml"/>
+     <mapper resource="mybatis/member.xml"/>
+     <mapper resource="mybatis/category.xml"/>
    </mappers>
 
 </configuration>

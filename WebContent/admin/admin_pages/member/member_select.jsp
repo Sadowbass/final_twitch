@@ -50,19 +50,19 @@
                                         <th>이메일</th>
                                         <th>구분</th>
                                         <th>등록일</th>
-                                        <th>총수익</th>
+                                        <th>현재상태</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="i" begin="1" end="57">
+                                    <c:forEach var="i" items="${list }">
                                         <!-- 속성 list 값이 하나씩 vo에 들어옴 -->
-                                        <tr onclick="member_view()">
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                        <tr onclick="member_view('${i.mem_id}')">
+                                            <td>${i.mem_id }</td>
+                                            <td>${i.mem_name }</td>
+                                            <td>${i.mem_email }</td>
+                                            <td>${i.mem_admin }</td>
+                                            <td>${i.mem_rDate }</td>
+                                            <td>${i.mem_status }</td>
                                         </tr>
                                     </c:forEach>
 
@@ -73,6 +73,9 @@
                             <!-- #END# Basic Examples -->
                             <!-- Exportable Table -->
                         </div>
+                        <form id="he_form" name="he_form" method="post">
+                        	<input type="hidden" name="he_serial" id="he_serial"/>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -94,7 +97,7 @@
         $(document).ready(function () {
             var table = $('#he_table').DataTable({
                 columnDefs: [{
-                    targets: [0, 1, 2],
+                    targets: [0, 1, 2,3,4,5],
                     className: 'mdl-data-table__cell--non-numeric'
                 }]
             });

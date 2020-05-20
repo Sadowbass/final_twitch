@@ -50,7 +50,25 @@ function showWithTitleMessage() {
 }
 
 function showSuccessMessage() {
-    swal("Good job!", "You clicked the button!", "success");
+	swal({
+        title: "수정 완료",
+        text: "회원정보가 성공적으로 수정되었습니다",
+        type: "success",
+        closeOnConfirm: true
+    }, function () {
+        location.href = "member_select.he"
+    });
+}
+
+function showSuccessinsertMessage() {
+	swal({
+        title: "입력 완료",
+        text: "회원정보가 성공적으로 입력되었습니다",
+        type: "success",
+        closeOnConfirm: true
+    }, function () {
+        location.href = "member_select.he"
+    });
 }
 
 function showConfirmMessage() {
@@ -78,10 +96,30 @@ function showModifyMessage() {
         confirmButtonText: "수정",
         cancelButtonText: "취소",
         closeOnConfirm: false
-    }, function () {
-        swal("수정 완료 됨", "카테고리가 수정되었습니다", "success");
+    },function(){
+		let fd = new FormData($('#he_form')[0])//object형태로 데이터 생성 
+		
+		$.ajax({
+			url:'modify_result.he',
+			type:'post',
+			data:fd,
+			contentType:false,
+			processData:false,
+			error: function(xhr,status,error){
+				showError(error)
+			},
+			success:function(data,xhr,status){
+				showSuccessMessage()
+			}
+	   })
     });
+   
 }
+
+function showError(error){
+	swal("에러발생",error, "error");
+}
+
 
 function showCancelMessage() {
     swal({
@@ -96,12 +134,27 @@ function showCancelMessage() {
         closeOnCancel: false
     }, function (isConfirm) {
         if (isConfirm) {
-            swal("삭제 완료 됨", "해당 계정이 삭제되었습니다", "success");
+        	let param = $('#he_form').serialize();
+        	$.post("delete_result.he",param,function(data,state){
+        		showdelconfirm();
+        	})
         } else {
             swal("취소됨", "계정 삭제가 취소되었습니다", "error");
         }
     });
 }
+
+function showdelconfirm(){
+	swal({
+        title: "삭제 완료",
+        text: "해당 계정이  삭제되었습니다",
+        type: "success",
+        closeOnConfirm: true
+    }, function () {
+        location.href = "member_select.he"
+    });
+}
+
 
 function showCancel2Message() {
     swal({
