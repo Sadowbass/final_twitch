@@ -133,8 +133,18 @@
 				<span class="pr-2" id='totalUserCnt'></span>
 				<button class="btn" type="button"><i class="fas fa-eye p-1"></i></button>
 				<span class="pr-2" id='accArea'></span>
-				<button class="btn" type="button"><i class="fas fa-share-alt p-2"></i></button>
-				<button class="btn" type="button"><i class="fas fa-ellipsis-v pl-2 pr-4"></i></button>
+				<button class="btn dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button"><i class="fas fa-share-alt p-2"></i></button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		   			<a class="dropdown-item" href="#">Action</a>
+		    		<a class="dropdown-item" href="#">Another action</a>
+		    		<a class="dropdown-item" href="#">Something else here</a>
+		 		 </div>
+				<button class="btn dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button"><i class="fas fa-ellipsis-v pl-2 pr-4"></i></button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		   			<a class="dropdown-item" href="#">Action</a>
+		    		<a class="dropdown-item" href="#">Another action</a>
+		    		<a class="dropdown-item" href="#">Something else here</a>
+		 		 </div>
 			</div>
 		</div>
 		<div class="d-flex flex-row">

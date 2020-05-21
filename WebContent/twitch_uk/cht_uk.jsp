@@ -24,7 +24,7 @@
 <!-- 설정 등 기타 -->
 <div class="cht_bottom_uk d-flex">
 	<div class="mr-auto py-2 px-3 dropup">
-		<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" ></i></button>
+		<button class="btn dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" ></i></button>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
    			<a class="dropdown-item" href="#">Action</a>
     		<a class="dropdown-item" href="#">Another action</a>
