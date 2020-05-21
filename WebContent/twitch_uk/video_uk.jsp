@@ -4,10 +4,8 @@
 		jwplayer.key = 'iiL9xxalkP7di2nLZ3tPLw0NLBCHdHBe8i3QDQ==';
 	</script>
 
-	<div id="main" style="width: 100%;">
 		<div id="mediaplayer"></div>
-	</div>
-	 
+
 	<script>
 		jwplayer('mediaplayer').setup({
 

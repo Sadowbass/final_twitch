@@ -1,23 +1,44 @@
 @charset "UTF-8";
 
+.video_main_uk {
+	position: absolute;
+	top: 53px;
+	padding-right: 318px;
+	width: 100%
+}
+
+.sidebar_uk {
+	left: 0;
+	padding-top: 58px;
+}
+
 .cht_main_uk {
 	border-left: solid 1px gray;
 	position: fixed;
 	right: 0;
+	top: 0;
 	padding: 0;
-	height: 100vh;
+	height: 100%;
+	padding-top: 58px;
+	width: 300px;
 }
 
 .cht_send_uk {
 	position: absolute;
-	bottom: 90px;
+	bottom: 30px;
 	right: 0px;
 	width: 100%;
+	overflow: auto;
+	background-color: #D1B2FF;
+	height: 40px;
+	white-space: normal;
+	word-break: break-word;
+	overflow-x:hidden;
 }
 
 .cht_bottom_uk {
 	position: absolute;
-	bottom: 60px;
+	bottom: 0px;
 	left: 0px;
 	width: 100%;
 }
@@ -27,13 +48,8 @@
 	max-height: 600px;
 	white-space: normal;
 	word-break: break-word;
-}
-
-.chtBox {
-	overflow: auto;
-	max-height: 40px;
-	background-color: #D1B2FF;
-	height: 40px;
+	width: 100%;
+	overflow-x:hidden;
 }
 
 .onAir {
@@ -51,7 +67,8 @@
 .unfold {
 	position: fixed;
 	right: 0px;
-	margin-top: 5px;
+	top: 0px;
+	padding-top: 58px;
 	display: none;
 	border-right: solid 2px gray;
 	height: 100vh;

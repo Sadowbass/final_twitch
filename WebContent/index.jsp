@@ -10,12 +10,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Askbootstrap">
     <meta name="author" content="Askbootstrap">
     <title>JHTA-Twitch</title>
     <!-- Favicon Icon -->
-    <link rel="icon" type="image/png" href="img/favicon.png"> 
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
     <link rel="stylesheet" href="css/sc_custom.css">
-    <link rel="stylesheet" href="css/css_uk.css">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
@@ -37,14 +36,13 @@
     <!-- Custom scripts for all pages-->
     <script src="js/custom.js"></script>
     <script src="js/sc_custom.js"></script>
-    <script src="js/js_uk.js"></script> 
 </head>
 <body id="page-top">
 <script>
     $(document).ready(function () {
         $.ajax({
             type: 'get',
-            url: 'sidebar.sc', 
+            url: 'sidebar.sc',
             error:function(){
             	console.log(error)
             },

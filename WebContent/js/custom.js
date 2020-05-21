@@ -77,11 +77,11 @@ $(document).keydown(function (e) {
   "use strict"; // Start of use strict
 
   // Toggle the side navigation
-  $(document).on("click", "#sidebarToggle", function (e) {
+ /* $(document).on("click", "#sidebarToggle", function (e) {
     e.preventDefault();
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
-  });
+  });*/
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
   $("body.fixed-nav .sidebar").on("mousewheel DOMMouseScroll wheel", function (

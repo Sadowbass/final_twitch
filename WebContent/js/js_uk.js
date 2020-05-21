@@ -5,6 +5,89 @@ let streamerId;
 let loginId;
 let loginUserCnt=0;
 
+/*스트림*/
+uk.stream=function(){
+
+	$.ajax({
+		type : 'get',
+		url : '/sidebar.sc',
+		success : function(data) {
+			let left = $('#sidebarplace').html(data).find("#sidebar-navmain").width();
+			/* 메인 왼쪽 */
+			$(".video_main_uk").css('padding-left', left + 'px');
+		}
+	});
+
+	rightValue();
+
+	/* 브라우저 크기 발뀔시 */
+	$(window).resize(function() {
+		/*왼쪽*/
+		leftValue();
+		/*오른쪽*/
+		rightValue();
+	});
+
+	/*세줄 메뉴 클릭시*/
+	$("#sidebarToggle").click(function(e){
+		 e.preventDefault();
+		 $("body").toggleClass("sidebar-toggled");
+		 $(".sidebar").toggleClass("toggled");
+		 leftValue();
+	});
+
+}
+
+/*유저목록이랑 채팅창 변경*/
+let usersOrcht=function(){
+	if($('div#chtArea').css('display')=='block'){
+		$('#statusBoard').html('유저 목록('+loginUserCnt+')');
+		$('div#chtArea').css('display','none');
+		$('div#userList').css('display','block');
+	}else{
+		$('#statusBoard').html('도네이션 현황');
+		$('div#chtArea').css('display','block');
+		$('div#userList').css('display','none');
+	}
+}
+
+/*strea.uk fold*/
+let fold=function(){
+	$("#cht_div").css("display", "none");
+	$('#unfold').css('display','block');
+	$("#video_div").removeClass("col-md-10");
+    $("#video_div").addClass("col-md-12");
+    rightValue();
+}
+/*strea.uk unfold*/
+let unfold=function(){
+	$('#unfold').css('display','none');
+	$("#cht_div").css("display", "block");
+	$("#video_div").removeClass("col-md-12");
+    $("#video_div").addClass("col-md-10");
+    rightValue();
+}
+
+/*왼쪽*/
+let leftValue=function(){
+	let left = $('#sidebar-navmain').width();
+	$(".video_main_uk").css('padding-left', left + 'px');
+}
+
+/* 오른쪽*/
+let rightValue=function(){
+
+	let right=0;
+
+	if($("#cht_div").css("display")=="block"){
+		right=$("#cht_div").width();
+	}else{
+		right=$("#unfold").width();
+	}
+	$(".video_main_uk").css('padding-right', right + 'px');
+}
+
+/*소켓 연결시*/
 uk.connectWS=function(streamer, login){
 	let totalUserCnt=0;
 
@@ -116,34 +199,7 @@ let WSclose=function(){
 	ws.close();
 }
 
-/*유저목록이랑 채팅창 변경*/
-let usersOrcht=function(){
-	if($('div#chtArea').css('display')=='block'){
-		$('#statusBoard').html('유저 목록('+loginUserCnt+')');
-		$('div#chtArea').css('display','none');
-		$('div#userList').css('display','block');
-	}else{
-		$('#statusBoard').html('도네이션 현황');
-		$('div#chtArea').css('display','block');
-		$('div#userList').css('display','none');
-	}
-}
 
-/*strea.uk fold*/
-let fold=function(){
-	console.log('fold');
-	$("#cht_div").css("display", "none");
-	$('#unfold').css('display','block');
-	$("#video_div").removeClass("col-md-10");
-    $("#video_div").addClass("col-md-12");
-}
-/*strea.uk unfold*/
-let unfold=function(){
-	console.log('unfold');
-	$('#unfold').css('display','none');
-	$("#cht_div").css("display", "block");
-	$("#video_div").removeClass("col-md-12");
-    $("#video_div").addClass("col-md-10");
-}
+
 
 
