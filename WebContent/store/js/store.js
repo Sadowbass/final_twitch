@@ -94,13 +94,7 @@ store.wishList = function () {
 
 
 store.viewItem = function () {
-
     let param = $('#pidField').val();
-    //$('#frm_mm').serialize();
-/*    $.post('productDetail.str', param, function (data, state) {
-        parent.$.fancybox.close();
-        $('#sh_main').html(data);
-    });*/
     $.ajax({
         url: 'productDetail.str',
         data: {'pid': param},
@@ -109,7 +103,7 @@ store.viewItem = function () {
             console.log(error)
         },
         success: (data) => {
-            parent.$.fancybox.close();
+            document.getElementsByClassName("fancybox-close")[0].click();
             $('#sh_main').html(data);
         }
     })
@@ -134,12 +128,24 @@ store.checkout = function () {
 
 }
 
-store.pl = function () {
+store.pl = function (cate) {
+    cate = cate.toLowerCase();
+    cate = {'cate':cate};
 
-    $.post("productList.str", function (data, state) {
-        $('#sh_main').html(data)
-    });
+    /*    $.post("productList.sc", cate, function (data, state) {
+            $('#sh_main').html(data)
+        });*/
 
+    $.ajax({
+        url:"productList.sc",
+        data:cate,
+        error:(error)=>{
+            console.log(error)
+        },
+        success:(data)=>{
+            $('#sh_main').html(data)
+        }
+    })
 
 }
 
@@ -211,6 +217,7 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
     let fix1 = img.replace("[", "");
     let fix2 = fix1.replace("]", "");
     let arr = fix2.split(",");
+    let price = Number(retailprice).toLocaleString();
 
     function tt(strings, tArr) {
         var ttr;
@@ -241,8 +248,8 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                   <h2>${subject}</h2>
                   <div class="price-availability-block clearfix">
                     <div class="price">
-                      <strong><span>$</span>${saleprice}</strong>
-                      <em>$<span>${retailprice}</span></em>
+                      <strong><span>$</span>${price}</strong>
+                      <em>$<span>${price}</span></em>
                     </div>
                     <div class="availability">
                       Availability: <strong>In Stock</strong>

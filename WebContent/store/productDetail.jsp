@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -143,8 +144,8 @@
                             <h1>${vo.product_name}</h1>
                             <div class="price-availability-block clearfix">
                                 <div class="price">
-                                    <strong><span>$</span>${vo.product_price}</strong>
-                                    <em>$<span>${vo.product_price}</span></em>
+                                    <strong><span>$</span><fmt:formatNumber type="number" value="${vo.product_price}"/></strong>
+                                    <em>$<span><fmt:formatNumber type="number" value="${vo.product_price}"/></span></em>
                                 </div>
 
                             </div>
@@ -187,7 +188,7 @@
                         <div class="product-page-content">
                             <ul id="myTab" class="nav nav-tabs">
                                 <li id="test1"><a href="#Description" data-toggle="tab">Description</a></li>
-                                <li id="test2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews (2)</a></li>
+                                <li id="test2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews</a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div class="tab-pane fade" id="Description">

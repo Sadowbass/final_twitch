@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <!--
 Template: Metronic Frontend Freebie - Responsive HTML Template Based On Twitter Bootstrap 3.3.4
@@ -125,7 +125,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <!-- END CORE PLUGINS -->
 
     <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
-    <script src="./assets/plugins/fancybox/source/jquery.fancybox.pack.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script><!-- pop up -->
+    <script src="./assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script><!-- pop up -->
     <script src="./assets/plugins/owl.carousel/owl.carousel.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript">
  
     </script><!-- slider for products -->

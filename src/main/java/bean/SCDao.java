@@ -139,6 +139,13 @@ public class SCDao {
 		return list;
 	}
 
+	/*쇼핑몰 카테고리별 페이지*/
+	public List<ProductVo> productListControl(String cate){
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		list = sqlSession.selectList("store.mainpage_list_cate", cate);
+		return list;
+	}
+
 	/*쇼핑몰 상세페이지*/
 	public ProductVo productDetail(String pid){
 		ProductVo vo = new ProductVo();

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -129,7 +130,7 @@
                                     </div>
                                 </div>
                                 <h3><a href="shop-item.html">${i.product_name}</a></h3>
-                                <div class="pi-price">${i.product_price}원</div>
+                                <div class="pi-price"><fmt:formatNumber value="${i.product_price}" type="number"/>원</div>
                                 <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
                                 <div class="sticker sticker-sale"></div>
                             </div>

@@ -40,6 +40,19 @@
         order by p.PRODUCT_ID, PHOTO_SERIAL
     </select>
 
+    <!--카테고리별 상품목록-->
+    <select id="mainpage_list_cate" parameterType="String" resultType="bean.ProductVo">
+        select p.PRODUCT_ID product_id,
+               p.PRODUCT_PRICE product_price,
+               pp.SYSFILE sysfile,
+               p.PRODUCT_NAME product_name,
+               p.PRODUCT_EXPLAIN product_explain
+        from PRODUCT p
+                 join PRODUCT_PHOTO PP on p.PRODUCT_ID = PP.PRODUCT_ID
+        where lower(p.PRODUCT_CATE) like '%${value }%'
+        order by p.PRODUCT_ID, PHOTO_SERIAL
+    </select>
+
     <!--상품 상세보기-->
     <select id="detailView" parameterType="String" resultType="bean.ProductVo">
         select p.PRODUCT_ID product_id,
@@ -52,4 +65,5 @@
         where p.PRODUCT_ID = ${value }
         order by PHOTO_SERIAL
     </select>
+
 </mapper>
