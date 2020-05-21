@@ -24,9 +24,6 @@
 }
 
 .cht_send_uk {
-	position: absolute;
-	bottom: 30px;
-	right: 0px;
 	width: 100%;
 	overflow: auto;
 	background-color: #D1B2FF;
@@ -35,6 +32,13 @@
 	word-break: break-word;
 	overflow-x:hidden;
 }
+.cht_send_arround_uk{
+	position: absolute;
+	bottom: 30px;
+	right: 0px;
+	width: 100%;
+}
+
 
 .cht_bottom_uk {
 	position: absolute;
