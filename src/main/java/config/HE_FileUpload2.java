@@ -19,7 +19,7 @@ import org.springframework.context.ApplicationContext;
 import bean.BroadCastingCateVo;
 import bean.MemberVo;
 
-public class HE_FileUpload {
+public class HE_FileUpload2 {
 	
 	HttpServletRequest req;
 	HttpServletResponse resp;
@@ -30,12 +30,12 @@ public class HE_FileUpload {
 	
 	int maxSize = 1024 * 1024 * 50;
 
-	public HE_FileUpload(HttpServletRequest req, HttpServletResponse resp) {
+	public HE_FileUpload2(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 		//File test = new File("admin/images/member_img/");
 		//System.out.println(test.getAbsolutePath());
-	    path = req.getSession().getServletContext().getRealPath("/img/user-photo/"); //가상서버 경로 
+	    path = req.getSession().getServletContext().getRealPath("/img/cate/"); //가상서버 경로 
 		System.out.println("사진 업로드 절대경로:"+path);
 	}
 
@@ -45,9 +45,8 @@ public class HE_FileUpload {
 		return flag;
 	}
 
-	public HttpServletRequest boardUploading() {
-		MemberVo vo = new MemberVo();
-
+	public BroadCastingCateVo boardUploading() {
+		BroadCastingCateVo vo = new BroadCastingCateVo();
 
 		DiskFileItemFactory factory = new DiskFileItemFactory(); // 아파치에 파일업로드를 하기위한 클래스
 		factory.setSizeThreshold(4096); // 파일 업로드할때 사용할 버퍼 메모리 크기
@@ -62,48 +61,16 @@ public class HE_FileUpload {
 			for (FileItem fi : list) {
 				String v = fi.getString("utf-8"); // 이건 value값
 				String k = fi.getFieldName(); // 입력 태그의 이름
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				if (fi.isFormField()) { // input type 인가?
 					switch (k) {
-					case "member_grade": // <input type = 'text' name='mId'/> 인가
-						vo.setMem_admin(v);
+					case "cate_name": // <input type = 'text' name='mId'/> 인가
+						vo.setCat_gname(v);
 						break;
-					case "member_introduce":
-						vo.setMem_profile(v);
+					case "cate_tags":
+						vo.setCat_genre(v);
 						break;
-					case "member_id":
-						vo.setMem_id(v);
-						vo.setPh_id(v);
-						break;
-					case "member_name":
-						vo.setMem_name(v);
-						break;
-					case "member_email":
-						vo.setMem_email(v);
-						break;
-					case "member_pwd":
-						vo.setMem_pwd(v);
-						break;
-					case "member_birth":
-						vo.setMem_birth(v);
-						break;
-					case "member_status":
-						vo.setMem_status(v);
-						break;
-					case "member_money":
-						vo.setMem_money(v);
-						break;
-					case "member_rdate":
-						vo.setMem_rDate(v);
-						break;
-					case "member_zcode":
-						vo.setMem_zcode(v);
-						break;
-					case "member_add1":
-						vo.setMem_add1(v);
-						break;
-					case "member_add2":
-						vo.setMem_add2(v);
+					case "cate_serial":
+						vo.setCat_serial(v);
 						break;
 					}
 			
@@ -111,9 +78,8 @@ public class HE_FileUpload {
 					if (fi.getSize() > 0) {
 						String f = fi.getName();
 						String sysfile = new Date().getTime() + "-" + f;
-						
-						vo.setPh_orifile(f);
-						vo.setPh_sysfile(sysfile);
+						vo.setCat_orifile(f);
+						vo.setCat_sysfile(sysfile);
 						
 						File file = new File(path + sysfile);
 						fi.write(file);
@@ -124,9 +90,8 @@ public class HE_FileUpload {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		req.setAttribute("vo", vo);
 
-		return req;
+		return vo;
 	}
 
 

@@ -111,9 +111,15 @@ public class HEDao {
 	}
 	
 	public void delFile(MemberVo vo,HttpServletRequest req) {
-		String path =  req.getSession().getServletContext().getRealPath("/img/user-photo/");
+		String path =  req.getSession().getServletContext().getRealPath("/img/user-photo/");//상대경로 -> 가상서버의 사진만 삭제
 		File f = new File(path + vo.getPh_sysfile());
 		if(f.exists()) f.delete();
+	}
+	public void delFile2(BroadCastingCateVo vo,HttpServletRequest req) {
+		String path =  req.getSession().getServletContext().getRealPath("/img/cate/");//상대경로 -> 가상서버의 사진만 삭제
+		File f = new File(path + vo.getCat_sysfile());
+		if(f.exists()) f.delete();
+		
 	}
 	
 	public String member_delete(String mid,HttpServletRequest req) {
@@ -163,6 +169,149 @@ public class HEDao {
 			ex.printStackTrace();
 		}finally {
 			return vo;
+		}
+		
+	}
+	
+	public String cate_delete(String serial,HttpServletRequest req) {
+		String msg = "dao 시작";
+		BroadCastingCateVo vo = new BroadCastingCateVo();
+		try {
+			vo = sqlSession.selectOne("cate.view",serial);
+			int cnt = sqlSession.delete("cate.delete", serial);
+			if(cnt<1) throw new Exception("삭제 중 오류 발생");
+			if(vo.getCat_sysfile() != null) {
+				 delFile2(vo,req);//파일 삭제
+			}
+			sqlSession.commit();
+			msg = "삭제 성공";
+			
+		}catch(Exception ex) {
+			sqlSession.rollback();
+			msg =ex.getMessage();
+			ex.printStackTrace();
+					
+		}finally {
+			return msg;
+		}
+	}
+	
+	public String cate_modify(BroadCastingCateVo vo,HttpServletRequest req) {
+		String msg = "dao 시작";
+		try {
+			//본문 글 수정 
+			int cnt = sqlSession.update("cate.update", vo);
+			if(cnt <1) {
+				throw new Exception("본문 글 수정 중 오류 발생");
+			}
+			
+			if(vo.getCat_sysfile() != null) {
+				BroadCastingCateVo delvo = sqlSession.selectOne("cate.ph_sysfile", vo);
+				if(delvo.getCat_sysfile() != null) {
+					//기존 사진이 있는 경우(수정)
+					int cnt2 =sqlSession.update("cate.ph_modify",vo);
+					if(cnt2<1) throw new Exception("첨부사진 수정 중 오류 발생");
+					//기존 사진 삭제
+					delFile2(delvo, req);
+					
+				}else {
+					//기존파일 없었는데 추가 
+					cnt = sqlSession.update("cate.ph_modify", vo);
+					if(cnt<1) throw new Exception("첨부사진 추가 중 오류 발생");
+					
+				}
+			}
+			
+			sqlSession.commit();
+			
+		}catch(Exception ex) {
+			msg = ex.getMessage();
+			ex.printStackTrace();
+			delFile2(vo, req);
+			sqlSession.rollback();
+		}finally {
+			return msg;
+		}
+		
+	}
+	
+	public String cate_insert(BroadCastingCateVo vo,HttpServletRequest req) {
+		String msg = "dao 시작";
+		try {
+		 int cnt = sqlSession.insert("cate.insert", vo);
+		 if(cnt<1) {
+			 throw new Exception("본문 저장중 오류 발생");
+		 }
+		 msg ="입력 성공";
+		 sqlSession.commit();
+		 
+		}catch(Exception ex) {
+			 ex.printStackTrace();
+			 msg = ex.getMessage();
+			 sqlSession.rollback();
+			 delFile2(vo, req);
+			
+		}finally {
+			return msg;
+		}
+		
+	}
+	
+	public List<TagVo> tag_select(){
+		List<TagVo> list =null;
+		try {
+			list = sqlSession.selectList("cate.tag_select");
+		}catch(Exception ex) { 
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<TagVo> tag_search(String findStr){
+		List<TagVo> list =null;
+		try {
+			list = sqlSession.selectList("cate.tag_search",findStr);
+		}catch(Exception ex) { 
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public String tag_delete(String serial) {
+		String msg = "dao 시작";
+		try {
+			int cnt = sqlSession.delete("cate.tag_delete", serial);
+			if(cnt<1) throw new Exception("삭제 중 오류 발생");
+			sqlSession.commit();
+			msg = "삭제 성공";
+		}catch(Exception ex) {
+			sqlSession.rollback();
+			msg =ex.getMessage();
+			ex.printStackTrace();
+		}finally {
+			return msg;
+		}
+	}
+	
+	public String tag_insert(String tn) {
+		String msg = "dao 시작";
+		try {
+		 int cnt = sqlSession.insert("cate.tag_insert", tn);
+		 if(cnt<1) {
+			 throw new Exception("본문 저장중 오류 발생");
+		 }
+		 msg ="입력 성공";
+		 sqlSession.commit();
+		 
+		}catch(Exception ex) {
+			 ex.printStackTrace();
+			 msg = ex.getMessage();
+			 sqlSession.rollback();
+			
+		}finally {
+			return msg;
 		}
 		
 	}

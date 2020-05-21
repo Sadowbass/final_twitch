@@ -62,18 +62,19 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 </div>
                 <div class="body">
                     <div class="row clearfix">
+                    <form name="he_form" id="he_form" method="post" enctype='multipart/form-data'>
                         <div class="col-lg-12 col-md-12  col-xs-12 category_insert">
-                            <img src="images/tft.PNG" class="img-rounded category_img" id="category_img">
+                            <img src='http://placehold.it/285x380' class="img-rounded category_img" id="category_img">
                             <div class="input-group category_name">
                                 <div>카테고리 이름</div>
                                 <div class="form-line">
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" class="form-control" placeholder="" name="cate_name">
                                 </div>
                                 <div>태그</div>
                                 <div class="form-group demo-tagsinput-area">
                                     <div class="form-line">
-                                        <input type="text" class="form-control" data-role="tagsinput"
-                                            value="Amsterdam,Washington,Sydney,Beijing,Cairo">
+                                        <input type="text" class="form-control" data-role="tagsinput" name="cate_tags"
+                                            value="">
                                     </div>
                                 </div>
                             </div>
@@ -86,12 +87,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </div>
                         <div class="row clearfix">
                             <div class="col-lg-12 col-sm-12 saveButton">
-                                <button type="button" class="btn waves-effect">
+                                <button type="button" class="btn waves-effect" onclick="cate_save()">
                                     <i class="material-icons">save</i>
                                     <span>SAVE</span>
                                 </button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -129,9 +131,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <!-- Bootstrap Tags Input Plugin Js -->
 <script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+<script src="js/stream.js"></script>
 <script>
-    let btn = document.getElementById('category_btn')
-    btn.onchange = function (event) {
+      
+	document.getElementById('category_btn').onchange = function (event) {
         let ele = event.srcElement;
         let url = ele.files[0];
         let reader = new FileReader();
