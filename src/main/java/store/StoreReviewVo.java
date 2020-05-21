@@ -5,13 +5,14 @@ import java.util.List;
 
 public class StoreReviewVo {
 	
-    int rId;
-	String mId;
-	int pId;
-	String rSubject;
-	String rContent;
-	Double rLike;
-	Date rDate;
+    int rId; // 시리얼
+	String mId; // 댓글쓴 사람 아이디
+	int pId; // 상품 시리얼
+	String rSubject; // 리뷰 제목
+	String rContent; // 리뷰 내용
+	Double rLike; // 별점
+	Date rDate; // 등록일
+	
 	
 	//List<StoreReviewVo> list;
 	

@@ -38,11 +38,17 @@ cmh.init = function(){
 		},
 		success : function(data, xhr, status){
 			$('#mainContent').html(data);
-		}
-		
-	})
-	
+		}		
+	})	
 }
+
+cmh.reviewSelect = function(){
+	location.href="reviewSelect.mh";
+}
+
+
+
+
 
 cmh.func = function(){
 	

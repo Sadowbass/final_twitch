@@ -24,15 +24,31 @@ import bean.mh_Page;
 import oracle.ucp.jdbc.oracle.rlb.OracleDatabaseInstanceInfoList.INSTANCE_CATEGORY_FOR_DATA_AFFINITY;
 
 @Controller
-
 public class AdminController_mh {
 	
 	StoreMybatisDao_mh dao;
 	
-	
+	// 생성자
 	public AdminController_mh(StoreMybatisDao_mh dao) {
 		System.out.println("★★★★AdminController_mh 들어옴★★★★★★★");
 		this.dao = dao;
+	}
+	
+	@RequestMapping(value="*/reviewSelect.mh", produces="application/text; charset-utf8")
+	public String reviewSelect(Model model, String findStr, String nowPage) {
+		System.out.println("★★★controller->reviewSelect()★★★");
+		
+		mh_Page p = new mh_Page();
+		p.setFindStr(findStr);
+		
+		if(nowPage == null) {
+			p.setNowPage(1);
+		}else {
+			p.setNowPage(Integer.parseInt(nowPage));
+		}
+		
+		
+		return "review";
 	}
 	
 	@RequestMapping(value="*/productDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
