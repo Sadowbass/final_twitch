@@ -27,6 +27,10 @@ uk.stream=function(){
 		/*오른쪽*/
 		rightValue();
 	});
+	/*스크롤시*/
+	$(window).scroll(function(){
+		uk.minimization();
+	});
 
 	/*세줄 메뉴 클릭시*/
 	$("#sidebarToggle").click(function(e){
@@ -199,6 +203,27 @@ let WSclose=function(){
 	ws.close();
 }
 
+/*최소화 됐을때*/
+uk.minimization=function(){
+	let top=$(window).scrollTop();
+	let height=$("#mediaplayer").height();
+
+	if(top>height){
+		$("#mediaplayer").css({
+			position : 'fixed',
+			bottom : '20px',
+			left : '300px',
+			width : '350px',
+			height : '250px'
+		});
+	}else{
+		$("#mediaplayer").css({
+			position: 'static',
+			width :'100%',
+			height :''
+		});
+	}
+}
 
 
 

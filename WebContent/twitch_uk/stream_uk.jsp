@@ -38,6 +38,13 @@
 <script src="/js/custom.js"></script>
 <script src="/js/sc_custom.js"></script>
 <script src="/js/js_uk.js"></script>
+<style type="text/css">
+	@medai(max-width: 700px){
+		div:not(#mediaplayer,#chtArea,.cht_send_uk.cht_bottom_uk)
+	}
+
+}
+</style>
 </head>
 <body id="page-top">
 
@@ -133,6 +140,103 @@
 			<div class="p-3">
 				<div>카테고리: just Chatting</div>
 				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
+				<div>#리얼라이프</div>
 			</div>
 		</div>
 	</div>
@@ -143,7 +247,7 @@
 	</div>
 
 	<!-- 채팅화면 -->
-	<div class="cht_main_uk px-0" id="cht_div">
+	<div class="cht_main_uk px-0 " id="cht_div">
 		<jsp:include page="./cht_uk.jsp" />
 	</div>
 	<!-- Scroll to Top Button-->

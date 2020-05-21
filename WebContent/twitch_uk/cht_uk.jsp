@@ -15,11 +15,11 @@
 	<h1 id='statusBoard' class="text-center">도네이션 현황</h1>
 </div>
 <!-- 채팅창 -->
-<div class="chtArea" id="chtArea"></div>
-<div class="chtArea" id="userList" style="display: none;"></div>
+<div class="chtArea p-2" id="chtArea"></div>
+<div class="chtArea p-2" id="userList" style="display: none;"></div>
 
 <!-- 메세지보내기창 -->
-<div class="cht_send_uk" contenteditable="true"></div>
+<div class="cht_send_arround_uk p-2"><div class="cht_send_uk rounded-sm" contenteditable="true"></div></div>
 
 <!-- 설정 등 기타 -->
 <div class="cht_bottom_uk d-flex">
@@ -38,11 +38,10 @@
 <input type="hidden" id="session_id" value="${session_id }">
 <!-- 채팅방 입장할 로그인한 유저 아이디 -->
 <script>
-	$(document).ready(
-			function() {
-				uk.connectWS($('input#streamer_id').val(),
-						$('input#session_id').val());
-			});
+	$(document).ready(function() {
+		uk.connectWS($('input#streamer_id').val(),
+				$('input#session_id').val());
+	});
 </script>
 
 
