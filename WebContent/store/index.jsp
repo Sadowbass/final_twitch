@@ -82,7 +82,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
   <%
   request.setCharacterEncoding("utf-8");
 
-  String inc = "test.sc";
+  String inc = "mainPage.sc";
   if(request.getParameter("inc") != null){
 	   inc  = request.getParameter("inc");
   }
@@ -114,7 +114,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <!--[if lt IE 9]>
     <script src="./assets/plugins/respond.min.js?ver=<%=System.currentTimeMillis() %>"></script>  
     <![endif]-->
-    <!--  <script src="./lib/jquery-3.4.1.js?ver=<%=System.currentTimeMillis() %>"></script>  -->
+    <%--<script src="./lib/jquery-3.4.1.js?ver=<%=System.currentTimeMillis() %>"></script>--%>
     <script src="./assets/plugins/jquery.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript">
   
     </script>

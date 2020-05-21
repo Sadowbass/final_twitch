@@ -8,6 +8,7 @@ public class ProductVo {
     private String product_price;
     private String sysfile;
     private String product_name;
+    private String product_explain;
     private List<String> sysfileList;
 
     public ProductVo() {
@@ -52,6 +53,14 @@ public class ProductVo {
 
     public void setProduct_name(String product_name) {
         this.product_name = product_name;
+    }
+
+    public String getProduct_explain() {
+        return product_explain;
+    }
+
+    public void setProduct_explain(String product_explain) {
+        this.product_explain = product_explain;
     }
 
     @Override

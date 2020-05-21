@@ -8,9 +8,9 @@
 	<!-- 상품 등록 -->
 	<insert id='product_insert' parameterType='bean.ProductVo_mh'>
 		insert into
-		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size,product_state)
+		product(product_id,product_name,product_explain,product_price,product_cate,product_count,product_size)
 		values(seq_product.nextval, #{product_name}, #{product_explain},
-		${product_price}, #{product_cate}, ${product_count},#{product_size},0)
+		${product_price}, #{product_cate}, ${product_count},#{product_size})
 	</insert>
 	
 	<!-- 사진등록 -->

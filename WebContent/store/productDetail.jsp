@@ -124,31 +124,32 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="product-main-image">
-                                <img src="assets/pages/img/products/model7.jpg" alt="Cool green dress with red bell"
-                                     class="img-responsive" data-BigImgsrc="assets/pages/img/products/model7.jpg">
+                                <img src="/admin/admin_pages/product_photo/${vo.sysfileList[0]}" alt="sysfilelist[0]"
+                                     class="img-responsive" data-BigImgsrc="/admin/admin_pages/product_photo/${vo.sysfileList[0]}">
                             </div>
                             <div class="product-other-images">
-                                <a href="assets/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img
-                                        alt="Berry Lace Dress" src="assets/pages/img/products/model3.jpg"></a>
-                                <a href="assets/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img
-                                        alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
-                                <a href="assets/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img
-                                        alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>
+                                <c:forEach items="${vo.sysfileList}" var="i" varStatus="status">
+                                    <c:choose>
+                                        <c:when test="${status.first == true}"></c:when>
+                                        <c:otherwise>
+                                            <a href="/admin/admin_pages/product_photo/${i}" class="fancybox-button" rel="photos-lib"><img
+                                                    alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${i}"></a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
-                            <h1>Cool green dress with red bell</h1>
+                            <h1>${vo.product_name}</h1>
                             <div class="price-availability-block clearfix">
                                 <div class="price">
-                                    <strong><span>$</span>47.00</strong>
-                                    <em>$<span>62.00</span></em>
+                                    <strong><span>$</span>${vo.product_price}</strong>
+                                    <em>$<span>${vo.product_price}</span></em>
                                 </div>
 
                             </div>
                             <div class="description">
-                                <p>Lorem ipsum dolor ut sit ame dolore adipiscing elit, sed nonumy nibh sed euismod
-                                    laoreet dolore magna aliquarm erat volutpat
-                                    Nostrud duis molestie at dolore.</p>
+                                <p>${vo.product_explain}</p>
                             </div>
                             <div class="product-page-options">
                                 <div class="pull-left">
@@ -190,13 +191,7 @@
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div class="tab-pane fade" id="Description">
-                                    <p>Lorem ipsum dolor ut sit ame dolore adipiscing elit, sed sit nonumy nibh sed
-                                        euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at
-                                        dolore. Lorem ipsum dolor ut sit ame dolore adipiscing elit, sed sit nonumy nibh
-                                        sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis
-                                        molestie at dolore. Lorem ipsum dolor ut sit ame dolore adipiscing elit, sed sit
-                                        nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud
-                                        duis molestie at dolore. </p>
+                                    <p>${vo.product_explain}</p>
                                 </div>
 
                                 <div class="tab-pane fade in active" id="Reviews">

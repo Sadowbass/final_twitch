@@ -125,7 +125,7 @@
                                         <a href="/admin/admin_pages/product_photo/${i.sysfile}"
                                            class="btn btn-default fancybox-button">Zoom</a>
                                         <a href="#product-pop-up" class="btn btn-default fancybox-fast-view"
-                                           onclick="test('${i.product_name}','${i.product_price}','${i.product_price}','${i.product_name}','${i.sysfileList}')">View</a>
+                                           onclick="detailView('${i.product_id}','${i.product_name}','${i.product_price}','${i.product_price}','${i.product_explain}','${i.sysfileList}')">View</a>
                                     </div>
                                 </div>
                                 <h3><a href="shop-item.html">${i.product_name}</a></h3>
@@ -242,6 +242,5 @@
     </div>
 </div>
 <!-- END STEPS -->
-
 </body>
 </html>

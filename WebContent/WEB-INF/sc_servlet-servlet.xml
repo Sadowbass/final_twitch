@@ -21,7 +21,7 @@
 	<!--controller -->
 	<bean id="sc_controller" class="controller.SCController">
 	</bean>
-	<bean id="test_controller" class="controller.TestController">
+	<bean id="test_controller" class="controller.SCStoreController">
 	</bean>
 
 	<!-- view resolver -->

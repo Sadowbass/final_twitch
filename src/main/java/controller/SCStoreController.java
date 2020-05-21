@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class TestController {
+public class SCStoreController {
 
-    @RequestMapping(value = "/store/test.sc", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/store/mainPage.sc", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public ModelAndView listControl() {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
@@ -30,16 +30,18 @@ public class TestController {
         for (ProductVo temp : list) {
             if (vo.getProduct_id() == null) {
                 vo = temp;
+                vo.setProduct_explain(vo.getProduct_explain().replace("\n", "").replace("\r","<br/>"));
                 vo.getSysfileList().add(temp.getSysfile());
             } else if (!vo.getProduct_id().equals(temp.getProduct_id())) {
                 result.add(vo);
                 vo = temp;
+                vo.setProduct_explain(vo.getProduct_explain().replace("\n", "").replace("\r","<br/>"));
                 vo.getSysfileList().add(temp.getSysfile());
             } else {
                 vo.getSysfileList().add(temp.getSysfile());
             }
         }
-
+        result.add(vo);
         mv.addObject("result", result);
         mv.setViewName("mainPage");
 

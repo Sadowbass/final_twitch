@@ -95,12 +95,24 @@ store.wishList = function () {
 
 store.viewItem = function () {
 
-    let param = null;
+    let param = $('#pidField').val();
     //$('#frm_mm').serialize();
-    $.post('productDetail.str', param, function (data, state) {
+/*    $.post('productDetail.str', param, function (data, state) {
         parent.$.fancybox.close();
         $('#sh_main').html(data);
-    });
+    });*/
+    $.ajax({
+        url: 'productDetail.str',
+        data: {'pid': param},
+        type: 'post',
+        error: (error) => {
+            console.log(error)
+        },
+        success: (data) => {
+            parent.$.fancybox.close();
+            $('#sh_main').html(data);
+        }
+    })
 
 
 }
@@ -137,7 +149,6 @@ store.rInsert = function () {
     let fd = new FormData($('#frm_store')[0]);
 
     $.ajax({
-
         url: 'reviewInsert.str',
         type: 'post',
         data: fd,
@@ -156,9 +167,7 @@ store.rInsert = function () {
 
 }
 
-
 store.rSelect = function () {
-
     //console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
     //let param = $('#frm_review').serialize();
     $.post('reviewSelect.str', function (data, state) {
@@ -197,18 +206,18 @@ store.rSelect = function () {
     });
 }
 
-
-let test = function (subject, retailprice, saleprice, content, img) {
-    let fix1 = img.replace("[","");
-    let fix2 = fix1.replace("]","");
+/*상품 view클릭시 팝업 메소드*/
+let detailView = function (pid, subject, retailprice, saleprice, content, img) {
+    let fix1 = img.replace("[", "");
+    let fix2 = fix1.replace("]", "");
     let arr = fix2.split(",");
 
-    function tt(strings, tArr){
+    function tt(strings, tArr) {
         var ttr;
         var str1 = strings[0];
         var str2 = strings[1];
 
-        if(tArr === undefined){
+        if (tArr === undefined) {
             ttr = "";
             return ttr;
         } else {
@@ -222,11 +231,11 @@ let test = function (subject, retailprice, saleprice, content, img) {
                   <div class="product-main-image">
                     <img src="/admin/admin_pages/product_photo/${arr[0]}" alt="Cool green dress with red bell" class="img-responsive">
                   </div>
-                  <div class="product-other-images">`+
-                    tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[1]}"></a>`+
-                    tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[2]}"></a>`+
-                    tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[3]}"></a>`+
-                  `</div>
+                  <div class="product-other-images">` +
+        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[1]}"></a>` +
+        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[2]}"></a>` +
+        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[3]}"></a>` +
+        `</div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-9">
                   <h2>${subject}</h2>
@@ -258,10 +267,18 @@ let test = function (subject, retailprice, saleprice, content, img) {
                     <button onclick="store.viewItem()" class="btn btn-default">More details</button>
                   </div>
                 </div>
-
+                <input type="hidden" name="pid" id="pidField" value="${pid}">
                 <div class="sticker sticker-sale"></div>
               </div>
             </div>`
 
     $('#product-pop-up').html(result);
+    reload_js('./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js');
+    Layout.initTouchspin();
 }
+
+function reload_js(src) {
+    $('script[src="' + src + '"]').remove();
+    $('<script>').attr('src', src).appendTo('head');
+}
+

@@ -157,14 +157,11 @@
                     <button onclick="store.viewItem()" class="btn btn-default">More details</button>
                   </div>
                 </div>
-
+                <input type="hidden" name="pid" id="pidField" value="">
                 <div class="sticker sticker-sale"></div>
               </div>
             </div>
     </div>
     <!-- END fast view of a product -->
-  
-	
-
 </body>
 </html>

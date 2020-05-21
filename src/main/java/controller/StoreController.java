@@ -10,6 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.ProductVo;
+import bean.SCDao;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,15 +61,14 @@ public class StoreController {
 
     @RequestMapping(value="/store/productDetail.str", method={ RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView productView(HttpServletRequest req) {
-    	System.out.println("pd.....");
-		
     	ModelAndView mv = new ModelAndView();
-    	
-    	//System.out.println(mv);
+		SCDao dao = new SCDao();
+		String pId = req.getParameter("pid");
+
+		ProductVo vo = dao.productDetail(pId);
+		vo.setProduct_explain(vo.getProduct_explain().replace("\n","").replace("\r","<br/>"));
+		mv.addObject("vo",vo);
 		mv.setViewName("productDetail");
-		
-	 	System.out.println(req.getRequestURI());
-		
     	return mv;
     }
 	

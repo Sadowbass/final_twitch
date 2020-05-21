@@ -132,10 +132,26 @@ public class SCDao {
 		return list;
 	}
 
+	/*쇼핑몰 메인페이지*/
 	public List<ProductVo> productListControl(){
 		List<ProductVo> list = new ArrayList<ProductVo>();
-		list = sqlSession.selectList("store.test");
+		list = sqlSession.selectList("store.mainpage_list");
 		return list;
+	}
+
+	/*쇼핑몰 상세페이지*/
+	public ProductVo productDetail(String pid){
+		ProductVo vo = new ProductVo();
+		List<ProductVo> list = new ArrayList<ProductVo>();
+		list = sqlSession.selectList("store.detailView",pid);
+		for( ProductVo temp : list){
+			vo.setProduct_id(temp.getProduct_id());
+			vo.setProduct_explain(temp.getProduct_explain());
+			vo.setProduct_name(temp.getProduct_name());
+			vo.setProduct_price(temp.getProduct_price());
+			vo.getSysfileList().add(temp.getSysfile());
+		}
+		return vo;
 	}
 
 }
