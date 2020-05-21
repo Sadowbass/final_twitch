@@ -3,11 +3,11 @@
 <!-- top -->
 <div class="d-flex justify-content-between" style="width: 100%">
 	<div>
-		<i class="fas fa-sign-in-alt fa-2x" onclick='fold()'></i>
+		<button class="btn" type="button"><i class="fas fa-sign-in-alt fa-2x" onclick='uk.fold()'></i></button>
 	</div>
 	<div class="text-center">생방송 채팅</div>
 	<div>
-		<i class="fas fa-user-circle fa-2x" onclick='usersOrcht()'></i>
+		<button class="btn" type="button"><i class="fas fa-user-circle fa-2x" onclick='uk.usersOrcht()'></i></button>
 	</div>
 </div>
 <!-- satus -->
@@ -19,18 +19,24 @@
 <div class="chtArea p-2" id="userList" style="display: none;"></div>
 
 <!-- 메세지보내기창 -->
-<div class="cht_send_arround_uk p-2"><div class="cht_send_uk rounded-sm" contenteditable="true"></div></div>
+<div class="cht_send_surround_uk p-2"><div class="cht_send_uk rounded" contenteditable="true"></div></div>
 
 <!-- 설정 등 기타 -->
 <div class="cht_bottom_uk d-flex">
-	<div class="mr-auto py-2 px-3">
-		<i class="fas fa-cog"></i>
+	<div class="mr-auto py-2 px-3 dropup">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" ></i></button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+   			<a class="dropdown-item" href="#">Action</a>
+    		<a class="dropdown-item" href="#">Another action</a>
+    		<a class="dropdown-item" href="#">Something else here</a>
+ 		 </div>
+
 	</div>
 	<div class="p-2">
-		<i class="far fa-smile"></i>
+		<button class="btn" type="button"><i class="far fa-smile"></i></button>
 	</div>
-	<div class="py-2 px-4" onclick="WSsend()">
-		<a href='#'> <i class="far fa-paper-plane"></i>	</a>
+	<div class="py-2 px-4" onclick="uk.WSsend()">
+		<a href='#'> <button class="btn" type="button"><i class="far fa-paper-plane"></i></button> </a>
 	</div>
 </div>
 <input type="hidden" id="streamer_id" value="${vo.mem_Id }">

@@ -104,17 +104,17 @@
 			<div class="d-flex flex-row-reverse">
 				<div class="text-right py-1 pl-1 pr-3" id="follow">
 					<div class="channels-card-image-btn">
-						<button type="button" class="btn btn-outline-secondary btn-sm">
-							<strong> <i class="far fa-heart"></i>
-							</strong> 팔로우
+						<button type="button" class="btn btn-outline-danger btn">
+							<strong> <i class="far fa-heart"></i></strong>
+							팔로우
 						</button>
 					</div>
 				</div>
 				<div class="text-right p-1">
 					<div class="channels-card-image-btn">
-						<button type="button" class="btn btn-outline-secondary btn-sm">
-							<strong> <i class="far fa-star"></i>
-							</strong> 구독
+						<button type="button" class="btn btn-outline-danger btn">
+							<strong> <i class="far fa-star"></i></strong>
+							구독
 						</button>
 					</div>
 				</div>
@@ -129,10 +129,12 @@
 			<div class="p-3">방송 제목</div>
 			<div class="p-3">${vo.air_subject}</div>
 			<div class="ml-auto">
-				<i class="far fa-user p-1"></i> <span class="pr-2" id='totalUserCnt'></span>
-				<i class="fas fa-eye p-1"></i>	<span class="pr-2" id='accArea'></span>
-				<i class="fas fa-share-alt p-2"></i>
-				<i class="fas fa-ellipsis-v pl-2 pr-4"></i>
+				<button class="btn" type="button"><i class="far fa-user p-1"></i></button>
+				<span class="pr-2" id='totalUserCnt'></span>
+				<button class="btn" type="button"><i class="fas fa-eye p-1"></i></button>
+				<span class="pr-2" id='accArea'></span>
+				<button class="btn" type="button"><i class="fas fa-share-alt p-2"></i></button>
+				<button class="btn" type="button"><i class="fas fa-ellipsis-v pl-2 pr-4"></i></button>
 			</div>
 		</div>
 		<div class="d-flex flex-row">
@@ -242,8 +244,8 @@
 	</div>
 
 	<!-- 펼치기 -->
-	<div class='unfold mr-1' id='unfold' onclick='unfold()'>
-		<i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1'></i>
+	<div class='unfold mr-1' id='unfold' onclick='uk.unfold()'>
+		<button class="btn" type="button"><i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1'></i></button>
 	</div>
 
 	<!-- 채팅화면 -->

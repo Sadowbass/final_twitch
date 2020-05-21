@@ -18,32 +18,24 @@ uk.stream=function(){
 		}
 	});
 
-	rightValue();
+	uk.rightValue();
 
 	/* 브라우저 크기 발뀔시 */
 	$(window).resize(function() {
 		/*왼쪽*/
-		leftValue();
+		uk.leftValue();
 		/*오른쪽*/
-		rightValue();
+		uk.rightValue();
 	});
 	/*스크롤시*/
 	$(window).scroll(function(){
 		uk.minimization();
 	});
 
-	/*세줄 메뉴 클릭시*/
-	$("#sidebarToggle").click(function(e){
-		 e.preventDefault();
-		 $("body").toggleClass("sidebar-toggled");
-		 $(".sidebar").toggleClass("toggled");
-		 leftValue();
-	});
-
 }
 
 /*유저목록이랑 채팅창 변경*/
-let usersOrcht=function(){
+uk.usersOrcht=function(){
 	if($('div#chtArea').css('display')=='block'){
 		$('#statusBoard').html('유저 목록('+loginUserCnt+')');
 		$('div#chtArea').css('display','none');
@@ -56,30 +48,30 @@ let usersOrcht=function(){
 }
 
 /*strea.uk fold*/
-let fold=function(){
+uk.fold=function(){
 	$("#cht_div").css("display", "none");
 	$('#unfold').css('display','block');
 	$("#video_div").removeClass("col-md-10");
     $("#video_div").addClass("col-md-12");
-    rightValue();
+    uk.rightValue();
 }
 /*strea.uk unfold*/
-let unfold=function(){
+uk.unfold=function(){
 	$('#unfold').css('display','none');
 	$("#cht_div").css("display", "block");
 	$("#video_div").removeClass("col-md-12");
     $("#video_div").addClass("col-md-10");
-    rightValue();
+    uk.rightValue();
 }
 
 /*왼쪽*/
-let leftValue=function(){
+uk.leftValue=function(){
 	let left = $('#sidebar-navmain').width();
 	$(".video_main_uk").css('padding-left', left + 'px');
 }
 
 /* 오른쪽*/
-let rightValue=function(){
+uk.rightValue=function(){
 
 	let right=0;
 
@@ -167,7 +159,7 @@ uk.connectWS=function(streamer, login){
 	$('div[contenteditable]').keydown(function(e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				WSsend();
+				uk.WSsend();
 				return false;
 			}
 		}
@@ -176,7 +168,7 @@ uk.connectWS=function(streamer, login){
 	$('input#sendArea').keydown(function(e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				WSsend();
+				uk.WSsend();
 				return false;
 			}
 		}
@@ -184,7 +176,7 @@ uk.connectWS=function(streamer, login){
 
 }
 /*socket 전송 메소드*/
-let WSsend=function(){
+uk.WSsend=function(){
 
 	  /*내꺼 전송*/
 	  if(ws.readyState===1 && loginId && $('div[contenteditable]').html()){
@@ -199,7 +191,7 @@ let WSsend=function(){
 
 }
 /*socket close 메소드*/
-let WSclose=function(){
+uk.WSclose=function(){
 	ws.close();
 }
 

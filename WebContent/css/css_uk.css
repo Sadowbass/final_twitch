@@ -32,9 +32,9 @@
 	word-break: break-word;
 	overflow-x:hidden;
 }
-.cht_send_arround_uk{
+.cht_send_surround_uk{
 	position: absolute;
-	bottom: 30px;
+	bottom: 40px;
 	right: 0px;
 	width: 100%;
 }
