@@ -21,6 +21,29 @@ public class StoreMybatisDao_mh {
 		System.out.println("★★★★★ 민호 DAO들어옴★★★★★");
 	}
 	
+	
+	
+	public List<MH_ReviewVo> reviewSelect(mh_Page p){
+		List<MH_ReviewVo> list = null;
+		
+		try {
+			int cnt = sqlSession.selectOne("storeAdmin.reviewCount",p);
+			System.out.println("cnt : " +cnt);
+			
+			p.setTotListSize(cnt);
+			p.pageCompute();
+			
+			list = sqlSession.selectList("storeAdmin.reviewSelect",p);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+	
 	public String delete(String value) {
 		String msg="";
 		int product_id = Integer.parseInt(value);

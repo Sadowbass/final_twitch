@@ -1,5 +1,6 @@
 package store;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +14,7 @@ public class StoreReviewVo {
 	Double rLike; // 별점
 	Date rDate; // 등록일
 	
-	
-	//List<StoreReviewVo> list;
+	List<StoreReviewVo> list = new ArrayList<StoreReviewVo>(); // 사진 리스트
 	
 	
 	public StoreReviewVo(String mId, int pId, String rSubject, String rContent, Double rLike) {
@@ -28,6 +28,18 @@ public class StoreReviewVo {
 	
 	
 	
+	public List<StoreReviewVo> getList() {
+		return list;
+	}
+
+
+
+	public void setList(List<StoreReviewVo> list) {
+		this.list = list;
+	}
+
+
+
 	public int getrId() {
 		return rId;
 	}

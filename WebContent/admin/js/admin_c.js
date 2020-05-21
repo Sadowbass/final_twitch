@@ -30,7 +30,8 @@ var cmh = {}
 cmh.init = function(){
 	/*location.href="test.mh";*/
 	/*location.href="index.jsp?inc=admin_pages/shop/product_select.jsp";*/
-	$.ajax({
+	location.href="product_select.mh";
+	/*$.ajax({
 		url : "product_select.mh",
 		type : "get",
 		error : function(xhr,status,error){
@@ -39,16 +40,16 @@ cmh.init = function(){
 		success : function(data, xhr, status){
 			$('#mainContent').html(data);
 		}		
-	})	
+	})	*/
 }
 
 cmh.reviewSelect = function(){
 	location.href="reviewSelect.mh";
 }
 
-
-
-
+cmh.review_view = function(){
+	location.href="reviewView.mh";
+}
 
 cmh.func = function(){
 	

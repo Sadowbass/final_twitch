@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import bean.MH_ReviewVo;
 import bean.ProductPhotoUpload_mh;
 import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
@@ -34,6 +35,12 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="*/reviewView.mh", produces="application/text; charset-utf8")
+	public String reviewView() {
+		
+		return "review_detail";
+	}
+	
 	@RequestMapping(value="*/reviewSelect.mh", produces="application/text; charset-utf8")
 	public String reviewSelect(Model model, String findStr, String nowPage) {
 		System.out.println("★★★controller->reviewSelect()★★★");
@@ -47,6 +54,10 @@ public class AdminController_mh {
 			p.setNowPage(Integer.parseInt(nowPage));
 		}
 		
+		List<MH_ReviewVo> list = dao.reviewSelect(p);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("p",p);
 		
 		return "review";
 	}
@@ -154,10 +165,6 @@ public class AdminController_mh {
 		System.out.println("컨트롤러에서 msg : "+msg);
 		return msg;
 	}
-	
-	
-	
-	
 	
 	@ResponseBody
 	@RequestMapping(value="*/test.mh", method= {RequestMethod.GET, RequestMethod.POST},produces="application/text; charset=utf8")

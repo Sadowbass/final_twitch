@@ -6,6 +6,46 @@
 <mapper namespace="storeAdmin">
 	
 	
+	
+	<resultMap id="reviewSelect_map" type="bean.MH_ReviewVo">
+		<result column="review_id" property="review_id" />
+		<result column="mem_id" property="mem_id" />
+		<result column="product_id" property="product_id" />
+		<result column="rSubject" property="rSubject" />
+		<result column="rContent" property="rContent" />
+		<result column="review_like" property="review_like" />
+		<result column="review_date" property="review_date" />
+		<result column="product_name" property="product_name" />
+		<collection property="photos" javaType="bean.MH_ReviewPhoto">
+			<result column="review_pid" property="review_pid" />
+			<result column="review_id" property="review_id" />
+			<result column="image1" property="image1" />
+			<result column="image2" property="image2" />	
+			<result column="rp_date" property="rp_date" />
+		</collection>
+		
+	</resultMap>
+	
+	
+	<select id="reviewSelect" parameterType="bean.mh_Page" resultMap="reviewSelect_map">	
+		select * 
+		from (select rownum rno, a.* 
+		from (select row_number() over(partition by r.REVIEW_ID order by review_pid asc) as rnum, r.review_Id ,mem_id, p.PRODUCT_ID,RSUBJECT,RCONTENT,REVIEW_LIKE,REVIEW_DATE, review_pid, image1, image2, rp_date, product_name
+		FROM review r left outer join review_photo rp
+		ON r.review_id = rp.review_id
+		inner join product p
+		on p.product_id = r.product_id
+		where mem_id like '%%' or RSUBJECT like '%${findStr}%')a
+		where rnum=1)
+		where rno BETWEEN ${startNo} and ${endNo}
+	</select>
+	
+	<select id="reviewCount" parameterType="bean.mh_Page" resultType="Integer">
+		select count(review_id)
+		from review
+		where mem_id like '%${findStr}%' or rsubject like '%${findStr}%'
+	</select>
+	
 	<delete id="product_delete" parameterType="Integer">
 		delete from product where product_id=${_parameter}
 	</delete>
