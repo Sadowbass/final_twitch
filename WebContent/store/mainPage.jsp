@@ -7,6 +7,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <style>
+        h3 {
+            height: 33px;
+        }
+
+        h3 > a {
+            height: 100%;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
 

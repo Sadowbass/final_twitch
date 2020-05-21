@@ -170,7 +170,7 @@
                                     </div>
                                 </div>
                                 <h3><a href="shop-item.html">${i.product_name}</a></h3>
-                                <div class="pi-price"><fmt:formatNumber value="${i.product_price}" type="number"/> </div>
+                                <div class="pi-price"><fmt:formatNumber value="${i.product_price}" type="number"/>원</div>
                                 <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
                             </div>
                         </div>

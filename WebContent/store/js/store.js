@@ -248,8 +248,8 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                   <h2>${subject}</h2>
                   <div class="price-availability-block clearfix">
                     <div class="price">
-                      <strong><span>$</span>${price}</strong>
-                      <em>$<span>${price}</span></em>
+                      <strong>${price}<span>원</span></strong>
+                      <em><span>${price}</span>원</em>
                     </div>
                     <div class="availability">
                       Availability: <strong>In Stock</strong>
