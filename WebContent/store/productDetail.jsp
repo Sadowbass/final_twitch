@@ -198,7 +198,7 @@
                 <div class="product-page-content">
                   <ul id="myTab" class="nav nav-tabs">
                     <li id="item1"><a href="#Description"  data-toggle="tab">Description</a></li>
-                    <li id="item2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews (2)</a></li>
+                    <li id="item2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews</a></li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">
@@ -282,7 +282,7 @@
                           </div>
                         </div>
 
-                        <div class="product-page-content">
+                        <%--<div class="product-page-content">
                             <ul id="myTab" class="nav nav-tabs">
                                 <li id="test1"><a href="#Description" data-toggle="tab">Description</a></li>
                                 <li id="test2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews</a></li>
@@ -355,14 +355,12 @@
                                 </form>
                                 <!-- END FORM-->
                             </div>
-                        </div>
+                        </div>--%>
                         <input type="hidden" id="pId" name="pId" value=101>
                        
                       </form>
                       <!-- END FORM--> 
                     </div>
-
-                    <div class="sticker sticker-sale"></div>
                 </div>
             </div>
         </div>
@@ -384,6 +382,7 @@
 	                }
 	            } 
 	        });
+        Layout.initImageZoom();
 	});
     
 	function handleImages(e){	

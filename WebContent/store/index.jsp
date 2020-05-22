@@ -39,6 +39,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
 
   <link rel="shortcut icon" href="../img/favicon.png">
 
+
   <!-- Fonts START -->
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->  
@@ -115,9 +116,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <script src="./assets/plugins/respond.min.js?ver=<%=System.currentTimeMillis() %>"></script>  
     <![endif]-->
     <%--<script src="./lib/jquery-3.4.1.js?ver=<%=System.currentTimeMillis() %>"></script>--%>
-    <script src="./assets/plugins/jquery.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript">
-  
-    </script>
+    <script src="./assets/plugins/jquery.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
     <script src="./assets/plugins/jquery-migrate.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
     <script src="./assets/plugins/bootstrap/js/bootstrap.min.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>      
     <script src="./assets/corporate/scripts/back-to-top.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
@@ -140,7 +139,7 @@ Purchase Premium Metronic Admin Theme: http://themeforest.net/item/metronic-resp
     <script type="text/javascript">
         //jQuery.noConflict();
         jQuery(document).ready(function() {
-            Layout.init();    
+            Layout.init();
             Layout.initOWL();
             Layout.initImageZoom();
             Layout.initTouchspin();
