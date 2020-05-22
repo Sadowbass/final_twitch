@@ -222,11 +222,13 @@ store.rSelect = function(){
             rLike.setAttribute('data-rateit-value', temp.review_like);
             rLike.setAttribute('data-rateit-ispreset', true);
             rLike.setAttribute('data-rateit-readonly', true);
+            
             var btnReviewD = document.createElement('INPUT');
             btnReviewD.setAttribute('type', 'button');
             btnReviewD.setAttribute('class', 'btn_review_delete');
             btnReviewD.setAttribute('value', 'X');
             btnReviewD.setAttribute('onclick', 'store.reviewDelete()');
+            
             let ric = document.createElement('div');
             ric.className="review-item-content";
             let ricp = document.createElement('p');
@@ -255,6 +257,7 @@ store.rSelect = function(){
             divSubmitted.appendChild(title);
             divSubmitted.appendChild(rdate);
             divSubmitted.appendChild(rLike);
+            divSubmitted.appendChild(btnReviewD);
             
             divClearfix.appendChild(divSubmitted);
             divClearfix.appendChild(ric);
