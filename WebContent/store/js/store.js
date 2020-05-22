@@ -288,12 +288,12 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-3">
                   <div class="product-main-image">
-                    <img src="/admin/admin_pages/product_photo/${arr[0]}" alt="Cool green dress with red bell" class="img-responsive">
+                    <img src="/admin/admin_pages/product_photo/${arr[0]}" alt="Cool green dress with red bell" class="img-responsive" id="mainImg">
                   </div>
                   <div class="product-other-images">` +
-        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[1]}"></a>` +
-        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[2]}"></a>` +
-        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[3]}"></a>` +
+        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[1]}" onclick="zoomImgChange(this)"></a>` +
+        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[2]}" onclick="zoomImgChange(this)"></a>` +
+        tt`<a href="javascript:;" ><img alt="Berry Lace Dress" src="/admin/admin_pages/product_photo/${arr[3]}" onclick="zoomImgChange(this)"></a>` +
         `</div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-9">
@@ -334,6 +334,7 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
     $('#product-pop-up').html(result);
     reload_js('./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js');
     Layout.initTouchspin();
+    Layout.initImageZoom();
 }
 
 function reload_js(src) {
@@ -341,5 +342,15 @@ function reload_js(src) {
     $('<script>').attr('src', src).appendTo('head');
 }
 
+function zoomImgChange(val) {
+    let mainTag = document.getElementById("mainImg");
+    let mainSrc = mainTag.src;
+    let chgImg = val.src;
+    let zoomTag = document.getElementsByClassName("zoomImg")[0];
+    val.src = mainSrc;
+    mainTag.src = chgImg;
+    zoomTag.src = chgImg;
+    Layout.initImageZoom();
+}
 
 
