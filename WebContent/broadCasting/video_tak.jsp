@@ -29,15 +29,16 @@
 			aboutlink : "http://www.jhta.co.kr",
 
 			sources : [ {
-				file : "rtmp://192.168.0.77/hls/${sKey}",
+				file : "rtmp://192.168.0.32/hls/${sKey}",
 			}, {
-				file : "http://192.168.0.77:8845/hls/${sKey}.m3u8"
+				file : "http://192.168.0.32:8845/hls/${sKey}.m3u8"
 			} ]
 		});
 		
 		jwplayer().onSetupError(function() { 
 	        document.getElementById('mediaplayer').innerHTML = '<img src="../img/loding.png" width="100%"/>';
-	   });
+	   		//alert('wqdq');
+		});
 		
 		if($('#msgBroadCasting').val() == '입력성공'){
 			Swal.fire({

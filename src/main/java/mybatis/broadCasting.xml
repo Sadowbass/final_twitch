@@ -68,5 +68,12 @@
 	<delete id='deleteRoulette' parameterType = 'String'>
 		delete from FINAL_ROULETTE where rul_mId = #{_parameter}
 	</delete>
+	<update id='imageThumbnail' parameterType='hashMap'>
+		update FINAL_onair
+		SET 
+		air_thumbnail = #{path}
+		WHERE
+		air_mId = #{mId}
+	</update>
 </mapper>
    

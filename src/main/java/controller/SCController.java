@@ -1,6 +1,7 @@
 package controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
@@ -25,11 +26,16 @@ public class SCController {
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ModelAndView categories(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
+        String findStr = "";
+        if(req.getParameter("findTag") != null) {
+        	findStr = req.getParameter("findTag");
+        }
         SCDao dao = new SCDao();
-        List<CategoriesVo> list = dao.categories();
+        List<CategoriesVo> list = dao.categories(findStr);
 
         mv.addObject("URI", 0);
         mv.addObject("list", list);
+        mv.addObject("findChannel",findStr);
         mv.setViewName("categories");
 
         return mv;
@@ -41,23 +47,33 @@ public class SCController {
     public String categoryPaging(HttpServletRequest req) {
         Gson gson = new Gson();
         String rno = req.getParameter("rno");
+        String findStr = "";
+        if(req.getParameter("findTag") != null) {
+        	findStr = req.getParameter("findTag");
+        }
         SCDao dao = new SCDao();
-        List<CategoriesVo> list = dao.categories(rno);
+        List<CategoriesVo> list = dao.categories(rno,findStr);
         String result = gson.toJson(list);
         return result;
     }
 
     /*��諛⑹�≪��� 由ъ�ㅽ�� 遺��ъ�ㅺ린*/
-    @RequestMapping(value = "categories/all", method = RequestMethod.GET)
+    @RequestMapping(value = "categories/all", method = RequestMethod.GET) // 첫 검색
     public ModelAndView liveAll(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         List<StreamingVo> list = new ArrayList<StreamingVo>();
-        list = dao.allStreaming();
+        String findStr = "";
+        if(req.getParameter("findTag") != null) {
+        	findStr = req.getParameter("findTag");
+        }
+        list = dao.allStreaming(findStr);
 
         mv.addObject("URI", 1);
         mv.addObject("list", list);
+        mv.addObject("findChannel",findStr);
         mv.setViewName("/categories");
+     
 
         return mv;
     }
@@ -65,12 +81,19 @@ public class SCController {
     /*스트리밍 페이징*/
     @ResponseBody
     @RequestMapping(value = "/streamingPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-    public String streamingPaging(HttpServletRequest req) {
+    public String streamingPaging(HttpServletRequest req,HttpServletResponse resp) {
         Gson gson = new Gson();
         String rno = req.getParameter("rno");
+        String findStr = "";
+        if(req.getParameter("findTag") != null) {
+        	findStr = req.getParameter("findTag");
+        }
+        System.out.println("스트리밍페이지" + findStr);
         SCDao dao = new SCDao();
-        List<StreamingVo> list = dao.allStreaming(rno);
+        List<StreamingVo> list = dao.allStreaming(rno,findStr);
         String result = gson.toJson(list);
+        System.out.println(rno);
+        
         return result;
     }
 

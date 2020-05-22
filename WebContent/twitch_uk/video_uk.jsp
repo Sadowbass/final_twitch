@@ -33,4 +33,9 @@
 				file : "http://daum123.gonetis.com:8882/hls/${vo.mem_Skey}.m3u8"
 			} ]
 		});
+		
+		jwplayer().onIdle(function() { 
+	       
+	   		location.href = "test5";
+		});
 	</script>

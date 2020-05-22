@@ -79,10 +79,10 @@ public class SCDao {
 	}
 
 	/*移댄��怨�由� 紐⑸� ��蹂�*/
-	public List<CategoriesVo> categories(){
+	public List<CategoriesVo> categories(String findStr){
 		SCDao dao = new SCDao();
 		List<CategoriesVo> list = new ArrayList<CategoriesVo>();
-		list = sqlSession.selectList("scbatis.categories");
+		list = sqlSession.selectList("scbatis.categories",findStr);
 		for(int i = 0 ; i < list.size() ; i++){
 			List<String> temp = new ArrayList<String>();
 			String genre = list.get(i).getCat_genre();
@@ -100,10 +100,15 @@ public class SCDao {
 	}
 
 	/*移댄��怨�由� ���댁�(�ㅻ�濡���)*/
-	public List<CategoriesVo> categories(String rno){
+	public List<CategoriesVo> categories(String rno,String findStr){
 		SCDao dao = new SCDao();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		System.out.println(rno);
+		System.out.println(findStr);
+		map.put("rno", rno);
+		map.put("findStr", findStr);
 		List<CategoriesVo> list = new ArrayList<CategoriesVo>();
-		list = sqlSession.selectList("scbatis.categoryPaging", rno);
+		list = sqlSession.selectList("scbatis.categoryPaging", map);
 		for(int i = 0 ; i < list.size() ; i++){
 			List<String> temp = new ArrayList<String>();
 			String genre = list.get(i).getCat_genre();
@@ -121,15 +126,20 @@ public class SCDao {
 	}
 
 	/*��諛⑹�≪��� �ㅽ�몃━諛� ��蹂�*/
-	public List<StreamingVo> allStreaming(){
+	public List<StreamingVo> allStreaming(String findStr){
 		List<StreamingVo> list = new ArrayList<StreamingVo>();
-		list = sqlSession.selectList("scbatis.nowStreaming");
+		list = sqlSession.selectList("scbatis.nowStreaming",findStr);
 		return list;
 	}
 	/*��諛⑹�� ���댁�(�ㅻ�濡���)*/
-	public List<StreamingVo> allStreaming(String rno){
+	public List<StreamingVo> allStreaming(String rno,String findStr){
 		List<StreamingVo> list = new ArrayList<StreamingVo>();
-		list = sqlSession.selectList("scbatis.streamingPaging", rno);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rno", rno);
+		map.put("findStr", findStr);
+		
+		list = sqlSession.selectList("scbatis.streamingPaging", map);
 		return list;
 	}
 
