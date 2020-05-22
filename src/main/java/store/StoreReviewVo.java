@@ -14,7 +14,7 @@ public class StoreReviewVo {
 	Date review_date;
 	
 
-	List<StoreReviewPhotoVo> list;
+	List<StoreReviewPhotoVo> rpList;
 	
 
 
@@ -34,13 +34,16 @@ public class StoreReviewVo {
 	
 	
 
-	public List<StoreReviewPhotoVo> getList() {
-		return list;
+
+
+
+	public List<StoreReviewPhotoVo> getRpList() {
+		return rpList;
 	}
 
 
-	public void setList(List<StoreReviewPhotoVo> list) {
-		this.list = list;
+	public void setRpList(List<StoreReviewPhotoVo> rpList) {
+		this.rpList = rpList;
 	}
 
 

@@ -172,8 +172,7 @@ store.rInsert = function(){
 store.rSelect = function(){
 	
 	//console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
-	frm_review.product_id.value = product_id;
-	frm_review.review_id.value = review_id;
+	
 	
 	let param = $('#frm_review').serialize();
 	
@@ -186,6 +185,19 @@ store.rSelect = function(){
 		$('#item2').attr("class", "active");
 		
 		for(temp of data){
+			
+			let divPanelDef = document.createElement('div');
+			divPanelDef.className ="panel panel-default";
+			let divPanelHead = document.createElement('div');
+			divPanelHead.className ="panel-heading";
+			let divAccordTog = document.createElement('div');
+			divAccordTog.className ="accordion-toggle";
+			
+			divAccordTog.setAttribute('data-toggle',"collapse");
+			divAccordTog.setAttribute('data-parent',"#accordion1");
+			divAccordTog.setAttribute('data-target',"#accordion"+temp.review_id);
+			divAccordTog.setAttribute('aria-expanded',false);
+			
 			let divClearfix = document.createElement('div');
             divClearfix.className="review-item clearfix";
             let divSubmitted = document.createElement('div');
@@ -204,14 +216,42 @@ store.rSelect = function(){
             let ricp = document.createElement('p');
             ricp.innerText = temp.rContent;
             
+            let accord1 =document.createElement('div');
+            accord1.setAttribute('id', "accordion"+temp.review_id);
+            accord1.className ="panel-collapse collapse";
+            accord1.setAttribute('aria-expanded',false);
+            accord1.style.height = '0px';
+            
+            let panelBody = document.createElement('div');
+            
+            for(p of temp.rpList){
+            	let photo = document.createElement('div')
+            	photo.className ="imgs_wrap";
+            	let image = document.createElement('img');
+            	image.src = "./reviewimages/"+p.image1;
+            	
+            	photo.appendChild(image);
+            	panelBody.appendChild(photo);
+            	
+            }
+            
             ric.appendChild(ricp);
             divSubmitted.appendChild(title);
             divSubmitted.appendChild(rdate);
             divSubmitted.appendChild(rLike);
+            
             divClearfix.appendChild(divSubmitted);
             divClearfix.appendChild(ric);
             
-            $('#Reviews').append(divClearfix);
+            divAccordTog.appendChild(divClearfix);
+            divPanelHead.appendChild(divAccordTog);
+            
+            accord1.appendChild(panelBody);
+     
+            divPanelDef.appendChild(divPanelHead);
+            divPanelDef.appendChild(accord1);
+            
+            $('#Reviews').append(divPanelDef);
             
 		}
 

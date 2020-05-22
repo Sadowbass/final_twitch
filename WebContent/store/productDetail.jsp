@@ -17,6 +17,7 @@
     max-width: 200px;
     margin: 3px;
   }
+  
 </style>
 </head>
 <body>
@@ -186,37 +187,44 @@ Nostrud duis molestie at dolore.</p>
                       <!--<p>There are no reviews for this product.</p>-->
                       <c:forEach var='i' items='${list }'>
                      <div class="panel panel-default">
+                      
                       <div class="panel-heading">
-                        <div class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" onclick="location.href='#accordion1_1';">
+                        <div class="accordion-toggle" data-toggle="collapse" data-target="#accordion1_+${i.review_id }" data-parent="" aria-expanded="false">
                      
-		                        <div class="review-item clearfix" >
+		                      <div class="review-item clearfix" >
 		                         <div class="review-item-submitted">
-		                          <strong>${i.rSubject }</strong>
-		                          <em>${i.review_date }</em>
-		                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+			                          <strong>${i.rSubject }</strong>
+			                          <em>${i.review_date }</em>
+			                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
 		                         </div>                                              
-			                        <div class="review-item-content">
+			                      <div class="review-item-content">
 			                            <p>${i.rContent }</p>
-			                        </div>
-		                        </div>
+			                      </div>
+		                      </div>
                          </div>
                        </div>
-                       </div>
-                       <div id="accordion1_1" class="panel-collapse collapse  in">
-                       <div class="panel-body"> 
-                        <div style="background-color: pink;">
+                       
+                       <div id="" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+	                       
+	                        <div class="panel-body"> 
+		                        <c:forEach var='p' items='${i.rpList }'>
+		                         <div class="imgs_review">
+								    <img src="./reviewimages/${p.image1 }">
+								 </div>
+		                        </c:forEach>
+	                        </div>
+	                        
+                        </div>
                         
-                        </div>
-                        </div>
-                        </div>
-                        
+                     </div>
+                       
                         </c:forEach>
                         
                       </div>
                       
                       <form name="frm_review" id="frm_review" method="post">
-					    <input type="hidden" name="product_id" value=${param.product_id }>
-					    <input type="hidden" name="review_id" value=${param.review_id }>
+					    <input type="hidden" name="product_id" >
+					    <input type="hidden" name="review_id" >
 					  </form>
 
                       <!-- BEGIN FORM-->
@@ -253,7 +261,7 @@ Nostrud duis molestie at dolore.</p>
                         <div class="padding-top-20">                  
                          <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send" onclick="store.rInsert()">
                         </div>
-                        <input type="hidden" id="pId" name="pId" value="3">
+                        <input type="hidden" id="pId" name="pId" value=101>
                        
                       </form>
                       <!-- END FORM--> 
@@ -324,7 +332,10 @@ Nostrud duis molestie at dolore.</p>
 	    
 	    
 	
-	}	
+	}
+	
+
+	
 	
 	
 	

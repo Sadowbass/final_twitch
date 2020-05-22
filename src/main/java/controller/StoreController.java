@@ -180,42 +180,23 @@ public class StoreController {
 	@RequestMapping(value="/store/reviewSelect.str",  method={ RequestMethod.GET, RequestMethod.POST }, produces="application/json; charset=utf-8")
 	public String reviewSelect(HttpServletRequest req) {
 		
-        int product_id =Integer.parseInt(req.getParameter("product_id"));
-        int review_id= Integer.parseInt(req.getParameter("review_id"));
         
         String result = "";
      
         Gson gson = new Gson();
       
-        List<StoreReviewVo> list = dao.reviewSelect(product_id);
-        
-        List<StoreReviewPhotoVo> rpList = dao.getrpList(review_id);
+        List<StoreReviewVo> list = dao.reviewSelect();
+        result = gson.toJson(list);
         
         
         System.out.println("reviewselectsdsdasa");
         
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("result1", list);
-        map.put("result2", rpList);
-        
-        result = gson.toJson(map);
         
 		
     	return result;
     }
 	
-	@RequestMapping(value="/store/reviewView.str", method={ RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView reviewView(HttpServletRequest req) {
-    	
-    	ModelAndView mv = new ModelAndView();
-    	
-    	//System.out.println(mv);
-		mv.setViewName("productDetail");
-		
-	 	System.out.println(req.getRequestURI());
-		
-    	return mv;
-    }
+	
 
 	
 	
