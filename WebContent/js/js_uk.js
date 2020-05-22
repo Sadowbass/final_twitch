@@ -23,7 +23,9 @@ uk.stream = function() {
 
 
 	$(window).resize(function() {
-		uk.responsive();
+
+		uk.responsive(); /*div block or none*/
+		uk.unfoldRightOrBottom(); /*unfold right or bottom*/
 
 	});
 	/* 스크롤시 */
@@ -46,24 +48,75 @@ uk.usersOrcht = function() {
 	}
 }
 
-/* strea.uk fold */
-uk.fold = function() {
+uk.fold=function(){
 	$("#cht_div").css("display", "none");
-	$('#unfold').css('display', 'block');
-	$("#video_div").removeClass("col-md-10");
-	$("#video_div").addClass("col-md-12");
-	$("#unfold").addClass("d-none d-md-block");
+	if ($(window).width() >= 1000) {
+		$('#unfold').css('display', 'block');
+	}else{
+		$('#unfoldBottom').css('display', 'block');
+	}
 	uk.rightValue();
 }
-/* strea.uk unfold */
-uk.unfold = function() {
-	$('#unfold').css('display', 'none');
+uk.unfold=function(){
 	$("#cht_div").css("display", "block");
-	$("#video_div").removeClass("col-md-12");
-	$("#video_div").addClass("col-md-10");
-	$("#unfold").removeClass("d-none d-md-block");
+	$("#unfold").css("display", "none");
 	uk.rightValue();
 }
+uk.unfoldBottom=function(){
+	$("#cht_div").css("display", "block");
+	$("#unfoldBottom").css("display", "none");
+	uk.rightValue();
+}
+uk.unfoldRightOrBottom=function(){
+	if ($(window).width() >= 1000) {
+		if($('#unfoldBottom').css('display')=='block'&& $("#cht_div").css("display")== "none"){
+			console.log("1000보다 크니까 unfold만 보여야함");
+			$('#unfold').css('display', 'block');
+			$('#unfoldBottom').css('display', 'none');
+		}
+		if($("#iconRotation").length){
+			$("#iconRotation").removeClass("fa-rotate-90");
+		}
+	}else{
+		if($('#unfold').css('display')=='block' && $("#cht_div").css("display")== "none"){
+			console.log("1000보다 작으니까 unfoldBottom 보여야함");
+			$('#unfold').css('display', 'none');
+			$('#unfoldBottom').css('display', 'block');
+		}if($("#iconRotation").length){
+			$("#iconRotation").addClass("fa-rotate-90");
+		}
+	}
+
+
+}
+
+
+
+
+
+
+
+///* strea.uk fold */
+//uk.fold = function() {
+//	$("#cht_div").css("display", "none");
+//	$('#unfold').css('display', 'block');
+//	$("#video_div").removeClass("col-md-10");
+//	$("#video_div").addClass("col-md-12");
+//	$("#unfold").addClass("d-none d-md-block");
+//	uk.rightValue();
+//}
+///* strea.uk unfold */
+//uk.unfold = function() {
+//	$('#unfold').css('display', 'none');
+//	$("#cht_div").css("display", "block");
+//	$("#video_div").removeClass("col-md-12");
+//	$("#video_div").addClass("col-md-10");
+//	$("#unfold").removeClass("d-none d-md-block");
+//	uk.rightValue();
+//}
+//uk.unfoldBottom=function(){
+//	uk.unfold();
+//}
 
 /* 왼쪽 */
 uk.leftValue = function() {

@@ -208,10 +208,16 @@
 		</div>
 	</div>
 
-	<!-- 펼치기 -->
+	<!-- 펼치기 오른쪽 -->
 	<div class='unfold mr-1' id='unfold' onclick='uk.unfold()'>
 		<button class="btn" type="button">
 			<i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1'></i>
+		</button>
+	</div>
+	<!-- 펼치기 아래 -->
+	<div class='unfoldBottom' id='unfoldBottom' onclick='uk.unfoldBottom()'>
+		<button class="btn" type="button">
+			<i class='fas fa-sign-out-alt fa-2x fa-rotate-270 pl-1'></i>
 		</button>
 	</div>
 

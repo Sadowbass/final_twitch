@@ -3,7 +3,7 @@
 <!-- top -->
 <div class="d-flex justify-content-between" style="width: 100%" id="cht_top">
 	<div>
-		<button class="btn" type="button"><i class="fas fa-sign-in-alt fa-2x" onclick='uk.fold()'></i></button>
+		<button class="btn" type="button"><i id="iconRotation" class="fas fa-sign-in-alt fa-2x" onclick='uk.fold()'></i></button>
 	</div>
 	<div class="text-center">생방송 채팅</div>
 	<div>
