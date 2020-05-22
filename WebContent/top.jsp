@@ -89,7 +89,7 @@
 
                 <a class="dropdown-item" href="#" id="account" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; MyAccount</a>
       <c:if test="${session_id != null }">
-                <a class="dropdown-item" href="#" id="mypage/profile" onclick="pagemove(this)"><i class="fas fa-fw fa-cog"></i> &nbsp; 프로필</a>
+                <a class="dropdown-item" href="#" id="mypage/pwdchk" onclick="pagemove(this)"><i class="fas fa-fw fa-cog"></i> &nbsp; 프로필</a>
                 <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i class="fas fa-fw fa-video"></i> &nbsp; 방송하기</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"> <i class="fas fa-fw fa-sign-out-alt" ></i>
@@ -144,10 +144,12 @@
 				      </div>
 				    </div>
 				  </div>
-     
+<!-- 
+<input type='text' name="suidm" value="${vo.getMem_Id}"/>
+<input type='text' name="supwdm" value="${p.Mem_pwd}"/>
+ 	 -->	
 </nav>
 <!-- 영탁 -->
-
 
 
 

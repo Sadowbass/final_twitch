@@ -127,7 +127,6 @@
 	//아이디 및 비밀번호 찾기  이메일 전송
 $('#btnNextm').click(function(){
 	let param = $('#signupform').serialize();
-	
 	$('#signupform').attr('action','email.lm').submit();
 	
 	/*$.post("email.lm", param ,function(data, state){
@@ -135,9 +134,23 @@ $('#btnNextm').click(function(){
 		location.href='../result.jsp';
 	});*/
 })
-	
-	
-	
-	
+	//개인 정보 수정 
+$('#btnPwdm').click(function(){
+	$('#pwdm').attr('action','pwdm.lm').submit();
+})
+
+
 	
 }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

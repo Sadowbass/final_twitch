@@ -66,11 +66,33 @@ public class MemberDao_m {
 				}finally {
 					
 					return msg;
-				}
-				
-				
-		
-		
+				}	
 	}
+	
+	public MemberVo_m pwdm(String pwdm) {
+		 MemberVo_m vo = null;
+				
+				try {
+				 vo = sqlSession.selectOne("lm.pwdm", pwdm);
+			
+				}catch(Exception ex) {
+					ex.printStackTrace();
+					
+				}finally {
+					
+					return vo;
+				}	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

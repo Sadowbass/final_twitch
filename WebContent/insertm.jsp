@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%request.setCharacterEncoding("utf-8"); %>
-<script src="./js/login_m.js"></script>
+<script src="../js/login_m.js"></script>
 <div class="container-fluid upload-details">
     <div class="row">
         <div class="col-lg-12">
@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    
+    </div>
     <form method='post' name='insertm' id='insertm'>
         <div class="row">
             <div class="col-sm-12">
@@ -77,7 +77,7 @@
             </div>
         </div>
     
-    
+
     
     </form>
     

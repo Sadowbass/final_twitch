@@ -9,7 +9,7 @@
 	                  <a  href="#" id="broadCasting/index" onclick="pagemove(this)"> &nbsp; 방송하기</a>
 	                </ol>	
                 </div>
-                <%@ include file="pwdchk.jsp" %>
+                <%@ include file="profile.jsp" %>
               </div>
           </div>
         <hr>

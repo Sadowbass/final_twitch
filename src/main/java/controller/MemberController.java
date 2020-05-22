@@ -109,6 +109,20 @@ public String logout(HttpServletRequest req) {
 	return msg;
 }	
 
+@RequestMapping(value="/mypage/pwdm.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
+public ModelAndView pwdm (HttpServletRequest req, HttpServletResponse resp){
+	MemberVo_m vo = null;
+	ModelAndView mv = new ModelAndView();
+	String mem_Id = req.getParameter("mem_Id");
+	 vo = dao.pwdm(mem_Id);
+	
+	
+	mv.addObject("vo", vo);
+	mv.setViewName("profile");
+	return mv;
+}
 
+
+	
 
 }

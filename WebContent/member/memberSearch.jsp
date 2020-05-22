@@ -31,6 +31,7 @@
 					</div>
 					<div class='text-center'>
 						<button disabled="true" id="btnNextm">계속</button>
+               			<a href = "../index.jsp">홈으로</a>
 					</div>
 				</div>
 			</div>
