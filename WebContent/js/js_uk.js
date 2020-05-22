@@ -12,10 +12,12 @@ uk.stream = function() {
 		type : 'get',
 		url : '/sidebar.sc',
 		success : function(data) {
-			let left = $('#sidebarplace').html(data).find("#sidebar-navmain")
-					.width();
+			let left = $('#sidebarplace').html(data).find("#sidebar-navmain")					.width();
 			/* 메인 왼쪽 */
-			$(".video_main_uk").css('padding-left', left + 'px');
+			if($('#sidebarplace').length){
+				console.log('ggg');
+				$(".video_main_uk").css('padding-left', left + 'px');
+			}
 		}
 	});
 
@@ -120,11 +122,13 @@ uk.unfoldRightOrBottom=function(){
 
 /* 왼쪽 */
 uk.leftValue = function() {
-	 let left = $('#sidebar-navmain').width();
+	let left=0;
+
 	 /*1000이하 되면 0주기*/
-	 if ($(window).width() < 1000) {
-		 left=0;
+	 if ($(window).width() >= 1000) {
+		 left = $('#sidebar-navmain').width();
 	 }
+	 console.log(left);
 	 $(".video_main_uk").css('padding-left', left + 'px');
  }
 
