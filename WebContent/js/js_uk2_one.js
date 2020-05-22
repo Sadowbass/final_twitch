@@ -19,12 +19,20 @@ uk.stream = function() {
 		}
 	});
 
-	uk.responsive();
-
-
+	/* 오른쪽 */
+	uk.rightValue();
+	/*탑*/
+	uk.topValue();
+	/* 브라우저 크기 발뀔시 */
 	$(window).resize(function() {
-		uk.responsive();
-
+		/* 왼쪽 */
+		uk.leftValue();
+		/* 오른쪽 */
+		uk.rightValue();
+		/* 비디오랑 채팅만 */
+		uk.twoView();
+		/*탑*/
+		uk.topValue();
 	});
 	/* 스크롤시 */
 	/*
@@ -65,73 +73,50 @@ uk.unfold = function() {
 	uk.rightValue();
 }
 
+/*탑*/
+uk.topValue=function(){
+	let top=$("nav").height();
+
+	/*chtArea 높이*/
+	let height=window.innerHeight-(top+$("#cht_top").height()+$("#statusBoardSurround").height()+$(".cht_send_uk").height()+$(".cht_bottom_uk").height()+20)
+
+	/*1000이하 되면*/
+	if ($(window).width() < 1000) {
+		top=0;
+		height=window.innerHeight-($(".video_main_uk").height()+$(".cht_send_uk").height()+$(".cht_bottom_uk").height()+20) /*채팅창 높이 조정*/
+	}
+	console.log('top',top);
+	$(".video_main_uk").css('padding-top', top + 'px');
+	$("#cht_div").css('padding-top',+top + 'px');
+
+	$(".chtArea").height(height);
+}
+
 /* 왼쪽 */
 uk.leftValue = function() {
-	 let left = $('#sidebar-navmain').width();
-	 /*1000이하 되면 0주기*/
-	 if ($(window).width() < 1000) {
-		 left=0;
-	 }
-	 $(".video_main_uk").css('padding-left', left + 'px');
- }
+	let left = $('#sidebar-navmain').width();
+	$(".video_main_uk").css('padding-left', left + 'px');
+	/*1000이하 되면 0주기*/
+	if ($(window).width() < 1000) {
+		$(".video_main_uk").css('padding-left', 0 + 'px');
+	}
+}
 
 /* 오른쪽 */
 uk.rightValue = function() {
+
 	let right = 0;
-	/*1000이상 되면 값 넣어 주기*/
-	if ($(window).width() >= 1000) {
-		if ($("#cht_div").css("display") == "block") {
-			right = $("#cht_div").width();
-		} else {
-			right = $("#unfold").width();
-		}
+
+	if ($("#cht_div").css("display") == "block") {
+		right = $("#cht_div").width();
+	} else {
+		right = $("#unfold").width();
 	}
 	$(".video_main_uk").css('padding-right', right + 'px');
-}
-
-/*채팅 과 비디오*/
-uk.chtAndVideo=function(){
-	/*네비 길이*/
-	let top = $("nav").height();
-	/* 채팅창 길이 */
-	let height = window.innerHeight-(top + $("#cht_top").height()
-					  				     + $("#statusBoardSurround").height()
-					  				     + $(".cht_send_uk").height() + $(".cht_bottom_uk").height() + 20);
-
-	/*1000이하 되면 네비0 채팅방 길이 조정*/
-	 if ($(window).width() < 1000) {
-		 /*네비 길이 0*/
-		 top=0
-		 /* 채팅창 길이 조정 */
-		 height = window.innerHeight- ( $(".video_main_uk").height()
-				 					 + $("#cht_top").height()
-									 + $(".cht_send_uk").height()
-									 + $(".cht_bottom_uk").height() + 20);
-
-		 /*채팅 메인 <1000*/
-
-			$("#cht_div").css({
-				"position"    : "relative",
-				"width"       : "100%",
-				"padding-top" : top + "px"
-			});
-	 }else{
-		 /*채팅 메인 >10000*/
-			$("#cht_div").css({
-				"position"    : "fixed",
-				"padding-top" : top + "px",
-				"width"       : "300px",
-				"right"       : "0",
-				"bottom"      : "0"
-			});
-	 }
-
-	/* 비디오 상 패딩 */
-	$(".video_main_uk").css('padding-top' , top + 'px');
-	/* 채팅창 길이 */
-	$(".chtArea").height(height);
-
-
+	/*1000이하 되면 0주기*/
+	if ($(window).width() < 1000) {
+		$(".video_main_uk").css('padding-right', 0 + 'px');
+	}
 }
 
 /* 소켓 연결시 */
@@ -155,7 +140,10 @@ uk.connectWS = function(streamer, login) {
 	};
 
 	ws.onmessage = function(event) {
-		let jsObj = JSON.parse(event.data);
+		let jsObj = JSON.parse(event.data); /*
+											 * cht_oid cht_txt users addUser
+											 * delUser accUser
+											 */
 
 		/* 로그인+로그아웃 total 시청자 수 */
 		if (jsObj.totalSession) {
@@ -253,44 +241,65 @@ uk.WSsend = function() {
 uk.WSclose = function() {
 	ws.close();
 }
-/////////////////////////////////
-// /* 최소화 됐을때 */
-// uk.minimization = function() {
-// let top = $(window).scrollTop();
-// let height = $("#mediaplayer").height();
-//
-// if (top > height) {
-// $("#mediaplayer").css({
-// position : 'fixed',
-// bottom : '20px',
-// left : '300px',
-// width : '350px',
-// height : '250px'
-// });
-// } else {
-// $("#mediaplayer").css({
-// position : 'static',
-// width : '100%',
-// height : ''
-// });
-// }
-// }
-////////////////////////////////////
 
-uk.responsive = function() {
-	uk.chtAndVideo();
-	uk.rightValue();
-	uk.leftValue();
-	if ($(window).width() < 1000) {
-		/* 1000보다 작아질때 비디오랑 채팅 말고 안보이게 설정*/
-		$("#videoTop, #videoEtc, #videoEtc2").attr("style", "display : none !important");
-		$("#topplace, #sidebarplace, #statusBoardSurround").css("display", "none");
-	}else{
-		/*1000보다 커질때 보이게 설정*/
-		$("#videoTop, #videoEtc, #videoEtc2 ").attr("style", "display : flex !important");
-		$("#topplace, #sidebarplace, #statusBoardSurround").css("display", "block");
+/* 최소화 됐을때 */
+uk.minimization = function() {
+	let top = $(window).scrollTop();
+	let height = $("#mediaplayer").height();
+
+	if (top > height) {
+		$("#mediaplayer").css({
+			position : 'fixed',
+			bottom : '20px',
+			left : '300px',
+			width : '350px',
+			height : '250px'
+		});
+	} else {
+		$("#mediaplayer").css({
+			position : 'static',
+			width : '100%',
+			height : ''
+		});
 	}
-	uk.chtAndVideo();
-	uk.rightValue();
-	uk.leftValue();
+}
+
+/*비디오랑 채팅만*/
+uk.twoView = function() {
+	console.log($(window).width());
+	if ($(window).width() < 1000) {
+		console.log('here');
+
+		$("#topplace").css("display", "none");
+		$("#sidebarplace").css("display", "none");
+
+		$("#videoTop").attr("style" ,"display : none !important");
+		$("#videoEtc").attr("style" ,"display : none !important");
+		$("#videoEtc2").attr("style" ,"display : none !important");
+		$("#cht_top").attr("style" ,"display : none !important");
+		$("#statusBoardSurround").attr("style" ,"display : none !important");
+		$("#userList").attr("style" ,"display : none !important");
+		$("#unfold").attr("style" ,"display : none !important");
+
+
+		$("#cht_div").attr("style" , "position: relative !important");
+		$("#cht_div").css("width" , "100%");
+	}else{
+		$("#topplace").css("display", "block");
+		$("#sidebarplace").css("display", "block");
+
+		$("#videoTop").attr("style" ,"display : flex !important");
+		$("#videoEtc").attr("style" ,"display : flex !important");
+		$("#videoEtc2").attr("style" ,"display : flex !important");
+		$("#cht_top").attr("style" ,"display : flex !important");
+		$("#statusBoardSurround").attr("style" ,"display : block !important");
+
+		$("#cht_div").attr("style" , "position: fixed !important");
+		$("#cht_div").css({
+			"width" : "300px",
+			"right": "0",
+			"bottom":"0"
+		});
+	}
+
 }

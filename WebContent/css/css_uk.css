@@ -11,11 +11,7 @@
 
 .cht_main_uk {
 	border-left: solid 1px gray;
-	position: fixed;
-	right: 0;
-	top: 0;
 	height: 100%;
-	width: 300px;
 }
 
 .cht_send_uk {

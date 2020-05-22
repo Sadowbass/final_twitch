@@ -39,7 +39,7 @@
 <script src="/js/sc_custom.js"></script>
 <script src="/js/js_uk.js"></script>
 </head>
-<body class="mostly-customized-scrollbar" id="page-top">
+<body class="mostly-customized-scrollbar" id="page-top" style="width: 100%">
 
 
 
@@ -150,7 +150,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="d-flex d-lg-flex flex-row" id="videoEtc2">
+		<div class="d-flex d-flex flex-row" id="videoEtc2">
 			<div class="p-3">이미지</div>
 			<div class="p-3">
 				<div>카테고리: just Chatting</div>
@@ -216,7 +216,7 @@
 	</div>
 
 	<!-- 채팅화면 -->
-	<div class="cht_main_uk px-0 " id="cht_div">
+	<div class="cht_main_uk" id="cht_div">
 		<jsp:include page="./cht_uk.jsp" />
 	</div>
 	<!-- Scroll to Top Button-->
