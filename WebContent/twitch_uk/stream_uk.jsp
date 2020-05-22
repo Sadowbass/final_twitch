@@ -38,15 +38,8 @@
 <script src="/js/custom.js"></script>
 <script src="/js/sc_custom.js"></script>
 <script src="/js/js_uk.js"></script>
-<style type="text/css">
-	@medai(max-width: 700px){
-		div:not(#mediaplayer,#chtArea,.cht_send_uk.cht_bottom_uk)
-	}
-
-}
-</style>
 </head>
-<body id="page-top">
+<body class="mostly-customized-scrollbar" id="page-top">
 
 
 
@@ -58,10 +51,10 @@
 	<div class="video_main_uk">
 
 		<!-- video_top_uk -->
-		<div class='d-flex justify-content-between'>
+		<div class='d-flex justify-content-between' id="videoTop">
 
 			<!-- 스트리머 -->
-			<div class='d-flex flex-row'>
+			<div class='d-flex flex-row '>
 				<div class='p-1'>
 					<c:choose>
 						<c:when test="${vo.ph_sysfile == null}">
@@ -105,16 +98,14 @@
 				<div class="text-right py-1 pl-1 pr-3" id="follow">
 					<div class="channels-card-image-btn">
 						<button type="button" class="btn btn-outline-danger btn">
-							<strong> <i class="far fa-heart"></i></strong>
-							팔로우
+							<strong> <i class="far fa-heart"></i></strong> 팔로우
 						</button>
 					</div>
 				</div>
 				<div class="text-right p-1">
 					<div class="channels-card-image-btn">
 						<button type="button" class="btn btn-outline-danger btn">
-							<strong> <i class="far fa-star"></i></strong>
-							구독
+							<strong> <i class="far fa-star"></i></strong> 구독
 						</button>
 					</div>
 				</div>
@@ -125,80 +116,44 @@
 		<jsp:include page="./video_uk.jsp" />
 
 		<!-- 기타 정보 -->
-		<div class="d-flex">
+		<div class="d-flex" id="videoEtc">
 			<div class="p-3">방송 제목</div>
 			<div class="p-3">${vo.air_subject}</div>
 			<div class="ml-auto">
-				<button class="btn" type="button"><i class="far fa-user p-1"></i></button>
+				<button class="btn" type="button">
+					<i class="far fa-user p-1"></i>
+				</button>
 				<span class="pr-2" id='totalUserCnt'></span>
-				<button class="btn" type="button"><i class="fas fa-eye p-1"></i></button>
+				<button class="btn" type="button">
+					<i class="fas fa-eye p-1"></i>
+				</button>
 				<span class="pr-2" id='accArea'></span>
-				<button class="btn dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button"><i class="fas fa-share-alt p-2"></i></button>
+				<button class="btn dropdown" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					type="button">
+					<i class="fas fa-share-alt p-2"></i>
+				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		   			<a class="dropdown-item" href="#">Action</a>
-		    		<a class="dropdown-item" href="#">Another action</a>
-		    		<a class="dropdown-item" href="#">Something else here</a>
-		 		 </div>
-				<button class="btn dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" type="button"><i class="fas fa-ellipsis-v pl-2 pr-4"></i></button>
+					<a class="dropdown-item" href="#">Action</a> <a
+						class="dropdown-item" href="#">Another action</a> <a
+						class="dropdown-item" href="#">Something else here</a>
+				</div>
+				<button class="btn dropdown" type="button" id="dropdownMenuButton"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+					type="button">
+					<i class="fas fa-ellipsis-v pl-2 pr-4"></i>
+				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		   			<a class="dropdown-item" href="#">Action</a>
-		    		<a class="dropdown-item" href="#">Another action</a>
-		    		<a class="dropdown-item" href="#">Something else here</a>
-		 		 </div>
+					<a class="dropdown-item" href="#">Action</a> <a
+						class="dropdown-item" href="#">Another action</a> <a
+						class="dropdown-item" href="#">Something else here</a>
+				</div>
 			</div>
 		</div>
-		<div class="d-flex flex-row">
+		<div class="d-flex d-lg-flex flex-row" id="videoEtc2">
 			<div class="p-3">이미지</div>
 			<div class="p-3">
 				<div>카테고리: just Chatting</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
 				<div>#리얼라이프</div>
 				<div>#리얼라이프</div>
 				<div>#리얼라이프</div>
@@ -255,7 +210,9 @@
 
 	<!-- 펼치기 -->
 	<div class='unfold mr-1' id='unfold' onclick='uk.unfold()'>
-		<button class="btn" type="button"><i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1'></i></button>
+		<button class="btn" type="button">
+			<i class='fas fa-sign-out-alt fa-2x fa-rotate-180 pl-1'></i>
+		</button>
 	</div>
 
 	<!-- 채팅화면 -->
