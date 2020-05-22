@@ -6,8 +6,15 @@ import org.springframework.http.HttpRequest;
 import mybatis.Factory;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -312,6 +319,59 @@ public class HEDao {
 			
 		}finally {
 			return msg;
+		}
+		
+	}
+	
+	public List<StreamerVo> streamer_select() {
+		List<StreamerVo> list =  null;
+		try {
+			list = sqlSession.selectList("stream.select");
+		}catch(Exception ex) { 
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public StreamerVo streamer_view(String mid) {
+		StreamerVo vo = null;
+		try {
+			vo = sqlSession.selectOne("stream.view",mid);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return vo;
+		}
+		
+	}
+	
+	public List<String> weekly_broad_time(String mid) {
+		List<String> list= new ArrayList<String>();
+		try {
+		        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		        Calendar cal = GregorianCalendar.getInstance();
+		        cal.setTime(new Date());
+		        
+		        
+		        Map<String,Object> map = new HashMap<String, Object>();
+		        map.put("mid", mid);
+		        for(int i=1 ; i<8; i++) {
+		        	cal.set(Calendar.DAY_OF_WEEK, i);
+		        	String day = format.format(cal.getTime());
+		        	map.put("day", day);
+		        	String broad_time = sqlSession.selectOne("stream.weekly_broad_time",map);
+		        	list.add(broad_time);
+		        }
+		       
+		        
+		       
+		       
+			
+		}catch(Exception ex) {
+			
+		}finally {
+			return list;
 		}
 		
 	}

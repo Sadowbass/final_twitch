@@ -1,6 +1,6 @@
-var streamer_view = function(){
-	location.href = "index.jsp?inc=admin_pages/twitch_main/streamer_detail.jsp"
-	
+var streamer_view = function(id){
+	$('#he_serial').val(id);
+	$('#he_form').attr('action','streamer_view.he').submit();	
 }
 var help_view = function(){
 	location.href = "index.jsp?inc=admin_pages/twitch_main/help_detail.jsp"
@@ -172,3 +172,385 @@ let tag_save =  function(){
 		}
    })
 }
+
+let month_chart = function(){
+	chart.destroy();
+	var ctx2 = document.getElementById('week_chart').getContext('2d');
+	 chart = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'line',
+	    // The data for our dataset
+	    data: {
+	        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
+	        datasets: [{
+	            label: '방송 시간',
+	            data: [0, 10, 5, 2, 20, 30, 45,35,24,12,34,32],
+	            borderColor: 'rgba(0, 188, 212, 0.75)',
+	            backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	            pointBorderColor: 'rgba(0, 188, 212, 0)',
+	            pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	            pointBorderWidth: 1
+	        }]
+	    },
+	    options: {
+	        responsive: true,
+	        legend: false
+	    }
+	});
+	
+}
+
+let week_chart =function(){
+	chart.destroy();
+	var ctx1 = document.getElementById('week_chart').getContext('2d')
+	 chart = new Chart(ctx1,{
+		// The type of chart we want to create
+		type: 'line',
+		// The data for our dataset
+		data: {
+			 labels: ['일','월', '화', '수', '목', '금', '토'],
+			datasets: [{
+				label: '방송 시간',
+				data: [0, 10, 5, 2, 20, 30, 45],
+				borderColor: 'rgba(0, 188, 212, 0.75)',
+				backgroundColor: 'rgba(0, 188, 212, 0.3)',
+				pointBorderColor: 'rgba(0, 188, 212, 0)',
+				pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+				pointBorderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			legend: false
+		}
+	}); 
+}
+
+let year_chart =function(){
+	chart.destroy();
+	var ctx1 = document.getElementById('week_chart').getContext('2d')
+	 chart = new Chart(ctx1,{
+		// The type of chart we want to create
+		type: 'line',
+		// The data for our dataset
+		data: {
+			labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
+			datasets: [{
+				label: '방송 시간',
+				data: [0, 10, 5, 2, 20, 30, 45,34,23,25],
+				borderColor: 'rgba(0, 188, 212, 0.75)',
+				backgroundColor: 'rgba(0, 188, 212, 0.3)',
+				pointBorderColor: 'rgba(0, 188, 212, 0)',
+				pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+				pointBorderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			legend: false
+		}
+	}); 
+}
+
+let month_chart2 = function(){
+	chart3.destroy();
+	var ctx2 = document.getElementById('bar_chart').getContext('2d');
+	 chart3 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'bar',
+	    // The data for our dataset
+	    data: {
+	        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
+	         datasets: [{
+	             label: "구독자 수",
+	             data: [65, 59, 80, 81, 56, 55, 40,23,34,45,23,35],
+	             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+	         }, {
+	                 label: "팔로워 수",
+	                 data: [28, 48, 40, 19, 86, 27, 90,23,34,25,56,24],
+	                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+	             }]
+	    },
+	    options: {
+	        responsive: true,
+	        
+	    }
+	});
+	
+}
+
+let week_chart2 =function(){
+	chart3.destroy();
+	var ctx2 = document.getElementById('bar_chart').getContext('2d');
+	 chart3 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'bar',
+	    // The data for our dataset
+	    data: {
+	    	 labels: ['일','월', '화', '수', '목', '금', '토'],
+	         datasets: [{
+	             label: "구독자 수",
+	             data: [65, 59, 80, 81, 56, 55, 40],
+	             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+	         }, {
+	                 label: "팔로워 수",
+	                 data: [28, 48, 40, 19, 86, 27, 90],
+	                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+	             }]
+	    },
+	    options: {
+	        responsive: true,
+	        
+	    }
+	});
+}
+
+let year_chart2 =function(){
+	chart3.destroy();
+	var ctx2 = document.getElementById('bar_chart').getContext('2d');
+	 chart3 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'bar',
+	    // The data for our dataset
+	    data: {
+	    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
+	         datasets: [{
+	             label: "구독자 수",
+	             data:  [0, 10, 5, 2, 20, 30, 45,34,23,25],
+	             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+	         }, {
+	                 label: "팔로워 수",
+	                 data: [28, 48, 40, 19, 86, 27, 90,34,25,12],
+	                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+	             }]
+	    },
+	    options: {
+	        responsive: true,
+	        
+	    }
+	});
+}
+
+let month_chart3 = function(){
+	chart4.destroy();
+	var ctx2 = document.getElementById('radar_chart').getContext('2d');
+	 chart4 = new Chart(ctx2, {
+		 type: 'line',
+		    // The data for our dataset
+		    data: {
+		        labels:['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
+		        datasets: [{
+		            label: '구독 수익',
+		            data: [40, 70, 20, 50, 20, 30, 45,34,13,45,56,23],
+		            borderColor: 'rgba(102, 102, 153, 0.75)',
+		            backgroundColor: 'rgba(102, 102, 153, 0.3)',
+		            pointBorderColor: 'rgba(102, 102, 153, 0)',
+		            pointBackgroundColor: 'rgba(102, 102, 153, 0.9)',
+		            pointBorderWidth: 1
+		        },{
+		        	 label: "도네 수익",
+		             data: [28, 48, 40, 19, 86, 27, 90,12,23,65,24,53],
+		             borderColor: 'rgba(233, 30, 99, 0.75)',
+		             backgroundColor: 'rgba(233, 30, 99, 0.3)',
+		             pointBorderColor: 'rgba(233, 30, 99, 0)',
+		             pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+		             pointBorderWidth: 1
+		        },{
+		            label: '총 수익',
+		            data: [68, 118, 60, 69, 116, 57, 135,111,56,23,45,67],
+		            borderColor: 'rgba(204, 000, 204, 0.75)',
+		            backgroundColor: 'rgba(204, 000, 204, 0.3)',
+		            pointBorderColor: 'rgba(204, 000, 204, 0)',
+		            pointBackgroundColor: 'rgba(204, 000, 204, 0.9)',
+		            pointBorderWidth: 1
+		        }]
+		    },
+		    options: {
+		    	responsive: true,
+		    
+		    }
+	
+	 });
+}
+
+let week_chart3 = function(){
+	chart4.destroy();
+	var ctx2 = document.getElementById('radar_chart').getContext('2d');
+	 chart4 = new Chart(ctx2, {
+		 type: 'line',
+		  // The data for our dataset
+		    data: {
+		        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+		        datasets: [{
+		            label: '구독 수익',
+		            data: [40, 70, 20, 50, 20, 30, 45],
+		            borderColor: 'rgba(102, 102, 153, 0.75)',
+		            backgroundColor: 'rgba(102, 102, 153, 0.3)',
+		            pointBorderColor: 'rgba(102, 102, 153, 0)',
+		            pointBackgroundColor: 'rgba(102, 102, 153, 0.9)',
+		            pointBorderWidth: 1
+		        },{
+		        	 label: "도네 수익",
+		             data: [28, 48, 40, 19, 86, 27, 90],
+		             borderColor: 'rgba(233, 30, 99, 0.75)',
+		             backgroundColor: 'rgba(233, 30, 99, 0.3)',
+		             pointBorderColor: 'rgba(233, 30, 99, 0)',
+		             pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+		             pointBorderWidth: 1
+		        },{
+		            label: '총 수익',
+		            data: [68, 118, 60, 69, 116, 57, 135],
+		            borderColor: 'rgba(204, 000, 204, 0.75)',
+		            backgroundColor: 'rgba(204, 000, 204, 0.3)',
+		            pointBorderColor: 'rgba(204, 000, 204, 0)',
+		            pointBackgroundColor: 'rgba(204, 000, 204, 0.9)',
+		            pointBorderWidth: 1
+		        }]
+		    },
+		    options: {
+		    	responsive: true,
+		    
+		    }
+	
+	 });
+}
+
+let year_chart3 = function(){
+	chart4.destroy();
+	var ctx2 = document.getElementById('radar_chart').getContext('2d');
+	 chart4 = new Chart(ctx2, {
+		 type: 'line',
+		  // The data for our dataset
+		    data: {
+		    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
+		        datasets: [{
+		            label: '구독 수익',
+		            data: [40, 70, 20, 50, 20, 30, 45,34,56,23],
+		            borderColor: 'rgba(102, 102, 153, 0.75)',
+		            backgroundColor: 'rgba(102, 102, 153, 0.3)',
+		            pointBorderColor: 'rgba(102, 102, 153, 0)',
+		            pointBackgroundColor: 'rgba(102, 102, 153, 0.9)',
+		            pointBorderWidth: 1
+		        },{
+		        	 label: "도네 수익",
+		             data: [28, 48, 40, 19, 86, 27, 90,15,26,67],
+		             borderColor: 'rgba(233, 30, 99, 0.75)',
+		             backgroundColor: 'rgba(233, 30, 99, 0.3)',
+		             pointBorderColor: 'rgba(233, 30, 99, 0)',
+		             pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+		             pointBorderWidth: 1
+		        },{
+		            label: '총 수익',
+		            data: [68, 118, 60, 69, 116, 57, 135,25,67,45],
+		            borderColor: 'rgba(204, 000, 204, 0.75)',
+		            backgroundColor: 'rgba(204, 000, 204, 0.3)',
+		            pointBorderColor: 'rgba(204, 000, 204, 0)',
+		            pointBackgroundColor: 'rgba(204, 000, 204, 0.9)',
+		            pointBorderWidth: 1
+		        }]
+		    },
+		    options: {
+		    	responsive: true,
+		    
+		    }
+	
+	 });
+}
+
+let month_chart4= function(){
+	chart5.destroy();
+	var ctx2 = document.getElementById('pie_chart').getContext('2d');
+	 chart5 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'pie',
+	    // The data for our dataset
+	    data: {
+	         datasets: [{
+	             data: [44, 23, 70, 50],
+	             backgroundColor: [
+	                 "rgb(233, 30, 99)",
+	                 "rgb(255, 193, 7)",
+	                 "rgb(0, 188, 212)",
+	                 "rgb(139, 195, 74)"
+	             ],
+	         }],
+	         labels: [
+	             "Pink",
+	             "Amber",
+	             "Cyan",
+	             "Light Green"
+	         ]
+	     },
+	     options: {
+	         responsive: true,
+	         
+	     }
+	});
+	
+}
+
+let week_chart4= function(){
+	chart5.destroy();
+	var ctx2 = document.getElementById('pie_chart').getContext('2d');
+	 chart5 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'pie',
+	    // The data for our dataset
+	    data: {
+	         datasets: [{
+	        	 data: [225, 50, 100, 40],
+	             backgroundColor: [
+	                 "rgb(233, 30, 99)",
+	                 "rgb(255, 193, 7)",
+	                 "rgb(0, 188, 212)",
+	                 "rgb(139, 195, 74)"
+	             ],
+	         }],
+	         labels: [
+	             "Pink",
+	             "Amber",
+	             "Cyan",
+	             "Light Green"
+	         ]
+	     },
+	     options: {
+	         responsive: true,
+	         
+	     }
+	});
+	
+}
+
+let year_chart4= function(){
+	chart5.destroy();
+	var ctx2 = document.getElementById('pie_chart').getContext('2d');
+	 chart5 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'pie',
+	    // The data for our dataset
+	    data: {
+	         datasets: [{
+	        	 data: [112, 50, 78, 40],
+	             backgroundColor: [
+	                 "rgb(233, 30, 99)",
+	                 "rgb(255, 193, 7)",
+	                 "rgb(0, 188, 212)",
+	                 "rgb(139, 195, 74)"
+	             ],
+	         }],
+	         labels: [
+	             "Pink",
+	             "Amber",
+	             "Cyan",
+	             "Light Green"
+	         ]
+	     },
+	     options: {
+	         responsive: true,
+	         
+	     }
+	});
+	
+}
+
+

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import bean.BroadCastingCateVo;
 import bean.HEDao;
 import bean.MemberVo;
+import bean.StreamerVo;
 import bean.TagVo;
 import config.HE_FileUpload;
 import config.HE_FileUpload2;
@@ -160,9 +161,51 @@ public class HEController {
 	@RequestMapping(value="*/streamer.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView Streamer(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-	
 		
+		List<StreamerVo> list = new ArrayList<StreamerVo>();
+		list =dao.streamer_select();
+		for(int i=0;i <list.size();i++) {
+			if(list.get(i).getMem_status()!=null ) {
+				
+				if(list.get(i).getMem_status().equals("0")) {
+					list.get(i).setMem_status("오프라인");
+				}else if(list.get(i).getMem_status().equals("1")) {
+					list.get(i).setMem_status("온라인");
+				}else {
+					list.get(i).setMem_status("방송중");
+				}
+			}
+		}
+		mv.addObject("list", list);
+	
 		mv.setViewName("twitch_main/streamer"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/streamer_view.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView viewS(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		String mid =(String)req.getParameter("he_serial");
+		StreamerVo vo = new StreamerVo();
+		vo = dao.streamer_view(mid);
+		
+		if(vo != null) {
+			if( vo.getMem_status()!=null) {
+				if(vo.getMem_status().equals("0")) {
+					vo.setMem_status("오프라인");
+				}else if(vo.getMem_status().equals("1")) {
+					vo.setMem_status("온라인");
+				}else {
+					vo.setMem_status("방송중");
+				}
+			}
+		}
+		
+		dao.weekly_broad_time(mid);
+		
+		
+		mv.addObject("vo", vo);
+		mv.setViewName("twitch_main/streamer_detail"); 
 		return mv;
 	}
 	
