@@ -14,17 +14,14 @@ public class StoreReviewVo {
 	Date review_date;
 	
 
-	//List<StoreReviewVo> list;
+	List<StoreReviewPhotoVo> rpList;
+	
 
-
-	@Override
-	public String toString() {
-		String msg = "리뷰아이디 : " + this.review_id + " 멤버 아이디 : " + this.mem_id;
-		return msg;
-	}
 
 	public StoreReviewVo() {
+		
 	}
+	
 
 	public StoreReviewVo(String mem_id, int product_id, String rSubject, String rContent, Double review_like) {
 		this.mem_id = mem_id;
@@ -33,6 +30,21 @@ public class StoreReviewVo {
 		this.rContent = rContent;
 		this.review_like = review_like;
 	}
+	
+	
+
+
+
+
+	public List<StoreReviewPhotoVo> getRpList() {
+		return rpList;
+	}
+
+
+	public void setRpList(List<StoreReviewPhotoVo> rpList) {
+		this.rpList = rpList;
+	}
+
 
 	public int getReview_id() {
 		return review_id;

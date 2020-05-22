@@ -4,31 +4,53 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
-    <insert id="review_insert" parameterType="store.StoreReviewVo">
-
-        insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
-        values (seq_storereview.nextval, #{mem_id, jdbcType=VARCHAR, javaType=String},
-                #{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String},
-                #{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},
-                sysdate)
-
-    </insert>
-
-    <insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
-
-        insert into review_photo(review_pid, review_id, image1, image2, rp_date)
-        values (seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR},
-                #{image2, jdbcType=VARCHAR}, sysdate)
-
-    </insert>
-
-
-    <select id="review_select" resultType="store.StoreReviewVo">
-        select review_id, MEM_ID, product_id, rSubject, rContent, review_like, review_date
-        from review
-    </select>
-
-    <!--메인페이지 상품목록-->
+	<insert id="review_insert" parameterType="store.StoreReviewVo">
+	  
+	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
+      values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
+      		#{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String}, 
+      		#{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},  sysdate)
+	  
+	</insert>
+	
+	<insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
+	  
+	  insert into review_photo(review_pid, review_id, image1, image2, rp_date)
+      values( seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR},  sysdate)
+	  
+	</insert>
+	
+	
+	<select id="review_select" resultMap="store_map">
+	   
+	   select r.review_id , r.mem_id, r.product_id , r.rSubject, r.rContent, r.review_like , r.review_date, rp.review_id, rp.image1, rp.image2   
+	   from review r left outer join review_photo rp
+	   on r.review_id = rp.review_id
+	   order by review_date desc
+	   
+	</select>
+	
+	<resultMap type="store.StoreReviewVo" id="store_map">
+    <result column="review_id" property="review_id"/>
+    <result column="mem_id" property="mem_id"/>
+    <result column="product_id" property="product_id"/>
+    <result column="rSubject" property="rSubject"/>
+    <result column="rContent" property="rContent"/>
+    <result column="review_like" property="review_like"/>
+    <result column="review_date" property="review_date"/>
+      <collection property="rpList" javaType="java.util.ArrayList" ofType="store.StoreReviewPhotoVo"  >
+         <result column="review_pid" property="review_pid"/>
+         <result column="image1" property="image1"/>
+         <result column="image2" property="image2"/>
+      </collection>
+  </resultMap>
+	
+  
+  <select id="review_photo" parameterType='Integer' resultType='store.StoreReviewPhotoVo'>
+     select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=${_parameter}
+  </select>
+  
+      <!--메인페이지 상품목록-->
     <select id="mainpage_list" resultType="bean.ProductVo">
         select p.PRODUCT_ID product_id,
                p.PRODUCT_PRICE product_price,
@@ -65,5 +87,5 @@
         where p.PRODUCT_ID = ${value }
         order by PHOTO_SERIAL
     </select>
-
+	
 </mapper>

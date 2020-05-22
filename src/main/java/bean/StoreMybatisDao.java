@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 
 
 import mybatis.Factory;
+
 import store.StoreReviewPhotoVo;
 import store.StoreReviewVo;
 
@@ -81,5 +82,23 @@ public class StoreMybatisDao {
 
 		}
 	}
+	
+	
+	
+	public List<StoreReviewPhotoVo> getrpList(int review_id){
+		   
+		   List<StoreReviewPhotoVo> rpList = null;
+		    try {
+		       
+		       rpList =sqlsession.selectList("store.review_photo",review_id);
+		       
+		    }catch(Exception ex) {
+		       ex.printStackTrace();
+		    }finally {
+		       //sqlSession.close();
+		       return rpList;
+		    }
+	}
+		    
 	
 }

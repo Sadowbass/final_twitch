@@ -173,43 +173,95 @@ store.rInsert = function () {
 
 }
 
-store.rSelect = function () {
-    //console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
-    //let param = $('#frm_review').serialize();
-    $.post('reviewSelect.str', function (data, state) {
-        $('#Reviews').html("")
-        console.log(data);
-        $('#test1').attr("class", "");
-        $('#test2').attr("class", "active");
-        for (temp of data) {
-            let divReviewItem = document.createElement('div');
-            divReviewItem.className = "review-item clearfix";
-            let divSubmit = document.createElement('div')
-            divSubmit.className = "review-item-submitted";
-            let strong = document.createElement('strong');
-            strong.innerText = temp.mem_id;
-            let em = document.createElement('em');
-            em.innerText = temp.review_date;
-            let divRateit = document.createElement('div')
-            divRateit.className = "rateit";
-            divRateit.setAttribute("data-rateit-value", temp.review_like)
-            divRateit.setAttribute("data-rateit-ispreset", "true");
-            divRateit.setAttribute("data-rateit-readonly", "true");
-            let divContent = document.createElement('div');
-            divContent.className = "review-item-content";
-            let p = document.createElement('p');
-            p.innerText = temp.rContent
 
-            divContent.appendChild(p);
-            divSubmit.appendChild(strong);
-            divSubmit.appendChild(em);
-            divSubmit.appendChild(divRateit);
+store.rSelect = function(){
+	
+	//console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
+	
+	
+	let param = $('#frm_review').serialize();
+	
+	$.post('reviewSelect.str',param , function(data, state){
+		
+		console.log(data);
+		$('#Reviews').html('');
+		
+		$('#item1').attr("class", "");
+		$('#item2').attr("class", "active");
+		
+		for(temp of data){
+			
+			let divPanelDef = document.createElement('div');
+			divPanelDef.className ="panel panel-default";
+			let divPanelHead = document.createElement('div');
+			divPanelHead.className ="panel-heading";
+			let divAccordTog = document.createElement('div');
+			divAccordTog.className ="accordion-toggle";
+			
+			divAccordTog.setAttribute('data-toggle',"collapse");
+			divAccordTog.setAttribute('data-parent',"#accordion1");
+			divAccordTog.setAttribute('data-target',"#accordion"+temp.review_id);
+			divAccordTog.setAttribute('aria-expanded',false);
+			
+			let divClearfix = document.createElement('div');
+            divClearfix.className="review-item clearfix";
+            let divSubmitted = document.createElement('div');
+            divSubmitted.className="review-item-submitted";
+            let title = document.createElement('strong');
+            title.innerText = temp.rSubject;
+            let rdate = document.createElement('em');
+            rdate.innerText = temp.review_date;
+            let rLike = document.createElement('div');
+            rLike.className="rateit";
+            rLike.setAttribute('data-rateit-value', temp.review_like);
+            rLike.setAttribute('data-rateit-ispreset', true);
+            rLike.setAttribute('data-rateit-readonly', true);
+            let ric = document.createElement('div');
+            ric.className="review-item-content";
+            let ricp = document.createElement('p');
+            ricp.innerText = temp.rContent;
+            
+            let accord1 =document.createElement('div');
+            accord1.setAttribute('id', "accordion"+temp.review_id);
+            accord1.className ="panel-collapse collapse";
+            accord1.setAttribute('aria-expanded',false);
+            accord1.style.height = '0px';
+            
+            let panelBody = document.createElement('div');
+            
+            for(p of temp.rpList){
+            	let photo = document.createElement('div')
+            	photo.className ="imgs_wrap";
+            	let image = document.createElement('img');
+            	image.src = "./reviewimages/"+p.image1;
+            	
+            	photo.appendChild(image);
+            	panelBody.appendChild(photo);
+            	
+            }
+            
+            ric.appendChild(ricp);
+            divSubmitted.appendChild(title);
+            divSubmitted.appendChild(rdate);
+            divSubmitted.appendChild(rLike);
+            
+            divClearfix.appendChild(divSubmitted);
+            divClearfix.appendChild(ric);
+            
+            divAccordTog.appendChild(divClearfix);
+            divPanelHead.appendChild(divAccordTog);
+            
+            accord1.appendChild(panelBody);
+     
+            divPanelDef.appendChild(divPanelHead);
+            divPanelDef.appendChild(accord1);
+            
+            $('#Reviews').append(divPanelDef);
+            
+		}
 
-            divReviewItem.appendChild(divSubmit);
-            divReviewItem.appendChild(divContent);
-            $('#Reviews').append(divReviewItem)
-        }
-    });
+		
+	});
 }
 
 /*상품 view클릭시 팝업 메소드*/
@@ -288,4 +340,6 @@ function reload_js(src) {
     $('script[src="' + src + '"]').remove();
     $('<script>').attr('src', src).appendTo('head');
 }
+
+
 

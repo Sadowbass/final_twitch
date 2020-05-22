@@ -2,13 +2,13 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import bean.ProductVo;
 import bean.SCDao;
@@ -21,8 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.google.gson.Gson;
 
 import bean.StoreMybatisDao;
 import store.StoreReviewPhotoVo;
@@ -188,7 +187,8 @@ public class StoreController {
 
        return result;
     }
-
+	
+	
 
 	
 	

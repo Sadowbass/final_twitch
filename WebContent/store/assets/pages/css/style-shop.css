@@ -1133,7 +1133,9 @@ table .product-quantity .input-group {
 	overflow: hidden;
 	border-bottom: solid 1px #eee;
 	padding: 0 5px 5px;
-	margin: 0 -5px 20px;
+	
+    
+   
 }
 .review-item-submitted {
 	margin-bottom: 5px;

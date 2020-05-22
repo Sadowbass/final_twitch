@@ -9,6 +9,18 @@
 
     <title>Insert title here</title>
 
+<title>Insert title here</title>
+<style type="text/css">
+  .imgs_wrap{
+    width: 800px;
+   
+  }
+  .imgs_wrap img {
+    max-width: 200px;
+    margin: 3px;
+  }
+  
+</style>
 </head>
 <body>
 <style type="text/css">
@@ -183,6 +195,91 @@
                                 <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
                                 <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
                             </ul>
+                <div class="product-page-content">
+                  <ul id="myTab" class="nav nav-tabs">
+                    <li id="item1"><a href="#Description"  data-toggle="tab">Description</a></li>
+                    <li id="item2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews (2)</a></li>
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade" id="Description">
+                      <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. </p>
+                    </div>
+                    
+                   
+                    <div class="tab-pane fade in active" id="Reviews">
+                      <!--<p>There are no reviews for this product.</p>-->
+                      <c:forEach var='i' items='${list }'>
+                     <div class="panel panel-default">
+                      
+                      <div class="panel-heading">
+                        <div class="accordion-toggle" data-toggle="collapse" data-target="#accordion1_+${i.review_id }" data-parent="" aria-expanded="false">
+                     
+		                      <div class="review-item clearfix" >
+		                         <div class="review-item-submitted">
+			                          <strong>${i.rSubject }</strong>
+			                          <em>${i.review_date }</em>
+			                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+		                         </div>                                              
+			                      <div class="review-item-content">
+			                            <p>${i.rContent }</p>
+			                      </div>
+		                      </div>
+                         </div>
+                       </div>
+                       
+                       <div id="" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+	                       
+	                        <div class="panel-body"> 
+		                        <c:forEach var='p' items='${i.rpList }'>
+		                         <div class="imgs_review">
+								    <img src="./reviewimages/${p.image1 }">
+								 </div>
+		                        </c:forEach>
+	                        </div>
+	                        
+                        </div>
+                        
+                     </div>
+                       
+                        </c:forEach>
+                        
+                      </div>
+                      
+                      <form name="frm_review" id="frm_review" method="post">
+					    <input type="hidden" name="product_id" >
+					    <input type="hidden" name="review_id" >
+					  </form>
+
+                      <!-- BEGIN FORM-->
+                      <form id="frm_store" action="#" class="reviews-form" role="form" method="post" enctype="multipart/form-data">
+                        <h2>Write a review</h2>
+                        <div class="form-group">
+                          <label for="mId">Name <span class="require">*</span></label>
+                          <input type="text" class="form-control" id="mId" name="mId">
+                        </div>
+                        <div class="form-group">
+                          <label for="rSubject">Subject <span class="require">*</span></label>
+                          <input type="text" class="form-control" id="rSubject" name="rSubject">
+                        </div>
+                        <div class="form-group">
+                          <label for="review">Content <span class="require">*</span></label>
+                          <textarea class="form-control" rows="8" id="review" name="rContent"></textarea>
+                        </div>
+                        <div class="form-group">
+		                    <label for="input_imgs">File input </label>
+		                
+		                    <input type="file" name="reviewFile" id ="input_imgs"  multiple>
+		                    <p class="help-block">사진은 3장까지 가능합니다.</p>
+							<div>
+								<div class="imgs_wrap">
+								</div>
+							</div>
+                		</div>
+                        <div class="form-group">
+                          <label for="backing5">Rating</label>
+                          <input type="range" value="4" step="0.25" id="backing5" name="rLike">
+                          <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+                          </div>
                         </div>
 
                         <div class="product-page-content">
@@ -259,76 +356,55 @@
                                 <!-- END FORM-->
                             </div>
                         </div>
+                        <input type="hidden" id="pId" name="pId" value=101>
+                       
+                      </form>
+                      <!-- END FORM--> 
                     </div>
 
                     <div class="sticker sticker-sale"></div>
                 </div>
             </div>
         </div>
-        <!-- END CONTENT -->
-    </div>
-    <!-- END SIDEBAR & CONTENT -->
-
-
-</div>
-
-
-<script>
-
-    function reload_js(src) {
-        $('script[src="' + src + '"]').remove();
-        $('<script>').attr('src', src).appendTo('head');
-    }
-
-
-    $(document).ready(function () {
-        /*reload_js('./assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js');*/
-
-        $("#input_imgs").on("change", handleImages);
-
-        Layout.initTouchspin();
-
-        $(".sidebar .dropdown > a").click(function (event) {
-            if ($(this).next().hasClass('dropdown-menu')) {
-                event.preventDefault();
-                if ($(this).hasClass("collapsed") == false) {
-                    $(this).addClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideDown(300);
-                } else {
-                    $(this).removeClass("collapsed");
-                    $(this).siblings(".dropdown-menu").slideUp(300);
-                }
-            }
-        });
-
-    });
-
-    function handleImages(e) {
-
-        var sel_files = [];
-        var files = e.target.files;
-        var fileArr = Array.prototype.slice.call(files);
-
-        fileArr.forEach(function (f) {
-            if (!f.type.match("image.*")) {
-                alert("이미지 확장자만 업로드 가능합니다.");
-                return;
-            }
-
-            sel_files.push(f);
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                //alert(e.target.result);
-                var html = "<img src =\"" + e.target.result + "\" />";
-                $('.imgs_wrap').append(html);
-
-            }
-            reader.readAsDataURL(f);
-        });
-
-    }
-
-</script>
-<script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    <script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
+    <script>
+    $(document).ready(function(){
+		$("#input_imgs").on("change", handleImages);
+		 $(".sidebar .dropdown > a").click(function (event) {
+	            if ($(this).next().hasClass('dropdown-menu')) {
+	                event.preventDefault();
+	                if ($(this).hasClass("collapsed") == false) {
+	                    $(this).addClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideDown(300);
+	                } else {
+	                    $(this).removeClass("collapsed");
+	                    $(this).siblings(".dropdown-menu").slideUp(300);
+	                }
+	            } 
+	        });
+	});
+    
+	function handleImages(e){	
+		var sel_files = [];
+		var files = e.target.files;
+	    var fileArr = Array.prototype.slice.call(files);
+	    fileArr.forEach(function(f){
+	    	if(!f.type.match("image.*")){
+	        	alert("이미지 확장자만 업로드 가능합니다.");
+	            return;
+	        }
+	        	sel_files.push(f);
+	            var reader = new FileReader();
+	            reader.onload = function(e){
+	            	//alert(e.target.result);
+	            	var html = "<img src =\""+ e.target.result + "\" />";
+	                $('.imgs_wrap').append(html);
+	            }
+	            reader.readAsDataURL(f);
+	});
+	}
+    </script>
 </body>
 </html>
