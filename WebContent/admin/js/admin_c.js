@@ -27,20 +27,8 @@ function LoadImg(value,i){
 
 var cmh = {}
 
-cmh.init = function(){
-	/*location.href="test.mh";*/
-	/*location.href="index.jsp?inc=admin_pages/shop/product_select.jsp";*/
-	location.href="product_select.mh";
-	/*$.ajax({
-		url : "product_select.mh",
-		type : "get",
-		error : function(xhr,status,error){
-			alert(error)
-		},
-		success : function(data, xhr, status){
-			$('#mainContent').html(data);
-		}		
-	})	*/
+cmh.init = function(){	
+	location.href="product_select.mh";	
 }
 
 cmh.reviewSelect = function(){
@@ -48,10 +36,38 @@ cmh.reviewSelect = function(){
 }
 
 cmh.review_view = function(){
-	location.href="reviewView.mh";
+	$('#frm_reviewDetail_mh').submit();
 }
 
 cmh.func = function(){
+	
+	/*review_detail.jsp*/
+	$('#btn_reviewDelete_mh').click(function(){
+		swal({
+			title:"정말 삭제하시겠습니까?",
+			icon : "warning",
+			buttons:true,
+			dangerMode : true,
+		}).then((v)=>{
+			if(v) {				
+				$.ajax({
+					url : "reviewDelete.mh",
+					type : "post",
+					data : { "review_id": $('#review_id').val()},
+					success : function(data, xhr, state){
+						swal("삭제 되었습니다.",{
+							icon: "success",
+						}).then((v)=>{
+							cmh.reviewSelect();
+						})
+						
+						
+					}
+				})			
+			}
+		})
+	})
+	/*end review_detail.jsp*/
 	
 	/* product_insert.jsp */
 	$('#close1').click(function(){
@@ -175,7 +191,8 @@ cmh.func = function(){
 		frm_product_select.nowPage.value = 1;
 		let param = $('#frm_product_select').serialize();
 		$.post("product_select.mh", param, function(data, state){
-			$('#mainContent').html(data)
+			
+			$('#mainContent').html(data);
 		});
 	})
 	
@@ -206,12 +223,7 @@ cmh.func = function(){
 						
 						
 					}
-				})
-				
-				
-				
-				
-				
+				})			
 			}
 		})
 	})
@@ -292,6 +304,7 @@ cmh.productView = function(product_id){
 	
 	$.post("product_view.mh",param, function(data,state){
 		$('#mainContent').html(data);
+		
 	});
 }
 

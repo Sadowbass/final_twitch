@@ -35,8 +35,28 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
-	@RequestMapping(value="*/reviewView.mh", produces="application/text; charset-utf8")
-	public String reviewView() {
+	@RequestMapping(value="*/reviewDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
+	@ResponseBody
+	public void reviewDelete(String review_id) {
+		System.out.println("★★★controller->reviewDelete()★★★");
+
+		String msg = dao.reviewDelete(review_id);
+		
+		System.out.println(msg);
+	}
+	
+	@RequestMapping(value="*/reviewView.mh",method=RequestMethod.POST, produces="application/text; charset-utf8")
+	public String reviewView(Model model, int reviewSerial ,int nowPage, String reviewFindStr) {
+		System.out.println("★★★★★reviewView");
+		
+		mh_Page p = new mh_Page();
+		p.setFindStr(reviewFindStr);
+		p.setNowPage(nowPage);
+		MH_ReviewVo vo = dao.reviewDetail(reviewSerial);
+		
+		model.addAttribute("vo",vo);
+		model.addAttribute("p",p);
+		model.addAttribute("nowPage", nowPage);
 		
 		return "review_detail";
 	}

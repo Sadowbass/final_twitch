@@ -64,6 +64,12 @@
 																				
 											<small>${i.review_date }</small>
 										</h2>
+										<form id="frm_reviewDetail_mh" action="reviewView.mh" method="post">
+											<input type="hidden" id="reviewSerial" name="reviewSerial" value="${i.review_id }"/>
+											<input type="hidden" id="reviewFindStr" name="reviewFindStr" value="${p.findStr}"/>
+											<input type="hidden" id="nowPage" name="nowPage" value="${p.nowPage }"/>
+											<input type="hidden" id="product_name" name="product_name" value="${i.product_name }" />
+										</form>
 										<ul class="header-dropdown m-r--5">
 											<li class="">
 												<c:forEach var="a" begin="1" end="${i.review_like }" >

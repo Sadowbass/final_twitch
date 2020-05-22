@@ -22,6 +22,18 @@ public class StoreMybatisDao_mh {
 	}
 	
 	
+	public MH_ReviewVo reviewDetail(int serial) {
+		MH_ReviewVo vo = null;
+		try {
+			vo = sqlSession.selectOne("storeAdmin.reviewView",serial); 
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vo;
+	}
+	
 	
 	public List<MH_ReviewVo> reviewSelect(mh_Page p){
 		List<MH_ReviewVo> list = null;
@@ -59,6 +71,29 @@ public class StoreMybatisDao_mh {
 				throw new Exception();
 			}
 			msg="정상적으로 삭제 완료";
+			sqlSession.commit();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return msg;
+	}
+	
+	public String reviewDelete(String value) {
+		String msg="";
+		int review_id = Integer.parseInt(value);
+		try {
+			int cnt = sqlSession.delete("storeAdmin.reviewPhoto_delete_all",review_id);
+			System.out.println("에러1");
+			if(cnt<1) {
+				throw new Exception("사진 삭제중 오류");
+			}
+			cnt = sqlSession.delete("storeAdmin.review_delete",review_id);
+			System.out.println("에러2");
+			if(cnt<1) {
+				throw new Exception();
+			}
+			msg="리뷰,리뷰 사진 삭제 완료";
 			sqlSession.commit();
 		}catch (Exception e){
 			e.printStackTrace();
