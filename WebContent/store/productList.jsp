@@ -38,11 +38,11 @@
                     <li class="list-group-item clearfix">
 
                     <li class="list-group-item clearfix">
-                        <a href="javascript:void(0);"><i class="fa fa-angle-right"></i> HOODIES</a>
+                        <a href="javascript:store.pl('hoodies');"><i class="fa fa-angle-right"></i> HOODIES</a>
 
                     </li>
                     <li class="list-group-item clearfix">
-                        <a href="javascript:void(0);"><i class="fa fa-angle-right"></i> TEES</a>
+                        <a href="javascript:store.pl('tees');"><i class="fa fa-angle-right"></i> TEES</a>
 
                     </li>
 
@@ -50,8 +50,8 @@
                         <a href="javascript:void(0);"><i class="fa fa-angle-right"></i> BOTTOMS</a>
                         <ul class="dropdown-menu">
 
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Long Pants</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Short Pants</a></li>
+                            <li><a href="javascript:store.pl('long pants');"><i class="fa fa-angle-right"></i> Long Pants</a></li>
+                            <li><a href="javascript:store.pl('short pants');"><i class="fa fa-angle-right"></i> Short Pants</a></li>
 
                         </ul>
                     </li>
@@ -60,10 +60,10 @@
                         <a href="javascript:void(0);"><i class="fa fa-angle-right"></i> BAGS & ACCESSORIES</a>
                         <ul class="dropdown-menu">
 
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Bags</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Hats</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> Socks</a></li>
-                            <li><a href="shop-product-list.html"><i class="fa fa-angle-right"></i> ETC</a></li>
+                            <li><a href="javascript:store.pl('bags');"><i class="fa fa-angle-right"></i> Bags</a></li>
+                            <li><a href="javascript:store.pl('hats');"><i class="fa fa-angle-right"></i> Hats</a></li>
+                            <li><a href="javascript:store.pl('socks');"><i class="fa fa-angle-right"></i> Socks</a></li>
+                            <li><a href="javascript:store.pl('etc');"><i class="fa fa-angle-right"></i> ETC</a></li>
 
                         </ul>
                     </li>
