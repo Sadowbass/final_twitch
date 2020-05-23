@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,10 +201,61 @@ public class HEController {
 				}
 			}
 		}
+		List<List<String>> list = new ArrayList<List<String>>();
+		list = dao.weekly_broad_time(mid);
+		List<String> board_time = new ArrayList<String>();
+		for(int i=0; i<list.size();i++) {
+			List<String> od = new ArrayList<String>();
+			od = list.get(i);
+			double time=0;
+			for(int j=0; j<od.size();j++) {
+				String array[] = od.get(j).split(":");
+				int hour =Integer.parseInt(array[0]);
+				double min = Double.parseDouble((array[1]))/60.0;
+				double temptime = hour+min;
+				time += temptime;
+			}
+			String t = time+"";
+			board_time.add(t);
+		}
 		
-		dao.weekly_broad_time(mid);
+		list = dao.monthly_broad_time(mid);
+		List<String> board_time2 = new ArrayList<String>();
+		for(int i=0; i<list.size();i++) {
+			List<String> bt = new ArrayList<String>();
+			bt =list.get(i);
+			double time=0;
+			for(int j=0; j<bt.size();j++) {
+				String array[] = bt.get(j).split(":");
+				int hour =Integer.parseInt(array[0]);
+				double min = Double.parseDouble((array[1]))/60.0;
+				double temptime = hour+min;
+				time += temptime;
+			}
+			String t = time+"";
+			board_time2.add(t);
+		}
 		
+		list = dao.year_broad_time(mid);
+		List<String> board_time3 = new ArrayList<String>();
+		for(int i=0; i<list.size();i++) {
+			List<String> bt = new ArrayList<String>();
+			bt =list.get(i);
+			double time=0;
+			for(int j=0; j<bt.size();j++) {
+				String array[] = bt.get(j).split(":");
+				int hour =Integer.parseInt(array[0]);
+				double min = Double.parseDouble((array[1]))/60.0;
+				double temptime = hour+min;
+				time += temptime;
+			}
+			String t = time+"";
+			board_time3.add(t);
+		}
 		
+		mv.addObject("bt3", board_time3);
+		mv.addObject("bt2", board_time2);
+		mv.addObject("bt",board_time);
 		mv.addObject("vo", vo);
 		mv.setViewName("twitch_main/streamer_detail"); 
 		return mv;

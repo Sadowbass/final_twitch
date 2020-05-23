@@ -19,8 +19,16 @@
 		from final_member where mem_id='${_parameter}'
     </select>
     
-    <select id="weekly_broad_time" parameterType="hashMap" resultType="String">
-		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'rrrr-mm-dd')=#{day};
+    <select id="weekly_broad_time" parameterType="hashmap" resultType="String">
+		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'rrrr-mm-dd')=#{day}
+	</select>
+	
+	 <select id="monthly_broad_time" parameterType="hashmap" resultType="String">
+		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'mm')=#{month} and to_char(bef_rdate,'rrrr')=#{year}
+	</select>
+	
+	<select id="year_broad_time" parameterType="hashmap" resultType="String">
+		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'rrrr')=#{year}
 	</select>
 
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">

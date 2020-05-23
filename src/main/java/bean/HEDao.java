@@ -7,6 +7,7 @@ import mybatis.Factory;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -346,8 +347,8 @@ public class HEDao {
 		
 	}
 	
-	public List<String> weekly_broad_time(String mid) {
-		List<String> list= new ArrayList<String>();
+	public List<List<String>> weekly_broad_time(String mid) {
+		List<List<String>> list= new ArrayList<List<String>>();
 		try {
 		        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		        Calendar cal = GregorianCalendar.getInstance();
@@ -360,20 +361,87 @@ public class HEDao {
 		        	cal.set(Calendar.DAY_OF_WEEK, i);
 		        	String day = format.format(cal.getTime());
 		        	map.put("day", day);
-		        	String broad_time = sqlSession.selectOne("stream.weekly_broad_time",map);
+		        	List<String> broad_time = new ArrayList<String>();
+		        	broad_time = sqlSession.selectList("stream.weekly_broad_time",map);
 		        	list.add(broad_time);
 		        }
 		       
-		        
-		       
-		       
 			
 		}catch(Exception ex) {
-			
+			ex.printStackTrace();
 		}finally {
 			return list;
 		}
 		
+	}
+	
+	public List<List<String>> monthly_broad_time(String mid){
+		List<List<String>> list= new ArrayList<List<String>>();
+		try {
+	        int year = 2020;
+	        /*int day = 1;
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();*/
+
+	        Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year",year);
+	        
+	        /*String month  = df.format(currentCalendar.get(Calendar.MONTH) + 1);이번달 구하기
+	        int m = Integer.parseInt(month);*/
+	        
+	        for(int i=1; i<13;i++) {
+	        	
+	        	/*SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        	
+	        	Calendar cal = Calendar.getInstance();
+	        	
+	        	cal.set(year, i-1, day); //월은 -1해줘야 해당월로 인식
+	        	
+	        	String firstday = dateFormat.format(cal.getTime());
+	        	
+	        	cal.set(year,i-1,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+	        	
+	        	String lastday =  dateFormat.format(cal.getTime());
+	        	
+	        	map.put("sday", firstday);
+	        	map.put("lday", lastday);*/
+	        	map.put("month",i);
+	        	
+	        	List<String> broad_time = sqlSession.selectList("stream.monthly_broad_time",map);
+	        	list.add(broad_time);
+	        	
+	        }
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+		
+	}
+	
+	public List<List<String>> year_broad_time(String mid){
+		List<List<String>> list= new ArrayList<List<String>>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+	        
+	        for(int i=y-10 ; i<y+1 ; i++) {
+	        	map.put("year",i);
+	        	List<String> broad_time = sqlSession.selectList("stream.year_broad_time",map);
+	        	list.add(broad_time);
+	        }
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
 	}
 
 

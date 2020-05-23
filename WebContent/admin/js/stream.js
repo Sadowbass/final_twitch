@@ -173,7 +173,7 @@ let tag_save =  function(){
    })
 }
 
-let month_chart = function(){
+let month_chart = function(a,b,c,d,e,f,g,h,i,j,k,l){
 	chart.destroy();
 	var ctx2 = document.getElementById('week_chart').getContext('2d');
 	 chart = new Chart(ctx2, {
@@ -184,7 +184,7 @@ let month_chart = function(){
 	        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
 	        datasets: [{
 	            label: '방송 시간',
-	            data: [0, 10, 5, 2, 20, 30, 45,35,24,12,34,32],
+	            data: [a, b, c, d, e, f, g,h,i,j,k,l],
 	            borderColor: 'rgba(0, 188, 212, 0.75)',
 	            backgroundColor: 'rgba(0, 188, 212, 0.3)',
 	            pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -200,7 +200,7 @@ let month_chart = function(){
 	
 }
 
-let week_chart =function(){
+let week_chart =function(mon,tue,wen,thr,fri,sat,sun){
 	chart.destroy();
 	var ctx1 = document.getElementById('week_chart').getContext('2d')
 	 chart = new Chart(ctx1,{
@@ -211,7 +211,7 @@ let week_chart =function(){
 			 labels: ['일','월', '화', '수', '목', '금', '토'],
 			datasets: [{
 				label: '방송 시간',
-				data: [0, 10, 5, 2, 20, 30, 45],
+				data: [mon,tue,wen,thr,fri,sat,sun],
 				borderColor: 'rgba(0, 188, 212, 0.75)',
 				backgroundColor: 'rgba(0, 188, 212, 0.3)',
 				pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -226,7 +226,7 @@ let week_chart =function(){
 	}); 
 }
 
-let year_chart =function(){
+let year_chart =function(a,b,c,d,e,f,g,h,i,j){
 	chart.destroy();
 	var ctx1 = document.getElementById('week_chart').getContext('2d')
 	 chart = new Chart(ctx1,{
@@ -237,7 +237,7 @@ let year_chart =function(){
 			labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
 			datasets: [{
 				label: '방송 시간',
-				data: [0, 10, 5, 2, 20, 30, 45,34,23,25],
+				data: [a, b, c, d, e, f, g,h,i,j],
 				borderColor: 'rgba(0, 188, 212, 0.75)',
 				backgroundColor: 'rgba(0, 188, 212, 0.3)',
 				pointBorderColor: 'rgba(0, 188, 212, 0)',

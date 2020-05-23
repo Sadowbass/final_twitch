@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="css/member.css" rel="stylesheet">
+    
 </head>
 <div class="container-fluid">
     <div class="block-header">
@@ -105,9 +106,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);" onclick="week_chart()">주별</a></li>
-                                <li><a href="javascript:void(0);" onclick="month_chart()">월별</a></li>
-                                <li><a href="javascript:void(0);" onclick="year_chart()">연도별</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart('${bt[0]}','${bt[1]}','${bt[2]}','${bt[3]}','${bt[4]}','${bt[5]}','${bt[6]}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart('${bt2[0]}','${bt2[1]}','${bt2[2]}','${bt2[3]}','${bt2[4]}','${bt2[5]}','${bt2[6]}','${bt2[7]}','${bt2[8]}','${bt2[9]}','${bt2[10]}','${bt2[11]}')">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart('${bt3[0]}','${bt3[1]}','${bt3[2]}','${bt3[3]}','${bt3[4]}','${bt3[5]}','${bt3[6]}','${bt3[7]}','${bt3[8]}','${bt3[9]}')">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -206,7 +207,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <!-- Custom Js -->
 <script src="js/stream.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
 <script>
+//console.log(moment().day(0)._d);//이번주 일욜
+//console.log(moment().day(0)._d.add(7,"days"))//이번주 토욜?
+//console.log(moment().subtract(7, 'days'));
+//console.log(moment().day(-7)._d);
+//console.log(moment().day(-14)._d);
+//console.log(moment().day(-21)._d);
 
 var ctx1 = document.getElementById('week_chart').getContext('2d')
 var chart = new Chart(ctx1,{
@@ -217,7 +225,7 @@ var chart = new Chart(ctx1,{
         labels: ['일','월', '화', '수', '목', '금', '토'],
         datasets: [{
             label: '방송 시간',
-            data: [0, 10, 5, 2, 20, 30, 45],
+            data: [${bt[0]}, ${bt[1]}, ${bt[2]}, ${bt[3]}, ${bt[4]}, ${bt[5]}, ${bt[6]}],
             borderColor: 'rgba(0, 188, 212, 0.75)',
 			backgroundColor: 'rgba(0, 188, 212, 0.3)',
 			pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -230,6 +238,8 @@ var chart = new Chart(ctx1,{
         legend: false
     }
 }); 
+
+
 
 var ctx3 = document.getElementById('bar_chart').getContext('2d')
 var chart3 = new Chart(ctx3,{
