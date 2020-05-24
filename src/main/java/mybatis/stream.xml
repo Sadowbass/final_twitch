@@ -30,7 +30,42 @@
 	<select id="year_broad_time" parameterType="hashmap" resultType="String">
 		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'rrrr')=#{year}
 	</select>
-
+	
+	<select id="weekly_follow" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr-mm-dd') = #{day}
+	</select>
+	
+	<select id="weekly_sub" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day}
+	</select>
+	
+	<select id="weekly_follow_tot" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) 
+		from final_mfollow 
+		where mfo_mid=#{mid} and mfo_date &lt; #{day}
+	</select>
+	
+	<select id="weekly_sub_tot" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and sub_rdate &lt; #{day}
+	</select>
+	
+	<select id="monthly_sub" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_follow" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') = #{month} and to_char(mfo_date,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_sub_tot" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') &lt; #{month} and to_char(sub_rdate,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_follow_tot" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') &lt; #{month} and to_char(mfo_date,'rrrr')= #{year}
+	</select>
+	
+	
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
 		select * from final_category
 	</select>
