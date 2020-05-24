@@ -28,9 +28,9 @@
 			aspectratio : "16:9",
 
 			sources : [ {
-				file : "rtmp://192.168.0.77/hls/${vo.mem_Skey}",
+				file : "rtmp://192.168.0.77/hls/${vo.mem_skey}",
 			}, {
-				file : "http://192.168.0.77:8882/hls/${vo.mem_Skey}.m3u8"
+				file : "http://192.168.0.77:8882/hls/${vo.mem_skey}.m3u8"
 			} ]
 		});
 	</script>

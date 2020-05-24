@@ -101,21 +101,20 @@ public class SCController {
 
     /*로그인한 회원 정보*/
     @ResponseBody
-    @RequestMapping(value = "/userinfo.sc", method = RequestMethod.POST)
-    public String topPage(HttpServletRequest req) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss SS");
-        Date d = new Date();
-        System.out.println("시작"+sdf.format(d));
+    @RequestMapping(value = "/userinfo.sc", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView topPage(HttpServletRequest req) {
+        ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
-        session.setAttribute("mId", "faker");
         String mId = (String) session.getAttribute("mId");
-        Gson gson = new Gson();
-        String result = gson.toJson(dao.userInfo(mId));
 
-        d = new Date();
-        System.out.println("끝"+sdf.format(d)+"\n");
-        return result;
+        if(mId != null){
+            UserInfoVo vo = dao.userInfo(mId);
+            mv.addObject("loginInfo", vo);
+        }
+
+        mv.setViewName("top");
+        return mv;
     }
 
     /*메인페이지 로드*/
@@ -124,7 +123,6 @@ public class SCController {
         ModelAndView mv = new ModelAndView();
 
         HttpSession session = req.getSession();
-        session.setAttribute("mId", "faker");
 
         mv.setViewName("main");
         return mv;
@@ -137,7 +135,13 @@ public class SCController {
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
         String mId = (String) session.getAttribute("mId");
-        List<StreamingVo> list = dao.nowStreaming(mId);
+        List<StreamingVo> list = new ArrayList<StreamingVo>();
+
+        if(mId != null){
+            list = dao.nowStreaming(mId);
+        } else {
+            list = dao.nowStreaming();
+        }
 
         mv.addObject("list", list);
         mv.addObject("cnt", "3,333");
@@ -216,7 +220,6 @@ public class SCController {
     @ResponseBody
     @RequestMapping(value = "/view-donation-list.sc", method = RequestMethod.POST)
     public String dtest(HttpServletRequest req) {
-    	System.out.println("승철 리스트 들어옴");
         DonationVo vo = new DonationVo();
         String mId = req.getParameter("mId");
         vo = new SCDao().donationView(mId);
@@ -236,5 +239,43 @@ public class SCController {
         result = gson.toJson(dao.findFriends(mId));
 
         return result;
+    }
+
+    /*회원정보 확인*/
+    @ResponseBody
+    @RequestMapping(value = "idcheck.sc")
+    public String idCheck(HttpServletRequest req){
+        String flag = "false";
+        String id = req.getParameter("id");
+        String pwd = req.getParameter("pwd");
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        map.put("pwd", pwd);
+        SCDao dao = new SCDao();
+        UserInfoVo vo = dao.idcheck(map);
+        if(vo != null){
+            flag = "true";
+            req.getSession().setAttribute("mId", vo.getMem_id());
+        }
+        return flag;
+    }
+
+    /*로그아웃*/
+    @RequestMapping(value = "logout.sc", method = RequestMethod.GET)
+    public void logout(HttpServletRequest req){
+        req.getSession().removeAttribute("mId");
+    }
+
+    /*아이디 중복체크*/
+    @ResponseBody
+    @RequestMapping(value = "dupIdCheck.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8;")
+    public String dupIdChecker(HttpServletRequest req){
+        SCDao dao = new SCDao();
+        int i = dao.dupIdCheck(req.getParameter("mId"));
+        Gson gson = new Gson();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("result", i);
+        return gson.toJson(map);
     }
 }

@@ -40,22 +40,12 @@
 	<script src="/js/js_uk.js"></script>
 </head>
 <body id="page-top">
-<script>
-	$(document).ready(function () {
-		$.ajax({
-			type: 'get',
-			url: '/sidebar.sc',
-			success: function (data) {
-				$('#sidebarplace').html(data);
-			}
-		})
-	})
-</script>
 <div id="topplace">
-	<%@include file="/top.jsp" %>
+	<jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
 <div id="wrapper">
 	<div id="sidebarplace" style="margin-top: 53px;">
+		<jsp:include page="/sidebar.sc" flush="false"></jsp:include>
 	</div>
 	<div id="content-wrapper" style="margin-top: 53px;">
 		<div class="container-fluid py-0 " style="padding-left: 211px; padding-right: 26px;">
@@ -77,7 +67,7 @@
 											</c:otherwise>
 										</c:choose>
 										<a href="#">
-											${vo.mem_Id}
+											${vo.mem_id}
 											<span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified">
 										<i class="fas fa-check-circle"></i>
 									</span>
@@ -92,16 +82,16 @@
 								<div class="row mx-0">
 									<div class="col-md-4 p-0"></div>
 									<div class="col-md-1 p-0">
-										<a href="/${vo.mem_Id}">홈</a>
+										<a href="/${vo.mem_id}">홈</a>
 									</div>
 									<div class="col-md-1 p-0">
-										<a href="/${vo.mem_Id}/video">동영상</a>
+										<a href="/${vo.mem_id}/video">동영상</a>
 									</div>
 									<div class="col-md-1 p-0">
 										<a href="#">클립</a>
 									</div>
 									<div class="col-md-1 p-0">
-										<a href="/${vo.mem_Id}/followers">팔로워</a>
+										<a href="/${vo.mem_id}/followers">팔로워</a>
 										<div class="col-md-4  p-0"></div>
 									</div>
 								</div>

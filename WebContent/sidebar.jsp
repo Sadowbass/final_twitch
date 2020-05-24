@@ -14,8 +14,8 @@
 
     <c:forEach var="i" items="${list}">
         <li class="nav-item">
-            <a href="/${i.air_mId}">
-                <div class="nav-link nav-link-sc" id="${i.air_mId }">
+            <a href="/${i.air_mid}">
+                <div class="nav-link nav-link-sc" id="${i.air_mid }">
                     <c:choose>
                         <c:when test="${i.ph_sysfile == null}">
                             <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
@@ -27,8 +27,8 @@
 
                     <div class="sidebar-list-content">
                         <div class="sidebar-list-text">
-                            <span>${i.air_mId}</span><br/>
-                            <span class="game-category">${i.air_gName}</span>
+                            <span>${i.air_mid}</span><br/>
+                            <span class="game-category">${i.air_gname}</span>
                         </div>
                         <div class="sidebar-list-viewer">
                             <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
@@ -76,11 +76,11 @@
 
 <ul class="sidebar navbar-nav" id="sidebar-friendlist">
     <li class="nav-item">
-        <div class="nav-link nav-link-sc" id="<c:out value="${i.air_mId}"/>">
+        <div class="nav-link nav-link-sc" id="<c:out value="${i.air_mid}"/>">
             <img src="/img/s1.png" class="sidebar-list-img rounded-circle"></img>
             <div class="sidebar-list-content">
                 <div class="sidebar-list-text">
-                    <span>${i.air_mId}</span><br/>
+                    <span>${i.air_mid}</span><br/>
                 </div>
                 <div class="sidebar-list-viewer">
                     <i class="fas fa-user-plus" style="font-size: 3px"></i>

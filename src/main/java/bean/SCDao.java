@@ -24,19 +24,20 @@ public class SCDao {
 	
 	/*현재 로그인중인 회원 정보*/
 	public UserInfoVo userInfo(String mId){
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss SS");
-		Date d = new Date();
-		System.out.println("dao"+sdf.format(d));
 		UserInfoVo vo = new UserInfoVo();
 		vo = sqlSession.selectOne("scbatis.userInfo", mId);
-		d= new Date();
-		System.out.println("batis"+sdf.format(d));
 		return vo;
 	}
 
 	/*현재 방송중인 리스트 불러오는 메소드*/
 	public List<StreamingVo> nowStreaming(String mId){
 		List<StreamingVo> list = sqlSession.selectList("scbatis.nowStreaming2",mId);
+		return list;
+	}
+
+	/*비회원 추천채널*/
+	public List<StreamingVo> nowStreaming(){
+		List<StreamingVo> list = sqlSession.selectList("scbatis.recommend");
 		return list;
 	}
 	
@@ -159,6 +160,17 @@ public class SCDao {
 			vo.getSysfileList().add(temp.getSysfile());
 		}
 		return vo;
+	}
+
+	/*로그인시 id pwd 체크*/
+	public UserInfoVo idcheck(Map<String, String> map){
+		UserInfoVo result = sqlSession.selectOne("scbatis.idcheck", map);
+		return result;
+	}
+
+	/*회원 가입시 아이디 중복 체크*/
+	public int dupIdCheck(String mId){
+		return sqlSession.selectOne("scbatis.dupIdCheck", mId);
 	}
 
 }

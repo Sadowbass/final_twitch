@@ -59,6 +59,10 @@
         order by fo.AIR_MID
     </select>
 
+    <select id="recommend" resultType="bean.StreamingVo">
+        select * from FINAL_ONAIR where rownum between 1 and 10
+    </select>
+
     <!--스트리머가 재생한 도네이션 확인-->
     <select id="donationView" parameterType="String" resultType="bean.DonationVo">
         select fd.don_serial, fd.don_mid, fd.don_oid, fd.don_price, fd.don_rdate, fd.don_content,fd.url,fd.type,fr.rul_data
@@ -110,4 +114,13 @@
         where rno between ${rno}+1 and ${rno}+3
     </select>
 
+    <!--로그인 id pwd 정확한지 체크-->
+    <select id="idcheck" parameterType="hashMap" resultType="bean.UserInfoVo">
+        select * from FINAL_MEMBER where MEM_ID = #{id} and MEM_PWD = #{pwd}
+    </select>
+
+    <!--회원가입시 아이디 중복체크-->
+    <select id="dupIdCheck" parameterType="String" resultType="int">
+        select count('mem_id') from FINAL_MEMBER where MEM_ID = #{value }
+    </select>
 </mapper>

@@ -41,17 +41,7 @@
 </head>
 <body id="page-top">
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            type: 'get',
-            url: 'sidebar.sc', 
-            error:function(){
-            	console.log(error)
-            },
-            success: function (data) {
-                $('#sidebarplace').html(data);
-            }
-        })
+/*    $(document).ready(function () {
         $.ajax({
             type:'get',
             url:'main.sc',
@@ -59,15 +49,17 @@
                 $('#content-wrapper').html(data);
             }
         })
-    })
+    })*/
 </script>
 <div id="topplace">
-    <%@include file="top.jsp" %>
+    <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
 <div id="wrapper">
     <div id="sidebarplace" style="margin-top: 52px;">
+        <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
     </div>
     <div id="content-wrapper">
+        <jsp:include page="/main.sc" flush="false"></jsp:include>
     </div>
     <!-- /.content-wrapper -->
 </div>
