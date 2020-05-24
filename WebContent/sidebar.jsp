@@ -9,7 +9,7 @@
         height: 32px;
     }
 </style>
-<ul class="sidebar navbar-nav" id="sidebar-navmain">
+<ul class="sidebar navbar-nav sidebar_uk" id="sidebar-navmain">
     <h6 class="sidebar-top">팔로우 중인 채널</h6>
 
     <c:forEach var="i" items="${list}">

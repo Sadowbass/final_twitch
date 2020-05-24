@@ -81,6 +81,10 @@ $(document).keydown(function (e) {
     e.preventDefault();
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
+    /*uk*/
+    if($(".video_main_uk").length){
+    	uk.leftValue();
+    }
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
