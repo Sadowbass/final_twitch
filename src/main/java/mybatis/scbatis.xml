@@ -121,7 +121,7 @@
 
     <!--로그인 id pwd 정확한지 체크-->
     <select id="idcheck" parameterType="hashMap" resultType="bean.UserInfoVo">
-        select * from FINAL_MEMBER where MEM_ID = #{id} and MEM_PWD = #{pwd}
+        select * from FINAL_MEMBER fm join FINAL_PHOTO fp on fm.MEM_ID = fp.PH_ID where MEM_ID = #{id} and MEM_PWD = #{pwd}
     </select>
 
     <!--회원가입시 아이디 중복체크-->

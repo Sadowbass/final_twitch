@@ -77,8 +77,8 @@
             <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
                 <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img alt="Avatar" src="/img/user.png" id="top-userphoto">
-                    <span id="top-username"></span>
+                    <img src="/img/user-photo/${loginInfo.ph_sysfile}" id="top-userphoto">
+                    <span id="top-username">${loginInfo.mem_name}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">

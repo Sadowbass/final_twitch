@@ -264,7 +264,7 @@ public class SCController {
         return result;
     }
 
-    /* 회원정보 확인 */
+    /* 회원정보 확인 겸 로그인처리 */
     @ResponseBody
     @RequestMapping(value = "idcheck.sc")
     public String idCheck(HttpServletRequest req) {
