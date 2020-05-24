@@ -34,9 +34,10 @@ $(function () {
         else if (type === 'modify') {
             showModifyMessage();
         }
-        else if (type === 'cancel2') {
-            showCancel2Message();
+        else if (type === 'modify2') {
+            showCateModify();
         }
+      
     });
 });
 
@@ -57,6 +58,17 @@ function showSuccessMessage() {
         closeOnConfirm: true
     }, function () {
         location.href = "member_select.he"
+    });
+}
+
+function showCateSuccessMessage() {
+	swal({
+        title: "수정 완료",
+        text: "카테고리 정보가 성공적으로 수정되었습니다",
+        type: "success",
+        closeOnConfirm: true
+    }, function () {
+        location.href = "category_select.he"
     });
 }
 
@@ -116,6 +128,36 @@ function showModifyMessage() {
    
 }
 
+function showCateModify() {
+    swal({
+        title: "정말 수정하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "수정",
+        cancelButtonText: "취소",
+        closeOnConfirm: false
+    },function(){
+		let fd = new FormData($('#modal_form')[0])//object형태로 데이터 생성 
+		
+		$.ajax({
+			url:'category_modifyR.he',
+			type:'post',
+			data:fd,
+			contentType:false,
+			processData:false,
+			error: function(xhr,status,error){
+				showError(error)
+			},
+			success:function(data,xhr,status){
+				showCateSuccessMessage()
+			}
+	   })
+    });
+   
+}
+
 function showError(error){
 	swal("에러발생",error, "error");
 }
@@ -156,25 +198,7 @@ function showdelconfirm(){
 }
 
 
-function showCancel2Message() {
-    swal({
-        title: "정말 삭제하시겠습니까?",
-        text: "다시 복구할 수 없습니다!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#e14eca",
-        confirmButtonText: "삭제",
-        cancelButtonText: "취소",
-        closeOnConfirm: false,
-        closeOnCancel: false
-    }, function (isConfirm) {
-        if (isConfirm) {
-            swal("삭제 완료 됨", "해당 카테고리 삭제되었습니다", "success");
-        } else {
-            swal("취소됨", "카테고리 삭제가 취소되었습니다", "error");
-        }
-    });
-}
+
 
 function showWithCustomIconMessage() {
     swal({

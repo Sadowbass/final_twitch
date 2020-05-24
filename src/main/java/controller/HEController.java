@@ -1,18 +1,28 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.omg.CORBA.BAD_INV_ORDER;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bean.BroadCastingCateVo;
 import bean.HEDao;
 import bean.MemberVo;
+import bean.StreamerVo;
+import bean.TagVo;
 import config.HE_FileUpload;
+import config.HE_FileUpload2;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -152,9 +162,102 @@ public class HEController {
 	@RequestMapping(value="*/streamer.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView Streamer(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-	
 		
+		List<StreamerVo> list = new ArrayList<StreamerVo>();
+		list =dao.streamer_select();
+		for(int i=0;i <list.size();i++) {
+			if(list.get(i).getMem_status()!=null ) {
+				
+				if(list.get(i).getMem_status().equals("0")) {
+					list.get(i).setMem_status("오프라인");
+				}else if(list.get(i).getMem_status().equals("1")) {
+					list.get(i).setMem_status("온라인");
+				}else {
+					list.get(i).setMem_status("방송중");
+				}
+			}
+		}
+		mv.addObject("list", list);
+	
 		mv.setViewName("twitch_main/streamer"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/streamer_view.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView viewS(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		String mid =(String)req.getParameter("he_serial");
+		StreamerVo vo = new StreamerVo();
+		vo = dao.streamer_view(mid);
+		
+		if(vo != null) {
+			if( vo.getMem_status()!=null) {
+				if(vo.getMem_status().equals("0")) {
+					vo.setMem_status("오프라인");
+				}else if(vo.getMem_status().equals("1")) {
+					vo.setMem_status("온라인");
+				}else {
+					vo.setMem_status("방송중");
+				}
+			}
+		}
+		List<List<String>> list = new ArrayList<List<String>>();
+		list = dao.weekly_broad_time(mid);
+		List<String> board_time = new ArrayList<String>();
+		for(int i=0; i<list.size();i++) {
+			List<String> od = new ArrayList<String>();
+			od = list.get(i);
+			double time=0;
+			for(int j=0; j<od.size();j++) {
+				String array[] = od.get(j).split(":");
+				int hour =Integer.parseInt(array[0]);
+				double min = Double.parseDouble((array[1]))/60.0;
+				double temptime = hour+min;
+				time += temptime;
+			}
+			String t = time+"";
+			board_time.add(t);
+		}
+		
+		list = dao.monthly_broad_time(mid);
+		List<String> board_time2 = new ArrayList<String>();
+		for(int i=0; i<list.size();i++) {
+			List<String> bt = new ArrayList<String>();
+			bt =list.get(i);
+			double time=0;
+			for(int j=0; j<bt.size();j++) {
+				String array[] = bt.get(j).split(":");
+				int hour =Integer.parseInt(array[0]);
+				double min = Double.parseDouble((array[1]))/60.0;
+				double temptime = hour+min;
+				time += temptime;
+			}
+			String t = time+"";
+			board_time2.add(t);
+		}
+		
+		list = dao.year_broad_time(mid);
+		List<String> board_time3 = new ArrayList<String>();
+		for(int i=0; i<list.size();i++) {
+			List<String> bt = new ArrayList<String>();
+			bt =list.get(i);
+			double time=0;
+			for(int j=0; j<bt.size();j++) {
+				String array[] = bt.get(j).split(":");
+				int hour =Integer.parseInt(array[0]);
+				double min = Double.parseDouble((array[1]))/60.0;
+				double temptime = hour+min;
+				time += temptime;
+			}
+			String t = time+"";
+			board_time3.add(t);
+		}
+		
+		mv.addObject("bt3", board_time3);
+		mv.addObject("bt2", board_time2);
+		mv.addObject("bt",board_time);
+		mv.addObject("vo", vo);
+		mv.setViewName("twitch_main/streamer_detail"); 
 		return mv;
 	}
 	
@@ -170,17 +273,16 @@ public class HEController {
 		return mv;
 	}
 	
-	@RequestMapping(value="*/category_view.he", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView viewC(HttpServletRequest req) {
-		ModelAndView mv = new ModelAndView();
-		BroadCastingCateVo vo;
-		String serial = req.getParameter("he_serial");
-		vo = dao.cate_view(serial);
+	@RequestMapping(value="*/category_view.he", method= {RequestMethod.GET,RequestMethod.POST},produces = "application/json; charset=utf8")
+	public @ResponseBody String viewC(BroadCastingCateVo vo) throws Exception {
 
-		mv.addObject("cate", vo);
-		System.out.println(vo.getCat_gname());
-		mv.setViewName("twitch_main/category_select"); 
-		return mv;
+		Map<String, BroadCastingCateVo> map = new HashMap<String,BroadCastingCateVo>();
+		String serial = vo.getCat_serial();
+		vo = dao.cate_view(serial);
+		map.put("cate", vo);
+		ObjectMapper om = new ObjectMapper();
+		String json = om.writeValueAsString(map);
+		return json;
 	}
 	
 	@RequestMapping(value="*/category_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
@@ -191,10 +293,80 @@ public class HEController {
 		return mv;
 	}
 	
+	@RequestMapping(value="*/category_insertR.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView insertR(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		HE_FileUpload2 fu = new HE_FileUpload2(req, resp);
+		BroadCastingCateVo vo = fu.boardUploading();
+		String msg = dao.cate_insert(vo, req);
+		mv.addObject("msg", msg);
+		mv.setViewName("twitch_main/category_insert"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/category_modifyR.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView modifyC(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		HE_FileUpload2 fu = new HE_FileUpload2(req, resp);
+		BroadCastingCateVo vo = fu.boardUploading();
+		String msg = dao.cate_modify(vo, req);
+		mv.addObject("msg", msg);
+		mv.setViewName("twitch_main/category_select"); 
+		return mv;
+	}
+	
+	@RequestMapping(value="*/category_delete.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView deleteC(HttpServletRequest req, HttpServletResponse resp) {
+		ModelAndView mv = new ModelAndView();
+		String serial = req.getParameter("cat_serial");
+		String msg = dao.cate_delete(serial, req);
+		mv.addObject("msg", msg);
+		mv.setViewName("twitch_main/category_select"); 
+		return mv;
+	}
+	
 	@RequestMapping(value="*/tag_management.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView tag(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("twitch_main/tag_management"); 
+		List<TagVo> list = new ArrayList<TagVo>();
+		list = dao.tag_select();
+		
+		mv.addObject("list", list);
+		mv.setViewName("twitch_main/tag_management");
+		return mv;
+	}
+	
+	@RequestMapping(value="*/tag_search.he", method= {RequestMethod.GET,RequestMethod.POST},produces = "application/json; charset=utf8")
+	public @ResponseBody String tagSearch(HttpServletRequest req) throws Exception {
+		String findStr =req.getParameter("findTag");
+
+		List<TagVo> list = new ArrayList<TagVo>();
+		list = dao.tag_search(findStr);
+		ObjectMapper om = new ObjectMapper();
+		String json = om.writeValueAsString(list);
+		
+		return json;
+	}
+	
+	@RequestMapping(value="*/tag_delete.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView tagDelete(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		String serial = req.getParameter("tag_serial");
+		String msg = dao.tag_delete(serial);
+		mv.addObject("msg", msg);
+		mv.setViewName("twitch_main/tag_management");
+		return mv;
+	}
+	
+	@RequestMapping(value="*/tag_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView tagInsert(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		String tag_name = req.getParameter("cate_tags");
+		String tag[] = tag_name.split(",");
+		for(int i=0; i<tag.length ; i++) {
+			dao.tag_insert(tag[i]);
+		}
+		mv.setViewName("twitch_main/tag_management");
 		return mv;
 	}
 	

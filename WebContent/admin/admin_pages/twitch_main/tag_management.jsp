@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -43,9 +45,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>
+                    <h2 class="tag_header">
                         태그 추가·삭제
                     </h2>
+                    <div class="tag_plus">
+                     <i class="material-icons" data-toggle="modal" data-target="#tagplus">add_circle_outline</i>
+                    </div>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -66,24 +71,51 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             <div class="input-group serach_input_group">
                                 <span class="input-group-addon" id=""><i class="material-icons"
                                         id="search_icon">search</i></span>
-                                <input type="text" class="form-control input-lg search_input" placeholder="Username"
-                                    aria-describedby="basic-addon1">
+                                        <form id="find_form" name="find_form">
+                                <input type="text" class="form-control input-lg search_input" placeholder="태그를 검색하세요"
+                                    aria-describedby="basic-addon1" id="findTag" name="findTag">
+                                    </form>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12  col-xs-12">
-                            <div class="form-group demo-tagsinput-area teg_manage">
-                                <div class="form-line">
-                                    <input type="text" class="form-control" data-role="tagsinput"
-                                        value="Amsterdam,Washington,Sydney,Beijing,Cairo,dssd,fgs,sdsd,htegesg,asdadetegfb,asftewtrhfsasfq,sadsads,dgretewfds,fdsfwetewg,dgsdfehj,dfsdfasfref,ewrsafdgw,sdfwetsfds,rtrgsdgwt,etwefdsg,weewfghtyew,ewtew,dgjaieroivh,testtt,etetetet,sdsaqer">
-                                </div>
+                            <div class="tag_list js-sweetalert" id="tag_list">
+                            	<c:forEach var='i' items="${list }">
+									<span class="label bg-indigo cate_tag">${i.tag_name}<i class="material-icons" onclick="showTagdel(${i.tag_serial})">close</i></span>
+								</c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <form id="tag_form" name="tag_form" method ="post">
+        	<input type="hidden" id="tag_serial" name="tag_serial">
+        </form>
         <!-- #END# Vertical Layout -->
-</div>
+        <div class="modal fade" id="tagplus" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content cate_modi_content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">태그 추가 </h4>
+                        </div>
+                        <div class="modal-body">
+                        	 <div class="form-group demo-tagsinput-area">
+                        	<div class="form-line">
+                        		<form name="insert_form" id="insert_form" method="post">
+                           		 	<input type="text" class="form-control" data-role="tagsinput"
+                               			  value="" id="cate_tags" name="cate_tags">
+                               </form>
+                        	</div>
+                       </div>
+                        </div>
+                        <div class="modal-footer tag_button">
+                            <button type="button" class="btn btn-link waves-effect" onclick="tag_save()">저장</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
     </div>
     <!-- Bootstrap Colorpicker Js -->
     <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
@@ -114,19 +146,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <!-- Bootstrap Tags Input Plugin Js -->
     <script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="js/stream.js"></script>
     <script>
-        let btn = document.getElementById('category_btn')
-        btn.onchange = function (event) {
-            let ele = event.srcElement;
-            let url = ele.files[0];
-            let reader = new FileReader();
-            reader.readAsDataURL(url);
-            reader.onload = function (ev) {
-                let img = new Image();
-                img.src = ev.target.result;
-                document.getElementById('category_img').src = img.src;
-            }
-        }
+
     </script>
     </body>
 

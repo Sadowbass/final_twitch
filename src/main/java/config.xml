@@ -30,6 +30,7 @@
      <mapper resource="mybatis/member.xml"/>
      <mapper resource="mybatis/category.xml"/>
      <mapper resource="mybatis/storeAdmin.xml" />
+     <mapper resource="mybatis/stream.xml" />
    </mappers>
 
 </configuration>
