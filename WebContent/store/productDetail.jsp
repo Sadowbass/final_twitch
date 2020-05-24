@@ -218,7 +218,10 @@
 		                         <div class="review-item-submitted">
 			                          <strong>${i.rSubject }</strong>
 			                          <em>${i.review_date }</em>
-			                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+			                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true">
+			                          
+			                          </div>
+			                          <input type="button" class="btn_review_delete" value="X" onclick="store.reviewDelete()" >
 		                         </div>                                              
 			                      <div class="review-item-content">
 			                            <p>${i.rContent }</p>

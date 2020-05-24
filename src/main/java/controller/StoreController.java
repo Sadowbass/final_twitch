@@ -23,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+
 import bean.StoreMybatisDao;
+
 import store.StoreReviewPhotoVo;
 import store.StoreReviewVo;
 
@@ -186,6 +188,32 @@ public class StoreController {
 		result = gson.toJson(list);
 
        return result;
+    }
+	
+	@RequestMapping(value="/store/reviewDelete.str", method= {RequestMethod.POST})
+	public ModelAndView reviewDelete(HttpServletRequest req) {
+    	
+		ModelAndView mv = new ModelAndView();
+    	
+    	StoreReviewVo vo = new StoreReviewVo();
+    	StoreReviewPhotoVo vo2 = new StoreReviewPhotoVo();
+    	
+    	List<StoreReviewPhotoVo> list = new ArrayList<StoreReviewPhotoVo>();
+    	
+    	int review_id = Integer.parseInt(req.getParameter("review_id"));
+    
+		
+		vo.setReview_id(review_id);
+		vo2.setReview_id(review_id);
+		list.add(vo2);
+    	
+    	String msg = dao.reviewDelete(vo,list);
+    	
+	
+    	mv.addObject("msg", msg);
+		mv.setViewName("productList");
+    	
+    	return mv;
     }
 	
 	
