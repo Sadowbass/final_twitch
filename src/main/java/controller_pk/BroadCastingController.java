@@ -22,248 +22,294 @@ import bean.BroadCastingCateVo;
 import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
 import bean.RouletteVo;
+import bean.VideoTimeCut;
+import bean.timeCal;
 
 @Controller
 public class BroadCastingController {
 
-	BroadCastingMybatisDao dao;
+   BroadCastingMybatisDao dao;
 
-	public BroadCastingController(BroadCastingMybatisDao dao) {
-		this.dao = dao;
-	}
+   public BroadCastingController(BroadCastingMybatisDao dao) {
+      this.dao = dao;
+   }
 
-	@RequestMapping(value = "*/selectTag.bc", method = { RequestMethod.GET, RequestMethod.POST })
-	@ResponseBody
-	public String selectTag() {
-		List<String> list = dao.selectTag();
-		Gson gson = new Gson();
+   @RequestMapping(value = "*/selectTag.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   @ResponseBody
+   public String selectTag() {
+      List<String> list = dao.selectTag();
+      Gson gson = new Gson();
 
-		return gson.toJson(list);
-	}
+      return gson.toJson(list);
+   }
 
+   @RequestMapping(value = "*/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   @ResponseBody
+   public String selectCate() {
 
-	@RequestMapping(value = "*/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
-	@ResponseBody
-	public String selectCate() {
-		List<BroadCastingCateVo> list = dao.selectCate();
-		String result = "";
-		Gson gson = new Gson();
-		JsonObject jsonObject = null;
-		JsonArray jsonArray = new JsonArray();
+      dao = new BroadCastingMybatisDao();
+      List<BroadCastingCateVo> list = dao.selectCate();
+      String result = "";
+      Gson gson = new Gson();
+      JsonObject jsonObject = null;
+      JsonArray jsonArray = new JsonArray();
 
+      for (int i = 0; i < list.size(); i++) {
+         jsonObject = new JsonObject();
+         jsonObject.addProperty("cat_gname", list.get(i).getCat_gname());
+         jsonObject.addProperty("cat_genre", list.get(i).getCat_genre());
+         jsonObject.addProperty("cat_orifile", list.get(i).getCat_orifile());
+         jsonObject.addProperty("cat_sysfile", list.get(i).getCat_sysfile());
+         jsonArray.add(jsonObject);
 
-		for(int i=0; i<list.size(); i++) {
-			jsonObject = new JsonObject();
-			jsonObject.addProperty("cat_gname", list.get(i).getCat_gname());
-			jsonObject.addProperty("cat_genre", list.get(i).getCat_genre());
-			jsonObject.addProperty("cat_orifile", list.get(i).getCat_orifile());
-			jsonObject.addProperty("cat_sysfile", list.get(i).getCat_sysfile());
-			jsonArray.add(jsonObject);
+      }
 
-		}
+      result = gson.toJson(jsonArray);
+      return result;
 
-		result = gson.toJson(jsonArray);
-		return result;
+   }
 
-	}
+   @RequestMapping(value = "/selectCate.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   @ResponseBody
+   public String selectCate2() {
 
-	@RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView insertAir(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("컨트롤러넘어옴");
-		String msg = "";
-		ModelAndView mv = new ModelAndView();
-		String mId = req.getParameter("mId"); // 스트리머 아이디
-		String title = req.getParameter("broadCastingTitle"); // 제목
-		String content = req.getParameter("broadCastingContent"); // 내용
-		String sKey = req.getParameter("streamKey"); // 스트림 키
-		String tags = req.getParameter("tags"); // 태그 들
-		String gameName = req.getParameter("gameName"); // 게임 이름
+      System.out.println("자동완성 들어옴");
+      List<BroadCastingCateVo> list = dao.selectCate();
+      String result = "";
+      Gson gson = new Gson();
+      JsonObject jsonObject = null;
+      JsonArray jsonArray = new JsonArray();
 
-		BroadCastingAirVo vo = new BroadCastingAirVo();
+      for (int i = 0; i < list.size(); i++) {
+         jsonObject = new JsonObject();
+         jsonObject.addProperty("cat_gname", list.get(i).getCat_gname());
+         jsonObject.addProperty("cat_genre", list.get(i).getCat_genre());
+         jsonObject.addProperty("cat_orifile", list.get(i).getCat_orifile());
+         jsonObject.addProperty("cat_sysfile", list.get(i).getCat_sysfile());
+         jsonArray.add(jsonObject);
 
-		vo.setAir_mid(mId);
-		vo.setAir_subject(title);
-		vo.setAir_content(content);
-		vo.setMem_skey(sKey);
-		vo.setAir_tnames(tags);
-		vo.setAir_gname(gameName);
+      }
 
-		msg = dao.startAir(vo);
-		if(msg.equals("입력성공")) {
-			mv.setViewName("video_tak");
-		}else if(msg.equals("입력실패")) {
-			mv.setViewName("video_tak2");
-		}
-		mv.addObject("sKey",sKey);
-		mv.addObject("msg",msg);
+      result = gson.toJson(jsonArray);
+      return result;
 
-		return mv;
+   }
 
-	}
+   @RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView insertAir(HttpServletRequest req, HttpServletResponse resp) {
+      System.out.println("컨트롤러넘어옴");
+      String msg = "";
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 스트리머 아이디
+      String title = req.getParameter("broadCastingTitle"); // 제목
+      String content = req.getParameter("broadCastingContent"); // 내용
+      String sKey = req.getParameter("streamKey"); // 스트림 키
+      String tags = req.getParameter("tags"); // 태그 들
+      String gameName = req.getParameter("gameName"); // 게임 이름
 
+      System.out.println(sKey);
 
+      BroadCastingAirVo vo = new BroadCastingAirVo();
 
-	@RequestMapping(value = "*/updateAir.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String updateAir(HttpServletRequest req, HttpServletResponse resp) {
-		String msg = "";
-		String mId = req.getParameter("mId"); // 스트리머 아이디
-		String title = req.getParameter("broadCastingTitle"); // 제목
-		String content = req.getParameter("broadCastingContent"); // 내용
-		String tags = req.getParameter("tags"); // 태그 들
-		String gameName = req.getParameter("gameName"); // 게임 이름
+      vo.setAir_mid(mId);
+      vo.setAir_subject(title);
+      vo.setAir_content(content);
+      vo.setMem_skey(sKey);
+      vo.setAir_tnames(tags);
+      vo.setAir_gname(gameName);
 
+      msg = dao.startAir(vo);
+      if (msg.equals("입력성공")) {
+         mv.setViewName("video_tak");
+      } else if (msg.equals("입력실패")) {
+         mv.setViewName("video_tak2");
+      }
+      mv.addObject("sKey", sKey);
+      mv.addObject("msg", msg);
 
-		BroadCastingAirVo vo = new BroadCastingAirVo();
+      return mv;
 
-		vo.setAir_mid(mId);
-		vo.setAir_subject(title);
-		vo.setAir_content(content);
-		vo.setAir_tnames(tags);
-		vo.setAir_gname(gameName);
+   }
 
-		msg = dao.updateAir(vo);
-		return msg;
+   @RequestMapping(value = "*/updateAir.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String updateAir(HttpServletRequest req, HttpServletResponse resp) {
+      String msg = "";
+      String mId = req.getParameter("mId"); // 스트리머 아이디
+      String title = req.getParameter("broadCastingTitle"); // 제목
+      String content = req.getParameter("broadCastingContent"); // 내용
+      String tags = req.getParameter("tags"); // 태그 들
+      String gameName = req.getParameter("gameName"); // 게임 이름
 
-	}
+      BroadCastingAirVo vo = new BroadCastingAirVo();
 
-	@RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView deleteAir(HttpServletRequest req, HttpServletResponse resp) {
-		ModelAndView mv = new ModelAndView();
-		String msg = "";
-		String mId = req.getParameter("mId"); // 스트리머 아이디
-		String sKey = req.getParameter("streamKey"); // 스트림 키
+      vo.setAir_mid(mId);
+      vo.setAir_subject(title);
+      vo.setAir_content(content);
+      vo.setAir_tnames(tags);
+      vo.setAir_gname(gameName);
 
+      msg = dao.updateAir(vo);
+      return msg;
 
-		msg = dao.deleteAir(mId);
+   }
 
-		if(msg.equals("삭제성공")) {
-			mv.setViewName("video_tak2");
-		}else if(msg.equals("삭제실패")) {
-			mv.setViewName("video_tak");
-		}
-		mv.addObject("sKey",sKey);
-		mv.addObject("msg",msg);
-		return mv;
+   @RequestMapping(value = "*/deleteAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView deleteAir(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String msg = "";
+      String mId = req.getParameter("mId"); // 스트리머 아이디
+      String sKey = req.getParameter("streamKey"); // 스트림 키
 
-	}
+      msg = dao.deleteAir(mId, sKey);
 
-	@RequestMapping(value = "*/selectDonation.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String selectDonation(HttpServletRequest req, HttpServletResponse resp) {
-		String result = "";
-		String mId = req.getParameter("mId"); // 스트리머 아이디
-		List<BroadCastingDonationVo> list = dao.selectDonation(mId);
+      if (msg.equals("삭제성공")) {
+         mv.setViewName("video_tak2");
+      } else if (msg.equals("삭제실패")) {
+         mv.setViewName("video_tak");
+      }
+      mv.addObject("sKey", sKey);
+      mv.addObject("msg", msg);
+      return mv;
 
-		Gson gson = new Gson();
-		JsonObject jsonObject = null;
-		JsonArray jsonArray = new JsonArray();
+   }
 
-		if(list.size()>0) {
-		for(int i=0; i<list.size(); i++) {
-			jsonObject = new JsonObject();
-			jsonObject.addProperty("don_serial", list.get(i).getDon_serial());
-			jsonObject.addProperty("don_mid", list.get(i).getDon_mid());
-			jsonObject.addProperty("don_oid", list.get(i).getDon_oid());
-			jsonObject.addProperty("don_price", list.get(i).getDon_price());
-			jsonObject.addProperty("don_rdate", list.get(i).getDon_rdate());
-			jsonObject.addProperty("don_push", list.get(i).getDon_push());
-			jsonObject.addProperty("don_content", list.get(i).getDon_content());
-			jsonObject.addProperty("url", list.get(i).getUrl());
-			jsonObject.addProperty("type", list.get(i).getType());
-			jsonArray.add(jsonObject);
+   @RequestMapping(value = "*/selectDonation.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String selectDonation(HttpServletRequest req, HttpServletResponse resp) {
+      String result = "";
+      String mId = req.getParameter("mId"); // 스트리머 아이디
+      List<BroadCastingDonationVo> list = dao.selectDonation(mId);
 
-			}
-		result = gson.toJson(jsonArray);
-		}
+      Gson gson = new Gson();
+      JsonObject jsonObject = null;
+      JsonArray jsonArray = new JsonArray();
 
-		return result;
+      if (list.size() > 0) {
+         for (int i = 0; i < list.size(); i++) {
+            jsonObject = new JsonObject();
+            jsonObject.addProperty("don_serial", list.get(i).getDon_serial());
+            jsonObject.addProperty("don_mid", list.get(i).getDon_mid());
+            jsonObject.addProperty("don_oid", list.get(i).getDon_oid());
+            jsonObject.addProperty("don_price", list.get(i).getDon_price());
+            jsonObject.addProperty("don_rdate", list.get(i).getDon_rdate());
+            jsonObject.addProperty("don_push", list.get(i).getDon_push());
+            jsonObject.addProperty("don_content", list.get(i).getDon_content());
+            jsonObject.addProperty("url", list.get(i).getUrl());
+            jsonObject.addProperty("type", list.get(i).getType());
+            jsonArray.add(jsonObject);
 
-	}
+         }
+         result = gson.toJson(jsonArray);
+      }
 
+      return result;
 
-	@RequestMapping(value = "*/sendDonation.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String sendDonation(HttpServletRequest req, HttpServletResponse resp) {
-		String result = "";
-		String serial = req.getParameter("serial"); // 스트리머 아이디
-		result = dao.sendDonation(Integer.parseInt(serial));
+   }
 
-		return result;
+   @RequestMapping(value = "*/sendDonation.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String sendDonation(HttpServletRequest req, HttpServletResponse resp) {
+      String result = "";
+      String serial = req.getParameter("serial"); // 스트리머 아이디
+      result = dao.sendDonation(Integer.parseInt(serial));
 
-	}
+      return result;
 
-	@RequestMapping(value = "*/selectRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String selectRoulette(HttpServletRequest req, HttpServletResponse resp) {
-		String result = "조회실패";
-		String mId = req.getParameter("mId"); // 스트리머 아이디
-		RouletteVo vo = dao.selectRoulette(mId);
-		Gson gson = new Gson();
-		JsonObject jsonObject = null;
-		JsonArray jsonArray = new JsonArray();
+   }
 
+   @RequestMapping(value = "*/selectRoulette.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String selectRoulette(HttpServletRequest req, HttpServletResponse resp) {
+      String result = "조회실패";
+      String mId = req.getParameter("mId"); // 스트리머 아이디
+      RouletteVo vo = dao.selectRoulette(mId);
+      Gson gson = new Gson();
+      JsonObject jsonObject = null;
+      JsonArray jsonArray = new JsonArray();
 
-		if(vo != null) {
-			jsonObject = new JsonObject();
-			jsonObject.addProperty("rul_serial", vo.getRul_serial());
-			jsonObject.addProperty("rul_mid", vo.getRul_mId());
-			jsonObject.addProperty("rul_data", vo.getRul_data());
-			jsonObject.addProperty("rul_result", "조회성공");
+      if (vo != null) {
+         jsonObject = new JsonObject();
+         jsonObject.addProperty("rul_serial", vo.getRul_serial());
+         jsonObject.addProperty("rul_mid", vo.getRul_mId());
+         jsonObject.addProperty("rul_data", vo.getRul_data());
+         jsonObject.addProperty("rul_result", "조회성공");
 
-			jsonArray.add(jsonObject);
+         jsonArray.add(jsonObject);
 
-		result = gson.toJson(jsonArray);
-		}else {
-			System.out.println("데이터 없음");
-			jsonObject = new JsonObject();
-			jsonObject.addProperty("rul_result", "조회실패");
-			jsonArray.add(jsonObject);
-			result = gson.toJson(jsonArray);
-		}
-		return result;
-	}
+         result = gson.toJson(jsonArray);
+      } else {
+         System.out.println("데이터 없음");
+         jsonObject = new JsonObject();
+         jsonObject.addProperty("rul_result", "조회실패");
+         jsonArray.add(jsonObject);
+         result = gson.toJson(jsonArray);
+      }
+      return result;
+   }
 
-	@RequestMapping(value = "*/saveRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String saveRoulette(HttpServletRequest req, HttpServletResponse resp) {
-		String result = "";
-		String mId = req.getParameter("mId");
-		String rul1 = req.getParameter("rul1");
-		String rul2 = req.getParameter("rul2");
-		String rul3 = req.getParameter("rul3");
-		String rul4 = req.getParameter("rul4");
-		String rul5 = req.getParameter("rul5");
-		String flagRul = req.getParameter("flagRul");
-		String data = rul1 + "," + rul2 + "," + rul3 + "," + rul4 + "," + rul5;
-		List<String> list = new ArrayList<String>();
-		StringTokenizer tokens = new StringTokenizer(data, "," );
-		while(tokens.hasMoreElements()) {
-			list.add(tokens.nextToken().trim());
+   @RequestMapping(value = "*/saveRoulette.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String saveRoulette(HttpServletRequest req, HttpServletResponse resp) {
+      String result = "";
+      String mId = req.getParameter("mId");
+      String rul1 = req.getParameter("rul1");
+      String rul2 = req.getParameter("rul2");
+      String rul3 = req.getParameter("rul3");
+      String rul4 = req.getParameter("rul4");
+      String rul5 = req.getParameter("rul5");
+      String flagRul = req.getParameter("flagRul");
+      String data = rul1 + "," + rul2 + "," + rul3 + "," + rul4 + "," + rul5;
+      List<String> list = new ArrayList<String>();
+      StringTokenizer tokens = new StringTokenizer(data, ",");
+      while (tokens.hasMoreElements()) {
+         list.add(tokens.nextToken().trim());
 
-		}
-		for(int i=0; i < list.size();i++) {
-			System.out.println(list.get(i));
-		}
+      }
+      for (int i = 0; i < list.size(); i++) {
+         System.out.println(list.get(i));
+      }
 
-		String rouletteData = list.toString();
-		String newRouletteData = rouletteData.substring(1, rouletteData.length()-1);
-		result = dao.saveRoulette(mId, newRouletteData, flagRul);
+      String rouletteData = list.toString();
+      String newRouletteData = rouletteData.substring(1, rouletteData.length() - 1);
+      result = dao.saveRoulette(mId, newRouletteData, flagRul);
 
-		return result;
+      return result;
 
-	}
+   }
 
+   @RequestMapping(value = "*/deleteRoulette.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String deleteRoulette(HttpServletRequest req, HttpServletResponse resp) {
+      String result = "";
+      String mId = req.getParameter("mId");
+      result = dao.deleteRoulette(mId);
+      return result;
 
-	@RequestMapping(value = "*/deleteRoulette.bc", method = { RequestMethod.GET, RequestMethod.POST },produces = "application/text; charset=utf8")
-	@ResponseBody
-	public String deleteRoulette(HttpServletRequest req, HttpServletResponse resp) {
-		String result = "";
-		String mId = req.getParameter("mId");
-		result = dao.deleteRoulette(mId);
-		return result;
+   }
 
-	}
+   @RequestMapping(value = "*/imageCut.bc", method = { RequestMethod.GET,
+         RequestMethod.POST }, produces = "application/text; charset=utf8")
+   @ResponseBody
+   public String imageCut(HttpServletRequest req, HttpServletResponse resp) {
+      String result = "";
+      String mId = req.getParameter("mId");
+      String sKey = req.getParameter("sKey");
+      String time = req.getParameter("duration1");
+      timeCal tc = new timeCal();
+      String timeResult = tc.getHHMMSS(Integer.parseInt(time));
+      VideoTimeCut cut = new VideoTimeCut();
+      cut.thumbnail(sKey, timeResult);
+      result = dao.imageCut(mId, sKey);
 
+      return result;
+
+   }
 
 }

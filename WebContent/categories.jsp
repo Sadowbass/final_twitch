@@ -38,20 +38,79 @@
     <script src="/js/custom.js"></script>
     <script src="/js/sc_custom.js"></script>
     <script src="/js/js_uk.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+.ui-autocomplete {
+	max-height: 200px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
+[data-tooltip-text]:hover {
+	position: relative;
+}
+
+[data-tooltip-text]:after {
+	-webkit-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	-moz-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+
+	background-color: rgba(232, 86, 133, 0.8);
+
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	
+  -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+  color: #FFFFFF;
+	font-size: 12px;
+	margin-bottom: 10px;
+	padding: 7px 12px;
+	position: absolute;
+	width: auto;
+	min-width: 50px;
+	max-width: 300px;
+	word-wrap: break-word;
+
+	z-index: 9999;
+
+	opacity: 0;
+	left: -9999px;
+  	top: 90%;
+	
+	content: attr(data-tooltip-text);
+}
+
+[data-tooltip-text]:hover:after {
+	top: 0%;
+	left: 30%;
+	opacity: 1;
+}
+</style>
 </head>
+
 <body id="page-top">
 <script>
     $(document).ready(function () {
+    		
         $.ajax({
             type: 'get',
             url: '/sidebar.sc',
+            async:false,
             success: function (data) {
                 $('#sidebarplace').html(data);
             }
         })
+        
+        
     })
     $(window).scroll(function () {
         var rno = $('.category-item2:last').attr('rownum');
+        var findTag = $('#findSave').val();
         if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
             console.log("ajax start")
 
@@ -60,7 +119,7 @@
                 type:'post',
                 async:false,
                 url:"/categoryPaging.sc",
-                data:{'rno':rno},
+                data:{'rno':rno,'findTag':findTag},
                 error:(error)=>{
                     console.log(error);
                 },
@@ -68,6 +127,8 @@
                     for(i of data){
                         let divCol = document.createElement('div');
                         divCol.className="col-xl-2 col-sm-6 mb-3";
+                        divCol.setAttribute("onclick","findTag3("+"'"+i.cat_gname+"'"+")");
+ 
                         let divitem2 = document.createElement('div');
                         divitem2.className="category-item2 mt-0 mb-0";
                         divitem2.setAttribute("rownum",i.rno);
@@ -103,6 +164,8 @@
 
                         divCol.appendChild(divitem2);
                         $('.itemrow').append(divCol);
+                       
+                        
                     }
                 }
             })
@@ -111,7 +174,7 @@
                 $.ajax({
                     type:'post',
                     url:"/streamingPaging.sc",
-                    data:{'rno':rno},
+                    data:{'rno':rno,'findTag':findTag},
                     async:false,
                     error:(error)=>{
                         console.log(error);
@@ -119,37 +182,63 @@
                     success:(data)=>{
                         console.log(data);
                         for(i of data){
+                        	
                             let divCol = document.createElement('div');
                             divCol.className="col-xl-2 col-sm-6 mb-3";
+                            divCol.setAttribute("onclick","broadCastingView("+"'"+i.air_mId+"'"+")");
+                            divCol.setAttribute("data-tooltip-text",i.air_content);
+          
+                            //data-toggle="tooltip" data-placement="top" title="${i.air_content}
                             let divitem2 = document.createElement('div');
                             divitem2.className="category-item2 mt-0 mb-0";
                             divitem2.setAttribute("rownum",i.rno);
                             let a = document.createElement('a');
                             let img = document.createElement('img');
-                            img.className = "img-fluid";
-                            if(i.ph_sysfile == null){
-                                img.src = "/img/user-photo/guest-icon.png";
+                            img.className = "img-fluid thumbnail";
+		    				img.style.backgroundSize = "100% 100%";
+                            if(i.air_thumbnail == null){
+                                img.style.backgroundImage = "url(/uploads/notThumbnail.png)";
                             } else {
-                                img.src = "/img/user-photo/"+i.ph_sysfile;
+                                img.style.backgroundImage = "url(/uploads/"+i.air_thumbnail+")";
                             }
+		    				let h5 = document.createElement('h6');
+                            h5.innerText = i.air_subject;
+		    				h5.style.fontWeight = "bold";
+                            h5.style.textAlign = "center";
+                            h5.style.fontWeight = "bold"
+         
                             let h6 = document.createElement('h6');
-                            h6.innerText = i.air_mId
-                            let p = document.createElement('p');
+                            h6.innerText = i.air_mId;
+		   					h6.style.color = "#7401DF";
+		   					h6.style.fontWeight = "bold"
+
+                            let h7 = document.createElement('h6');
+                            h7.innerText = i.air_gName;
+                            h7.style.fontWeight = "bold"
+                            let p = document.createElement('h6');
                             p.innerText = "74,853 views";
+                            p.style.color = "red";
+                            
                             let col12 = document.createElement('div');
                             col12.className = "col-xs-12";
                             col12.style.marginTop = "3%";
 
                             a.appendChild(img);
+		   					a.appendChild(h5);
                             a.appendChild(h6);
+		    				a.appendChild(h7);
                             a.appendChild(p);
 
                             divitem2.appendChild(a);
                             divitem2.appendChild(col12);
-
+							
                             divCol.appendChild(divitem2);
+                            
                             $('.itemrow').append(divCol);
+      
+                            
                         }
+                        
                     }
                 })
             </c:if>
@@ -158,6 +247,7 @@
         }
     })
 </script>
+<input type='text' id='findBc'/>
 <div id="topplace">
     <%@include file="/top.jsp" %>
 </div>
@@ -170,6 +260,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-title">
+                        	<input type='hidden' id='findSave' value='${findChannel}'/>
                             <h2 style="font-weight: bold;display: inline;margin-right: 2%">탐색</h2>
                             <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 1%">
                                 <c:if test="${URI == 0}">
@@ -208,19 +299,30 @@
                     </div>
                 </div>
                 <div class="input-group" style='width: 300px;border: 1px solid pink'>
-                    <input type="text" class="form-control" placeholder="태그검색..." id="findTag">
-                    <div class="input-group-append">
+                	<c:if test="${URI == 0}">
+                    <input type="text" class="form-control" placeholder="게임검색..." id="findTag2">
+                     <div class="input-group-append">
+                        <button class="btn btn-light" type="button" onclick="findTag2()">
+                            <i class="fas fa-search" style='color: pink'></i>
+                        </button>
+                    </div>
+                    </c:if>
+                   <c:if test="${URI == 1}">
+                    <input type="text" class="form-control" placeholder="생방송검색..." id="findTag">
+                     <div class="input-group-append">
                         <button class="btn btn-light" type="button" onclick="findTag()">
                             <i class="fas fa-search" style='color: pink'></i>
                         </button>
                     </div>
+                    </c:if>
+
                 </div>
                 <c:if test="${URI == 0}">
                     <div class='row itemrow' style='margin-top: 2%' id="gameRow">
                         <c:forEach var="i" items="${list}">
-                            <div class="col-xl-2 col-sm-6 mb-3">
+                            <div class="col-xl-2 col-sm-6 mb-3" onclick="findTag3('${i.cat_gname}')">
                                 <div class="category-item2 mt-0 mb-0" rownum="${i.rno}">
-                                    <a href="shop.jsp">
+                                    <a href="javascript:void(0)">
                                         <img class="img-fluid" src="/img/cate/${i.cat_sysfile}"/>
                                         <h6>${i.cat_gname}</h6>
                                         <p>74,853 views</p>
@@ -239,19 +341,28 @@
                 <c:if test="${URI == 1}">
                     <div class='row itemrow' style='margin-top: 2%' id="gameRow">
                         <c:forEach var="i" items="${list}">
-                            <div class="col-xl-2 col-sm-6 mb-3">
+                            <div class="col-xl-2 col-sm-6 mb-3" data-tooltip-text="${i.air_content}"  onclick="broadCastingView('${i.air_mId}')">
                                 <div class="category-item2 mt-0 mb-0" rownum="${i.rno}">
-                                    <a href="shop.jsp">
+                                    <a href="javascript:void(0)">
                                         <c:choose>
-                                            <c:when test="${i.ph_sysfile == null}">
-                                                <img class="img-fluid" src="/img/user-photo/guest-icon.png"/>
+                                            <c:when test="${i.air_thumbnail == null}">
+                                                <img class="img-fluid thumbnail" width="100%" height="auto" style="background-size:100% 100%;background-image : url(/uploads/notThumbnail.png)"/>
                                             </c:when>
                                             <c:otherwise>
-                                                <img class="img-fluid" src="/img/user-photo/${i.ph_sysfile}"/>
+                                                <img class="img-fluid thumbnail" width="100%" height="auto" style="background-size:100% 100%;background-image : url(/uploads/${i.air_thumbnail})" />
                                             </c:otherwise>
                                         </c:choose>
-                                        <h6>${i.air_mId}</h6>
-                                        <p>74,853 views</p>
+                                        
+ 
+                                        
+                                        
+                                        <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
+                                        <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mId}</h6>
+                                        
+                      
+                                    
+                                        <h6 style='font-weight: bold'>${i.air_gName}</h6>
+                                        <h6 style="color:red">74,853 views</h6>
                                     </a>
                                     <div class="col-xs-12" style="margin-top: 3%">
                                     </div>
@@ -299,5 +410,82 @@
         </a>
         <!-- Logout Modal-->
         <%@include file="/logout-modal.jsp" %>
+        <script>
+        function findTag(){
+        	
+
+        location.href='/categories/all?findTag='+ $('#findTag').val();
+
+        	
+        }
+        function findTag2(){
+        	location.href='/categories?findTag='+ $('#findTag2').val();
+        	        	
+        }
+        function findTag3(gameName){
+        	location.href='/categories/all?findTag='+ gameName;
+        }
+        
+        function broadCastingView(bId){
+          	 
+          	 location.href = "/"+bId;
+           }
+        
+        
+    	$("#findTag2").autocomplete({
+    		matchContains: true,
+            source : function( request, response ) {
+                 $.ajax({
+                        type: 'post',
+                        url: "selectCate.bc",
+                        dataType: "json",
+                        async:false,
+                        success: function(data) {
+                            response(
+                                $.map(data, function(item) {   
+                                	if ( item.cat_gname.indexOf($("#findTag2").val()) != -1) {
+                                		
+                                		return {
+                                            label: item.cat_gname,    
+                                            value: item.cat_gname,   
+                                            test : item.cat_sysfile,
+                                            cate : item.cat_genre
+
+                                        }
+                                	                 	
+                                	}                    
+                                })
+                            );
+                        }
+                   });
+                },   
+            select : function(event, ui) {   // 아이템 선택 시 
+            	
+          
+                
+            },
+            focus : function(event, ui) {    //포커스
+                return false;
+            },
+            minLength: 0,// 최소 글자수
+            autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+            classes: {  
+                "ui-autocomplete": "highlight"
+            },
+            delay: 500, 
+//            disabled: true, //자동완성 기능 끄기
+            position: { my : "right top", at: "right bottom" },    //잘 모르겠음
+            close : function(event){    //자동완성창 닫아질때 호출
+                console.log(event);
+            }
+        }).autocomplete( "instance" )._renderItem = function( ul, item ) {    //요 부분이 UI를 마음대로 변경하는 부분
+            return $( "<li>" )    //기본 tag가 li로 되어 있음 
+            .append( "<div style='background-color: rgb(232, 86, 133); color: white;'><img width = '40px'src='./img/cate/" + item.test + "'/>"+ "&nbsp;" + item.value + "</div>" )    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+            .appendTo( ul );
+     };
+
+     
+    	
+        </script>
 </body>
 </html>

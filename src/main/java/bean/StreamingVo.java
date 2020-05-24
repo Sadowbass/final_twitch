@@ -6,7 +6,10 @@ public class StreamingVo {
     private String mem_skey;
     private String air_mid;
     private String air_subject;
+    private String air_content;
     private String air_gname;
+    private String air_tnames;
+    private String air_thumbnail;
     private String ph_sysfile;
 
     public int getRno() {
@@ -64,4 +67,29 @@ public class StreamingVo {
     public void setPh_sysfile(String ph_sysfile) {
         this.ph_sysfile = ph_sysfile;
     }
+
+    public String getAir_content() {
+        return air_content;
+    }
+
+    public void setAir_content(String air_content) {
+        this.air_content = air_content;
+    }
+
+    public String getAir_tnames() {
+        return air_tnames;
+    }
+
+    public void setAir_tnames(String air_tnames) {
+        this.air_tnames = air_tnames;
+    }
+
+    public String getAir_thumbnail() {
+        return air_thumbnail;
+    }
+
+    public void setAir_thumbnail(String air_thumbnail) {
+        this.air_thumbnail = air_thumbnail;
+    }
+
 }

@@ -13,6 +13,7 @@ function startAir(){
 	$.ajax({
 		url : 'insertAir.bc',
 		type : 'post',
+		async:false,
 		data : param,
 		error : function(xhr, status, error){
 			  console.log(xhr);
@@ -38,6 +39,7 @@ function stopAir() {
 		url : 'deleteAir.bc',
 		type : 'post',
 		data : param,
+		async:false,
 		error : function(xhr, status, error){
 
 		},
@@ -111,6 +113,7 @@ bc.func = function(){
 			url : 'updateAir.bc',
 			type : 'post',
 			data : param,
+			async:false,
 			error : function(xhr, status, error){
 				
 			},
@@ -142,6 +145,54 @@ bc.func = function(){
 		
 	})
 	
+	$("#imageCut").click(function() {
+		let mId = $('#mId').val();
+		let sKey = $('#streamKey').val();
+		let duration1 = jwplayer('mediaplayer').getPosition();
+		duration1 = Math.floor(duration1);
+		
+		$.ajax({
+			url : 'imageCut.bc',
+			type : 'post',
+			async:false,
+			data : {"mId":mId,"sKey":sKey,"duration1":duration1},
+			error : function(xhr, status, error){
+				
+			},
+			success : function(data, xhr, status ){	
+				
+				if(data == "성공"){
+					
+					Swal.fire({
+						  position: 'center',
+						  icon: 'success',
+						  title: '<font color="white">썸네일이 저장되었습니다.</font>',
+						  background: '#18181b',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+					
+
+				}else if(data =="실패"){
+					Swal.fire({
+						  position: 'center',
+						  icon: 'error',
+						  title: '<font color="white">썸네일 저장에 실패하였습니다.</font>',
+						  background: '#18181b',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+					
+					
+				}
+			}
+				
+		})
+		
+		
+		
+		
+	})
 	
 	
 	$("#findCate").autocomplete({
@@ -151,6 +202,7 @@ bc.func = function(){
                     type: 'post',
                     url: "selectCate.bc",
                     dataType: "json",
+                    async:false,
                     success: function(data) {
                         response(
                             $.map(data, function(item) {   
@@ -217,6 +269,7 @@ bc.func = function(){
                     type: 'post',
                     url: "selectTag.bc",
                     dataType: "json",
+                    async:false,
                     success: function(data) {
                         response(
                             $.map(data, function(item) {   
@@ -300,6 +353,7 @@ function videoDonation(serial,oid,content,price,url) {
 				$.ajax({
 					url : 'sendDonation.bc',
 					type : 'post',
+					async:false,
 					data : {"serial":serial} ,
 					error : function(xhr, status, error){
 						
@@ -388,6 +442,7 @@ function voiceDonation(serial,oid,content,price,type) {
 					url : 'sendDonation.bc',
 					type : 'post',
 					data : {"serial":serial} ,
+					async:false,
 					error : function(xhr, status, error){
 						
 					},
@@ -440,6 +495,7 @@ function broadCastingSetting() {
 		type : 'post',
 		data : {"mId":mId},
 		dataType : 'json',
+		async:false,
 		error : function(xhr, status, error){
 
 		},

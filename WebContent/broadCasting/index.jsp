@@ -331,9 +331,19 @@
 						style="border-bottom: 1px solid white; border-top: 1px solid white">
 						<font style='color: white'>방송 미리보기</font>
 					</div>
-					<div class='col-12' style="height: 500px;">
+					<div class='col-12' >
 						<div class='row' style="" id='videoView'>
 							<jsp:include page="./video_tak.jsp" />
+						</div>
+					</div>
+					<div class='col-12'>
+						<div class='row'>
+							<div class='col-12' style='text-align: center'>
+							<button class="btn btn-outline-primary" type="button" style='margin-top: 10%' id='imageCut'>썸네일 저장</button>
+							</div>
+							<div class='col-12' style='margin-top: 3%;text-align: center'>
+							<i class="fas fa-images fa-2x" ></i><font style='color:white;margin-left: 2%'>방송중인 화면을 썸네일로 사용하실 수 있습니다.</font>
+							</div>
 						</div>
 					</div>
 
@@ -514,6 +524,7 @@
 									$.ajax({
 										url : 'deleteRoulette.bc',
 										type : 'post',
+										async:false,
 										data : {"mId": mId},
 										error : function(xhr, status, error){
 
@@ -567,6 +578,7 @@
 										url : 'saveRoulette.bc',
 										type : 'post',
 										data : param,
+										async:false,
 										error : function(xhr, status, error){
 
 										},
@@ -623,6 +635,7 @@
 															+ param,
 													type : 'post',
 													dataType : 'json',
+													async:false,
 													error : function(xhr,
 															status, error) {
 														console.log('실패');
