@@ -83,36 +83,28 @@
 											<!-- Indicators -->
 											<ol class="carousel-indicators">
 												<c:if test="${!empty vo.photos[0]}">
-												<li data-target="#carousel-example-generic"
-													data-slide-to="0" class="active"></li>
-													
+													<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 												</c:if>
 												<c:if test="${!empty vo.photos[1]}">
-												<li data-target="#carousel-example-generic"
-													data-slide-to="1"></li>
-													</c:if>
-													<c:if test="${!empty vo.photos[2]}">
-												<li data-target="#carousel-example-generic"
-													data-slide-to="2"></li>
-													</c:if>
+													<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+												</c:if>
+												<c:if test="${!empty vo.photos[2]}">
+													<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+												</c:if>
 											</ol>
 
 											<!-- Wrapper for slides -->
-											<div class="carousel-inner" role="listbox">
-												
-																			
+											<div class="carousel-inner" role="listbox">																													
 												<div class="item active" id="target1">
-													<img id="photo1" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589699401213-20200513_184013.png" />
+													<img id="photo1" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589959506010-20200518_164104.png" />
 												</div>
 												<div class="item" id="target2" >
-													<img id="photo2" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589699401213-20200513_184013.png" />
+													<img id="photo2" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589959832883-20200518_164034.png" />
 												</div>
 												<div class="item" id="target3" >
-													<img id="photo3" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589699401213-20200513_184013.png"  />
+													<img id="photo3" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589960200010-20200321_215711.png"  />
 												</div> 
 											</div>
-											
-											
 
 											<!-- Controls -->
 											<a class="left carousel-control"
@@ -131,14 +123,12 @@
 									
 									<script>
 												if("${!empty vo.photos}"){
-															if("${!empty vo.photos[1]}"){
-																$('#target2').remove();
-																$('#target3').remove();
-															}else if("${!empty vo.photos[2]}"){
-																
-																$('#target3').remove();
-															}
-															
+													if("${empty vo.photos[2]}"){
+														$('#target3').remove();
+													}else if("${empty vo.photos[1]}"){
+														$('#target2').remove();
+														$('#target3').remove();
+													}							
 												}else{
 													alert("비어있음")
 													$('#reviewPhotoList').hide();

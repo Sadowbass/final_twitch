@@ -79,9 +79,9 @@ public class StoreMybatisDao_mh {
 		return msg;
 	}
 	
-	public String reviewDelete(String value) {
+	public String reviewDelete(int value) {
 		String msg="";
-		int review_id = Integer.parseInt(value);
+		int review_id = value;
 		try {
 			int cnt = sqlSession.delete("storeAdmin.reviewPhoto_delete_all",review_id);
 			System.out.println("에러1");

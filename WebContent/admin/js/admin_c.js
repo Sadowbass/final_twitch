@@ -35,11 +35,24 @@ cmh.reviewSelect = function(){
 	location.href="reviewSelect.mh";
 }
 
-cmh.review_view = function(){
+cmh.review_view = function(serial){
+	
+	$('#review_serial').val(serial);
 	$('#frm_reviewDetail_mh').submit();
 }
 
 cmh.func = function(){
+	
+	// review.jsp
+	
+	$('#btn_reviewSearch_mh').click(function(){
+		$('#frm_reviewDetail_mh').attr('action','reviewSelect.mh')
+		$('#frm_reviewDetail_mh').submit();
+	})
+	
+	// end review.jsp
+	
+	//////////////////////
 	
 	/*review_detail.jsp*/
 	$('#btn_reviewDelete_mh').click(function(){
@@ -187,13 +200,10 @@ cmh.func = function(){
 		cmh.init();
 	})
 	
+	// 검색버튼 클릭하면
 	$('#btn_search_mh').click(function(){
 		frm_product_select.nowPage.value = 1;
-		let param = $('#frm_product_select').serialize();
-		$.post("product_select.mh", param, function(data, state){
-			
-			$('#mainContent').html(data);
-		});
+		$('#frm_product_select').submit();
 	})
 	
 	/* end product_select.jsp*/
@@ -300,12 +310,15 @@ cmh.func = function(){
 cmh.productView = function(product_id){
 	/*location.href = "index.jsp?inc=admin_pages/shop/product_view.jsp";*/
 	$('#productSerial').val(product_id);
-	let param = $('#frm_product_select').serialize();
 	
-	$.post("product_view.mh",param, function(data,state){
+	$('#frm_product_select').attr('action','product_view.mh');
+	
+	$('#frm_product_select').submit();
+	
+/*	$.post("product_view.mh",param, function(data,state){
 		$('#mainContent').html(data);
 		
-	});
+	});*/
 }
 
 cmh.orderView = function(serial){
@@ -316,8 +329,15 @@ cmh.orderView = function(serial){
 
 cmh.go = function(nowPage){
 	frm_product_select.nowPage.value = nowPage;
-	let param = $('#frm_product_select').serialize();
+	$('#frm_product_select').submit();
+/*	let param = $('#frm_product_select').serialize();
 	$.post("product_select.mh", param, function(data, state){
 		$('#mainContent').html(data)
-	});
+	});*/
+}
+cmh.go1 = function(nowPage){
+	console.log(nowPage);
+	$('#nowPage').val(nowPage);
+	$('#frm_reviewDetail_mh').attr('action','reviewSelect.mh');
+	$('#frm_reviewDetail_mh').submit();
 }

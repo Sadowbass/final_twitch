@@ -44,10 +44,9 @@
 						</div>
 						<br>
 						<form method="post" name="frm_product_select"
-							id="frm_product_select">
+							id="frm_product_select" action="product_select.mh">
 							<div class="row" style="margin-top: 10px; text-align: right;">
 								<div class="col-sm-12">
-
 									<div class="form-inline">
 										<select class="selectpicker form-control">
 											<option selected>상품명</option>

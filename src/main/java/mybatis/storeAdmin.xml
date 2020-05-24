@@ -57,16 +57,17 @@
 		ON r.review_id = rp.review_id
 		inner join product p
 		on p.product_id = r.product_id
-		where mem_id like '%${findStr}%' or RSUBJECT like '%${findStr}%'
+		where mem_id like '%${findStr}%' or product_name like '%${findStr}%'
 		order by r.review_id desc)a
 		where rnum=1)
 		where rno BETWEEN ${startNo} and ${endNo}
 	</select>
 	
 	<select id="reviewCount" parameterType="bean.mh_Page" resultType="Integer">
-		select count(review_id)
-		from review
-		where mem_id like '%${findStr}%' or rsubject like '%${findStr}%'
+		SELECT count(review_id)
+		FROM review j1 join product j2
+		ON j1.product_id = j2.product_id 
+		WHERE mem_id like '%${findStr}%' or product_name like '%${findStr}%'
 	</select>
 	
 	<delete id="product_delete" parameterType="Integer">

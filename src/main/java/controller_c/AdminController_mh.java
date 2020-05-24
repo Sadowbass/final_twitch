@@ -37,7 +37,7 @@ public class AdminController_mh {
 	
 	@RequestMapping(value="*/reviewDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
 	@ResponseBody
-	public void reviewDelete(String review_id) {
+	public void reviewDelete(int review_id) {
 		System.out.println("★★★controller->reviewDelete()★★★");
 
 		String msg = dao.reviewDelete(review_id);
@@ -46,13 +46,13 @@ public class AdminController_mh {
 	}
 	
 	@RequestMapping(value="*/reviewView.mh",method=RequestMethod.POST, produces="application/text; charset-utf8")
-	public String reviewView(Model model, int reviewSerial ,int nowPage, String reviewFindStr) {
+	public String reviewView(Model model, int review_serial ,int nowPage, String reviewFindStr) {
 		System.out.println("★★★★★reviewView");
 		
 		mh_Page p = new mh_Page();
 		p.setFindStr(reviewFindStr);
 		p.setNowPage(nowPage);
-		MH_ReviewVo vo = dao.reviewDetail(reviewSerial);
+		MH_ReviewVo vo = dao.reviewDetail(review_serial);
 		
 		model.addAttribute("vo",vo);
 		model.addAttribute("p",p);
@@ -61,18 +61,19 @@ public class AdminController_mh {
 		return "review_detail";
 	}
 	
-	@RequestMapping(value="*/reviewSelect.mh", produces="application/text; charset-utf8")
-	public String reviewSelect(Model model, String findStr, String nowPage) {
+	@RequestMapping(value="*/reviewSelect.mh", method= {RequestMethod.POST,RequestMethod.GET}, produces="application/text; charset-utf8")
+	public String reviewSelect(Model model, String reviewFindStr, String nowPage) {
 		System.out.println("★★★controller->reviewSelect()★★★");
 		
 		mh_Page p = new mh_Page();
-		p.setFindStr(findStr);
+		p.setFindStr(reviewFindStr);
 		
 		if(nowPage == null) {
 			p.setNowPage(1);
 		}else {
 			p.setNowPage(Integer.parseInt(nowPage));
 		}
+		System.out.println("현재 페이지 : " + p.getNowPage());
 		
 		List<MH_ReviewVo> list = dao.reviewSelect(p);
 		
