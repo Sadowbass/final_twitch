@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="scbatis">
+
     <!--팔로워 리스트-->
     <select id="followers" parameterType="String" resultType="bean.UserInfoVo">
         select fm.MFO_MID mem_id, fp.PH_SYSFILE
@@ -29,6 +30,11 @@
         where mem_Id = #{value }
     </select>
 
+    <!--팔로우 한 회원인지 검색-->
+    <select id="followCheck" parameterType="hashmap" resultType="Integer">
+        select count(1) from FINAL_MFOLLOW where MFO_MID = #{mid} and MFO_OID = #{oid}
+    </select>
+
     <!--현재 생방송들의 정보-->
     <select id="nowStreaming" resultType="bean.StreamingVo" parameterType="String">
      
@@ -38,7 +44,16 @@
                        left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID where air_mId like '%${findStr}%' or air_subject like '%${findStr}%' or air_gname like '%${findStr}%') a
         where ROWNUM between 1 and 12
     </select>
-    
+
+    <!--팔로우 추가-->
+    <insert id="addFollow" parameterType="hashmap">
+        insert into FINAL_MFOLLOW(MFO_SERIAL, MFO_DATE, MFO_MID, MFO_OID) values (SEQ_MFOLLOW.nextval, sysdate, #{mid}, #{sid})
+    </insert>
+
+    <!--팔로우 삭제-->
+    <delete id="deleteFollow" parameterType="hashmap">
+        delete FINAL_MFOLLOW where MFO_MID = #{mid} and MFO_OID = #{sid}
+    </delete>
 
     <!--생방송 페이징-->
     <select id="streamingPaging" parameterType="hashMap" resultType="bean.StreamingVo">
@@ -64,6 +79,7 @@
         order by fo.AIR_MID
     </select>
 
+    <!--추천채널-->
     <select id="recommend" resultType="bean.StreamingVo">
         select * from FINAL_ONAIR where rownum between 1 and 10
     </select>
@@ -121,7 +137,7 @@
 
     <!--로그인 id pwd 정확한지 체크-->
     <select id="idcheck" parameterType="hashMap" resultType="bean.UserInfoVo">
-        select * from FINAL_MEMBER fm join FINAL_PHOTO fp on fm.MEM_ID = fp.PH_ID where MEM_ID = #{id} and MEM_PWD = #{pwd}
+        select * from FINAL_MEMBER fm left outer join FINAL_PHOTO fp on fm.MEM_ID = fp.PH_ID where MEM_ID = #{id} and MEM_PWD = #{pwd}
     </select>
 
     <!--회원가입시 아이디 중복체크-->

@@ -19,6 +19,8 @@
             <property name="password" value="${password}"/>
             <property name="poolMaximumCheckoutTime" value="1500"/>
             <property name="poolTimeToWait" value="1500"/>
+             <property name="poolMaximumIdleConnections" value="6"/>
+             <property name="poolMaximumActiveConnections" value="5"/>
          </dataSource>
       </environment>
    </environments>

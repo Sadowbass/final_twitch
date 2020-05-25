@@ -177,20 +177,33 @@ public class SCController {
     /* 특정유저의 페이지 접속 */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req, @PathVariable String id) {
+        System.out.println(id);
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
-        StreamingVo vo = dao.streamInfo(id);
         HttpSession session = req.getSession();
         String user = (String) session.getAttribute("session_id");
         if (user != null) {
             mv.addObject("session_id", user);
+            boolean check = dao.followCheck(id, user);
+            if (id.equals(user)) {
+                check = true;
+            }
+            mv.addObject("follow", check);
         }
-
-        if (vo == null) {
+        boolean check = dao.checkUser(id);
+        if (check == false) {
             mv.setViewName("404");
         } else {
-            mv.setViewName("./twitch_uk/stream_uk");
-            mv.addObject("vo", vo);
+            StreamingVo vo = dao.streamInfo(id);
+            if (vo == null) {
+                /*방송중이 아니면 유저의 비디오페이지로 이동*/
+                String redirect = "http://192.168.0.77/"+id+"/video";
+                return new ModelAndView("redirect:"+redirect);
+            } else {
+                /*방송중이면 방송페이지로 이동*/
+                mv.setViewName("./twitch_uk/stream_uk");
+                mv.addObject("vo", vo);
+            }
         }
         return mv;
     } // end of pagemove
@@ -272,9 +285,6 @@ public class SCController {
         String id = req.getParameter("id");
         String pwd = req.getParameter("pwd");
 
-        System.out.println(id);
-        System.out.println(pwd);
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
         map.put("pwd", pwd);
@@ -304,4 +314,22 @@ public class SCController {
         map.put("result", i);
         return gson.toJson(map);
     }
+
+    /*팔로우 추가*/
+    @RequestMapping(value = "/{id}/follow", method = RequestMethod.POST)
+    public void addFollow(HttpServletRequest req, @PathVariable String id){
+        String sid = req.getParameter("sid");
+        SCDao dao = new SCDao();
+        int result = dao.addFollow(sid, id);
+    }
+
+    /*팔로우 삭제*/
+    @RequestMapping(value = "/{id}/follow", method = RequestMethod.DELETE)
+    public void deleteFollow(HttpServletRequest req, @PathVariable String id){
+        String sid = req.getParameter("sid");
+        System.out.println(sid);
+        SCDao dao = new SCDao();
+        int result = dao.deleteFollow(sid, id);
+    }
+
 }

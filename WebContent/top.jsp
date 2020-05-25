@@ -77,7 +77,14 @@
             <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
                 <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/img/user-photo/${loginInfo.ph_sysfile}" id="top-userphoto">
+                    <c:choose>
+                        <c:when test="${loginInfo.ph_sysfile == null}">
+                            <img src="/img/user-photo/guest-icon.png" id="top-userphoto">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/img/user-photo/${loginInfo.ph_sysfile}" id="top-userphoto">
+                        </c:otherwise>
+                    </c:choose>
                     <span id="top-username">${loginInfo.mem_name}</span>
                 </a>
 
@@ -196,6 +203,9 @@
             "id": $('#login-id-field').val(),
             "pwd": $('#login-pwd-field').val()
         }
+
+        console.log(fd);
+
         $.ajax({
             url: "/idcheck.sc",
             data: fd,
