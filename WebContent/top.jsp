@@ -301,3 +301,7 @@
 
 
 </script>
+
+<script>
+	uk.connectWS();
+</script>

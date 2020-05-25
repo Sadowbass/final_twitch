@@ -23,9 +23,10 @@
 		and status=1
 	</update>
 
-	<select id="users" parameterType="String" resultType="String">
+	<!-- <select id="users" parameterType="String" resultType="String">
 		select mid from final_userlist
 		where mid=#{_parameter}
 		and status=1
-	</select>
+	</select> -->
+
 </mapper>

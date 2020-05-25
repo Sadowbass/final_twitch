@@ -14,6 +14,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 
 import bean.Cht;
+import bean.UserList;
 
 public class Handler extends TextWebSocketHandler{
 	/*
@@ -25,8 +26,8 @@ public class Handler extends TextWebSocketHandler{
 	Map<String, Object[]> users=new HashMap<String, Object[]>(); /*로그인한 유저 목록 <oid,[mid,session]>*/
 	Map<String, Integer> accumulate=new HashMap<String, Integer>(); /*누적 시창저 숫자*/
 	Gson gson=new Gson();
+	UserList userList=new UserList();
 	Cht cht=new Cht(); /*채팅vo 디비에 저장할거임*/
-	UserAvg avg=new UserAvg(); /*평균 시청자수 디비에 저장할거임*/
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -53,10 +54,8 @@ public class Handler extends TextWebSocketHandler{
 
 		if(accumulate.get(mid)!=null) { /*스트리머 아이디 있으면 방송중임*/
 			accumulate.put(mid, accumulate.get(mid)+1); /*스트리머의 누적 시청자 숫자 +1*/
-			avg.addAvg(mid); /*스트리머의 평균 시청자 +1*/
 		}else if(mid.equals(oid)) { /*스트리머랑 로그인 아이디 같은면 방송 킨거임*/
 			accumulate.put(mid, 0); /*스트리머의 누적시청자 카운트 시작*/
-			avg.startAvg(mid); /*스트리머의 평균 시청자 카운트 시작*/
 		}
 
 		addAndAccToEverybody.put("accUser", accumulate.get(mid)); /*들어온 그리고 총 유저수 맵에 누적 시창저 담음*/
@@ -86,6 +85,12 @@ public class Handler extends TextWebSocketHandler{
 			addAndAccToEverybody.put("addUser", oid); /*스트리머가 같은 모든 유저에게 보낼 새로 들어온 유저 아이디 추가*/
 			addAndAccToEverybody.put("addTotalSession", 1); /*스트리머가 같은 모든 유저에게 보낼 새로 들어온 유저 아이디 추가*/
 
+			/*userList에 저장*/
+	         userList.setMid(mid);
+	         userList.setOid(oid);
+	         userList.setStatus(1);
+	         UkDao dao=new UkDao();
+	         dao.enter(userList);
 		}
 
 		/*스트리머가 같은 모든 유저들에게 새로 들어온 유저 아이디 보내줌*/
@@ -140,16 +145,21 @@ public class Handler extends TextWebSocketHandler{
 		everybody.remove(session); /*모든 세션에서 나간 세션 삭제*/
 
 		if(accumulate.get(mid)!=null) { /*스트리머 아이디 있으면 방송중임*/
-			avg.subtractAvg(mid); /*스트리명의 평균 시청자 -1*/
 		}else if(mid.equals(oid)) { /*스트리머랑아이디랑 로그인 아이디 같으면 방종*/
 			accumulate.remove(mid); /*스트리머의 누적 시청자 제거*/
-			avg.deltAvg(mid); /*스트리머의 평균 시청자 제거*/
 		}
 
-		/*로그인 한 유저면*/
+		/*로그인한 유저면*/
 		if(oid!=null) {
 			users.remove(oid); /*로그인한 유저 삭제*/
 			delUserToEverybody.put("delUser", oid); /*스트리머가 같은 모두에게 보낼 삭제할 유저 아이디 추가*/
+
+			  /*나간 로그인한 유저 디비 status=0로 수정*/
+	         userList.setMid(mid);
+	         userList.setOid(oid);
+	         userList.setStatus(0);
+	         UkDao dao=new UkDao();
+	         dao.exit(userList);
 
 			/*스트리머가 같은 모두에게 나간 유저 전송*/
 			String jsonDelUserToEverybody=gson.toJson(delUserToEverybody);
