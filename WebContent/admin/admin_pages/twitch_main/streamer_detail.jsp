@@ -123,7 +123,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>구독자 수·팔로워 수</h2>
+                    <h2>구독자 수</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -131,8 +131,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);" onclick="week_chart2()">주별</a></li>
-                                <li><a href="javascript:void(0);" onclick="month_chart2()">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart2('${cnt2[0]}', '${cnt2[1]}', '${cnt2[2]}', '${cnt2[3]}', '${cnt2[4]}', '${cnt2[5]}', '${cnt2[6]}',
+                                                                                         '${tot_cnt2[0]}', '${tot_cnt2[1]}', '${tot_cnt2[2]}', '${tot_cnt2[3]}', '${tot_cnt2[4]}', '${tot_cnt2[5]}', '${tot_cnt2[6]}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart2('${m_cnt2[0]}', '${m_cnt2[1]}', '${m_cnt2[2]}', '${m_cnt2[3]}', '${m_cnt2[4]}', '${m_cnt2[5]}', '${m_cnt2[6]}','${m_cnt2[7]}','${m_cnt2[8]}','${m_cnt2[9]}','${m_cnt2[10]}','${m_cnt2[11]}',
+                                                                                     '${t_m_cnt2[0]}', '${t_m_cnt2[1]}', '${t_m_cnt2[2]}', '${t_m_cnt2[3]}', '${t_m_cnt2[4]}', '${t_m_cnt2[5]}', '${t_m_cnt2[6]}','${t_m_cnt2[7]}','${t_m_cnt2[8]}','${t_m_cnt2[9]}','${t_m_cnt2[10]}','${t_m_cnt2[11]}')">월별</a></li>
                                 <li><a href="javascript:void(0);" onclick="year_chart2()">연도별</a></li>
                             </ul>
                         </li>
@@ -151,7 +153,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>도네이션·구독 수익</h2>
+                    <h2>팔로우 수</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -159,15 +161,17 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);" onclick="week_chart3()">주별</a></li>
-                                <li><a href="javascript:void(0);" onclick="month_chart3()">월별</a></li>
-                                <li><a href="javascript:void(0);" onclick="year_chart3()">연도별</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart5('${cnt[0]}', '${cnt[1]}', '${cnt[2]}', '${cnt[3]}', '${cnt[4]}', '${cnt[5]}', '${cnt[6]}',
+                                                                            '${tot_cnt[0]}', '${tot_cnt[1]}', '${tot_cnt[2]}', '${tot_cnt[3]}', '${tot_cnt[4]}', '${tot_cnt[5]}', '${tot_cnt[6]}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart5('${m_cnt[0]}', '${m_cnt[1]}', '${m_cnt[2]}', '${m_cnt[3]}', '${m_cnt[4]}', '${m_cnt[5]}', '${m_cnt[6]}','${m_cnt[7]}','${m_cnt[8]}','${m_cnt[9]}','${m_cnt[10]}','${m_cnt[11]}',
+                                                                                 '${t_m_cnt[0]}', '${t_m_cnt[1]}', '${t_m_cnt[2]}', '${t_m_cnt[3]}', '${t_m_cnt[4]}', '${t_m_cnt[5]}', '${t_m_cnt[6]}','${t_m_cnt[7]}','${t_m_cnt[8]}','${t_m_cnt[9]}','${t_m_cnt[10]}','${t_m_cnt[11]}')">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart5()">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="body">
-                    <canvas id="radar_chart" height="150"></canvas>
+                    <canvas id="follow_chart" height="150"></canvas>
                 </div>
             </div>
         </div>
@@ -197,6 +201,32 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             </div>
         </div>
         <!-- #END# Pie Chart -->
+    </div>
+    
+    <div class="row clearfix">
+    	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>도네이션·구독 수익</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" onclick="week_chart3()">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart3()">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart3()">연도별</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <canvas id="radar_chart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -243,17 +273,55 @@ var chart = new Chart(ctx1,{
 
 var ctx3 = document.getElementById('bar_chart').getContext('2d')
 var chart3 = new Chart(ctx3,{
-	 type: 'bar',
+	 type: 'line',
      data: {
-         labels: ["January", "February", "March", "April", "May", "June", "July"],
+    	 labels: ['일','월', '화', '수', '목', '금', '토'],
          datasets: [{
-             label: "구독자 수 ",
-             data: [65, 59, 80, 81, 56, 55, 40],
-             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+             label: "새 구독자 수 ",
+             data: [${cnt2[0]}, ${cnt2[1]}, ${cnt2[2]}, ${cnt2[3]}, ${cnt2[4]}, ${cnt2[5]}, ${cnt2[6]}],
+             borderColor: 'rgba(0, 188, 212, 0.75)',
+             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+             pointBorderColor: 'rgba(0, 188, 212, 0)',
+             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+             pointBorderWidth: 1
          }, {
-                 label: "팔로워 수",
-                 data: [28, 48, 40, 19, 86, 27, 90],
-                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+                 label: "누적 구독자 수",
+                 data: [${tot_cnt2[0]}, ${tot_cnt2[1]}, ${tot_cnt2[2]}, ${tot_cnt2[3]}, ${tot_cnt2[4]}, ${tot_cnt2[5]}, ${tot_cnt2[6]}],
+                 borderColor: 'rgba(233, 30, 99, 0.75)',
+                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                 pointBorderWidth: 1
+             }]
+     },
+     options: {
+         responsive: true,
+         
+     }
+}); 
+
+var ctx6 = document.getElementById('follow_chart').getContext('2d')
+
+var chart6 = new Chart(ctx6,{
+	 type: 'line',
+     data: {
+    	 labels: ['일','월', '화', '수', '목', '금', '토'],
+         datasets: [{
+             label: "새 팔로우 수 ",
+             data: [${cnt[0]}, ${cnt[1]}, ${cnt[2]}, ${cnt[3]}, ${cnt[4]}, ${cnt[5]}, ${cnt[6]}],
+             borderColor: 'rgba(0, 188, 212, 0.75)',
+             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+             pointBorderColor: 'rgba(0, 188, 212, 0)',
+             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+             pointBorderWidth: 1
+         }, {
+                 label: "누적 팔로우 수",
+                 data: [${tot_cnt[0]}, ${tot_cnt[1]}, ${tot_cnt[2]}, ${tot_cnt[3]}, ${tot_cnt[4]}, ${tot_cnt[5]}, ${tot_cnt[6]}],
+                 borderColor: 'rgba(233, 30, 99, 0.75)',
+                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                 pointBorderWidth: 1
              }]
      },
      options: {

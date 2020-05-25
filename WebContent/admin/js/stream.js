@@ -252,23 +252,33 @@ let year_chart =function(a,b,c,d,e,f,g,h,i,j){
 	}); 
 }
 
-let month_chart2 = function(){
+
+
+let month_chart2 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2){
 	chart3.destroy();
 	var ctx2 = document.getElementById('bar_chart').getContext('2d');
 	 chart3 = new Chart(ctx2, {
 	    // The type of chart we want to create
-	    type: 'bar',
+	    type: 'line',
 	    // The data for our dataset
 	    data: {
 	        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
 	         datasets: [{
-	             label: "구독자 수",
-	             data: [65, 59, 80, 81, 56, 55, 40,23,34,45,23,35],
-	             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+	             label: "새 구독자 수",
+	             data: [a, b, c, d, e, f,g,h,i,j,k,l],
+	             borderColor: 'rgba(0, 188, 212, 0.75)',
+	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	             pointBorderColor: 'rgba(0, 188, 212, 0)',
+	             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	             pointBorderWidth: 1
 	         }, {
-	                 label: "팔로워 수",
-	                 data: [28, 48, 40, 19, 86, 27, 90,23,34,25,56,24],
-	                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+	                 label: "누적 구독자 수",
+	                 data: [a2, b2, c2, d2, e2, f2,g2,h2,i2,j2,k2,l2],
+	                 borderColor: 'rgba(233, 30, 99, 0.75)',
+	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+	                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	                 pointBorderWidth: 1
 	             }]
 	    },
 	    options: {
@@ -279,23 +289,31 @@ let month_chart2 = function(){
 	
 }
 
-let week_chart2 =function(){
+let week_chart2 =function(mon,tue,wen,thr,fri,sat,sun,mon2,tue2,wen2,thr2,fri2,sat2,sun2){
 	chart3.destroy();
 	var ctx2 = document.getElementById('bar_chart').getContext('2d');
 	 chart3 = new Chart(ctx2, {
 	    // The type of chart we want to create
-	    type: 'bar',
+	    type: 'line',
 	    // The data for our dataset
 	    data: {
 	    	 labels: ['일','월', '화', '수', '목', '금', '토'],
 	         datasets: [{
-	             label: "구독자 수",
-	             data: [65, 59, 80, 81, 56, 55, 40],
-	             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+	             label: "새 구독자 수",
+	             data: [mon,tue,wen,thr,fri,sat,sun],
+	             borderColor: 'rgba(0, 188, 212, 0.75)',
+	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	             pointBorderColor: 'rgba(0, 188, 212, 0)',
+	             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	             pointBorderWidth: 1
 	         }, {
-	                 label: "팔로워 수",
-	                 data: [28, 48, 40, 19, 86, 27, 90],
-	                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+	                 label: "누적 구독자 수",
+	                 data: [mon2,tue2,wen2,thr2,fri2,sat2,sun2],
+	                 borderColor: 'rgba(233, 30, 99, 0.75)',
+	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+	                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	                 pointBorderWidth: 1
 	             }]
 	    },
 	    options: {
@@ -310,18 +328,26 @@ let year_chart2 =function(){
 	var ctx2 = document.getElementById('bar_chart').getContext('2d');
 	 chart3 = new Chart(ctx2, {
 	    // The type of chart we want to create
-	    type: 'bar',
+	    type: 'line',
 	    // The data for our dataset
 	    data: {
 	    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
 	         datasets: [{
-	             label: "구독자 수",
+	             label: "새 구독자 수",
 	             data:  [0, 10, 5, 2, 20, 30, 45,34,23,25],
-	             backgroundColor: 'rgba(0, 188, 212, 0.8)'
+	             borderColor: 'rgba(0, 188, 212, 0.75)',
+	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	             pointBorderColor: 'rgba(0, 188, 212, 0)',
+	             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	             pointBorderWidth: 1
 	         }, {
-	                 label: "팔로워 수",
+	                 label: "누적 구독자 수",
 	                 data: [28, 48, 40, 19, 86, 27, 90,34,25,12],
-	                 backgroundColor: 'rgba(233, 30, 99, 0.8)'
+	                 borderColor: 'rgba(233, 30, 99, 0.75)',
+	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+	                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	                 pointBorderWidth: 1
 	             }]
 	    },
 	    options: {
@@ -551,6 +577,109 @@ let year_chart4= function(){
 	     }
 	});
 	
+}
+
+let month_chart5 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2){
+	chart6.destroy();
+	var ctx2 = document.getElementById('follow_chart').getContext('2d');
+	 chart6 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'line',
+	    // The data for our dataset
+	    data: {
+	        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
+	         datasets: [{
+	             label: "새 팔로우 수",
+	             data: [a, b, c, d, e, f, g,h,i,j,k,l],
+	             borderColor: 'rgba(0, 188, 212, 0.75)',
+	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	             pointBorderColor: 'rgba(0, 188, 212, 0)',
+	             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	             pointBorderWidth: 1
+	         }, {
+	                 label: "누적 팔로우 수",
+	                 data: [a2, b2, c2, d2, e2, f2, g2,h2,i2,j2,k2,l2],
+	                 borderColor: 'rgba(233, 30, 99, 0.75)',
+	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+	                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	                 pointBorderWidth: 1
+	             }]
+	    },
+	    options: {
+	        responsive: true,
+	        
+	    }
+	});
+	
+}
+
+let week_chart5 =function(mon,tue,wen,thr,fri,sat,sun,mon2,tue2,wen2,thr2,fri2,sat2,sun2){
+	chart6.destroy();
+	var ctx2 = document.getElementById('follow_chart').getContext('2d');
+	 chart6 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'line',
+	    // The data for our dataset
+	    data: {
+	    	 labels: ['일','월', '화', '수', '목', '금', '토'],
+	         datasets: [{
+	             label: "새 팔로우 수",
+	             data: [mon,tue,wen,thr,fri,sat,sun],
+	             borderColor: 'rgba(0, 188, 212, 0.75)',
+	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	             pointBorderColor: 'rgba(0, 188, 212, 0)',
+	             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	             pointBorderWidth: 1
+	         }, {
+	                 label: "누적 팔로우 수",
+	                 data: [mon2,tue2,wen2,thr2,fri2,sat2,sun2],
+	                 borderColor: 'rgba(233, 30, 99, 0.75)',
+	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+	                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	                 pointBorderWidth: 1
+	             }]
+	    },
+	    options: {
+	        responsive: true,
+	        
+	    }
+	});
+}
+
+let year_chart5 =function(){
+	chart6.destroy();
+	var ctx2 = document.getElementById('follow_chart').getContext('2d');
+	 chart6 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'line',
+	    // The data for our dataset
+	    data: {
+	    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
+	         datasets: [{
+	             label: "새 팔로우 수",
+	             data:  [0, 10, 5, 2, 20, 30, 45,34,23,25],
+	             borderColor: 'rgba(0, 188, 212, 0.75)',
+	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+	             pointBorderColor: 'rgba(0, 188, 212, 0)',
+	             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+	             pointBorderWidth: 1
+	         }, {
+	                 label: "누적 구독자 수",
+	                 data: [28, 48, 40, 19, 86, 27, 90,34,25,12],
+	                 borderColor: 'rgba(233, 30, 99, 0.75)',
+	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+	                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	                 pointBorderWidth: 1
+	             }]
+	    },
+	    options: {
+	        responsive: true,
+	        
+	    }
+	});
 }
 
 

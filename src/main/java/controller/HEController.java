@@ -253,6 +253,32 @@ public class HEController {
 			board_time3.add(t);
 		}
 		
+		
+		List<String> cnt = new ArrayList<String>();
+		cnt = dao.weekly_follow(mid);
+		List<String> tot_cnt = new ArrayList<String>();
+		tot_cnt = dao.weekly_follow_tot(mid);
+		List<String> cnt2 = new ArrayList<String>();
+		cnt2 = dao.weekly_sub(mid);
+		List<String> tot_cnt2 = new ArrayList<String>();
+		tot_cnt2 = dao.weekly_sub_tot(mid);
+		List<String> m_cnt = new ArrayList<String>();
+		m_cnt = dao.monthly_follow(mid);
+		List<String> m_cnt2 = new ArrayList<String>();
+		m_cnt2 = dao.monthly_sub(mid);
+		List<String> tot_m_cnt = new ArrayList<String>();
+		tot_m_cnt = dao.monthly_follow_tot(mid);
+		List<String> tot_m_cnt2 = new ArrayList<String>();
+		tot_m_cnt2 = dao.monthly_sub_tot(mid);
+		
+		mv.addObject("t_m_cnt", tot_m_cnt);
+		mv.addObject("t_m_cnt2", tot_m_cnt2);
+		mv.addObject("m_cnt", m_cnt);
+		mv.addObject("m_cnt2", m_cnt2);
+		mv.addObject("tot_cnt", tot_cnt);
+		mv.addObject("tot_cnt2", tot_cnt2);
+		mv.addObject("cnt2", cnt2);
+		mv.addObject("cnt", cnt);
 		mv.addObject("bt3", board_time3);
 		mv.addObject("bt2", board_time2);
 		mv.addObject("bt",board_time);

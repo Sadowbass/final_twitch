@@ -3,6 +3,8 @@ package bean;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.http.HttpRequest;
 
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
+
 import mybatis.Factory;
 
 import java.io.File;
@@ -443,6 +445,195 @@ public class HEDao {
 			return list;
 		}
 	}
+	
+	public List<String> weekly_follow(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        
+	        for(int i=1 ; i<8; i++) {
+	        	cal.set(Calendar.DAY_OF_WEEK, i);
+	        	String day = format.format(cal.getTime());
+	        	map.put("day", day);
+	        	String cnt= sqlSession.selectOne("stream.weekly_follow", map);
+	        	list.add(cnt);
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> weekly_follow_tot(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        
+	        for(int i=1 ; i<8; i++) {
+	        	cal.set(Calendar.DAY_OF_WEEK, i);
+	        	cal.add(Calendar.DATE, 1);//날짜+1
+	        	String day = format.format(cal.getTime());
+	        	map.put("day", day);
+	        	String cnt= sqlSession.selectOne("stream.weekly_follow_tot", map);
+	        	list.add(cnt);
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> weekly_sub(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        
+	        for(int i=1 ; i<8; i++) {
+	        	cal.set(Calendar.DAY_OF_WEEK, i);
+	        	String day = format.format(cal.getTime());
+	        	map.put("day", day);
+	        	String cnt= sqlSession.selectOne("stream.weekly_sub", map);
+	        	list.add(cnt);
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> weekly_sub_tot(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        
+	        for(int i=1 ; i<8; i++) {
+	        	cal.set(Calendar.DAY_OF_WEEK, i);
+	        	cal.add(Calendar.DATE, 1);//날짜+1
+	        	String day = format.format(cal.getTime());
+	        	map.put("day", day);
+	        	String cnt= sqlSession.selectOne("stream.weekly_sub_tot", map);
+	        	list.add(cnt);
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> monthly_sub(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			int year = 2020;
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year", year);
+	        for(int i=1 ; i<13; i++) {
+	        	map.put("month", i);
+	        	String cnt= sqlSession.selectOne("stream.monthly_sub", map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> monthly_sub_tot(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			int year = 2020;
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year", year);
+	        for(int i=2 ; i<14; i++) {
+	        	map.put("month", i);
+	        	String cnt= sqlSession.selectOne("stream.monthly_sub_tot", map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> monthly_follow(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			int year = 2020;
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year", year);
+	        
+	        for(int i=1 ; i<13; i++) {
+	        	map.put("month", i);
+	        	String cnt= sqlSession.selectOne("stream.monthly_follow", map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> monthly_follow_tot(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			int year = 2020;
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year", year);
+	        
+	        for(int i=2 ; i<14; i++) {
+	        	map.put("month", i);
+	        	String cnt= sqlSession.selectOne("stream.monthly_follow_tot", map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+
 
 
 
