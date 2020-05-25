@@ -181,7 +181,6 @@ public class SCController {
         StreamingVo vo = dao.streamInfo(id);
         HttpSession session = req.getSession();
         String user = (String) session.getAttribute("session_id");
-
         if (user != null) {
             mv.addObject("session_id", user);
         }
@@ -279,7 +278,7 @@ public class SCController {
         UserInfoVo vo = dao.idcheck(map);
         if (vo != null) {
             flag = "true";
-            req.getSession().setAttribute("mId", vo.getMem_id());
+            req.getSession().setAttribute("session_id", vo.getMem_id());
         }
         return flag;
     }

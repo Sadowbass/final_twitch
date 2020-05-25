@@ -39,15 +39,15 @@
 
 
 
-<input type="hidden" id="streamer_id" value="${vo.mem_id }">
 <!-- 스트리머 아이디 -->
-<input type="hidden" id="session_id" value="${session_id }">
+<input type="hidden" id="streamer_id" value="${vo.mem_id }">
 <!-- 채팅방 입장할 로그인한 유저 아이디 -->
+<input type="hidden" id="session_id" value="${session_id }">
 <script>
 	$(document).ready(function() {
-		uk.connectWS($('input#streamer_id').val(),
-				$('input#session_id').val());
+		uk.connectWS($('input#streamer_id').val(), $('input#session_id').val());
 	});
+	console.log('streamer::'+$('input#streamer_id').val(), 'user::'+$('input#session_id').val());
 </script>
 
 

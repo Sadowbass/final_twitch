@@ -89,8 +89,6 @@ uk.unfoldRightOrBottom = function () {
 
 }
 
-ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId);
-
 /* 왼쪽 */
 uk.leftValue = function () {
 	let left = 0;
@@ -166,8 +164,9 @@ uk.connectWS = function (streamer, login) {
 	let totalUserCnt = 0;
 
 	streamerId = streamer;
-	/* loginId=login; */
-	loginId = '임시';
+	loginId=login;
+
+	console.log("streamerId::"+streamerId,"login:::",login);
 
 	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
 
