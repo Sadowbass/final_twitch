@@ -12,10 +12,10 @@ uk.stream = function() {
 		type : 'get',
 		url : '/sidebar.sc',
 		success : function(data) {
-			let left = $('#sidebarplace').html(data).find("#sidebar-navmain")					.width();
+			let left = $('#sidebarplace').html(data).find("#sidebar-navmain").width();
+			if($('#sidebarplace').css('display')=='none') left=0;
 			/* 메인 왼쪽 */
 			if($('#sidebarplace').length){
-				console.log('ggg');
 				$(".video_main_uk").css('padding-left', left + 'px');
 			}
 		}
@@ -72,7 +72,6 @@ uk.unfoldBottom=function(){
 uk.unfoldRightOrBottom=function(){
 	if ($(window).width() >= 1000) {
 		if($('#unfoldBottom').css('display')=='block'&& $("#cht_div").css("display")== "none"){
-			console.log("1000보다 크니까 unfold만 보여야함");
 			$('#unfold').css('display', 'block');
 			$('#unfoldBottom').css('display', 'none');
 		}
@@ -81,7 +80,6 @@ uk.unfoldRightOrBottom=function(){
 		}
 	}else{
 		if($('#unfold').css('display')=='block' && $("#cht_div").css("display")== "none"){
-			console.log("1000보다 작으니까 unfoldBottom 보여야함");
 			$('#unfold').css('display', 'none');
 			$('#unfoldBottom').css('display', 'block');
 		}if($("#iconRotation").length){
@@ -128,7 +126,6 @@ uk.leftValue = function() {
 	 if ($(window).width() >= 1000) {
 		 left = $('#sidebar-navmain').width();
 	 }
-	 console.log(left);
 	 $(".video_main_uk").css('padding-left', left + 'px');
  }
 
@@ -217,13 +214,9 @@ uk.connectWS = function(streamer, login) {
 		/* 로그인+로그아웃 total 시청자 수 */
 		if (jsObj.totalSession) {
 			totalUserCnt = jsObj.totalSession;
-			console.log('totalUserCnt1111', totalUserCnt);
-			console.log('jsObj.totalSession2222', jsObj.totalSession);
 		}
 		if (jsObj.addTotalSession) {
 			totalUserCnt += jsObj.addTotalSession;
-			console.log('totalUserCnt3333', totalUserCnt);
-			console.log('jsObj.addTotalSession4444', jsObj.addTotalSession)
 			$('#totalUserCnt').html(totalUserCnt);
 		}
 
