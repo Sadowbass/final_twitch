@@ -41,16 +41,6 @@
 </head>
 <body id="page-top">
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            type: 'get',
-            url: '/sidebar.sc',
-            success: function (data) {
-                $('#sidebarplace').html(data);
-            }
-        })
-    })
-
     $(window).scroll(function () {
         let rno = $('.history-video:last').attr('rownum');
         let id = window.location.pathname.split("/")[1];
@@ -114,10 +104,11 @@
     })
 </script>
 <div id="topplace">
-    <%@include file="/top.jsp" %>
+    <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
 <div id="wrapper">
     <div id="sidebarplace" style="margin-top: 53px;">
+        <jsp:include page="sidebar.sc" flush="false"></jsp:include>
     </div>
     <div id="content-wrapper" style="margin-top: 53px;">
         <div class="container-fluid">
@@ -165,17 +156,6 @@
 </a>
 <!-- Logout Modal-->
 <%@include file="/logout-modal.jsp" %>
-<script>
-    $(document).ready(function () {
-        uk_main.stream();
-    });
-    let unfold = function () {
-        $("#unfold").remove();
-        $("#cht_div").css("display", "block");
-        $("#video_div").removeClass("col-md-12");
-        $("#video_div").addClass("col-md-10");
-    }
-</script>
 </body>
 </html>
 

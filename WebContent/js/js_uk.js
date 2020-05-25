@@ -15,7 +15,6 @@ uk.stream = function () {
 			let left = $('#sidebarplace').html(data).find("#sidebar-navmain").width();
 			/* 메인 왼쪽 */
 			if ($('#sidebarplace').length) {
-				console.log('ggg');
 				$(".video_main_uk").css('padding-left', left + 'px');
 			}
 		}
@@ -72,7 +71,6 @@ uk.unfoldBottom = function () {
 uk.unfoldRightOrBottom = function () {
 	if ($(window).width() >= 1000) {
 		if ($('#unfoldBottom').css('display') == 'block' && $("#cht_div").css("display") == "none") {
-			console.log("1000보다 크니까 unfold만 보여야함");
 			$('#unfold').css('display', 'block');
 			$('#unfoldBottom').css('display', 'none');
 		}
@@ -81,7 +79,6 @@ uk.unfoldRightOrBottom = function () {
 		}
 	} else {
 		if ($('#unfold').css('display') == 'block' && $("#cht_div").css("display") == "none") {
-			console.log("1000보다 작으니까 unfoldBottom 보여야함");
 			$('#unfold').css('display', 'none');
 			$('#unfoldBottom').css('display', 'block');
 		} if ($("#iconRotation").length) {
@@ -91,8 +88,6 @@ uk.unfoldRightOrBottom = function () {
 
 
 }
-
-ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId);
 
 ///* strea.uk fold */
 //uk.fold = function() {
@@ -124,7 +119,6 @@ uk.leftValue = function () {
 	if ($(window).width() >= 1000) {
 		left = $('#sidebar-navmain').width();
 	}
-	console.log(left);
 	$(".video_main_uk").css('padding-left', left + 'px');
 }
 
@@ -195,7 +189,7 @@ uk.connectWS = function (streamer, login) {
 	/* loginId=login; */
 	loginId = '임시';
 
-	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 서버 접속 완료");

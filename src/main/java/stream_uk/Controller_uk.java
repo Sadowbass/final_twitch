@@ -14,29 +14,5 @@ import com.google.gson.Gson;
 @Controller
 public class Controller_uk {
 
-/*	@ResponseBody
-	@RequestMapping(value = "/enter.uk", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public String enter(UserList userList) {
-		UkDao dao = new UkDao();
-		dao.enter(userList);
-		return "enter";
-	}
 
-	@ResponseBody
-	@RequestMapping(value = "/exit.uk", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public String exit(UserList userList) {
-		UkDao dao = new UkDao();
-		dao.exit(userList);
-		return "exit";
-	}*/
-
-	@ResponseBody
-	@RequestMapping(value = "/users.uk", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public String users(HttpServletRequest req) {
-		String streamer=req.getParameter("streamer");
-		UkDao dao = new UkDao();
-		List<String> list=dao.users(streamer);
-		Gson gson=new Gson();
-		return gson.toJson(list);
-	}
 }

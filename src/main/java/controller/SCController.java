@@ -129,11 +129,12 @@ public class SCController {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
-        String mId = (String) session.getAttribute("mId");
+        String mId = (String) session.getAttribute("session_id");
 
         if (mId != null) {
             UserInfoVo vo = dao.userInfo(mId);
             mv.addObject("loginInfo", vo);
+            System.out.println(vo.toString());
         }
 
         mv.setViewName("top");
@@ -157,7 +158,7 @@ public class SCController {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
-        String mId = (String) session.getAttribute("mId");
+        String mId = (String) session.getAttribute("session_id");
         List<StreamingVo> list = new ArrayList<StreamingVo>();
 
         if (mId != null) {
@@ -272,6 +273,9 @@ public class SCController {
         String id = req.getParameter("id");
         String pwd = req.getParameter("pwd");
 
+        System.out.println(id);
+        System.out.println(pwd);
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
         map.put("pwd", pwd);
@@ -279,6 +283,7 @@ public class SCController {
         UserInfoVo vo = dao.idcheck(map);
         if (vo != null) {
             flag = "true";
+            System.out.println(flag);
             req.getSession().setAttribute("session_id", vo.getMem_id());
         }
         return flag;
@@ -287,7 +292,7 @@ public class SCController {
     /* 로그아웃 */
     @RequestMapping(value = "logout.sc", method = RequestMethod.GET)
     public void logout(HttpServletRequest req) {
-        req.getSession().removeAttribute("mId");
+        req.getSession().removeAttribute("session_id");
     }
 
     /* 아이디 중복체크 */

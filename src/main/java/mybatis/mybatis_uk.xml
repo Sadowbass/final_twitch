@@ -10,22 +10,4 @@
 		values(final_cht_seq.nextval, #{cht_mid}, #{cht_oid}, #{cht_txt}, sysdate)
 	</insert>
 
-	<insert id="enter" parameterType="bean.UserList">
-		insert into final_userlist(serial, mid, oid, status, enter_time, exit_time)
-		values(final_userlist_seq.nextval, #{mid}, #{oid}, #{status}, sysdate, sysdate)
-	</insert>
-
-	<update id="exit" parameterType="bean.UserList">
-		update final_userlist
-		set status=#{status}, exit_time=sysdate
-		where mid=#{mid}
-		and oid=#{oid}
-		and status=1
-	</update>
-
-	<select id="users" parameterType="String" resultType="String">
-		select mid from final_userlist
-		where mid=#{_parameter}
-		and status=1
-	</select>
 </mapper>

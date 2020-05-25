@@ -23,7 +23,7 @@
 <script>
     $('#logout-button').click(function () {
         $.ajax({
-            url:'logout.sc',
+            url:'/logout.sc',
             type:'get',
             error:function (err) {
                 console.log(err);
