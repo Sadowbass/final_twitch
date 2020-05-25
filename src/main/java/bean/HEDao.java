@@ -633,6 +633,287 @@ public class HEDao {
 			return list;
 		}
 	}
+	
+	public List<String> year_sub(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+
+	        for(int i=y-10 ; i<y+1 ; i++) {
+	        	map.put("year",i);
+	        	String cnt = sqlSession.selectOne("stream.year_sub",map);
+	        	list.add(cnt);
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> year_follow(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+
+	        for(int i=y-10 ; i<y+1 ; i++) {
+	        	map.put("year",i);
+	        	String cnt = sqlSession.selectOne("stream.year_follow",map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> year_sub_tot(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+
+	        for(int i=y-9 ; i<y+2 ; i++) {
+	        	map.put("year",i);
+	        	String cnt = sqlSession.selectOne("stream.year_sub_tot",map);
+	        	list.add(cnt);
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> year_follow_tot(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+
+	        for(int i=y-9 ; i<y+2 ; i++) {
+	        	map.put("year",i);
+	        	String cnt = sqlSession.selectOne("stream.year_follow_tot",map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> weekly_don(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        
+	        for(int i=1 ; i<8; i++) {
+	        	cal.set(Calendar.DAY_OF_WEEK, i);
+	        	String day = format.format(cal.getTime());
+	        	map.put("day", day);
+	        	String cnt= sqlSession.selectOne("stream.weekly_don", map);
+	        	if(cnt == null) {
+	        		cnt = "0";
+	        	}
+	        	list.add(cnt);
+	        	
+	        }
+	        
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> weekly_subpofit(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        
+	        for(int i=1 ; i<8; i++) {
+	        	cal.set(Calendar.DAY_OF_WEEK, i);
+	        	String day = format.format(cal.getTime());
+	        	map.put("day", day);
+	        	String cnt= sqlSession.selectOne("stream.weekly_subprofit", map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> monthly_don(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			int year = 2020;
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year", year);
+	        
+	        for(int i=1 ; i<13; i++) {
+	        	map.put("month", i);
+	        	String cnt= sqlSession.selectOne("stream.monthly_don", map);
+	        	if(cnt == null) {
+	        		cnt = "0";
+	        	}
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> monthly_subprofit(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			int year = 2020;
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        map.put("year", year);
+	        
+	        for(int i=1 ; i<13; i++) {
+	        	map.put("month", i);
+	        	String cnt= sqlSession.selectOne("stream.monthly_subprofit", map);
+	        	list.add(cnt);
+	        }
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> year_don(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+
+	        for(int i=y-10 ; i<y+1 ; i++) {
+	        	map.put("year",i);
+	        	String cnt = sqlSession.selectOne("stream.year_don",map);
+	        	if(cnt == null) {
+	        		cnt = "0";
+	        	}
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> year_subprofit(String mid){
+		List<String> list = new ArrayList<String>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DecimalFormat df = new DecimalFormat("00");
+	        Calendar currentCalendar = Calendar.getInstance();
+	        String year  = df.format(currentCalendar.get(Calendar.YEAR) + 1);
+	        int y = Integer.parseInt(year);
+
+	        for(int i=y-10 ; i<y+1 ; i++) {
+	        	map.put("year",i);
+	        	String cnt = sqlSession.selectOne("stream.year_subprofit",map);
+	        	list.add(cnt);
+	        }
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public void broadban(String mid) {
+		try {
+			int cnt = sqlSession.insert("stream.broadban",mid);
+			if(cnt<1) throw new Exception("정지정보 저장중 오류 발생");
+			sqlSession.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			sqlSession.rollback();
+		}
+	}
+	
+	public int isban(String mid) {
+		int cnt =0;
+		try {
+			cnt = sqlSession.selectOne("stream.isban", mid);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return cnt;
+		}
+	}
+	
+	public void broadok(String mid) {
+		try {
+			int cnt = sqlSession.delete("stream.broadok",mid);
+			if(cnt<1) throw new Exception("정지정보 삭제중 오류 발생");
+			sqlSession.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			sqlSession.rollback();
+		}
+	}
 
 
 

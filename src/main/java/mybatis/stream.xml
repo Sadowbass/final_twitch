@@ -6,14 +6,14 @@
 <mapper namespace="stream">
 	<select id="select" resultType="bean.StreamerVo">
 		select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
-	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 profit 
+	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*5000 profit 
 		from final_member where MEM_SKEY is not null
 	</select>
 	 <select id='view' parameterType="String" resultType="bean.StreamerVo">
     	select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
-	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 profit,
+	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*5000 profit,
 	    (select sum(don_price) from final_donation where don_mid=mem_id) don_profit,
-	    (select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 sub_profit,
+	    (select count(sub_serial) from final_subscription where sub_mid=mem_id)*5000 sub_profit,
 	    (select count(sub_serial) from final_subscription where sub_mid=mem_id) cnt2,
 	    (select ph_sysfile from final_photo where mem_id =ph_id) ph_sysfile
 		from final_member where mem_id='${_parameter}'
@@ -65,6 +65,58 @@
 		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') &lt; #{month} and to_char(mfo_date,'rrrr')= #{year}
 	</select>
 	
+	<select id="year_sub" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr') = #{year}
+	</select>
+	
+	<select id="year_follow" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr') = #{year}
+	</select>
+	
+	<select id="year_sub_tot" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr') &lt; #{year}
+	</select>
+	
+	<select id="year_follow_tot" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr') &lt; #{year}
+	</select>
+	
+	<select id="weekly_don" parameterType="hashmap" resultType="String">
+		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr-mm-dd') = #{day}
+	</select>
+	
+	<select id="weekly_subprofit" parameterType="hashmap" resultType="String">
+		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day}
+	</select>
+	
+	<select id="monthly_subprofit" parameterType="hashmap" resultType="String">
+		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_don" parameterType="hashmap" resultType="String">
+		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'mm') = #{month} and to_char(don_rdate,'rrrr') =#{year}
+	</select>
+	
+	<select id="year_subprofit" parameterType="hashmap" resultType="String">
+		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr')= #{year}
+	</select>
+	
+	<select id="year_don" parameterType="hashmap" resultType="String">
+		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr') =#{year}
+	</select>
+	
+	 <insert id="broadban" parameterType='String'>
+    	insert into final_broadban(bban_serial,bban_id,bban_rdate)
+    	values(seq_bban.nextval,'${_parameter}',sysdate)
+    </insert>
+    
+    <select id="isban" parameterType="String" resultType="Integer">
+		select count(bban_serial) from final_broadban where bban_id='${_parameter}'
+	</select>
+	
+	<delete id='broadok' parameterType="String">
+    	delete from final_broadban where bban_id='${_parameter}'
+    </delete>
 	
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
 		select * from final_category

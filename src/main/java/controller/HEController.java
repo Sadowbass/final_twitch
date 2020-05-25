@@ -270,7 +270,42 @@ public class HEController {
 		tot_m_cnt = dao.monthly_follow_tot(mid);
 		List<String> tot_m_cnt2 = new ArrayList<String>();
 		tot_m_cnt2 = dao.monthly_sub_tot(mid);
+		List<String> y_cnt = new ArrayList<String>();
+		y_cnt = dao.year_follow(mid);
+		List<String> y_cnt2 = new ArrayList<String>();
+		y_cnt2 = dao.year_sub(mid);
+		List<String> tot_y_cnt = new ArrayList<String>();
+		tot_y_cnt = dao.year_follow_tot(mid);
+		List<String> tot_y_cnt2 = new ArrayList<String>();
+		tot_y_cnt2 = dao.year_sub_tot(mid);
+		List<String> don = new ArrayList<String>();
+		don=dao.weekly_don(mid);
+		List<String> m_don = new ArrayList<String>();
+		m_don = dao.monthly_don(mid);
+		List<String> y_don = new ArrayList<String>();
+		y_don = dao.year_don(mid);
+		List<String> sub = new ArrayList<String>();
+		sub =dao.weekly_subpofit(mid);
+		List<String> m_sub = new ArrayList<String>();
+		m_sub = dao.monthly_subprofit(mid);
+		List<String> y_sub = new ArrayList<String>();
+		y_sub = dao.year_subprofit(mid);
 		
+		int isban = dao.isban(mid);//방송금지인지 확인
+		
+		System.out.println(isban);
+		
+		mv.addObject("isban", isban);
+		mv.addObject("don", don);
+		mv.addObject("m_don", m_don);
+		mv.addObject("y_don", y_don);
+		mv.addObject("sub", sub);
+		mv.addObject("m_sub", m_sub);
+		mv.addObject("y_sub", y_sub);
+		mv.addObject("t_y_cnt", tot_y_cnt);
+		mv.addObject("t_y_cnt2", tot_y_cnt2);
+		mv.addObject("y_cnt", y_cnt);
+		mv.addObject("y_cnt2",y_cnt2);
 		mv.addObject("t_m_cnt", tot_m_cnt);
 		mv.addObject("t_m_cnt2", tot_m_cnt2);
 		mv.addObject("m_cnt", m_cnt);
@@ -286,6 +321,28 @@ public class HEController {
 		mv.setViewName("twitch_main/streamer_detail"); 
 		return mv;
 	}
+	
+	@RequestMapping(value="*/broadstop.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView broadstop(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		String mid= req.getParameter("he_serial");
+		dao.broadban(mid);
+		
+		mv.setViewName("twitch_main/streamer_detail"); 
+		return mv;
+	}
+	
+
+	@RequestMapping(value="*/broadok.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView broadok(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		String mid= req.getParameter("he_serial");
+		dao.broadok(mid);//방송정지 테이블에서 정보 삭제
+		
+		mv.setViewName("twitch_main/streamer_detail"); 
+		return mv;
+	}
+	
 	
 	@RequestMapping(value="*/category_select.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView selectC(HttpServletRequest req) {
@@ -329,6 +386,8 @@ public class HEController {
 		mv.setViewName("twitch_main/category_insert"); 
 		return mv;
 	}
+	
+	
 	
 	@RequestMapping(value="*/category_modifyR.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView modifyC(HttpServletRequest req, HttpServletResponse resp) {

@@ -1,5 +1,9 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -7,7 +11,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="css/member.css" rel="stylesheet">
-    
+     <!-- Sweet Alert Css -->
+    <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
 </head>
 <div class="container-fluid">
     <div class="block-header">
@@ -35,15 +41,19 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </ul>
                 </div>
                 <div class="body">
+                	 <form name="he_form" id="he_form" method="post">
                 	 <div class="row clearfix">
                                 <div class="col-xs-12">
                                     <img src="../img/user-photo/${vo.ph_sysfile }" class="img-circle member_img" id="member_img" name="member_img">
+                                    <div class="js-sweetalert broadstop_btn" id="broadstop">
+                                   
+                                    </div>
                                 </div>
                             </div>
                 	<div class="row">
                 		<div class="col-xs-6">
 		                    <label class="str_profile_label">아이디</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_id }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_id }" name="he_serial">
                 		</div>
                 		<div class="col-xs-6">
 		                    <label class="str_profile_label">이름</label>
@@ -89,6 +99,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 		                    <input type="text" class="form-control streamer_profile" placeholder="${vo.profit }">
                 		</div>
                 	</div>
+                	</form>
                 </div>
             </div>
         </div>
@@ -135,7 +146,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                                                          '${tot_cnt2[0]}', '${tot_cnt2[1]}', '${tot_cnt2[2]}', '${tot_cnt2[3]}', '${tot_cnt2[4]}', '${tot_cnt2[5]}', '${tot_cnt2[6]}')">주별</a></li>
                                 <li><a href="javascript:void(0);" onclick="month_chart2('${m_cnt2[0]}', '${m_cnt2[1]}', '${m_cnt2[2]}', '${m_cnt2[3]}', '${m_cnt2[4]}', '${m_cnt2[5]}', '${m_cnt2[6]}','${m_cnt2[7]}','${m_cnt2[8]}','${m_cnt2[9]}','${m_cnt2[10]}','${m_cnt2[11]}',
                                                                                      '${t_m_cnt2[0]}', '${t_m_cnt2[1]}', '${t_m_cnt2[2]}', '${t_m_cnt2[3]}', '${t_m_cnt2[4]}', '${t_m_cnt2[5]}', '${t_m_cnt2[6]}','${t_m_cnt2[7]}','${t_m_cnt2[8]}','${t_m_cnt2[9]}','${t_m_cnt2[10]}','${t_m_cnt2[11]}')">월별</a></li>
-                                <li><a href="javascript:void(0);" onclick="year_chart2()">연도별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart2('${y_cnt2[0]}', '${y_cnt2[1]}', '${y_cnt2[2]}', '${y_cnt2[3]}', '${y_cnt2[4]}', '${y_cnt2[5]}', '${y_cnt2[6]}','${y_cnt2[7]}','${y_cnt2[8]}','${y_cnt2[9]}',
+                                                                                        '${t_y_cnt2[0]}', '${t_y_cnt2[1]}', '${t_y_cnt2[2]}', '${t_y_cnt2[3]}', '${t_y_cnt2[4]}', '${t_y_cnt2[5]}', '${t_y_cnt2[6]}','${t_y_cnt2[7]}','${t_y_cnt2[8]}','${t_y_cnt2[9]}')">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -165,7 +177,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                                             '${tot_cnt[0]}', '${tot_cnt[1]}', '${tot_cnt[2]}', '${tot_cnt[3]}', '${tot_cnt[4]}', '${tot_cnt[5]}', '${tot_cnt[6]}')">주별</a></li>
                                 <li><a href="javascript:void(0);" onclick="month_chart5('${m_cnt[0]}', '${m_cnt[1]}', '${m_cnt[2]}', '${m_cnt[3]}', '${m_cnt[4]}', '${m_cnt[5]}', '${m_cnt[6]}','${m_cnt[7]}','${m_cnt[8]}','${m_cnt[9]}','${m_cnt[10]}','${m_cnt[11]}',
                                                                                  '${t_m_cnt[0]}', '${t_m_cnt[1]}', '${t_m_cnt[2]}', '${t_m_cnt[3]}', '${t_m_cnt[4]}', '${t_m_cnt[5]}', '${t_m_cnt[6]}','${t_m_cnt[7]}','${t_m_cnt[8]}','${t_m_cnt[9]}','${t_m_cnt[10]}','${t_m_cnt[11]}')">월별</a></li>
-                                <li><a href="javascript:void(0);" onclick="year_chart5()">연도별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart5('${y_cnt[0]}', '${y_cnt[1]}', '${y_cnt[2]}', '${y_cnt[3]}', '${y_cnt[4]}', '${y_cnt[5]}', '${y_cnt[6]}','${y_cnt[7]}','${y_cnt[8]}','${y_cnt[9]}',
+                                                                                    '${t_y_cnt[0]}', '${t_y_cnt[1]}', '${t_y_cnt[2]}', '${t_y_cnt[3]}', '${t_y_cnt[4]}', '${t_y_cnt[5]}', '${t_y_cnt[6]}','${t_y_cnt[7]}','${t_y_cnt[8]}','${t_y_cnt[9]}')">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -215,9 +228,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);" onclick="week_chart3()">주별</a></li>
-                                <li><a href="javascript:void(0);" onclick="month_chart3()">월별</a></li>
-                                <li><a href="javascript:void(0);" onclick="year_chart3()">연도별</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart3('${don}','${sub}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart3('${m_don}','${m_sub}')">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart3('${y_don}','${y_sub}')">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -234,6 +247,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <!-- Chart Plugins Js -->
 <script src="plugins/chartjs/Chart.bundle.js"></script>
+<!-- Sweet Alert Plugin Js -->
+<script src="plugins/sweetalert/sweetalert.min.js"></script>
 
 <!-- Custom Js -->
 <script src="js/stream.js"></script>
@@ -336,10 +351,10 @@ var chart4 = new Chart(ctx4,{
 
 	    // The data for our dataset
 	    data: {
-	        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+	        labels: ['월', '화', '수', '목', '금', '토', '일'],
 	        datasets: [{
 	            label: '구독 수익',
-	            data: [40, 70, 20, 50, 20, 30, 45],
+	            data: [${sub[0]}, ${sub[1]}, ${sub[2]}, ${sub[3]}, ${sub[4]}, ${sub[5]}, ${sub[6]}],
 	            borderColor: 'rgba(102, 102, 153, 0.75)',
 	            backgroundColor: 'rgba(102, 102, 153, 0.3)',
 	            pointBorderColor: 'rgba(102, 102, 153, 0)',
@@ -347,7 +362,7 @@ var chart4 = new Chart(ctx4,{
 	            pointBorderWidth: 1
 	        },{
 	        	 label: "도네 수익",
-	             data: [28, 48, 40, 19, 86, 27, 90],
+	             data: [${don[0]}, ${don[1]}, ${don[2]}, ${don[3]}, ${don[4]}, ${don[5]}, ${don[6]}],
 	             borderColor: 'rgba(233, 30, 99, 0.75)',
 	             backgroundColor: 'rgba(233, 30, 99, 0.3)',
 	             pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -355,7 +370,7 @@ var chart4 = new Chart(ctx4,{
 	             pointBorderWidth: 1
 	        },{
 	            label: '총 수익',
-	            data: [68, 118, 60, 69, 116, 57, 135],
+	            data: [${don[0]}+${sub[0]},${don[1]}+${sub[1]}, ${don[2]}+${sub[2]}, ${don[3]}+${sub[3]}, ${don[4]}+${sub[4]}, ${don[5]}+${sub[5]}, ${don[6]}+${sub[6]}],
 	            borderColor: 'rgba(204, 000, 204, 0.75)',
 	            backgroundColor: 'rgba(204, 000, 204, 0.3)',
 	            pointBorderColor: 'rgba(204, 000, 204, 0)',
@@ -392,7 +407,23 @@ var chart5 = new Chart(ctx5,{
      options: {
          responsive: true,
      }
-}); 
+});
+
+if(${isban}>0){
+	let str = '<button type="button" class="btn waves-effect" onclick="broad_ok('+'\'${vo.mem_id}\''+')">'
+	+'<i class="material-icons">autorenew</i>'
+    +'<span>방송 이용 정지 해제</span>'
+    +'</button>'
+	$("#broadstop").html(str);
+}else{
+	let str2 = '<button type="button" class="btn waves-effect" onclick="broad_stop('+'\'${vo.mem_id}\''+')">'
+	+'<i class="material-icons">block</i>'
+    +'<span>방송 이용 정지</span>'
+    +'</button>'
+    $("#broadstop").html(str2);
+}
+
+
 
 </script>
 
