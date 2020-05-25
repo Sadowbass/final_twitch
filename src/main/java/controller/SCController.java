@@ -279,7 +279,7 @@ public class SCController {
         UserInfoVo vo = dao.idcheck(map);
         if (vo != null) {
             flag = "true";
-            req.getSession().setAttribute("mId", vo.getMem_id());
+            req.getSession().setAttribute("session_id", vo.getMem_id());
         }
         return flag;
     }
