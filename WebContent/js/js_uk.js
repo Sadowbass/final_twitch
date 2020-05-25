@@ -49,7 +49,7 @@ uk.usersOrcht = function() {
 		$('div#userList').css('display', 'none');
 	}
 }
-
+/*접기*/
 uk.fold=function(){
 	$("#cht_div").css("display", "none");
 	if ($(window).width() >= 1000) {
@@ -59,16 +59,19 @@ uk.fold=function(){
 	}
 	uk.rightValue();
 }
+/*펼치기*/
 uk.unfold=function(){
 	$("#cht_div").css("display", "block");
 	$("#unfold").css("display", "none");
 	uk.rightValue();
 }
+/*펼치기 밑*/
 uk.unfoldBottom=function(){
 	$("#cht_div").css("display", "block");
 	$("#unfoldBottom").css("display", "none");
 	uk.rightValue();
 }
+/*펼치기 오른쪽 or 아래*/
 uk.unfoldRightOrBottom=function(){
 	if ($(window).width() >= 1000) {
 		if($('#unfoldBottom').css('display')=='block'&& $("#cht_div").css("display")== "none"){
@@ -89,34 +92,6 @@ uk.unfoldRightOrBottom=function(){
 
 
 }
-
-
-
-
-
-
-
-///* strea.uk fold */
-//uk.fold = function() {
-//	$("#cht_div").css("display", "none");
-//	$('#unfold').css('display', 'block');
-//	$("#video_div").removeClass("col-md-10");
-//	$("#video_div").addClass("col-md-12");
-//	$("#unfold").addClass("d-none d-md-block");
-//	uk.rightValue();
-//}
-///* strea.uk unfold */
-//uk.unfold = function() {
-//	$('#unfold').css('display', 'none');
-//	$("#cht_div").css("display", "block");
-//	$("#video_div").removeClass("col-md-12");
-//	$("#video_div").addClass("col-md-10");
-//	$("#unfold").removeClass("d-none d-md-block");
-//	uk.rightValue();
-//}
-//uk.unfoldBottom=function(){
-//	uk.unfold();
-//}
 
 /* 왼쪽 */
 uk.leftValue = function() {
@@ -151,7 +126,6 @@ uk.chtAndVideo=function(){
 	let height = window.innerHeight-(top + $("#cht_top").height()
 					  				     + $("#statusBoardSurround").height()
 					  				     + $(".cht_send_uk").height() + $(".cht_bottom_uk").height() + 20);
-
 	/*1000이하 되면 네비0 채팅방 길이 조정*/
 	 if ($(window).width() < 1000) {
 		 /*네비 길이 0*/
@@ -161,7 +135,6 @@ uk.chtAndVideo=function(){
 				 					 + $("#cht_top").height()
 									 + $(".cht_send_uk").height()
 									 + $(".cht_bottom_uk").height() + 20);
-
 		 /*채팅 메인 <1000*/
 
 			$("#cht_div").css({
