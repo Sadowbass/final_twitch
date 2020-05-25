@@ -72,7 +72,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
               </c:otherwise>
             </c:choose>
             <a href="#">
-              ${vo.mem_Id}
+              ${vo.mem_id}
               <span
                 title=""
                 data-placement="top"
@@ -177,6 +177,86 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <div class="p-3">이미지</div>
         <div class="p-3">
           <div>카테고리: just Chatting</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
+          <div>#리얼라이프</div>
           <div>#리얼라이프</div>
         </div>
       </div>
