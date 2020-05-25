@@ -153,7 +153,7 @@ public String reviewDelete(StoreReviewVo vo,List<StoreReviewPhotoVo> list) {
 		try {
 			list = sqlsession.selectList("store.faq_select");
 			for(StoreFaqVo temp : list){
-				System.out.println("123"+temp.toString());
+				//System.out.println("123"+temp.toString());
 			}
 		} catch (Exception e1) {
 
