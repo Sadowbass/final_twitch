@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import bean.MH_ReviewVo;
+import bean.MH_orderListVo;
+import bean.MH_orderVo;
 import bean.ProductPhotoUpload_mh;
 import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
@@ -35,10 +37,49 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="*/orderView.mh",method=RequestMethod.POST, produces="application/text; charset-utf8")
+	public String orderView(Model model, String orderSelect_mem_id,String orderSelect_orderSerial ,int orderSelect_nowPage, String order_search_mh) {
+		System.out.println("★★★★★orderView");
+		
+		MH_orderVo vo = new MH_orderVo();
+		mh_Page p = new mh_Page();
+		
+		vo.setMem_id(orderSelect_mem_id);
+		vo.setOrder_serial(orderSelect_orderSerial);
+		
+		p.setFindStr(order_search_mh);
+		p.setNowPage(orderSelect_nowPage);
+		
+		System.out.println("★★★mem_id : " + orderSelect_mem_id);
+		System.out.println("★★★serial : " + orderSelect_orderSerial);
+		List<MH_orderListVo> list = dao.orderDetail(vo);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("p",p);
+				
+		return "order_view";
+	}
+	
 	// 주문 조회 
 	@RequestMapping(value="*/orderSelect.mh", method= {RequestMethod.GET,RequestMethod.POST}, produces="application/text; charset-utf8")
-	public String orderSelect(Model model, int nowPage, String findStr ) {
+	public String orderSelect(Model model, String orderSelect_nowPage, String order_search_mh ) {
+		mh_Page p = new mh_Page();
 		
+		System.out.println("★★★페이지 : " + orderSelect_nowPage);
+		System.out.println("★★★검색어 : " + order_search_mh);
+		if(orderSelect_nowPage == null) {
+			p.setNowPage(1);
+		}else {
+			p.setNowPage(Integer.parseInt(orderSelect_nowPage));
+		}
+		p.setFindStr(order_search_mh);
+		
+		List<MH_orderVo> list = dao.orderSelect(p);
+		
+		
+		model.addAttribute("list",list);
+		model.addAttribute("p",p);
+		System.out.println("★★★ end");
 		return "order_select";
 	}
 	

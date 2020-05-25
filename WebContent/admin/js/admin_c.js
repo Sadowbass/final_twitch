@@ -43,6 +43,17 @@ cmh.review_view = function(serial){
 
 cmh.func = function(){
 	
+	// order_select.jsp
+	// 검색버튼 누르면
+	$('#btn_orderSearch_mh').click(function(){
+		$('#orderSelect_nowPage').val(1);
+		$('#frm_orderSelect_mh').submit();
+	})
+	
+	// end order_select.jsp
+	
+	
+	
 	// review.jsp
 	
 	$('#btn_reviewSearch_mh').click(function(){
@@ -321,8 +332,11 @@ cmh.productView = function(product_id){
 	});*/
 }
 
-cmh.orderView = function(serial){
-	location.href = "index.jsp?inc=admin_pages/shop/order_view.jsp";
+cmh.orderView = function(serial, mem_id){
+	$('#orderSelect_orderSerial').val(serial);
+	$('#orderSelect_mem_id').val(mem_id);
+	$('#frm_orderSelect_mh').attr('action','orderView.mh');
+	$('#frm_orderSelect_mh').submit();
 }
 
 

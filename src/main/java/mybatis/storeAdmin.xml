@@ -5,6 +5,41 @@
 
 <mapper namespace="storeAdmin">
 
+	<select id="orderView" parameterType="bean.MH_orderVo" resultType="bean.MH_orderListVo">
+		select rownum rno, a. * from(SELECT row_number() over(PARTITION by j2.product_id order by j4.photo_serial asc ) as rnum, 
+		j1.order_serial, j1.mem_id, j1.get_name, j1.get_phone, j1.zip_code, j1.address1, j1.address2, j1.amount, j1.order_date,
+		j2.orderdetails_serial, j2.product_id, j2.cart_count,j3.product_name, j3.product_price, j3.product_size, j4.sysfile
+		FROM ( store_order j1 INNER JOIN order_details j2 ON j1.order_serial = j2.order_serial )
+		inner join product j3 on j2.product_id = j3.product_id inner join product_photo j4 on j3.product_id = j4.product_id
+		WHERE j1.mem_id = #{mem_id} and j1.order_serial = #{order_serial} )a where rnum=1
+	</select>
+
+
+	<select id="orderCount" parameterType="bean.mh_Page" resultType="Integer">
+		select count(order_serial)
+		from store_order
+		where mem_id like '%${findStr}%'
+	</select>
+	
+	<resultMap id="orderSelectMap" type="bean.MH_orderVo">
+		<result column="order_serial" property="order_serial" />
+		<result column="mem_id" property="mem_id" />
+		<result column="get_name" property="get_name" />
+		<result column="get_phone" property="get_phone" />
+		<result column="zip_code" property="zip_code" />
+		<result column="address1" property="address1" />
+		<result column="address2" property="address2" />
+		<result column="amount" property="amount" />
+		<result column="order_date" property="order_date" />
+	</resultMap>
+
+	<select id="orderSelect" parameterType="bean.mh_Page" resultMap="orderSelectMap">
+	 	select order_serial, mem_id, get_name, get_phone, zip_code, address1, address2, amount, order_date
+	 	from store_order
+	 	where mem_id like '%${findStr}%'
+	 	order by ORDER_SERIAL desc
+	</select>
+
 	<resultMap id="reviewDetailMap" type="bean.MH_ReviewVo">
 		<result column="review_id" property="review_id" />
 		<result column="mem_id" property="mem_id" />
@@ -141,29 +176,7 @@
 		order by p.product_id desc)a where rnum=1)where rno between ${startNo} and ${endNo}	
 	</select>
 	
-	<!-- <select id="totalCount" resultType="Integer">
-		select count(product_id) from product
-		
-		
-	</select>
-	
-	<select id="nomalCount" resultType="Integer">
-		select count(product_id)
-		from product
-		where PRODUCT_STATE=0
-	</select>
-	
-		<select id="soldOutCount" resultType="Integer">
-		select count(product_id)
-		from product
-		where PRODUCT_STATE=1
-	</select>	
-	
-	<select id="hideCount" resultType="Integer">
-		select count(product_id)
-		from product
-		where PRODUCT_STATE=2
-	</select> -->
+
 	
 	<select id="productView" parameterType="Integer" resultMap="storeAdmin_map">
 		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, product_size, photo_serial, orifile, sysfile
@@ -173,22 +186,6 @@
 	</select>
 	
 
-
-	<!-- <select id='selectTag' resultType="String"> SELECT tag_name FROM FINAL_TAG 
-		</select> <select id='selectCate' resultType="bean.BroadCastingCateVo"> select 
-		* from final_category </select> <update id='updateKey' parameterType='bean.BroadCastingAirVo' 
-		> update final_member SET mem_skey = #{mem_skey} WHERE mem_id = #{air_mid} 
-		</update> <insert id='startAir' parameterType='bean.BroadCastingAirVo' > 
-		insert into final_onair(air_serial,air_mid,air_subject,air_content,air_starttime,air_gname,air_tnames) 
-		values(seq_onair.nextVal,#{air_mid},#{air_subject},#{air_content},sysdate,#{air_gname},#{air_tnames}) 
-		</insert> <update id='updateAir' parameterType='bean.BroadCastingAirVo' > 
-		update final_onair SET air_subject = #{air_subject}, air_content = #{air_content}, 
-		air_gname = #{air_gname}, air_tnames = #{air_tnames} WHERE air_mid = #{air_mid} 
-		</update> <delete id='deleteAir' parameterType='String'> delete from final_onair 
-		where air_mid = #{_parameter} </delete> <select id='selectDonation' resultType="bean.BroadCastingDonationVo" 
-		parameterType='String'> select * from final_donation where don_push='0' and 
-		don_mid = #{mId} </select> <update id='readDonation' parameterType='Integer'> 
-		update final_donation SET don_push = '1' WHERE don_serial = ${serial} </update> -->
 
 
 </mapper>

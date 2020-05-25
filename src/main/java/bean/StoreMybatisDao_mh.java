@@ -22,6 +22,41 @@ public class StoreMybatisDao_mh {
 	}
 	
 	
+	public List<MH_orderListVo> orderDetail(MH_orderVo vo){
+		List<MH_orderListVo> list = null;
+		
+		try {
+			list = sqlSession.selectList("storeAdmin.orderView",vo);
+			System.out.println("★★★List 사이즈 : " + list.size());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<MH_orderVo> orderSelect(mh_Page p){		
+		List<MH_orderVo> list = null;
+		
+		try {
+			int cnt = sqlSession.selectOne("storeAdmin.orderCount",p);
+			System.out.println("★★★cnt : " + cnt);
+			
+			p.setTotListSize(cnt);
+			p.pageCompute();
+			
+			list = sqlSession.selectList("storeAdmin.orderSelect",p);
+			
+			
+			System.out.println("★★★list 사이즈 : " + list.size()  );
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
 	public MH_ReviewVo reviewDetail(int serial) {
 		MH_ReviewVo vo = null;
 		try {
