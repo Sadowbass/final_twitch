@@ -24,7 +24,7 @@
 
       <mapper resource="mybatis/scbatis.xml"/>
     <!--  <mapper resource="mybatis/pagemove.xml"/> -->
-     <mapper resource="mybatis/member.xml"/>
+     <mapper resource="mybatis/member_m.xml"/>
 
    </mappers>
 

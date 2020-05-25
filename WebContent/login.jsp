@@ -20,7 +20,7 @@
       <!-- Owl Carousel -->
       <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css">
       <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css">
-      <script src="../js/login_m.js"></script>
+      <script src="js/login_m.js"></script>
    </head>
    <body class="login-main-body">
 

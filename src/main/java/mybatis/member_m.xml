@@ -2,7 +2,11 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
 <mapper namespace="lm">
+
+
+
 	<!-- 회원가입 -->
 	<insert id="insert" parameterType="login.MemberVo_m">
 		insert into final_member(mem_id, mem_pwd, mem_birth, mem_email, mem_profile)
@@ -30,7 +34,24 @@
 		where mem_Id = #{_parameter}
 	</select>
 	
-	
+	<update id="modify" parameterType="login.MemberVo_m">
+		update 
+		( select 
+			fm.mem_pwd,
+			fm.MEM_BIRTH,
+			fm.MEM_EMAIL,
+			fm.MEM_PROFILE,
+			fp.PH_ORIFILE,
+			fp.PH_SYSFILE
+		
+		from
+		FINAL_MEMBER fm, FINAL_PHOTO fp
+ 		where
+ 		fm.mem_id = fp.PH_ID
+ 		)
+ 		set 
+		(#{mem_pwd}, #{mem_birth}, #{mem_email}, #{mem_profile}, #{ph_orifile}, #{ph_sysfile})
+	</update>	
 </mapper>
 
 

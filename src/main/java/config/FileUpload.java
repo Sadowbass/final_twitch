@@ -14,6 +14,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import bean.Page;
+import login.MemberVo_m;
+import login.Member_mPhoto;
 
 public class FileUpload {
 	public static String upload = "D:/Java_Study/late/WebContent/upload/";
@@ -33,7 +35,7 @@ public class FileUpload {
 
 		return flag;
 	}
-
+	/*
 	public HttpServletRequest boardUploading() {
 		BoardVo vo = new BoardVo();
 		List<MemberPhoto> attList = new ArrayList<MemberPhoto>();
@@ -113,12 +115,12 @@ public class FileUpload {
 		req.setAttribute("p", p);
 		return req;
 	}
-
+*/
 	public HttpServletRequest memberUploading() {
 		MemberVo_m vo = new MemberVo_m();
-		List<MemberPhoto> attList = new ArrayList<MemberPhoto>();
-		List<MemberPhoto> delList = new ArrayList<MemberPhoto>();
-		Page p = new Page();
+		List<Member_mPhoto> attList = new ArrayList<Member_mPhoto>();
+		List<Member_mPhoto> delList = new ArrayList<Member_mPhoto>();
+
 		String mId = "";
 
 		DiskFileItemFactory factory = new DiskFileItemFactory(); // 아파치에 파일업로드를 하기위한 클래스
@@ -138,10 +140,10 @@ public class FileUpload {
 				if (fi.isFormField()) { // input type 인가?
 					switch (k) {
 					case "mId": // <input type = 'text' name='mId'/> 인가
-						vo.setmId(v);
+						vo.setMem_Id(v);
 						break;
 					case "pwd":
-						vo.setPwd(v);
+						vo.setMem_pwd(v);
 						break;
 					case "rDate":
 						vo.setrDate(v);
@@ -153,7 +155,7 @@ public class FileUpload {
 						vo.setGrade(Integer.parseInt(v));
 						break;
 					case "delFile":
-						MemberPhoto attVo = new MemberPhoto();
+						Member_mPhoto attVo = new Member_mPhoto();
 						attVo.setSysFile(v);
 						delList.add(attVo);
 						break;
@@ -170,7 +172,7 @@ public class FileUpload {
 					if (fi.getSize() > 0) {
 						String f = fi.getName();
 						String sysfile = new Date().getTime() + "-" + f;
-						MemberPhoto attVo = new MemberPhoto();
+						Member_mPhoto attVo = new Member_mPhoto();
 						attVo.setOriFile(f);
 						attVo.setSysFile(sysfile);
 						attList.add(attVo);

@@ -134,9 +134,37 @@ $('#btnNextm').click(function(){
 		location.href='../result.jsp';
 	});*/
 })
-	//개인 정보 수정 
+	//개인 정보 수정 페이지 이동
 $('#btnPwdm').click(function(){
 	$('#pwdm').attr('action','pwdm.lm').submit();
+
+})
+
+
+	//개인 정보 수정 내용 저장
+$('#btnUpdatem').click(function(){
+	let flag = lm.checkForm(document.pwdm);
+	if(flag) return;
+	
+	if(pwdm.photo.files.length == 0){
+		pwdm.delFile.value= '';
+	}
+
+	let fd = new FormData($('#pwdm')[0]);
+	$.ajax({
+		url : 'updata.lm',
+		type : 'post',
+		data : fd,
+		contentType : false,
+		processData : false,
+		success : function(data, xhr, status){
+			$('#main').html(data);
+		}
+		
+		
+	})
+	
+	
 })
 
 

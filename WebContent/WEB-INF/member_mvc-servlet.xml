@@ -22,7 +22,7 @@
 
 	<bean id="lm_dao" class="login.MemberDao_m"/>
 	<!--controller -->
-	<bean id="lm_controller" class="controller.MemberController">
+	<bean id="lm_controller" class="controller.Member_mController">
 	<constructor-arg ref="lm_dao"/>
 	</bean>
 

@@ -1,9 +1,12 @@
 package login;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import email.SendEmail;
 import mybatis.Factory;
+
 
 public class MemberDao_m {
 	SqlSession sqlSession;
@@ -84,7 +87,50 @@ public class MemberDao_m {
 				}	
 	}
 	
-	
+	public String modify(MemberVo_m vo, List<Member_mPhoto> attList, List<Member_mPhoto> delList) {
+		String msg = "정상적으로 수정되었습니다.";
+		
+		try {
+			// 본문글 수정
+			int cnt = sqlSession.update("mm.update", vo);
+			if(cnt<1) throw new Exception("회원정보 수정중 오류 발생");
+			
+			// member_photo에 삭제파일 정보를 제거
+			for(Member_mPhoto attVo : delList) {
+				if(!attVo.getPh_sysFile().equals("") ) {
+					attVo.setPh_Id(vo.getMem_Id());
+					cnt = sqlSession.delete("mm.att_delete", attVo);
+					if(cnt<1) throw new Exception("첨부 데이터 정보 삭제중 오류 발생");
+				}
+			}
+			
+			
+			//member_photo에 첨부 파일 정보를 추가
+			for(Member_mPhoto attVo : attList) {
+				attVo.setPh_Id(vo.getMem_Id());
+				
+				if(!attVo.getPh_sysFile().equals("") ) {
+					cnt = sqlSession.insert("mm.att_insert", attVo);
+					if(cnt<1) throw new Exception("첨부 데이터 정보 수정중 오류 발생");
+				}
+			}
+			
+
+
+			
+			sqlSession.commit();
+		}catch(Exception ex) {
+			
+
+			
+			ex.printStackTrace();
+			msg = ex.getMessage();
+			sqlSession.rollback();
+		}finally {
+			sqlSession.close();
+			return msg;
+		}
+	}
 	
 	
 	

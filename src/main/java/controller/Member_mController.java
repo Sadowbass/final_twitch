@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import login.MemberDao_m;
 import login.MemberVo_m;
+import login.Member_mPhoto;
+import login.Member_mPhotoUpload;
+
 
 
 
@@ -121,8 +125,27 @@ public ModelAndView pwdm (HttpServletRequest req, HttpServletResponse resp){
 	mv.setViewName("profile");
 	return mv;
 }
-
+@RequestMapping(value="/updata.lm", method= {RequestMethod.POST})
+public ModelAndView modifyR(HttpServletRequest req, HttpServletResponse resp) {
+	ModelAndView mv = new ModelAndView();
+	MemberVo_m vo = null;
+	List<Member_mPhoto> attList = null;
+	List<Member_mPhoto> delList = null;
 
 	
+	Member_mPhotoUpload fu = new Member_mPhotoUpload(req, resp);
+	fu.uploading();
+	
+	vo = (MemberVo_m)req.getAttribute("vo");
+	attList = (List<Member_mPhoto>)req.getAttribute("attList");
+	delList = (List<Member_mPhoto>)req.getAttribute("delList");
+	
+	String msg = dao.modify(vo, attList, delList);
+	
+	mv.addObject("msg", msg);
+	mv.addObject("p", req.getAttribute("p"));
+	mv.setViewName("result");
+	return mv;
+}
 
 }

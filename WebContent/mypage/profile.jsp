@@ -25,7 +25,7 @@
         <div class="col-lg-7">
            <div class="card">
 	            <div class="card-body">
-		   			<form action="" method="post" name="pwdm">
+		   			<form action="" method="post" name="pwdm" id="pwdm">
 		        		<input  type='file' class="imgInp" id="imgInp"  style="padding-left : 200px;" />
 			   				<div class="imgm" id="imgm" style="width: 150px; height: 120px; overflow: hidden">
 			        		<img class="foo" id="foo"src="#" style="width: 150px; height: 120px;"/>
@@ -79,7 +79,7 @@
         <div class="container">
         		<div class="row">
             		<div class="col text-center">
-                		<button class="btn btn-primary">저장</button>
+                		<button class="btn btn-primary" id="btnUpdatem" name="btnUpdatem" >저장</button>
             		</div>
             	</div>
          </div>
@@ -89,6 +89,7 @@
 <!-- Sticky Footer -->
 <%@include file="../footer.jsp" %>
 <script type="text/javascript">
+lm.func();
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

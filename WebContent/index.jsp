@@ -60,8 +60,7 @@
                 $('#content-wrapper').html(data);
             }
         })
-    })
-</script>
+    })</script>
 <div id="topplace">
 <%@include file="top.jsp"%>
 </div>

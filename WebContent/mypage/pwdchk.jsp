@@ -10,13 +10,13 @@
 </head>
 <body>
 <body id="page-top2">
-<form name="pwdm" id="pwdm" class="pwdchk" role="form"  method="post">
+<form name="pwdm" id="pwdm" class="pwdm" role="form"  method="post">
 		<div>
 			<div>
 				<h1 class='text-center'> 개인 정보 확인</h1>
 				<div class='text-center'>
 					<input type='text' value="${session_id}"/>
-					<input type='text' id="pwdcm" class="singUppwd" value="${p.Mem_pwd}"/>
+					<input type='text' id="pwdcm" class="singUppwd" value="${session_pwd}"/>
 				</div>
 				<div>
 					<div class='text-center'>
@@ -28,10 +28,10 @@
 					</div>
 					<div class=" text-center">
 
-					<a href = "../member/memberSearch.jsp"><p>비밀번호를 잊어버리셨나요?</p></a>
+					<a href = "member/memberSearch.jsp"><p>비밀번호를 잊어버리셨나요?</p></a>
 					</div>
 					<div class='text-center'>
-						<button id="btnPwdm" name="btnPwdm" class="btnPwdm">
+						<button id="btnPwdm" name="btnPwdm" class="btnPwdm" value="">
 							<a  href="#" id="mypage/profile" onclick="pagemove(this)"> &nbsp; 계속</a>
 						</button>
 		
