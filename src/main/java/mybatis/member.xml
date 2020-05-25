@@ -11,8 +11,8 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="login.MemberVo_m" resultType="boolean">
 		select case
-			when count(mem_Id)>0 then 1
-			else 0
+		when count(mem_Id)>0 then 1
+		else 0
 		end result
 		from final_member
 		where mem_Id=#{mem_Id} and mem_pwd=#{mem_pwd}
@@ -23,12 +23,12 @@
 		from final_member
 		where mem_email=#{_parameter}
 	</select>
-	<!--회원 정보 수정-->
-	<update id="pwdm" parameterType="String" resultType="login.MemberVo_m">
+	<!--회원 정보 조회-->
+	<select id="pwdm" parameterType="String" resultType="login.MemberVo_m">
 		select mem_Id, mem_pwd, mem_profile, mem_birth, mem_email
 		from final_member
 		where mem_Id = #{_parameter}
-	</update>
+	</select>
 	
 	
 </mapper>

@@ -144,10 +144,10 @@
 				      </div>
 				    </div>
 				  </div>
-<!-- 
-<input type='text' name="suidm" value="${vo.getMem_Id}"/>
-<input type='text' name="supwdm" value="${p.Mem_pwd}"/>
- 	 -->	
+
+<input type='text' name="suidm" value="${session_id}"/>
+<input type='text' name="supwdm" value="${vo.getMem_pwd}"/>
+ 		
 </nav>
 <!-- 영탁 -->
 

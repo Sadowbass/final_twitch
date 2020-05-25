@@ -15,7 +15,7 @@
 			<div>
 				<h1 class='text-center'> 개인 정보 확인</h1>
 				<div class='text-center'>
-					<input type='text' value="${p.Mem_Id}"/>
+					<input type='text' value="${session_id}"/>
 					<input type='text' id="pwdcm" class="singUppwd" value="${p.Mem_pwd}"/>
 				</div>
 				<div>
