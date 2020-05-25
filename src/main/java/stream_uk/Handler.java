@@ -38,9 +38,6 @@ public class Handler extends TextWebSocketHandler{
 		String mid=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1); /*스트리머*/
 		String oid=(String)session.getAttributes().get("session_id"); /*로그인 기능 작동하면 위에꺼 지우고 이거(로그인한 유저) 넣어야함*/
 
-
-
-
 		/*새로 들어온 유저에게 mid가 같은 모든 시청자 수 보내줌 (totalUserCnt)*/
 		Iterator<WebSocketSession> totalUserCntsSet=everybody.keySet().iterator();
 		while(totalUserCntsSet.hasNext()) {
@@ -52,10 +49,15 @@ public class Handler extends TextWebSocketHandler{
 
 		everybody.put(session, mid); /*모든 세션 추가*/
 
-		/*스트리머랑 로그인 아이디 같은면 방송 킨거임(누적시청자 카운트 시작)*/
-		if(mid.equals(oid)) accumulate.put(mid, 0);
-		/*누적 시청자 숫자 +1 (방송중일때)*/
-		if(accumulate.get(mid)!=null) accumulate.put(mid, accumulate.get(mid)+1);
+
+
+		if(accumulate.get(mid)!=null) { /*스트리머 아이디 있으면 방송중임*/
+			accumulate.put(mid, accumulate.get(mid)+1); /*스트리머의 누적 시청자 숫자 +1*/
+			avg.addAvg(mid); /*스트리머의 평균 시청자 +1*/
+		}else if(mid.equals(oid)) { /*스트리머랑 로그인 아이디 같은면 방송 킨거임*/
+			accumulate.put(mid, 0); /*스트리머의 누적시청자 카운트 시작*/
+			avg.startAvg(mid); /*스트리머의 평균 시청자 카운트 시작*/
+		}
 
 		addAndAccToEverybody.put("accUser", accumulate.get(mid)); /*들어온 그리고 총 유저수 맵에 누적 시창저 담음*/
 
@@ -137,7 +139,12 @@ public class Handler extends TextWebSocketHandler{
 
 		everybody.remove(session); /*모든 세션에서 나간 세션 삭제*/
 
-		if(mid.equals(oid)) accumulate.remove(mid); /*스트리머랑아이디랑 로그인 아이디 같으면 방종이니까 누적 시청자 제거*/
+		if(accumulate.get(mid)!=null) { /*스트리머 아이디 있으면 방송중임*/
+			avg.subtractAvg(mid); /*스트리명의 평균 시청자 -1*/
+		}else if(mid.equals(oid)) { /*스트리머랑아이디랑 로그인 아이디 같으면 방종*/
+			accumulate.remove(mid); /*스트리머의 누적 시청자 제거*/
+			avg.deltAvg(mid); /*스트리머의 평균 시청자 제거*/
+		}
 
 		/*로그인 한 유저면*/
 		if(oid!=null) {

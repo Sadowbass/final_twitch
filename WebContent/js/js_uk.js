@@ -12,7 +12,9 @@ uk.stream = function () {
 		type: 'get',
 		url: '/sidebar.sc',
 		success: function (data) {
-			let left = $('#sidebarplace').html(data).find("#sidebar-navmain").width();
+			let sidebar=$('#sidebarplace').html(data).find("#sidebar-navmain");
+			sidebar.addClass("sidebar_uk");
+			let left = sidebar.width();
 			if($('#sidebarplace').css('display') == 'none')left=0;
 
 			/* 메인 왼쪽 */
@@ -22,15 +24,15 @@ uk.stream = function () {
 		}
 	});
 
+	/*반응형*/
 	uk.responsive();
 
-
+	/*크기가 변경되면*/
 	$(window).resize(function () {
-
 		uk.responsive(); /*div block or none*/
 		uk.unfoldRightOrBottom(); /*unfold right or bottom*/
-
 	});
+
 	/* 스크롤시 */
 	$(window).scroll(function(){ uk.minimization(); });
 
