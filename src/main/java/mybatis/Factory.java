@@ -22,8 +22,6 @@ public class Factory {
 		return factory;
 	}
 	public static void main(String[] args) {
-		Factory.getFactory();
-
 	}
 
 }

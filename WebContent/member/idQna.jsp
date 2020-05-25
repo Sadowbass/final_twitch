@@ -26,19 +26,16 @@
 					</div>
 					<br/>
 					<div class= "text-center" >
-<<<<<<< HEAD
-						<button class="btn btn-outline-danger" style="margin-ringht:10px;" id="btnQna">지원팀에 문의</button><button class="btn btn-outline-secondary" id="btnReturnm" style="margin-left:10px;"onclick='history.back()' >다시 시작</button>
-=======
-						<button id="btnQna">지원팀에 문의</button><button class="btn btn-secondary" id="btnReturnm">다시 시작</button>
->>>>>>> mr
-					</div>
+						<button class="btn btn-outline-danger" style="margin-ringht:10px;" id="btnQna">지원팀에 문의</button>
+						<button class="btn btn-outline-secondary" id="btnReturnm" style="margin-left:10px;"onclick='history.back()' >다시 시작</button>
+						</div>
 					</div>
 					<div class='text-center'>
 						
 					</div>
 				</div>
 			</div>
-		</div>
+		
 		
 </body>
 

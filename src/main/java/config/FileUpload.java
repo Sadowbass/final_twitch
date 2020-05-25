@@ -115,7 +115,7 @@ public class FileUpload {
 	}
 
 	public HttpServletRequest memberUploading() {
-		MemberVo vo = new MemberVo();
+		MemberVo_m vo = new MemberVo_m();
 		List<MemberPhoto> attList = new ArrayList<MemberPhoto>();
 		List<MemberPhoto> delList = new ArrayList<MemberPhoto>();
 		mh_Page p = new mh_Page();
