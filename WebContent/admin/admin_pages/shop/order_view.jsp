@@ -73,7 +73,7 @@
 							<div class="row" style="padding-top: 15px;">
 								<div class="col-xs-3">
 									<span>123470374234789</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<span><img src="<%=request.getContextPath() %>/img/ysw.jpg" alt="" style="width: 130px;"/></span>
+									<span><img src="<%=request.getContextPath() %>/img/v1.png" alt="" style="width: 130px;"/></span>
 								</div>
 								<div class="col-xs-3">
 									<span><a href="http://localhost:8888/final_twitch/img/sc.png">https://www.amazon.com/Twitch-All-Over-Glitch-Sock/dp/B07VXY3SLQ?ref_=ast_sto_dp</a></span>

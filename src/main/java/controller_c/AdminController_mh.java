@@ -35,6 +35,13 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
+	// 주문 조회 
+	@RequestMapping(value="*/orderSelect.mh", method= {RequestMethod.GET,RequestMethod.POST}, produces="application/text; charset-utf8")
+	public String orderSelect(Model model, int nowPage, String findStr ) {
+		
+		return "order_select";
+	}
+	
 	@RequestMapping(value="*/reviewDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
 	@ResponseBody
 	public void reviewDelete(int review_id) {

@@ -29,7 +29,7 @@
 					<div>
 						<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home"
-								aria-controls="home" role="tab" data-toggle="tab">댓글 상세보기</a></li>
+								aria-controls="home" role="tab" data-toggle="tab">리뷰 상세보기</a></li>
 
 						</ul>
 						<form id="frm_reviewDetail_mh">
