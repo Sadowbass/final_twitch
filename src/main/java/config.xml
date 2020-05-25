@@ -17,7 +17,8 @@
             <property name="url" value="${url}"/>
             <property name="username" value="${username}"/>
             <property name="password" value="${password}"/>
-            
+            <property name="poolMaximumCheckoutTime" value="1500"/>
+            <property name="poolTimeToWait" value="1500"/>
          </dataSource>
       </environment>
    </environments>
