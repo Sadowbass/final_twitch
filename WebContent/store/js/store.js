@@ -42,9 +42,9 @@ store.func = function () {
     //qna눌렀을때  QnA 페이지로 이동	
     $('#qna').click(function () {
 
-        $.post("qna.jsp", function (data, state) {
-            $('#sh_main').html(data)
-        });
+    	 $.post('faq.str', function (data, state) {
+    	        $('#sh_main').html(data)
+    	    });
 
 
     })
@@ -52,7 +52,7 @@ store.func = function () {
 
 store.inquiry = function () {
 
-    $.post("inquiry.jsp", function (data, state) {
+    $.post('inquiry.jsp', function (data, state) {
         $('#sh_main').html(data)
     });
 
@@ -60,7 +60,7 @@ store.inquiry = function () {
 
 store.qna = function () {
 
-    $.post("qna.jsp", function (data, state) {
+	$.post('faq.str', function (data, state) {
         $('#sh_main').html(data)
     });
 
@@ -173,9 +173,12 @@ store.rInsert = function () {
 
 }
 
-store.reviewDelete = function(){
+store.reviewDelete = function(rreview_id){
+	alert(rreview_id)
+	frm_review.review_id.value = rreview_id;
+	//alert('ss');
    let param = $('#frm_review').serialize();
-	
+	//console.log(param);
 	$.post('reviewDelete.str',param , function(data, state){
 		
 		$('#sh_main').html(data);
@@ -228,11 +231,6 @@ store.rSelect = function(){
             rLike.setAttribute('data-rateit-ispreset', true);
             rLike.setAttribute('data-rateit-readonly', true);
             
-            var btnReviewD = document.createElement('INPUT');
-            btnReviewD.setAttribute('type', 'button');
-            btnReviewD.setAttribute('class', 'btn_review_delete');
-            btnReviewD.setAttribute('value', 'X');
-            btnReviewD.setAttribute('onclick', 'store.reviewDelete()');
             
             let ric = document.createElement('div');
             ric.className="review-item-content";
@@ -247,22 +245,45 @@ store.rSelect = function(){
             
             let panelBody = document.createElement('div');
             
-            for(p of temp.rpList){
-            	let photo = document.createElement('div')
+            
+            var review_id = document.createElement('INPUT');
+            review_id.setAttribute('type', 'hidden');
+            review_id.setAttribute('id', 'rd');
+            review_id.setAttribute('name', 'rreview_id');
+            review_id.setAttribute('value', temp.review_id);
+            
+            var btnReviewD = document.createElement('input');
+                btnReviewD.type = "button"
+                btnReviewD.className = "btn btn-outline-dark"
+                btnReviewD.value = "삭제"	
+            	btnReviewD.addEventListener('click', function(){
+                store.reviewDelete(temp.review_id);
+            });
+            
+           
+                let photo = document.createElement('div')
             	photo.className ="imgs_wrap";
+            
+            for(p of temp.rpList){
+            	
             	let image = document.createElement('img');
             	image.src = "./reviewimages/"+p.image1;
             	
-            	photo.appendChild(image);
-            	panelBody.appendChild(photo);
+            	 photo.appendChild(image);
             	
             }
+           
+            panelBody.appendChild(photo);
+            
+            panelBody.appendChild(review_id);
+            panelBody.appendChild(btnReviewD);
+            
             
             ric.appendChild(ricp);
             divSubmitted.appendChild(title);
             divSubmitted.appendChild(rdate);
             divSubmitted.appendChild(rLike);
-            divSubmitted.appendChild(btnReviewD);
+         
             
             divClearfix.appendChild(divSubmitted);
             divClearfix.appendChild(ric);
@@ -276,6 +297,8 @@ store.rSelect = function(){
             divPanelDef.appendChild(accord1);
             
             $('#Reviews').append(divPanelDef);
+            
+            
             
 		}
 

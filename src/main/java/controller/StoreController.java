@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 
 
 import bean.StoreMybatisDao;
-
+import store.StoreFaqVo;
 import store.StoreReviewPhotoVo;
 import store.StoreReviewVo;
 
@@ -190,18 +190,19 @@ public class StoreController {
        return result;
     }
 	
-	@RequestMapping(value="/store/reviewDelete.str", method= {RequestMethod.POST})
+	@RequestMapping(value="/store/reviewDelete.str", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView reviewDelete(HttpServletRequest req) {
     	
 		ModelAndView mv = new ModelAndView();
     	
+		System.out.println("delete");
     	StoreReviewVo vo = new StoreReviewVo();
     	StoreReviewPhotoVo vo2 = new StoreReviewPhotoVo();
     	
     	List<StoreReviewPhotoVo> list = new ArrayList<StoreReviewPhotoVo>();
     	
     	int review_id = Integer.parseInt(req.getParameter("review_id"));
-    
+       
 		
 		vo.setReview_id(review_id);
 		vo2.setReview_id(review_id);
@@ -209,14 +210,25 @@ public class StoreController {
     	
     	String msg = dao.reviewDelete(vo,list);
     	
+    	
 	
     	mv.addObject("msg", msg);
-		mv.setViewName("productList");
+		mv.setViewName("productDetail");
     	
     	return mv;
     }
 	
-	
+	@RequestMapping(value="/store/faq.str", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView faq(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		
+		List<StoreFaqVo> list = dao.faqSelect();
+		
+		
+		mv.addObject("list", list);
+		mv.setViewName("qna");
+		return mv;
+	}
 
 	
 	

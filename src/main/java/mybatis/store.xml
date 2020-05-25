@@ -46,8 +46,12 @@
   </resultMap>
 	
   
+  <select id="faq_select"  resultType='store.StoreFaqVo'>
+     select qna_id, qna_subject, qna_content from store_qna
+  </select>
+  
   <select id="review_photo" parameterType='Integer' resultType='store.StoreReviewPhotoVo'>
-     select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=${_parameter}
+     select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=#{review_id}
   </select>
   
       <!--메인페이지 상품목록-->
@@ -87,6 +91,7 @@
         where p.PRODUCT_ID = ${value }
         order by PHOTO_SERIAL
     </select>
+    
   <delete id="review_delete" parameterType="store.StoreReviewVo">
     delete from review where review_id = #{review_id}
   </delete>
