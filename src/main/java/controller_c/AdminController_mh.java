@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.tools.DocumentationTool.Location;
 
+import org.apache.ibatis.javassist.expr.Instanceof;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,24 +16,85 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import bean.MH_ReviewVo;
 import bean.ProductPhotoUpload_mh;
 import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
 import bean.StoreMybatisDao_mh;
 import bean.mh_Page;
+import oracle.ucp.jdbc.oracle.rlb.OracleDatabaseInstanceInfoList.INSTANCE_CATEGORY_FOR_DATA_AFFINITY;
 
 @Controller
-
 public class AdminController_mh {
 	
 	StoreMybatisDao_mh dao;
 	
-	
+	// 생성자
 	public AdminController_mh(StoreMybatisDao_mh dao) {
 		System.out.println("★★★★AdminController_mh 들어옴★★★★★★★");
 		this.dao = dao;
 	}
 	
+	@RequestMapping(value="*/reviewDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
+	@ResponseBody
+	public void reviewDelete(int review_id) {
+		System.out.println("★★★controller->reviewDelete()★★★");
+
+		String msg = dao.reviewDelete(review_id);
+		
+		System.out.println(msg);
+	}
+	
+	@RequestMapping(value="*/reviewView.mh",method=RequestMethod.POST, produces="application/text; charset-utf8")
+	public String reviewView(Model model, int review_serial ,int nowPage, String reviewFindStr) {
+		System.out.println("★★★★★reviewView");
+		
+		mh_Page p = new mh_Page();
+		p.setFindStr(reviewFindStr);
+		p.setNowPage(nowPage);
+		MH_ReviewVo vo = dao.reviewDetail(review_serial);
+		
+		model.addAttribute("vo",vo);
+		model.addAttribute("p",p);
+		model.addAttribute("nowPage", nowPage);
+		
+		return "review_detail";
+	}
+	
+	@RequestMapping(value="*/reviewSelect.mh", method= {RequestMethod.POST,RequestMethod.GET}, produces="application/text; charset-utf8")
+	public String reviewSelect(Model model, String reviewFindStr, String nowPage) {
+		System.out.println("★★★controller->reviewSelect()★★★");
+		
+		mh_Page p = new mh_Page();
+		p.setFindStr(reviewFindStr);
+		
+		if(nowPage == null) {
+			p.setNowPage(1);
+		}else {
+			p.setNowPage(Integer.parseInt(nowPage));
+		}
+		System.out.println("현재 페이지 : " + p.getNowPage());
+		
+		List<MH_ReviewVo> list = dao.reviewSelect(p);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("p",p);
+		
+		return "review";
+	}
+	
+	@RequestMapping(value="*/productDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf-8")
+	@ResponseBody
+	public void productDelete(String product_id) {
+		System.out.println("★★★controller->productDelete()★★★");
+		
+		
+		String msg = dao.delete(product_id);
+		
+		System.out.println(msg);
+		
+		
+	}
 	
 	@RequestMapping(value="*/productInsert.mh", method=RequestMethod.POST,produces = "application/text; charset=utf8")
 	@ResponseBody
@@ -72,9 +134,9 @@ public class AdminController_mh {
 		System.out.println("★★★★★" + p.getNowPage());
 		System.out.println("★★★★★" + p.getFindStr());
 		List<ProductVo_mh> list =  dao.select(p);
-		List<Integer> productStateCount = dao.productStateCount();
+		/*List<Integer> productStateCount = dao.productStateCount();*/
 		
-		model.addAttribute("productStateCount",productStateCount);
+		/*model.addAttribute("productStateCount",productStateCount);*/
 		model.addAttribute("p",p);
 		model.addAttribute("list",list);
 		
@@ -97,6 +159,32 @@ public class AdminController_mh {
 		model.addAttribute("p",p);
 		
 		return "product_view";
+	}
+	
+	@RequestMapping(value="*/productModify.mh", method=RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String productModify(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("★★★controller -> productModify() 들어옴★★★");
+		String msg=null;
+		
+		ProductVo_mh vo = new ProductVo_mh();
+		ProductPhotoUpload_mh fu= new ProductPhotoUpload_mh(req, resp);
+		fu.uploading();
+		
+		vo = (ProductVo_mh)req.getAttribute("vo");
+		List<ProductPhoto_mh> attList = (List<ProductPhoto_mh>)req.getAttribute("attList");
+		
+		System.out.println(vo.getProduct_id());
+		System.out.println(vo.getProduct_name());
+		System.out.println(vo.getProduct_cate());
+		System.out.println(vo.getProduct_count());
+		System.out.println(vo.getProduct_explain());
+		System.out.println(vo.getProduct_price());
+		System.out.println(vo.getProduct_size());
+		
+		msg=dao.modify(vo,attList);		
+		System.out.println("컨트롤러에서 msg : "+msg);
+		return msg;
 	}
 	
 	@ResponseBody

@@ -5,6 +5,100 @@
 
 <mapper namespace="storeAdmin">
 
+	<resultMap id="reviewDetailMap" type="bean.MH_ReviewVo">
+		<result column="review_id" property="review_id" />
+		<result column="mem_id" property="mem_id" />
+		<result column="product_id" property="product_id" />
+		<result column="rSubject" property="rSubject" />
+		<result column="rContent" property="rContent" />
+		<result column="review_like" property="review_like" />
+		<result column="review_date" property="review_date" />
+		<collection property="photos" javaType="bean.MH_ReviewPhoto">
+			<result column="review_pid" property="review_pid" />
+			<result column="review_id" property="review_id" />
+			<result column="image1" property="image1" />
+			<result column="image2" property="image2" />			
+		</collection>
+	</resultMap>
+
+	<select id="reviewView" parameterType="Integer" resultMap="reviewDetailMap">
+		select r1.review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date, review_pid, image1, image2
+		from review r1 left outer join REVIEW_PHOTO r2
+		on r1.review_id = r2.review_id
+		where r1.review_id = ${_parameter}
+	</select>
+
+
+
+	<resultMap id="reviewSelect_map" type="bean.MH_ReviewVo">
+		<result column="review_id" property="review_id" />
+		<result column="mem_id" property="mem_id" />
+		<result column="product_id" property="product_id" />
+		<result column="rSubject" property="rSubject" />
+		<result column="rContent" property="rContent" />
+		<result column="review_like" property="review_like" />
+		<result column="review_date" property="review_date" />
+		<result column="product_name" property="product_name" />
+		<collection property="photos" javaType="bean.MH_ReviewPhoto">
+			<result column="review_pid" property="review_pid" />
+			<result column="review_id" property="review_id" />
+			<result column="image1" property="image1" />
+			<result column="image2" property="image2" />	
+			<result column="rp_date" property="rp_date" />
+		</collection>
+		
+	</resultMap>
+		
+	<select id="reviewSelect" parameterType="bean.mh_Page" resultMap="reviewSelect_map">	
+		select * 
+		from (select rownum rno, a.* 
+		from (select row_number() over(partition by r.REVIEW_ID order by review_pid asc) as rnum, r.review_Id ,mem_id, p.PRODUCT_ID,RSUBJECT,RCONTENT,REVIEW_LIKE,REVIEW_DATE, review_pid, image1, image2, rp_date, product_name
+		FROM review r left outer join review_photo rp
+		ON r.review_id = rp.review_id
+		inner join product p
+		on p.product_id = r.product_id
+		where mem_id like '%${findStr}%' or product_name like '%${findStr}%'
+		order by r.review_id desc)a
+		where rnum=1)
+		where rno BETWEEN ${startNo} and ${endNo}
+	</select>
+	
+	<select id="reviewCount" parameterType="bean.mh_Page" resultType="Integer">
+		SELECT count(review_id)
+		FROM review j1 join product j2
+		ON j1.product_id = j2.product_id 
+		WHERE mem_id like '%${findStr}%' or product_name like '%${findStr}%'
+	</select>
+	
+	<delete id="product_delete" parameterType="Integer">
+		delete from product where product_id=${_parameter}
+	</delete>
+	<!-- 리뷰 삭제 -->
+	<delete id="review_delete" parameterType="Integer">
+		delete from REVIEW where review_id=${_parameter}
+	</delete>
+
+	<insert id='att_modify' parameterType='bean.ProductPhoto_mh'>
+		insert into product_photo(photo_serial, product_id, orifile, sysfile)
+		values(seq_productAtt.nextval, ${product_id}, #{orifile}, #{sysfile})
+	</insert>
+
+	<!-- 상품 사진 전체 삭제 -->
+	<delete id="att_delete_all" parameterType="Integer">
+		delete from product_photo where product_id = ${_parameter}
+	</delete>
+	<!-- 리뷰 사진 전체 삭제 -->
+	<delete id="reviewPhoto_delete_all" parameterType="Integer">
+		delete from REVIEW_PHOTO where review_id = ${_parameter}
+	</delete>
+
+	<!-- 상품 수정 -->
+	<update id="product_modify" parameterType="bean.ProductVo_mh">
+		update product set product_name = #{product_name}, product_explain = #{product_explain}, product_price = ${product_price},
+			   product_cate = #{product_cate}, product_count = ${product_count},  product_size=#{product_size}
+		where  product_id=${product_id} 
+	</update>
+
 	<!-- 상품 등록 -->
 	<insert id='product_insert' parameterType='bean.ProductVo_mh'>
 		insert into
@@ -30,7 +124,6 @@
 		<result column="product_price" property="product_price" />
 		<result column="product_cate" property="product_cate" />
 		<result column="product_count" property="product_count" />
-		<result column="product_state" property="product_state" />
 		<result column="product_size" property="product_size" />
 		<collection property="photos" javaType="bean.ProductPhoto_mh">
 			<result column="photo_serial" property="photo_serial"/>
@@ -41,15 +134,17 @@
 	</resultMap>
 	
 	<select id="select" parameterType="bean.mh_Page" resultMap="storeAdmin_map">
-		select * from (select rownum rno, a.* from(select ROW_NUMBER() over(partition by p.product_id order by photo_serial asc) as rnum, p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_state, product_size, photo_serial,orifile,sysfile 
+		select * from (select rownum rno, a.* from(select ROW_NUMBER() over(partition by p.product_id order by photo_serial asc) as rnum, p.product_id, product_name, product_explain, product_price, product_cate, product_count, product_size, photo_serial,orifile,sysfile 
 		from product p left outer join product_photo ph
 		on p.product_id = ph.product_id
 		where product_name like '%${findStr}%'
 		order by p.product_id desc)a where rnum=1)where rno between ${startNo} and ${endNo}	
 	</select>
 	
-	<select id="totalCount" resultType="Integer">
+	<!-- <select id="totalCount" resultType="Integer">
 		select count(product_id) from product
+		
+		
 	</select>
 	
 	<select id="nomalCount" resultType="Integer">
@@ -68,10 +163,10 @@
 		select count(product_id)
 		from product
 		where PRODUCT_STATE=2
-	</select>
+	</select> -->
 	
 	<select id="productView" parameterType="Integer" resultMap="storeAdmin_map">
-		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, PRODUCT_STATE, product_size, photo_serial, orifile, sysfile
+		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, product_size, photo_serial, orifile, sysfile
 		FROM product p left outer join product_photo ph
 		on p.product_id = ph.product_id
 		where p.product_id=${_parameter}

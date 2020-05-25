@@ -43,16 +43,19 @@
 							<div class="col-xs-8"></div>
 							<div class="col-xs-2" style="text-align: right;">
 
-								<input type="button" id="productInsert_c" class="btn btn-info"
-									value="수정" style="color: white" /> <input type="button"
-									class="btn btn-info" value="삭제" id="btn_reset" name="btn_reset"
-									style="color: white" />
+								<input type="button" id="btn_productModify_c" class="btn btn-info"
+									value="수정" style="color: white" /> 
+									<input type="button" class="btn btn-info" value="삭제"
+									id="btn_delete_c" style="color: white" />
+									<input type="button" class="btn btn-info" id="btn_goList_c" value="목록" style="color : white" />
 							</div>
 						</div>
 					</div>
 					<div class="body">
-						<form id="productInsertForm_c" method="post"
-							name="productInsertForm_c" enctype='multipart/form-data'>
+						<form id="frm_productModify_c" method="post"
+							name="frm_productModify_c" enctype='multipart/form-data'>
+							
+							<input type="hidden" id="product_id" name="product_id" value=${vo.product_id } />
 							<div class="row">
 								<div class="col-xs-3">
 									<div class="row">
@@ -152,12 +155,19 @@
 										<div class="col-xs-8">
 											<select name="productSize" id="productSize"
 												class="form-control">
-												<option value="1" <c:if test="${vo.product_size eq '1' }">selected</c:if>>-- 사이즈 --</option>
-												<option value="2" <c:if test="${vo.product_size eq '2' }">selected</c:if>>X-Large</option>
-												<option value="3" <c:if test="${vo.product_size eq '3' }">selected</c:if>>Large</option>
-												<option value="4" <c:if test="${vo.product_size eq '4' }">selected</c:if>>Medium</option>
-												<option value="5" <c:if test="${vo.product_size eq '5' }">selected</c:if>>Small</option>
-												<option value="6" <c:if test="${vo.product_size eq '6' }">selected</c:if>>free</option>
+												<option value="1"
+													<c:if test="${vo.product_size eq '1' }">selected</c:if>>--
+													사이즈 --</option>
+												<option value="2"
+													<c:if test="${vo.product_size eq '2' }">selected</c:if>>X-Large</option>
+												<option value="3"
+													<c:if test="${vo.product_size eq '3' }">selected</c:if>>Large</option>
+												<option value="4"
+													<c:if test="${vo.product_size eq '4' }">selected</c:if>>Medium</option>
+												<option value="5"
+													<c:if test="${vo.product_size eq '5' }">selected</c:if>>Small</option>
+												<option value="6"
+													<c:if test="${vo.product_size eq '6' }">selected</c:if>>free</option>
 											</select>
 										</div>
 									</div>
@@ -170,6 +180,19 @@
 												class="form-control" value="${vo.product_count }" />
 										</div>
 									</div>
+									<%-- <div class="row">
+										<div class="col-xs-4">
+											<span>상태</span>
+										</div>
+										<div class="col-xs-8">
+											<select id="productState" name="productState" class="form-control">
+												<option value="0" <c:if test="${vo.product_state eq '0' }">selected</c:if>>정상</option>
+												<option value="1" <c:if test="${vo.product_state eq '1' }">selected</c:if>>품절</option>
+												<option value="2" <c:if test="${vo.product_state eq '2' }">selected</c:if>>숨김</option>
+											</select>
+										</div>
+									</div> --%>
+									
 								</div>
 								<div class="col-xs-9">
 									<div class="row">
@@ -188,50 +211,104 @@
 									<span>제품 사진</span>
 								</div>
 								<div class="col-xs-3">
-									<input type="file" id="file1" name="file1"
+									<input type="file" id="file1" name="file1" 
 										onchange="LoadImg(this,1)" style="display: none;" />
-
 									<div>
-										<div
-											style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
-											id="target1"
-											onclick="document.getElementById('file1').click()"></div>
+										<c:choose>
+											<c:when test="${empty vo.photos[0] }">
+											
+												<div
+													style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
+													id="target1"
+													onclick="document.getElementById('file1').click()"></div>
+											</c:when>
+											<c:otherwise>
+												
+												<div
+													style="width: 250px; height: 250px; background-image:url('/admin/admin_pages/product_photo/${vo.photos[0].sysfile}'); background-size: 250px"
+													id="target1"
+													onclick="document.getElementById('file1').click()"></div>
+											</c:otherwise>
+
+										</c:choose>
 										<i class="material-icons" id="close1">close</i>
 									</div>
 								</div>
 								<div class="col-xs-3">
-									<input type="file" id="file2" name="file2"
+									<input type="file" id="file2" name="file2" 
 										onchange="LoadImg(this,2)" style="display: none;" />
 
 									<div>
-										<div
-											style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
-											id="target2"
-											onclick="document.getElementById('file2').click()"></div>
+										<c:choose>
+											<c:when test="${empty vo.photos[1] }">
+
+												<div
+													style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
+													id="target2"
+													onclick="document.getElementById('file2').click()"></div>
+
+											</c:when>
+											<c:otherwise>
+
+												<div
+													style="width: 250px; height: 250px; background-image:url('/admin/admin_pages/product_photo/${vo.photos[1].sysfile}'); background-size: 250px"
+													id="target2"
+													onclick="document.getElementById('file2').click()"></div>
+											</c:otherwise>
+
+										</c:choose>
 										<i class="material-icons" id="close2">close</i>
 									</div>
 								</div>
 								<div class="col-xs-3">
-									<input type="file" id="file3" name="file3"
+									<input type="file" id="file3" name="file3" 
 										onchange="LoadImg(this,3)" style="display: none;" />
 
 									<div>
-										<div
-											style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
-											id="target3"
-											onclick="document.getElementById('file3').click()"></div>
+										<c:choose>
+											<c:when test="${empty vo.photos[2] }">
+
+												<div
+													style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
+													id="target3"
+													onclick="document.getElementById('file3').click()"></div>
+
+											</c:when>
+											<c:otherwise>
+
+												<div
+													style="width: 250px; height: 250px; background-image:url('/admin/admin_pages/product_photo/${vo.photos[2].sysfile}'); background-size: 250px"
+													id="target3"
+													onclick="document.getElementById('file3').click()"></div>
+											</c:otherwise>
+
+										</c:choose>
 										<i class="material-icons" id="close3">close</i>
 									</div>
 								</div>
 								<div class="col-xs-3">
-									<input type="file" id="file4" name="file4"
+									<input type="file" id="file4" name="file4" 
 										onchange="LoadImg(this,4)" style="display: none;" />
 
 									<div>
-										<div
-											style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
-											id="target4"
-											onclick="document.getElementById('file4').click()"></div>
+										<c:choose>
+											<c:when test="${empty vo.photos[3] }">
+
+												<div
+													style="width: 250px; height: 250px; background-image: url('https://via.placeholder.com/250'); background-size: 250px"
+													id="target4"
+													onclick="document.getElementById('file4').click()"></div>
+
+											</c:when>
+											<c:otherwise>
+
+												<div
+													style="width: 250px; height: 250px; background-image:url('/admin/admin_pages/product_photo/${vo.photos[3].sysfile}'); background-size: 250px"
+													id="target4"
+													onclick="document.getElementById('file4').click()"></div>
+											</c:otherwise>
+
+										</c:choose>
 										<i class="material-icons" id="close4">close</i>
 									</div>
 								</div>
@@ -248,7 +325,7 @@
 	</div>
 	<script>
 		cmh.func();
-		
+
 		var state = $('#first option:selected').val();
 		if (state == 'BOTTOMS') {
 			$('#a').css('display', '');
@@ -266,7 +343,7 @@
 			$('#a').css('display', 'none');
 			$('#b').css('display', 'none');
 			$('#c').css('display', 'none');
-		} 
+		}
 
 		$('#first').change(function() {
 			var state = $('#first option:selected').val();
@@ -286,7 +363,7 @@
 				$('#a').css('display', 'none');
 				$('#b').css('display', 'none');
 				$('#c').css('display', 'none');
-			}  
+			}
 		})
 	</script>
 </body>
