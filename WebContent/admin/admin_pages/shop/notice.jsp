@@ -1,196 +1,144 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Editors | Bootstrap Based Admin Template - Material Design</title>
-    <!-- Favicon-->
-    <link rel="icon" href="../../images/favicon.png" type="image/png">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="../../plugins/node-waves/waves.css" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="../../plugins/animate-css/animate.css" rel="stylesheet" />
-
-    <!-- Custom Css -->
-    <link href="../../css/style.css" rel="stylesheet">
-
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="../../css/themes/all-themes.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="css/member.css" rel="stylesheet">
 </head>
 
-<body class="theme-red">
-    <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <h2>공지사항</h2>
+    </div>
+    <!-- #END# Bordered Table -->
+    <!-- Hover Rows -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        공지사항 글 목록
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table id="he_table" class="hover mdl-data-table member_table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>작성자</th>
+                                    <th>제목</th>
+                                    <th>등록일</th>
+                                    <th>조회수</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="i" begin="1" end="57">
+                                    <!-- 속성 list 값이 하나씩 vo에 들어옴 -->
+                                    <tr onclick="notice_view()">
+                                        <td>관리자1</td>
+                                        <td>쇼핑몰 공지사항 입니다</td>
+                                        <td>2011/04/25</td>
+                                        <td>113</td>
+                                    </tr>
+                                </c:forEach>
+
+                            </tbody>
+
+                        </table>
+
+                        <!-- #END# Basic Examples -->
+                        <!-- Exportable Table -->
                     </div>
                 </div>
             </div>
-            <p>Please wait...</p>
         </div>
     </div>
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
-    <!-- #END# Search Bar -->
-    <!-- Top Bar -->
-    <nav class="navbar">
-       <%@include file='../../top.jsp' %>
-    </nav>
-    <!-- #Top Bar -->
-    <section>
-       <%@include file='menu.jsp' %>
-    </section>
+    <!-- #END# Hover Rows -->
+</div>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.material.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 
-    <section class="content">
-        <div class="container-fluid">
-            <div class="block-header">
-                <h2>EDITORS</h2>
-            </div>
+<script src="js/shop.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#he_table').DataTable({
+            columnDefs: [{
+                targets: [0, 1, 2, 3],
+                className: 'mdl-data-table__cell--non-numeric'
 
-            <!-- CKEditor -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                CKEDITOR
-                                <small>CKEditor is a ready-for-use HTML text editor designed to simplify web content creation. Taken from <a href="http://ckeditor.com/" target="_blank">ckeditor.com</a></small>
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <textarea id="ckeditor">
-                                <h2>WYSIWYG Editor</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper sapien non nisl facilisis bibendum in quis tellus. Duis in urna bibendum turpis pretium fringilla. Aenean neque velit, porta eget mattis ac, imperdiet quis nisi. Donec non dui et tortor vulputate luctus. Praesent consequat rhoncus velit, ut molestie arcu venenatis sodales.</p>
-                                <h3>Lacinia</h3>
-                                <ul>
-                                    <li>Suspendisse tincidunt urna ut velit ullamcorper fermentum.</li>
-                                    <li>Nullam mattis sodales lacus, in gravida sem auctor at.</li>
-                                    <li>Praesent non lacinia mi.</li>
-                                    <li>Mauris a ante neque.</li>
-                                    <li>Aenean ut magna lobortis nunc feugiat sagittis.</li>
-                                </ul>
-                                <h3>Pellentesque adipiscing</h3>
-                                <p>Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor, eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</p>
-                            </textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# CKEditor -->
-            <!-- TinyMCE -->
-            <div class="row clearfix">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>
-                                TINYMCE
-                                <small>Taken from <a href="https://www.tinymce.com" target="_blank">www.tinymce.com</a></small>
-                            </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <textarea id="tinymce">
-                                <h2>WYSIWYG Editor</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper sapien non nisl facilisis bibendum in quis tellus. Duis in urna bibendum turpis pretium fringilla. Aenean neque velit, porta eget mattis ac, imperdiet quis nisi. Donec non dui et tortor vulputate luctus. Praesent consequat rhoncus velit, ut molestie arcu venenatis sodales.</p>
-                                <h3>Lacinia</h3>
-                                <ul>
-                                    <li>Suspendisse tincidunt urna ut velit ullamcorper fermentum.</li>
-                                    <li>Nullam mattis sodales lacus, in gravida sem auctor at.</li>
-                                    <li>Praesent non lacinia mi.</li>
-                                    <li>Mauris a ante neque.</li>
-                                    <li>Aenean ut magna lobortis nunc feugiat sagittis.</li>
-                                </ul>
-                                <h3>Pellentesque adipiscing</h3>
-                                <p>Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor, eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</p>
-                            </textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- #END# TinyMCE -->
-        </div>
-    </section>
 
-    <!-- Jquery Core Js -->
-    <script src="../../plugins/jquery/jquery.min.js"></script>
+            }]
+        });
 
-    <!-- Bootstrap Core Js -->
-    <script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+        new $.fn.dataTable.Buttons(table, {
+            buttons: [{
+                    dom: 'Bfrtip',
+                    text: 'excel',
+                    extend: 'excel'
+                },
+                {
+                    dom: 'Bfrtip',
+                    text: 'csv',
+                    extend: 'csv'
+                },
+                {
+                    dom: 'Bfrtip',
+                    text: 'copy',
+                    extend: 'copy'
+                },
+                {
+                    dom: 'Bfrtip',
+                    text: 'pdf',
+                    extend: 'pdf'
+                },
+                {
+                    dom: 'Bfrtip',
+                    text: 'print',
+                    extend: 'print'
+                }, {
+                    text: '새글 등록',
+                    action: function (e, dt, node, conf) {
+                        location.href = "index.jsp?inc=admin_pages/shop/new_notice.jsp"
+                    }
+                }
+            ]
+        });
 
-    <!-- Select Plugin Js -->
-    <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+        table.buttons(0, null).container().prependTo(
+            table.table().container()
+        );
+    });
+</script>
 
-    <!-- Slimscroll Plugin Js -->
-    <script src="../../plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="../../plugins/node-waves/waves.js"></script>
-
-    <!-- Ckeditor -->
-    <script src="../../plugins/ckeditor/ckeditor.js"></script>
-
-    <!-- TinyMCE -->
-    <script src="../../plugins/tinymce/tinymce.js"></script>
-
-    <!-- Custom Js -->
-    <script src="../../js/admin.js"></script>
-    <script src="../../js/pages/forms/editors.js"></script>
-
-    <!-- Demo Js -->
-    <script src="../../js/demo.js"></script>
 </body>
 
 </html>

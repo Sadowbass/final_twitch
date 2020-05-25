@@ -31,6 +31,12 @@ $(function () {
         else if (type === 'ajax-loader') {
             showAjaxLoaderMessage();
         }
+        else if (type === 'modify') {
+            showModifyMessage();
+        }
+        else if (type === 'cancel2') {
+            showCancel2Message();
+        }
     });
 });
 
@@ -62,6 +68,21 @@ function showConfirmMessage() {
     });
 }
 
+function showModifyMessage() {
+    swal({
+        title: "정말 수정하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "수정",
+        cancelButtonText: "취소",
+        closeOnConfirm: false
+    }, function () {
+        swal("수정 완료 됨", "카테고리가 수정되었습니다", "success");
+    });
+}
+
 function showCancelMessage() {
     swal({
         title: "정말 삭제하시겠습니까?",
@@ -78,6 +99,26 @@ function showCancelMessage() {
             swal("삭제 완료 됨", "해당 계정이 삭제되었습니다", "success");
         } else {
             swal("취소됨", "계정 삭제가 취소되었습니다", "error");
+        }
+    });
+}
+
+function showCancel2Message() {
+    swal({
+        title: "정말 삭제하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "삭제",
+        cancelButtonText: "취소",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function (isConfirm) {
+        if (isConfirm) {
+            swal("삭제 완료 됨", "해당 카테고리 삭제되었습니다", "success");
+        } else {
+            swal("취소됨", "카테고리 삭제가 취소되었습니다", "error");
         }
     });
 }

@@ -1,10 +1,10 @@
 $(function () {
     //CKEditor
     CKEDITOR.replace('ckeditor');
-    CKEDITOR.config.height = 300;
+    CKEDITOR.config.height = 500;
 
     //TinyMCE
-    tinymce.init({
+   /* tinymce.init({
         selector: "textarea#tinymce",
         theme: "modern",
         height: 300,
@@ -19,5 +19,5 @@ $(function () {
         image_advtab: true
     });
     tinymce.suffix = ".min";
-    tinyMCE.baseURL = '../../plugins/tinymce';
+    tinyMCE.baseURL = '../../plugins/tinymce';*/
 });
