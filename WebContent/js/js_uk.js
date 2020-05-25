@@ -13,6 +13,8 @@ uk.stream = function () {
 		url: '/sidebar.sc',
 		success: function (data) {
 			let left = $('#sidebarplace').html(data).find("#sidebar-navmain").width();
+			if($('#sidebarplace').css('display') == 'none')left=0;
+
 			/* 메인 왼쪽 */
 			if ($('#sidebarplace').length) {
 				$(".video_main_uk").css('padding-left', left + 'px');
@@ -30,9 +32,7 @@ uk.stream = function () {
 
 	});
 	/* 스크롤시 */
-	/*
-	 * $(window).scroll(function(){ uk.minimization(); });
-	 */
+	$(window).scroll(function(){ uk.minimization(); });
 
 }
 
@@ -88,28 +88,6 @@ uk.unfoldRightOrBottom = function () {
 
 
 }
-
-///* strea.uk fold */
-//uk.fold = function() {
-//	$("#cht_div").css("display", "none");
-//	$('#unfold').css('display', 'block');
-//	$("#video_div").removeClass("col-md-10");
-//	$("#video_div").addClass("col-md-12");
-//	$("#unfold").addClass("d-none d-md-block");
-//	uk.rightValue();
-//}
-///* strea.uk unfold */
-//uk.unfold = function() {
-//	$('#unfold').css('display', 'none');
-//	$("#cht_div").css("display", "block");
-//	$("#video_div").removeClass("col-md-12");
-//	$("#video_div").addClass("col-md-10");
-//	$("#unfold").removeClass("d-none d-md-block");
-//	uk.rightValue();
-//}
-//uk.unfoldBottom=function(){
-//	uk.unfold();
-//}
 
 /* 왼쪽 */
 uk.leftValue = function () {
@@ -186,8 +164,9 @@ uk.connectWS = function (streamer, login) {
 	let totalUserCnt = 0;
 
 	streamerId = streamer;
-	/* loginId=login; */
-	loginId = '임시';
+	loginId=login;
+
+	console.log("streamerId::"+streamerId,"login:::",login);
 
 	ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId);
 
@@ -207,13 +186,9 @@ uk.connectWS = function (streamer, login) {
 		/* 로그인+로그아웃 total 시청자 수 */
 		if (jsObj.totalSession) {
 			totalUserCnt = jsObj.totalSession;
-			console.log('totalUserCnt1111', totalUserCnt);
-			console.log('jsObj.totalSession2222', jsObj.totalSession);
 		}
 		if (jsObj.addTotalSession) {
 			totalUserCnt += jsObj.addTotalSession;
-			console.log('totalUserCnt3333', totalUserCnt);
-			console.log('jsObj.addTotalSession4444', jsObj.addTotalSession)
 			$('#totalUserCnt').html(totalUserCnt);
 		}
 
@@ -300,29 +275,29 @@ uk.WSsend = function () {
 uk.WSclose = function () {
 	ws.close();
 }
-/////////////////////////////////
-// /* 최소화 됐을때 */
-// uk.minimization = function() {
-// let top = $(window).scrollTop();
-// let height = $("#mediaplayer").height();
-//
-// if (top > height) {
-// $("#mediaplayer").css({
-// position : 'fixed',
-// bottom : '20px',
-// left : '300px',
-// width : '350px',
-// height : '250px'
-// });
-// } else {
-// $("#mediaplayer").css({
-// position : 'static',
-// width : '100%',
-// height : ''
-// });
-// }
-// }
-////////////////////////////////////
+ /* 최소화 됐을때 */
+uk.minimization = function() {
+	let top = $(window).scrollTop();
+	let height = $("#mediaplayer").height();
+
+	if (top > height) {
+		$("#mediaplayer").css({
+			position : 'fixed',
+			bottom : '20px',
+			left : '300px',
+			width : '350px',
+			height : '250px'
+		});
+	} else {
+		$("#mediaplayer").css({
+			position : 'relative',
+			width : '100%',
+			height : '100%',
+			bottom : '',
+			left : ''
+		});
+	}
+}
 
 uk.responsive = function () {
 	uk.chtAndVideo();
