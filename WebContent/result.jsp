@@ -10,6 +10,8 @@
 			<form name='frm_mm' id='frm_mm' method='post'>
 				<input type='button' id='btnSelect' value='확인' onclick="location.href='index.jsp'" />
 			
+			
+			
 			</form>
 	 </div>
 	<script>lm.func()</script>
