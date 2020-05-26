@@ -150,8 +150,8 @@
         select * from (select trunc(sysdate) - trunc(SUB_RDATE) from FINAL_SUBSCRIPTION where SUB_MID = #{uid} and SUB_OID = #{sid} order by SUB_RDATE desc) where ROWNUM = 1
     </select>
     <!--잔액 확인-->
-    <select id="moneyCheck" parameterType="hashmap" resultType="int">
-        select MEM_MONEY from FINAL_MEMBER where MEM_ID = #{uid}
+    <select id="moneyCheck" parameterType="String" resultType="int">
+        select MEM_MONEY from FINAL_MEMBER where MEM_ID = #{value}
     </select>
     <!-- 구독등록 -->
     <select id="commitSub" parameterType = 'hashmap'>

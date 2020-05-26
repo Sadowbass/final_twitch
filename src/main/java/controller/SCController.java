@@ -332,7 +332,7 @@ public class SCController {
         int r = dao.subCheck(map);
         System.out.println(r);
         if(r > 31 ){
-            int money = dao.moneyCheck(map);
+            int money = dao.moneyCheck((String) map.get("uid"));
             map.put("money", money);
             result = gson.toJson(map);
         } else {
@@ -358,4 +358,12 @@ public class SCController {
 
         return result;
     }
+
+    /*현재 잔액*/
+    @ResponseBody
+    @RequestMapping(value = "moneyCheck.sc", method = RequestMethod.POST)
+    public String moneyCheck(HttpServletRequest req){
+        return dao.moneyCheck(req.getParameter("uid"))+"";
+    }
+
 }

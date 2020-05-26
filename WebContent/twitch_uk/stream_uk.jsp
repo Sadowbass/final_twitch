@@ -168,7 +168,7 @@
                         <c:when test="${session_id == vo.mem_id}"></c:when>
                         <c:otherwise>
                             <button type="button" class="btn btn-outline-danger btn" onclick="donation(this)" style="padding-top: 0px; padding-bottom: 0px; height: 30px;">
-                                <strong> <i class="far fa-star"></i></strong> 도네이션
+                                <strong> <i class="far fa-star"></i></strong>도네이션
                             </button>
                         </c:otherwise>
                     </c:choose>
@@ -363,6 +363,9 @@
         uk.stream();
     });
 
+    let uid = $('#uid').val();
+    let sid = $('#sid').val();
+
     let follow = function (check) {
         let followCheck = false;
         if ($('#uid').val() == "") {
@@ -409,9 +412,6 @@
     }
 
     let goPay = function () {
-        let uid = $('#uid').val();
-        let sid = $('#sid').val();
-
         $.ajax({
             type:'post',
             data:{'uid':uid, 'sid':sid},
@@ -436,16 +436,12 @@
 
     let commitSub = function () {
         let money = $('#moneyField').html().split(": ")[1];
-        let uid = $('#uid').val();
-        let sid = $('#sid').val();
         if (money < 10000) {
             swal({
                 text:"잔액이 부족합니다",
                 icon : "error"
             })
         } else {
-            let uid = $('#uid').val();
-            let sid = $('#sid').val();
             $.ajax({
                 type : 'post',
                 url : 'commitSub.sc',
@@ -465,6 +461,15 @@
     }
 
     let donation = function (check) {
+        console.log(uid);
+        $.ajax({
+            data : {'uid' : uid},
+            type : 'post',
+            url : "moneyCheck.sc",
+            success : function (data) {
+                $('#textDonMoneyField').html("현재 머니 잔액 : "+data);
+            }
+        })
         $('#donationModal').modal('toggle');
     }
 </script>
@@ -596,18 +601,21 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 620px;">
             <div class="modal-header">
-                <h5 class="modal-title" id="donationModalLabel">도네이션</h5>
+                <h5 class="modal-title" id="donationModalLabel"> <img src="/img/favicon.png" style="height: 32px;width: 32px;">도네이션</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <ul class="nav-tabs nav" style="margin-bottom: 10px;">
+                <ul class="nav nav-tabs justify-content-center" style="margin-bottom: 10px;">
                     <li class="nav-item">
-                        <a href="#textDonation" data-toggle="tab" class="navlink"><span>텍스트</span></a>
+                        <a href="#textDonation" data-toggle="tab" class="nav-link active">텍스트</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#movieDonation" data-toggle="tab" class="navlink" ><span>영상</span></a>
+                        <a href="#movieDonation" data-toggle="tab" class="nav-link" >영상</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#roulleteDonation" data-toggle="tab" class="nav-link" >룰렛</a>
                     </li>
                 </ul>
 

@@ -244,11 +244,11 @@ public class SCDao {
         }
     }
     /*현재 잔액 확인*/
-    public int moneyCheck(Map<String, Object> map){
-        if (sqlSession.selectOne("scbatis.moneyCheck", map) == null) {
+    public int moneyCheck(String uid){
+        if (sqlSession.selectOne("scbatis.moneyCheck", uid) == null) {
             return 0;
         } else {
-            return sqlSession.selectOne("scbatis.moneyCheck", map);
+            return sqlSession.selectOne("scbatis.moneyCheck", uid);
         }
     }
 
