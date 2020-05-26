@@ -1,105 +1,104 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<script src="../vendor/jwplayer7/jwplayer.js"></script>
-	<script>
-		jwplayer.key = 'iiL9xxalkP7di2nLZ3tPLw0NLBCHdHBe8i3QDQ==';
-	</script>
+   <script src="../vendor/jwplayer7/jwplayer.js"></script>
+   <script>
+      jwplayer.key = 'iiL9xxalkP7di2nLZ3tPLw0NLBCHdHBe8i3QDQ==';
+   </script>
 
-	<input type='hidden' value='${msg }' id='msgBroadCasting'/>
-	<div id="main" style="width: 100%;">
-		<div id="mediaplayer"></div>
-	</div>
+   <input type='hidden' value='${msg }' id='msgBroadCasting'/>
+   <div id="main" style="width: 100%;">
+      <div id="mediaplayer"></div>
+   </div>
 
-	<script>
-		jwplayer('mediaplayer').setup({
+   <script>
+      jwplayer('mediaplayer').setup({
 
-			width : "100%",
+         width : "100%",
 
-			primary : "flash",
+         primary : "flash",
 
-			autostart : "true",
+         autostart : "true",
 
-			//repeat: 'always',
+         //repeat: 'always',
 
-			androidhls : false,
+         androidhls : false,
 
-			abouttext : "얍얍",
+         abouttext : "얍얍",
 
-			image: "../img/loding.png",
+         image: "../img/loding.png",
 
-			aboutlink : "http://www.jhta.co.kr",
+         aboutlink : "http://www.jhta.co.kr",
 
-			sources : [ {
-				file : "rtmp://192.168.0.32/hls/",
-			}, {
-				file : "http://192.168.0.32:8845/hls/.m3u8"
-			} ]
-		});
+         sources : [ {
+            file : "rtmp://192.168.0.32/hls/",
+         }, {
+            file : "http://192.168.0.32:8845/hls/.m3u8"
+         } ]
+      });
 
-		jwplayer().onSetupError(function() {
-	        document.getElementById('mediaplayer').innerHTML = '<img src="../img/loding.png" width="100%"/>';
-	        //alert('wqdq');
-		});
-		
-		if($('#msgBroadCasting').val() == '성공'){
-			Swal.fire({
-				  position: 'center',
-				  icon: 'success',
-				  title: '<font color="white">방송 송출이 시작되었습니다.</font>',
-				  background: '#18181b',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-			$('#updateBroadCasting').show();
-			$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
-			/* 소켓 접속 */
-			uk.connectWS();
-		}else if($('#msgBroadCasting').val() == '실패'){
-			Swal.fire({
-				  position: 'center',
-				  icon: 'error',
-				  title: '<font color="white">방송 송출에 실패하셨습니다.</font>',
-				  background: '#18181b',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-			if($('#pk_switch').hasClass('on') === true){
+      jwplayer().onSetupError(function() {
+           document.getElementById('mediaplayer').innerHTML = '<img src="../img/loding.png" width="100%"/>';
+           //alert('wqdq');
+      });
 
-				$('#pk_switch').toggleClass('on');
+      if($('#msgBroadCasting').val() == '성공'){
+         Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '<font color="white">방송 송출이 시작되었습니다.</font>',
+              background: '#18181b',
+              showConfirmButton: false,
+              timer: 1500
+            })
+         $('#updateBroadCasting').show();
+         $('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
+         uk.connectWS(); /* 소켓 접속 */
 
-			}
-		}else if($('#msgBroadCasting').val()=='중지성공'){
-			Swal.fire({
-				  position: 'center',
-				  icon: 'success',
-				  title: '<font color="white">방송 송출이 중지되었습니다.</font>',
-				  background: '#18181b',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
+      }else if($('#msgBroadCasting').val() == '실패'){
+         Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '<font color="white">방송 송출에 실패하셨습니다.</font>',
+              background: '#18181b',
+              showConfirmButton: false,
+              timer: 1500
+            })
+         if($('#pk_switch').hasClass('on') === true){
 
-			$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
-			$('#streamKey').prop('readonly',false);
-		/* 소켓 종료 */
-		uk.WSclose();
-		}else if($('#msgBroadCasting').val()=='중지실패'){
-			Swal.fire({
-				  position: 'center',
-				  icon: 'error',
-				  title: '<font color="white">방송 중지에 실패하였습니다.</font>',
-				  background: '#18181b',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
+            $('#pk_switch').toggleClass('on');
 
-				if($('#pk_switch').hasClass('on') === false){
+         }
+      }else if($('#msgBroadCasting').val()=='중지성공'){
+         Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '<font color="white">방송 송출이 중지되었습니다.</font>',
+              background: '#18181b',
+              showConfirmButton: false,
+              timer: 1500
+            })
 
-					$('#pk_switch').toggleClass('on');
+         $('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
+         $('#streamKey').prop('readonly',false);
+         uk.WSclose(); /* 소켓 종료 */
+      }else if($('#msgBroadCasting').val()=='중지실패'){
+         Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '<font color="white">방송 중지에 실패하였습니다.</font>',
+              background: '#18181b',
+              showConfirmButton: false,
+              timer: 1500
+            })
 
-				}
+            if($('#pk_switch').hasClass('on') === false){
 
-		}
+               $('#pk_switch').toggleClass('on');
 
+            }
+
+      }
 
 
 
-	</script>
+
+   </script>

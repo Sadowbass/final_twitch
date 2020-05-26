@@ -64,7 +64,7 @@
 						<form name="pk_broadCastingData" id="pk_broadCastingData"
 							method="post">
 							<input type='hidden' name='flagRul' id='flagRul' />
-							<input type='hidden' name='mId' id='mId' value='<%=session.getAttribute("mId")%>' /> <input
+							<input type='hidden' name='mId' id='mId' value='<%=session.getAttribute("session_id")%>' /> <input
 								type='hidden' name='tags' id='takTag' /> <input type='hidden'
 								name='gameName' id='takGame' />
 							<div id="modalBox" class="modal fade" id="myModal" tabindex="-1"
@@ -144,8 +144,8 @@
 									</div>
 								</div>
 							</div>
-							
-							
+
+
 							<div id="modalBox2" class="modal fade" id="myModal" tabindex="-1"
 								role="dialog" aria-labelledby="myModalLabel"
 								style="background-color: rgba(0, 0, 123, 0.4)">
@@ -167,17 +167,17 @@
 										ㅂㅈㅇㅈㅂ
 										</div>
 										<div class="modal-footer">
-	
+
 											<button type="button" class="btn btn-outline-primary"
 												id="closeModalBtn2">닫기</button>
 										</div>
 									</div>
 								</div>
 							</div>
-							
 
-							
-							
+
+
+
 
 							<div class="col-sm-12 pt-3">
 								<div class="card"
@@ -524,7 +524,7 @@
 		$(document)
 				.ready(
 						function() {
-									
+
 
 							$('#updateBroadCasting').hide();
 							// 방송스위치 --------------------------------------------------------------
@@ -544,14 +544,14 @@
 
 								console.log("click close");
 							});
-							
+
 							$('#closeModalBtn2').on('click', function() {
 								$('#modalBox2').modal('hide');
 
 								console.log("click close");
 							});
-							
-							
+
+
 							$('#saveModalBtn').on('click', function() {
 
 								let count = 0;
@@ -669,7 +669,7 @@
 
 
 
-					
+
 							initAir();
 
 						});

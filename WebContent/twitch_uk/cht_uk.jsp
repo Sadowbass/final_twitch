@@ -47,7 +47,6 @@
 	$(document).ready(function() {
 		uk.connectWS($('input#streamer_id').val(), $('input#session_id').val());
 	});
-	console.log('streamer::'+$('input#streamer_id').val(), 'user::'+$('input#session_id').val());
 </script>
 
 

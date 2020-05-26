@@ -50,8 +50,7 @@ public class BroadCastingMybatisDao {
 
 		try {
 			list = sqlSession.selectList("broadCasting.selectDonation", mId);
-			
-			System.out.println(list.size());
+
 
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
@@ -67,10 +66,10 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
-	
+
 	public int selectFollow(String mId) {
 		int cnt = 0;
-		
+
 		try {
 			cnt = sqlSession.selectOne("broadCasting.selectFollow",mId);
 		}catch (Exception e) {
@@ -78,12 +77,12 @@ public class BroadCastingMybatisDao {
 		}finally {
 			return cnt;
 		}
-		
-		
+
+
 	}
-	
-	
-	
+
+
+
 	public List<FollowListVo> selectFollowList(String mId) {
 		List<FollowListVo> list = null;
 		try {
@@ -93,11 +92,11 @@ public class BroadCastingMybatisDao {
 		}finally {
 			return list;
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 
 	public void readDonation(int serial) {
 		int result = 0;
@@ -142,6 +141,8 @@ public class BroadCastingMybatisDao {
 		int flag = 0;
 		try {
 			flag = sqlSession.update("broadCasting.updateKey", vo);
+			System.out.println(vo.getAir_mid());
+			System.out.println(vo.getMem_skey());
 			if (flag < 1)
 				throw new Exception("방송시작 에러");
 
@@ -256,11 +257,11 @@ public class BroadCastingMybatisDao {
 
 		try {
 
-			if (flagRul.equals("true")) { 
+			if (flagRul.equals("true")) {
 				flag = sqlSession.update("broadCasting.saveRoulette1", map);
 				if (flag < 1)
 					throw new Exception("룰렛저장에러");
-			} else if (flagRul.equals("false")) { // 
+			} else if (flagRul.equals("false")) { //
 				flag = sqlSession.insert("broadCasting.saveRoulette2", map);
 
 				if (flag < 1)
@@ -325,18 +326,18 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
-	
+
 	public BroadCastingAirVo selectAir(String mId) {
 		BroadCastingAirVo vo = null;
 		try {
 			vo = sqlSession.selectOne("broadCasting.selectAir",mId);
 
 		}catch (Exception e) {
-			
+
 		}finally {
 			return vo;
 		}
 	}
-	
+
 
 }

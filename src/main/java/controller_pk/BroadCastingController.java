@@ -102,13 +102,13 @@ public class BroadCastingController {
       String msg = "";
       ModelAndView mv = new ModelAndView();
       String mId = req.getParameter("mId"); // 스트리머 아이디
+      System.out.println("123"+mId);
       String title = req.getParameter("broadCastingTitle"); // 제목
       String content = req.getParameter("broadCastingContent"); // 내용
       String sKey = req.getParameter("streamKey"); // 스트림 키
       String tags = req.getParameter("tags"); // 태그 들
       String gameName = req.getParameter("gameName"); // 게임 이름
 
-      System.out.println(sKey);
 
       BroadCastingAirVo vo = new BroadCastingAirVo();
 
@@ -210,44 +210,41 @@ public class BroadCastingController {
       return result;
 
    }
-   
+
    	   @RequestMapping(value = "*/selectFollow.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody
 	   public String selectFollow(HttpServletRequest req, HttpServletResponse resp) {
 	      String mId = req.getParameter("mId"); // 스트리머 아이디
-	      System.out.println("팔로우 컨트롤러 넘오옴");
 	      int result = dao.selectFollow(mId);
-	      System.out.println("다오 실행완료");
 
 	      Gson gson = new Gson();
 	      JsonObject jsonObject = new JsonObject();
 	      jsonObject.addProperty("result", result);
 	      String json = gson.toJson(jsonObject);
-	      System.out.println(json);
 
 	      return json;
 
 	   }
-   	   
-   	   
-   	 
+
+
+
    	   @RequestMapping(value = "*/selectFollowList.bc", method = { RequestMethod.GET,
   	         RequestMethod.POST }, produces = "application/text; charset=utf8")
   	   public ModelAndView selectFollowList(HttpServletRequest req, HttpServletResponse resp) {
   	      String mId = req.getParameter("mId"); // 스트리머 아이디
   	      ModelAndView mv = new ModelAndView();
   	      List<FollowListVo> list = dao.selectFollowList(mId);
-  	         
+
   	      mv.addObject("list",list);
   	      mv.setViewName("followView");
 
   	      return mv;
 
   	   }
-   
-   
-   
+
+
+
 
    @RequestMapping(value = "*/sendDonation.bc", method = { RequestMethod.GET,
          RequestMethod.POST }, produces = "application/text; charset=utf8")
@@ -310,9 +307,6 @@ public class BroadCastingController {
          list.add(tokens.nextToken().trim());
 
       }
-      for (int i = 0; i < list.size(); i++) {
-         System.out.println(list.get(i));
-      }
 
       String rouletteData = list.toString();
       String newRouletteData = rouletteData.substring(1, rouletteData.length() - 1);
@@ -350,7 +344,7 @@ public class BroadCastingController {
       return result;
 
    }
-   
+
    @RequestMapping(value = "*/selectAir.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody
@@ -381,15 +375,14 @@ public class BroadCastingController {
 
 	          result = gson.toJson(jsonArray);
 	      }
-	      
-	      System.out.println(result);
+
 
 	      return result;
 
 	   }
-   
-   
-   
+
+
+
    @RequestMapping(value = "*/initAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
    public ModelAndView initAir(HttpServletRequest req, HttpServletResponse resp) {
       String msg = "init성공";
@@ -404,7 +397,7 @@ public class BroadCastingController {
       return mv;
 
    }
-   
+
    @RequestMapping(value = "*/broadCastingTime.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody
@@ -417,6 +410,6 @@ public class BroadCastingController {
 	      return result;
 
 	   }
-   
+
 
 }
