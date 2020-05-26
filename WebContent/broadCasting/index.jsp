@@ -667,9 +667,7 @@
 								console.log("hidden.bs.modal");
 							});
 
-
-
-
+							initUser();
 							initAir();
 
 						});

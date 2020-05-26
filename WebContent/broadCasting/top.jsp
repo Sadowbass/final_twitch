@@ -48,7 +48,7 @@
 			<a class="nav-link dropdown-toggle user-dropdown-link" href="#"
 			id="userDropdown" role="button" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"> <img alt="Avatar"
-				src="../img/user.png"> <font color="white">BJ민호</font>
+				src="../img/user.png" id="memberPhoto"> <font color="white" id='memberName'>BJ민호</font>
 		</a>
 			<div class="dropdown-menu dropdown-menu-right"
 				aria-labelledby="userDropdown">
