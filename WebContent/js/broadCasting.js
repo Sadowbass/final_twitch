@@ -2,7 +2,115 @@ let bc = {}
 var tag = [];
 var counter = 0;
 var gameName = "";
+var btime = 0;
 
+function initAir() {
+	let mId = $('#mId').val();
+	
+	$.ajax({
+		url : 'selectAir.bc',
+		type : 'post',
+		async: false,
+		data : {"mId":mId},
+		dataType: "json",
+		error : function(xhr, status, error){
+			  console.log(xhr);
+		},
+		success : function(data, xhr, status ){	
+			if(data[0].result == '성공'){
+				$('#broadCastingTitle').val(data[0].air_subject);
+				$('#broadCastingContent').val(data[0].air_content);
+				$('#findCate').val(data[0].air_gname);
+				$('#updateBroadCasting').show();
+				$('#streamKey').val(data[0].mem_skey);
+				$('#streamKey').prop('readonly',true);
+				if ($('#pk_switch').hasClass('on') === false) { // 방송 켜졌을 때
+					$('#pk_switch').toggleClass('on');
+				}
+				var oldTime = new Date(data[0].air_starttime)
+				var newTime = new Date();
+				var gap = newTime.getTime() - oldTime.getTime();
+				btime = gap/1000;
+				
+				gameName = data[0].air_gname;
+	          	$("#cate-list").append("<li class='cate-item'><span style='color:white'><img width = '40px'src='../img/cate/" + data[0].cat_sysfile + "'/>&nbsp;"+ data[0].air_gname +"</span></li>");
+				
+				let array = data[0].air_tnames.split(","); //디비에있는 태그
+				let array2 = data[0].cat_genre.split(","); //게임태그
+				
+				
+				for(let n = 0; n<array2.length;n++){
+					array.splice($.inArray(array2[n], array),1);
+				}
+	
+				for(let j=0; j<array2.length;j++){
+					addTag(array2[j],'cate');
+				}
+				for(let i=0; i<array.length;i++){
+					addTag(array[i]);
+				}
+				
+				$.ajax({
+					url : 'initAir.bc',
+					type : 'post',
+					async: false,
+					data : {"sKey":$('#streamKey').val()},
+					error : function(xhr, status, error){
+						  console.log(xhr);
+					},
+					success : function(data, xhr, status ){	
+						
+						$('#videoView').html(data);
+						setDonation();
+						broadCastingTime();
+						selectFollow();
+								
+					}
+						
+				})
+				
+				 
+				
+				
+			}else if(data[0].result =='실패'){
+				
+			}			
+		}		
+	})
+	
+	
+}
+
+
+function broadCastingTime() {
+	
+	time2 = setInterval(
+			function() {
+				
+				btime = btime + 1;
+				var newTime = new Date(btime * 1000).toISOString().substr(11, 8);
+				$('#broadCastingTime').html(newTime);
+				
+				
+				/*
+				$.ajax({
+					url : 'broadCastingTime.bc',
+					type : 'post',
+					dataType :'text',
+					async:false,
+					error : function(xhr, status, error){
+
+					},
+					success : function(data, xhr, status ){	
+						$('#broadCastingTime').html(data);
+					}
+						
+				})
+				*/
+						
+
+			}, 1000);
+}
 
 function startAir(){
 	
@@ -21,13 +129,14 @@ function startAir(){
 		success : function(data, xhr, status ){	
 			
 			$('#videoView').html(data);
+			setDonation();
+			btime = 0;
+			broadCastingTime();
+			selectFollow();
 					
 		}
 			
 	})
-	
-	
-	
 	
 }
 
@@ -45,11 +154,19 @@ function stopAir() {
 		},
 		success : function(data, xhr, status ){	
 			$('#videoView').html(data);
+			clearInterval(time1);
+			clearInterval(time2);
+			clearInterval(time3);
+			$('#broadCastingTime').html('0:00:00');
+			$('#broadCastingFollow').html('0');	
+			
+
 		}
 			
 	})
 	
 }
+
 
 
 
@@ -74,7 +191,7 @@ function addTag (value,value2) {
     	 if(value2 != 'cate'){
          $("#tag-list").append("<li class='tag-item'>"+value+"<span class='del-btn' onclick='delTag(this)' idx='"+counter+"'>x</span></li>");
     	 }else{
-    		 $("#tag-list").append("<li class='tag-item tag-cate'>"+value+"<span idx='"+counter+"'></span></li>");
+    		 $("#tag-list").append("<li class='tag-item tag-cate' tak='"+value+"'>"+value+"<span idx='"+counter+"'></span></li>");
     	 }
      } else {
          alert("태그값이 중복됩니다.");
@@ -118,7 +235,7 @@ bc.func = function(){
 				
 			},
 			success : function(data, xhr, status ){	
-				if(data == '수정에 성공하셨습니다.'){
+				if(data == '성공'){
 					Swal.fire({
 						  position: 'center',
 						  icon: 'success',
@@ -189,9 +306,6 @@ bc.func = function(){
 				
 		})
 		
-		
-		
-		
 	})
 	
 	
@@ -225,17 +339,29 @@ bc.func = function(){
         select : function(event, ui) {   // 아이템 선택 시 
         	
         	var numItems = $('.tag-cate').length;
-          	$('.tag-cate').remove();
           	counter = counter - numItems;
           	$("#cate-list").html('');
           	gameName = ui.item.value;
           	$("#cate-list").append("<li class='cate-item'><span style='color:white'><img width = '40px'src='../img/cate/" + ui.item.test + "'/>&nbsp;"+ ui.item.value +"</span></li>");
           	
+          	
+            let fileData = new Array(numItems);
+
+            for(let i=0; i<fileData.length; i++){                          
+                 fileData[i] = $(".tag-cate").eq(i).attr('tak');
+            }
+
+          	for(let j = 0; j<fileData.length;j++){
+          		tag.splice($.inArray(fileData[j], tag),1);
+          	}
+            
+          	$('.tag-cate').remove();
+            
         	
-        	var array = ui.item.cate.split(',');
+        	let arrayCate = ui.item.cate.split(',');
         	
-        	for(let i=0;i<array.length;i++){
-        	addTag(array[i],'cate');	
+        	for(let i=0;i<arrayCate.length;i++){
+        	addTag(arrayCate[i],'cate');	
         	}
             
         },
@@ -360,7 +486,7 @@ function videoDonation(serial,oid,content,price,url) {
 					},
 					success : function(data, xhr, status ){	
 						
-						if(data == "송출성공"){
+						if(data == "성공"){
 							
 							Swal.fire({
 								  position: 'center',
@@ -372,7 +498,7 @@ function videoDonation(serial,oid,content,price,url) {
 								})
 							
 	
-						}else if(data =="송출실패"){
+						}else if(data =="실패"){
 							Swal.fire({
 								  position: 'center',
 								  icon: 'error',
@@ -448,7 +574,7 @@ function voiceDonation(serial,oid,content,price,type) {
 					},
 					success : function(data, xhr, status ){	
 						
-						if(data == "송출성공"){
+						if(data == "성공"){
 							
 							Swal.fire({
 								  position: 'center',
@@ -460,7 +586,7 @@ function voiceDonation(serial,oid,content,price,type) {
 								})
 							
 	
-						}else if(data =="송출실패"){
+						}else if(data =="실패"){
 							Swal.fire({
 								  position: 'center',
 								  icon: 'error',
@@ -482,6 +608,252 @@ function voiceDonation(serial,oid,content,price,type) {
 			})
 }
 
+function followView(){
+	
+	let param = $('#mId').val();
+	
+	$.ajax({
+		url : 'selectFollowList.bc',
+		type : 'post',
+		data : {"mId":param} ,
+		async:false,
+		error : function(xhr, status, error){
+			
+		},
+		success : function(data, xhr, status ){	
+			$('#followList').html(data);	
+		}
+			
+	})
+	
+	
+	$('#modalBox2').modal('show');
+	
+}
+
+
+
+function selectFollow() {
+	time3 = setInterval(function(){
+		let param = $('#mId').val();
+		
+		$.ajax({
+			url : 'selectFollow.bc',
+			type : 'post',
+			data : {"mId":param} ,
+			async:false,
+			dataType : 'json',
+			error : function(xhr, status, error){
+				
+			},
+			success : function(data, xhr, status ){	
+				$('#broadCastingFollow').html(data.result);	
+			}
+				
+		})
+		
+		
+	},5000);
+	
+}
+
+
+
+
+function setDonation(){
+	time1 = setInterval(
+			function() {
+				let param = $('#mId').val();
+				$
+						.ajax({
+							url : 'selectDonation.bc?mId='
+									+ param,
+							type : 'post',
+							dataType : 'json',
+							async:false,
+							error : function(xhr,
+									status, error) {
+								console.log('실패');
+							},
+							success : function(data,
+									xhr, status) {
+								console.log(data);
+								if (data != null) {
+									for (let i = 0; i < data.length; i++) {
+
+										console
+												.log(data[i]);
+										let divRow = document
+												.createElement("div");
+										divRow.className = "row";
+										divRow.style.marginTop = "2%";
+
+										if (data[i].type == '0' || data[i].type =='2') {
+											divRow.onclick = function() {
+												voiceDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].type);
+											};
+
+										} else if (data[i].type == '1') {
+											divRow.onclick = function() {
+												videoDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].url)
+											};
+										}
+
+										let divCol1 = document
+												.createElement("div");
+										divCol1.className = "col-1";
+
+										let j = document
+												.createElement('i');
+										if (data[i].type == '0') {
+											j.className = "fas fa-volume-up fa-3x";
+										} else if (data[i].type == '1') {
+											j.className = "fas fa-video fa-3x";
+										} else if (data[i].type == '2'){
+											j.className = "fas fa-question fa-3x";
+										}
+
+										let divCol8 = document
+												.createElement("div");
+										divCol8.className = "col-8";
+
+										let divCol12 = document
+												.createElement("div");
+										divCol12.className = "col-12";
+										divCol12.innerHTML = data[i].don_oid;
+										divCol12.style.color = "white";
+
+										let divCol122 = document
+												.createElement("div");
+										divCol122.className = "col-12";
+										divCol122.innerHTML = "["
+												+ data[i].don_price
+												+ "]&nbsp;"
+												+ data[i].don_content;
+
+										let divCol3 = document
+												.createElement("div");
+										divCol3.className = 'col-3';
+										divCol3.style.textAlign = "center";
+										divCol3.style.paddingTop = "3px";
+										divCol3.innerHTML = data[i].don_rdate;
+
+										divRow
+												.appendChild(divCol1);
+										divRow
+												.appendChild(divCol8);
+										divRow
+												.appendChild(divCol3);
+										divCol1
+												.appendChild(j);
+										divCol8
+												.appendChild(divCol12);
+										divCol8
+												.appendChild(divCol122);
+										let donationDiv = document
+												.getElementById('donationDiv');
+										donationDiv
+												.appendChild(divRow);
+
+										/*
+										let html = '';
+										if(data[i].type == '0'){
+										html += '<div class="row" style="margin-top: 2%" onclick="voiceDonation(' + data[i].don_serial + ')">';
+										}else if(data[i].type =='1'){
+										html += '<div class="row" style="margin-top: 2%" onclick="videoDonation(' + data[i].don_serial + ')">';
+										}
+										html += "<div class='col-1'>";
+										if(data[i].type == '0'){
+											html += "<i class='fas fa-volume-up fa-3x'></i>";
+										}else if(data[i].type =='1'){
+											html += "<i class='fas fa-video fa-3x'></i>";
+										}
+										html += "</div>";
+										html += "<div class='col-8'>";
+										html += "<div class='col-12' style='color: white'>";
+										html += data[i].don_oid;
+										html += "</div>";
+										html += "<div class='col-12'>";
+										html += "<font size='2' color='white' face='돋움'>["+data[i].don_price+"]</font>" + data[i].don_content;
+										html += "</div>";
+										html += "</div>";
+										html += "<div class='col-3' style='text-align: center;padding-top: 10px'>";
+										html += data[i].don_rdate;
+										html += "</div>";
+										$('#donationDiv').append(html);
+
+										 */
+
+										toastr.options = {
+											"closeButton" : false,
+											"debug" : false,
+											"newestOnTop" : false,
+											"progressBar" : false,
+											"positionClass" : "toast-top-center",
+											"preventDuplicates" : false,
+											"onclick" : null,
+											"showDuration" : "300",
+											"hideDuration" : "1000",
+											"timeOut" : "3000",
+											"extendedTimeOut" : "1000",
+											"showEasing" : "swing",
+											"hideEasing" : "linear",
+											"showMethod" : "fadeIn",
+											"hideMethod" : "fadeOut",
+											"bdColor" : "#444"
+										}
+										toastr.options.onclick = function() {
+											if (data[i].type == '0' || data[i].type =='2') {
+												voiceDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].type);
+											} else if (data[i].type == '1') {
+												videoDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].url)
+											}
+										}
+
+										if (data[i].type == '0') {
+											toastr
+													.success('음성후원이 도착하였습니다');
+										} else if (data[i].type == '1') {
+											toastr
+													.success('영상후원이 도착하였습니다');
+										} else if (data[i].type == '2'){
+											toastr
+												    .success('룰렛후원이 도착하였습니다');
+										}
+
+									}
+
+								}
+
+							}
+						});
+
+			}, 5000);
+	
+}
+
+
+
 function broadCastingSetting() {
 	let mId = $('#mId').val();
 	$('#rul1').val('');
@@ -502,14 +874,14 @@ function broadCastingSetting() {
 		success : function(data, xhr, status ){	
 			
 			if(data != null){
-				if(data[0].rul_result == '조회성공'){
+				if(data[0].rul_result == '성공'){
 				let array = data[0].rul_data.split(',');
 				for(let i = 0; i<array.length;i++){
 					console.log(array[i]);
 					$('#rul'+(i+1)).val(array[i].trim());
 				}
 				$('#flagRul').val('true');
-				}else if(data[0].rul_result == '조회실패'){
+				}else if(data[0].rul_result == '실패'){
 					$('#flagRul').val('false');
 				}
 				

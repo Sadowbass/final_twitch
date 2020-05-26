@@ -39,8 +39,8 @@
 	        document.getElementById('mediaplayer').innerHTML = '<img src="../img/loding.png" width="100%"/>';
 	        //alert('wqdq');
 		});
-
-		if($('#msgBroadCasting').val() == '입력성공'){
+		
+		if($('#msgBroadCasting').val() == '성공'){
 			Swal.fire({
 				  position: 'center',
 				  icon: 'success',
@@ -53,8 +53,7 @@
 			$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
 			/* 소켓 접속 */
 			uk.connectWS();
-
-		}else if($('#msgBroadCasting').val() == '입력실패'){
+		}else if($('#msgBroadCasting').val() == '실패'){
 			Swal.fire({
 				  position: 'center',
 				  icon: 'error',
@@ -68,7 +67,7 @@
 				$('#pk_switch').toggleClass('on');
 
 			}
-		}else if($('#msgBroadCasting').val()=='삭제성공'){
+		}else if($('#msgBroadCasting').val()=='중지성공'){
 			Swal.fire({
 				  position: 'center',
 				  icon: 'success',
@@ -80,9 +79,9 @@
 
 			$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
 			$('#streamKey').prop('readonly',false);
-			/* 소켓 종료 */
-			uk.WSclose();
-		}else if($('#msgBroadCasting').val()=='삭제실패'){
+		/* 소켓 종료 */
+		uk.WSclose();
+		}else if($('#msgBroadCasting').val()=='중지실패'){
 			Swal.fire({
 				  position: 'center',
 				  icon: 'error',
