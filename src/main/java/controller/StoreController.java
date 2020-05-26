@@ -224,6 +224,8 @@ public class StoreController {
 		
 		List<StoreFaqVo> list = dao.faqSelect();
 		
+		String url = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
+		System.out.println(url);
 		
 		mv.addObject("list", list);
 		mv.setViewName("qna");

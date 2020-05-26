@@ -55,6 +55,8 @@ store.inquiry = function () {
     $.post('inquiry.jsp', function (data, state) {
         $('#sh_main').html(data)
     });
+    
+    alert(document.domain)
 
 }
 
