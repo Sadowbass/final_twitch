@@ -4,6 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
+    <insert id="cart_insert" parameterType="store.StoreCartVo">
+      
+      insert into cart(cart_id, mem_id, product_id, cart_count, cart_date)
+      values(seq_storecart.nextval, #{mem_id}, #{product_id}, #{cart_count}, sysdate)
+      
+    </insert>
+    
+
 	<insert id="review_insert" parameterType="store.StoreReviewVo">
 	  
 	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)

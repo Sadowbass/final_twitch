@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 
 
 import bean.StoreMybatisDao;
+import store.StoreCartVo;
 import store.StoreFaqVo;
 import store.StoreReviewPhotoVo;
 import store.StoreReviewVo;
@@ -229,6 +230,30 @@ public class StoreController {
 		
 		mv.addObject("list", list);
 		mv.setViewName("qna");
+		return mv;
+	}
+	
+	@RequestMapping(value="/store/addToCart.str", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView addCart(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		
+		int product_id = Integer.parseInt(req.getParameter("product_id"));
+		int product_size = Integer.parseInt(req.getParameter("product_size"));
+		int cart_count = Integer.parseInt(req.getParameter("product_q"));
+		String mem_id = req.getParameter("mid");
+		
+		System.out.println(product_id);
+		System.out.println(product_size);
+		System.out.println(mem_id);
+		
+		StoreCartVo vo = new StoreCartVo();
+		StoreMybatisDao dao = new StoreMybatisDao();
+		
+		vo = new StoreCartVo(mem_id, product_id, cart_count);
+		
+		String msg = dao.cartInsert(vo);
+		
+		mv.setViewName("productDetail");
 		return mv;
 	}
 

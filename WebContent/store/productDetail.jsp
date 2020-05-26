@@ -164,8 +164,10 @@
                             <div class="product-page-options">
                                 <div class="pull-left">
                                     <label class="control-label">Size:</label>
-                                    <select class="form-control input-sm">
-                                        <option>FREE</option>
+                                    <select class="form-control input-sm" id="sizeOption">
+                                        <option value=1>S</option>
+                                        <option value=2>M</option>
+                                        <option value=3>L</option>
                                     </select>
                                 </div>
 
@@ -175,7 +177,9 @@
                                     <input id="product-quantity" type="text" value="1" readonly
                                            class="form-control input-sm">
                                 </div>
-                                <button class="btn btn-primary" type="submit">Add to cart</button>
+                                <input type="hidden" id="cart_product" value="${vo.product_id }">
+                                <input type="hidden" id="mid" value="kim">
+                                <input type="button" id="addcart" class="btn btn-primary" value="Add to cart" onclick="store.addcart()">
                             </div>
                             <div class="review">
                                 <input type="range" value="4" step="0.25" id="backing4">
