@@ -72,7 +72,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
               </c:otherwise>
             </c:choose>
             <a href="#">
-              ${vo.mem_Id}
+              ${vo.mem_id}
               <span
                 title=""
                 data-placement="top"

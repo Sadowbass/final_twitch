@@ -31,7 +31,6 @@ public class BroadCastingMybatisDao {
 	}
 
 	public List<BroadCastingCateVo> selectCate() {
-		System.out.println("ddddddddddddddddddddddddddddddddd");
 		List<BroadCastingCateVo> list = null;
 
 		try {
@@ -47,12 +46,11 @@ public class BroadCastingMybatisDao {
 	}
 
 	public List<BroadCastingDonationVo> selectDonation(String mId) {
-		System.out.println("도네이션브이오들어옴");
-		System.out.println(mId);
 		List<BroadCastingDonationVo> list = new ArrayList<BroadCastingDonationVo>();
 
 		try {
 			list = sqlSession.selectList("broadCasting.selectDonation", mId);
+			
 			System.out.println(list.size());
 
 			if (list != null) {
@@ -69,6 +67,37 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
+	
+	public int selectFollow(String mId) {
+		int cnt = 0;
+		
+		try {
+			cnt = sqlSession.selectOne("broadCasting.selectFollow",mId);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			return cnt;
+		}
+		
+		
+	}
+	
+	
+	
+	public List<FollowListVo> selectFollowList(String mId) {
+		List<FollowListVo> list = null;
+		try {
+			list = sqlSession.selectList("broadCasting.selectFollowList",mId);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			return list;
+		}
+		
+		
+	}
+	
+	
 
 	public void readDonation(int serial) {
 		int result = 0;
@@ -76,12 +105,10 @@ public class BroadCastingMybatisDao {
 			result = sqlSession.update("broadCasting.readDonation", serial);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("수정실패");
 			sqlSession.rollback();
 			// sqlSession.close();
 		} finally {
 			if (result > 0) {
-				System.out.println("수정완료");
 				sqlSession.commit();
 				// sqlSession.close();
 			}
@@ -96,12 +123,12 @@ public class BroadCastingMybatisDao {
 			result = sqlSession.update("broadCasting.sendDonation", serial);
 		} catch (Exception e) {
 			e.printStackTrace();
-			msg = "송출실패";
+			msg = "실패";
 			sqlSession.rollback();
 			// sqlSession.close();
 		} finally {
 			if (result > 0) {
-				msg = "송출성공";
+				msg = "성공";
 				sqlSession.commit();
 				// sqlSession.close();
 			}
@@ -116,20 +143,20 @@ public class BroadCastingMybatisDao {
 		try {
 			flag = sqlSession.update("broadCasting.updateKey", vo);
 			if (flag < 1)
-				throw new Exception("업데이트 에러");
+				throw new Exception("방송시작 에러");
 
 			flag = sqlSession.insert("broadCasting.startAir", vo);
 			if (flag < 1)
-				throw new Exception("인서트 에러");
+				throw new Exception("방송시작 에러");
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			result = "입력실패";
+			result = "실패";
 			sqlSession.rollback();
 		} finally {
 			if (flag > 0) {
 				sqlSession.commit();
-				result = "입력성공";
+				result = "성공";
 			}
 
 			return result;
@@ -143,16 +170,21 @@ public class BroadCastingMybatisDao {
 
 		try {
 			flag = sqlSession.update("broadCasting.updateAir", vo);
-			if (flag < 1)
-				throw new Exception("업데이트 에러");
+			if (flag < 1) {
+				throw new Exception("방송정보 업데이트 에러");}else {
+					flag = sqlSession.insert("broadCasting.insertInfo",vo);
+					if(flag<1) {
+						throw new Exception("방송정보 업데이트 에러");
+					}
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = "수정에 실패하셨습니다.";
+			result = "실패";
 			sqlSession.rollback();
 		} finally {
 			if (flag > 0) {
 				sqlSession.commit();
-				result = "수정에 성공하셨습니다.";
+				result = "성공";
 			}
 
 			return result;
@@ -160,17 +192,25 @@ public class BroadCastingMybatisDao {
 
 	}
 
-	public String deleteAir(String mId, String sKey) {
+	public String deleteAir(String mId, String sKey,String gameName) {
 		String result = "";
 		int flag = 0;
+		BroadCastingAirVo vo = new BroadCastingAirVo();
+		vo.setAir_gname(gameName);
+		vo.setAir_mid(mId);
 
 		try {
 			flag = sqlSession.delete("broadCasting.deleteAir", mId);
-			if (flag < 1)
-				throw new Exception("���� ����");
+			if (flag < 1) {
+				throw new Exception("생방송삭제에러");}else {
+					flag = sqlSession.insert("broadCasting.insertInfo",vo);
+					if(flag<1) {
+						throw new Exception("생방송삭제에러");
+					}
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = "��������";
+			result = "중지실패";
 			sqlSession.rollback();
 		} finally {
 			if (flag > 0) {
@@ -179,17 +219,17 @@ public class BroadCastingMybatisDao {
 						"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/uploads/" + sKey + ".m3u8.png");
 				if (file.exists()) {
 					if (file.delete()) {
-						System.out.println("���ϻ��� ����");
+
 					} else {
-						System.out.println("���ϻ��� ����");
+
 					}
 				} else {
-					System.out.println("������ �������� �ʽ��ϴ�.");
+
 				}
 			}
 
 			sqlSession.commit();
-			result = "��������";
+			result = "중지성공";
 		}
 
 		return result;
@@ -200,12 +240,12 @@ public class BroadCastingMybatisDao {
 		try {
 			vo = sqlSession.selectOne("broadCasting.selectRoulette", mId);
 		} catch (Exception e) {
-			System.out.println("룰렛조회입섹션!!");
 		} finally {
 			return vo;
 		}
 
 	}
+
 
 	public String saveRoulette(String mId, String newRouletteData, String flagRul) {
 		String result = "";
@@ -216,15 +256,15 @@ public class BroadCastingMybatisDao {
 
 		try {
 
-			if (flagRul.equals("true")) { // 기존에 데이터가 있음 업데이트
+			if (flagRul.equals("true")) { 
 				flag = sqlSession.update("broadCasting.saveRoulette1", map);
 				if (flag < 1)
-					throw new Exception("룰렛 업데이트 에러");
-			} else if (flagRul.equals("false")) { // 기존에 데이터가 없음 인서트
+					throw new Exception("룰렛저장에러");
+			} else if (flagRul.equals("false")) { // 
 				flag = sqlSession.insert("broadCasting.saveRoulette2", map);
 
 				if (flag < 1)
-					throw new Exception("룰렛 인서트 에러");
+					throw new Exception("룰렛저장에러");
 			}
 
 		} catch (Exception e) {
@@ -247,14 +287,14 @@ public class BroadCastingMybatisDao {
 		try {
 			flag = sqlSession.delete("broadCasting.deleteRoulette", mId);
 			if (flag < 1)
-				throw new Exception("�귿 ����Ʈ ����");
+				throw new Exception("룰렛삭제에러");
 		} catch (Exception e) {
 			sqlSession.rollback();
-			result = "����";
+			result = "실패";
 		} finally {
 			if (flag > 0) {
 				sqlSession.commit();
-				result = "����";
+				result = "성공";
 			}
 
 			return result;
@@ -271,10 +311,10 @@ public class BroadCastingMybatisDao {
 		try {
 			flag = sqlSession.update("broadCasting.imageThumbnail", map);
 			if (flag < 1)
-				throw new Exception("����� �Է� ����");
+				throw new Exception("썸네일에러");
 		} catch (Exception e) {
 			sqlSession.rollback();
-			result = "����";
+			result = "실패";
 		} finally {
 			if (flag > 0) {
 				sqlSession.commit();
@@ -285,5 +325,18 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
+	
+	public BroadCastingAirVo selectAir(String mId) {
+		BroadCastingAirVo vo = null;
+		try {
+			vo = sqlSession.selectOne("broadCasting.selectAir",mId);
+
+		}catch (Exception e) {
+			
+		}finally {
+			return vo;
+		}
+	}
+	
 
 }

@@ -82,9 +82,8 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#" id="account" onclick="pagemove(this)"><i
-                            class="fas fa-fw fa-user-circle"></i> &nbsp; My
-                        Account</a>
+					<a class="dropdown-item" href="#" id="mypage/userPage" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My
+                    Account</a>
                     <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i
                             class="fas fa-fw fa-video"></i> &nbsp;
                         방송하기</a>
