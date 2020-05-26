@@ -98,6 +98,22 @@ public class BroadCastingMybatisDao {
 	}
 	
 	
+	public UserInfoVo initUser(String mId) {
+		UserInfoVo vo = null;
+		
+		try {
+			vo = sqlSession.selectOne("broadCasting.initUser",mId);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			return vo;
+			
+		}
+		
+		
+	}
+	
+	
 
 	public void readDonation(int serial) {
 		int result = 0;

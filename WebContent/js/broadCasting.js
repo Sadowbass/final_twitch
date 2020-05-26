@@ -81,6 +81,29 @@ function initAir() {
 	
 }
 
+function initUser() {
+	let mId = $('#mId').val();
+	
+	$.ajax({
+		url : 'initUser.bc',
+		type : 'post',
+		async:false,
+		data : {"mId":mId},
+		dataType: 'json',
+		error : function(xhr, status, error){
+			  console.log(xhr);
+		},
+		success : function(data, xhr, status ){	
+			
+			$('#memberName').html(data.mem_name);
+			$('#memberPhoto').attr("src","../img/user-photo/"+data.ph_sysfile);
+					
+		}
+			
+	})
+	
+}
+
 
 function broadCastingTime() {
 	
