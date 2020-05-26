@@ -100,7 +100,6 @@
                 }
             })
         }
-
     })
 </script>
 <div id="topplace">

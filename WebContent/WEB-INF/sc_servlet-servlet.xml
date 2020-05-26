@@ -18,8 +18,10 @@
 	<context:annotation-config />
 
 	<!-- bean -->
+	<bean id="SCDao" class="bean.SCDao"></bean>
 	<!--controller -->
 	<bean id="sc_controller" class="controller.SCController">
+		<constructor-arg ref="SCDao"></constructor-arg>
 	</bean>
 	<bean id="test_controller" class="controller.SCStoreController">
 	</bean>

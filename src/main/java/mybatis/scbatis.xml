@@ -144,4 +144,28 @@
     <select id="dupIdCheck" parameterType="String" resultType="int">
         select count('mem_id') from FINAL_MEMBER where MEM_ID = #{value }
     </select>
+
+    <!--구독 확인-->
+    <select id="subCheck" parameterType="hashmap" resultType="int">
+        select * from (select trunc(sysdate) - trunc(SUB_RDATE) from FINAL_SUBSCRIPTION where SUB_MID = #{uid} and SUB_OID = #{sid} order by SUB_RDATE desc) where ROWNUM = 1
+    </select>
+    <!--잔액 확인-->
+    <select id="moneyCheck" parameterType="hashmap" resultType="int">
+        select MEM_MONEY from FINAL_MEMBER where MEM_ID = #{uid}
+    </select>
+    <!-- 구독등록 -->
+    <select id="commitSub" parameterType = 'hashmap'>
+    	insert into FINAL_SUBSCRIPTION(SUB_SERIAL, SUB_MID, SUB_OID, SUB_RDATE) values (SEQ_SUBSCRIPTION.nextval, #{uid}, #{sid}, sysdate)
+    </select>
+    <!-- 구독금액 차감 -->
+    <update id="subPay" parameterType="String">
+    	update final_member set mem_money = mem_money - 10000 where mem_id = #{value}
+    </update>
+    <!-- 도네이션 등록 -->
+    <insert id="donationInput" parameterType="hashmap">
+    insert into FINAL_DONATION(DON_SERIAL, DON_MID, DON_OID, DON_PRICE, DON_RDATE, DON_PUSH, DON_CONTENT, URL, TYPE)
+	VALUES (SEQ_DONATION.nextval,#{uid}, #{sid}, 0, sysdate, 0, 'no', 'no', #{type})
+    </insert>
+    
+    
 </mapper>

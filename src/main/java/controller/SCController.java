@@ -17,9 +17,14 @@ import java.util.stream.Stream;
 
 @RestController
 public class SCController {
+    SCDao dao;
 
     public SCController() {
         System.out.println("컨트롤러 생성");
+    }
+
+    public SCController(SCDao dao) {
+        this.dao = dao;
     }
 
     /* 카테고리 첫 페이지 띄웠을때 */
@@ -30,7 +35,6 @@ public class SCController {
         if (req.getParameter("findTag") != null) {
             findStr = req.getParameter("findTag");
         }
-        SCDao dao = new SCDao();
         List<CategoriesVo> list = dao.categories(findStr);
 
         mv.addObject("URI", 0);
@@ -51,7 +55,6 @@ public class SCController {
         if (req.getParameter("findTag") != null) {
             findStr = req.getParameter("findTag");
         }
-        SCDao dao = new SCDao();
         List<CategoriesVo> list = dao.categories(rno, findStr);
         String result = gson.toJson(list);
         return result;
@@ -61,7 +64,6 @@ public class SCController {
     @RequestMapping(value = "categories/all", method = RequestMethod.GET)
     public ModelAndView liveAll(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         List<StreamingVo> list = new ArrayList<StreamingVo>();
         String findStr = "";
         if (req.getParameter("findTag") != null) {
@@ -87,11 +89,8 @@ public class SCController {
         if (req.getParameter("findTag") != null) {
             findStr = req.getParameter("findTag");
         }
-        System.out.println("스트리밍페이지" + findStr);
-        SCDao dao = new SCDao();
         List<StreamingVo> list = dao.allStreaming(rno, findStr);
         String result = gson.toJson(list);
-        System.out.println(rno);
 
         return result;
     }
@@ -100,7 +99,6 @@ public class SCController {
     @RequestMapping(value = "/{id}/video", method = RequestMethod.GET)
     public ModelAndView videoPage(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         List<BeforeVo> list = dao.lateVideo(id);
 
         mv.addObject("list", list);
@@ -112,7 +110,6 @@ public class SCController {
     @ResponseBody
     @RequestMapping(value = "/{id}/videoPaging.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public String videoPaging(HttpServletRequest req, @PathVariable String id) {
-        SCDao dao = new SCDao();
         String srno = req.getParameter("rno");
         int rno = Integer.parseInt(srno);
         List<BeforeVo> list = dao.videoPaging(id, rno);
@@ -127,14 +124,12 @@ public class SCController {
     @RequestMapping(value = "/userinfo.sc", method = { RequestMethod.POST, RequestMethod.GET })
     public ModelAndView topPage(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         HttpSession session = req.getSession();
         String mId = (String) session.getAttribute("session_id");
 
         if (mId != null) {
             UserInfoVo vo = dao.userInfo(mId);
             mv.addObject("loginInfo", vo);
-            System.out.println(vo.toString());
         }
 
         mv.setViewName("top");
@@ -156,7 +151,6 @@ public class SCController {
     @RequestMapping(value = "/sidebar.sc", method = RequestMethod.GET)
     public ModelAndView sideBar(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         HttpSession session = req.getSession();
         String mId = (String) session.getAttribute("session_id");
         List<StreamingVo> list = new ArrayList<StreamingVo>();
@@ -177,9 +171,7 @@ public class SCController {
     /* 특정유저의 페이지 접속 */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req, @PathVariable String id) {
-        System.out.println(id);
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         HttpSession session = req.getSession();
         String user = (String) session.getAttribute("session_id");
         if (user != null) {
@@ -212,7 +204,6 @@ public class SCController {
     @RequestMapping(value = "/{id}/donation-view", method = RequestMethod.GET)
     public ModelAndView donationViewPage(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         StreamingVo vo = dao.streamInfo(id);
 
         if (vo == null) {
@@ -229,7 +220,6 @@ public class SCController {
     @RequestMapping(value = "/{id}/chat-view", method = RequestMethod.GET)
     public ModelAndView chatViewPage(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         StreamingVo vo = dao.streamInfo(id);
         if (vo == null) {
             mv.setViewName("../404");
@@ -244,7 +234,6 @@ public class SCController {
     @RequestMapping(value = "/{id}/followers", method = RequestMethod.GET)
     public ModelAndView follwers(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         List<UserInfoVo> list = dao.followers(id);
 
         mv.addObject("list", list);
@@ -258,7 +247,7 @@ public class SCController {
     public String dtest(HttpServletRequest req) {
         DonationVo vo = new DonationVo();
         String mId = req.getParameter("mId");
-        vo = new SCDao().donationView(mId);
+        vo = dao.donationView(mId);
         Gson gson = new Gson();
         String json = gson.toJson(vo);
         return json;
@@ -270,7 +259,6 @@ public class SCController {
     public String searchFriend(HttpServletRequest req) {
         String result = "";
         String mId = req.getParameter("value");
-        SCDao dao = new SCDao();
         Gson gson = new Gson();
         result = gson.toJson(dao.findFriends(mId));
 
@@ -288,7 +276,6 @@ public class SCController {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
         map.put("pwd", pwd);
-        SCDao dao = new SCDao();
         UserInfoVo vo = dao.idcheck(map);
         if (vo != null) {
             flag = "true";
@@ -307,7 +294,6 @@ public class SCController {
     @ResponseBody
     @RequestMapping(value = "dupIdCheck.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8;")
     public String dupIdChecker(HttpServletRequest req) {
-        SCDao dao = new SCDao();
         int i = dao.dupIdCheck(req.getParameter("mId"));
         Gson gson = new Gson();
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -319,7 +305,6 @@ public class SCController {
     @RequestMapping(value = "/{id}/follow", method = RequestMethod.POST)
     public void addFollow(HttpServletRequest req, @PathVariable String id){
         String sid = req.getParameter("sid");
-        SCDao dao = new SCDao();
         int result = dao.addFollow(sid, id);
     }
 
@@ -327,9 +312,48 @@ public class SCController {
     @RequestMapping(value = "/{id}/follow", method = RequestMethod.DELETE)
     public void deleteFollow(HttpServletRequest req, @PathVariable String id){
         String sid = req.getParameter("sid");
-        System.out.println(sid);
-        SCDao dao = new SCDao();
         int result = dao.deleteFollow(sid, id);
     }
 
+    /*구독 체크 및 정보 전달*/
+    @ResponseBody
+    @RequestMapping(value = "subCheck.sc", method = RequestMethod.POST)
+    public String subCheck(HttpServletRequest req){
+        String result = "";
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        String sid = req.getParameter("sid");
+        String uid = req.getParameter("uid");
+        map.put("sid", sid);
+        map.put("uid", uid);
+
+        int r = dao.subCheck(map);
+        System.out.println(r);
+        if(r > 31 ){
+            int money = dao.moneyCheck(map);
+            map.put("money", money);
+            result = gson.toJson(map);
+        } else {
+            result = "already";
+        }
+
+        return result;
+    }
+
+    /*구독 등록*/
+    @ResponseBody
+    @RequestMapping(value = "commitSub.sc", method = RequestMethod.POST)
+    public String commitSub(HttpServletRequest req){
+        String result = "";
+        Map<String, Object> map = new HashMap<String, Object>();
+        String sid = req.getParameter("sid");
+        String uid = req.getParameter("uid");
+        map.put("sid", sid);
+        map.put("uid", uid);
+        map.put("type", 3);
+        int r = dao.commitSub(map);
+        dao.donationInsert(map);
+
+        return result;
+    }
 }

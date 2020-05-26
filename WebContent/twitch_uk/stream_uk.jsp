@@ -3,6 +3,8 @@
 <% request.setCharacterEncoding("utf-8"); %>
 <%@taglib
         prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" type="text/css"
+      href="https://fonts.googleapis.com/earlyaccess/jejugothic.css">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +27,35 @@
             rel="stylesheet"
             type="text/css"
     />
+    <style>
+        .btn-font {
+            font-family: "Helvetica Neue";
+            font-size: small;
+        }
+
+        .modal-body-top-left {
+            color: #000000;
+        }
+
+        p {
+            color: #000000;
+        }
+        .inner-img{
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .circle-div{
+            width: 70px;
+            height: 70px;
+            padding-top: 23px;
+            background-color: #dddddd;
+            border-radius: 100%;
+        }
+        .img-p{
+            width: 70px;
+        }
+    </style>
     <!-- Custom styles for this template-->
     <link href="/css/osahan.css" rel="stylesheet"/>
     <!-- Owl Carousel -->
@@ -42,6 +73,7 @@
     <script src="/js/custom.js"></script>
     <script src="/js/sc_custom.js"></script>
     <script src="/js/js_uk.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body class="mostly-customized-scrollbar" id="page-top" style="width: 100%;">
 <div id="topplace">
@@ -152,11 +184,15 @@
             <button class="btn" type="button">
                 <i class="far fa-user p-1"></i>
             </button>
+
             <span class="pr-2" id="totalUserCnt"></span>
+
             <button class="btn" type="button">
                 <i class="fas fa-eye p-1"></i>
             </button>
+
             <span class="pr-2" id="accArea"></span>
+
             <button
                     class="btn dropdown"
                     type="button"
@@ -168,15 +204,17 @@
             >
                 <i class="fas fa-share-alt p-2"></i>
             </button>
+
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#">Action</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
             </div>
+
             <button
                     class="btn dropdown"
                     type="button"
-                    id="dropdownMenuButton"
+                    id="dropdownMenuButton2"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
@@ -184,7 +222,8 @@
             >
                 <i class="fas fa-ellipsis-v pl-2 pr-4"></i>
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <a class="dropdown-item" href="#">Action</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
@@ -325,7 +364,7 @@
             $.ajax({
                 url: "/" + $('#uid').val() + "/follow",
                 type: 'delete',
-                data: {"sid" : $('#sid').val()},
+                data: {"sid": $('#sid').val()},
                 success: (data) => {
                     check.classList.add("btn-outline-danger");
                     check.classList.remove("btn-primary")
@@ -350,18 +389,72 @@
             alert("로그인을 해주세요")
             return;
         }
-        $('#exampleModal').modal('toggle');
+        $('#subModal').modal('toggle');
+    }
 
-        $('#exampleModal').on('shown.bs.modal', function () {
+    let goPay = function () {
+        let uid = $('#uid').val();
+        let sid = $('#sid').val();
 
+        $.ajax({
+            type:'post',
+            data:{'uid':uid, 'sid':sid},
+            url:'subCheck.sc',
+            success : function (data) {
+                if (data == 'already') {
+                    $('#subModal').modal('hide');
+                    swal({
+                        text : "이미 구독중 입니다",
+                        icon : "error"
+                    })
+                } else {
+                    $('#subModal').modal('hide');
+                    let json = JSON.parse(data);
+                    $('#sidField').html("구독 할 스트리머 : "+json.sid);
+                    $('#moneyField').html("현재 잔액 : " + json.money);
+                    $('#payModal').modal('toggle');
+                }
+            }
         })
+    }
+
+    let commitSub = function () {
+        let money = $('#moneyField').html().split(": ")[1];
+        let uid = $('#uid').val();
+        let sid = $('#sid').val();
+        if (money < 10000) {
+            swal({
+                text:"잔액이 부족합니다",
+                icon : "error"
+            })
+        } else {
+            let uid = $('#uid').val();
+            let sid = $('#sid').val();
+            $.ajax({
+                type : 'post',
+                url : 'commitSub.sc',
+                data : {
+                    'sid' : sid,
+                    'uid' : uid
+                },
+                success : function (data) {
+                    swal({
+                        text:"구독에 성공하셨습니다",
+                        icon:"success"
+                    })
+                    $('#payModal').modal('hide');
+                }
+            })
+        }
+
     }
 </script>
 <jsp:include page="/logout-modal.jsp" flush="false"></jsp:include>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="subModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 620px;">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <c:choose>
@@ -377,11 +470,103 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="row" style="border-bottom: 1px solid #dee2e6; padding-bottom: 1rem">
+                    <div class="modal-body-top-left col-8">
+                        <span>티어1 정기구독</span><br>
+                        <span>10,000원에 1개월간 구독됩니다</span>
+                    </div>
+                    <div class="modal-body-top-right col-4 text-right">
+                        <button class="btn btn-primary btn-font" onclick="goPay()">
+                            <i class="fa fa-star"></i>
+                            <span>정기구독</span>
+                            <span>10,000</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 1rem">
+                    <div class="col-12" >
+                        <h4 style="font-weight: 600; font-size: 1.4rem">티어 1 정기구독</h4>
+                        <p>정기구독은 좋아하는 스트리머를 직접 지원하고 혜택까지 받는 좋은 방법입니다!</p>
+                        <div>
+                            <h5 style="font-size: 1rem; font-weight: 600;">혜택</h5>
+                            <div class="text-center">
+                                <div class="inner-img">
+                                    <div class="circle-div" style="width: 70px;height: 70px;">
+                                        <img src="https://static.twitchcdn.net/assets/interruption-free-viewing-4f9e3f5877a2ce0a92c6.png" style="width: 35px; height: 25.92px;">
+                                    </div>
+                                    <p class="img-p">광고 없이 보기</p>
+                                </div>
+                                <div class="inner-img">
+                                    <div class="circle-div" style="width: 70px;height: 70px;">
+                                        <img src="https://static.twitchcdn.net/assets/sub-only-chat-432211050c885b3070f1.png" style="width: 35px; height: 35px;">
+                                    </div>
+                                    <p class="img-p">구독자 전용 채팅</p>
+                                </div>
+                                <div class="inner-img">
+                                    <div class="circle-div" style="width: 70px;height: 70px;">
+                                        <img src="https://static-cdn.jtvnw.net/subs-image-assets/subscriber-streams.svg" style="width: 35px; height: 25.92px;">
+                                    </div>
+                                    <p class="img-p">정기구독자 방송</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="subPayLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 620px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subPayLabel">구매완료</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="border-bottom: 1px solid #dee2e6; padding-bottom: 1rem">
+                    <div class="col-1">
+                        <c:choose>
+                            <c:when test="${vo.ph_sysfile == null}">
+                                <img
+                                        src="/img/user-photo/guest-icon.png"
+                                        class="rounded-circle"
+                                        style="height: 35px; width: 35px;"
+                                />
+                            </c:when>
+                            <c:otherwise>
+                                <img
+                                        src="/img/user-photo/${vo.ph_sysfile}"
+                                        class="rounded-circle"
+                                        style="height: 35px; width: 35px;"
+                                />
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="modal-body-top-left col-11">
+                        <span>티어1 정기구독</span><br>
+                        <span>10,000원에 1개월간 구독됩니다</span>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 1rem">
+                    <div class="col-12" >
+                        <h4 style="font-weight: 600; font-size: 1.4rem">구매정보</h4>
+                        <p>구독전 정보를 확인하세요</p>
+                        <div>
+                            <h5 id="sidField" style="font-size: 1rem; font-weight: 600;">구독할 스트리머 : </h5>
+                            <h5 id="moneyField" style="font-size: 1rem; font-weight: 600;">현재 머니 잔액 : </h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <button class="btn-primary" onclick="commitSub()">구독</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

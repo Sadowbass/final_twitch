@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
     ],
   });
 
-  jwplayer().onIdle(function () {
+  /*jwplayer().onIdle(function () {
     location.href = "test5";
-  });
+  });*/
 </script>

@@ -71,6 +71,14 @@ public class SCDao {
         return vo;
     }
 
+    /*도네 등록*/
+    public String donationInsert(Map<String, Object> map){
+        String result = "";
+        int r = sqlSession.insert("scbatis.donationInput", map);
+        sqlSession.commit();
+        return result;
+    }
+
     /* 친구 검색시 사용되는 메소드 */
     public List<SCFriendListVo> findFriends(String mId) {
         List<SCFriendListVo> list = new ArrayList<SCFriendListVo>();
@@ -103,8 +111,6 @@ public class SCDao {
     public List<CategoriesVo> categories(String rno, String findStr) {
         SCDao dao = new SCDao();
         HashMap<String, Object> map = new HashMap<String, Object>();
-        System.out.println(rno);
-        System.out.println(findStr);
         map.put("rno", rno);
         map.put("findStr", findStr);
         List<CategoriesVo> list = new ArrayList<CategoriesVo>();
@@ -175,10 +181,7 @@ public class SCDao {
 
     /* 로그인시 id pwd 체크 */
     public UserInfoVo idcheck(Map<String, String> map) {
-        System.out.println(map.get("id"));
-        System.out.println(map.get("pwd"));
         UserInfoVo result = sqlSession.selectOne("scbatis.idcheck", map);
-        System.out.println(result);
         return result;
     }
 
@@ -232,4 +235,35 @@ public class SCDao {
         return result;
     }
 
+    /*구독 정보 관리*/
+    public int subCheck(Map<String, Object> map){
+        if(sqlSession.selectOne("scbatis.subCheck", map) == null){
+            return 32;
+        } else {
+            return sqlSession.selectOne("scbatis.subCheck", map);
+        }
+    }
+    /*현재 잔액 확인*/
+    public int moneyCheck(Map<String, Object> map){
+        if (sqlSession.selectOne("scbatis.moneyCheck", map) == null) {
+            return 0;
+        } else {
+            return sqlSession.selectOne("scbatis.moneyCheck", map);
+        }
+    }
+
+    /*구독 등록*/
+    public int commitSub(Map<String, Object> map){
+        int r = 0;
+        r = sqlSession.insert("scbatis.commitSub",map);
+        if(r>0){
+            r= sqlSession.update("scbatis.subPay",map.get("uid"));
+            sqlSession.commit();
+        } else {
+            System.out.println("구독 등록중 에러남");
+            sqlSession.rollback();
+        }
+
+        return r;
+    }
 }
