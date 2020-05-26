@@ -16,10 +16,12 @@ public class WsConfig implements WebSocketConfigurer{
 	@Autowired
 	Handler handler;
 
+	@Autowired
+	NewHandler newHhandler;
+
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(handler, "/cht").addInterceptors(new HttpSessionHandshakeInterceptor()).setAllowedOrigins ("*"); //pure websocket
-		/*registry.addHandler(handler, "/cht").setAllowedOrigins ("*").withSockJS();*/ //sockJS
+		registry.addHandler(newHhandler, "/cht").addInterceptors(new HttpSessionHandshakeInterceptor()).setAllowedOrigins ("*"); //pure websocket
 	}
 
 	/*@Bean

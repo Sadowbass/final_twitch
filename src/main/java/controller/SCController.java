@@ -129,7 +129,7 @@ public class SCController {
         ModelAndView mv = new ModelAndView();
         SCDao dao = new SCDao();
         HttpSession session = req.getSession();
-        String mId = (String) session.getAttribute("mId");
+        String mId = (String) session.getAttribute("session_id");
 
         if (mId != null) {
             UserInfoVo vo = dao.userInfo(mId);
@@ -274,6 +274,10 @@ public class SCController {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
         map.put("pwd", pwd);
+
+        System.out.println(map.get("id"));
+        System.out.println(map.get("pwd"));
+
         SCDao dao = new SCDao();
         UserInfoVo vo = dao.idcheck(map);
         if (vo != null) {

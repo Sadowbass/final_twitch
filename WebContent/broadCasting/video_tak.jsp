@@ -8,7 +8,7 @@
 	<div id="main" style="width: 100%;">
 		<div id="mediaplayer"></div>
 	</div>
-	 
+
 	<script>
 		jwplayer('mediaplayer').setup({
 
@@ -23,7 +23,7 @@
 			androidhls : false,
 
 			abouttext : "얍얍",
-			
+
 			image: "../img/loding.png",
 
 			aboutlink : "http://www.jhta.co.kr",
@@ -34,12 +34,12 @@
 				file : "http://192.168.0.32:8845/hls/${sKey}.m3u8"
 			} ]
 		});
-		
-		jwplayer().onSetupError(function() { 
+
+		jwplayer().onSetupError(function() {
 	        document.getElementById('mediaplayer').innerHTML = '<img src="../img/loding.png" width="100%"/>';
 	   		//alert('wqdq');
 		});
-		
+
 		if($('#msgBroadCasting').val() == '입력성공'){
 			Swal.fire({
 				  position: 'center',
@@ -50,8 +50,11 @@
 				  timer: 1500
 				})
 			$('#updateBroadCasting').show();
-			$('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
-			
+			$('#streamKey').prop('readonly',true);
+			// 스트림키 값 못바꾸게
+			/* 소켓 접속 */
+			uk.connectWS();
+
 		}else if($('#msgBroadCasting').val() == '입력실패'){
 			Swal.fire({
 				  position: 'center',
@@ -61,10 +64,10 @@
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-			if($('#pk_switch').hasClass('on') === true){ 
-					
+			if($('#pk_switch').hasClass('on') === true){
+
 				$('#pk_switch').toggleClass('on');
-					
+
 			}
 		}else if($('#msgBroadCasting').val()=='삭제성공'){
 			Swal.fire({
@@ -75,9 +78,11 @@
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-				
+
 			$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
 			$('#streamKey').prop('readonly',false);
+			/* 소켓 종료 */
+			uk.WSclose();
 		}else if($('#msgBroadCasting').val()=='삭제실패'){
 			Swal.fire({
 				  position: 'center',
@@ -87,16 +92,16 @@
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-				
-				if($('#pk_switch').hasClass('on') === false){ 
-					
+
+				if($('#pk_switch').hasClass('on') === false){
+
 					$('#pk_switch').toggleClass('on');
-						
+
 				}
-				
-		}		
-		
-		
-		
-		
+
+		}
+
+
+
+
 	</script>

@@ -24,9 +24,16 @@
 	</update>
 
 	<!-- <select id="users" parameterType="String" resultType="String">
-		select mid from final_userlist
+		select mid
+		from final_userlist
 		where mid=#{_parameter}
 		and status=1
 	</select> -->
+
+	<select id="followList" parameterType="String" resultType="String">
+		select mfo_mid <!-- 나를 팔로우 하고 있는 사람 조회 -->
+		from final_mfollow
+		where mfo_oid=#{_parameter} <!-- 내 아이디  oid 스트리머다. -->
+	</select>
 
 </mapper>

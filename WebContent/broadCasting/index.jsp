@@ -866,7 +866,6 @@
 	<script>
 		bc.func()
 	</script>
-	<script>uk.connectWS();</script>
 
 </body>
 </html>

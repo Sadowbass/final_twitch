@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import bean.Cht;
 import bean.UserList;
 
-public class Handler extends TextWebSocketHandler{
+public class Handler_one extends TextWebSocketHandler{
 	/*
 	 * 스트리머=>mid
 	 * 입장한 사람(채팅 보냄)=>oid
@@ -135,7 +135,7 @@ public class Handler extends TextWebSocketHandler{
 		txtToEverybody.put("cht_txt", message.getPayload());
 		String JsonTxtToEverybody=gson.toJson(txtToEverybody);
 
-		/*보낸이, 스트리머, 채팅 내용 디비에 저장*/
+		/*스트리머, 보낸이, 채팅 내용 디비에 저장*/
 		cht.setCht_mid(mid);
 		cht.setCht_oid(oid);
 		cht.setCht_txt(message.getPayload());

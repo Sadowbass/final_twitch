@@ -196,6 +196,9 @@
             "id": $('#login-id-field').val(),
             "pwd": $('#login-pwd-field').val()
         }
+
+        console.log(fd);
+
         $.ajax({
             url: "/idcheck.sc",
             data: fd,
@@ -303,5 +306,16 @@
 </script>
 
 <script>
-	uk.connectWS();
+	/* 로그인 하면 소켓 접속 */
+
+	console.log('실행되냐');
+
+	ws = new WebSocket("ws://localhost/cht?justLogin");
+
+	ws.onopen = function (event) {
+		console.log("채팅 서버 접속 완료");
+	}
+	ws.onmessage = function (event) {
+		console.log(event.data);
+	}
 </script>

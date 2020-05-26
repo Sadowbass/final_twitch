@@ -134,7 +134,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
           <button class="btn" type="button">
             <i class="far fa-user p-1"></i>
           </button>
-          <span class="pr-2" id="totalUserCnt"></span>
+          <span class="pr-2" id="totalUsers"></span>
           <button class="btn" type="button">
             <i class="fas fa-eye p-1"></i>
           </button>
