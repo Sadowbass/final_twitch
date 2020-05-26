@@ -51,7 +51,7 @@
             })
          $('#updateBroadCasting').show();
          $('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
-         uk.connectWS(); /* 소켓 접속 */
+         uk.connectWS($("#mid").val(),$("#mid").val()); /* 소켓 접속 */
 
       }else if($('#msgBroadCasting').val() == '실패'){
          Swal.fire({

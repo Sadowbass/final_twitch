@@ -42,7 +42,6 @@ uk.stream = function () {
 /* 유저목록이랑 채팅창 변경 */
 uk.usersOrcht = function () {
 	if ($('div#chtArea').css('display') == 'block') {
-		$('#statusBoard').html('유저 목록(' + loginUserCnt + ')');
 		$('div#chtArea').css('display', 'none');
 		$('div#userList').css('display', 'block');
 	} else {
@@ -96,7 +95,7 @@ uk.unfoldRightOrBottom = function () {
 
 /* 소켓 연결시 */
 uk.connectWS = function (streamer, login) {
-
+	console.log('herehere');
 	streamerId = streamer;
 	loginId=login;
 
@@ -120,8 +119,8 @@ uk.connectWS = function (streamer, login) {
 
 		/*내가 입장시! 유저 목록jsonLIst*/
 		if(jsObj.userLIst){
-			console.log("userLIst",jsObj.userLIst);
-			$(jsObj.userLIst).each(function (index, item) {
+			console.log("userLIst",JSON.parse(jsObj.userLIst));
+			$(JSON.parse(jsObj.userLIst)).each(function (index, item) {
 				$('<div class=' + item + '></div>').html(item).appendTo('#userList');
 			});
 		}
@@ -161,8 +160,7 @@ uk.connectWS = function (streamer, login) {
 		}
 		/* 채팅! 발신자랑 채팅내용 chtArea에 붙이기 */
 		if (jsObj.mid && jsObj.txt && $('#chtArea').length) {
-			$('<div></div>').html(jsObj.mid + ': ' + jsObj.txt)
-				.appendTo('#chtArea');
+			$('<div></div>').html(jsObj.mid + ': ' + jsObj.txt).appendTo('#chtArea');
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		}
 	}

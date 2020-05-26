@@ -32,8 +32,7 @@ public class NewHandler extends TextWebSocketHandler {
 		/* 로그인 아이디 */
 		String mid = (String) session.getAttributes().get("session_id");
 		/* 단순 로그인인지 방송 입장인지 검열 */
-		String censorship = session.getUri().toString()
-				.substring(session.getUri().toString().lastIndexOf("?") + 1); /* 스트리머 */
+		String censorship = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1); /* 스트리머 */
 
 		/* 단순 로그인 */
 		if (mid != null && censorship.equals("justLogin")) {
@@ -42,6 +41,8 @@ public class NewHandler extends TextWebSocketHandler {
 
 		/* 채팅방 입장 */
 		if (!censorship.equals("justLogin")) {
+			System.out.println("채팅방 입장::::"+mid+"&&&&"+censorship);
+
 			/* 입장한 유저에게 보낼 로그인한 유저 목록 */
 			List<String> inChatRoomList = new ArrayList<String>();
 			for (WebSocketSession c : chatRoom) {
@@ -49,15 +50,18 @@ public class NewHandler extends TextWebSocketHandler {
 					inChatRoomList.add((String) c.getAttributes().get("session_id"));
 				}
 			}
+
+			chatRoom.add(session); /* 세션에 저장 */
 			/* 채팅방 입장한 유저에게 채팅방 유저 목록 json으로 변환해서 */
 			JsonObject jsonObject = new JsonObject();
 			String jsonLIst = gson.toJson(inChatRoomList);
 			jsonObject.addProperty("userLIst", jsonLIst);
 
 			/* 채팅방 입장한 유저에게 채팅방 총시청자수 & 누적 시청자수 json으로 변환해서 */
-			if (accumulate.get(censorship) != null)
+			if (totalUsers.get(censorship) != null)
 				jsonObject.addProperty("totalUsers", totalUsers.get(censorship));
-			jsonObject.addProperty("accUser", accumulate.get(censorship));
+			if (accumulate.get(censorship) != null)
+				jsonObject.addProperty("accUser", accumulate.get(censorship));
 
 			/* 입장한 유저에게 보냄 */
 			String jsonTxt = gson.toJson(jsonObject);
@@ -65,6 +69,7 @@ public class NewHandler extends TextWebSocketHandler {
 
 			/* 로그인한 유저가 채팅방 입장 */
 			if (mid != null) {
+				System.out.println("로그인 유저가 채팅방 입장::::"+mid+"&&&&"+censorship);
 
 				/* 채팅방에 입장한 유저 채팅방 유저리스트 디비에 저장 */
 				userList.setMid(mid);
@@ -75,6 +80,7 @@ public class NewHandler extends TextWebSocketHandler {
 
 				/* 스트리머가 방송 시작 */
 				if (mid == censorship) {
+					System.out.println("스트리머 방송 시작::::"+mid+"&&&&"+censorship);
 					/* 온에어 스트리머 json으로 변환 */
 					JsonObject jsonObject2 = new JsonObject();
 					jsonObject2.addProperty("onAir", mid);
@@ -107,7 +113,7 @@ public class NewHandler extends TextWebSocketHandler {
 
 			}
 
-			chatRoom.add(session); /* 세션에 저장 */
+
 
 			/* 초시청자수 & 누적 시청자수 +1 메세지 보내야함 */
 			if (accumulate.get(censorship) != null) {
