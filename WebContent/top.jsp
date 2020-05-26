@@ -14,7 +14,9 @@
 </button>
 &nbsp;&nbsp;
 <a class="navbar-brand mr-1" href="/" id="main" onclick="pagemove(this)">
-    <img class="img-fluid" alt="" src="/img/favicon.png"> &nbsp;Twitch</a>
+    <img class="img-fluid" alt="" src="/img/favicon.png">
+    <img src="/img/Twitch_logo.png" style="height: 32px;">
+</a>
 <!-- Navbar Search -->
 <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
     <div class="input-group">
@@ -313,10 +315,7 @@
 
 <script>
 	/* 로그인 하면 소켓 접속 */
-
-	console.log('실행되냐');
-
-	ws = new WebSocket("ws://localhost/cht?justLogin");
+	ws = new WebSocket("ws://192.168.0.77/cht?justLogin");
 
 	ws.onopen = function (event) {
 		console.log("채팅 서버 접속 완료");

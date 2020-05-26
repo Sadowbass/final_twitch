@@ -247,7 +247,7 @@
         }
     })
 </script>
-<input type='text' id='findBc'/>
+<input type='hidden' id='findBc'/>
 <div id="topplace">
     <%@include file="/top.jsp" %>
 </div>

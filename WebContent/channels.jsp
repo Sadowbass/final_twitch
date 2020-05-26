@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-title">
-                            <h4>팔로워 12,122</h4>
+                            <h4>팔로워 ${cnt}</h4>
                         </div>
                     </div>
 
@@ -89,26 +89,6 @@
                         </div>
                     </c:forEach>
                 </div>
-
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center pagination-sm mb-4">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
 
                 <hr>
             </div>

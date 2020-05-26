@@ -28,6 +28,10 @@
             type="text/css"
     />
     <style>
+        textarea::placeholder{
+            font-size:1.2rem;
+            font-family: "Jeju Gothic";
+        }
         .btn-font {
             font-family: "Helvetica Neue";
             font-size: small;
@@ -79,11 +83,11 @@
 <div id="topplace">
     <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
-<div id="sidebarplace">
+<div id="sidebarplace" style="margin-top: 53px;">
     <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
 </div>
 <!-- video_main_uk -->
-<div class="video_main_uk">
+<div class="video_main_uk" style="padding-top: 0px;">
     <!-- video_top_uk -->
     <div class="d-flex justify-content-between" id="videoTop">
         <!-- 스트리머 -->
@@ -145,12 +149,12 @@
                     <c:choose>
                         <c:when test="${session_id == vo.mem_id}"></c:when>
                         <c:when test="${follow == true}">
-                            <button type="button" class="btn btn-primary btn" onclick="follow(this)">
+                            <button type="button" class="btn btn-primary btn" onclick="follow(this)" style="padding-top: 0px; padding-bottom: 0px; height: 30px;">
                                 <strong> <i class="far fa-heart"></i></strong> 팔로우
                             </button>
                         </c:when>
                         <c:otherwise>
-                            <button type="button" class="btn btn-outline-danger btn" onclick="follow(this)">
+                            <button type="button" class="btn btn-outline-danger btn" onclick="follow(this)" style="padding-top: 0px; padding-bottom: 0px; height: 30px;">
                                 <strong> <i class="far fa-heart"></i></strong> 팔로우
                             </button>
                         </c:otherwise>
@@ -163,7 +167,19 @@
                     <c:choose>
                         <c:when test="${session_id == vo.mem_id}"></c:when>
                         <c:otherwise>
-                            <button type="button" class="btn btn-outline-danger btn" onclick="subscribe(this)">
+                            <button type="button" class="btn btn-outline-danger btn" onclick="donation(this)" style="padding-top: 0px; padding-bottom: 0px; height: 30px;">
+                                <strong> <i class="far fa-star"></i></strong> 도네이션
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+            <div class="text-right p-1">
+                <div class="channels-card-image-btn">
+                    <c:choose>
+                        <c:when test="${session_id == vo.mem_id}"></c:when>
+                        <c:otherwise>
+                            <button type="button" class="btn btn-outline-danger btn" onclick="subscribe(this)" style="padding-top: 0px; padding-bottom: 0px; height: 30px;">
                                 <strong> <i class="far fa-star"></i></strong> 구독
                             </button>
                         </c:otherwise>
@@ -446,7 +462,10 @@
                 }
             })
         }
+    }
 
+    let donation = function (check) {
+        $('#donationModal').modal('toggle');
     }
 </script>
 <jsp:include page="/logout-modal.jsp" flush="false"></jsp:include>
@@ -570,6 +589,80 @@
             </div>
         </div>
     </div>
+</div>
+<%--도네이션 모달--%>
+<div class="modal fade" id="donationModal" tabindex="-1" role="dialog" aria-labelledby="subPayLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 620px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="donationModalLabel">도네이션</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav-tabs nav" style="margin-bottom: 10px;">
+                    <li class="nav-item">
+                        <a href="#textDonation" data-toggle="tab" class="navlink"><span>텍스트</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#movieDonation" data-toggle="tab" class="navlink" ><span>영상</span></a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="textDonation">
+                        <div class="row" style="border-bottom: 1px solid #dee2e6; padding-bottom: 1rem">
+                            <div class="col-1">
+                                <c:choose>
+                                    <c:when test="${vo.ph_sysfile == null}">
+                                        <img
+                                                src="/img/user-photo/guest-icon.png"
+                                                class="rounded-circle"
+                                                style="height: 35px; width: 35px;"
+                                        />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                                src="/img/user-photo/${vo.ph_sysfile}"
+                                                class="rounded-circle"
+                                                style="height: 35px; width: 35px;"
+                                        />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="modal-body-top-left col-11">
+                                <span>텍스트 도네이션</span><br>
+                                <span>스트리머의 방송을 후원하세요!</span>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 1rem">
+                            <div class="col-12" >
+                                <div>
+                                    <h5 id="textDonMoneyField" style="font-size: 1rem; font-weight: 600;">현재 머니 잔액 : </h5>
+                                    <h5 id="textDonMuchField" style="font-size: 1rem; font-weight: 600;">도네이션 금액 :  </h5>
+                                    <input type="text" name="pay" id="textPay" class="form-control" style="margin-bottom: 20px;">
+                                    <textarea name="pay" id="textContent" class="form-control" style="margin-bottom: 20px; resize: none" rows="10" placeholder="후원과 함께 보낼 메시지를 입력해주세요"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <button class="btn-primary" onclick="commitSub()">구독</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="movieDonation">
+                        아아라라라
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

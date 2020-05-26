@@ -263,7 +263,11 @@ public class SCDao {
             System.out.println("구독 등록중 에러남");
             sqlSession.rollback();
         }
-
         return r;
+    }
+
+    /*팔로워 수 카운트*/
+    public int followCount(String id){
+        return sqlSession.selectOne("scbatis.followCount", id);
     }
 }

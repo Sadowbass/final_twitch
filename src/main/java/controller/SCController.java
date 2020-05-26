@@ -235,7 +235,9 @@ public class SCController {
     public ModelAndView follwers(HttpServletRequest req, @PathVariable String id) {
         ModelAndView mv = new ModelAndView();
         List<UserInfoVo> list = dao.followers(id);
+        int r = dao.followCount(id);
 
+        mv.addObject("cnt",r);
         mv.addObject("list", list);
         mv.setViewName("/channels");
         return mv;

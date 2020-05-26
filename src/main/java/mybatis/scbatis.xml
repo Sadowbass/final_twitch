@@ -163,9 +163,12 @@
     </update>
     <!-- 도네이션 등록 -->
     <insert id="donationInput" parameterType="hashmap">
-    insert into FINAL_DONATION(DON_SERIAL, DON_MID, DON_OID, DON_PRICE, DON_RDATE, DON_PUSH, DON_CONTENT, URL, TYPE)
-	VALUES (SEQ_DONATION.nextval,#{uid}, #{sid}, 0, sysdate, 0, 'no', 'no', #{type})
+	    insert into FINAL_DONATION(DON_SERIAL, DON_MID, DON_OID, DON_PRICE, DON_RDATE, DON_PUSH, DON_CONTENT, URL, TYPE)
+		VALUES (SEQ_DONATION.nextval,#{uid}, #{sid}, 0, sysdate, 0, 'no', 'no', #{type})
     </insert>
-    
+    <!-- 팔로워 수 확인 -->
+    <select id="followCount" parameterType="String" resultType="int">
+		select count(mfo_oid) from final_mfollow where mfo_oid = #{value}	    		
+    </select>
     
 </mapper>

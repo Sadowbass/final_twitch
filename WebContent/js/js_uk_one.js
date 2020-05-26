@@ -178,7 +178,7 @@ uk.connectWS = function (streamer, login) {
 
 	console.log("streamerId::"+streamerId,"login:::",login);
 
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 서버 접속 완료");
