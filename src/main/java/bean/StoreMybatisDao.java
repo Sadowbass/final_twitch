@@ -168,30 +168,7 @@ public String reviewDelete(StoreReviewVo vo,List<StoreReviewPhotoVo> list) {
 		}
 	}
 	
-	public String cartInsert(StoreCartVo vo) {
-		String msg = "정상적으로 입력되었습니다.";
-		System.out.println("dao inset들어옴");
-	    int cnt;
-
-			try {			
-						cnt = sqlsession.insert("store.cart_insert", vo);
-						if(cnt<1) {
-							throw new Exception("카트 저장 중 오류 발생");
-						}
-
-						sqlsession.commit();
-						
-					}catch(Exception e1) {
-					
-						sqlsession.rollback();
-						msg = e1.getMessage();
-						e1.printStackTrace();
-					}finally {
-						//sqlSession.close();
-						return msg;
-					}
-				
-			}
+	
 		    
 	
 }

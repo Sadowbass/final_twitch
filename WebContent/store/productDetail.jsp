@@ -178,7 +178,7 @@
                                            class="form-control input-sm">
                                 </div>
                                 <input type="hidden" id="cart_product" value="${vo.product_id }">
-                                <input type="hidden" id="mid" value="kim">
+                                <input type="hidden" id="member_id" value="kim">
                                 <input type="button" id="addcart" class="btn btn-primary" value="Add to cart" onclick="store.addcart()">
                             </div>
                             <div class="review">
@@ -205,7 +205,7 @@
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">
-                      <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. </p>
+                      <p>${vo.product_explain}</p>
                     </div>
                     
                    

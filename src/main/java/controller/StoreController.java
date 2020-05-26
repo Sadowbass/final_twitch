@@ -12,14 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import bean.ProductVo;
 import bean.SCDao;
+import bean.StoreCartServiceif;
+import bean.StoreCartServieceDao;
+
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.CachingResourceTransformer;
 
 import com.google.gson.Gson;
 
@@ -93,11 +98,7 @@ public class StoreController {
         if (!dir.isDirectory()) {
             dir.mkdirs();
         }
-
-	    /*
-		 * uploadFile : 경로 maxSize : 크기 제한 설정 encoding: 인코딩 타입 설정 new
-		 * DefaultFileRenamePolicy(); 동일한 이름일 경우 자동으로 (1),(2) 붙게 해줌
-		 */ 
+ 
 	    
 	    //int maxSize =1024 *1024 *10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
 	    
@@ -234,26 +235,23 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value="/store/addToCart.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView addCart(HttpServletRequest req) {
+	public ModelAndView addCart(@ModelAttribute StoreCartVo vo, HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		
-		int product_id = Integer.parseInt(req.getParameter("product_id"));
-		int product_size = Integer.parseInt(req.getParameter("product_size"));
-		int cart_count = Integer.parseInt(req.getParameter("product_q"));
+	
 		String mem_id = req.getParameter("mid");
 		
-		System.out.println(product_id);
-		System.out.println(product_size);
 		System.out.println(mem_id);
 		
-		StoreCartVo vo = new StoreCartVo();
-		StoreMybatisDao dao = new StoreMybatisDao();
+		vo = new StoreCartVo();
 		
-		vo = new StoreCartVo(mem_id, product_id, cart_count);
+		StoreCartServieceDao cvdao = null;
+		vo.setMem_id(mem_id);
+	    cvdao.insert(vo);
 		
-		String msg = dao.cartInsert(vo);
+		//String msg = dao.cartInsert(vo);
 		
-		mv.setViewName("productDetail");
+		mv.setViewName("veiwCart");
 		return mv;
 	}
 

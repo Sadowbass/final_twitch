@@ -82,16 +82,16 @@ store.addcart = function(){
 	let param3 = $("#product-quantity").val();
 	let param4 = $("#memeber_id").val();
 	
-	console.log(param1);
-	console.log(param2);
-	
+	//console.log(param1);
+	//console.log(param2);
+	console.log(param4);
 	
     $.ajax({
         url: 'addToCart.str',
         data: {'product_id': param1,
         	   'product_size' :param2,
         	   'product_q' :param3,
-        	   'mid' :param4
+        	   'member_id' :param4
                },
         type: 'post',
         error: (error) => {
