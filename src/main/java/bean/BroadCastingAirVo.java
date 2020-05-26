@@ -9,6 +9,8 @@ public class BroadCastingAirVo {
 	String air_gname;
 	String air_tnames;
 	String mem_skey;
+	String cat_genre;
+	String cat_sysfile;
 	
 	public BroadCastingAirVo() {
 		// TODO Auto-generated constructor stub
@@ -70,9 +72,22 @@ public class BroadCastingAirVo {
 		this.mem_skey = mem_skey;
 	}
 
-	
-	
-	
-	
+	public String getCat_genre() {
+		return cat_genre;
+	}
+
+	public void setCat_genre(String cat_genre) {
+		this.cat_genre = cat_genre;
+	}
+
+	public String getCat_sysfile() {
+		return cat_sysfile;
+	}
+
+	public void setCat_sysfile(String cat_sysfile) {
+		this.cat_sysfile = cat_sysfile;
+	}
+
+
 	
 }

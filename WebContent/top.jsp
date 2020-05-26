@@ -89,9 +89,8 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#" id="account" onclick="pagemove(this)"><i
-                            class="fas fa-fw fa-user-circle"></i> &nbsp; My
-                        Account</a>
+					<a class="dropdown-item" href="#" id="mypage/userPage" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My
+                    Account</a>
                     <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i
                             class="fas fa-fw fa-video"></i> &nbsp;
                         방송하기</a>
@@ -310,4 +309,19 @@
     })
 
 
+</script>
+
+<script>
+	/* 로그인 하면 소켓 접속 */
+
+	console.log('실행되냐');
+
+	ws = new WebSocket("ws://localhost/cht?justLogin");
+
+	ws.onopen = function (event) {
+		console.log("채팅 서버 접속 완료");
+	}
+	ws.onmessage = function (event) {
+		console.log(event.data);
+	}
 </script>

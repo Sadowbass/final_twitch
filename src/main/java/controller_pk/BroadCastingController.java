@@ -1,12 +1,14 @@
 package controller_pk;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +23,7 @@ import bean.BroadCastingAirVo;
 import bean.BroadCastingCateVo;
 import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
+import bean.FollowListVo;
 import bean.RouletteVo;
 import bean.VideoTimeCut;
 import bean.timeCal;
@@ -73,7 +76,6 @@ public class BroadCastingController {
    @ResponseBody
    public String selectCate2() {
 
-      System.out.println("자동완성 들어옴");
       List<BroadCastingCateVo> list = dao.selectCate();
       String result = "";
       Gson gson = new Gson();
@@ -97,17 +99,16 @@ public class BroadCastingController {
 
    @RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
    public ModelAndView insertAir(HttpServletRequest req, HttpServletResponse resp) {
-      System.out.println("컨트롤러넘어옴");
       String msg = "";
       ModelAndView mv = new ModelAndView();
       String mId = req.getParameter("mId"); // 스트리머 아이디
+      System.out.println("123"+mId);
       String title = req.getParameter("broadCastingTitle"); // 제목
       String content = req.getParameter("broadCastingContent"); // 내용
       String sKey = req.getParameter("streamKey"); // 스트림 키
       String tags = req.getParameter("tags"); // 태그 들
       String gameName = req.getParameter("gameName"); // 게임 이름
 
-      System.out.println(sKey);
 
       BroadCastingAirVo vo = new BroadCastingAirVo();
 
@@ -119,9 +120,9 @@ public class BroadCastingController {
       vo.setAir_gname(gameName);
 
       msg = dao.startAir(vo);
-      if (msg.equals("입력성공")) {
+      if (msg.equals("성공")) {
          mv.setViewName("video_tak");
-      } else if (msg.equals("입력실패")) {
+      } else if (msg.equals("실패")) {
          mv.setViewName("video_tak2");
       }
       mv.addObject("sKey", sKey);
@@ -161,12 +162,13 @@ public class BroadCastingController {
       String msg = "";
       String mId = req.getParameter("mId"); // 스트리머 아이디
       String sKey = req.getParameter("streamKey"); // 스트림 키
+      String gameName = req.getParameter("gameName");
 
-      msg = dao.deleteAir(mId, sKey);
+      msg = dao.deleteAir(mId, sKey,gameName);
 
-      if (msg.equals("삭제성공")) {
+      if (msg.equals("중지성공")) {
          mv.setViewName("video_tak2");
-      } else if (msg.equals("삭제실패")) {
+      } else if (msg.equals("중지실패")) {
          mv.setViewName("video_tak");
       }
       mv.addObject("sKey", sKey);
@@ -209,6 +211,41 @@ public class BroadCastingController {
 
    }
 
+   	   @RequestMapping(value = "*/selectFollow.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String selectFollow(HttpServletRequest req, HttpServletResponse resp) {
+	      String mId = req.getParameter("mId"); // 스트리머 아이디
+	      int result = dao.selectFollow(mId);
+
+	      Gson gson = new Gson();
+	      JsonObject jsonObject = new JsonObject();
+	      jsonObject.addProperty("result", result);
+	      String json = gson.toJson(jsonObject);
+
+	      return json;
+
+	   }
+
+
+
+   	   @RequestMapping(value = "*/selectFollowList.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   public ModelAndView selectFollowList(HttpServletRequest req, HttpServletResponse resp) {
+  	      String mId = req.getParameter("mId"); // 스트리머 아이디
+  	      ModelAndView mv = new ModelAndView();
+  	      List<FollowListVo> list = dao.selectFollowList(mId);
+
+  	      mv.addObject("list",list);
+  	      mv.setViewName("followView");
+
+  	      return mv;
+
+  	   }
+
+
+
+
    @RequestMapping(value = "*/sendDonation.bc", method = { RequestMethod.GET,
          RequestMethod.POST }, produces = "application/text; charset=utf8")
    @ResponseBody
@@ -237,15 +274,14 @@ public class BroadCastingController {
          jsonObject.addProperty("rul_serial", vo.getRul_serial());
          jsonObject.addProperty("rul_mid", vo.getRul_mId());
          jsonObject.addProperty("rul_data", vo.getRul_data());
-         jsonObject.addProperty("rul_result", "조회성공");
+         jsonObject.addProperty("rul_result", "성공");
 
          jsonArray.add(jsonObject);
 
          result = gson.toJson(jsonArray);
       } else {
-         System.out.println("데이터 없음");
          jsonObject = new JsonObject();
-         jsonObject.addProperty("rul_result", "조회실패");
+         jsonObject.addProperty("rul_result", "실패");
          jsonArray.add(jsonObject);
          result = gson.toJson(jsonArray);
       }
@@ -270,9 +306,6 @@ public class BroadCastingController {
       while (tokens.hasMoreElements()) {
          list.add(tokens.nextToken().trim());
 
-      }
-      for (int i = 0; i < list.size(); i++) {
-         System.out.println(list.get(i));
       }
 
       String rouletteData = list.toString();
@@ -311,5 +344,72 @@ public class BroadCastingController {
       return result;
 
    }
+
+   @RequestMapping(value = "*/selectAir.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String selectAir(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      Gson gson = new Gson();
+	      JsonObject jsonObject = null;
+	      JsonArray jsonArray = new JsonArray();
+	      String mId = req.getParameter("mId");
+	      BroadCastingAirVo vo = dao.selectAir(mId);
+	      if(vo == null) {
+	          jsonObject = new JsonObject();
+	          jsonObject.addProperty("result", "실패");
+	          result = gson.toJson(jsonArray);
+	      }else {
+	          jsonObject = new JsonObject();
+	          jsonObject.addProperty("air_subject", vo.getAir_subject());
+	          jsonObject.addProperty("air_content", vo.getAir_content());
+	          jsonObject.addProperty("air_gname", vo.getAir_gname());
+	          jsonObject.addProperty("air_tnames", vo.getAir_tnames());
+	          jsonObject.addProperty("mem_skey", vo.getMem_skey());
+	          jsonObject.addProperty("cat_sysfile", vo.getCat_sysfile());
+	          jsonObject.addProperty("cat_genre", vo.getCat_genre());
+	          jsonObject.addProperty("air_starttime", vo.getAir_starttime());
+	          jsonObject.addProperty("result", "성공");
+
+	          jsonArray.add(jsonObject);
+
+	          result = gson.toJson(jsonArray);
+	      }
+
+
+	      return result;
+
+	   }
+
+
+
+   @RequestMapping(value = "*/initAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView initAir(HttpServletRequest req, HttpServletResponse resp) {
+      String msg = "init성공";
+      ModelAndView mv = new ModelAndView();
+      String sKey = req.getParameter("sKey"); // 스트리머 아이디
+
+      mv.setViewName("video_tak");
+
+      mv.addObject("sKey", sKey);
+      mv.addObject("msg", msg);
+
+      return mv;
+
+   }
+
+   @RequestMapping(value = "*/broadCastingTime.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String broadCastingTime(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      long time = System.currentTimeMillis();
+	      SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+	      result = sdf.format(new Date(time));
+
+	      return result;
+
+	   }
+
 
 }

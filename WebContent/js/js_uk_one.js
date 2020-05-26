@@ -4,7 +4,14 @@ let ws;
 let streamerId;
 let loginId;
 
-let accUser=0;
+let loginUserCnt = 0;
+let accUser = 0;
+
+/* 누적 & 현재 시청자수 */
+let accUserAndloginUserCnt=function(){
+	$('#accArea').html(accUser);
+	$('#loginUserCnt').html(loginUserCnt);
+}
 
 /* 스트림 */
 uk.stream = function () {
@@ -92,119 +99,6 @@ uk.unfoldRightOrBottom = function () {
 
 }
 
-
-
-/* 소켓 연결시 */
-uk.connectWS = function (streamer, login) {
-
-	streamerId = streamer;
-	loginId=login;
-
-	console.log("streamerId::"+streamerId,"loginId:::",loginId);
-
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
-
-	ws.onopen = function (event) {
-		console.log("채팅 접속");
-	}
-	ws.onclose = function (event) {
-		console.log("접속 종료");
-	}
-	ws.onerror = function (event) {
-		console.log("에러 발생");
-	};
-
-	ws.onmessage = function (event) {
-		console.log("evnet.data::",event.data);
-		let jsObj = JSON.parse(event.data);
-
-		/*내가 입장시! 유저 목록jsonLIst*/
-		if(jsObj.userLIst){
-			console.log("userLIst",jsObj.userLIst);
-			$(jsObj.userLIst).each(function (index, item) {
-				$('<div class=' + item + '></div>').html(item).appendTo('#userList');
-			});
-		}
-		/*내가 입장시! 총 시청자수 totalUsers*/
-		if(jsObj.totalUsers){
-			console.log("totalUsers", jsObj.totalUsers);
-			$("#totalUsers").html(jsObj.totalUsers);
-		}
-		/*총 시청자수+1 addTotal*/
-		if(jsObj.addTotal){
-			console.log("addTotal", jsObj.addTotal);
-			$("#totalUsers").html($("#totalUsers").html()+1);
-		}
-		/*총 시청자수-1 subTotal*/
-		if(jsObj.subTotal){
-			console.log("subTotal", jsObj.subTotal);
-			$("#totalUsers").html($("#totalUsers").html()-1);
-		}
-		/*내가 입장시! 누적 시청자수 accUser*/
-		if(jsObj.accUser){
-			console.log("accUser",jsObj.accUser);
-			accUser=jsObj.accUser
-			$('#accUser').html(accUser);
-		}
-		/*누적 시청자수+1 addAcc*/
-		if(jsObj.addAcc){
-			console.log("addAcc", jsObj.addAcc);
-			$("#accUser").html($("#accUser").html()+1);
-		}
-		/*다른 유저 입장*/
-		if (jsObj.addUser) {
-			$('<div class=' + jsObj.addUser + '></div>').html(jsObj.addUser).appendTo('#userList');
-		}
-		/*다른 유저 퇴장*/
-		if (jsObj.delUser) {
-			$('div[class=' + jsObj.delUser + ']').remove();
-		}
-		/* 채팅! 발신자랑 채팅내용 chtArea에 붙이기 */
-		if (jsObj.mid && jsObj.txt && $('#chtArea').length) {
-			$('<div></div>').html(jsObj.mid + ': ' + jsObj.txt)
-				.appendTo('#chtArea');
-			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
-		}
-	}
-
-	/* 엔터키 누르면 전송 내꺼 */
-	$('div[contenteditable]').keydown(function (e) {
-		if (e.keyCode === 13) {
-			if (!e.shiftKey) {
-				uk.WSsend();
-				return false;
-			}
-		}
-	});
-	/* 엔터키 누르면 전송 영탁형꺼 */
-	$('input#sendArea').keydown(function (e) {
-		if (e.keyCode === 13) {
-			if (!e.shiftKey) {
-				uk.WSsend();
-				return false;
-			}
-		}
-	});
-}
-/* socket 전송 메소드 */
-uk.WSsend = function () {
-
-	/* 내꺼 전송 */
-	if (ws.readyState === 1 && loginId && $('div[contenteditable]').html()) {
-		ws.send($('div[contenteditable]').html());
-		$('div[contenteditable]').empty();
-	}
-	/* 영탁형꺼 전송 */
-	if (ws.readyState === 1 && $('input#sendArea').val()) {
-		ws.send($('input#sendArea').val());
-		$('input#sendArea').val('');
-	}
-
-}
-/* socket close 메소드 */
-uk.WSclose = function () {
-	ws.close();
-}
 /* 왼쪽 */
 uk.leftValue = function () {
 	let left = 0;
@@ -271,8 +165,114 @@ uk.chtAndVideo = function () {
 	$(".video_main_uk").css('padding-top', top + 'px');
 	/* 채팅창 길이 */
 	$(".chtArea").height(height);
+
+
 }
 
+/* 소켓 연결시 */
+uk.connectWS = function (streamer, login) {
+
+
+	streamerId = streamer;
+	loginId=login;
+
+	console.log("streamerId::"+streamerId,"login:::",login);
+
+	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+
+	ws.onopen = function (event) {
+		console.log("채팅 서버 접속 완료");
+	}
+	ws.onclose = function (event) {
+		console.log("채팅 서버 접속 종료");
+	}
+	ws.onerror = function (event) {
+		console.log("에러 발생 !!! ");
+	};
+
+	ws.onmessage = function (event) {
+		let jsObj = JSON.parse(event.data);
+
+		/* 채팅! 발신자랑 채팅내용 chtArea에 붙이기 */
+		if (jsObj.cht_oid && jsObj.cht_txt && $('#chtArea').length) {
+			$('<div></div>').html(jsObj.mid + ': ' + jsObj.txt)
+				.appendTo('#chtArea');
+			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+		}
+
+		/* 유저목록! 로그인한 시청자 목록 userList에 추가하고 나간사람 지우기 */
+		if ($('#userList').length) {
+			/* 처음 들어왔을때 기존 채팅방 참여 유저 목록 출력 */
+			console.log('users',jsObj.users);
+//			if (jsObj.users) {
+//				$(jsObj.users).each(
+//					function (index, item) {
+//						$('<div class=' + item + '></div>').html(item)
+//							.appendTo('#userList');
+//					});
+//				/* 처음 들어왔을때 로그인 한 기존 채팅방 참여 유저 수 */
+//				loginUserCnt = jsObj.users.length;
+//				/*처음 들어왔을때 누적 시청수*/
+//				accUser=jsObj.accUser
+//				accUserAndloginUserCnt(accUser, loginUserCnt);
+//			}
+			/* 새로운 사람 들어오면 유저리스트에 추가하기 */
+			if (jsObj.addUser) {
+				$('<div class=' + jsObj.addUser + '></div>').html(jsObj.addUser).appendTo('#userList');
+				loginUserCnt++; /*유저수*/
+				accUser++; /*누적 시청자수*/
+				accUserAndloginUserCnt();
+			}
+			/* 나간 유저 지우기 */
+			if (jsObj.delUser) {
+				$('div[class=' + jsObj.delUser + ']').remove();
+				loginUserCnt--; /*유저수*/
+				accUser--; /*누적 시청자수*/
+				accUserAndloginUserCnt();
+			}
+		}
+
+	}
+
+	/* 엔터키 누르면 전송 내꺼 */
+	$('div[contenteditable]').keydown(function (e) {
+		if (e.keyCode === 13) {
+			if (!e.shiftKey) {
+				uk.WSsend();
+				return false;
+			}
+		}
+	});
+	/* 엔터키 누르면 전송 영탁형꺼 */
+	$('input#sendArea').keydown(function (e) {
+		if (e.keyCode === 13) {
+			if (!e.shiftKey) {
+				uk.WSsend();
+				return false;
+			}
+		}
+	});
+
+}
+/* socket 전송 메소드 */
+uk.WSsend = function () {
+
+	/* 내꺼 전송 */
+	if (ws.readyState === 1 && loginId && $('div[contenteditable]').html()) {
+		ws.send($('div[contenteditable]').html());
+		$('div[contenteditable]').empty();
+	}
+	/* 영탁형꺼 전송 */
+	if (ws.readyState === 1 && $('input#sendArea').val()) {
+		ws.send($('input#sendArea').val());
+		$('input#sendArea').val('');
+	}
+
+}
+/* socket close 메소드 */
+uk.WSclose = function () {
+	ws.close();
+}
  /* 최소화 됐을때 */
 uk.minimization = function() {
 	let top = $(window).scrollTop();
