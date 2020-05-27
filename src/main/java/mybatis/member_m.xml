@@ -13,13 +13,8 @@
 		values(#{mem_Id}, #{mem_pwd}, #{mem_birth}, #{mem_email}, #{mem_profile})
 	</insert>
 	<!-- 로그인 -->
-	<select id="login" parameterType="login.MemberVo_m" resultType="boolean">
-		select case
-		when count(mem_Id)>0 then 1
-		else 0
-		end result
-		from final_member
-		where mem_Id=#{mem_Id} and mem_pwd=#{mem_pwd}
+	<select id="login" parameterType="login.MemberVo_m" resultType="login.MemberVo_m">
+		select m.MEM_ID , m.MEM_NAME, p.PH_SYSFILE from FINAL_MEMBER m, FINAL_PHOTO p where m.MEM_ID = p.PH_ID(+) and m.MEM_ID = #{mem_Id} and m.MEM_PWD = #{mem_pwd}
 	</select>
 	<!--이메일 보내기-->
 	<select id="email" parameterType="String" resultType="login.MemberVo_m">
@@ -28,10 +23,14 @@
 		where mem_email=#{_parameter}
 	</select>
 	<!--회원 정보 조회-->
-	<select id="pwdm" parameterType="String" resultType="login.MemberVo_m">
-		select mem_Id, mem_pwd, mem_profile, mem_birth, mem_email
-		from final_member
-		where mem_Id = #{_parameter}
+	<select id="profilem" parameterType="String" resultType="login.MemberVo_m">
+		SELECT
+			SELECT
+m.mem_id, 
+p.ph_id 
+FROM FINAL_member 
+FULL OUTER JOIN final_member ON n.mem_id = p.ph_id AND m.MEM_ID = #{mem_Id} and m.MEM_PWD = #{mem_pwd}
+and m.mem_birth = #{mem_birth} and m.mem_email = #{mem_email} and m.mem_profile = #{mem_profile} and m.mem_name = #{mem_name} and p.ph_orifile = #{ph_orifile}
 	</select>
 	
 	<update id="modify" parameterType="login.MemberVo_m">

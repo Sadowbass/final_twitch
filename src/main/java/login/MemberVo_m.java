@@ -7,6 +7,7 @@ public class MemberVo_m {
 	String mem_name;
 	String mem_profile;
 	String mem_email;
+	String ph_sysfile;
 	
 	public String getMem_Id() {
 		return mem_Id;
@@ -43,6 +44,12 @@ public class MemberVo_m {
 	}
 	public void setMem_email(String mem_email) {
 		this.mem_email = mem_email;
+	}
+	public String getPh_sysfile() {
+		return ph_sysfile;
+	}
+	public void setPh_sysfile(String ph_sysfile) {
+		this.ph_sysfile = ph_sysfile;
 	}
 	
 	

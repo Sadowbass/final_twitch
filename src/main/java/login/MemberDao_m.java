@@ -31,21 +31,22 @@ public class MemberDao_m {
 			msg = ex.getMessage();
 			sqlSession.rollback();
 		}finally {
-			sqlSession.close();
+		
 			return msg;
 		}
 	}
 	
-	public boolean login(MemberVo_m vo) {
-		boolean b = true;
+	public MemberVo_m login(MemberVo_m vo) {
+		MemberVo_m memverVo = null;
 		
 		try {
-			b = sqlSession.selectOne("lm.login", vo);
+			memverVo = sqlSession.selectOne("lm.login", vo);
+			
 		}catch(Exception ex) {
-			b=false;
+			
 			ex.printStackTrace();
 		}finally {
-			return b;
+			return memverVo;
 		}	
 	}
 	
@@ -72,11 +73,12 @@ public class MemberDao_m {
 				}	
 	}
 	
-	public MemberVo_m pwdm(String pwdm) {
-		 MemberVo_m vo = null;
+	public MemberVo_m profilem(String profilem) {
+				MemberVo_m vo = null;
 				
 				try {
-				 vo = sqlSession.selectOne("lm.pwdm", pwdm);
+				 vo = sqlSession.selectOne("lm.profilem", profilem);
+				 
 			
 				}catch(Exception ex) {
 					ex.printStackTrace();
@@ -127,7 +129,7 @@ public class MemberDao_m {
 			msg = ex.getMessage();
 			sqlSession.rollback();
 		}finally {
-			sqlSession.close();
+		
 			return msg;
 		}
 	}

@@ -4,7 +4,7 @@
 <meta http-equiv="refresh" content="3;url=../index.jsp">
 <script src="../js/login_m.js"></script>
 <body id="page-top2">
-<%@include file="top2.jsp" %>
+
 <form id="signupform" class="form-horizontal" role="form" commandName = "userDto" method="post">
 		<div id='member'>
 			<div id='result'>

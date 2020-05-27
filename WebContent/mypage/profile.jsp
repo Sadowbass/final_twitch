@@ -9,13 +9,7 @@
   
 <div class="container-fluid upload-details">
     <div class="row">
-    <div class="col-3">
-	                <ol>
-	                  <a  href="#" id="mypage/profile" onclick="pagemove(this)"> &nbsp; 프로필</a>
-	                  <a  href="#" id="broadCasting/index" onclick="pagemove(this)"> &nbsp; 방송하기</a>
-	                </ol>	
-                </div>
-         
+           
         <div class="col-lg-12">
             <div class="main-title" style="float:left;">
                    <br/>
@@ -44,6 +38,7 @@
            <div class="card">
 	            <div class="card-body">
 		   			<form method="post" name="pwdm">
+		   			<input type="text" value="${session_id }" name="idchkm">
 		   			<div class="row">
             			<div class="col-sm-5">
             			    <input class="form-control border-form-control singUp" type="hidden" id="suidm" name="suidm" value="${vo.mem_Id }">

@@ -2,6 +2,19 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar navbar-expand navbar-light bg-white osahan-nav" ><!-- sticky-top static-top fixed-top -->
+<%
+
+	request.setCharacterEncoding("UTF-8");
+
+	session = request.getSession(true); 
+
+	String id = request.getParameter("id"); 
+
+	request.getSession().setAttribute("id", id); 
+
+%>
+<script src = "<%=request.getContextPath()%>/js/login_m.js"></script>
+
 
     <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
     
@@ -14,7 +27,8 @@
 
     <!-- Navbar Search -->
 
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
+    <form id="frm_idm" method="post" action="profilem.lm" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
+    	
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
             <div class="input-group-append">
@@ -23,6 +37,7 @@
                 </button>
             </div>
         </div>
+        <input type="hidden" name="idm" id="idm"/>
     </form>
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0 osahan-left-navbar">
@@ -75,36 +90,36 @@
 
         </li>
 
-
         <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
             <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button"
 
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 <img alt="Avatar" src="img/user.png">
+
+      
             </a>
        
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <div class="btn dropdown-toggle dropdown-menu dropdown-menu-right" data-toggle="dropdown">
 
                 <a class="dropdown-item" href="#" id="account" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; MyAccount</a>
-      <c:if test="${session_id != null }">
-                <a class="dropdown-item" href="#" id="mypage/pwdchk" onclick="pagemove(this)"><i class="fas fa-fw fa-cog"></i> &nbsp; 프로필</a>
+     <c:if test="${ session_id != null }">
+                <a class="dropdown-item" href="#" id="mypage/pages" onclick="lm.goProfile('${session_id}')"><i class="fas fa-fw fa-cog"></i> &nbsp; >프로필</a>
                 <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i class="fas fa-fw fa-video"></i> &nbsp; 방송하기</a>
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"> <i class="fas fa-fw fa-sign-out-alt" ></i>
-		<input type='button' value='로그아웃' id='btn_logout_m' style="border : 0; outline : 0;" />
-	  		</a>
-	  		</c:if>
+				<input type='button' value='로그아웃' id='btn_logout_m' style="border : 0; outline : 0;" /> 
+	  			</a>
+                
+			</c:if>
             </div>
-
         </li>
-
+        
     </ul>
 
  <c:if test="${empty session_id }">
-    <button type="button" class="btn btn-primary" id="btnloginm" data-backdrop="static" data-toggle="modal" data-target="#myModal" style="float: right; margin-right : 10px; margin-left : 10px;"> 로그인  </button>
-     <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal1" style="float: right;"> 회원가입 </button>
+    <button type="button" class="btn btn-primary" id="btnloginm" data-toggle="modal" data-target="#myModal" style="float: right; margin-right : 10px; margin-left : 10px;"> 로그인  </button> 
+     <button type="button" class="btn btn-primary " data-toggle="modal" data-backdrop="static" data-target="#myModal1" style="float: right;"> 회원가입 </button>
  			   <div class="modal fade" id="myModal1" style="height : auto;">
 				    <div class="modal-dialog modal-dialog-centered fixed-top">
 				      <div class="modal-content">
@@ -113,7 +128,7 @@
 				        <div class="modal-header">
 				          <h4 class="modal-title">트위치에 회원가입 하세요</h4>
 				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        
+				        	
 				        </div>
 				        
 				        <!-- Modal body -->
@@ -124,8 +139,6 @@
 				      </div>
 				    </div>
 				  </div>	 
-    
-    </c:if>
 			   <div class="modal fade" id="myModal">
 				    <div class="modal-dialog modal-dialog-centered fixed-top" >
 				      <div class="modal-content">
@@ -144,10 +157,9 @@
 				      </div>
 				    </div>
 				  </div>
-<!--  
-<input type='text' name="suidm" value="${session_id}"/>
-<input type='text' name="supwdm" value="${vo.getMem_pwd}"/>
- 		-->
+    
+    </c:if>
+
 </nav>
 <!-- 영탁 -->
 

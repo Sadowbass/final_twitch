@@ -3,6 +3,31 @@
  */
  let lm = {}
  
+ lm.goProfile = function(id){
+	 alert(id);
+	 $('#idm').val(id);
+	 $.post("profilem.lm",function(data){
+		 $("#content-wrapper").html(data);
+	 });/*
+	 $('#frm_idm').attr('action','profilem.lm').submit();*/
+ }
+ 
+ function takLogin() 
+ {
+	 let param = $('#frm_loginm').serialize();
+		var msg = $('#login_msg');
+		$.post("login.lm", param, function(data, state){
+
+			$('#topplace').html(data);
+	
+				//$(msg).text(data);
+				//$(msg).css('color', '#ff0055');				
+		});
+	 
+	 
+	 
+ }
+ 
  lm.func= function(){	 
 	 	 //회원 가입 유효성 검사
 		 //아이디
@@ -106,16 +131,19 @@
 			
 			
 	 //로그인
+	/*
 	 $('#btn_login_m').click(function(){
 		let param = $('#frm_loginm').serialize();
 		var msg = $('#login_msg');
 		$.post("login.lm", param, function(data, state){
-			
-				location.href='index.jsp';
-				$(msg).text(data);
-				$(msg).css('color', '#ff0055');				
+			alert(data);    
+			$('#topplace').html(data);
+
+				//$(msg).text(data);
+				//$(msg).css('color', '#ff0055');				
 		});
 	})	
+	*/
 	//로그아웃
 	$('#btn_logout_m').click(function(){
 		$.post("logout.lm", null, function(data, state){
@@ -134,12 +162,6 @@ $('#btnNextm').click(function(){
 		location.href='../result.jsp';
 	});*/
 })
-	//개인 정보 수정 페이지 이동
-$('#btnPwdm').click(function(){
-	$('#pwdm').attr('action','pwdm.lm').submit();
-
-})
-
 
 	//개인 정보 수정 내용 저장
 $('#btnUpdatem').click(function(){
@@ -160,12 +182,9 @@ $('#btnUpdatem').click(function(){
 		success : function(data, xhr, status){
 			$('#main').html(data);
 		}
-		
-		
 	})
-	
-	
 })
+
 
 
 	

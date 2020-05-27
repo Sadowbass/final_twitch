@@ -13,6 +13,7 @@
 <%@include file="top2.jsp" %>
 <form id="signupform" class="form-horizontal" role="form" commandName = "userDto" method="post">
 		<div>
+
 			<div>
 				<h1 class='text-center'> 계정으로 들아가기</h1>
 				<div>
@@ -24,10 +25,6 @@
 						<div>
 							<input type="text" class="serEmail" id="serEmailm" name="mem_email" aria-label="이메일 "/>
 						</div>
-					</div>
-					<div class=" text-center">
-
-					<a href = "idQna.jsp"><p>이메일을 잊어버리셨나요?</p></a>
 					</div>
 					<div class='text-center'>
 						<button disabled="true" id="btnNextm">계속</button>

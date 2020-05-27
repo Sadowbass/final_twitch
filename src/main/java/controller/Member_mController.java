@@ -62,12 +62,13 @@ public class Member_mController {
 
 
 //아이디 비밀번호 찾기 이메일 보내기
-@RequestMapping(value="/member/email.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
-public ModelAndView sendEmailAction (HttpServletRequest req, HttpServletResponse resp) throws Exception{
+@RequestMapping(value="/member_m/email.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
+public ModelAndView sendEmailAction (HttpServletRequest req, HttpServletResponse resp) throws Exception{System.out.println("23414");
 	
 	ModelAndView mv = new ModelAndView();
 	
 	String mem_email = req.getParameter("mem_email");
+	System.out.println(mem_email);
 	
 	String msg = dao.email(mem_email);
 	
@@ -80,49 +81,64 @@ public ModelAndView sendEmailAction (HttpServletRequest req, HttpServletResponse
 
 
 @RequestMapping(value="/login.lm", method= {RequestMethod.POST}, produces="application/text;charset=utf-8")
-@ResponseBody
-public String login(HttpServletRequest req) {
+
+public ModelAndView login(HttpServletRequest req) { 
+	
+	ModelAndView mv = new ModelAndView();
 	String msg = "";
 	MemberVo_m vo = new MemberVo_m();
+	MemberVo_m vo2 = null;
 	String mem_Id = req.getParameter("logidm");
 	String mem_pwd = req.getParameter("logpwdm");
-	
 	vo.setMem_Id(mem_Id);
 	vo.setMem_pwd(mem_pwd);
 
 
-	boolean loginResult = dao.login(vo);
-	if( loginResult ) {
+	vo2 = dao.login(vo);
+	if( vo2 != null ) {
 		HttpSession session = req.getSession();
 		session.setAttribute("session_id", mem_Id);
+		msg="로그인 성공";
 	}else {
 		msg = "아이디나 비밀번호를 다시 확인 해주세요. ";
 	}
+	mv.addObject("vo", vo2);
+	mv.addObject("msg", msg);
+	mv.setViewName("top");
 
-	return msg;
+	return mv;
 }	
 
 @RequestMapping(value="/logout.lm", method= {RequestMethod.POST},produces="application/text;charset=utf-8")
-@ResponseBody
-public String logout(HttpServletRequest req) {
-	
+
+public ModelAndView logout(HttpServletRequest req) {
+	ModelAndView mv = new ModelAndView();
 	String msg ="로그아웃되었습니다.";
 
+	
 	HttpSession session = req.getSession();
-	session.removeAttribute("session_id");
-	return msg;
+	//session.removeAttribute("session_id");
+	session.invalidate();
+	mv.addObject("msg", msg);
+	mv.setViewName("top");
+	return mv;
 }	
 
-@RequestMapping(value="/mypage/pwdm.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
-public ModelAndView pwdm (HttpServletRequest req, HttpServletResponse resp){
-	MemberVo_m vo = null;
+@RequestMapping(value="/profilem.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
+public ModelAndView profilem (HttpServletRequest req, HttpServletResponse resp){
 	ModelAndView mv = new ModelAndView();
-	String mem_Id = req.getParameter("mem_Id");
-	 vo = dao.pwdm(mem_Id);
+	String findStr = req.getParameter("idm");
+
+	
+	
+	MemberVo_m vo = null;
+	System.out.println("asdasd   "+findStr);
+	
+	 vo = dao.profilem(findStr);
 	
 	
 	mv.addObject("vo", vo);
-	mv.setViewName("profile");
+	mv.setViewName("/mypage/pages");
 	return mv;
 }
 @RequestMapping(value="/updata.lm", method= {RequestMethod.POST})
