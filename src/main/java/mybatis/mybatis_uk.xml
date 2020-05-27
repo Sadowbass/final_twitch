@@ -11,8 +11,8 @@
 	</insert>
 
 	<insert id="enter" parameterType="bean.UserList">
-		insert into final_userlist(serial, mid, oid, status, enter_time, exit_time)
-		values(final_userlist_seq.nextval, #{mid}, #{oid}, #{status}, sysdate, sysdate)
+		insert into final_userlist(serial, mid, oid, status, enter_time)
+		values(final_userlist_seq.nextval, #{mid}, #{oid}, #{status}, sysdate)
 	</insert>
 
 	<update id="exit" parameterType="bean.UserList">
@@ -31,9 +31,9 @@
 	</select> -->
 
 	<select id="followList" parameterType="String" resultType="String">
-		select mfo_mid <!-- 나를 팔로우 하고 있는 사람 조회 -->
+		select  mfo_oid
 		from final_mfollow
-		where mfo_oid=#{_parameter} <!-- 내 아이디  oid 스트리머다. -->
+		where mfo_mid=#{_parameter}
 	</select>
 
 </mapper>

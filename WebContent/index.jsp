@@ -38,6 +38,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Custom scripts for all pages-->
     <script src="js/custom.js"></script>
     <script src="js/sc_custom.js"></script>
+    <script src="/js/js_uk.js"></script>
   </head>
   <body id="page-top">
     <div id="topplace">

@@ -1,10 +1,12 @@
 let uk = {}
 
+/*채팅방 입장시*/
 let ws;
 let streamerId;
 let loginId;
 
-let accUser=0;
+/*그냥 로그인시*/
+let allWs;
 
 /* 스트림 */
 uk.stream = function () {
@@ -44,10 +46,11 @@ uk.usersOrcht = function () {
 	if ($('div#chtArea').css('display') == 'block') {
 		$('div#chtArea').css('display', 'none');
 		$('div#userList').css('display', 'block');
+		$('#statusBoard').html('생방송 유저 목록');
 	} else {
-		$('#statusBoard').html('도네이션 현황');
 		$('div#chtArea').css('display', 'block');
 		$('div#userList').css('display', 'none');
+		$('#statusBoard').html('생방송 채팅');
 	}
 }
 
@@ -95,13 +98,10 @@ uk.unfoldRightOrBottom = function () {
 
 /* 소켓 연결시 */
 uk.connectWS = function (streamer, login) {
-	console.log('herehere');
 	streamerId = streamer;
 	loginId=login;
 
-	console.log("streamerId::"+streamerId,"loginId:::",loginId);
-
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속");
@@ -114,41 +114,21 @@ uk.connectWS = function (streamer, login) {
 	};
 
 	ws.onmessage = function (event) {
-		console.log("evnet.data::",event.data);
 		let jsObj = JSON.parse(event.data);
 
 		/*내가 입장시! 유저 목록jsonLIst*/
 		if(jsObj.userLIst){
-			console.log("userLIst",JSON.parse(jsObj.userLIst));
 			$(JSON.parse(jsObj.userLIst)).each(function (index, item) {
 				$('<div class=' + item + '></div>').html(item).appendTo('#userList');
 			});
 		}
-		/*내가 입장시! 총 시청자수 totalUsers*/
+		/*총 시청자수 totalUsers*/
 		if(jsObj.totalUsers){
-			console.log("totalUsers", jsObj.totalUsers);
 			$("#totalUsers").html(jsObj.totalUsers);
 		}
-		/*총 시청자수+1 addTotal*/
-		if(jsObj.addTotal){
-			console.log("addTotal", jsObj.addTotal);
-			$("#totalUsers").html($("#totalUsers").html()+1);
-		}
-		/*총 시청자수-1 subTotal*/
-		if(jsObj.subTotal){
-			console.log("subTotal", jsObj.subTotal);
-			$("#totalUsers").html($("#totalUsers").html()-1);
-		}
-		/*내가 입장시! 누적 시청자수 accUser*/
+		/*누적 시청자수 accUser*/
 		if(jsObj.accUser){
-			console.log("accUser",jsObj.accUser);
-			accUser=jsObj.accUser
-			$('#accUser').html(accUser);
-		}
-		/*누적 시청자수+1 addAcc*/
-		if(jsObj.addAcc){
-			console.log("addAcc", jsObj.addAcc);
-			$("#accUser").html($("#accUser").html()+1);
+			$('#accUser').html(jsObj.accUser);
 		}
 		/*다른 유저 입장*/
 		if (jsObj.addUser) {
@@ -158,9 +138,9 @@ uk.connectWS = function (streamer, login) {
 		if (jsObj.delUser) {
 			$('div[class=' + jsObj.delUser + ']').remove();
 		}
-		/* 채팅! 발신자랑 채팅내용 chtArea에 붙이기 */
-		if (jsObj.mid && jsObj.txt && $('#chtArea').length) {
-			$('<div></div>').html(jsObj.mid + ': ' + jsObj.txt).appendTo('#chtArea');
+		/* 채팅! chtArea에 붙이기 */
+		if (jsObj.txt && $('#chtArea').length) {
+			$('<div></div>').html(jsObj.txt).appendTo('#chtArea');
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		}
 	}
@@ -169,7 +149,7 @@ uk.connectWS = function (streamer, login) {
 	$('div[contenteditable]').keydown(function (e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				uk.WSsend();
+				uk.ukTxt();
 				return false;
 			}
 		}
@@ -178,26 +158,35 @@ uk.connectWS = function (streamer, login) {
 	$('input#sendArea').keydown(function (e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				uk.WSsend();
+				uk.takTxt();
 				return false;
 			}
 		}
 	});
 }
-/* socket 전송 메소드 */
-uk.WSsend = function () {
+/* socket 전송 메소드 (1)관욱:단순 채팅 -> txt*/
+uk.ukTxt = function () {
+
+	let str={txt:$('div[contenteditable]').html()}
+	jsonStr=JSON.stringify(str);
 
 	/* 내꺼 전송 */
 	if (ws.readyState === 1 && loginId && $('div[contenteditable]').html()) {
-		ws.send($('div[contenteditable]').html());
+		ws.send(jsonStr);
 		$('div[contenteditable]').empty();
 	}
-	/* 영탁형꺼 전송 */
+}
+/* socket 전송 메소드 (1)영탁:단순 채팅 -> txt*/
+uk.takTxt = function () {
+
+	let str={txt:$('input#sendArea').val()}
+	jsonStr=JSON.stringify(str);
+
+	/* 영탁 전송 */
 	if (ws.readyState === 1 && $('input#sendArea').val()) {
-		ws.send($('input#sendArea').val());
+		ws.send(jsonStr);
 		$('input#sendArea').val('');
 	}
-
 }
 /* socket close 메소드 */
 uk.WSclose = function () {
@@ -234,7 +223,6 @@ uk.chtAndVideo = function () {
 	let top = $("nav").height();
 	/* 채팅창 길이 */
 	let height = window.innerHeight - (top + $("#cht_top").height()
-		+ $("#statusBoardSurround").height()
 		+ $(".cht_send_uk").height() + $(".cht_bottom_uk").height() + 20);
 
 	/*1000이하 되면 네비0 채팅방 길이 조정*/
@@ -302,11 +290,11 @@ uk.responsive = function () {
 	if ($(window).width() < 1000) {
 		/* 1000보다 작아질때 비디오랑 채팅 말고 안보이게 설정*/
 		$("#videoTop, #videoEtc, #videoEtc2").attr("style", "display : none !important");
-		$("#topplace, #sidebarplace, #statusBoardSurround").css("display", "none");
+		$("#topplace, #sidebarplace").css("display", "none");
 	} else {
 		/*1000보다 커질때 보이게 설정*/
 		$("#videoTop, #videoEtc, #videoEtc2 ").attr("style", "display : flex !important");
-		$("#topplace, #sidebarplace, #statusBoardSurround").css("display", "block");
+		$("#topplace, #sidebarplace").css("display", "block");
 	}
 	uk.chtAndVideo();
 	uk.rightValue();
@@ -316,3 +304,48 @@ uk.responsive = function () {
 uk.clickName=function(){
 	console.log('click');
 }
+
+uk.connectAllWS=function(){
+
+	allWs = new WebSocket("ws://192.168.0.57/cht?justLogin");
+
+	allWs.onopen = function (event) {
+		console.log("all ws open");
+	}
+	allWs.onclose = function (event) {
+		console.log("all ws close");
+	}
+	allWs.onerror = function (event) {
+		console.log("all ws error");
+	};
+
+	allWs.onmessage = function (event) {
+		console.log(event.data);
+	}
+}
+
+/* socket 전송 메소드 (2)친구 추가 -> plus*/
+uk.plus=function(){
+
+	let str={plus:'친구신청할 아이디'}
+	jsonStr=JSON.stringify(str);
+
+	if (allWs.readyState === 1) {
+		allWs.send(jsonStr);
+	}
+}
+/* socket 전송 메소드 (3)귓속말 -> whisper*/
+uk.whisper=function(){
+	let str={whisper:['cha','귓속말 내용']}
+	jsonStr=JSON.stringify(str);
+
+	if (allWs.readyState === 1) {
+		allWs.send(jsonStr);
+	}
+}
+/* socket close 메소드 */
+uk.WSclose = function () {
+	allWs.close();
+}
+
+

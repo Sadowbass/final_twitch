@@ -65,6 +65,10 @@
 	width: 100vw;
 }
 
+#statusBoard{
+	padding-top: 13px;
+}
+
 .invisible-scrollbar::-webkit-scrollbar {
   display: none;
 }

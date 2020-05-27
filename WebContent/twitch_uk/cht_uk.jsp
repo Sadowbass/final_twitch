@@ -5,14 +5,10 @@
    <div>
       <button class="btn" type="button"><i id="iconRotation" class="fas fa-sign-in-alt fa-2x" onclick='uk.fold()'></i></button>
    </div>
-   <div class="text-center">생방송 채팅</div>
+   <div class="text-center" id='statusBoard'>생방송 채팅</div>
    <div>
       <button class="btn" type="button"><i class="fas fa-user-circle fa-2x" onclick='uk.usersOrcht()'></i></button>
    </div>
-</div>
-<!-- satus -->
-<div style="width: 100%" id="statusBoardSurround">
-   <h1 id='statusBoard' class="text-center">도네이션 현황</h1>
 </div>
 <!-- 채팅창 -->
 <div class="chtArea p-2 mostly-customized-scrollbar px-2" id="chtArea"></div>
@@ -32,8 +28,8 @@
    <div class="p-2">
       <button class="btn" type="button"><i class="far fa-smile"></i></button>
    </div>
-   <div class="py-2 px-4" onclick="uk.WSsend()">
-      <a href='#'> <button class="btn" type="button"><i class="far fa-paper-plane"></i></button> </a>
+   <div class="py-2 px-4" >
+      <a href='#'> <button class="btn" type="button" onclick="uk.ukTxt()"><i class="far fa-paper-plane"></i></button> </a>
    </div>
 </div>
 

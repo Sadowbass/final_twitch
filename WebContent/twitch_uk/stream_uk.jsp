@@ -138,7 +138,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
           <button class="btn" type="button">
             <i class="fas fa-eye p-1"></i>
           </button>
-          <span class="pr-2" id="accArea"></span>
+          <span class="pr-2" id="accUser"></span>
           <button
             class="btn dropdown"
             type="button"

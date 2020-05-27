@@ -503,8 +503,8 @@
 							<div class="input-group mb-3">
 								<input type="text" class="form-control" placeholder="메시지 보내기" id="sendArea"
 									style="border: 1px solid red; background-color: rgb(58, 58, 60); color: white">
-								<div class="input-group-prepend" onclick="WSsend()">
-									<button class="btn btn-outline-primary" type="button">채팅</button>
+								<div class="input-group-prepend">
+									<button class="btn btn-outline-primary" type="button" onclick="uk.takTxt()">채팅</button>
 								</div>
 
 							</div>

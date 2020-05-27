@@ -11,7 +11,10 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import bean.Cht;
 import bean.UserList;
@@ -20,9 +23,10 @@ public class NewHandler extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
 	List<WebSocketSession> chatRoom = new ArrayList<WebSocketSession>(); /* session, 스트리머 */
-	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
+	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 총 시청자수 */
 	Map<String, Integer> accumulate = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
 	Gson gson = new Gson();
+	JsonParser parser=new JsonParser();
 	UserList userList = new UserList(); /* userList Vo 디비에 저장할거임 */
 	Cht cht = new Cht(); /* cht vo 디비에 저장할거임 */
 
@@ -41,7 +45,6 @@ public class NewHandler extends TextWebSocketHandler {
 
 		/* 채팅방 입장 */
 		if (!censorship.equals("justLogin")) {
-			System.out.println("채팅방 입장::::"+mid+"&&&&"+censorship);
 
 			/* 입장한 유저에게 보낼 로그인한 유저 목록 */
 			List<String> inChatRoomList = new ArrayList<String>();
@@ -51,26 +54,20 @@ public class NewHandler extends TextWebSocketHandler {
 				}
 			}
 
-			chatRoom.add(session); /* 세션에 저장 */
+
 			/* 채팅방 입장한 유저에게 채팅방 유저 목록 json으로 변환해서 */
 			JsonObject jsonObject = new JsonObject();
 			String jsonLIst = gson.toJson(inChatRoomList);
 			jsonObject.addProperty("userLIst", jsonLIst);
 
-			/* 채팅방 입장한 유저에게 채팅방 총시청자수 & 누적 시청자수 json으로 변환해서 */
-			if (totalUsers.get(censorship) != null)
-				jsonObject.addProperty("totalUsers", totalUsers.get(censorship));
-			if (accumulate.get(censorship) != null)
-				jsonObject.addProperty("accUser", accumulate.get(censorship));
-
 			/* 입장한 유저에게 보냄 */
 			String jsonTxt = gson.toJson(jsonObject);
 			session.sendMessage(new TextMessage(jsonTxt));
 
+			chatRoom.add(session); /* 세션에 저장 */
+
 			/* 로그인한 유저가 채팅방 입장 */
 			if (mid != null) {
-				System.out.println("로그인 유저가 채팅방 입장::::"+mid+"&&&&"+censorship);
-
 				/* 채팅방에 입장한 유저 채팅방 유저리스트 디비에 저장 */
 				userList.setMid(mid);
 				userList.setOid(censorship);
@@ -79,8 +76,7 @@ public class NewHandler extends TextWebSocketHandler {
 				dao.enter(userList);
 
 				/* 스트리머가 방송 시작 */
-				if (mid == censorship) {
-					System.out.println("스트리머 방송 시작::::"+mid+"&&&&"+censorship);
+				if (mid.equals(censorship)) {
 					/* 온에어 스트리머 json으로 변환 */
 					JsonObject jsonObject2 = new JsonObject();
 					jsonObject2.addProperty("onAir", mid);
@@ -96,7 +92,8 @@ public class NewHandler extends TextWebSocketHandler {
 							logins.get(follower).sendMessage(new TextMessage(jsonTxt2));
 						}
 					}
-					accumulate.put(censorship, 0); /* 누적 카운트 시작 */
+					totalUsers.put(censorship, 0); /* 총 시청자수 카운트 시작 */
+					accumulate.put(censorship, 0); /* 누적 시청자수 카운트 시작 */
 				}
 
 				/* 채팅방 입장한 유저 아이디 json으로 변환 */
@@ -107,7 +104,7 @@ public class NewHandler extends TextWebSocketHandler {
 				for (WebSocketSession s : chatRoom) {
 					/* 스트리머가 같으면 */
 					if (censorship.equals(s.getUri().toString().substring(s.getUri().toString().lastIndexOf("?") + 1))) {
-						s.sendMessage(new TextMessage(jsonTxt3));
+						s.sendMessage(new TextMessage(jsonTxt3)); /*채팅방에 입장한 유저 아이디 보냄*/
 					}
 				}
 
@@ -115,17 +112,18 @@ public class NewHandler extends TextWebSocketHandler {
 
 
 
-			/* 초시청자수 & 누적 시청자수 +1 메세지 보내야함 */
+			JsonObject jsonObject4 = new JsonObject();
+			/* 누적 시청자수 카운트 */
 			if (accumulate.get(censorship) != null) {
-				accumulate.put(censorship, accumulate.get(censorship) + 1); /* 누적 카운트+1 */
+				accumulate.put(censorship, accumulate.get(censorship) + 1);
+				jsonObject4.addProperty("accUser", accumulate.get(censorship));
 			}
+			/* 총 시청자수 카운트 */
 			if (totalUsers.get(censorship) != null) {
-				totalUsers.put(censorship, totalUsers.get(censorship) + 1); /* 누적 카운트+1 */
+				totalUsers.put(censorship, totalUsers.get(censorship) + 1);
+				jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
 			}
 
-			JsonObject jsonObject4 = new JsonObject();
-			jsonObject4.addProperty("addTotal", 1);
-			jsonObject4.addProperty("addAcc", 1);
 			String jsonTxt4 = gson.toJson(jsonObject4);
 
 			for (WebSocketSession s : chatRoom) {
@@ -144,25 +142,62 @@ public class NewHandler extends TextWebSocketHandler {
 		/* 스트리머 */
 		String censorship = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1);
 
-		/* json으로 변환 */
-		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("mid", mid);
-		jsonObject.addProperty("txt", message.getPayload());
-		String jsonTxt = gson.toJson(jsonObject);
+		/*json형태 메세지 parse*/
+		JsonElement ele=parser.parse(message.getPayload());
 
-		for (WebSocketSession s : chatRoom) {
-			/* 스트리머가 같으면 */
-			if (censorship.equals(s.getUri().toString().substring(s.getUri().toString().lastIndexOf("?") + 1))) {
-				s.sendMessage(new TextMessage(jsonTxt));
+		/*(1)단순 채팅 -> txt*/
+		if(ele.getAsJsonObject().get("txt")!=null) {
+			String txt=ele.getAsJsonObject().get("txt").getAsString();
+
+			/* json으로 변환 */
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("txt", mid+": "+txt);
+			String jsonTxt = gson.toJson(jsonObject);
+
+			/*전송*/
+			for (WebSocketSession s : chatRoom) {
+				/* 스트리머가 같으면 */
+				if (censorship.equals(s.getUri().toString().substring(s.getUri().toString().lastIndexOf("?") + 1))) {
+					s.sendMessage(new TextMessage(jsonTxt));
+				}
 			}
+
+			/* 보낸이, 스트리머, 채팅 내용 디비에 저장 */
+			cht.setCht_mid(mid);
+			cht.setCht_oid(censorship);
+			cht.setCht_txt(txt);
+			UkDao dao = new UkDao();
+			dao.chatting(cht);
 		}
 
-		/* 보낸이, 스트리머, 채팅 내용 디비에 저장 */
-		cht.setCht_mid(mid);
-		cht.setCht_oid(censorship);
-		cht.setCht_txt(message.getPayload());
-		UkDao dao = new UkDao();
-		dao.chatting(cht);
+		/*(2)친구 추가 -> plus*/
+		if(ele.getAsJsonObject().get("plus")!=null) {
+			String plus=ele.getAsJsonObject().get("plus").getAsString();
+
+			/* json으로 변환 */
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("plus", mid+"님이 친구신청을 하였습니다. ");
+			String jsonTxt = gson.toJson(jsonObject);
+
+			/*전송*/
+			logins.get(plus).sendMessage(new TextMessage(jsonTxt));
+		}
+
+		/*(3)귓속말 -> whisper*/
+		if(ele.getAsJsonObject().get("whisper")!=null) {
+			JsonArray jsonArray=ele.getAsJsonObject().get("whisper").getAsJsonArray();
+			String whisperTarget=jsonArray.get(0).getAsString();
+			String whisperTxt=jsonArray.get(1).getAsString();
+
+			/* json으로 변환 */
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("whisper", mid+": "+whisperTxt);
+			String jsonTxt = gson.toJson(jsonObject);
+
+			/*전송*/
+			logins.get(whisperTarget).sendMessage(new TextMessage(jsonTxt));
+		}
+
 	}
 
 	@Override
@@ -211,14 +246,13 @@ public class NewHandler extends TextWebSocketHandler {
 					}
 				}
 			}
-
-			if (totalUsers.get(censorship) != null) {
-				totalUsers.put(censorship, totalUsers.get(censorship) - 1); /* 총 시청자수 카운트 -1 */
-			}
 			JsonObject jsonObject4 = new JsonObject();
-			jsonObject4.addProperty("subTotal", 1);
+			/* 총 시청자수 카운트  */
+			if (totalUsers.get(censorship) != null) {
+				totalUsers.put(censorship, totalUsers.get(censorship) - 1);
+				jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
+			}
 			String jsonTxt4 = gson.toJson(jsonObject4);
-
 			for (WebSocketSession s : chatRoom) {
 				/* 스트리머가 같으면 보냄 */
 				if (censorship.equals(s.getUri().toString().substring(s.getUri().toString().lastIndexOf("?") + 1))) {
