@@ -2,11 +2,12 @@ package bean;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import mybatis.Factory;
-import store.StoreCartVo;
 
 @Repository
 public class StoreCartDao implements StoreCartDaoif{

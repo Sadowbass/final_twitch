@@ -12,10 +12,6 @@ import org.apache.ibatis.session.SqlSession;
 
 
 import mybatis.Factory;
-import store.StoreCartVo;
-import store.StoreFaqVo;
-import store.StoreReviewPhotoVo;
-import store.StoreReviewVo;
 
 /**
  * @author silve

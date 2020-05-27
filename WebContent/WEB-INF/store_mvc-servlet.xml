@@ -18,11 +18,12 @@
 
        <!-- bean -->
        <bean id="strDao" class="bean.StoreMybatisDao"/>
-       
+        <bean id="strDao2" class="bean.StoreCartDao"/>
        
        <!-- controller --> 
        <bean id="str_controller" class="controller.StoreController">
        <constructor-arg ref="strDao"/>  
+       <constructor-arg ref="strDao2"/>
        </bean>
        
        <!-- view resolver -->  
@@ -37,6 +38,11 @@
             <property name="maxUploadSize" value="99999999999" /> <!--  최대 사이즈-->
 
         </bean>
-   
+        
+        <!-- inject -->
+ 
+
+
+
                      
 </beans>

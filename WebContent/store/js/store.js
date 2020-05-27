@@ -80,7 +80,7 @@ store.addcart = function(){
 	let param1 = $('#cart_product').val();
 	let param2 = $("#sizeOption option:selected").val();
 	let param3 = $("#product-quantity").val();
-	let param4 = $("#memeber_id").val();
+	
 	
 	//console.log(param1);
 	//console.log(param2);
@@ -90,8 +90,8 @@ store.addcart = function(){
         url: 'addToCart.str',
         data: {'product_id': param1,
         	   'product_size' :param2,
-        	   'product_q' :param3,
-        	   'member_id' :param4
+        	   'product_q' :param3
+        	  
                },
         type: 'post',
         error: (error) => {

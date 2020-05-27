@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
-    <insert id="cart_insert" parameterType="store.StoreCartVo">
+    <insert id="cart_insert" parameterType="bean.StoreCartVo">
       
       insert into cart(cart_id, mem_id, product_id, cart_count, cart_date)
       values(seq_storecart.nextval, #{mem_id, jdbcType=VARCHAR}, #{product_id}, #{cart_count}, sysdate)
@@ -12,7 +12,7 @@
     </insert>
     
 
-	<insert id="review_insert" parameterType="store.StoreReviewVo">
+	<insert id="review_insert" parameterType="bean.StoreReviewVo">
 	  
 	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
       values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
@@ -21,7 +21,7 @@
 	  
 	</insert>
 	
-	<insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
+	<insert id="review_photo_insert" parameterType="bean.StoreReviewPhotoVo">
 	  
 	  insert into review_photo(review_pid, review_id, image1, image2, rp_date)
       values( seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR},  sysdate)
@@ -38,7 +38,7 @@
 	   
 	</select>
 	
-	<resultMap type="store.StoreReviewVo" id="store_map">
+	<resultMap type="bean.StoreReviewVo" id="store_map">
     <result column="review_id" property="review_id"/>
     <result column="mem_id" property="mem_id"/>
     <result column="product_id" property="product_id"/>
@@ -46,7 +46,7 @@
     <result column="rContent" property="rContent"/>
     <result column="review_like" property="review_like"/>
     <result column="review_date" property="review_date"/>
-      <collection property="rpList" javaType="java.util.ArrayList" ofType="store.StoreReviewPhotoVo"  >
+      <collection property="rpList" javaType="java.util.ArrayList" ofType="bean.StoreReviewPhotoVo"  >
          <result column="review_pid" property="review_pid"/>
          <result column="image1" property="image1"/>
          <result column="image2" property="image2"/>
@@ -54,11 +54,11 @@
   </resultMap>
 	
   
-  <select id="faq_select"  resultType='store.StoreFaqVo'>
+  <select id="faq_select"  resultType='bean.StoreFaqVo'>
      select qna_id, qna_subject, qna_content from store_qna
   </select>
   
-  <select id="review_photo" parameterType='Integer' resultType='store.StoreReviewPhotoVo'>
+  <select id="review_photo" parameterType='Integer' resultType='bean.StoreReviewPhotoVo'>
      select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=#{review_id}
   </select>
   
@@ -100,11 +100,11 @@
         order by PHOTO_SERIAL
     </select>
     
-  <delete id="review_delete" parameterType="store.StoreReviewVo">
+  <delete id="review_delete" parameterType="bean.StoreReviewVo">
     delete from review where review_id = #{review_id}
   </delete>
   
-  <delete id="review_photo_delete" parameterType="store.StoreReviewPhotoVo">
+  <delete id="review_photo_delete" parameterType="bean.StoreReviewPhotoVo">
     delete from review_photo where review_id = #{review_id}
   </delete>
 	

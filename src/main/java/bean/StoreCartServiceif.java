@@ -2,8 +2,6 @@ package bean;
 
 import java.util.List;
 
-import store.StoreCartVo;
-
 public interface StoreCartServiceif {
 	List<StoreCartVo> cartMoney();
     void insert(StoreCartVo vo);

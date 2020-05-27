@@ -9,11 +9,14 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import bean.ProductVo;
 import bean.SCDao;
 import bean.StoreCartServiceif;
 import bean.StoreCartServieceDao;
+import bean.StoreCartVo;
+import bean.StoreFaqVo;
 
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
@@ -30,10 +33,8 @@ import com.google.gson.Gson;
 
 
 import bean.StoreMybatisDao;
-import store.StoreCartVo;
-import store.StoreFaqVo;
-import store.StoreReviewPhotoVo;
-import store.StoreReviewVo;
+import bean.StoreReviewPhotoVo;
+import bean.StoreReviewVo;
 
 
 
@@ -234,20 +235,23 @@ public class StoreController {
 		return mv;
 	}
 	
+	//장바구니 인서트
+	
 	@RequestMapping(value="/store/addToCart.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView addCart(@ModelAttribute StoreCartVo vo, HttpServletRequest req) {
+	public ModelAndView addToCart(@ModelAttribute StoreCartVo vo, HttpServletRequest req, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		
 	
-		String mem_id = req.getParameter("mid");
+		//String mem_id = (String)session.getAttribute("mem_id");
+		String mem_id ="faker";
 		
-		System.out.println(mem_id);
+        StoreCartServiceif cartService = null;
 		
 		vo = new StoreCartVo();
 		
-		StoreCartServieceDao cvdao = null;
+		
 		vo.setMem_id(mem_id);
-	    cvdao.insert(vo);
+		cartService.insert(vo); 
 		
 		//String msg = dao.cartInsert(vo);
 		

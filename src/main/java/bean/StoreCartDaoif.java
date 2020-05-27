@@ -2,8 +2,6 @@ package bean;
 
 import java.util.List;
 
-import store.StoreCartVo;
-
 public interface StoreCartDaoif {
 	List<StoreCartVo> cartMoney();
     void insert(StoreCartVo vo); //장바구니 추가

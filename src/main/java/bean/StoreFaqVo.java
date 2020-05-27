@@ -1,4 +1,4 @@
-package store;
+package bean;
 
 public class StoreFaqVo {
   int qna_id;

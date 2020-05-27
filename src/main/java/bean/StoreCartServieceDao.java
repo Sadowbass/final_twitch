@@ -2,14 +2,14 @@ package bean;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
 
-import store.StoreCartVo;
+import org.springframework.stereotype.Service;
 
 @Service
 public class StoreCartServieceDao implements StoreCartServiceif {
     
-
+    @Inject
 	StoreCartDaoif cartDaoif;
 	
 	@Override
