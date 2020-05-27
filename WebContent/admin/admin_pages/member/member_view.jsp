@@ -283,7 +283,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 </ul>
                                             </div>
                                             <div class="body">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive ">
                                                     <table id="he_table" class="hover mdl-data-table member_table"
                                                         style="width:100%">
                                                         <thead>
@@ -325,8 +325,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <div class="card">
                                             <div class="header">
                                                 <h2>
-                                                    결제 내역
-                                                    <small>구독하거나 도네이션 한 내역을 보여줍니다.</small>
+                                                    마일리지 충전 내역
                                                 </h2>
                                                 <ul class="header-dropdown m-r--5">
                                                     <li class="dropdown">
@@ -344,8 +343,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="body table-responsive">
-                                                <table class="table table-hover">
+                                             <div class="table-responsive mail">
+                                                <table id="mail_table2" class="hover mdl-data-table member_table"
+                                                        style="width:100%">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
@@ -365,9 +365,60 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
-                                            </div>
+                                                </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>
+                                                    마일리지 사용 내역
+                                                </h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="body">
+                                            <div class="table-responsive mail">
+                                                <table id="mail_table" class="hover mdl-data-table member_table"
+                                                        style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>날짜</th>
+                                                            <th>받은 스트리머 아이디</th>
+                                                            <th>금액</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach begin="1" end="5" var="i">
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
@@ -431,7 +482,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
                                             <div class="header">
-                                                <h2>1년간 결제 금액 <small class="total_buy">결제 총액:122221원</small></h2>
+                                                <h2>지난 결제 금액 <small class="total_buy">결제 총액:122221원</small></h2>
                                                 <ul class="header-dropdown m-r--5">
                                                     <li class="dropdown">
                                                         <a href="javascript:void(0);" class="dropdown-toggle"
@@ -440,16 +491,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                             <i class="material-icons">more_vert</i>
                                                         </a>
                                                         <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
+                                                            <li><a href="javascript:void(0);">주간</a></li>
+                                                            <li><a href="javascript:void(0);">월간</a></li>
                                                         </ul>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="body">
-                                                <canvas id="shop_buy_chart" height="100"></canvas>
+                                                <canvas id="shop_buy_chart" height="150"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -459,23 +508,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="header">
                                                 <h2>자주 이용하는 카테고리</h2>
                                                 <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="body">
-                                                <canvas id="shop_cate_chart" height="100"></canvas>
+                                                <canvas id="shop_cate_chart" height="150"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -770,9 +806,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         		})
         	}
         }
-
-
         
+        $(document).ready(function() {
+            $('#mail_table').DataTable( {
+            } );
+            
+            $('#mail_table2').DataTable( {
+            } );
+        } );
       
     </script>
 

@@ -496,101 +496,7 @@ let year_chart3 = function(d,s){
 	 });
 }
 
-let month_chart4= function(){
-	chart5.destroy();
-	var ctx2 = document.getElementById('pie_chart').getContext('2d');
-	 chart5 = new Chart(ctx2, {
-	    // The type of chart we want to create
-	    type: 'pie',
-	    // The data for our dataset
-	    data: {
-	         datasets: [{
-	             data: [44, 23, 70, 50],
-	             backgroundColor: [
-	                 "rgb(233, 30, 99)",
-	                 "rgb(255, 193, 7)",
-	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
-	             ],
-	         }],
-	         labels: [
-	             "Pink",
-	             "Amber",
-	             "Cyan",
-	             "Light Green"
-	         ]
-	     },
-	     options: {
-	         responsive: true,
-	         
-	     }
-	});
-	
-}
 
-let week_chart4= function(){
-	chart5.destroy();
-	var ctx2 = document.getElementById('pie_chart').getContext('2d');
-	 chart5 = new Chart(ctx2, {
-	    // The type of chart we want to create
-	    type: 'pie',
-	    // The data for our dataset
-	    data: {
-	         datasets: [{
-	        	 data: [225, 50, 100, 40],
-	             backgroundColor: [
-	                 "rgb(233, 30, 99)",
-	                 "rgb(255, 193, 7)",
-	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
-	             ],
-	         }],
-	         labels: [
-	             "Pink",
-	             "Amber",
-	             "Cyan",
-	             "Light Green"
-	         ]
-	     },
-	     options: {
-	         responsive: true,
-	         
-	     }
-	});
-	
-}
-
-let year_chart4= function(){
-	chart5.destroy();
-	var ctx2 = document.getElementById('pie_chart').getContext('2d');
-	 chart5 = new Chart(ctx2, {
-	    // The type of chart we want to create
-	    type: 'pie',
-	    // The data for our dataset
-	    data: {
-	         datasets: [{
-	        	 data: [112, 50, 78, 40],
-	             backgroundColor: [
-	                 "rgb(233, 30, 99)",
-	                 "rgb(255, 193, 7)",
-	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
-	             ],
-	         }],
-	         labels: [
-	             "Pink",
-	             "Amber",
-	             "Cyan",
-	             "Light Green"
-	         ]
-	     },
-	     options: {
-	         responsive: true,
-	         
-	     }
-	});
-	
-}
 
 let month_chart5 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2){
 	chart6.destroy();
@@ -773,5 +679,41 @@ function broad_ok(serial){
     });
 }
 
+function s_detail(serial){
+	$('#he_serial').val(serial);
+	$('#he_form').attr('action','streamer_view.he').submit();	
+}
 
+function d_list_n(){
+	let nowpage =Number($('#page').val())+1
+	if(nowpage>0){
+		$('#page').val(nowpage);
+	}
+	$('#he_form').attr('action','profit.he').submit();	
+}
 
+function d_list_b(){
+	let nowpage = Number($('#page').val())-1
+	if(nowpage>0){
+		$('#page').val(nowpage);
+	}
+	
+	$('#he_form').attr('action','profit.he').submit();	
+}
+
+function s_list_n(){
+	let nowpage =Number($('#page2').val())+1
+	if(nowpage>0){
+		$('#page2').val(nowpage);
+	}
+	$('#he_form2').attr('action','profit.he').submit();	
+}
+
+function s_list_b(){
+	let nowpage = Number($('#page2').val())-1
+	if(nowpage>0){
+		$('#page2').val(nowpage);
+	}
+	
+	$('#he_form2').attr('action','profit.he').submit();	
+}

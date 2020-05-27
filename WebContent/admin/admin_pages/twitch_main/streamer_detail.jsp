@@ -44,7 +44,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 	 <form name="he_form" id="he_form" method="post">
                 	 <div class="row clearfix">
                                 <div class="col-xs-12">
-                                    <img src="../img/user-photo/${vo.ph_sysfile }" class="img-circle member_img" id="member_img" name="member_img">
+                                  <c:if test="${empty vo.ph_sysfile}">
+                                   <img src="images/user.png" class="img-circle member_img" id="member_img" name="member_img">
+                    			</c:if>
+                    			<c:if test="${not empty vo.ph_sysfile}">
+                      			 <img src="../img/user-photo/${vo.ph_sysfile }" class="img-circle member_img" id="member_img" name="member_img">
+                   				</c:if>
                                     <div class="js-sweetalert broadstop_btn" id="broadstop">
                                    
                                     </div>
@@ -245,6 +250,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 
 
+
 <!-- Chart Plugins Js -->
 <script src="plugins/chartjs/Chart.bundle.js"></script>
 <!-- Sweet Alert Plugin Js -->
@@ -389,7 +395,7 @@ var chart5 = new Chart(ctx5,{
 	 type: 'pie',
      data: {
          datasets: [{
-             data: [225, 50, 100, 40],
+             data: [100],
              backgroundColor: [
                  "rgb(233, 30, 99)",
                  "rgb(255, 193, 7)",
@@ -398,16 +404,22 @@ var chart5 = new Chart(ctx5,{
              ],
          }],
          labels: [
-             "Pink",
-             "Amber",
-             "Cyan",
-             "Light Green"
+          	"null"
          ]
      },
      options: {
          responsive: true,
      }
 });
+
+
+<c:forEach items="${g_cate}" var="i" varStatus="j">
+chart5.data.datasets[0].data[${j.index}] =${i.cnt}
+chart5.data.labels[${j.index}] ='${i.gamename}'
+</c:forEach>
+chart5.update();
+
+
 
 if(${isban}>0){
 	let str = '<button type="button" class="btn waves-effect" onclick="broad_ok('+'\'${vo.mem_id}\''+')">'
@@ -423,7 +435,115 @@ if(${isban}>0){
     $("#broadstop").html(str2);
 }
 
+let month_chart4= function(){
+	chart5.destroy();
+	var ctx2 = document.getElementById('pie_chart').getContext('2d');
+	 chart5 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'pie',
+	    // The data for our dataset
+	    data: {
+	         datasets: [{
+	             data: [0],
+	             backgroundColor: [
+	                 "rgb(233, 30, 99)",
+	                 "rgb(255, 193, 7)",
+	                 "rgb(0, 188, 212)",
+	                 "rgb(139, 195, 74)"
+	             ],
+	         }],
+	         labels: [
+	             "null"
+	      
+	         ]
+	     },
+	     options: {
+	         responsive: true,
+	         
+	     }
+	});
+	 
 
+	 <c:forEach items="${gm}" var="i" varStatus="j">
+	 chart5.data.datasets[0].data[${j.index}] =${i.cnt}
+	 chart5.data.labels[${j.index}] ='${i.gamename}'
+	 </c:forEach>
+	 chart5.update();
+	
+	
+}
+
+
+let week_chart4= function(g){
+	chart5.destroy();
+	var ctx2 = document.getElementById('pie_chart').getContext('2d');
+	 chart5 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'pie',
+	    // The data for our dataset
+	    data: {
+	         datasets: [{
+	        	 data: [0],
+	             backgroundColor: [
+	                 "rgb(233, 30, 99)",
+	                 "rgb(255, 193, 7)",
+	                 "rgb(0, 188, 212)",
+	                 "rgb(139, 195, 74)"
+	             ],
+	         }],
+	         labels: [
+	             "null",
+	         ]
+	     },
+	     options: {
+	         responsive: true,
+	         
+	     }
+	});
+	 
+	 <c:forEach items="${g_cate}" var="i" varStatus="j">
+	 chart5.data.datasets[0].data[${j.index}] =${i.cnt}
+	 chart5.data.labels[${j.index}] ='${i.gamename}'
+	 </c:forEach>
+	 chart5.update();
+	
+}
+
+let year_chart4= function(){
+	chart5.destroy();
+	var ctx2 = document.getElementById('pie_chart').getContext('2d');
+	 chart5 = new Chart(ctx2, {
+	    // The type of chart we want to create
+	    type: 'pie',
+	    // The data for our dataset
+	    data: {
+	         datasets: [{
+	        	 data: [0],
+	             backgroundColor: [
+	                 "rgb(233, 30, 99)",
+	                 "rgb(255, 193, 7)",
+	                 "rgb(0, 188, 212)",
+	                 "rgb(139, 195, 74)"
+	             ],
+	         }],
+	         labels: [
+	             "null"
+	    
+	         ]
+	     },
+	     options: {
+	         responsive: true,
+	         
+	     }
+	});
+	 
+	 <c:forEach items="${gy}" var="i" varStatus="j">
+	 chart5.data.datasets[0].data[${j.index}] =${i.cnt}
+	 chart5.data.labels[${j.index}] ='${i.gamename}'
+	 </c:forEach>
+	 chart5.update();
+	
+}
 
 </script>
 

@@ -914,6 +914,178 @@ public class HEDao {
 			sqlSession.rollback();
 		}
 	}
+	
+	public List<GCategoryVo> gcategory(String mid){
+		List<GCategoryVo> list = new ArrayList<GCategoryVo>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        map.put("mid", mid);
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        cal.set(Calendar.DAY_OF_WEEK, 1); //이번주 시작일
+	        String s_day = format.format(cal.getTime());
+	        map.put("s_day", s_day);
+	        
+	        cal.set(Calendar.DAY_OF_WEEK, 7); 
+	        cal.add(Calendar.DATE, 1);//날짜+1
+	        String l_day = format.format(cal.getTime());
+	        map.put("l_day",l_day);
+	        list = sqlSession.selectList("stream.gcategory", map);
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<GCategoryVo> gcategory_m(String mid){
+		List<GCategoryVo> list = new ArrayList<GCategoryVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			DecimalFormat df = new DecimalFormat("00");
+			Calendar currentCalendar = Calendar.getInstance();
+			String month = df.format(currentCalendar.get(Calendar.MONTH)+1);
+			String year  = df.format(currentCalendar.get(Calendar.YEAR));
+			map.put("mid", mid);
+		    map.put("month", month);
+		    map.put("year", year);
+			list = sqlSession.selectList("stream.gcategory_m", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<GCategoryVo> gcategory_y(String mid){
+		List<GCategoryVo> list = new ArrayList<GCategoryVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+        
+		try {
+			DecimalFormat df = new DecimalFormat("00");
+			Calendar currentCalendar = Calendar.getInstance();
+			String year  = df.format(currentCalendar.get(Calendar.YEAR));
+			
+			map.put("mid", mid);
+			map.put("year", year);
+			
+			list = sqlSession.selectList("stream.gcategory_y", map);
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StreamerVo> d_profit(){
+		List<StreamerVo> list = new ArrayList<StreamerVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			DecimalFormat df = new DecimalFormat("00");
+			Calendar currentCalendar = Calendar.getInstance();
+			String year  = df.format(currentCalendar.get(Calendar.YEAR));
+			
+			map.put("year", year);
+			list = sqlSession.selectList("stream.d_profit", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StreamerVo> d_profit2(Page p){
+		List<StreamerVo> list = new ArrayList<StreamerVo>();
+		try {
+			list = sqlSession.selectList("stream.d_profit2",p);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StreamerVo> s_profit(Page p){
+		List<StreamerVo> list = new ArrayList<StreamerVo>();
+		try {
+			p.pageCompute();
+			list = sqlSession.selectList("stream.s_profit", p);
+			p.setTotListSize(list.size());
+			p.pageCompute();
+			
+			list = sqlSession.selectList("stream.s_profit2", p);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StatisticVo> done_profit(){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			DecimalFormat df = new DecimalFormat("00");
+			Calendar currentCalendar = Calendar.getInstance();
+			String year  = df.format(currentCalendar.get(Calendar.YEAR));
+			
+			map.put("year", year);
+			list = sqlSession.selectList("stream.done_profit", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StatisticVo> sub_profit(){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			DecimalFormat df = new DecimalFormat("00");
+			Calendar currentCalendar = Calendar.getInstance();
+			String year  = df.format(currentCalendar.get(Calendar.YEAR));
+			
+			map.put("year", year);
+			list = sqlSession.selectList("stream.sub_profit", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StatisticVo> payment(){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		try {
+			DecimalFormat df = new DecimalFormat("00");
+			Calendar currentCalendar = Calendar.getInstance();
+			String year  = df.format(currentCalendar.get(Calendar.YEAR));
+			
+			map.put("year", year);
+			list = sqlSession.selectList("stream.payment", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StreamingVo> onair(){
+		List<StreamingVo> list = new ArrayList<StreamingVo>();
+		try {
+			list = sqlSession.selectList("stream.onair");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
 
 
 

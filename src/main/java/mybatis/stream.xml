@@ -117,7 +117,74 @@
 	<delete id='broadok' parameterType="String">
     	delete from final_broadban where bban_id='${_parameter}'
     </delete>
-	
+    
+    <select id='gcategory' parameterType="hashmap" resultType="bean.GCategoryVo">
+    	select count(SERIAL)cnt ,gamename from FINAL_BROADCASTINGINFO 
+    	where mid=#{mid} and rdate between #{s_day} and #{l_day} group by gamename
+    </select>
+    
+    <select id='gcategory_m' parameterType="hashmap" resultType="bean.GCategoryVo">
+    	select count(SERIAL)cnt ,gamename from FINAL_BROADCASTINGINFO 
+    	where mid=#{mid} and to_char(rdate,'mm') =#{month} and to_char(rdate,'rrrr') =#{year} group by gamename
+    </select>
+    
+    <select id='gcategory_y' parameterType="hashmap" resultType="bean.GCategoryVo">
+    	select count(SERIAL)cnt ,gamename from FINAL_BROADCASTINGINFO 
+    	where mid=#{mid} and to_char(rdate,'rrrr') =#{year} group by gamename
+    </select>
+    
+    <select id='d_profit' parameterType="hashmap" resultType="bean.StreamerVo">
+    	select don_mid,sum(don_price) profit,(select mem_name from final_member where mem_id=don_mid) mem_name from final_donation
+        where to_char(don_rdate,'rrrr')=${year} group by don_mid order by profit desc
+    </select>
+    
+    <select id='d_profit2' parameterType="bean.Page" resultType="bean.StreamerVo">
+    	select * from
+		(select rownum rn,M.* from(
+			select don_mid,sum(don_price) profit,(select mem_name from final_member where mem_id=don_mid) mem_name 
+			from final_donation
+        	where to_char(don_rdate,'rrrr')=#{year} 
+       		group by don_mid order by profit desc)M
+		) where rn between #{startNo} and #{endNo}
+    </select>
+    
+    <select id='s_profit' parameterType="bean.Page" resultType="bean.StreamerVo">
+    select count(sub_serial)cnt,sub_mid from final_subscription where to_char(sub_rdate,'rrrr')=#{year} group by sub_mid
+    </select>
+    
+    <select id='s_profit2' parameterType="bean.Page" resultType="bean.StreamerVo">
+    select * from
+		(select rownum rn,M.* from(
+			 select count(sub_serial)*5000 profit,sub_mid,(select mem_name from final_member where mem_id=sub_mid)mem_name 
+			 from final_subscription 
+			 where to_char(sub_rdate,'rrrr')=#{year} 
+			 group by sub_mid order by profit desc)M
+		) where rn between #{startNo} and #{endNo}
+    </select>
+    
+     <select id='done_profit' parameterType="hashmap" resultType="bean.StatisticVo">
+    	select sum(don_price)*0.5 profit,to_char(don_rdate,'mm') month from final_donation 
+    	where to_char(don_rdate,'rrrr')=#{year} group by to_char(don_rdate,'mm') order by month
+    </select>
+    
+    <select id='sub_profit' parameterType="hashmap" resultType="bean.StatisticVo">
+    	select count(sub_serial)*5000 profit,to_char(sub_rdate,'mm') month 
+    	from FINAL_SUBSCRIPTION where to_char(sub_rdate,'rrrr') =#{year} 
+		group by to_char(sub_rdate,'mm') order by month
+    </select>
+    
+    <select id='payment' parameterType="hashmap" resultType="bean.StatisticVo">
+    	select sum(pay_money)profit,to_char(pay_date,'mm') month from final_payment 
+    	where to_char(pay_date,'rrrr') =#{year}
+		group by to_char(pay_date,'mm') order by month
+    </select>
+    
+    <select id='onair' resultType="bean.StreamingVo">
+    	select air_mid,air_subject,air_gname,air_thumbnail 
+    	from final_onair
+    </select>
+    
+
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
 		select * from final_category
 	</select>

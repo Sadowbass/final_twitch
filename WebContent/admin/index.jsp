@@ -217,28 +217,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                                <a href="javascript:void(0);" onclick="profit();">
                                     <span>수익 관리 </span>
                                 </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0)">광고 관리</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" onclick="profit();">수익 관리</a>
-                                    </li>
-                                </ul>
                             </li>
-
+                     
                             <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                                <a href="javascript:void(0);"  onclick="help();">
                                     <span>게시판 관리</span>
                                 </a>
-                                <ul class="ml-menu"> 
-                                    <li>
-                                        <a href="javascript:void(0)" onclick="help();">도움말 관리</a>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </li>

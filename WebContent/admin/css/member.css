@@ -656,3 +656,12 @@ input[type="file"] {
     background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
     color:#fff;
 }
+
+.profit_pg{
+	text-align: center;
+}
+.profit_pg .pg{
+	background: none !important;
+    color: #fff !important;
+}
+

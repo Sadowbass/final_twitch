@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import org.omg.CORBA.BAD_INV_ORDER;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bean.BroadCastingCateVo;
+import bean.GCategoryVo;
 import bean.HEDao;
 import bean.MemberVo;
+import bean.Page;
+import bean.StatisticVo;
 import bean.StreamerVo;
+import bean.StreamingVo;
 import bean.TagVo;
 import config.HE_FileUpload;
 import config.HE_FileUpload2;
@@ -154,7 +159,9 @@ public class HEController {
 	@RequestMapping(value="*/live_broadcast.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView LiveBroadcast(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
-	
+		List<StreamingVo> list =  new ArrayList<StreamingVo>();
+		list = dao.onair();
+		mv.addObject("list", list);
 		mv.setViewName("twitch_main/live_broadcast"); 
 		return mv;
 	}
@@ -293,8 +300,16 @@ public class HEController {
 		
 		int isban = dao.isban(mid);//방송금지인지 확인
 		
-		System.out.println(isban);
+		List<GCategoryVo> g_cate = new ArrayList<GCategoryVo>();
+		g_cate = dao.gcategory(mid);
+		List<GCategoryVo> g_cate_m = new ArrayList<GCategoryVo>();
+		g_cate_m = dao.gcategory_m(mid);
+		List<GCategoryVo> g_cate_y = new ArrayList<GCategoryVo>();
+		g_cate_y = dao.gcategory_y(mid);
 		
+		mv.addObject("gm", g_cate_m);
+		mv.addObject("gy", g_cate_y);
+		mv.addObject("g_cate", g_cate);
 		mv.addObject("isban", isban);
 		mv.addObject("don", don);
 		mv.addObject("m_don", m_don);
@@ -459,7 +474,46 @@ public class HEController {
 	@RequestMapping(value="*/profit.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView profit(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
-	
+		List<StreamerVo> d_tot = new ArrayList<StreamerVo>();
+		Page page = new Page();
+		if(req.getParameter("page")==null) {
+			page.setNowPage(1);
+		}else {
+			int p = Integer.parseInt(req.getParameter("page"));
+			page.setNowPage(p);
+		}
+		d_tot = dao.d_profit();
+		page.setTotListSize(d_tot.size());
+		page.pageCompute();
+		List<StreamerVo> d_list = new ArrayList<StreamerVo>();
+		d_list = dao.d_profit2(page); //도네수익 랭킹
+		
+		Page page2 = new Page();
+		if(req.getParameter("page2")==null) {
+			page2.setNowPage(1);
+		}else {
+			int p = Integer.parseInt(req.getParameter("page2"));
+			page2.setNowPage(p);
+		}
+		List<StreamerVo> s_list = new ArrayList<StreamerVo>();
+		s_list = dao.s_profit(page2);//구독 수익 랭킹 
+		
+		List<StatisticVo> done_list = new ArrayList<StatisticVo>();
+		done_list = dao.done_profit();
+		
+		List<StatisticVo> sub_list = new ArrayList<StatisticVo>();
+		sub_list = dao.sub_profit();
+		
+		List<StatisticVo> pay_list = new ArrayList<StatisticVo>();
+		pay_list = dao.payment();
+		
+		mv.addObject("pay", pay_list);
+		mv.addObject("sub_list", sub_list);
+		mv.addObject("done_list", done_list);
+		mv.addObject("s_list", s_list);
+		mv.addObject("p2", page2);
+		mv.addObject("p", page);
+		mv.addObject("d_list", d_list);
 		mv.setViewName("twitch_main/profit_management"); 
 		return mv;
 	}
