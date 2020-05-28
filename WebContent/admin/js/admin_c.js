@@ -43,6 +43,33 @@ cmh.review_view = function(serial){
 
 cmh.func = function(){
 	
+	
+	// order_view.jsp
+	$('#btn_orderDelete').click(function(){
+		swal({
+			title:"정말 삭제하시겠습니까?",
+			buttons:true,
+		}).then((v)=>{
+			if(v){
+				
+				$.ajax({
+					url : "orderViewDelete.mh",
+					type : "post",
+					data : {"order_serial" : $('#order_serial_mh').val()},
+					success : function(data, xhr, state){
+						swal("삭제되었습니다.").then((v)=>{
+							location.href='orderSelect.mh'
+						})
+					}
+					
+				})
+			}
+		})
+		
+	})
+	
+	// end order_view.jsp
+	
 	// order_select.jsp
 	// 검색버튼 누르면
 	$('#btn_orderSearch_mh').click(function(){

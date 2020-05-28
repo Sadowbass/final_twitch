@@ -20,6 +20,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body class="theme-red">
 	<div class="container-fluid">
@@ -37,10 +38,9 @@
 							</div>
 							<div class="col-xs-7"></div>
 							<div class="col-xs-2" style="text-align: right;">
-								<!-- 
-								<input type="button" class="btn" value="수정" style="color: black" />
-								<input type="button" class="btn" value="삭제" style="color: black" /> 
-								-->
+								
+								<input type="button" class="btn" value="삭제" style="color: black" id="btn_orderDelete" /> 
+								
 							</div>
 						</div>
 
@@ -48,7 +48,7 @@
 					</div>
 					<div class="body">
 						<form>
-
+							<input type = "hidden" id="order_serial_mh" value="${list[0].order_serial }"/>
 							<div class="row">
 								<div class="col-xs-4">
 									<span>주문일자</span>&nbsp;&nbsp;

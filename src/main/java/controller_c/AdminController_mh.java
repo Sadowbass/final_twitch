@@ -4,27 +4,25 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.tools.DocumentationTool.Location;
 
-import org.apache.ibatis.javassist.expr.Instanceof;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import bean.MH_ReviewVo;
+import bean.MH_ageCountVo;
+import bean.MH_cateCountVo;
+import bean.MH_monthAmountVo;
 import bean.MH_orderListVo;
 import bean.MH_orderVo;
+import bean.MH_rankproductVo;
 import bean.ProductPhotoUpload_mh;
 import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
 import bean.StoreMybatisDao_mh;
 import bean.mh_Page;
-import oracle.ucp.jdbc.oracle.rlb.OracleDatabaseInstanceInfoList.INSTANCE_CATEGORY_FOR_DATA_AFFINITY;
 
 @Controller
 public class AdminController_mh {
@@ -35,6 +33,37 @@ public class AdminController_mh {
 	public AdminController_mh(StoreMybatisDao_mh dao) {
 		System.out.println("★★★★AdminController_mh 들어옴★★★★★★★");
 		this.dao = dao;
+	}
+	
+	
+	@RequestMapping(value="*/shop_statistic.mh", method= {RequestMethod.GET, RequestMethod.POST}, produces="application/text; charset-utf8")
+	public String shop_statistic(Model model) {
+		System.out.println("★★★서블릿 -> shop_statistic() 들어옴");
+		
+		List<MH_monthAmountVo> monthAmountList = dao.monthAmount();
+		List<MH_rankproductVo> rankproductList = dao.rankproduct(); 
+		List<MH_ageCountVo> ageCountList = dao.ageCount();
+		List<MH_cateCountVo> cateCountList = dao.cateCount();
+		
+		
+		model.addAttribute("monthAmountList", monthAmountList);
+		model.addAttribute("rankproductList", rankproductList);
+		model.addAttribute("ageCountList", ageCountList);
+		model.addAttribute("cateCountList", cateCountList);
+		
+		return "shop_statistic";
+	}
+	
+	@RequestMapping(value="*/orderViewDelete.mh", method=RequestMethod.POST, produces="application/text; charset-utf8")
+	@ResponseBody
+	public void orderViewDelete(int order_serial) {
+		System.out.println("★★★ order_serial : " + order_serial);
+		
+		String msg = dao.orderDelete(order_serial);
+		
+		System.out.println("msg : "+msg);
+		
+		
 	}
 	
 	@RequestMapping(value="*/orderView.mh",method=RequestMethod.POST, produces="application/text; charset-utf8")

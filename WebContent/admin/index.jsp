@@ -303,7 +303,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                             </li>
                              <li>
-                                <a href="index.jsp?inc=admin_pages/shop/shop_statistic.jsp">
+                             	<a href="javascript:void(0);" onclick="location.href='shop_statistic.mh'">
+                                <!-- <a href="index.jsp?inc=admin_pages/shop/shop_statistic.jsp"> -->
                                     <span>통계 관리</span>
                                 </a>
                             </li>

@@ -4,6 +4,50 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="storeAdmin">
+	
+	<select id="cateCount" resultType="bean.MH_cateCountVo">
+		select  j2.product_cate, sum(j1.cart_count) as count
+		from order_details j1 join product j2
+		on j1.product_id = j2.product_id
+		group by j2.product_cate
+		order by sum(j1.cart_count) desc
+	</select>
+	
+	<select id="ageCount" resultType="bean.MH_ageCountVo">
+		select age , count(*) as count
+		from ( 
+		select floor((to_char(sysdate, 'YYYY') - substr(mem_birth,1,4)) / 10) * 10  as age 
+		from FINAL_MEMBER
+		where floor((to_char(sysdate, 'YYYY') - substr(mem_birth,1,4)) / 10) * 10 BETWEEN 0 and 100
+		) o 
+	group by age	
+	order by age 
+	</select>
+	
+	<select id="rankproduct" resultType="bean.MH_rankproductVo">
+		select rownum rank,
+		a.* from(
+		select ROW_NUMBER() over(partition by d.product_id order by ph.photo_serial asc) as rnum,    sum(d.cart_count) as count, d.product_id, p.product_name, ph.sysfile,ph.PHOTO_SERIAL, p.PRODUCT_PRICE
+		from order_details d, PRODUCT p, PRODUCT_PHOTO ph
+		where d.PRODUCT_ID = p.product_id and d.product_id = ph.product_id
+		GROUP by  d.product_id, p.product_name, ph.sysfile, ph.PHOTO_SERIAL, p.PRODUCT_PRICE
+		order by count desc)a 
+		where rnum=1
+	</select>
+
+	<select id="amountMonth" resultType="bean.MH_monthAmountVo">
+		SELECT sum(amount) as amount, to_char(order_date,'yyyy-mm') as order_date
+		FROM store_order
+		group by to_char(order_date,'yyyy-mm')
+	</select>
+
+	<delete id="orderDetailDelete" parameterType="Integer">
+		delete from order_details where order_serial=${_parameter}
+	</delete>
+
+	<delete id="orderDelete" parameterType="Integer">
+		delete from store_order where order_serial=${_parameter}
+	</delete>
 
 	<select id="orderView" parameterType="bean.MH_orderVo" resultType="bean.MH_orderListVo">
 		select rownum rno, a. * from(SELECT row_number() over(PARTITION by j2.product_id order by j4.photo_serial asc ) as rnum, 

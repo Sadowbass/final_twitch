@@ -21,6 +21,84 @@ public class StoreMybatisDao_mh {
 		System.out.println("★★★★★ 민호 DAO들어옴★★★★★");
 	}
 	
+	public List<MH_cateCountVo> cateCount(){
+		List<MH_cateCountVo> list = null;
+		
+		try {
+			
+			list = sqlSession.selectList("storeAdmin.cateCount");
+			System.out.println("cateCount list 사이즈 : " + list.size());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<MH_ageCountVo> ageCount(){
+		List<MH_ageCountVo> list = null;
+		
+		try {
+			
+			list = sqlSession.selectList("storeAdmin.ageCount");
+			System.out.println("ageCount list 사이즈 : " + list.size());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<MH_rankproductVo> rankproduct(){
+		List<MH_rankproductVo> list = null;
+		
+		try {
+			list = sqlSession.selectList("storeAdmin.rankproduct");
+			System.out.println("rankproduct List 사이즈 : " + list.size());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<MH_monthAmountVo> monthAmount(){
+		List<MH_monthAmountVo> list = null; 
+		
+		try {
+			list = sqlSession.selectList("storeAdmin.amountMonth");
+			System.out.println(" amountMonth list사이즈 : "+list.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public String orderDelete(int order_serial) {
+		String msg = null;
+		
+		try {
+			int cnt = sqlSession.delete("storeAdmin.orderDetailDelete",order_serial);
+			if(cnt <0) {
+				throw new Exception();
+			}
+			cnt = sqlSession.delete("storeAdmin.orderDelete",order_serial);
+			System.out.println("★★★cnt : "+cnt);
+			if(cnt>0) {
+				msg = "주문 삭제됨";
+			}
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return msg;
+	}
+	
 	
 	public List<MH_orderListVo> orderDetail(MH_orderVo vo){
 		List<MH_orderListVo> list = null;
