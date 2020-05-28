@@ -88,5 +88,8 @@
 		<select id='selectFollowList' resultType="bean.FollowListVo" parameterType='String'>
 		select * from final_mfollow where mfo_mid = #{_parameter} order by mfo_date desc
 	</select>
+	<select id='initUser' resultType="bean.UserInfoVo" parameterType='String'>
+		select * from final_member m,final_photo p where m.mem_id = p.ph_id(+) and mem_id = #{_parameter}
+	</select>
 </mapper>
    

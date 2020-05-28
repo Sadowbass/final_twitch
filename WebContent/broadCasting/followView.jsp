@@ -11,9 +11,8 @@
 						</thead>
 						<c:forEach var='i' items='${list }'>
 						<tr>
-							<th style='color: pink'>${i.mfo_oid }</th>
-							<th style='color: pink'>${i.mfo_date }</th>
+							<th style='color: #BE81F7'>${i.mfo_oid }</th>
+							<th style='color: white'>${i.mfo_date }</th>
 						</tr>	
 						</c:forEach>
 					</table>
-

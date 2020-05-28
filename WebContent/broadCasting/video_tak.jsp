@@ -5,6 +5,7 @@
    </script>
 
    <input type='hidden' value='${msg }' id='msgBroadCasting'/>
+   <input type='text' value='<%=session.getAttribute("session_id") %>' id='bid'/>
    <div id="main" style="width: 100%;">
       <div id="mediaplayer"></div>
    </div>
@@ -53,7 +54,8 @@
             })
          $('#updateBroadCasting').show();
          $('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
-		 uk.connectWS(); /* 소켓 접속 */
+         console.log('mmmmmid',$("#bid").val());
+		 uk.connectWS($("#bid").val(),$("#bid").val()); /* 소켓 접속 */
 
       }else if($('#msgBroadCasting').val() == '실패'){
          Swal.fire({

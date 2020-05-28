@@ -14,9 +14,13 @@
 </button>
 &nbsp;&nbsp;
 <a class="navbar-brand mr-1" href="/" id="main" onclick="pagemove(this)">
-    <img class="img-fluid" alt="" src="/img/favicon.png">
-    <img src="/img/Twitch_logo.png" style="height: 32px;">
-</a>
+    <img class="img-fluid" alt="" src="/img/favicon.png"> &nbsp;Twitch</a>
+
+     <a class="" href="/categories" id="categories" style='font-size: 20px;color: #741CDF !important'><i style=''></i> &nbsp; 탐색</a>
+
+     <a class="" href="#" id="" style='font-size: 20px;color: #741CDF !important' onclick='uk.whisper()'><i style=''></i> &nbsp; 귓속말</a>
+     <a class="" href="#" id="" style='font-size: 20px;color: #741CDF !important' onclick='uk.plus()'><i style=''></i> &nbsp; 친구추가</a>
+
 <!-- Navbar Search -->
 <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
     <div class="input-group">
@@ -91,6 +95,12 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                	<%if(session.getAttribute("admin_id")!=null) { %>
+
+                		<a class="dropdown-item" href="#" id="admin/index" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; 관리자페이지</a>
+
+                	<%}else{%>
+
 					<a class="dropdown-item" href="#" id="mypage/userPage" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My
                     Account</a>
                     <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i
@@ -98,6 +108,7 @@
                         방송하기</a>
                     <a class="dropdown-item" href="#" id="settings" onclick="pagemove(this)"><i
                             class="fas fa-fw fa-cog"></i> &nbsp; Settings</a>
+                    <%}%>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i
                             class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
@@ -314,13 +325,5 @@
 </script>
 
 <script>
-	/* 로그인 하면 소켓 접속 */
-	ws = new WebSocket("ws://192.168.0.77/cht?justLogin");
-
-	ws.onopen = function (event) {
-		console.log("채팅 서버 접속 완료");
-	}
-	ws.onmessage = function (event) {
-		console.log(event.data);
-	}
+	uk.connectAllWS();
 </script>

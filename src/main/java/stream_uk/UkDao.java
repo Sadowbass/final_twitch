@@ -49,9 +49,6 @@ SqlSession sqlSession;
 
    public List<String> followList(String followList){
 	   List<String> list=sqlSession.selectList("mybatis_uk.followList",followList);
-	   for(String str:list) {
-		   System.out.println(str);
-	   }
 	   sqlSession.close();
 	   return list;
    }

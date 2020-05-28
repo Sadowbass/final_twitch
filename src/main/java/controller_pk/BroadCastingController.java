@@ -25,6 +25,7 @@ import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
 import bean.FollowListVo;
 import bean.RouletteVo;
+import bean.UserInfoVo;
 import bean.VideoTimeCut;
 import bean.timeCal;
 
@@ -344,7 +345,25 @@ public class BroadCastingController {
       return result;
 
    }
+   
+   
+   	   @RequestMapping(value = "*/initUser.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String initUser(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      String mId = req.getParameter("mId");
+	      UserInfoVo vo = dao.initUser(mId);
+	      Gson gson = new Gson();
+	      result = gson.toJson(vo);
+	      System.out.println(result);
 
+	      return result;
+
+	   }
+   
+   
+   
    @RequestMapping(value = "*/selectAir.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody

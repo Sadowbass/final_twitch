@@ -128,8 +128,14 @@ public class SCController {
     @RequestMapping(value = "/userinfo.sc", method = { RequestMethod.POST, RequestMethod.GET })
     public ModelAndView topPage(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
+        SCDao dao = new SCDao();
+        String mId = "";
         HttpSession session = req.getSession();
-        String mId = (String) session.getAttribute("session_id");
+        if(session.getAttribute("session_id") != null) {
+        	mId = (String) session.getAttribute("session_id");
+        }else if(session.getAttribute("admin_id") != null){
+        	mId = (String) session.getAttribute("admin_id");
+        }
 
         if (mId != null) {
             UserInfoVo vo = dao.userInfo(mId);
@@ -291,7 +297,12 @@ public class SCController {
         UserInfoVo vo = dao.idcheck(map);
         if (vo != null) {
             flag = "true";
+            if(vo.getMem_admin() == 0) {
             req.getSession().setAttribute("session_id", vo.getMem_id());
+            }else if(vo.getMem_admin() == 1) {
+            	req.getSession().setAttribute("admin_id", vo.getMem_id());
+            }
+            
         }
         return flag;
     }
@@ -299,7 +310,13 @@ public class SCController {
     /* 로그아웃 */
     @RequestMapping(value = "logout.sc", method = RequestMethod.GET)
     public void logout(HttpServletRequest req) {
+    	if(req.getSession().getAttribute("session_id") != null) {
         req.getSession().removeAttribute("session_id");
+    	}
+    	if(req.getSession().getAttribute("admin_id") != null) {
+        req.getSession().removeAttribute("admin_id");
+    	}
+        
     }
 
     /* 아이디 중복체크 */

@@ -72,6 +72,9 @@
             </button>
         </div>
     </li>
+
+    <div class="whisperArea"></div>
+
 </ul>
 
 <ul class="sidebar navbar-nav" id="sidebar-friendlist">

@@ -6,6 +6,7 @@ public class UserInfoVo {
     private String ph_sysfile;
     private String mem_pwd;
     private String mem_name;
+    private int mem_admin;
 
     public int getRno() {
         return rno;
@@ -46,4 +47,14 @@ public class UserInfoVo {
     public void setMem_name(String mem_name) {
         this.mem_name = mem_name;
     }
+
+	public int getMem_admin() {
+		return mem_admin;
+	}
+
+	public void setMem_admin(int mem_admin) {
+		this.mem_admin = mem_admin;
+	}
+    
+    
 }
