@@ -425,12 +425,9 @@ body.sidebar-toggled footer.sticky-footer {
   font-size: 14px;
   max-width: 607px !important;
   width: 330px !important;
-
 }
 .osahan-navbar-search {
   margin-right: 84px !important;
-    position: relative;
-        right: 400px;
 }
 .osahan-navbar-search .btn {
   background: #eceff0 none repeat scroll 0 0;
@@ -555,7 +552,6 @@ body.sidebar-toggled footer.sticky-footer {
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff516b', endColorstr='#826cfd',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */
-
 }
 .btn-outline-primary {
   border-color: #ff516b;
@@ -904,6 +900,44 @@ h6 {
   font-weight: 500;
   margin: 0;
 }
+
+.category-item3 .thumbnail {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 0 2px #ccc;
+  height: 180px;
+  margin: 1px 0 8px;
+  object-fit: scale-down;
+  transform: scale(1);
+  width: 180px;
+}
+.category-item3:hover .thumbnail {
+  transform: scale(1.09);
+  transition-duration: 0.4s;
+}
+.category-item3 {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 2px;
+  box-shadow: 0 0 6px #ececec;
+  margin: 6px 2px;
+  padding: 24px 12px;
+  text-align: center;
+}
+.top-category .category-item3 {
+  padding: 20px 11px;
+}
+.category-item3 h6 {
+  font-size: 13px;
+  margin: 5px 0 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-item3 p {
+  font-size: 11px;
+  font-weight: 500;
+  margin: 0;
+}
+
 /* Video Card */
 .video-block .mb-3 {
   margin-bottom: 30px !important;
@@ -1947,5 +1981,3 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
-
-

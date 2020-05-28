@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../js/uk_cht.js"></script>
+<script src="../js/chtstreamer.js"></script>
 <link rel="stylesheet" href="../css/css_uk.css">
 <style>
 	html{
@@ -30,15 +30,15 @@
 		#000, 0 0 0.8px #000, 0 0 0.8px #000, 0 0 0.8px #000, 0 0 0.8px #000,
 		0 0 0.8px #000, 0 0 0.8px #000;
 	}
-</style> 
+</style>
 <!-- mid(메인 채팅창) -->
 <div>
 	<div class="chtArea" id="chtArea" style="color:#ffffff;"></div>
 </div>
 <input type="hidden" value="${mId }"/>
+
 <script>
-var ws
 $(document).ready(function(){
-	 uk.connectWS($('input[type="hidden"]').val());
+	chtstreamer.connectWS($('input[type="hidden"]').val());
 });
 </script>

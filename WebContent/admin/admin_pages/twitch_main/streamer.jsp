@@ -28,9 +28,9 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
+                                <li><a href="javascript:void(0);">주별</a></li>
+                                <li><a href="javascript:void(0);">월별</a></li>
+                                <li><a href="javascript:void(0);">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -43,21 +43,21 @@
                                     <th>아이디</th>
                                     <th>이름</th>
                                     <th>이메일</th>
-                                    <th>구분</th>
-                                    <th>등록일</th>
-                                    <th>총수익</th>
+                                    <th>현재 상태</th>
+                                    <th>팔로워수</th>
+                                    <th>누적수익</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="i" begin="1" end="57">
+                                <c:forEach var="i" items="${list }">
                                     <!-- 속성 list 값이 하나씩 vo에 들어옴 -->
-                                    <tr onclick="streamer_view()">
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
+                                    <tr onclick="streamer_view('${i.mem_id}')">
+                                        <td>${i.mem_id }</td>
+                                        <td>${i.mem_name }</td>
+                                        <td>${i.mem_email }</td>
+                                        <td>${i.mem_status }</td>
+                                        <td>${i.cnt }</td>
+                                        <td>${i.profit }</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -72,6 +72,9 @@
         </div>
     </div>
 </div>
+<form id="he_form" name="he_form" method="post">
+	<input type=hidden id="he_serial" name="he_serial"/>
+</form>
 <!-- Jquery DataTable Plugin Js -->
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.material.min.js"></script>
@@ -125,4 +128,6 @@
             table.table().container()
         );
     });
+    
+
 </script>

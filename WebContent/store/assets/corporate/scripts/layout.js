@@ -455,7 +455,6 @@ var Layout = function () {
         },
 
         initSliderRange: function () {
-        	console.log("dsfdsds");
             $( "#slider-range" ).slider({
               range: true,
               min: 0,

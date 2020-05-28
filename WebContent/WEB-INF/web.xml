@@ -13,7 +13,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 
 	<servlet>
 		<servlet-name>tgd_mvc</servlet-name>
@@ -24,7 +24,7 @@
 		<servlet-name>tgd_mvc</servlet-name>
 		<url-pattern>*.tgd</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>mh_mvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -53,7 +53,7 @@
 	<servlet-mapping>
 		<servlet-name>broadCasting_mvc</servlet-name>
 		<url-pattern>*.bc</url-pattern>
-		
+
 	</servlet-mapping>
 
 	<servlet>
@@ -66,8 +66,27 @@
 		<servlet-name>ukServlet</servlet-name>
 		<url-pattern>/cht</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>he_mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<async-supported>true</async-supported>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>he_mvc</servlet-name>
+		<url-pattern>*.he</url-pattern>
+	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>ukMvcServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ukMvcServlet</servlet-name>
+		<url-pattern>*.uk</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
@@ -83,6 +102,7 @@
 		<url-pattern>*.PNG</url-pattern>
 		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.mp4</url-pattern>
+		<url-pattern>*.gif</url-pattern>
 	</servlet-mapping>
 
 	 <!-- store -->
@@ -91,11 +111,25 @@
       <servlet-class>
          org.springframework.web.servlet.DispatcherServlet
       </servlet-class>
+      <load-on-startup>1</load-on-startup>
    </servlet>
    <servlet-mapping>
       <servlet-name>store_mvc</servlet-name>
       <url-pattern>*.str</url-pattern>
    </servlet-mapping>
+   
+   <filter>
+  <filter-name>multipart</filter-name>
+    <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+ </filter>
+
+ <filter-mapping>
+    <filter-name>multipart</filter-name>
+    <url-pattern>/</url-pattern>
+  </filter-mapping>
+
+
+
    
    	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -116,17 +150,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- 한글설정 END -->
-
-   <servlet>
-      <servlet-name>member_mvc</servlet-name>
-      <servlet-class>
-         org.springframework.web.servlet.DispatcherServlet
-      </servlet-class>
-   </servlet>
-   <servlet-mapping>
-      <servlet-name>member_mvc</servlet-name>
-      <url-pattern>*.lm</url-pattern>
-   </servlet-mapping>
+	 <servlet>
+  <servlet-name>member_mvc</servlet-name> 
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+  </servlet>
+ <servlet-mapping>
+  <servlet-name>member_mvc</servlet-name> 
+  <url-pattern>*.lm</url-pattern> 
+  </servlet-mapping>
 
 
 </web-app>

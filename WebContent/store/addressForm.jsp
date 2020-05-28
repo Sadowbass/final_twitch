@@ -10,7 +10,7 @@
 <div class="main">
       <div class="container">
         <ul class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">My Page</li>
         </ul>
@@ -55,6 +55,13 @@
                   </div>
                </div>
                
+               <div class="form-group"> 
+                  <label class="col-lg-2 control-label" for="first-name">상세주소<span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="text" id="address3" placeholder="상세주소" class="form-control">
+                  </div>
+               </div>
+               
                   <span id="guide" style="color:#999"></span>
                   
                
@@ -75,7 +82,7 @@
     </div>
     
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+    <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({

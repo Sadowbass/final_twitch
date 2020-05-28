@@ -51,7 +51,7 @@
     <!-- BEGIN HEADER -->
     <div class="header">
       <div class="container">
-        <a class="site-logo" href="indexStore.jsp"><img src="./assets/corporate/img/logos/twitchlogo111.png" ></a>
+        <a class="site-logo" href="index.jsp"><img src="./assets/corporate/img/logos/twitchlogo111.png" ></a>
 
         <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
 
@@ -136,7 +136,7 @@
         <div class="header-navigation">
           <ul>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" onclick="store.pl()" >
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" onclick="store.pl(this.innerText)" >
                 HOODIES  
               </a>  
             </li>
@@ -144,37 +144,36 @@
             
          
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" onclick="store.pl()" >
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" onclick="store.pl(this.innerText)" >
                 TEES   
               </a>
             </li>
             
             
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" onclick="store.pl()" >
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;"  >
                 BOTTOMS   
               </a>
                 
               <!-- BEGIN DROPDOWN MENU -->
               <ul class="dropdown-menu">
-                <li><a href="shop-product-list.html">Long Pants</a></li>
-                <li><a href="shop-product-list.html">Short Pants</a></li>
+                <li><a href="#" onclick="store.pl(this.innerText)" >Long Pants</a></li>
+                <li><a href="#" onclick="store.pl(this.innerText)" >Short Pants</a></li>
               </ul>
               <!-- END DROPDOWN MENU -->
             </li>
             
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" onclick="store.pl()" >
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#;" >
                 BAGS & ACCESSORIES 
-                
               </a>
                 
               <!-- BEGIN DROPDOWN MENU -->
               <ul class="dropdown-menu">
-                <li><a href="shop-product-list.html">Bags</a></li>
-                <li><a href="shop-product-list.html">Hats</a></li>
-                <li><a href="shop-product-list.html">Socks</a></li>
-                <li><a href="shop-product-list.html">ETC</a></li>
+                <li><a href="#" onclick="store.pl(this.innerText)" >Bags</a></li>
+                <li><a href="#" onclick="store.pl(this.innerText)" >Hats</a></li>
+                <li><a href="#" onclick="store.pl(this.innerText)" >Socks</a></li>
+                <li><a href="#" onclick="store.pl(this.innerText)" >ETC</a></li>
               </ul>
               <!-- END DROPDOWN MENU -->
             </li>

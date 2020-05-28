@@ -2928,7 +2928,7 @@ section.content {
     .card .bg-black h2,
     .card .bg-black small,
     .card .bg-black .material-icons {
-      color: #fff !important; }
+      color: #fff }
     .card .bg-red .badge,
     .card .bg-pink .badge,
     .card .bg-purple .badge,
@@ -4281,7 +4281,11 @@ section.content {
     font-weight: bold;
     font-size: 104%;
     color: #fff;
-    margin:0px; }
+    margin:0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+     }
    
 /* Modals ====================================== */
 .modal .modal-header {
@@ -7565,7 +7569,7 @@ fieldset[disabled] .form-control {
     padding: 13px 15px 12px 15px;
     white-space: nowrap;
     position: relative;
-    background: url("../images/user-img-background.PNG") no-repeat no-repeat;
+    /*background: url("../images/user-img-background.PNG") no-repeat no-repeat;*/
     height: 135px; }
     .sidebar .user-info .image {
       margin-right: 12px;

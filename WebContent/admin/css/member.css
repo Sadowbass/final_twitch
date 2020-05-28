@@ -229,7 +229,7 @@ input[type="file"] {
 }
 
 .demo-tagsinput-area {
-	margin-left: 14px;
+	/*margin-left: 14px;*/
 }
 
 .modal-title {
@@ -544,6 +544,100 @@ input[type="file"] {
 .home_box_content {
 	padding-top: 16px;
 }
+
+@media(max-width:1600px) {
+	.cate_width {
+		width: 25%;
+	}
+}
+
+@media(max-width:900px) {
+	.cate_width {
+		width: 50%;
+	}
+}
+
+@media(max-width:770px) {
+	.cate_width {
+		width: 100%;
+	}
+}
+.cate_tag{
+	margin-right:2px;
+}
+
 .cate_thumnail{
 	text-align:center;
+}
+
+/*cate_modify*/
+.filebox3 label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #fff;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-image: #1e1e2f;
+	cursor: pointer;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	position: relative;
+	top: 104px;
+	margin-left: 5px;
+	border: 1px solid #e14eca;
+}
+
+.filebox3 input[type="file"] {
+	/* 파일 필드 숨기기 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.filebox3 {
+	display: inline-block;
+}
+
+
+/*tag_management 라벨*/
+.tag_list .material-icons{
+	margin-left: 6px;
+    position: relative;
+    top: 5px;
+}
+
+.tag_list span{
+	font-size: 115%;
+}
+
+.tag_list .material-icons:hover{
+	cursor:pointer;
+	color:#aaa !important;
+}
+.tag_plus .material-icons{
+	position: relative;
+    top: 6px;
+    margin-left: 16px
+}
+.tag_plus{
+	display:inline-block
+}
+.tag_header{
+	display:inline-block
+}
+
+.tag_plus .material-icons:hover{
+	cursor:pointer;
+	color:#aaa !important;
+}
+
+.tag_button button{
+	background: #d54cc1;
+    color: #fff;
 }

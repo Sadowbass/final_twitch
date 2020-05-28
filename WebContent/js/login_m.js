@@ -155,6 +155,7 @@
 	//아이디 및 비밀번호 찾기  이메일 전송
 $('#btnNextm').click(function(){
 	let param = $('#signupform').serialize();
+	alert(param);
 	$('#signupform').attr('action','email.lm').submit();
 	
 	/*$.post("email.lm", param ,function(data, state){

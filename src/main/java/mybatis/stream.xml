@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="stream">
+	<select id="select" resultType="bean.StreamerVo">
+		select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
+	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 profit 
+		from final_member where MEM_SKEY is not null
+	</select>
+	 <select id='view' parameterType="String" resultType="bean.StreamerVo">
+    	select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
+	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 profit,
+	    (select sum(don_price) from final_donation where don_mid=mem_id) don_profit,
+	    (select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 sub_profit,
+	    (select count(sub_serial) from final_subscription where sub_mid=mem_id) cnt2,
+	    (select ph_sysfile from final_photo where mem_id =ph_id) ph_sysfile
+		from final_member where mem_id='${_parameter}'
+    </select>
+    
+    <select id="weekly_broad_time" parameterType="hashmap" resultType="String">
+		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'rrrr-mm-dd')=#{day}
+	</select>
+	
+	 <select id="monthly_broad_time" parameterType="hashmap" resultType="String">
+		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'mm')=#{month} and to_char(bef_rdate,'rrrr')=#{year}
+	</select>
+	
+	<select id="year_broad_time" parameterType="hashmap" resultType="String">
+		select bef_time from final_before where bef_mid=#{mid} and to_char(bef_rdate,'rrrr')=#{year}
+	</select>
+	
+	<select id="weekly_follow" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr-mm-dd') = #{day}
+	</select>
+	
+	<select id="weekly_sub" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day}
+	</select>
+	
+	<select id="weekly_follow_tot" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) 
+		from final_mfollow 
+		where mfo_mid=#{mid} and mfo_date &lt; #{day}
+	</select>
+	
+	<select id="weekly_sub_tot" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and sub_rdate &lt; #{day}
+	</select>
+	
+	<select id="monthly_sub" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_follow" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') = #{month} and to_char(mfo_date,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_sub_tot" parameterType="hashmap" resultType="String">
+		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') &lt; #{month} and to_char(sub_rdate,'rrrr')= #{year}
+	</select>
+	
+	<select id="monthly_follow_tot" parameterType="hashmap" resultType="String">
+		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') &lt; #{month} and to_char(mfo_date,'rrrr')= #{year}
+	</select>
+	
+	
+	<!--<select id="select" resultType="bean.BroadCastingCateVo">
+		select * from final_category
+	</select>
+	
+	 <select id='view' parameterType="String" resultType="bean.BroadCastingCateVo">
+    	select * from final_category
+    	where cat_serial='${_parameter}'
+    </select>
+
+     <delete id='delete' parameterType="bean.BroadCastingCateVo">
+    	delete from final_category where cat_serial=#{cat_serial}
+    </delete>
+    
+     <update id='update' parameterType="bean.BroadCastingCateVo">
+    	update final_category set cat_gname=#{cat_gname}, cat_genre=#{cat_genre}
+    	where cat_serial=#{cat_serial} 
+    </update>
+    
+     <select id='ph_sysfile' parameterType="bean.BroadCastingCateVo" resultType="bean.BroadCastingCateVo">
+    	select cat_sysfile from final_category
+    	where cat_serial=#{cat_serial}
+    </select>
+    
+    <update id='ph_modify' parameterType="bean.BroadCastingCateVo">
+    	update final_category set cat_orifile=#{cat_orifile}, cat_sysfile=#{cat_sysfile}
+    	where cat_serial=#{cat_serial} 
+    </update>
+    
+    <insert id="insert" parameterType='bean.BroadCastingCateVo'>
+    	insert into final_category(cat_serial,cat_gname,cat_genre,cat_orifile,cat_sysfile) 
+    	values(seq_cate.nextval,#{cat_gname},#{cat_genre},#{cat_orifile},#{cat_sysfile})
+    </insert>
+    
+    <select id="tag_select" resultType="bean.TagVo">
+		select * from final_tag
+	</select>
+	
+	 <select id="tag_search" parameterType="String" resultType="bean.TagVo">
+		select * from final_tag where tag_name like '%${_parameter}%'
+	</select>
+	
+	<delete id='tag_delete' parameterType="String">
+    	delete from final_tag where tag_serial='${_parameter}'
+    </delete>
+    
+     <insert id="tag_insert" parameterType='String'>
+    	insert into final_tag(tag_serial,tag_name) 
+    	values(seq_tag.nextval,'${_parameter}')
+    </insert>-->
+
+ 
+</mapper>

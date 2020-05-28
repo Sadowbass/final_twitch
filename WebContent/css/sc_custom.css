@@ -4,6 +4,10 @@
     height: 30px;
 }
 
+#sidebar-friendlist{
+    display: none;
+}
+
 .offline {
     filter: grayscale(100%);
 }

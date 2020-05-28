@@ -1,5 +1,9 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -41,113 +45,29 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 </div>
                 <div class="body">
                     <div class="row">
-                        <div class="col-sm-6 col-md-2">
+                    <c:forEach var="i" items="${list }">
+                        <div class="col-sm-6 col-md-3 col-lg-2 cate_width">
                             <div class="thumbnail">
-                                <img src="./images/tft.PNG">
+                                <img src="../img/cate/${i.cat_sysfile}">
                                 <div class="caption cate_thumnail">
-                                    <h3>Teamfight Tactics</h3>
+                                    <h3>${i.cat_gname }</h3>
                                     <p>
-                                        <span class="label bg-indigo">전략</span>
-                                        <span class="label bg-indigo">오토배틀러</span>
+                                    	<c:forEach var="j" items="${fn:split(i.cat_genre ,',')}" end="1">
+	                                        <span class="label bg-indigo cate_tag">${j} </span>
+                                    	</c:forEach>
                                     </p>
                                     <div class="js-sweetalert">
                                         <p>
-                                            <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
+                                            <button class="btn btn-defalt waves-effect" onclick="showCancel2Message(${i.cat_serial})">삭제</button>
                                             <button type="button" class="btn btn-defalt waves-effect"
-                                                data-toggle="modal" data-target="#defaultModal">수정</button>
+                                                data-toggle="modal" data-target="#defaultModal" onclick="cate_modify(${i.cat_serial})">수정</button>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail">
-                                <img src="./images/just_chat.PNG">
-                                <div class="caption cate_thumnail">
-                                    <h3>Just Chatting</h3>
-                                    <p>
-                                        <span class="label bg-indigo">리얼라이프</span>
-                                    </p>
-                                    <div class="js-sweetalert">
-                                        <p>
-                                            <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect"
-                                                data-toggle="modal" data-target="#defaultModal">수정</button> </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail">
-                                <img src="./images/valorant.PNG">
-                                <div class="caption cate_thumnail">
-                                    <h3>VALORANT</h3>
-                                    <p>
-                                        <span class="label bg-indigo">슈팅 장르</span>
-                                        <span class="label bg-indigo">FPS</span>
-                                    </p>
-                                    <div class="js-sweetalert">
-                                        <p>
-                                            <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect"
-                                                data-toggle="modal" data-target="#defaultModal">수정</button> </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail cate_thumnail">
-                                <img src="./images/lol.PNG">
-                                <div class="caption">
-                                    <h3>League of Legend</h3>
-                                    <p>
-                                        <span class="label bg-indigo">MOBA</span>
-                                    </p>
-                                    <div class="js-sweetalert">
-                                        <p>
-                                            <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect"
-                                                data-toggle="modal" data-target="#defaultModal">수정</button> </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail cate_thumnail">
-                                <img src="./images/overwatch.PNG">
-                                <div class="caption">
-                                    <h3>Overwatch</h3>
-                                    <p>
-                                        <span class="label bg-indigo">FPS</span>
-                                        <span class="label bg-indigo">슈팅장르</span>
-                                    </p>
-                                    <div class="js-sweetalert">
-                                        <p>
-                                            <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect"
-                                                data-toggle="modal" data-target="#defaultModal">수정</button> </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <div class="thumbnail cate_thumnail">
-                                <img src="./images/bg.PNG">
-                                <div class="caption">
-                                    <h3>BATTLEGROUNDS</h3>
-                                    <p>
-                                        <span class="label bg-indigo">슈팅장르</span>
-                                        <span class="label bg-indigo">FPS</span>
-                                    </p>
-                                    <div class="js-sweetalert">
-                                        <p>
-                                            <button class="btn btn-defalt waves-effect" data-type="cancel2">삭제</button>
-                                            <button type="button" class="btn btn-defalt waves-effect"
-                                                data-toggle="modal" data-target="#defaultModal">수정</button> </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    </c:forEach>
+                  
                     </div>
                 </div>
             </div>
@@ -155,6 +75,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     </div>
     <!-- #END# Custom Content -->
 </div>
+<form id="he_form" name="he_form" method="post">
+   <input type="hidden" name="cat_serial" id="cat_serial"/>
+</form>
 <!-- 수정 모달  -->
 <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -163,13 +86,18 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 <h4 class="modal-title" id="defaultModalLabel">카테고리 수정</h4>
             </div>
             <div class="modal-body">
-                <div class="col-lg-12 col-md-12  col-xs-12">
+            <form name="modal_form" id="modal_form" method="post" enctype='multipart/form-data'>
+                <div class="col-lg-12 col-md-12 col-xs-12">
                     <img src="images/tft.PNG" class="img-rounded category_img" id="category_img">
+                     <div class="filebox3">
+                         <label for="profile_img">프로필 사진 수정</label>
+                         <input type="file" name="profile_img" id="profile_img" class="profile_img_button" />
+                     </div>
                 </div>
                 <div class="col-xs-12">
                     <div class="cate_name_label">카테고리 이름</div>
                     <div class="form-line">
-                        <input type="text" class="form-control category_name_modify" placeholder="Temfight Tactics">
+                        <input type="text" class="form-control category_name_modify" placeholder="Temfight Tactics" id="cate_name" name="cate_name">
                     </div>
                 </div>
                 <div class="col-xs-12">
@@ -177,13 +105,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="cate_tag_label">태그</div>
                         <div class="form-line">
                             <input type="text" class="form-control" data-role="tagsinput"
-                                value="Amsterdam,Washington,Sydney,Beijing,Cairo">
+                                value="" id="cate_tags" name="cate_tags">
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="cate_serial" name="cate_serial" >
+                </form>
             </div>
             <div class="modal-footer js-sweetalert">
-                <button class="btn btn-modal waves-effect" data-type="modify">수정</button>
+                <button class="btn btn-modal waves-effect" data-type="modify2">수정</button>
                 <button type="button" class="btn btn-modal waves-effect" data-dismiss="modal">취소</button>
             </div>
         </div>
@@ -193,6 +123,33 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <script src="js/pages/ui/dialogs.js"></script>
 <!-- Bootstrap Tags Input Plugin Js -->
 <script src="plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+<script src="js/stream.js"></script>
+
+<script>
+var cate_modify = function(serial){
+	$('#cat_serial').val(serial);
+	let param = $('#he_form').serialize();
+	$.ajax({ 
+		type: "GET", 
+		url : "category_view.he",
+		data: param, 
+		async: true, 
+		success : function(data, status, xhr) { 
+			 $('#cate_name').val(data.cate.cat_gname);
+			 $('#cate_tags').tagsinput('removeAll');
+			 $('#cate_tags').tagsinput('add',data.cate.cat_genre);
+			 $("#category_img").attr("src", '../img/cate/'+data.cate.cat_sysfile);
+			 $('#cate_serial').val(data.cate.cat_serial);
+	
+		},
+		error: function(jqXHR, textStatus, errorThrown) { 
+			alert(jqXHR.responseText); 
+			} 
+		});
+
+}
+
+</script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="broadCasting">
-
+	
 	<select id='selectTag' resultType="String">
 		SELECT tag_name FROM FINAL_TAG
 	</select>	       
@@ -35,7 +35,7 @@
 		delete from final_onair where air_mid = #{_parameter}
 	</delete>
 	<select id='selectDonation' resultType="bean.BroadCastingDonationVo" parameterType='String'>
-		select * from final_donation where don_push='0' and don_mid = #{mId}
+		select * from final_donation where don_push='0' and don_mid = #{mId} and to_char(don_rdate,'yyyyMMdd') = to_char(sysdate,'yyyyMMdd')
 	</select>
 	<update id='readDonation' parameterType='Integer'>
 		update final_donation
@@ -44,8 +44,52 @@
 		WHERE
 		don_serial = ${serial}
 	</update>
-	
-	
-
+		<update id='sendDonation' parameterType='Integer'>
+		update final_donation
+		SET 
+		don_push = '2'
+		WHERE
+		don_serial = ${serial}
+	</update>
+	<select id='selectRoulette' resultType="bean.RouletteVo" parameterType='String'>
+		select * from final_roulette where rul_mId = #{_parameter}
+	</select>
+	<update id='saveRoulette1' parameterType='hashMap'>
+		update FINAL_ROULETTE
+		SET 
+		rul_data = #{newRouletteData}
+		WHERE
+		rul_mId = #{mId}
+	</update>
+	<insert id='saveRoulette2' parameterType='hashMap'>
+		INSERT into FINAL_ROULETTE
+		VALUES (seq_roulette.nextVal, #{mId}, #{newRouletteData})
+	</insert>
+	<delete id='deleteRoulette' parameterType = 'String'>
+		delete from FINAL_ROULETTE where rul_mId = #{_parameter}
+	</delete>
+	<update id='imageThumbnail' parameterType='hashMap'>
+		update FINAL_onair
+		SET 
+		air_thumbnail = #{path}
+		WHERE
+		air_mId = #{mId}
+	</update>
+	<select id='selectAir' resultType="bean.BroadCastingAirVo" parameterType='String'>
+		select * from final_onair a, final_member m,final_category c where a.air_mid = m.mem_id and a.air_gname = c.cat_gname and a.air_mId = #{_parameter} 
+	</select>
+	<insert id='insertInfo' parameterType='bean.BroadCastingAirVo'>
+		INSERT into FINAL_broadCastingInfo
+		VALUES (seq_info.nextVal, #{air_mid}, #{air_gname},sysdate)
+	</insert>
+	<select id='selectFollow' resultType="Integer" parameterType='String'>
+		select count(mfo_serial) from final_mfollow where mfo_mid = #{_parameter}
+	</select>
+		<select id='selectFollowList' resultType="bean.FollowListVo" parameterType='String'>
+		select * from final_mfollow where mfo_mid = #{_parameter} order by mfo_date desc
+	</select>
+	<select id='initUser' resultType="bean.UserInfoVo" parameterType='String'>
+		select * from final_member m,final_photo p where m.mem_id = p.ph_id(+) and mem_id = #{_parameter}
+	</select>
 </mapper>
    

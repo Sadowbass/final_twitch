@@ -4,18 +4,128 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="scbatis">
+    <!--팔로워 리스트-->
+    <select id="followers" parameterType="String" resultType="bean.UserInfoVo">
+        select fm.MFO_MID mem_id, fp.PH_SYSFILE
+        from FINAL_MFOLLOW fm
+                 left outer join FINAL_PHOTO fp on fm.MFO_MID = fp.PH_ID
+        where fm.MFO_OID = #{value }
+    </select>
+
+    <!--로그인중인 회원 정보-->
+    <select id="userInfo" parameterType="String" resultType="bean.UserInfoVo">
+        select *
+        from FINAL_MEMBER fm
+                 left outer join FINAL_PHOTO fp on fm.MEM_ID = fp.PH_ID
+        where MEM_ID = #{value }
+    </select>
+
+    <!--특정 1명의 스트리밍 정보-->
     <select id="select" parameterType="String" resultType="bean.StreamingVo">
-        select m.mem_Id, m.mem_Skey, o.AIR_MID, o.AIR_SUBJECT from FINAL_MEMBER m join FINAL_ONAIR o on m.MEM_ID=o.AIR_MID where mem_Id = #{value }
-    </select>
-    <select id="nowStreaming" resultType="bean.StreamingVo">
-        select * from FINAL_ONAIR
+        select m.mem_Id, m.mem_Skey, o.AIR_MID, o.AIR_SUBJECT, p.PH_SYSFILE
+        from FINAL_MEMBER m
+                 join FINAL_ONAIR o on m.MEM_ID = o.AIR_MID
+                 left outer join FINAL_PHOTO p on p.PH_ID = m.MEM_ID
+        where mem_Id = #{value }
     </select>
 
+    <!--현재 생방송들의 정보-->
+    <select id="nowStreaming" resultType="bean.StreamingVo" parameterType="String">
+     
+        select rownum rno, a.*
+        from (select *
+              from FINAL_ONAIR o
+                       left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID where air_mId like '%${findStr}%' or air_subject like '%${findStr}%' or air_gname like '%${findStr}%') a
+        where ROWNUM between 1 and 12
+    </select>
+    
+
+    <!--생방송 페이징-->
+    <select id="streamingPaging" parameterType="hashMap" resultType="bean.StreamingVo">
+        
+        select *
+        from (select rownum rno, a.*
+              from (select *
+                    from FINAL_ONAIR o
+                             left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID where air_mId like '%${findStr}%' or air_subject like '%${findStr}%' or air_gname like '%${findStr}%') a)
+        where rno between ${rno} + 1 and ${rno} + 12
+    	
+    </select>
+
+    <!--팔로우중인 이용자의 생방송정보-->
+    <select id="nowStreaming2" resultType="bean.StreamingVo">
+        SELECT *
+        FROM FINAL_MFOLLOW fm
+                 JOIN FINAL_ONAIR fo
+                      ON fm.MFO_OID = fo.AIR_MID
+                 LEFT OUTER JOIN FINAL_PHOTO fp
+                                 ON fo.AIR_MID = fp.PH_ID
+        WHERE fm.MFO_MID = #{value}
+        order by fo.AIR_MID
+    </select>
+
+    <select id="recommend" resultType="bean.StreamingVo">
+        select * from FINAL_ONAIR where rownum between 1 and 10
+    </select>
+
+    <!--스트리머가 재생한 도네이션 확인-->
     <select id="donationView" parameterType="String" resultType="bean.DonationVo">
-        select * from FINAL_DONATION where DON_PUSH = 2 and DON_MID = #{value}
+        select fd.don_serial, fd.don_mid, fd.don_oid, fd.don_price, fd.don_rdate, fd.don_content,fd.url,fd.type,fr.rul_data
+		from final_donation fd, final_roulette fr
+		where fd.don_mid = fr.rul_mid(+) and fd.DON_PUSH = 2
+		and DON_MID = #{value}
     </select>
 
+    <!--도네이션 체크 완료하고 상태변경-->
     <update id="donationStatusChange" parameterType="Integer">
-        update FINAL_DONATION set DON_PUSH = 3 where DON_SERIAL = #{value }
+        update FINAL_DONATION
+        set DON_PUSH = 3
+        where DON_SERIAL = #{value }
     </update>
+
+    <!--친구 검색-->
+    <select id="findFriends" parameterType="String" resultType="bean.SCFriendListVo">
+        select m.mem_id, m.MEM_NAME, p.PH_SYSFILE
+        from FINAL_MEMBER m
+                 left outer join FINAL_PHOTO p on m.MEM_ID = p.PH_ID
+        where m.MEM_ID like '%${value }%'
+    </select>
+
+    <!--카테고리 검색-->
+    <select id="categories" resultType="bean.CategoriesVo" parameterType="String">
+        select rownum rno, a.*
+        from (select * from FINAL_CATEGORY where cat_gname like '%${findStr}%') a
+        where rownum between 1 and 12
+    </select>
+
+    <!--카테고리 페이징-->
+    <select id="categoryPaging" parameterType="hashMap" resultType="bean.CategoriesVo">
+        select *
+        from (select rownum rno, a.* from (select * from FINAL_CATEGORY where cat_gname like '%${findStr}%') a)
+        where rno between ${rno } + 1 and ${rno } + 12
+    </select>
+
+    <!--지난방송 리스트-->
+    <select id="videoList" parameterType="String" resultType="bean.BeforeVo">
+        select rownum rno, a.*
+        from (select * from FINAL_BEFORE where BEF_MID = #{value } order by BEF_SERIAL desc) a
+        where ROWNUM between 1 and 3
+    </select>
+    <!--지난방송 페이징-->
+    <select id="videoPaging" parameterType="Integer" resultType="bean.BeforeVo">
+        select *
+        from (select rownum rno, a.*
+              from (select * from FINAL_BEFORE where BEF_MID = #{mId } order by BEF_SERIAL desc) a)
+        where rno between ${rno}+1 and ${rno}+3
+    </select>
+
+    <!--로그인 id pwd 정확한지 체크-->
+    <select id="idcheck" parameterType="hashMap" resultType="bean.UserInfoVo">
+        select * from FINAL_MEMBER fm join FINAL_PHOTO fp on fm.MEM_ID = fp.PH_ID where MEM_ID = #{id} and MEM_PWD = #{pwd}
+    </select>
+
+    <!--회원가입시 아이디 중복체크-->
+    <select id="dupIdCheck" parameterType="String" resultType="int">
+        select count('mem_id') from FINAL_MEMBER where MEM_ID = #{value }
+    </select>
 </mapper>

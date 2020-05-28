@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="css/member.css" rel="stylesheet">
+    
 </head>
 <div class="container-fluid">
     <div class="block-header">
@@ -34,10 +35,60 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </ul>
                 </div>
                 <div class="body">
-                    <label class="str_profile_label">아이디</label>
-                    <input type="text" class="form-control streamer_profile" placeholder="">
-                    <label class="str_profile_label">닉네임</label>
-                    <input type="text" class="form-control streamer_profile" placeholder="">
+                	 <div class="row clearfix">
+                                <div class="col-xs-12">
+                                    <img src="../img/user-photo/${vo.ph_sysfile }" class="img-circle member_img" id="member_img" name="member_img">
+                                </div>
+                            </div>
+                	<div class="row">
+                		<div class="col-xs-6">
+		                    <label class="str_profile_label">아이디</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_id }">
+                		</div>
+                		<div class="col-xs-6">
+		                    <label class="str_profile_label">이름</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_name }">
+                		</div>
+                	
+                	</div>
+                	<div class="row">
+                		<div class="col-xs-6">
+		                    <label class="str_profile_label">이메일</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_email }">
+                		</div>
+                		<div class="col-xs-6">
+		                    <label class="str_profile_label">현재상태</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_status }">
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="col-xs-4">
+                			<label class="str_profile_label">팔로워 수</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.cnt }">
+                		</div>
+                		<div class="col-xs-4">
+                			<label class="str_profile_label">구독자 수</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.cnt2 }">
+                		</div>
+                		<div class="col-xs-4">
+                			<label class="str_profile_label">평균 시청자수</label>
+		                    <input type="text" class="form-control streamer_profile" placeholder="">
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="col-xs-4">
+                			<label class="str_profile_label">총 구독 수익</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.sub_profit }">
+                		</div>
+                		<div class="col-xs-4">
+                			<label class="str_profile_label">총 도네 수익</label>
+		                    <input type="text" class="form-control streamer_profile" value="${vo.don_profit }">
+                		</div>
+                		<div class="col-xs-4">
+                			<label class="str_profile_label">총 수익</label>
+		                    <input type="text" class="form-control streamer_profile" placeholder="${vo.profit }">
+                		</div>
+                	</div>
                 </div>
             </div>
         </div>
@@ -55,15 +106,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart('${bt[0]}','${bt[1]}','${bt[2]}','${bt[3]}','${bt[4]}','${bt[5]}','${bt[6]}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart('${bt2[0]}','${bt2[1]}','${bt2[2]}','${bt2[3]}','${bt2[4]}','${bt2[5]}','${bt2[6]}','${bt2[7]}','${bt2[8]}','${bt2[9]}','${bt2[10]}','${bt2[11]}')">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart('${bt3[0]}','${bt3[1]}','${bt3[2]}','${bt3[3]}','${bt3[4]}','${bt3[5]}','${bt3[6]}','${bt3[7]}','${bt3[8]}','${bt3[9]}')">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-                <div class="body">
-                    <canvas id="line_chart" height="150"></canvas>
+                <div class="body" id="broad_time">
+                    <canvas id="week_chart" height="150"></canvas>
                 </div>
             </div>
         </div>
@@ -72,7 +123,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>시청자 수·팔로워 수</h2>
+                    <h2>구독자 수</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -80,9 +131,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart2('${cnt2[0]}', '${cnt2[1]}', '${cnt2[2]}', '${cnt2[3]}', '${cnt2[4]}', '${cnt2[5]}', '${cnt2[6]}',
+                                                                                         '${tot_cnt2[0]}', '${tot_cnt2[1]}', '${tot_cnt2[2]}', '${tot_cnt2[3]}', '${tot_cnt2[4]}', '${tot_cnt2[5]}', '${tot_cnt2[6]}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart2('${m_cnt2[0]}', '${m_cnt2[1]}', '${m_cnt2[2]}', '${m_cnt2[3]}', '${m_cnt2[4]}', '${m_cnt2[5]}', '${m_cnt2[6]}','${m_cnt2[7]}','${m_cnt2[8]}','${m_cnt2[9]}','${m_cnt2[10]}','${m_cnt2[11]}',
+                                                                                     '${t_m_cnt2[0]}', '${t_m_cnt2[1]}', '${t_m_cnt2[2]}', '${t_m_cnt2[3]}', '${t_m_cnt2[4]}', '${t_m_cnt2[5]}', '${t_m_cnt2[6]}','${t_m_cnt2[7]}','${t_m_cnt2[8]}','${t_m_cnt2[9]}','${t_m_cnt2[10]}','${t_m_cnt2[11]}')">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart2()">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -100,7 +153,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>도네이션·구독 수익</h2>
+                    <h2>팔로우 수</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -108,15 +161,17 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart5('${cnt[0]}', '${cnt[1]}', '${cnt[2]}', '${cnt[3]}', '${cnt[4]}', '${cnt[5]}', '${cnt[6]}',
+                                                                            '${tot_cnt[0]}', '${tot_cnt[1]}', '${tot_cnt[2]}', '${tot_cnt[3]}', '${tot_cnt[4]}', '${tot_cnt[5]}', '${tot_cnt[6]}')">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart5('${m_cnt[0]}', '${m_cnt[1]}', '${m_cnt[2]}', '${m_cnt[3]}', '${m_cnt[4]}', '${m_cnt[5]}', '${m_cnt[6]}','${m_cnt[7]}','${m_cnt[8]}','${m_cnt[9]}','${m_cnt[10]}','${m_cnt[11]}',
+                                                                                 '${t_m_cnt[0]}', '${t_m_cnt[1]}', '${t_m_cnt[2]}', '${t_m_cnt[3]}', '${t_m_cnt[4]}', '${t_m_cnt[5]}', '${t_m_cnt[6]}','${t_m_cnt[7]}','${t_m_cnt[8]}','${t_m_cnt[9]}','${t_m_cnt[10]}','${t_m_cnt[11]}')">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart5()">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="body">
-                    <canvas id="radar_chart" height="150"></canvas>
+                    <canvas id="follow_chart" height="150"></canvas>
                 </div>
             </div>
         </div>
@@ -133,9 +188,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
+                                <li><a href="javascript:void(0);" onclick="week_chart4()">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart4()">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart4()">연도별</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -147,6 +202,32 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         </div>
         <!-- #END# Pie Chart -->
     </div>
+    
+    <div class="row clearfix">
+    	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>도네이션·구독 수익</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);" onclick="week_chart3()">주별</a></li>
+                                <li><a href="javascript:void(0);" onclick="month_chart3()">월별</a></li>
+                                <li><a href="javascript:void(0);" onclick="year_chart3()">연도별</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <canvas id="radar_chart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -155,8 +236,165 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <script src="plugins/chartjs/Chart.bundle.js"></script>
 
 <!-- Custom Js -->
-<script src="js/pages/charts/chartjs.js"></script>
+<script src="js/stream.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+<script>
+//console.log(moment().day(0)._d);//이번주 일욜
+//console.log(moment().day(0)._d.add(7,"days"))//이번주 토욜?
+//console.log(moment().subtract(7, 'days'));
+//console.log(moment().day(-7)._d);
+//console.log(moment().day(-14)._d);
+//console.log(moment().day(-21)._d);
 
+var ctx1 = document.getElementById('week_chart').getContext('2d')
+var chart = new Chart(ctx1,{
+	// The type of chart we want to create
+    type: 'line',
+    // The data for our dataset
+    data: {
+        labels: ['일','월', '화', '수', '목', '금', '토'],
+        datasets: [{
+            label: '방송 시간',
+            data: [${bt[0]}, ${bt[1]}, ${bt[2]}, ${bt[3]}, ${bt[4]}, ${bt[5]}, ${bt[6]}],
+            borderColor: 'rgba(0, 188, 212, 0.75)',
+			backgroundColor: 'rgba(0, 188, 212, 0.3)',
+			pointBorderColor: 'rgba(0, 188, 212, 0)',
+			pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+			pointBorderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        legend: false
+    }
+}); 
+
+
+
+var ctx3 = document.getElementById('bar_chart').getContext('2d')
+var chart3 = new Chart(ctx3,{
+	 type: 'line',
+     data: {
+    	 labels: ['일','월', '화', '수', '목', '금', '토'],
+         datasets: [{
+             label: "새 구독자 수 ",
+             data: [${cnt2[0]}, ${cnt2[1]}, ${cnt2[2]}, ${cnt2[3]}, ${cnt2[4]}, ${cnt2[5]}, ${cnt2[6]}],
+             borderColor: 'rgba(0, 188, 212, 0.75)',
+             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+             pointBorderColor: 'rgba(0, 188, 212, 0)',
+             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+             pointBorderWidth: 1
+         }, {
+                 label: "누적 구독자 수",
+                 data: [${tot_cnt2[0]}, ${tot_cnt2[1]}, ${tot_cnt2[2]}, ${tot_cnt2[3]}, ${tot_cnt2[4]}, ${tot_cnt2[5]}, ${tot_cnt2[6]}],
+                 borderColor: 'rgba(233, 30, 99, 0.75)',
+                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                 pointBorderWidth: 1
+             }]
+     },
+     options: {
+         responsive: true,
+         
+     }
+}); 
+
+var ctx6 = document.getElementById('follow_chart').getContext('2d')
+
+var chart6 = new Chart(ctx6,{
+	 type: 'line',
+     data: {
+    	 labels: ['일','월', '화', '수', '목', '금', '토'],
+         datasets: [{
+             label: "새 팔로우 수 ",
+             data: [${cnt[0]}, ${cnt[1]}, ${cnt[2]}, ${cnt[3]}, ${cnt[4]}, ${cnt[5]}, ${cnt[6]}],
+             borderColor: 'rgba(0, 188, 212, 0.75)',
+             backgroundColor: 'rgba(0, 188, 212, 0.3)',
+             pointBorderColor: 'rgba(0, 188, 212, 0)',
+             pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
+             pointBorderWidth: 1
+         }, {
+                 label: "누적 팔로우 수",
+                 data: [${tot_cnt[0]}, ${tot_cnt[1]}, ${tot_cnt[2]}, ${tot_cnt[3]}, ${tot_cnt[4]}, ${tot_cnt[5]}, ${tot_cnt[6]}],
+                 borderColor: 'rgba(233, 30, 99, 0.75)',
+                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
+                 pointBorderColor: 'rgba(233, 30, 99, 0)',
+                 pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+                 pointBorderWidth: 1
+             }]
+     },
+     options: {
+         responsive: true,
+         
+     }
+}); 
+
+var ctx4 = document.getElementById('radar_chart').getContext('2d')
+var chart4 = new Chart(ctx4,{
+	 type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+	        datasets: [{
+	            label: '구독 수익',
+	            data: [40, 70, 20, 50, 20, 30, 45],
+	            borderColor: 'rgba(102, 102, 153, 0.75)',
+	            backgroundColor: 'rgba(102, 102, 153, 0.3)',
+	            pointBorderColor: 'rgba(102, 102, 153, 0)',
+	            pointBackgroundColor: 'rgba(102, 102, 153, 0.9)',
+	            pointBorderWidth: 1
+	        },{
+	        	 label: "도네 수익",
+	             data: [28, 48, 40, 19, 86, 27, 90],
+	             borderColor: 'rgba(233, 30, 99, 0.75)',
+	             backgroundColor: 'rgba(233, 30, 99, 0.3)',
+	             pointBorderColor: 'rgba(233, 30, 99, 0)',
+	             pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
+	             pointBorderWidth: 1
+	        },{
+	            label: '총 수익',
+	            data: [68, 118, 60, 69, 116, 57, 135],
+	            borderColor: 'rgba(204, 000, 204, 0.75)',
+	            backgroundColor: 'rgba(204, 000, 204, 0.3)',
+	            pointBorderColor: 'rgba(204, 000, 204, 0)',
+	            pointBackgroundColor: 'rgba(204, 000, 204, 0.9)',
+	            pointBorderWidth: 1
+	        }]
+	    },
+	    options: {
+	    	responsive: true,
+	    
+	    }
+}); 
+
+var ctx5 = document.getElementById('pie_chart').getContext('2d')
+var chart5 = new Chart(ctx5,{
+	 type: 'pie',
+     data: {
+         datasets: [{
+             data: [225, 50, 100, 40],
+             backgroundColor: [
+                 "rgb(233, 30, 99)",
+                 "rgb(255, 193, 7)",
+                 "rgb(0, 188, 212)",
+                 "rgb(139, 195, 74)"
+             ],
+         }],
+         labels: [
+             "Pink",
+             "Amber",
+             "Cyan",
+             "Light Green"
+         ]
+     },
+     options: {
+         responsive: true,
+     }
+}); 
+
+</script>
 
 </body>
 

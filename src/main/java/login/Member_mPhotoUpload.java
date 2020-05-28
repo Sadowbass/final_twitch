@@ -15,7 +15,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 
 public class Member_mPhotoUpload {
-	public static String upload = "c:/Users/JHTA/eclipse-workspace3/1907-login/WebContent/photo/";
+	public static String upload = "C:/User/JHTA/eclipse-workspace3/final_twitch/WebContent/img";
 	                               
 	String tempDir = "c:/temp/";
 	
@@ -54,18 +54,22 @@ public class Member_mPhotoUpload {
 				
 				if(fi.isFormField()) {
 					switch(k) {
-					case "mId": // <input type='text' name='Id'/>
+					case "mem_Id": // <input type='text' name='Id'/>
 						vo.setMem_Id(v);break;
-					case "pwd":
+					case "mem_pwd":
 						vo.setMem_pwd(v);break;
-					case "mName":
+					case "mem_name":
 						vo.setMem_name(v);break;
-					
+					case "mem_profile":
+						vo.setMem_profile(v);break;
+					case "mem_email":
+						vo.setMem_email(v);break;
+					case "mem_birth":
+						vo.setMem_birth(v);break;
 					case "delFile":
 						Member_mPhoto attVo = new Member_mPhoto();
 						attVo.setPh_sysFile(v);
 						delList.add(attVo);break;
-				
 					}
 				}else { // <input type='file'/>
 					if(fi.getSize()>0) {

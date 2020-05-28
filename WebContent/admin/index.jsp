@@ -45,6 +45,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     
      <!-- Jquery Core Js -->
     <script src="plugins/jquery/jquery.min.js"></script>
+    
 
     <!-- Bootstrap Core Js -->
     <script src="plugins/bootstrap/js/bootstrap.js"></script>
@@ -84,7 +85,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     
     <!-- Demo Js -->
     <script src="js/demo.js"></script>
-    
+    <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
   
 </head>
 <%
@@ -95,7 +96,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 %>
 
 
-<body class="theme-red">
+<body class="theme-red" id="main_body">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -172,10 +173,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="index.jsp?inc=admin_pages/member/member_select.jsp">회원조회</a>
+                                <a href="javascript:void(0)" onclick="member_select();">회원조회</a>
                             </li>
                             <li>
-                                <a href="index.jsp?inc=admin_pages/member/member_insert.jsp">회원추가</a>
+                                <a href="javascript:void(0)" onclick="member_insert();">회원추가</a>
                             </li>
                         </ul>
                     </li>
@@ -192,10 +193,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast.jsp">생방송 관리</a>
+                                        <a href="javascript:void(0)" onclick="live_broadcast();">생방송 관리</a>
                                     </li>
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/streamer.jsp">스트리머 관리</a>
+                                        <a href="javascript:void(0)" onclick="streamer()">스트리머 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -205,13 +206,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/category_select.jsp">카테고리 조회</a>
+                                        <a href="javascript:void(0)" onclick="category_select();">카테고리 조회</a>
                                     </li>
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/category_insert.jsp">카테고리 추가</a>
+                                        <a href="javascript:void(0)" onclick="category_insert();">카테고리 추가</a>
                                     </li>
                                      <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/tag_management.jsp">태그 관리</a>
+                                        <a href="javascript:void(0)" onclick="tag_management();">태그 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -221,10 +222,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="admin_pages/twitch_main/advertise.jsp">광고 관리</a>
+                                        <a href="javascript:void(0)">광고 관리</a>
                                     </li>
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/profit_management.jsp">수익 관리</a>
+                                        <a href="javascript:void(0)" onclick="profit();">수익 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -235,7 +236,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu"> 
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/twitch_main/help.jsp">도움말 관리</a>
+                                        <a href="javascript:void(0)" onclick="help();">도움말 관리</a>
                                     </li>
                                 </ul>
                             </li>
@@ -253,7 +254,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a>
+                                    	<a href="javascript:void(0);" onclick="cmh.init();">상품조회</a>
+                                        <!-- <a href="index.jsp?inc=admin_pages/shop/product_select.jsp">상품조회</a> -->
                                     </li>
                                     <li>
                                         <a href="index.jsp?inc=admin_pages/shop/product_insert.jsp">상품추가</a>
@@ -286,7 +288,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/notice.jsp">공지사항</a>
                                     </li>
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/shop/review.jsp">리뷰</a>
+                                        <a href="javascript:void(0);" onclick="cmh.reviewSelect();">리뷰</a>
                                     </li>
                                       <li>
                                         <a href="index.jsp?inc=admin_pages/shop/QandA.jsp">Q&A</a>
@@ -695,7 +697,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         <!-- #END# Right Sidebar -->
     </section>
 
-    <section class="content">
+    <section class="content" id="mainContent">
       <jsp:include page="<%=inc%>" />
     </section>
     
@@ -720,6 +722,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             </div>
   
 </body>
+<script src="js/index.js"></script>
 <script>
  var logout_modal = function(){
 	 $('#admin_logout_btn').trigger('click');

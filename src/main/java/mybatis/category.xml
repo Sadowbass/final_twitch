@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="cate">
+	<select id="select" resultType="bean.BroadCastingCateVo">
+		select * from final_category
+	</select>
+	
+	 <select id='view' parameterType="String" resultType="bean.BroadCastingCateVo">
+    	select * from final_category
+    	where cat_serial='${_parameter}'
+    </select>
+
+     <delete id='delete' parameterType="bean.BroadCastingCateVo">
+    	delete from final_category where cat_serial=#{cat_serial}
+    </delete>
+    
+     <update id='update' parameterType="bean.BroadCastingCateVo">
+    	update final_category set cat_gname=#{cat_gname}, cat_genre=#{cat_genre}
+    	where cat_serial=#{cat_serial} 
+    </update>
+    
+     <select id='ph_sysfile' parameterType="bean.BroadCastingCateVo" resultType="bean.BroadCastingCateVo">
+    	select cat_sysfile from final_category
+    	where cat_serial=#{cat_serial}
+    </select>
+    
+    <update id='ph_modify' parameterType="bean.BroadCastingCateVo">
+    	update final_category set cat_orifile=#{cat_orifile}, cat_sysfile=#{cat_sysfile}
+    	where cat_serial=#{cat_serial} 
+    </update>
+    
+    <insert id="insert" parameterType='bean.BroadCastingCateVo'>
+    	insert into final_category(cat_serial,cat_gname,cat_genre,cat_orifile,cat_sysfile) 
+    	values(seq_cate.nextval,#{cat_gname},#{cat_genre},#{cat_orifile},#{cat_sysfile})
+    </insert>
+    
+    <select id="tag_select" resultType="bean.TagVo">
+		select * from final_tag
+	</select>
+	
+	 <select id="tag_search" parameterType="String" resultType="bean.TagVo">
+		select * from final_tag where tag_name like '%${_parameter}%'
+	</select>
+	
+	<delete id='tag_delete' parameterType="String">
+    	delete from final_tag where tag_serial='${_parameter}'
+    </delete>
+    
+     <insert id="tag_insert" parameterType='String'>
+    	insert into final_tag(tag_serial,tag_name) 
+    	values(seq_tag.nextval,'${_parameter}')
+    </insert>
+
+ 
+</mapper>

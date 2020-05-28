@@ -62,9 +62,9 @@ public class Member_mController {
 
 
 //아이디 비밀번호 찾기 이메일 보내기
-@RequestMapping(value="/member_m/email.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
+@RequestMapping(value="*/email.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
 public ModelAndView sendEmailAction (HttpServletRequest req, HttpServletResponse resp) throws Exception{System.out.println("23414");
-	
+	System.out.println("123213");
 	ModelAndView mv = new ModelAndView();
 	
 	String mem_email = req.getParameter("mem_email");
@@ -92,8 +92,7 @@ public ModelAndView login(HttpServletRequest req) {
 	String mem_pwd = req.getParameter("logpwdm");
 	vo.setMem_Id(mem_Id);
 	vo.setMem_pwd(mem_pwd);
-
-
+	
 	vo2 = dao.login(vo);
 	if( vo2 != null ) {
 		HttpSession session = req.getSession();
@@ -127,15 +126,11 @@ public ModelAndView logout(HttpServletRequest req) {
 @RequestMapping(value="/profilem.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
 public ModelAndView profilem (HttpServletRequest req, HttpServletResponse resp){
 	ModelAndView mv = new ModelAndView();
-	String findStr = req.getParameter("idm");
-
-	
-	
 	MemberVo_m vo = null;
-	System.out.println("asdasd   "+findStr);
+	String mem_Id = req.getParameter("idm");
+	System.out.println(mem_Id);
 	
-	 vo = dao.profilem(findStr);
-	
+	vo = dao.profilem(mem_Id);
 	
 	mv.addObject("vo", vo);
 	mv.setViewName("/mypage/pages");

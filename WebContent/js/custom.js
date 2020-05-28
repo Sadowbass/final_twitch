@@ -81,6 +81,10 @@ $(document).keydown(function (e) {
     e.preventDefault();
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
+    /*uk*/
+    if($(".video_main_uk").length){
+    	uk.leftValue();
+    }
   });
 
   // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
@@ -126,8 +130,11 @@ $(document).keydown(function (e) {
 
 var pagemove = function(tg){
 
+	if(tg.id == "admin/index"){
+		location.href="/admin/index.jsp";		
+	}
 	if(tg.id == "broadCasting/index"){
-		location.href="broadCasting/index.jsp";
+		location.href="/broadCasting/index.jsp";
 	}else{
 		$('#content-wrapper').load(tg.id+".jsp");
 	}

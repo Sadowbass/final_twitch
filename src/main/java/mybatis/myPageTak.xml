@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myPageTak">
+	<select id='selectInfo' resultType="bean.UserInfoVo" parameterType="String">
+		select * from final_member m, final_photo p where m.mem_id = p.ph_id(+) and m.mem_id = #{_parameter}
+	</select>	
+	<update id='insertCoin' parameterType='hashMap'>
+	UPDATE final_member
+	SET 
+	mem_money = TO_CHAR((to_number(mem_money) + ${money}))
+	WHERE
+	mem_id = #{mId}
+	</update>
+	<insert id='insertPay' parameterType='hashMap'>
+		INSERT into fianl_payment
+		VALUES (seq_payment.nextVal, #{mId}, #{money},sysdate)
+	</insert>
+	<select id='pwdCheck' parameterType='hashMap' resultType="Integer">
+	select count(mem_id) from final_member where mem_id = #{mId} and mem_pwd = #{pwd}
+	</select>
+	<update id='updatePwd' parameterType='hashMap'>
+	UPDATE final_member
+	SET 
+	mem_pwd = #{pwd}
+	WHERE
+	mem_id = #{mId}
+	</update>
+</mapper>
