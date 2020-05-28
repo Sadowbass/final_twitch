@@ -24,7 +24,7 @@
        	 	</websocket:handshake-interceptors>
     </websocket:handlers>
 
-    <bean id="Handler" class="stream_uk.NewHandler"/>
+    <bean id="Handler" class="stream_uk.Handler"/>
 
 </beans>
 

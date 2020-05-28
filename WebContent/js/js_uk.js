@@ -103,7 +103,7 @@ uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
 
-	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
+	ws = new WebSocket("ws://localhost/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속");
@@ -164,6 +164,10 @@ uk.connectWS = function (streamer, login) {
 		if(jsObj.offAir){
 			alert(jsObj.offAir+'님이 방송을 종료하였습니다.');
 		}
+		/*채팅방 중복 입장 알림 메세지*/
+		if(jsObj.offAir){
+			alert(jsObj.offAir);
+		}
 	}
 
 	/* 엔터키 누르면 전송 내꺼 */
@@ -212,6 +216,14 @@ uk.takTxt = function () {
 /* socket close 메소드 */
 uk.WSclose = function () {
 	ws.close();
+	/*유저목록 지우기*/
+	if($("#userList").length){
+		$("#userList").html("");
+	}
+	/*대화내용 지우기*/
+	if($("#chtArea").length){
+		$("#chtArea").html("");
+	}
 }
 /* 왼쪽 */
 uk.leftValue = function () {
@@ -333,7 +345,7 @@ uk.clickName=function(){
 
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://192.168.0.57/cht?justLogin");
+	allWs = new WebSocket("ws://localhost/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");
@@ -357,7 +369,7 @@ uk.connectAllWS=function(){
 		/*귓속말 whisper*/
 		if(jsObj.whisper){
 			let whisper=JSON.parse(jsObj.whisper);
-			if($("div[whisperTarget:'"+whisper[0]+"']").length){
+			if($("div[whisperTarget='"+whisper[0]+"']").length){
 				$("<span>"+whisper[0]+": "+whisper[1]+"</span>").appendTo(".whisper_mid");
 			}else{
 			/*귓속말 폼*/
@@ -391,7 +403,7 @@ uk.plus=function(plusOid){
 
 /*귓속말 대화메세지 화면*/
 uk.whisper=function(whisperTarget){
-	if($("div[whisperTarget:'"+whisperTarget+"']").length){
+	if($("div[whisperTarget='"+whisperTarget+"']").length){
 
 	}else{
 		$('<div class="whisper" whisperTarget="'+whisperTarget+'">'+
@@ -414,6 +426,7 @@ uk.whisper=function(whisperTarget){
 /* socket 전송 메소드 (3)귓속말 -> whisper*/
 uk.whisperSend=function(whisperTarget, whisperTxt){
 	console.log('귓속말 보낸다',whisperTarget,whisperTxt);
+
 	$("<span>"+whisperTarget+": "+whisperTxt+"</span>").appendTo(".whisper_mid");
 	/*socket에 id전달*/
 	let str={whisper:[whisperTarget, whisperTxt]}

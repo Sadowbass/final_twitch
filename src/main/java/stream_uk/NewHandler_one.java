@@ -20,10 +20,10 @@ import com.google.gson.JsonParser;
 import bean.Cht;
 import bean.UserList;
 
-public class NewHandler extends TextWebSocketHandler {
+public class NewHandler_one extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
-	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /*스트리머, session List */
+	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
 	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 총 시청자수 */
 	Map<String, Integer> accumulate = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
 	Gson gson = new Gson(); /*지슨*/

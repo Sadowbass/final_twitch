@@ -115,8 +115,8 @@
 
 		<!-- 기타 정보 -->
 		<div class="d-flex" id="videoEtc">
-			<div class="p-3">방송 제목</div>
-			<div class="p-3">${vo.air_subject}</div>
+			<div class="p-3">${vo.air_subject }</div> <!-- 제목 -->
+			<div class="p-3">${vo.air_content }</div> <!-- 내용 -->
 			<div class="ml-auto">
 				<button class="btn" type="button">
 					<i class="far fa-user p-1"></i>
@@ -147,12 +147,10 @@
 			</div>
 		</div>
 		<div class="d-flex d-flex flex-row" id="videoEtc2">
-			<div class="p-3">이미지</div>
+			<div class="p-3">${vo.ph_sysfile }</div> <!-- 카테고리 이미지 -->
 			<div class="p-3">
-				<div>카테고리: just Chatting</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
-				<div>#리얼라이프</div>
+				<div>${vo.air_gname } &nbsp&nbsp 카테고리  </div> <!-- 게임이름, 카테고리 -->
+				<div>태그위치</div> <!-- 태그 -->
 			</div>
 		</div>
 	</div>
