@@ -24,6 +24,17 @@ uk.stream = function () {
 			if ($('#sidebarplace').length) {
 				$(".video_main_uk").css('padding-left', left + 'px');
 			}
+			/*귓속말 영역*/
+			if($(".whisper").length){
+
+				$(".whisper").css("width",left+'px'); /*귓속말 전체*/
+				$(".whisperTarget").css("width",left-$(".whisper_min").width()+$(".whisper_close").width()); /*귓속말 탑 왼쪽 마진*/
+				$(".whisper_mid").height($(".whisper").height()-$(".whisper_top").height()-$(".whisper_bottom").height());/*귓속말 미드*/
+				console.log(1,$(".whisper_bottom").width());
+				console.log(2,$(".whisper_sendArea").siblings().width());
+				console.log(3,$(".whisper_bottom").width()-$(".whisper_sendArea").siblings().width())
+				$(".whisper_sendArea").width($(".whisper_bottom").width()-$(".whisper_btn").width());
+			}
 		}
 	});
 
@@ -53,7 +64,7 @@ uk.usersOrcht = function () {
 		$('#statusBoard').html('생방송 채팅');
 	}
 }
-
+/*접기*/
 uk.fold = function () {
 	$("#cht_div").css("display", "none");
 	if ($(window).width() >= 1000) {
@@ -63,11 +74,13 @@ uk.fold = function () {
 	}
 	uk.rightValue();
 }
+/*오른쪽에서 펼치기*/
 uk.unfold = function () {
 	$("#cht_div").css("display", "block");
 	$("#unfold").css("display", "none");
 	uk.rightValue();
 }
+/*밑에서 펼치기*/
 uk.unfoldBottom = function () {
 	$("#cht_div").css("display", "block");
 	$("#unfoldBottom").css("display", "none");
@@ -140,7 +153,23 @@ uk.connectWS = function (streamer, login) {
 		}
 		/* 채팅! chtArea에 붙이기 */
 		if (jsObj.txt && $('#chtArea').length) {
-			$('<div></div>').html(jsObj.txt).appendTo('#chtArea');
+			let txt=JSON.parse(jsObj.txt)
+			console.log(txt[0],txt[1]);
+			/*$('<div></div>').html('<a href=#>'+txt[0]+'</a>: '+txt[1]).appendTo('#chtArea');*/
+
+			$('<div class="dropdown">'+
+			  '<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+			    txt[0]+'&nbsp&nbsp'+
+			  '</a>'+
+			    txt[1]+
+
+			  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+			    '<a class="dropdown-item" href="#">친구 추가</a>'+
+			    '<a class="dropdown-item" href="#">귓속말</a>'+
+			    '<a class="dropdown-item" href="#">채팅 금지</a>'+
+			  '</div>'+
+			'</div>').appendTo('#chtArea');
+
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		}
 	}
@@ -201,6 +230,9 @@ uk.leftValue = function () {
 		left = $('#sidebar-navmain').width();
 	}
 	$(".video_main_uk").css('padding-left', left + 'px');
+	if($(".whisper").length){
+		$(".whisper").css("width",left+'px');
+	}
 }
 
 /* 오른쪽 */
@@ -320,28 +352,67 @@ uk.connectAllWS=function(){
 	};
 
 	allWs.onmessage = function (event) {
-		console.log(event.data);
+		let jsObj = JSON.parse(event.data);
+
+		/*방송시작 알람 onAir*/
+		if(jsObj.onAir)
+		alert(jsObj.onAir+'님이 방송을 시작합니다.');
+		/*친구 추가 알림 plus*/
+		if(jsObj.plus)
+		alert(jsObj.plus+'님이 친구추가를 신청하였습니다.');
+		/*귓속말 whisper*/
+		if(jsObj.whisper){
+			let whisper=JSON.parse(jsObj.whisper);
+			$(".whisperTarget").html(whisper[0]);
+			$(".whisper_mid").htrml(whisper[1]);
+		}
 	}
 }
 
 /* socket 전송 메소드 (2)친구 추가 -> plus*/
 uk.plus=function(){
 
-	let str={plus:'친구신청할 아이디'}
+	let str={plus:'cha'}
 	jsonStr=JSON.stringify(str);
 
 	if (allWs.readyState === 1) {
 		allWs.send(jsonStr);
 	}
 }
+
+/*귓속말 대화메세지 화면*/
+uk.whisper=function(whisperTarget){
+	if($("div[whisperTarget:"+whisperTarget+"]").length){
+
+	}else{
+		$('<div class="whispepr" whisperTarget='+whisperTarget+'>'+
+			  '<div class="whisper_top">'+
+			    	'<div class="whisperTarget">'+whisperTarget+'</div>'+
+			    	'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>'+
+			    	'<div class="whisper_close"><a href="#"><i class="fas fa-times"></i></a></div>'+
+			  '</div>'+
+			  '<div class="whisper_mid">textArea</div>'+
+			  '<div class="whisper_bottom">'+
+			  '<div class="whisper_sendArea">sendArea</div>'+
+			  '<div class="whisper_btn"><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
+			  '</div>'+
+			'</div>').appendTo(".whisperArea")
+	}
+
+}
+
 /* socket 전송 메소드 (3)귓속말 -> whisper*/
-uk.whisper=function(){
-	let str={whisper:['cha','귓속말 내용']}
+uk.whisperSend=function(whisperTarget, whisperTxt){
+
+	/*socket에 id전달*/
+	let str={whisper:[whisperTarget, whisperTxt]}
 	jsonStr=JSON.stringify(str);
 
-	if (allWs.readyState === 1) {
+	if (allWs.readyState === 1 ) {
 		allWs.send(jsonStr);
 	}
+
+
 }
 /* socket close 메소드 */
 uk.WSclose = function () {
