@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import bean.StoreFaqVo;
 
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +43,9 @@ import bean.StoreReviewVo;
 
 @Controller
 public class StoreController {
+	
+	@Inject
+	StoreCartServiceif Cartservice;
 	
 	ServletContext c;
 	
@@ -221,6 +226,7 @@ public class StoreController {
     	return mv;
     }
 	
+	
 	@RequestMapping(value="/store/faq.str", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView faq(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
@@ -244,14 +250,11 @@ public class StoreController {
 	
 		//String mem_id = (String)session.getAttribute("mem_id");
 		String mem_id ="faker";
-		
-        StoreCartServiceif cartService = null;
-		
+			
 		vo = new StoreCartVo();
 		
-		
 		vo.setMem_id(mem_id);
-		cartService.insert(vo); 
+		Cartservice.insert(vo); 
 		
 		//String msg = dao.cartInsert(vo);
 		
