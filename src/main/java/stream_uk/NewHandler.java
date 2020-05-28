@@ -223,9 +223,19 @@ public class NewHandler extends TextWebSocketHandler {
 
 		/* 채팅방 퇴장 */
 		if (!censorship.equals("justLogin")) {
-			/* 스트리머가 방송 종료 */
+			/* 스트리머가 방송 종료 채팅방에 있던 모든사람 강제 퇴장*/
 			if (mid.equals(censorship)) {
-				/*채팅방에 있던 모든사람 강제 퇴장 해야함(디비 포함)*/
+				System.out.println("스트리머 방종");
+				/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
+				List<WebSocketSession> list=chatRoom.get(censorship);
+				for(WebSocketSession s:list) {
+					String del_id=(String)s.getAttributes().get("session_id");
+					userList.setMid(del_id);
+					userList.setOid(censorship);
+					userList.setStatus(0);
+					UkDao dao = new UkDao();
+					dao.exit(userList);
+				}
 				totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
 				accumulate.remove(censorship); /* 누적 카운트에서 제거 */
 				chatRoom.remove(censorship); /*채팅방 폭파*/
