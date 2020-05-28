@@ -24,17 +24,6 @@ uk.stream = function () {
 			if ($('#sidebarplace').length) {
 				$(".video_main_uk").css('padding-left', left + 'px');
 			}
-			/*귓속말 영역*/
-			if($(".whisper").length){
-
-				$(".whisper").css("width",left+'px'); /*귓속말 전체*/
-				$(".whisperTarget").css("width",left-$(".whisper_min").width()+$(".whisper_close").width()); /*귓속말 탑 왼쪽 마진*/
-				$(".whisper_mid").height($(".whisper").height()-$(".whisper_top").height()-$(".whisper_bottom").height());/*귓속말 미드*/
-				console.log(1,$(".whisper_bottom").width());
-				console.log(2,$(".whisper_sendArea").siblings().width());
-				console.log(3,$(".whisper_bottom").width()-$(".whisper_sendArea").siblings().width())
-				$(".whisper_sendArea").width($(".whisper_bottom").width()-$(".whisper_btn").width());
-			}
 		}
 	});
 
@@ -155,7 +144,6 @@ uk.connectWS = function (streamer, login) {
 		if (jsObj.txt && $('#chtArea').length) {
 			let txt=JSON.parse(jsObj.txt)
 			console.log(txt[0],txt[1]);
-			/*$('<div></div>').html('<a href=#>'+txt[0]+'</a>: '+txt[1]).appendTo('#chtArea');*/
 
 			$('<div class="dropdown">'+
 			  '<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
@@ -164,8 +152,8 @@ uk.connectWS = function (streamer, login) {
 			    txt[1]+
 
 			  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-			    '<a class="dropdown-item" href="#">친구 추가</a>'+
-			    '<a class="dropdown-item" href="#">귓속말</a>'+
+			    '<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+			    '<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
 			    '<a class="dropdown-item" href="#">채팅 금지</a>'+
 			  '</div>'+
 			'</div>').appendTo('#chtArea');
@@ -233,7 +221,9 @@ uk.leftValue = function () {
 	if ($(window).width() >= 1000) {
 		left = $('#sidebar-navmain').width();
 	}
+	/*비디오 왼쪽 패딩*/
 	$(".video_main_uk").css('padding-left', left + 'px');
+	/*귓속말 크기*/
 	if($(".whisper").length){
 		$(".whisper").css("width",left+'px');
 	}
@@ -358,25 +348,40 @@ uk.connectAllWS=function(){
 	allWs.onmessage = function (event) {
 		let jsObj = JSON.parse(event.data);
 
-		/*방송시작 알람 onAir*/
+		/*방송시작 알람 받음 onAir*/
 		if(jsObj.onAir)
-		alert(jsObj.onAir+'님이 방송을 시작합니다.');
-		/*친구 추가 알림 plus*/
+		alert(jsObj.onAir+'님이 방송을 시작하였습니다.');
+		/*친구 추가 알림 받음 plus*/
 		if(jsObj.plus)
 		alert(jsObj.plus+'님이 친구추가를 신청하였습니다.');
 		/*귓속말 whisper*/
 		if(jsObj.whisper){
 			let whisper=JSON.parse(jsObj.whisper);
-			$(".whisperTarget").html(whisper[0]);
-			$(".whisper_mid").htrml(whisper[1]);
+			if($("div[whisperTarget:'"+whisper[0]+"']").length){
+				$("<span>"+whisper[0]+": "+whisper[1]+"</span>").appendTo(".whisper_mid");
+			}else{
+			/*귓속말 폼*/
+			$('<div class="whisper" whisperTarget="'+whisper[0]+'">'+
+					  '<div class="whisper_top">'+
+					    	'<div class="whisperOid">'+whisper[0]+'</div>'+
+					    	'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>'+
+					    	'<div class="whisper_close"><a href="#"><i class="fas fa-times"></i></a></div>'+
+					  '</div>'+
+					  '<div class="whisper_mid"></div>'+
+					  '<div class="whisper_bottom">'+
+					  '<div class="whisper_sendArea"></div>'+
+					  '<div class="whisper_btn" conclick=uk.whisperSend("'+whisper[0]+'",'+$(".whisper_sendArea").val()+')><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
+					  '</div>'+
+					'</div>').appendTo(".whisperArea");
+				uk.whisperCss($('#sidebar-navmain').width());
+			}
 		}
 	}
 }
 
 /* socket 전송 메소드 (2)친구 추가 -> plus*/
-uk.plus=function(){
-
-	let str={plus:'cha'}
+uk.plus=function(plusOid){
+	let str={plus:plusOid}
 	jsonStr=JSON.stringify(str);
 
 	if (allWs.readyState === 1) {
@@ -386,28 +391,30 @@ uk.plus=function(){
 
 /*귓속말 대화메세지 화면*/
 uk.whisper=function(whisperTarget){
-	if($("div[whisperTarget:"+whisperTarget+"]").length){
+	if($("div[whisperTarget:'"+whisperTarget+"']").length){
 
 	}else{
-		$('<div class="whispepr" whisperTarget='+whisperTarget+'>'+
+		$('<div class="whisper" whisperTarget="'+whisperTarget+'">'+
 			  '<div class="whisper_top">'+
-			    	'<div class="whisperTarget">'+whisperTarget+'</div>'+
+			    	'<div class="whisperOid">'+whisperTarget+'</div>'+
 			    	'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>'+
 			    	'<div class="whisper_close"><a href="#"><i class="fas fa-times"></i></a></div>'+
 			  '</div>'+
-			  '<div class="whisper_mid">textArea</div>'+
+			  '<div class="whisper_mid"></div>'+
 			  '<div class="whisper_bottom">'+
-			  '<div class="whisper_sendArea">sendArea</div>'+
-			  '<div class="whisper_btn"><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
+			  '<div class="whisper_sendArea"></div>'+
+			  '<div class="whisper_btn" conclick=uk.whisperSend("'+whisperTarget+'",'+$(".whisper_sendArea").val()+')><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
 			  '</div>'+
-			'</div>').appendTo(".whisperArea")
+			'</div>').appendTo(".whisperArea");
+		uk.whisperCss($('#sidebar-navmain').width());
 	}
 
 }
 
 /* socket 전송 메소드 (3)귓속말 -> whisper*/
 uk.whisperSend=function(whisperTarget, whisperTxt){
-
+	console.log('귓속말 보낸다',whisperTarget,whisperTxt);
+	$("<span>"+whisperTarget+": "+whisperTxt+"</span>").appendTo(".whisper_mid");
 	/*socket에 id전달*/
 	let str={whisper:[whisperTarget, whisperTxt]}
 	jsonStr=JSON.stringify(str);
@@ -421,6 +428,17 @@ uk.whisperSend=function(whisperTarget, whisperTxt){
 /* socket close 메소드 */
 uk.allWSclose = function () {
 	allWs.close();
+}
+
+/*귓속말 css*/
+uk.whisperCss=function(left){
+	$(".whisper").css("width",left+'px'); /*귓속말 전체*/
+	$(".whisperOid").css("width",left-$(".whisper_min").width()+$(".whisper_close").width()); /*귓속말 상대 이름 크기*/
+	$(".whisper_mid").height($(".whisper").height()-$(".whisper_top").height()-$(".whisper_bottom").height());/*귓속말 미드*/
+	console.log(1,$(".whisper_bottom").width());
+	console.log(2,$(".whisper_sendArea").siblings().width());
+	console.log(3,$(".whisper_bottom").width()-$(".whisper_sendArea").siblings().width())
+	$(".whisper_sendArea").width($(".whisper_bottom").width()-$(".whisper_btn").width());
 }
 
 
