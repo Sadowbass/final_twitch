@@ -225,16 +225,25 @@ public class NewHandler extends TextWebSocketHandler {
 		if (!censorship.equals("justLogin")) {
 			/* 스트리머가 방송 종료 채팅방에 있던 모든사람 강제 퇴장*/
 			if (mid.equals(censorship)) {
-				System.out.println("스트리머 방종");
+				/*스트리머 채팅방에서 제거*/
+				List<WebSocketSession>list1=chatRoom.get(censorship);
+				list1.remove(session);
+				chatRoom.put(censorship, list1);
+				/*채팅방에 있던 모든 사람에게 방종 메세지*/
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("offAir", censorship);
+				String jsonTxt = gson.toJson(jsonObject);
 				/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
-				List<WebSocketSession> list=chatRoom.get(censorship);
-				for(WebSocketSession s:list) {
+				List<WebSocketSession> list2=chatRoom.get(censorship);
+				for(WebSocketSession s:list2) {
 					String del_id=(String)s.getAttributes().get("session_id");
 					userList.setMid(del_id);
 					userList.setOid(censorship);
 					userList.setStatus(0);
 					UkDao dao = new UkDao();
 					dao.exit(userList);
+
+					s.sendMessage(new TextMessage(jsonTxt));
 				}
 				totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
 				accumulate.remove(censorship); /* 누적 카운트에서 제거 */

@@ -172,6 +172,10 @@ uk.connectWS = function (streamer, login) {
 
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
 		}
+		/*스트리머 방종 메세지*/
+		if(jsObj.offAir){
+			alert(jsObj.offAir+'님이 방송을 종료하였습니다.');
+		}
 	}
 
 	/* 엔터키 누르면 전송 내꺼 */
@@ -415,7 +419,7 @@ uk.whisperSend=function(whisperTarget, whisperTxt){
 
 }
 /* socket close 메소드 */
-uk.WSclose = function () {
+uk.allWSclose = function () {
 	allWs.close();
 }
 
