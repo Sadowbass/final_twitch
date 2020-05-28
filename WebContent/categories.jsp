@@ -127,7 +127,7 @@
                         let h6 = document.createElement('h6');
                         h6.innerText = i.cat_gname;
                         let p = document.createElement('p');
-                        p.innerText = "74,853 views";
+                        p.innerText = i.cnt + " views";
                         let col12 = document.createElement('div');
                         col12.className = "col-xs-12";
                         col12.style.marginTop = "3%";
@@ -204,7 +204,7 @@
                             h7.innerText = i.air_gname;
                             h7.style.fontWeight = "bold"
                             let p = document.createElement('h6');
-                            p.innerText = "74,853 views";
+                            p.innerText = i.cnt+" views";
                             p.style.color = "red";
                             
                             let col12 = document.createElement('div');
@@ -314,7 +314,7 @@
                                     <a href="javascript:void(0)">
                                         <img class="img-fluid" src="/img/cate/${i.cat_sysfile}"/>
                                         <h6>${i.cat_gname}</h6>
-                                        <p>74,853 views</p>
+                                        <p>${i.cnt} views</p>
                                     </a>
                                     <div class="col-xs-12" style="margin-top: 3%">
                                         <c:forEach var="tag" items="${i.genreList}">
@@ -344,7 +344,7 @@
                                         <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
                                         <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mid}</h6>
                                         <h6 style='font-weight: bold'>${i.air_gname}</h6>
-                                        <h6 style="color:red">74,853 views</h6>
+                                        <h6 style="color:red">${i.cnt} views</h6>
                                     </a>
                                     <div class="col-xs-12" style="margin-top: 3%">
                                     </div>

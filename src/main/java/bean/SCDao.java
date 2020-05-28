@@ -103,6 +103,13 @@ public class SCDao {
         SCDao dao = new SCDao();
         List<CategoriesVo> list = new ArrayList<CategoriesVo>();
         list = sqlSession.selectList("scbatis.categories", findStr);
+        for (CategoriesVo vo : list){
+        	if(sqlSession.selectOne("scbatis.categoriesCnt", vo.getCat_gname()) != null) {
+        		vo.setCnt(sqlSession.selectOne("scbatis.categoriesCnt", vo.getCat_gname()));
+        	} else {
+        		vo.setCnt(0);
+        	}
+        }
         for (int i = 0; i < list.size(); i++) {
             List<String> temp = new ArrayList<String>();
             String genre = list.get(i).getCat_genre();
@@ -127,6 +134,13 @@ public class SCDao {
         map.put("findStr", findStr);
         List<CategoriesVo> list = new ArrayList<CategoriesVo>();
         list = sqlSession.selectList("scbatis.categoryPaging", map);
+        for (CategoriesVo vo : list){
+        	if(sqlSession.selectOne("scbatis.categoriesCnt", vo.getCat_gname()) != null) {
+        		vo.setCnt(sqlSession.selectOne("scbatis.categoriesCnt", vo.getCat_gname()));
+        	} else {
+        		vo.setCnt(0);
+        	}
+        }
         for (int i = 0; i < list.size(); i++) {
             List<String> temp = new ArrayList<String>();
             String genre = list.get(i).getCat_genre();
@@ -301,4 +315,15 @@ public class SCDao {
         }
         return result;
     }
+
+    /*시청자수 카운트*/
+    public int streamingCnt(String mid){
+        return sqlSession.selectOne("scbatis.streamingCnt", mid);
+    }
+
+    /*누적 시청자수 카운트*/
+    public int streamingTotCnt(String mId){
+        return sqlSession.selectOne("scbatis.streamingTotCnt", mId);
+    }
+
 }

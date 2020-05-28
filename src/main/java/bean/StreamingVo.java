@@ -11,6 +11,24 @@ public class StreamingVo {
     private String air_tnames;
     private String air_thumbnail;
     private String ph_sysfile;
+    private int cnt;
+    private int totCnt;
+
+    public int getTotCnt() {
+        return totCnt;
+    }
+
+    public void setTotCnt(int totCnt) {
+        this.totCnt = totCnt;
+    }
+
+    public int getCnt() {
+        return cnt;
+    }
+
+    public void setCnt(int cnt) {
+        this.cnt = cnt;
+    }
 
     public int getRno() {
         return rno;

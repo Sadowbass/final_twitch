@@ -9,6 +9,15 @@ public class CategoriesVo {
     private String cat_genre;
     private String cat_sysfile;
     private List<String> genreList;
+    private int cnt;
+
+    public int getCnt() {
+        return cnt;
+    }
+
+    public void setCnt(int cnt) {
+        this.cnt = cnt;
+    }
 
     public int getRno() {
         return rno;

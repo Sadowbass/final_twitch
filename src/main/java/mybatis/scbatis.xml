@@ -122,6 +122,11 @@
         from (select * from FINAL_CATEGORY where cat_gname like '%${findStr}%') a
         where rownum between 1 and 12
     </select>
+    
+    <!-- 카테고리 총 시청자 -->
+    <select id="categoriesCnt" parameterType="String" resultType="int">
+    	select count(AIR_GNAME) cnt from FINAL_ONAIR where air_gname = #{value} group by AIR_GNAME order by count(AIR_GNAME) desc 
+    </select>
 
     <!--카테고리 페이징-->
     <select id="categoryPaging" parameterType="hashMap" resultType="bean.CategoriesVo">
@@ -183,7 +188,16 @@
     <select id="roulleteList" parameterType="String" resultType="String">
         select RUL_DATA from FINAL_ROULETTE where RUL_MID = #{value}
     </select>
+    <!-- 도네이션 금액처리 -->
     <update id="donPay" parameterType="bean.DonationVo">
     	update final_member set mem_money = mem_money - #{don_price} where mem_id = #{don_mId}
     </update>
+    <!-- 현재 시청자수 -->
+    <select id="streamingCnt" parameterType="String" resultType="int">
+    	select count(*) from final_userlist where status=1 and oid = #{value}
+    </select>
+    <!-- 총시청자수 -->
+    <select id="streamingTotCnt" parameterType="String" resultType="int">
+    	select count(distinct fu.MID) from FINAL_ONAIR fo join FINAL_USERLIST fu on fo.AIR_MID = fu.OID where AIR_MID = #{value} and fu.ENTER_TIME > AIR_STARTTIME
+    </select>
 </mapper>

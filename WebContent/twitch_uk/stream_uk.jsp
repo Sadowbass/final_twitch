@@ -201,13 +201,13 @@
                 <i class="far fa-user p-1"></i>
             </button>
 
-            <span class="pr-2" id="totalUserCnt"></span>
+            <span class="pr-2" id="totalUserCnt">${vo.cnt}</span>
 
             <button class="btn" type="button">
                 <i class="fas fa-eye p-1"></i>
             </button>
 
-            <span class="pr-2" id="accArea"></span>
+            <span class="pr-2" id="accArea">${vo.totCnt}</span>
 
             <button
                     class="btn dropdown"

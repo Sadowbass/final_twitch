@@ -46,6 +46,9 @@
 			</div>
 			<div class="col-md-12">
 				<div class="owl-carousel owl-carousel-category">
+
+
+
 					<div class="item">
 						<div class="category-item">
 							<a href="#"> <img class="img-fluid" src="img/s1.png" alt="">
@@ -54,6 +57,9 @@
 							</a>
 						</div>
 					</div>
+
+
+
 					<div class="item">
 						<div class="category-item">
 							<a href="#"> <img class="img-fluid" src="img/s2.png" alt="">

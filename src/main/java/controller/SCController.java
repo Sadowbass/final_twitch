@@ -71,6 +71,10 @@ public class SCController {
         }
         list = dao.allStreaming(findStr);
 
+        for(StreamingVo vo : list){
+            vo.setCnt(dao.streamingCnt(vo.getAir_mid()));
+        }
+
         mv.addObject("URI", 1);
         mv.addObject("list", list);
         mv.addObject("findChannel", findStr);
@@ -157,12 +161,16 @@ public class SCController {
 
         if (mId != null) {
             list = dao.nowStreaming(mId);
+
         } else {
             list = dao.nowStreaming();
         }
 
+        for(StreamingVo vo : list){
+            vo.setCnt(dao.streamingCnt(vo.getAir_mid()));
+        }
+
         mv.addObject("list", list);
-        mv.addObject("cnt", "3,333");
         mv.setViewName("sidebar");
 
         return mv;
@@ -193,6 +201,8 @@ public class SCController {
                 return new ModelAndView("redirect:"+redirect);
             } else {
                 /*방송중이면 방송페이지로 이동*/
+                vo.setCnt(dao.streamingCnt(vo.getAir_mid()));
+                vo.setTotCnt(dao.streamingTotCnt(vo.getAir_mid()));
                 mv.setViewName("./twitch_uk/stream_uk");
                 mv.addObject("vo", vo);
             }
@@ -439,7 +449,6 @@ public class SCController {
         String id = req.getParameter("id");
         list = dao.followers(id, rno);
         Gson gson = new Gson();
-
 
         return gson.toJson(list);
     }

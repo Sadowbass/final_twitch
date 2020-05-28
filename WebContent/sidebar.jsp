@@ -32,7 +32,7 @@
                         </div>
                         <div class="sidebar-list-viewer">
                             <i class="fas fa-circle" style="color: red; font-size: 3px"></i>
-                            <span style="margin: 0px;">4,000</span>
+                            <span style="margin: 0px;">${i.cnt}</span>
                         </div>
                     </div>
                 </div>
