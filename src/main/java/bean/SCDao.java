@@ -22,6 +22,18 @@ public class SCDao {
         return list;
     }
 
+    /*팔로워 페이징 (오버로딩)*/
+    public List<UserInfoVo> followers(String id, int rno){
+        List<UserInfoVo> list = new ArrayList<UserInfoVo>();
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("mid", id);
+        map.put("rno", rno);
+
+        list = sqlSession.selectList("scbatis.followerPaging", map);
+        return list;
+    }
+
     /* 현재 로그인중인 회원 정보 */
     public UserInfoVo userInfo(String mId) {
         UserInfoVo vo = new UserInfoVo();
@@ -72,9 +84,9 @@ public class SCDao {
     }
 
     /*도네 등록*/
-    public String donationInsert(Map<String, Object> map){
+    public String donationInsert(DonationVo vo){
         String result = "";
-        int r = sqlSession.insert("scbatis.donationInput", map);
+        int r = sqlSession.insert("scbatis.donationInput", vo);
         sqlSession.commit();
         return result;
     }
@@ -253,11 +265,11 @@ public class SCDao {
     }
 
     /*구독 등록*/
-    public int commitSub(Map<String, Object> map){
+    public int commitSub(Map<String, Object> map, DonationVo vo){
         int r = 0;
         r = sqlSession.insert("scbatis.commitSub",map);
         if(r>0){
-            r= sqlSession.update("scbatis.subPay",map.get("uid"));
+            r= sqlSession.update("scbatis.subPay",vo.getDon_mId());
             sqlSession.commit();
         } else {
             System.out.println("구독 등록중 에러남");
@@ -269,5 +281,24 @@ public class SCDao {
     /*팔로워 수 카운트*/
     public int followCount(String id){
         return sqlSession.selectOne("scbatis.followCount", id);
+    }
+
+    /*룰렛리스트*/
+    public String roulleteList(String id){
+        return sqlSession.selectOne("scbatis.roulleteList", id);
+    }
+
+    /*도네이션 금액처리*/
+    public String commitDon(DonationVo vo){
+        String result = "";
+        int r = sqlSession.update("scbatis.donPay", vo);
+        if(r<1){
+            sqlSession.rollback();
+            result = "금액처리중 에러";
+        } else {
+            result = "금액처리 성공";
+            sqlSession.commit();
+        }
+        return result;
     }
 }

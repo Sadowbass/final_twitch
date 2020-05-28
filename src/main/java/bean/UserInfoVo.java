@@ -1,10 +1,19 @@
 package bean;
 
 public class UserInfoVo {
+    private int rno;
     private String mem_id;
     private String ph_sysfile;
     private String mem_pwd;
     private String mem_name;
+
+    public int getRno() {
+        return rno;
+    }
+
+    public void setRno(int rno) {
+        this.rno = rno;
+    }
 
     public String getMem_id() {
         return mem_id;

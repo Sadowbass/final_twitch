@@ -10,7 +10,7 @@ public class DonationVo {
     String don_content;
     String url;
     int type;
-    String rul_data; // ·ê·¿ ¸ñ·Ï
+    String rul_data;
 
     public int getDon_serial() {
         return don_serial;

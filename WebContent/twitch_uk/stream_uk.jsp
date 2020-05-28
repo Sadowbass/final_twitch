@@ -369,7 +369,10 @@
     let follow = function (check) {
         let followCheck = false;
         if ($('#uid').val() == "") {
-            alert("로그인을 해주세요")
+            swal({
+                text:"로그인을 해주세요",
+                icon:"error"
+            })
             return;
         }
 
@@ -405,7 +408,10 @@
     let subscribe = function (check) {
         let followCheck = false;
         if ($('#uid').val() == "") {
-            alert("로그인을 해주세요")
+            swal({
+                text:"로그인을 해주세요",
+                icon:"error"
+            })
             return;
         }
         $('#subModal').modal('toggle');
@@ -461,17 +467,101 @@
     }
 
     let donation = function (check) {
-        console.log(uid);
+        if ($('#uid').val() == "") {
+            swal({
+                text:"로그인을 해주세요",
+                icon:"error"
+            })
+            return;
+        }
         $.ajax({
-            data : {'uid' : uid},
+            data : {'uid' : uid, 'sid': sid},
             type : 'post',
             url : "moneyCheck.sc",
             success : function (data) {
-                $('#textDonMoneyField').html("현재 머니 잔액 : "+data);
+                console.log(data);
+                $('#textDonMoneyField').html("현재 머니 잔액 : "+data.money);
+                $('#movieDonMoneyField').html("현재 머니 잔액 : "+data.money);
+                $('#roulleteDonMoneyField').html("현재 머니 잔액 : "+data.money);
+                if(data.roullete != null){
+                    $('#kind').val(data.roullete);
+                } else {
+                    $('#kind').val("룰렛설정이 되어있지 않습니다");
+                }
             }
         })
         $('#donationModal').modal('toggle');
     }
+
+    let commitDon = function (check) {
+        let cmd = $('.nav-tabs').children();
+        let count;
+        for (i = 0 ; i < cmd.length ; i++) {
+            if(cmd[i].childNodes[1].className.indexOf('active') >= 0){
+                count = i
+            }
+        }
+        if( count == 0){ // 텍스트 도네
+            let donationData = {
+                'cmd' : count,
+                'pay' : $('#textPay').val(),
+                'content' : $('#textContent').val(),
+                'sid' : sid,
+                'uid' : uid
+            }
+            $.ajax({
+                'data' : donationData,
+                url : 'commitDon.sc',
+                type : 'post',
+                success : (data)=>{
+                    swal({
+                        text:data,
+                        icon:'success'
+                    })
+                    $('#donationModal').modal('hide');
+                    $('#textPay').val("");
+                    $('#textContent').val("");
+                }
+            })
+        } else if(count == 1){ // 영상 도네
+            let donationData = {
+                'cmd' : count,
+                'pay' : $('#moviePay').val(),
+                'url' : $('#movieUrl').val(),
+                'sid' : sid,
+                'uid' : uid
+            }
+            $.ajax({
+                'cmd' : count,
+                'data' : donationData,
+                url : 'commitDon.sc',
+                type : 'post',
+                success : (data)=>{
+                    $('#donationModal').modal('hide');
+                    $('#movieUrl').val("");
+                    $('#moviePay').val("");
+                }
+            })
+        } else { // 룰렛 도네
+            let donationData = {
+                'cmd' : count,
+                'pay' : $('#roulletePay').val(),
+                'sid' : sid,
+                'uid' : uid
+            }
+            $.ajax({
+                'data' : donationData,
+                url : 'commitDon.sc',
+                type : 'post',
+                success : (data)=>{
+                    $('#donationModal').modal('hide');
+                    $('#roulletePay').val("");
+                }
+            })
+        }
+    }
+
+
 </script>
 <jsp:include page="/logout-modal.jsp" flush="false"></jsp:include>
 
@@ -657,16 +747,95 @@
                         </div>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button class="btn-primary" onclick="commitSub()">구독</button>
+                                <button class="btn-primary" onclick="commitDon()">도네이션</button>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="movieDonation">
-                        아아라라라
+                        <div class="row" style="border-bottom: 1px solid #dee2e6; padding-bottom: 1rem">
+                            <div class="col-1">
+                                <c:choose>
+                                    <c:when test="${vo.ph_sysfile == null}">
+                                        <img
+                                                src="/img/user-photo/guest-icon.png"
+                                                class="rounded-circle"
+                                                style="height: 35px; width: 35px;"
+                                        />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                                src="/img/user-photo/${vo.ph_sysfile}"
+                                                class="rounded-circle"
+                                                style="height: 35px; width: 35px;"
+                                        />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="modal-body-top-left col-11">
+                                <span>영상 도네이션</span><br>
+                                <span>스트리머의 방송을 후원하세요!</span>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 1rem">
+                            <div class="col-12" >
+                                <div>
+                                    <h5 id="movieDonMoneyField" style="font-size: 1rem; font-weight: 600;">현재 머니 잔액 : </h5>
+                                    <h5 id="movieDonMuchField" style="font-size: 1rem; font-weight: 600;">도네이션 금액 :  </h5>
+                                    <input type="text" name="pay" id="moviePay" class="form-control" style="margin-bottom: 20px;">
+                                    <h5 id="urlField" style="font-size: 1rem; font-weight: 600;">URL :  </h5>
+                                    <input type="text" name="url" id="movieUrl" class="form-control" style="margin-bottom: 20px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <button class="btn-primary" onclick="commitDon()">도네이션</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="roulleteDonation">
+                        <div class="row" style="border-bottom: 1px solid #dee2e6; padding-bottom: 1rem">
+                            <div class="col-1">
+                                <c:choose>
+                                    <c:when test="${vo.ph_sysfile == null}">
+                                        <img
+                                                src="/img/user-photo/guest-icon.png"
+                                                class="rounded-circle"
+                                                style="height: 35px; width: 35px;"
+                                        />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                                src="/img/user-photo/${vo.ph_sysfile}"
+                                                class="rounded-circle"
+                                                style="height: 35px; width: 35px;"
+                                        />
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <div class="modal-body-top-left col-11">
+                                <span>룰렛 도네이션</span><br>
+                                <span>스트리머의 방송을 후원하세요!</span>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 1rem">
+                            <div class="col-12" >
+                                <div>
+                                    <h5 id="roulleteDonMoneyField" style="font-size: 1rem; font-weight: 600;">현재 머니 잔액 : </h5>
+                                    <h5 id="roulleteDonMuchField" style="font-size: 1rem; font-weight: 600;">도네이션 금액 :  </h5>
+                                    <input type="text" name="pay" id="roulletePay" class="form-control" style="margin-bottom: 20px;">
+                                    <h5 id="roulleteKind" style="font-size: 1rem; font-weight: 600;">현재 룰렛 종류</h5>
+                                    <input type="text" class="form-control" name="king" id="kind" style="margin-bottom: 20px;" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <button class="btn-primary" onclick="commitDon()">도네이션</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

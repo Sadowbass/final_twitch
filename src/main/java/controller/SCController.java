@@ -347,23 +347,101 @@ public class SCController {
     @RequestMapping(value = "commitSub.sc", method = RequestMethod.POST)
     public String commitSub(HttpServletRequest req){
         String result = "";
+        DonationVo vo = new DonationVo();
         Map<String, Object> map = new HashMap<String, Object>();
         String sid = req.getParameter("sid");
         String uid = req.getParameter("uid");
         map.put("sid", sid);
         map.put("uid", uid);
         map.put("type", 3);
-        int r = dao.commitSub(map);
-        dao.donationInsert(map);
+        vo.setType(3);
+        vo.setDon_price(10000);
+        vo.setDon_oId(sid);
+        vo.setDon_mId(uid);
+        vo.setDon_content("content");
+        vo.setUrl("url");
 
+        int r = dao.commitSub(map, vo);
+        dao.donationInsert(vo);
         return result;
     }
 
     /*현재 잔액*/
     @ResponseBody
-    @RequestMapping(value = "moneyCheck.sc", method = RequestMethod.POST)
+    @RequestMapping(value = "moneyCheck.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public String moneyCheck(HttpServletRequest req){
-        return dao.moneyCheck(req.getParameter("uid"))+"";
+        String money = dao.moneyCheck(req.getParameter("uid"))+"";
+        String roullete = dao.roulleteList(req.getParameter("sid"));
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("money", money);
+        map.put("roullete", roullete);
+        Gson gson = new Gson();
+
+        return gson.toJson(map);
+    }
+
+    /*도네 등록*/
+    @ResponseBody
+    @RequestMapping(value = "/commitDon.sc", method = RequestMethod.POST, produces = "application/text; charset = utf-8")
+    public String commitDon(HttpServletRequest req){
+        DonationVo vo = new DonationVo();
+        int cmd = Integer.parseInt(req.getParameter("cmd"));
+        String sid = req.getParameter("sid");
+        String uid = req.getParameter("uid");
+        int pay = Integer.parseInt(req.getParameter("pay"));
+        String result = "";
+
+        switch (cmd){
+            case 0:
+                String content = req.getParameter("content");
+                vo.setDon_mId(uid);
+                vo.setDon_oId(sid);
+                vo.setDon_content(content);
+                vo.setDon_price(pay);
+                vo.setType(cmd);
+                vo.setUrl("no");
+                dao.donationInsert(vo);
+                result = dao.commitDon(vo);
+                break;
+            case 1:
+                String url = req.getParameter("url");
+                vo.setDon_mId(uid);
+                vo.setDon_oId(sid);
+                vo.setDon_content("content");
+                vo.setDon_price(pay);
+                vo.setType(cmd);
+                vo.setUrl(url);
+                dao.donationInsert(vo);
+                result = dao.commitDon(vo);
+                break;
+            case 2:
+                vo.setDon_mId(uid);
+                vo.setDon_oId(sid);
+                vo.setDon_content("content");
+                vo.setDon_price(pay);
+                vo.setType(cmd);
+                vo.setUrl("url");
+                dao.donationInsert(vo);
+                result = dao.commitDon(vo);
+                break;
+        }
+
+        return result;
+    }
+
+    /*팔로워 페이징*/
+    @ResponseBody
+    @RequestMapping(value = "/followerPaging.sc", method = RequestMethod.POST)
+    public String followerPaging(HttpServletRequest req){
+        List<UserInfoVo> list = new ArrayList<UserInfoVo>();
+        int rno = Integer.parseInt(req.getParameter("rno"));
+        String id = req.getParameter("id");
+        list = dao.followers(id, rno);
+        Gson gson = new Gson();
+
+
+        return gson.toJson(list);
     }
 
 }

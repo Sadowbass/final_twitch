@@ -41,25 +41,69 @@
 </head>
 <body id="page-top">
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            type: 'get',
-            url: '/sidebar.sc',
-            success: function (data) {
-                $('#sidebarplace').html(data);
-            }
-        })
+    $(window).scroll(function () {
+        var rno = $('.channels-card:last').attr('rownum');
+        var id = document.location.pathname.split('/')[1];
+        if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+            $.ajax({
+                type:'post',
+                url:"/followerPaging.sc",
+                data : {'rno' : rno, 'id' : id},
+                success:(data)=>{
+                    let json = JSON.parse(data);
+
+                    for(i of json){
+                        let divColXl3 = document.createElement('div');
+                        divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+                        let divChannelsCard = document.createElement('div');
+                        divChannelsCard.className = "channels-card";
+                        divChannelsCard.setAttribute("rownum", i.rno);
+                        let channelsCardImage = document.createElement('div');
+                        channelsCardImage.className = "channels-card-image";
+                        let a = document.createElement('a');
+                        a.className = "img-fluid";
+                        a.href = "/"+i.mem_id;
+                        let img = document.createElement("img");
+                        if(i.ph_sysfile != null){
+                            img.src = "/img/user-photo/"+i.ph_sysfile;
+                        } else {
+                            img.src = "/img/s1.png";
+                        }
+
+                        let divChannelBody = document.createElement('div');
+                        divChannelBody.className = "channels-card-body";
+                        let channelTitle = document.createElement('div');
+                        channelTitle.className = "channels-title";
+                        let a2 = document.createElement('a');
+                        a2.href = "/"+i.mem_id;
+                        a2.innerText = i.mem_id;
+
+
+                        channelTitle.appendChild(a2);
+                        divChannelBody.appendChild(channelTitle);
+                        a.appendChild(img);
+                        channelsCardImage.appendChild(a);
+                        divChannelsCard.appendChild(channelsCardImage);
+                        divChannelsCard.appendChild(divChannelBody);
+                        divColXl3.appendChild(divChannelsCard);
+                        $('.row-item').append(divColXl3);
+                    }
+                }
+            })
+        }
     })
 </script>
 <div id="topplace">
-    <%@include file="top.jsp" %>
+    <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
 <div id="wrapper">
-    <div id="sidebarplace" style="margin-top: 53px;"></div>
+    <div id="sidebarplace" style="margin-top: 53px;">
+        <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
+    </div>
     <div id="content-wrapper" style="margin-top: 53px;">
         <div class="container-fluid pb-0">
             <div class="video-block section-padding">
-                <div class="row">
+                <div class="row row-item">
                     <div class="col-md-12">
                         <div class="main-title">
                             <h4>팔로워 ${cnt}</h4>
@@ -68,21 +112,20 @@
 
                     <c:forEach var="i" items="${list}">
                         <div class="col-xl-3 col-sm-6 mb-3">
-                            <div class="channels-card">
+                            <div class="channels-card" rownum="${i.rno}">
                                 <div class="channels-card-image">
                                     <c:choose>
                                         <c:when test="${i.ph_sysfile == null}">
-                                            <a href="#"><img class="img-fluid" src="/img/s1.png" alt=""></a>
+                                            <a href="/${i.mem_id}"><img class="img-fluid" src="/img/s1.png"></a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a href="#"><img class="img-fluid" src="/img/user-photo/${i.ph_sysfile}"
-                                                             alt=""></a>
+                                            <a href="/${i.mem_id}"><img class="img-fluid" src="/img/user-photo/${i.ph_sysfile}"></a>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
                                 <div class="channels-card-body">
                                     <div class="channels-title">
-                                        <a href="#">${i.mem_id}</a>
+                                        <a href="/${i.mem_id}">${i.mem_id}</a>
                                     </div>
                                 </div>
                             </div>
@@ -105,13 +148,5 @@
     </a>
     <!-- Logout Modal-->
     <%@include file="/logout-modal.jsp" %>
-    <script>
-        $(document).ready(function () {
-            console.log($(window).scrollTop());
-            $(window).scroll(()=>{
-            })
-        });
-
-    </script>
 </body>
 </html>

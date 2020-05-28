@@ -7,12 +7,21 @@
 
     <!--팔로워 리스트-->
     <select id="followers" parameterType="String" resultType="bean.UserInfoVo">
-        select fm.MFO_MID mem_id, fp.PH_SYSFILE
+    	select * from (select rownum rno, a.*
+    	from (select fm.MFO_MID mem_id, fp.PH_SYSFILE
         from FINAL_MFOLLOW fm
                  left outer join FINAL_PHOTO fp on fm.MFO_MID = fp.PH_ID
-        where fm.MFO_OID = #{value }
+        where fm.MFO_OID = #{value }) a) where rno between 1 and 12
     </select>
-
+    
+    <!-- 팔로워리스트 페이징 -->
+	<select id="followerPaging" parameterType="hashmap" resultType="bean.UserInfoVo">
+		select * from (select rownum rno, a.*
+    	from (select fm.MFO_MID mem_id, fp.PH_SYSFILE
+        from FINAL_MFOLLOW fm
+                 left outer join FINAL_PHOTO fp on fm.MFO_MID = fp.PH_ID
+        where fm.MFO_OID = #{mid }) a) where rno between #{rno}+1 and #{rno}+12
+	</select>
     <!--로그인중인 회원 정보-->
     <select id="userInfo" parameterType="String" resultType="bean.UserInfoVo">
         select *
@@ -162,13 +171,19 @@
     	update final_member set mem_money = mem_money - 10000 where mem_id = #{value}
     </update>
     <!-- 도네이션 등록 -->
-    <insert id="donationInput" parameterType="hashmap">
+    <insert id="donationInput" parameterType="bean.DonationVo">
 	    insert into FINAL_DONATION(DON_SERIAL, DON_MID, DON_OID, DON_PRICE, DON_RDATE, DON_PUSH, DON_CONTENT, URL, TYPE)
-		VALUES (SEQ_DONATION.nextval,#{uid}, #{sid}, 0, sysdate, 0, 'no', 'no', #{type})
+		VALUES (SEQ_DONATION.nextval, #{don_mId}, #{don_oId}, #{don_price}, sysdate, 0, #{don_content}, #{url}, #{type})
     </insert>
     <!-- 팔로워 수 확인 -->
     <select id="followCount" parameterType="String" resultType="int">
 		select count(mfo_oid) from final_mfollow where mfo_oid = #{value}	    		
     </select>
-    
+    <!--룰렛 리스트 불러오기-->
+    <select id="roulleteList" parameterType="String" resultType="String">
+        select RUL_DATA from FINAL_ROULETTE where RUL_MID = #{value}
+    </select>
+    <update id="donPay" parameterType="bean.DonationVo">
+    	update final_member set mem_money = mem_money - #{don_price} where mem_id = #{don_mId}
+    </update>
 </mapper>

@@ -95,19 +95,7 @@
 
 <body id="page-top">
 <script>
-    $(document).ready(function () {
-    		
-        $.ajax({
-            type: 'get',
-            url: '/sidebar.sc',
-            async:false,
-            success: function (data) {
-                $('#sidebarplace').html(data);
-            }
-        })
-        
-        
-    })
+
     $(window).scroll(function () {
         var rno = $('.category-item2:last').attr('rownum');
         var findTag = $('#findSave').val();
@@ -249,10 +237,11 @@
 </script>
 <input type='hidden' id='findBc'/>
 <div id="topplace">
-    <%@include file="/top.jsp" %>
+    <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
 <div id="wrapper">
     <div id="sidebarplace" style="margin-top: 53px;">
+        <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
     </div>
     <div id="content-wrapper" style="margin-top: 53px;">
         <div class="container-fluid">
@@ -352,15 +341,8 @@
                                                 <img class="img-fluid thumbnail" width="100%" height="auto" style="background-size:100% 100%;background-image : url(/uploads/${i.air_thumbnail})" />
                                             </c:otherwise>
                                         </c:choose>
-                                        
- 
-                                        
-                                        
                                         <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
                                         <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mid}</h6>
-                                        
-                      
-                                    
                                         <h6 style='font-weight: bold'>${i.air_gname}</h6>
                                         <h6 style="color:red">74,853 views</h6>
                                     </a>
