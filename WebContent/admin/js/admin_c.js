@@ -25,6 +25,12 @@ function LoadImg(value,i){
 	}
 }
 
+function noticeView(serial) {
+	
+	$('#noticeSerial').val(serial);
+	$('#frm_notice').submit();
+}
+
 var cmh = {}
 
 cmh.init = function(){	
@@ -43,6 +49,61 @@ cmh.review_view = function(serial){
 
 cmh.func = function(){
 	
+	
+	// notice_modify.jsp
+	
+	$('#btn_modifyNotice').click(function(){
+					
+		let param = $('#frm_noticeModify').serialize();
+		
+		$.ajax({
+			url : "noticeModify.mh",
+			type : "post",
+			data : param,
+			success : function(data, xhr, state){
+				swal(data).then((v)=>{
+					location.href='notice.mh';
+				})
+			}
+		})
+		
+	});
+	
+	$('#btn_deleteNotice').click(function(){
+		$.ajax({
+			url : "noticeDelete.mh",
+			type : "post",
+			data : {"serial" : $('#noticeNO').val()},
+			success : function(data, xhr, state){
+				swal(data).then((v)=>{
+					location.href='notice.mh';
+				})
+			}
+		})
+	})
+	
+	// end notice_modify.jsp
+	
+	// noticeInsert.jsp
+	$('#btn_noticeInsert').click(function(){
+		
+		let param = $('#frm_noticeInsert').serialize();
+		
+		$.ajax({
+			url:"noticeInsertR.mh",
+			type : "POST",
+			data : param,
+			dataType : "text",
+			success : function(data, xhr, state){
+
+				swal(data).then((v)=>{
+					location.href='notice.mh'
+				})
+			}
+			
+		})
+	})
+	// end noticeInsert.jsp
 	
 	// order_view.jsp
 	$('#btn_orderDelete').click(function(){

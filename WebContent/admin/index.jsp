@@ -286,7 +286,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/shop/notice.jsp">공지사항</a>
+                                        <a href="javascript:void(0);" onclick="location.href='notice.mh'">자주하는 질문</a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);" onclick="cmh.reviewSelect();">리뷰</a>

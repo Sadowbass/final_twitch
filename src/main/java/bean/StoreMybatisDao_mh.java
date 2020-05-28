@@ -21,6 +21,93 @@ public class StoreMybatisDao_mh {
 		System.out.println("★★★★★ 민호 DAO들어옴★★★★★");
 	}
 	
+	public String noticeDelete(int serial) {
+		int cnt = 0;
+		String msg="삭제 중 오류";
+		try {
+			cnt = sqlSession.delete("storeAdmin.noticeDelete",serial);
+			if(cnt>0) {
+				sqlSession.commit();
+				msg = "삭제되었습니다.";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	
+	public String noticeModify(MH_noticeVo vo) {
+		int cnt = 0;
+		String msg="수정 중 오류";
+		try {
+			cnt = sqlSession.update("storeAdmin.noticeModify",vo);
+			if(cnt>0) {
+				sqlSession.commit();
+				msg="수정되었습니다.";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	
+	public MH_noticeVo noticeView(int serial) {
+		MH_noticeVo vo = null;
+		
+		try {
+			vo = sqlSession.selectOne("storeAdmin.noticeView",serial);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return vo;
+	}
+	
+	public String noticeInsertR(MH_noticeVo vo) {
+		String msg="저장 중 오류 발생";
+		int cnt = 0;
+		
+		try {
+			cnt = sqlSession.insert("storeAdmin.noticeInsert", vo);
+			System.out.println("★★★ cnt : " + cnt);
+			
+			if(cnt>0) {
+				sqlSession.commit();
+				msg="저장되었습니다.";
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return msg;
+	}
+	
+	public List<MH_noticeVo> noticeSelect(mh_Page p){
+		List<MH_noticeVo> list = null;
+		int cnt = 0;
+		
+		try {
+			cnt = sqlSession.selectOne("storeAdmin.noticeCount", p);
+			System.out.println("★★★cnt : " + cnt);
+			if(cnt<0) {
+				throw new Exception();
+			}else {
+				p.setTotListSize(cnt);
+				p.pageCompute();
+				
+				list= sqlSession.selectList("storeAdmin.noticeSelect",p);
+				System.out.println("★★★list size : " + list.size());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	public List<MH_cateCountVo> cateCount(){
 		List<MH_cateCountVo> list = null;
 		

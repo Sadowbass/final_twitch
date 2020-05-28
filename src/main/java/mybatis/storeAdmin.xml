@@ -5,6 +5,39 @@
 
 <mapper namespace="storeAdmin">
 	
+	<delete id="noticeDelete" parameterType="Integer">
+		delete from store_qna
+		where qna_id = ${_parameter}
+	</delete>
+	
+	<update id="noticeModify" parameterType="bean.MH_noticeVo">
+		update store_qna 
+		set qna_subject = #{subject}, qna_content = #{content}
+		where qna_id = ${no}
+	</update>
+	
+	<select id="noticeView" parameterType="Integer" resultType="bean.MH_noticeVo">
+		select qna_id as no, qna_subject as subject, qna_content as content
+		from store_qna
+		where qna_id=${_parameter}
+	</select>
+	
+	<insert id="noticeInsert" parameterType="bean.MH_noticeVo">
+		insert into store_qna values(SEQ_STOREQNA.nextval,#{subject},#{content})
+	</insert>
+	
+	<select id="noticeSelect" parameterType="bean.mh_Page" resultType="bean.MH_noticeVo">
+		select rownum rno, qna_id as no, qna_subject as subject, qna_content as content
+		from store_qna
+		where qna_id like '%${findStr}%' or QNA_SUBJECT like '%${findStr}%'
+	</select>
+	
+	<select id="noticeCount" parameterType="bean.mh_Page" resultType="Integer">
+		select count(qna_id) as count
+		from store_qna
+		where qna_id like '%${findStr}%' or QNA_SUBJECT like '%${findStr}%'
+	</select>	
+	
 	<select id="cateCount" resultType="bean.MH_cateCountVo">
 		select  j2.product_cate, sum(j1.cart_count) as count
 		from order_details j1 join product j2
@@ -20,8 +53,8 @@
 		from FINAL_MEMBER
 		where floor((to_char(sysdate, 'YYYY') - substr(mem_birth,1,4)) / 10) * 10 BETWEEN 0 and 100
 		) o 
-	group by age	
-	order by age 
+		group by age	
+		order by age 
 	</select>
 	
 	<select id="rankproduct" resultType="bean.MH_rankproductVo">
@@ -50,14 +83,15 @@
 	</delete>
 
 	<select id="orderView" parameterType="bean.MH_orderVo" resultType="bean.MH_orderListVo">
-		select rownum rno, a. * from(SELECT row_number() over(PARTITION by j2.product_id order by j4.photo_serial asc ) as rnum, 
+		select rownum rno, a. * 
+		from(SELECT row_number() over(PARTITION by j2.product_id order by j4.photo_serial asc ) as rnum, 
 		j1.order_serial, j1.mem_id, j1.get_name, j1.get_phone, j1.zip_code, j1.address1, j1.address2, j1.amount, j1.order_date,
 		j2.orderdetails_serial, j2.product_id, j2.cart_count,j3.product_name, j3.product_price, j3.product_size, j4.sysfile
 		FROM ( store_order j1 INNER JOIN order_details j2 ON j1.order_serial = j2.order_serial )
 		inner join product j3 on j2.product_id = j3.product_id inner join product_photo j4 on j3.product_id = j4.product_id
-		WHERE j1.mem_id = #{mem_id} and j1.order_serial = #{order_serial} )a where rnum=1
+		WHERE j1.mem_id = #{mem_id} and j1.order_serial = #{order_serial} )a 
+		where rnum=1
 	</select>
-
 
 	<select id="orderCount" parameterType="bean.mh_Page" resultType="Integer">
 		select count(order_serial)
@@ -107,8 +141,6 @@
 		where r1.review_id = ${_parameter}
 	</select>
 
-
-
 	<resultMap id="reviewSelect_map" type="bean.MH_ReviewVo">
 		<result column="review_id" property="review_id" />
 		<result column="mem_id" property="mem_id" />
@@ -124,8 +156,7 @@
 			<result column="image1" property="image1" />
 			<result column="image2" property="image2" />	
 			<result column="rp_date" property="rp_date" />
-		</collection>
-		
+		</collection>		
 	</resultMap>
 		
 	<select id="reviewSelect" parameterType="bean.mh_Page" resultMap="reviewSelect_map">	
@@ -220,17 +251,11 @@
 		order by p.product_id desc)a where rnum=1)where rno between ${startNo} and ${endNo}	
 	</select>
 	
-
-	
 	<select id="productView" parameterType="Integer" resultMap="storeAdmin_map">
 		select p.product_id, product_name, product_explain, PRODUCT_PRICE, product_cate,product_count, product_size, photo_serial, orifile, sysfile
 		FROM product p left outer join product_photo ph
 		on p.product_id = ph.product_id
 		where p.product_id=${_parameter}
 	</select>
-	
-
-
-
 </mapper>
    
