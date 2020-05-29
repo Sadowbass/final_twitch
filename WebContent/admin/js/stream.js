@@ -323,7 +323,7 @@ let week_chart2 =function(mon,tue,wen,thr,fri,sat,sun,mon2,tue2,wen2,thr2,fri2,s
 	});
 }
 
-let year_chart2 =function(){
+let year_chart2 =function(a,b,c,d,e,f,g,h,i,j,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2){
 	chart3.destroy();
 	var ctx2 = document.getElementById('bar_chart').getContext('2d');
 	 chart3 = new Chart(ctx2, {
@@ -334,7 +334,7 @@ let year_chart2 =function(){
 	    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
 	         datasets: [{
 	             label: "새 구독자 수",
-	             data:  [0, 10, 5, 2, 20, 30, 45,34,23,25],
+	             data:  [a, b, c, d, e, f, g,h,i,j],
 	             borderColor: 'rgba(0, 188, 212, 0.75)',
 	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
 	             pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -342,7 +342,7 @@ let year_chart2 =function(){
 	             pointBorderWidth: 1
 	         }, {
 	                 label: "누적 구독자 수",
-	                 data: [28, 48, 40, 19, 86, 27, 90,34,25,12],
+	                 data: [a2, b2, c2, d2, e2, f2, g2,h2,i2,j2],
 	                 borderColor: 'rgba(233, 30, 99, 0.75)',
 	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
 	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -357,7 +357,11 @@ let year_chart2 =function(){
 	});
 }
 
-let month_chart3 = function(){
+let month_chart3 = function(m,d){
+	var m1 = m.substring(1,m.length-1);
+	var m2 = m1.split(",");
+	var d1 = d.substring(1,d.length-1);
+	var d2 = d1.split(",");
 	chart4.destroy();
 	var ctx2 = document.getElementById('radar_chart').getContext('2d');
 	 chart4 = new Chart(ctx2, {
@@ -367,7 +371,7 @@ let month_chart3 = function(){
 		        labels:['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
 		        datasets: [{
 		            label: '구독 수익',
-		            data: [40, 70, 20, 50, 20, 30, 45,34,13,45,56,23],
+		            data: [m2[0], m2[1], m2[2], m2[3], m2[4], m2[5], m2[6],m2[7],m2[8],m2[9],m2[10],m2[11]],
 		            borderColor: 'rgba(102, 102, 153, 0.75)',
 		            backgroundColor: 'rgba(102, 102, 153, 0.3)',
 		            pointBorderColor: 'rgba(102, 102, 153, 0)',
@@ -375,7 +379,7 @@ let month_chart3 = function(){
 		            pointBorderWidth: 1
 		        },{
 		        	 label: "도네 수익",
-		             data: [28, 48, 40, 19, 86, 27, 90,12,23,65,24,53],
+		             data:  [d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6],d2[7],d2[8],d2[9],d2[10],d2[11]],
 		             borderColor: 'rgba(233, 30, 99, 0.75)',
 		             backgroundColor: 'rgba(233, 30, 99, 0.3)',
 		             pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -383,7 +387,8 @@ let month_chart3 = function(){
 		             pointBorderWidth: 1
 		        },{
 		            label: '총 수익',
-		            data: [68, 118, 60, 69, 116, 57, 135,111,56,23,45,67],
+		            data: [Number(m2[0])+Number(d2[0]), Number(m2[1])+Number(d2[1]), Number(m2[2])+Number(d2[2]), Number(m2[3])+Number(d2[3]), Number(m2[4])+Number(d2[4]), Number(m2[5])+Number(d2[5]),
+		            	Number(m2[6])+Number(d2[6]),Number(m2[7])+Number(d2[7]),Number(m2[8])+Number(d2[8]),Number(m2[9])+Number(d2[9]),Number(m2[10])+Number(d2[10]),Number(m2[11])+Number(d2[11])],
 		            borderColor: 'rgba(204, 000, 204, 0.75)',
 		            backgroundColor: 'rgba(204, 000, 204, 0.3)',
 		            pointBorderColor: 'rgba(204, 000, 204, 0)',
@@ -399,7 +404,11 @@ let month_chart3 = function(){
 	 });
 }
 
-let week_chart3 = function(){
+let week_chart3 = function(d,s){
+	var s1 = s.substring(1,s.length-1);
+	var s2 = s1.split(",");
+	var d1 = d.substring(1,d.length-1);
+	var d2 = d1.split(",");
 	chart4.destroy();
 	var ctx2 = document.getElementById('radar_chart').getContext('2d');
 	 chart4 = new Chart(ctx2, {
@@ -409,7 +418,7 @@ let week_chart3 = function(){
 		        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
 		        datasets: [{
 		            label: '구독 수익',
-		            data: [40, 70, 20, 50, 20, 30, 45],
+		            data: [s2[0], s2[1], s2[2], s2[3], s2[4], s2[5], s2[6]],
 		            borderColor: 'rgba(102, 102, 153, 0.75)',
 		            backgroundColor: 'rgba(102, 102, 153, 0.3)',
 		            pointBorderColor: 'rgba(102, 102, 153, 0)',
@@ -417,7 +426,7 @@ let week_chart3 = function(){
 		            pointBorderWidth: 1
 		        },{
 		        	 label: "도네 수익",
-		             data: [28, 48, 40, 19, 86, 27, 90],
+		             data: [d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6]],
 		             borderColor: 'rgba(233, 30, 99, 0.75)',
 		             backgroundColor: 'rgba(233, 30, 99, 0.3)',
 		             pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -425,7 +434,7 @@ let week_chart3 = function(){
 		             pointBorderWidth: 1
 		        },{
 		            label: '총 수익',
-		            data: [68, 118, 60, 69, 116, 57, 135],
+		            data: [Number(s2[0])+Number(d2[0]), Number(s2[1])+Number(d2[1]), Number(s2[2])+Number(d2[2]), Number(s2[3])+Number(d2[3]), Number(s2[4])+Number(d2[4]), Number(s2[5])+Number(d2[5]),Number(s2[6])+Number(d2[6])],
 		            borderColor: 'rgba(204, 000, 204, 0.75)',
 		            backgroundColor: 'rgba(204, 000, 204, 0.3)',
 		            pointBorderColor: 'rgba(204, 000, 204, 0)',
@@ -441,7 +450,11 @@ let week_chart3 = function(){
 	 });
 }
 
-let year_chart3 = function(){
+let year_chart3 = function(d,s){
+	var s1 = s.substring(1,s.length-1);
+	var s2 = s1.split(",");
+	var d1 = d.substring(1,d.length-1);
+	var d2 = d1.split(",");
 	chart4.destroy();
 	var ctx2 = document.getElementById('radar_chart').getContext('2d');
 	 chart4 = new Chart(ctx2, {
@@ -451,7 +464,7 @@ let year_chart3 = function(){
 		    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
 		        datasets: [{
 		            label: '구독 수익',
-		            data: [40, 70, 20, 50, 20, 30, 45,34,56,23],
+		            data: [s2[0], s2[1], s2[2], s2[3], s2[4], s2[5], s2[6],s2[7],s2[8],s2[9]],
 		            borderColor: 'rgba(102, 102, 153, 0.75)',
 		            backgroundColor: 'rgba(102, 102, 153, 0.3)',
 		            pointBorderColor: 'rgba(102, 102, 153, 0)',
@@ -459,7 +472,7 @@ let year_chart3 = function(){
 		            pointBorderWidth: 1
 		        },{
 		        	 label: "도네 수익",
-		             data: [28, 48, 40, 19, 86, 27, 90,15,26,67],
+		             data: [d2[0],d2[1] , d2[2], d2[3], d2[4], d2[5], d2[6],d2[7],d2[8],d2[9]],
 		             borderColor: 'rgba(233, 30, 99, 0.75)',
 		             backgroundColor: 'rgba(233, 30, 99, 0.3)',
 		             pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -467,7 +480,7 @@ let year_chart3 = function(){
 		             pointBorderWidth: 1
 		        },{
 		            label: '총 수익',
-		            data: [68, 118, 60, 69, 116, 57, 135,25,67,45],
+		            data: [Number(d2[0])+Number(s2[0]), Number(d2[1])+Number(s2[1]), Number(d2[2])+Number(s2[2]), Number(d2[3])+Number(s2[3]), Number(d2[4])+Number(s2[4]), Number(d2[5])+Number(s2[5]), Number(d2[6])+Number(s2[6]),Number(d2[7])+Number(s2[7]),Number(d2[8])+Number(s2[8]),Number(d2[9])+Number(s2[9])],
 		            borderColor: 'rgba(204, 000, 204, 0.75)',
 		            backgroundColor: 'rgba(204, 000, 204, 0.3)',
 		            pointBorderColor: 'rgba(204, 000, 204, 0)',
@@ -483,101 +496,7 @@ let year_chart3 = function(){
 	 });
 }
 
-let month_chart4= function(){
-	chart5.destroy();
-	var ctx2 = document.getElementById('pie_chart').getContext('2d');
-	 chart5 = new Chart(ctx2, {
-	    // The type of chart we want to create
-	    type: 'pie',
-	    // The data for our dataset
-	    data: {
-	         datasets: [{
-	             data: [44, 23, 70, 50],
-	             backgroundColor: [
-	                 "rgb(233, 30, 99)",
-	                 "rgb(255, 193, 7)",
-	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
-	             ],
-	         }],
-	         labels: [
-	             "Pink",
-	             "Amber",
-	             "Cyan",
-	             "Light Green"
-	         ]
-	     },
-	     options: {
-	         responsive: true,
-	         
-	     }
-	});
-	
-}
 
-let week_chart4= function(){
-	chart5.destroy();
-	var ctx2 = document.getElementById('pie_chart').getContext('2d');
-	 chart5 = new Chart(ctx2, {
-	    // The type of chart we want to create
-	    type: 'pie',
-	    // The data for our dataset
-	    data: {
-	         datasets: [{
-	        	 data: [225, 50, 100, 40],
-	             backgroundColor: [
-	                 "rgb(233, 30, 99)",
-	                 "rgb(255, 193, 7)",
-	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
-	             ],
-	         }],
-	         labels: [
-	             "Pink",
-	             "Amber",
-	             "Cyan",
-	             "Light Green"
-	         ]
-	     },
-	     options: {
-	         responsive: true,
-	         
-	     }
-	});
-	
-}
-
-let year_chart4= function(){
-	chart5.destroy();
-	var ctx2 = document.getElementById('pie_chart').getContext('2d');
-	 chart5 = new Chart(ctx2, {
-	    // The type of chart we want to create
-	    type: 'pie',
-	    // The data for our dataset
-	    data: {
-	         datasets: [{
-	        	 data: [112, 50, 78, 40],
-	             backgroundColor: [
-	                 "rgb(233, 30, 99)",
-	                 "rgb(255, 193, 7)",
-	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
-	             ],
-	         }],
-	         labels: [
-	             "Pink",
-	             "Amber",
-	             "Cyan",
-	             "Light Green"
-	         ]
-	     },
-	     options: {
-	         responsive: true,
-	         
-	     }
-	});
-	
-}
 
 let month_chart5 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2){
 	chart6.destroy();
@@ -648,7 +567,7 @@ let week_chart5 =function(mon,tue,wen,thr,fri,sat,sun,mon2,tue2,wen2,thr2,fri2,s
 	});
 }
 
-let year_chart5 =function(){
+let year_chart5 =function(a,b,c,d,e,f,g,h,i,j,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2){
 	chart6.destroy();
 	var ctx2 = document.getElementById('follow_chart').getContext('2d');
 	 chart6 = new Chart(ctx2, {
@@ -659,7 +578,7 @@ let year_chart5 =function(){
 	    	labels: ['2011', '2012', '2013', '2014', '2015', '2016','2017','2018','2019','2020'],
 	         datasets: [{
 	             label: "새 팔로우 수",
-	             data:  [0, 10, 5, 2, 20, 30, 45,34,23,25],
+	             data: [a, b, c, d, e, f, g,h,i,j],
 	             borderColor: 'rgba(0, 188, 212, 0.75)',
 	             backgroundColor: 'rgba(0, 188, 212, 0.3)',
 	             pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -667,7 +586,7 @@ let year_chart5 =function(){
 	             pointBorderWidth: 1
 	         }, {
 	                 label: "누적 구독자 수",
-	                 data: [28, 48, 40, 19, 86, 27, 90,34,25,12],
+	                 data: [a2, b2, c2, d2, e2, f2, g2,h2,i2,j2],
 	                 borderColor: 'rgba(233, 30, 99, 0.75)',
 	                 backgroundColor: 'rgba(233, 30, 99, 0.3)',
 	                 pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -682,4 +601,172 @@ let year_chart5 =function(){
 	});
 }
 
+function broad_stop(serial) {
+    swal({
+        title: "정말 정지하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "정지",
+        cancelButtonText: "취소",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function (isConfirm) {
+        if (isConfirm) {
+        	let param = $('#he_form').serialize();
+        	$.ajax({
+        		url:'broadstop.he',
+        		type:'post',
+        		data:param,
+        		error: function(xhr,status,error){
+        			swal("에러발생",error, "error");
+        		},
+        		success:function(data,xhr,status){
+        			swal({
+        		        title: "정지 완료",
+        		        text: "해당 회원의 방송이용이  정지되었습니다",
+        		        type: "success",
+        		        closeOnConfirm: true
+        		    }, function () {
+        		    	$('#he_serial').val(serial);
+        		    	$('#he_form').attr('action','streamer_view.he').submit();	
+        		    });
+        		}
+           })
+        } else {
+            swal("취소됨", "방송 정지가 취소되었습니다", "error");
+        }
+    });
+}
 
+function broad_ok(serial){
+	swal({
+        title: "정말 정지를 해제하시겠습니까?",
+        text: "다시 복구할 수 없습니다!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#e14eca",
+        confirmButtonText: "정지해제",
+        cancelButtonText: "취소",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    }, function (isConfirm) {
+        if (isConfirm) {
+        	let param = $('#he_form').serialize();
+        	$.ajax({
+        		url:'broadok.he',
+        		type:'post',
+        		data:param,
+        		error: function(xhr,status,error){
+        			swal("에러발생",error, "error");
+        		},
+        		success:function(data,xhr,status){
+        			swal({
+        		        title: "해제 완료",
+        		        text: "해당 회원의 방송이용정지가  해제되었습니다",
+        		        type: "success",
+        		        closeOnConfirm: true
+        		    }, function () {
+        		    	$('#he_serial').val(serial);
+        		    	$('#he_form').attr('action','streamer_view.he').submit();	
+        		    });
+        		}
+           })
+        } else {
+            swal("취소됨", "방송 정지해제가 취소되었습니다", "error");
+        }
+    });
+}
+
+function s_detail(serial){
+	$('#he_serial').val(serial);
+	$('#he_form').attr('action','streamer_view.he').submit();	
+}
+
+function d_list_n(){
+	let nowpage =Number($('#page').val())+1
+	if(nowpage>0){
+		$('#page').val(nowpage);
+	}
+	
+	let param = $('#he_form').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+		});
+	//$('#he_form').attr('action','profit.he').submit();	
+}
+
+function d_list_b(){
+	let nowpage = Number($('#page').val())-1
+	if(nowpage>0){
+		$('#page').val(nowpage);
+	}
+	let param = $('#he_form').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+	});
+	
+	//$('#he_form').attr('action','profit.he').submit();	
+}
+
+function s_list_n(){
+	let nowpage =Number($('#page2').val())+1
+	if(nowpage>0){
+		$('#page2').val(nowpage);
+	}
+	
+	let param = $('#he_form2').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+	});
+	
+	//$('#he_form2').attr('action','profit.he').submit();	
+}
+
+function s_list_b(){
+	let nowpage = Number($('#page2').val())-1
+	if(nowpage>0){
+		$('#page2').val(nowpage);
+	}
+	
+	let param = $('#he_form2').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+	});
+	
+	
+	//$('#he_form2').attr('action','profit.he').submit();	
+}

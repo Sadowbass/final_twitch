@@ -1,5 +1,8 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -40,207 +43,50 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 <h6>생방송 목록</h6>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v1.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-success">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v2.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-success">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v3.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-danger">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v4.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-success">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v5.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-success">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v6.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-danger">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="video-card">
-                <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
-                            class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v7.png" alt=""></a>
-                    <div class="time">3:50</div>
-                </div>
-                <div class="video-card-body">
-                    <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
-                    </div>
-                    <div class="video-page text-success">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
-                            data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                    </div>
-                    <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        <c:forEach items="${ list}" var="i">
+
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
             <div class="video-card">
                 <div class="video-card-image">
                     <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
                             class="fas fa-play-circle"></i></a>
-                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><img class="img-fluid"
-                            src="../img/v8.png" alt=""></a>
-                    <div class="time">3:50</div>
+                    <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">
+                    <c:if test="${empty i.air_thumbnail}">
+                      <img src="../uploads/notThumbnail.png" class="img-fluid">
+                    </c:if>
+                    <c:if test="${not empty i.air_thumbnail}">
+                      <img src="../uploads/${vo.ph_sysfile }" class="img-fluid">
+                   </c:if>
+                    </a>
+                    
                 </div>
                 <div class="video-card-body">
                     <div class="video-title">
-                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">There are many
-                            variations of passages of Lorem</a>
+                        <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">${i.air_subject}
+                        	<c:if test="${i.air_subject ==null}">${i.air_mid }의 방송입니다!</c:if>
+                        </a>
                     </div>
                     <div class="video-page text-success">
-                        Education <a title="" data-placement="top" data-toggle="tooltip" href="#"
+                        ${i.air_gname }
+                        <a title="" data-placement="top" data-toggle="tooltip" href="#"
                             data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
                     </div>
                     <div class="video-view">
-                        1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months
-                        ago
+                        1.8M views
                     </div>
                 </div>
             </div>
         </div>
+        
+        </c:forEach>
+
+
+ 
+
+
+
     </div>
 </div>
 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
