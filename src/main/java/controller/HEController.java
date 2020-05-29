@@ -28,6 +28,7 @@ import bean.StreamingVo;
 import bean.TagVo;
 import config.HE_FileUpload;
 import config.HE_FileUpload2;
+import oracle.jdbc.replay.ReplayableConnection.StatisticsReportType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -126,7 +127,39 @@ public class HEController {
 			}
 		}
 		
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		list = dao.mileage(vo.getMem_id());
+		List<StatisticVo> list2 = new ArrayList<StatisticVo>();
+		list2 = dao.mileage_use(vo.getMem_id());
 		
+		for(int i=0;i <list2.size();i++) {
+			if(list2.get(i).getType()!=null) {
+				
+				if(list2.get(i).getType().equals("3")) {
+					list2.get(i).setType("구독");
+				}else {
+					list2.get(i).setType("도네이션");
+				}
+				
+			}
+		}
+		
+		List<String> list3 = new ArrayList<String>();
+		list3 = dao.Watching(mid);
+		
+		String tot_time = dao.Watching_tot(mid);
+		
+		List<String> list4 = new ArrayList<String>();
+		list4 = dao.last_pay(mid);
+		
+		String tot_pay = dao.last_pay_tot(mid);
+		
+		mv.addObject("tot_pay", tot_pay);
+		mv.addObject("last_pay", list4);
+		mv.addObject("tot_time", tot_time);
+		mv.addObject("watch", list3);
+		mv.addObject("pay_use", list2);
+		mv.addObject("payment", list);
 		mv.addObject("vo", vo);
 		mv.setViewName("member/member_view"); 
 		return mv;
@@ -487,7 +520,6 @@ public class HEController {
 		page.pageCompute();
 		List<StreamerVo> d_list = new ArrayList<StreamerVo>();
 		d_list = dao.d_profit2(page); //도네수익 랭킹
-		
 		Page page2 = new Page();
 		if(req.getParameter("page2")==null) {
 			page2.setNowPage(1);
@@ -507,16 +539,18 @@ public class HEController {
 		List<StatisticVo> pay_list = new ArrayList<StatisticVo>();
 		pay_list = dao.payment();
 		
+		mv.addObject("p", page);
+		mv.addObject("d_list", d_list);
 		mv.addObject("pay", pay_list);
 		mv.addObject("sub_list", sub_list);
 		mv.addObject("done_list", done_list);
 		mv.addObject("s_list", s_list);
 		mv.addObject("p2", page2);
 		mv.addObject("p", page);
-		mv.addObject("d_list", d_list);
 		mv.setViewName("twitch_main/profit_management"); 
 		return mv;
 	}
+	
 	
 	@RequestMapping(value="*/help.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView help(HttpServletRequest req, HttpServletResponse resp) {

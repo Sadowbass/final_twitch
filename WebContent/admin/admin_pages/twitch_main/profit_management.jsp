@@ -141,7 +141,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </ul>
                        </nav>
                 </div>
-            </div>
+            </div> 
+           
         </div>
         <form name="he_form" id="he_form" method="post">
         	<input type="hidden" id="he_serial" name="he_serial"/>

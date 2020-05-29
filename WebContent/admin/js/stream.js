@@ -689,7 +689,20 @@ function d_list_n(){
 	if(nowpage>0){
 		$('#page').val(nowpage);
 	}
-	$('#he_form').attr('action','profit.he').submit();	
+	
+	let param = $('#he_form').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+		});
+	//$('#he_form').attr('action','profit.he').submit();	
 }
 
 function d_list_b(){
@@ -697,8 +710,20 @@ function d_list_b(){
 	if(nowpage>0){
 		$('#page').val(nowpage);
 	}
+	let param = $('#he_form').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+	});
 	
-	$('#he_form').attr('action','profit.he').submit();	
+	//$('#he_form').attr('action','profit.he').submit();	
 }
 
 function s_list_n(){
@@ -706,7 +731,21 @@ function s_list_n(){
 	if(nowpage>0){
 		$('#page2').val(nowpage);
 	}
-	$('#he_form2').attr('action','profit.he').submit();	
+	
+	let param = $('#he_form2').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+	});
+	
+	//$('#he_form2').attr('action','profit.he').submit();	
 }
 
 function s_list_b(){
@@ -715,5 +754,19 @@ function s_list_b(){
 		$('#page2').val(nowpage);
 	}
 	
-	$('#he_form2').attr('action','profit.he').submit();	
+	let param = $('#he_form2').serialize();
+	$.ajax({
+		url:'profit.he',
+		type:'post',
+		data:param,
+		error: function(xhr,status,error){
+			swal("에러발생",error, "error");
+		},
+		success:function(data,xhr,status){
+			$('#main_body').html(data);
+		}
+	});
+	
+	
+	//$('#he_form2').attr('action','profit.he').submit();	
 }

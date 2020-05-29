@@ -82,11 +82,11 @@
 	</select>
 	
 	<select id="weekly_don" parameterType="hashmap" resultType="String">
-		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr-mm-dd') = #{day}
+		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr-mm-dd') = #{day} and type!=3
 	</select>
 	
 	<select id="weekly_subprofit" parameterType="hashmap" resultType="String">
-		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day}
+		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day} 
 	</select>
 	
 	<select id="monthly_subprofit" parameterType="hashmap" resultType="String">
@@ -94,7 +94,7 @@
 	</select>
 	
 	<select id="monthly_don" parameterType="hashmap" resultType="String">
-		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'mm') = #{month} and to_char(don_rdate,'rrrr') =#{year}
+		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'mm') = #{month} and to_char(don_rdate,'rrrr') =#{year} and type!=3
 	</select>
 	
 	<select id="year_subprofit" parameterType="hashmap" resultType="String">
@@ -102,7 +102,7 @@
 	</select>
 	
 	<select id="year_don" parameterType="hashmap" resultType="String">
-		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr') =#{year}
+		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr') =#{year} and type!=3
 	</select>
 	
 	 <insert id="broadban" parameterType='String'>
@@ -164,7 +164,7 @@
     
      <select id='done_profit' parameterType="hashmap" resultType="bean.StatisticVo">
     	select sum(don_price)*0.5 profit,to_char(don_rdate,'mm') month from final_donation 
-    	where to_char(don_rdate,'rrrr')=#{year} group by to_char(don_rdate,'mm') order by month
+    	where to_char(don_rdate,'rrrr')=#{year} and type!=3 group by to_char(don_rdate,'mm') order by month
     </select>
     
     <select id='sub_profit' parameterType="hashmap" resultType="bean.StatisticVo">
@@ -184,6 +184,45 @@
     	from final_onair
     </select>
     
+     <select id="mileage" parameterType="String" resultType="bean.StatisticVo">
+		select serial,pay_mid,pay_money,pay_date
+		from final_payment where pay_mid ='${parameter}' order by pay_date
+	</select>
+	
+	<select id="mileage_use" parameterType="String"  resultType="bean.StatisticVo">
+		select don_mid,don_price,don_rdate,type from final_donation 
+		where don_oid='${_parameter}' order by don_rdate desc
+	</select>
+	
+	<select id='watching_time' parameterType="hashmap" resultType="String">
+    	select 
+     	sum(round(EXTRACT(day FROM exit_time-enter_time)*24 
+    	+EXTRACT(HOUR   FROM exit_time-enter_time) 
+     	+EXTRACT(MINUTE FROM exit_time-enter_time)/60 
+     	+EXTRACT(SECOND FROM exit_time-enter_time)/60/60,1)) time
+ 		FROM final_userlist where oid=#{mid} and to_char(exit_time,'mm')=#{month} 
+ 		and to_char(exit_time,'rrrr')=#{year} group by oid
+    </select>
+    
+    <select id='watching_tot' parameterType="hashmap" resultType="String">
+    	select 
+     	sum(round(EXTRACT(day FROM exit_time-enter_time)*24 
+    	+EXTRACT(HOUR   FROM exit_time-enter_time) 
+     	+EXTRACT(MINUTE FROM exit_time-enter_time)/60 
+     	+EXTRACT(SECOND FROM exit_time-enter_time)/60/60,1)) time
+ 		FROM final_userlist where oid=#{mid} group by oid
+    </select>
+    
+    <select id='last_pay' parameterType="hashmap" resultType="String">
+    	select  sum(amount)tot from store_order 
+    	where mem_id=#{mid} and to_char(order_date,'rrrr')=#{year} 
+    	group by to_char(order_date,'mm') order by to_char(order_date,'mm')
+    </select>
+    
+    <select id='last_pay_tot' parameterType="hashmap" resultType="String">
+    	  select sum(amount)tot from store_order where mem_id=#{mid}
+    </select>
+   
 
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
 		select * from final_category

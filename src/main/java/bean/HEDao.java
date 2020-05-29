@@ -1086,6 +1086,99 @@ public class HEDao {
 			return list;
 		}
 	}
+	
+	public List<StatisticVo> mileage(String mid){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		try {
+			list = sqlSession.selectList("stream.mileage",mid);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StatisticVo> mileage_use(String mid){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		try {
+			list = sqlSession.selectList("stream.mileage_use",mid);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<String> Watching(String mid){
+		List<String> list = new ArrayList<String>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		DecimalFormat df = new DecimalFormat("00");
+		Calendar currentCalendar = Calendar.getInstance();
+		String year  = df.format(currentCalendar.get(Calendar.YEAR));
+		
+		map.put("year", year);
+        map.put("mid", mid);
+		try {
+			for(int i=1; i<13; i++) {
+				map.put("month", i);
+				String cnt = sqlSession.selectOne("stream.watching_time",map);
+				if(cnt==null) {
+					list.add("0");
+				}else {
+					list.add(cnt);
+				}
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public String Watching_tot(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        String cnt=null;
+		try {
+	       cnt = sqlSession.selectOne("stream.watching_tot",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return cnt;
+		}
+	}
+	
+	public List<String> last_pay(String mid){
+		List<String> list = new ArrayList<String>();
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        
+        DecimalFormat df = new DecimalFormat("00");
+		Calendar currentCalendar = Calendar.getInstance();
+		String year  = df.format(currentCalendar.get(Calendar.YEAR));
+		
+		map.put("year", year);
+		try {
+	       list = sqlSession.selectList("stream.last_pay",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public String last_pay_tot(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        String cnt = null;
+		try {
+	       cnt = sqlSession.selectOne("stream.last_pay_tot",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return cnt;
+		}
+	}
 
 
 

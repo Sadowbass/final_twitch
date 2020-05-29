@@ -357,7 +357,7 @@ var chart4 = new Chart(ctx4,{
 
 	    // The data for our dataset
 	    data: {
-	        labels: ['월', '화', '수', '목', '금', '토', '일'],
+	        labels: ['일', '월', '화', '수', '목', '금', '토'],
 	        datasets: [{
 	            label: '구독 수익',
 	            data: [${sub[0]}, ${sub[1]}, ${sub[2]}, ${sub[3]}, ${sub[4]}, ${sub[5]}, ${sub[6]}],
