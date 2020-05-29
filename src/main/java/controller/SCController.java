@@ -275,8 +275,10 @@ public class SCController {
         String mId = req.getParameter("mId");
         vo = dao.donationView(mId);
         Gson gson = new Gson();
-        String json = gson.toJson(vo);
-        System.out.println(json);
+        String json = "";
+        if(vo != null){
+            json = gson.toJson(vo);
+        }
         return json;
     }
 

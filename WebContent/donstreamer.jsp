@@ -139,6 +139,9 @@ div.power_controls
 									async : false,
 									error : function(data) {
 										console.log("에러");
+										setTimeout(function(){
+											poll()
+										}, 5000);
 									},
 									success : function(data) {
 										console.log("데이터" + data);
@@ -191,6 +194,7 @@ div.power_controls
 													}, 3000)
 												})
 											} else if(data.type == 2){ // 룰렛 도네이션
+												console.log(data);
 												var array = data.rul_data.split(",");
 												
 												$('#imgDona').hide();
