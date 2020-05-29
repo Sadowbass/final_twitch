@@ -43,7 +43,7 @@
 		insert into final_photo values(seq_mphoto.nextVal,#{ph_orifile},#{ph_sysfile},#{mem_id})
 	</insert>
 	<insert id='insertPay' parameterType='hashMap'>
-		INSERT into fianl_payment
+		INSERT into final_payment
 		VALUES (seq_payment.nextVal, #{mId}, #{money},sysdate)
 	</insert>
 	<select id='pwdCheck' parameterType='hashMap' resultType="Integer">
