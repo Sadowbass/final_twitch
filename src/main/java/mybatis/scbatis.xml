@@ -32,11 +32,12 @@
 
     <!--특정 1명의 스트리밍 정보-->
     <select id="select" parameterType="String" resultType="bean.StreamingVo">
-        select m.*, o.*, p.*
-        from FINAL_MEMBER m
-                 left outer join FINAL_ONAIR o on m.MEM_ID = o.AIR_MID
-                 left outer join FINAL_PHOTO p on p.PH_ID = m.MEM_ID
-        where mem_Id = #{value }
+        select m.*, o.*, p.*, ca.*
+		from FINAL_MEMBER m
+           left outer join FINAL_ONAIR o on m.MEM_ID = o.AIR_MID
+           left outer join FINAL_PHOTO p on p.PH_ID = m.MEM_ID
+           left outer join FINAL_CATEGORY ca on CAT_GNAME = o.AIR_GNAME
+		where mem_Id = #{value }
     </select>
 
     <!--팔로우 한 회원인지 검색-->
@@ -194,7 +195,7 @@
     </update>
     <!-- 현재 시청자수 -->
     <select id="streamingCnt" parameterType="String" resultType="int">
-    	select count(*) from final_userlist where status=1 and oid = #{value}
+    	select count(distinct ul.MID) from FINAL_USERLIST ul where ul.ENTER_TIME >= (select max(AIR_STARTTIME) from FINAL_ONAIR where AIR_MID = #{value}) and ul.STATUS = 1
     </select>
     <!-- 총시청자수 -->
     <select id="streamingTotCnt" parameterType="String" resultType="int">

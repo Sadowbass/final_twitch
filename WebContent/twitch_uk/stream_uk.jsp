@@ -201,13 +201,13 @@
                 <i class="far fa-user p-1"></i>
             </button>
 
-            <span class="pr-2" id="totalUserCnt"></span>
+            <span class="pr-2" id="totalUsers"></span>
 
             <button class="btn" type="button">
                 <i class="fas fa-eye p-1"></i>
             </button>
 
-            <span class="pr-2" id="accArea"></span>
+            <span class="pr-2" id="accUser"></span>
 
             <button
                     class="btn dropdown"
@@ -248,7 +248,7 @@
     </div>
     <div class="d-flex d-flex flex-row" id="videoEtc2">
         <div class="p-3">
-            <img src="/img/cate/${vo.ph_sysfile}" width="70px" height="100px";>
+            <img src="/img/cate/${vo.cat_sysfile}" width="70px" height="100px";>
         </div>
         <div class="p-3">
             <h4>${vo.air_gname}</h4>

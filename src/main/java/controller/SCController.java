@@ -209,13 +209,12 @@ public class SCController {
                 /*방송중이면 방송페이지로 이동*/
                 vo.setCnt(dao.streamingCnt(vo.getAir_mid()));
                 vo.setTotCnt(dao.streamingTotCnt(vo.getAir_mid()));
+                System.out.println(vo.getCat_sysfile());
 
                 String[] t = vo.getAir_tnames().split(",");
                 for(String temp : t){
                     vo.getTlist().add(temp);
                 }
-
-                System.out.println(vo.getPh_sysfile());
 
                 mv.setViewName("./twitch_uk/stream_uk");
                 mv.addObject("vo", vo);
