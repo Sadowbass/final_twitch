@@ -21,7 +21,7 @@ public class StoreCartDao implements StoreCartDaoif{
 		// TODO Auto-generated constructor stub
 	
 		sqlsession = Factory.getFactory().openSession();
-		System.out.println("factory...");
+		System.out.println("factory di");
 	}
 
 	
@@ -36,7 +36,16 @@ public class StoreCartDao implements StoreCartDaoif{
 	//장바구니 담기
 	@Override
 	public void insert(StoreCartVo vo) {
-		sqlsession.insert("store.cart_insert", vo);	
+	    System.out.println("장바구니 담기 들어옴");
+	    System.out.println(vo.getMem_id());
+	    try {
+		sqlsession.insert("store.cart_insert", vo);
+		sqlsession.commit();
+	    }catch(Exception e1) {
+	    	e1.printStackTrace();
+	    }finally{
+	    	
+	    }
 	}
 
 	@Override

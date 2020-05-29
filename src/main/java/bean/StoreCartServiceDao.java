@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StoreCartServieceDao implements StoreCartServiceif {
+public class StoreCartServiceDao implements StoreCartServiceif {
     
     @Inject
 	StoreCartDaoif cartDaoif;
@@ -20,6 +20,7 @@ public class StoreCartServieceDao implements StoreCartServiceif {
 
 	@Override
 	public void insert(StoreCartVo vo) {
+		System.out.println("service 들어왔어요");
 		cartDaoif.insert(vo);
 		
 	}

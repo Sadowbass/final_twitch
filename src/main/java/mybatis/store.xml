@@ -6,8 +6,8 @@
      <!-- 장바구니 -->
     <insert id="cart_insert" parameterType="bean.StoreCartVo">
       
-      insert into cart(cart_id, mem_id, product_id, cart_count, cart_date)
-      values(seq_storecart.nextval, #{mem_id, jdbcType=VARCHAR}, #{product_id}, #{cart_count}, sysdate)
+      insert into cart(cart_id, mem_id, product_id, cart_count, cart_date, product_size)
+      values(seq_storecart.nextval, #{mem_id, jdbcType=VARCHAR}, #{product_id}, #{cart_count}, sysdate, #{product_size})
       
     </insert>
     

@@ -81,7 +81,7 @@ store.addcart = function(){
 	let param2 = $("#sizeOption option:selected").val();
 	let param3 = $("#product-quantity").val();
 	
-
+    console.log(param3);
 	
     $.ajax({
         url: 'addToCart.str',

@@ -4,13 +4,14 @@ import java.util.Date;
 
 public class StoreCartVo {
 
-	int cart_id;
-	String mem_id;
-	int product_id;
-	String product_name;
-	int cart_count;
-	int totPrice;
-	Date cart_date;
+	int cart_id; //카트 시리얼
+	String mem_id;//회원아이디
+	int product_id;//상품 아이디
+	int product_size;//상품 사이즈
+	String product_name;//상품이름
+	int cart_count;//상품 개수
+	int totPrice;//총 금액
+	Date cart_date;//카트 담은 날짜
 	
 	public StoreCartVo() {
 		// TODO Auto-generated constructor stub
@@ -23,10 +24,11 @@ public class StoreCartVo {
        
     }
 	
-	public StoreCartVo(int cart_id, String mem_id, int product_id, String product_name, int cart_count, int totPrice, Date cart_date) {
+	public StoreCartVo(int cart_id, String mem_id, int product_id,int product_size, String product_name, int cart_count, int totPrice, Date cart_date) {
         this.cart_id = cart_id;
 		this.mem_id = mem_id;
         this.product_id = product_id;
+        this.product_size= product_size;
         this.product_name = product_name;
         this.cart_count = cart_count;
         this.totPrice = totPrice;
@@ -34,6 +36,15 @@ public class StoreCartVo {
     }
 	
 	
+	
+	public int getProduct_size() {
+		return product_size;
+	}
+
+	public void setProduct_size(int product_size) {
+		this.product_size = product_size;
+	}
+
 	public String getProduct_name() {
 		return product_name;
 	}

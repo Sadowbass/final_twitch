@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import bean.ProductVo;
 import bean.SCDao;
+import bean.StoreCartDao;
 import bean.StoreCartServiceif;
-import bean.StoreCartServieceDao;
+import bean.StoreCartServiceDao;
 import bean.StoreCartVo;
 import bean.StoreFaqVo;
 
@@ -51,9 +52,10 @@ public class StoreController {
 	
 	StoreMybatisDao dao;
 	
-    public StoreController(StoreMybatisDao dao) {
+    public StoreController(StoreMybatisDao dao, StoreCartServiceDao csdao, StoreCartDao cdao) {
     	System.out.println("storedao입성");
 	 this.dao = dao;
+	 
 	}
     
 	@RequestMapping(value="/store/productList.str",  method={ RequestMethod.GET, RequestMethod.POST })
@@ -244,21 +246,28 @@ public class StoreController {
 	//장바구니 인서트
 	
 	@RequestMapping(value="/store/addToCart.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView addToCart(@ModelAttribute StoreCartVo vo, HttpServletRequest req, HttpSession session) {
+	public ModelAndView addToCart(HttpServletRequest req, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		
-	
+	    System.out.println("addCart 들어았다");
 		//String mem_id = (String)session.getAttribute("mem_id");
 		String mem_id ="faker";
-			
-		vo = new StoreCartVo();
+		int product_id = Integer.parseInt(req.getParameter("product_id"));
+		int product_size = Integer.parseInt(req.getParameter("product_size"));
+		int cart_count = Integer.parseInt(req.getParameter("product_q"));
+		
+		StoreCartVo vo = new StoreCartVo();
 		
 		vo.setMem_id(mem_id);
+		vo.setProduct_id(product_id);
+		vo.setProduct_size(product_size);
+		vo.setCart_count(cart_count);
+		
 		Cartservice.insert(vo); 
 		
 		//String msg = dao.cartInsert(vo);
-		
-		mv.setViewName("veiwCart");
+		mv.addObject("vo",vo);
+		mv.setViewName("viewCart");
 		return mv;
 	}
 
