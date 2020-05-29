@@ -247,10 +247,12 @@
         }
     })
 </script>
-<input type='text' id='findBc'/>
+<input type='hidden' id='findBc'/>
+
 <div id="topplace">
     <%@include file="/top.jsp" %>
 </div>
+
 <div id="wrapper">
     <div id="sidebarplace" style="margin-top: 53px;">
     </div>
@@ -352,15 +354,8 @@
                                                 <img class="img-fluid thumbnail" width="100%" height="auto" style="background-size:100% 100%;background-image : url(/uploads/${i.air_thumbnail})" />
                                             </c:otherwise>
                                         </c:choose>
-                                        
- 
-                                        
-                                        
-                                        <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
-                                        <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mid}</h6>
-                                        
-                      
-                                    
+					                    <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
+                                        <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mid}</h6>     
                                         <h6 style='font-weight: bold'>${i.air_gname}</h6>
                                         <h6 style="color:red">74,853 views</h6>
                                     </a>

@@ -219,6 +219,7 @@ public class BroadCastingMybatisDao {
 			flag = sqlSession.delete("broadCasting.deleteAir", mId);
 			if (flag < 1) {
 				throw new Exception("생방송삭제에러");}else {
+					
 					flag = sqlSession.insert("broadCasting.insertInfo",vo);
 					if(flag<1) {
 						throw new Exception("생방송삭제에러");
@@ -230,7 +231,7 @@ public class BroadCastingMybatisDao {
 			sqlSession.rollback();
 		} finally {
 			if (flag > 0) {
-
+					
 				File file = new File(
 						"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/uploads/" + sKey + ".m3u8.png");
 				if (file.exists()) {
@@ -261,6 +262,8 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
+	
+	
 
 
 	public String saveRoulette(String mId, String newRouletteData, String flagRul) {

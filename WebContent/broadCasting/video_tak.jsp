@@ -63,6 +63,7 @@
 				  showConfirmButton: false,
 				  timer: 1500
 				})
+				
 			if($('#pk_switch').hasClass('on') === true){ 
 					
 				$('#pk_switch').toggleClass('on');
@@ -77,6 +78,7 @@
 				  showConfirmButton: false,
 				  timer: 1500
 				})
+				
 				
 			$('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
 			$('#streamKey').prop('readonly',false);
