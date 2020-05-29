@@ -20,10 +20,10 @@ import com.google.gson.JsonParser;
 import bean.Cht;
 import bean.UserList;
 
-public class NewHandler extends TextWebSocketHandler {
+public class NewHandler_one extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
-	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /*스트리머, session List */
+	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
 	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 총 시청자수 */
 	Map<String, Integer> accumulate = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
 	Gson gson = new Gson(); /*지슨*/
@@ -223,9 +223,28 @@ public class NewHandler extends TextWebSocketHandler {
 
 		/* 채팅방 퇴장 */
 		if (!censorship.equals("justLogin")) {
-			/* 스트리머가 방송 종료 */
+			/* 스트리머가 방송 종료 채팅방에 있던 모든사람 강제 퇴장*/
 			if (mid.equals(censorship)) {
-				/*채팅방에 있던 모든사람 강제 퇴장 해야함(디비 포함)*/
+				/*스트리머 채팅방에서 제거*/
+				List<WebSocketSession>list1=chatRoom.get(censorship);
+				list1.remove(session);
+				chatRoom.put(censorship, list1);
+				/*채팅방에 있던 모든 사람에게 방종 메세지*/
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("offAir", censorship);
+				String jsonTxt = gson.toJson(jsonObject);
+				/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
+				List<WebSocketSession> list2=chatRoom.get(censorship);
+				for(WebSocketSession s:list2) {
+					String del_id=(String)s.getAttributes().get("session_id");
+					userList.setMid(del_id);
+					userList.setOid(censorship);
+					userList.setStatus(0);
+					UkDao dao = new UkDao();
+					dao.exit(userList);
+
+					s.sendMessage(new TextMessage(jsonTxt));
+				}
 				totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
 				accumulate.remove(censorship); /* 누적 카운트에서 제거 */
 				chatRoom.remove(censorship); /*채팅방 폭파*/

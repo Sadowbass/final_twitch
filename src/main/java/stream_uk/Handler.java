@@ -2,9 +2,11 @@ package stream_uk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -12,190 +14,313 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import bean.Cht;
 import bean.UserList;
 
-public class Handler extends TextWebSocketHandler{
-	/*
-	 * 스트리머=>mid
-	 * 입장한 사람(채팅 보냄)=>oid
-	 * 채팅 내용=>txt
-	 */
-	Map<WebSocketSession, String> everybody=new HashMap<WebSocketSession, String>(); /*모든 유저 <session,mid>*/
-	Map<String, Object[]> users=new HashMap<String, Object[]>(); /*로그인한 유저 목록 <oid,[mid,session]>*/
-	Map<String, Integer> accumulate=new HashMap<String, Integer>(); /*누적 시창저 숫자*/
-	Map<String, WebSocketSession> onlyLogin=new HashMap<String, WebSocketSession>(); /*로그인만! 채팅방 입장 하지 않음*/
-	Gson gson=new Gson();
-	UserList userList=new UserList();
-	Cht cht=new Cht(); /*채팅vo 디비에 저장할거임*/
+public class Handler extends TextWebSocketHandler {
+
+	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
+	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
+	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 총 시청자수 */
+	Map<String, Integer> accumulate = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
+	Set<String> onePerPerson=new HashSet<String>();
+	Gson gson = new Gson(); /*지슨*/
+	JsonParser parser=new JsonParser(); /*파서*/
+	UserList userList = new UserList(); /* userList Vo 디비에 저장할거임 */
+
+	Cht cht = new Cht(); /* cht vo 디비에 저장할거임 */
+	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
+
+	boolean reduplication=true; /*중복입장 확인*/
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		List<String> usersList=new ArrayList<String>(); /*스트리머가 같은 새로 들어온 유저에게 보낼 기존 유저목록*/
-		Map<String, Object> usersListToNewUsers=new HashMap<String, Object>(); /*{usesrs : 유저목록} 새로운 유저에게 보낼맵 */
-		Map<String, Object> addAndAccToEverybody=new HashMap<String, Object>(); /*{addUser : oid}, {accUser : accumulate.get(mid)} 모든 유저에게 보낼 새로 들어온 유저 아이디 &누적 시청자수 담은 맵*/
-		int totalUserCnt=0; /*스트리머가 같은 새로 들어온 유저에게 보낼 모든 시청자 수*/
+		/*스트리머가 방송중인지*/
+		boolean flag=false;
+		System.out.println(session.getAttributes());
+		/* 로그인 아이디 */
+		String mid = (String) session.getAttributes().get("session_id");
+		/* 단순 로그인인지 방송 입장인지 검열 */
+		String censorship = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1); /* 스트리머 */
 
-		String mid=null;
-		String censorship=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1); /*스트리머*/
-		String oid=(String)session.getAttributes().get("session_id"); /*로그인 기능 작동하면 위에꺼 지우고 이거(로그인한 유저) 넣어야함*/
+		/* 단순 로그인 */
+		if (mid != null && censorship.equals("justLogin")) {logins.put(mid, session);}
 
-		if(censorship.equals("justLogin") && oid!=null) {
-			onlyLogin.put(oid, session); /*채팅방에 들어오지 않은 로그인 유저*/
-			UkDao dao=new UkDao();
-			List<String> follower=dao.followList(oid); /*나를 팔로우 하는 사람에게*/
-			for(String alertFollower: follower) {
-				if(onlyLogin.get(alertFollower)!=null) {
-					onlyLogin.get(alertFollower).sendMessage(new TextMessage(oid+"님이 방송을 시작하였습니다."));
+		/* 채팅방 입장 */
+		if (!censorship.equals("justLogin")) {
+			/*중복 입장인이 확인*/
+			if(chatRoom.get(censorship)!=null) {
+				List<WebSocketSession> list0=chatRoom.get(censorship);
+				/*중복 입장임*/
+				for(WebSocketSession s:list0) {
+					String compare=(String)s.getAttributes().get("session_id");
+					if(mid.equals(compare)) {
+						/* 중복 입장 알림 메세지 전송 */
+						JsonObject jsonObject3 = new JsonObject();
+						jsonObject3.addProperty("reduplication", "이미 채팅방에 접속해 있습니다.");
+						String jsonTxt3 = gson.toJson(jsonObject3);
+						session.sendMessage(new TextMessage(jsonTxt3));
+						reduplication=false;
+						break;
+					}
 				}
 			}
-		}else {
-			mid=censorship; /*로그인 상관없이 채팅방에 들어온 유저*/
-		}
 
-		/*새로 들어온 유저에게 mid가 같은 모든 시청자 수 보내줌 (totalUserCnt)*/
-		Iterator<WebSocketSession> totalUserCntsSet=everybody.keySet().iterator();
-		while(totalUserCntsSet.hasNext()) {
-			WebSocketSession totalSession= totalUserCntsSet.next();
-			if(everybody.get(totalSession).equals(mid)) {
-				totalUserCnt++;
+			if(reduplication) { /*중복입장 아니여아 입장함*/
+
+				/* 스트리머가 방송 시작 */
+				if (mid!=null && mid.equals(censorship)) {
+					/* 온에어 스트리머 json으로 변환 */
+					JsonObject jsonObject2 = new JsonObject();
+					jsonObject2.addProperty("onAir", mid);
+					String jsonTxt2 = gson.toJson(jsonObject2);
+					/* 팔로우 하는사람들에게 알람 보냄 */
+					UkDao dao2 = new UkDao();
+					List<String> followers = dao2.followList(mid); /* 나를 팔로우 하는 사람들 */
+					/*스트리머 팔로우한 사람들에게 알림 전송*/
+					for (String follower : followers) {
+						if (logins.get(follower) != null) { /* 나를 팔로우 하는 사람이 (채팅방 아님)로그인해 있으면 */
+							logins.get(follower).sendMessage(new TextMessage(jsonTxt2));/* 단순 로그인만 한 유저에게 보냄 */
+						}
+					}
+					List<WebSocketSession> list=new ArrayList<WebSocketSession>(); /*채팅방 세션 리스트*/
+					chatRoom.put(censorship, list); /*채팅방 시작*/
+					totalUsers.put(censorship, 0); /* 총 시청자수 카운트 시작 */
+					accumulate.put(censorship, 0); /* 누적 시청자수 카운트 시작 */
+				}
+
+				Iterator<String> iter=chatRoom.keySet().iterator();
+
+				while(iter.hasNext()){
+					if(censorship.equals(iter.next())){flag=true;}
+				}
+
+				/*스티리머가 방송을 시작해서 채팅방이 존재한다면*/
+				if(flag) {
+
+					/* 입장한 유저에게 보낼 로그인한 유저 목록 */
+					List<WebSocketSession>list1=chatRoom.get(censorship);
+					/* 채팅방 입장한 유저에게 채팅방 유저 목록 json으로 변환해서 */
+					List<String> nameList=new ArrayList<String>();
+					for(WebSocketSession s:list1) {
+						nameList.add((String)s.getAttributes().get("session_id"));
+					}
+					JsonObject jsonObject = new JsonObject();
+					String jsonLIst = gson.toJson(nameList);
+					jsonObject.addProperty("userLIst", jsonLIst);
+					String jsonTxt = gson.toJson(jsonObject);
+					/* 입장한 유저에게 보냄 */
+					session.sendMessage(new TextMessage(jsonTxt));
+					/*입장한 유저 채팅방 유저목록에 등록*/
+					list1.add(session);
+					chatRoom.put(censorship, list1);
+
+
+					/* 로그인한 유저가 채팅방 입장 */
+					if (mid != null) {
+						/* 채팅방에 입장한 유저 채팅방 유저리스트 디비에 저장 */
+						userList.setMid(mid);
+						userList.setOid(censorship);
+						userList.setStatus(1);
+						UkDao dao = new UkDao();
+						dao.enter(userList);
+						/* 채팅방 입장한 유저 아이디 json으로 변환 */
+						JsonObject jsonObject3 = new JsonObject();
+						jsonObject3.addProperty("addUser", mid);
+						String jsonTxt3 = gson.toJson(jsonObject3);
+						/*채팅방 사람들에게 새로 입장한 유저 아이디 뿌려줌*/
+						List<WebSocketSession>list3=chatRoom.get(censorship);
+						for (WebSocketSession s : list3) {
+							s.sendMessage(new TextMessage(jsonTxt3)); /*채팅방에 입장한 유저 아이디 보냄*/
+						}
+					}
+
+					/*누적시창자수 총 시청자수 담을 json*/
+					JsonObject jsonObject4 = new JsonObject();
+					/* 누적 시청자수 카운트 josn에 담음*/
+					if (accumulate.get(censorship) != null) {
+						accumulate.put(censorship, accumulate.get(censorship) + 1);
+						jsonObject4.addProperty("accUser", accumulate.get(censorship));
+					}
+					/* 총 시청자수 카운트 json에 담음*/
+					if (totalUsers.get(censorship) != null) {
+						totalUsers.put(censorship, totalUsers.get(censorship) + 1);
+						jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
+					}
+					/*누적, 총 시청자수 카운트 josn으로 변환*/
+					String jsonTxt4 = gson.toJson(jsonObject4);
+					/*채팅방 사람들에게 뿌려줌*/
+					List<WebSocketSession>list4=chatRoom.get(censorship);
+					for (WebSocketSession s : list4) {
+						s.sendMessage(new TextMessage(jsonTxt4));
+					}
+				}
 			}
 		}
-
-		everybody.put(session, mid); /*모든 세션 추가*/
-
-
-		System.out.println("hong");
-		if(accumulate.get(mid)!=null) { /*스트리머 아이디 있으면 방송중임*/
-			System.out.println("accumulate11111111111");
-			accumulate.put(mid, accumulate.get(mid)+1); /*스트리머의 누적 시청자 숫자 +1*/
-		}else if(mid.equals(oid)) { /*스트리머랑 로그인 아이디 같은면 방송 킨거임*/
-			System.out.println("accumulate11111111111");
-			accumulate.put(mid, 0); /*스트리머의 누적시청자 카운트 시작*/
-		}
-
-		addAndAccToEverybody.put("accUser", accumulate.get(mid)); /*들어온 그리고 총 유저수 맵에 누적 시창저 담음*/
-
-		/*로그인한 유저 맵에 들어갈 배열*/
-		Object[] body=new Object[2];
-		body[0]=mid;
-		body[1]=session;
-
-		/*새로 들어온 유저에게 mid가 같은 사람 users목록 보내줌 (출력해야할 로그인유저 리스트)*/
-		Iterator<String> usersIterator=users.keySet().iterator();
-		while(usersIterator.hasNext()) {
-			String user=usersIterator.next();
-			if(users.get(user)[0].equals(mid)) {
-				usersList.add(user);
-			}
-		}
-		usersListToNewUsers.put("totalSession",totalUserCnt);
-		usersListToNewUsers.put("users",usersList);
-		String jsonUsersListToNewUsers=gson.toJson(usersListToNewUsers);
-		session.sendMessage(new TextMessage(jsonUsersListToNewUsers)); /*새로 들어온 사람에게 유저목록 & 누적유저수 보냄*/
-
-		/*로그인 한 유저면*/
-		if(oid!=null) {
-			users.put(oid, body); /*유저 목록에 로그인한 유저 추가*/
-
-			addAndAccToEverybody.put("addUser", oid); /*스트리머가 같은 모든 유저에게 보낼 새로 들어온 유저 아이디 추가*/
-			addAndAccToEverybody.put("addTotalSession", 1); /*스트리머가 같은 모든 유저에게 보낼 새로 들어온 유저 아이디 추가*/
-
-			/*userList에 저장*/
-	         userList.setMid(mid);
-	         userList.setOid(oid);
-	         userList.setStatus(1);
-	         UkDao dao=new UkDao();
-	         dao.enter(userList);
-		}
-
-		/*스트리머가 같은 모든 유저들에게 새로 들어온 유저 아이디 보내줌*/
-		String jsonAddAndAccToEverybody=gson.toJson(addAndAccToEverybody);
-		Iterator<WebSocketSession> sessionIterator=everybody.keySet().iterator();
-		while(sessionIterator.hasNext()) {
-			WebSocketSession target=sessionIterator.next();
-			if(everybody.get(target).equals(mid)) { /*스트리머가 같은지 확인*/
-				target.sendMessage(new TextMessage(jsonAddAndAccToEverybody));
-			}
-		}
-
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		/*스트리머가 방송중인지*/
+		boolean flag=false;
+		/* 로그인 아이디 */
+		String mid = (String) session.getAttributes().get("session_id");
+		/* 스트리머 */
+		String censorship = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1);
 
-		Map<String, String> txtToEverybody=new HashMap<String, String>(); /*{cht_oid, oid}, {cht_txt, message.getPayload()}스트리머가 같은 모두에게 보낼 보낸사람과 텍스트*/
+		/*json형태 메세지 parse*/
+		JsonElement ele=parser.parse(message.getPayload());
 
-		String mid=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1); /*스트리머*/
-		String oid=(String)session.getAttributes().get("session_id"); /*로그인 기능 작동하면 위에꺼 지우고 이거(로그인한 유저) 넣어야함*/
-
-		/*보낸사람과 텍스트를 map구조에 담음*/
-		txtToEverybody.put("cht_oid", oid);
-		txtToEverybody.put("cht_txt", message.getPayload());
-		String JsonTxtToEverybody=gson.toJson(txtToEverybody);
-
-		/*보낸이, 스트리머, 채팅 내용 디비에 저장*/
-		cht.setCht_mid(mid);
-		cht.setCht_oid(oid);
-		cht.setCht_txt(message.getPayload());
-		UkDao dao=new UkDao();
-		dao.chatting(cht);
-
-		/*스트리머가 같은 모든사람에게 보낸사람과 텍스트를 담은 map을 보냄*/
-		Iterator<WebSocketSession> sessionIterator=everybody.keySet().iterator();
-		while(sessionIterator.hasNext()) {
-			WebSocketSession target=sessionIterator.next();
-			if(everybody.get(target).equals(mid)) { /*스트리머가 같은지 확인*/
-				target.sendMessage(new TextMessage(JsonTxtToEverybody));
-			}
+		/*스트리머가 방송 중이면*/
+		Iterator<String> iter=chatRoom.keySet().iterator();
+		while(iter.hasNext()){
+			if(censorship.equals(iter.next())){flag=true;}
 		}
 
+		/*(1)단순 채팅 -> tx면*/
+		if(ele.getAsJsonObject().get("txt")!=null && flag && reduplication) {
+			String txt=ele.getAsJsonObject().get("txt").getAsString();
+			/* json으로 변환 */
+			JsonObject jsonObject = new JsonObject();
+			midTxt[0]= mid;
+			midTxt[1]= txt;
+			String json=gson.toJson(midTxt);
+			jsonObject.addProperty("txt",json);
+			String jsonTxt = gson.toJson(jsonObject);
+			/*채팅방 모든사람에게 전송*/
+			List<WebSocketSession>list1=chatRoom.get(censorship);
+			for (WebSocketSession s : list1) {
+				s.sendMessage(new TextMessage(jsonTxt));
+			}
+			/* 보낸이, 스트리머, 채팅 내용 디비에 저장 */
+			cht.setCht_mid(mid);
+			cht.setCht_oid(censorship);
+			cht.setCht_txt(txt);
+			UkDao dao = new UkDao();
+			dao.chatting(cht);
+		}
+
+		/*(2)친구 추가 -> plus*/
+		if(ele.getAsJsonObject().get("plus")!=null) {
+			/*메세지로부터 타겟 얻음*/
+			String plus=ele.getAsJsonObject().get("plus").getAsString();
+			/* json으로 변환 */
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("plus", mid);
+			String jsonTxt = gson.toJson(jsonObject);
+			/*로그인중인 사람들에게 전송*/
+			if(logins.get(plus)!=null)
+			logins.get(plus).sendMessage(new TextMessage(jsonTxt));
+		}
+
+		/*(3)귓속말  -> whisper*/
+		if(ele.getAsJsonObject().get("whisper")!=null) {
+			/*메세지로부터 타겟과 내용 얻음*/
+			JsonArray jsonArray=ele.getAsJsonObject().get("whisper").getAsJsonArray();
+			String whisperTarget=jsonArray.get(0).getAsString();
+			String whisperTxt=jsonArray.get(1).getAsString();
+			/* json으로 변환 */
+			JsonObject jsonObject = new JsonObject();
+			midTxt[0]= mid;
+			midTxt[1]= whisperTxt;
+			String json=gson.toJson(midTxt);
+			jsonObject.addProperty("whisper", json);
+			String jsonTxt = gson.toJson(jsonObject);
+			/*로그인중인 사람들에게 전송*/
+			if(logins.get(whisperTarget)!=null)
+			logins.get(whisperTarget).sendMessage(new TextMessage(jsonTxt));
+		}
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		Map<String, Object> delUserToEverybody=new HashMap<String, Object>(); /*{delUser : oid} 모든 유저에게 보낼 나가서 삭제할 유저 아이디*/
+		boolean flag=false;
+		/* 로그인 아이디 */
+		String mid = (String) session.getAttributes().get("session_id");
+		/* 단순 로그인인지 방송 입장인지 검열 */
+		String censorship = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1); /* 스트리머 */
 
-		String mid=session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?")+1); /*스트리머*/
-		String oid=(String)session.getAttributes().get("session_id"); /*채팅방에 입장한 유저*/
+		/* 단순 로그아웃 */
+		if (mid != null && censorship.equals("justLogin")) {logins.remove(mid);}
 
-		everybody.remove(session); /*모든 세션에서 나간 세션 삭제*/
+		/* 채팅방 퇴장 */
+		if (!censorship.equals("justLogin")) {
+			/* 스트리머가 방송 종료 채팅방에 있던 모든사람 강제 퇴장*/
+			if (mid.equals(censorship)) {
+				/*스트리머 채팅방에서 제거*/
+				List<WebSocketSession>list1=chatRoom.get(censorship);
+				list1.remove(session);
+				chatRoom.put(censorship, list1);
+				/*채팅방에 있던 모든 사람에게 방종 메세지*/
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("offAir", censorship);
+				String jsonTxt = gson.toJson(jsonObject);
+				/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
+				List<WebSocketSession> list2=chatRoom.get(censorship);
+				for(WebSocketSession s:list2) {
+					String del_id=(String)s.getAttributes().get("session_id");
+					userList.setMid(del_id);
+					userList.setOid(censorship);
+					userList.setStatus(0);
+					UkDao dao = new UkDao();
+					dao.exit(userList);
 
-		if(accumulate.get(mid)!=null) { /*스트리머 아이디 있으면 방송중임*/
-		}else if(mid.equals(oid)) { /*스트리머랑아이디랑 로그인 아이디 같으면 방종*/
-			accumulate.remove(mid); /*스트리머의 누적 시청자 제거*/
-		}
-
-		/*로그인한 유저면*/
-		if(oid!=null) {
-			users.remove(oid); /*로그인한 유저 삭제*/
-			delUserToEverybody.put("delUser", oid); /*스트리머가 같은 모두에게 보낼 삭제할 유저 아이디 추가*/
-
-			  /*나간 로그인한 유저 디비 status=0로 수정*/
-	         userList.setMid(mid);
-	         userList.setOid(oid);
-	         userList.setStatus(0);
-	         UkDao dao=new UkDao();
-	         dao.exit(userList);
-
-			/*스트리머가 같은 모두에게 나간 유저 전송*/
-			String jsonDelUserToEverybody=gson.toJson(delUserToEverybody);
-			Iterator<WebSocketSession> sessionIterator=everybody.keySet().iterator();
-			while(sessionIterator.hasNext()) {
-				WebSocketSession target=sessionIterator.next();
-				if(everybody.get(target).equals(mid)) { /*스트리머가 같은지 확인*/
-					target.sendMessage(new TextMessage(jsonDelUserToEverybody));
+					s.sendMessage(new TextMessage(jsonTxt));
+				}
+				totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
+				accumulate.remove(censorship); /* 누적 카운트에서 제거 */
+				chatRoom.remove(censorship); /*채팅방 폭파*/
+			}else {
+				/*스트리머가 방송중이라 채팅방이 있으면*/
+				Iterator<String> iter=chatRoom.keySet().iterator();
+				while(iter.hasNext()){
+					if(censorship.equals(iter.next())){flag=true;}
+				}
+				/*채팅방에 있던 유저가 나감*/
+				if(flag) {
+					/* 나간사람 채팅방에서 제거 */
+					List<WebSocketSession>list=chatRoom.get(censorship);
+					list.remove(session);
+					chatRoom.put(censorship, list);
+					/* 로그인한 유저가 채팅방에서 퇴장 */
+					if (mid != null) {
+						/* 채팅방에서 나간 로그인한 유저 디비 status=0로 수정 */
+						userList.setMid(mid);
+						userList.setOid(censorship);
+						userList.setStatus(0);
+						UkDao dao = new UkDao();
+						dao.exit(userList);
+						/* 채팅방에서 퇴장한 유저 아이디 json으로 변환 */
+						JsonObject jsonObject = new JsonObject();
+						jsonObject.addProperty("delUser", mid);
+						String jsonTxt = gson.toJson(jsonObject);
+						/*채팅방 모든 사람에게 전송*/
+						List<WebSocketSession> list1=chatRoom.get(censorship);
+						for (WebSocketSession s : list1) {
+							s.sendMessage(new TextMessage(jsonTxt));
+						}
+					}
+					/*총 시청자수 담을 josn*/
+					JsonObject jsonObject4 = new JsonObject();
+					/* 총 시청자수 카운트  json에 담음*/
+					if (totalUsers.get(censorship) != null) {
+						totalUsers.put(censorship, totalUsers.get(censorship) - 1);
+						jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
+					}
+					/*총 시청자수 json으로 변환*/
+					String jsonTxt4 = gson.toJson(jsonObject4);
+					/*채팅방 모든 사람에게 전송*/
+					List<WebSocketSession> list2=chatRoom.get(censorship);
+					for (WebSocketSession s : list2) {
+						s.sendMessage(new TextMessage(jsonTxt4));
+					}
 				}
 			}
 		}
-
 	}
-
-	@Override
-	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-		System.out.println("error_session!!!! "+session);
-		System.out.println("error_exception!!!!!: "+exception);
-	}
-
 }

@@ -168,9 +168,9 @@ public class BroadCastingController {
       msg = dao.deleteAir(mId, sKey,gameName);
 
       if (msg.equals("중지성공")) {
-         mv.setViewName("video_tak2");
-      } else if (msg.equals("중지실패")) {
          mv.setViewName("video_tak");
+      } else if (msg.equals("중지실패")) {
+         mv.setViewName("video_tak2");
       }
       mv.addObject("sKey", sKey);
       mv.addObject("msg", msg);
@@ -345,8 +345,8 @@ public class BroadCastingController {
       return result;
 
    }
-   
-   
+
+
    	   @RequestMapping(value = "*/initUser.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody
@@ -361,9 +361,9 @@ public class BroadCastingController {
 	      return result;
 
 	   }
-   
-   
-   
+
+
+
    @RequestMapping(value = "*/selectAir.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody

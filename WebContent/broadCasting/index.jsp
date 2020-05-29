@@ -392,7 +392,7 @@
 
 
 
-						<div class='row' style="margin-top: 2%">
+						<!-- <div class='row' style="margin-top: 2%">
 							<div class='col-1'>
 								<i class="fas fa-crown" style="color: yellow;"></i>
 							</div>
@@ -433,7 +433,7 @@
 						<div class='row' style="margin-top: 2%">
 							<div class='col-10'>white</div>
 
-						</div>
+						</div> -->
 
 
 					</div>
@@ -446,7 +446,7 @@
 
 						<div class='col-12 chtArea' style="height: 500px" id="chtArea">
 							<!-- <div style="padding-top: 5%;">채팅방에 오신것을 환영합니다!</div>-->
-							<div class='row' style="margin-top: 2%">
+							<!-- <div class='row' style="margin-top: 2%">
 								<div class='col-1'>
 									<i class="fas fa-crown" style="color: yellow;"></i>
 								</div>
@@ -497,7 +497,7 @@
 								<div class='col-2'>white</div>
 								<div class='col-9'>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</div>
 
-							</div>
+							</div> -->
 						</div>
 						<div class='col-12'>
 							<div class="input-group mb-3">
