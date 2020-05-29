@@ -134,7 +134,7 @@
 												<option value="3">Large</option>
 												<option value="4">Medium</option>
 												<option value="5">Small</option>
-												<option value="6">free</option>
+												<option value="6">Free</option>
 											</select>
 										</div>
 									</div>
@@ -217,7 +217,7 @@
 						</form>
 
 
-
+						
 					</div>
 				</div>
 			</div>

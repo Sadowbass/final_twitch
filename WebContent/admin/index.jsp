@@ -217,28 +217,15 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                                <a href="javascript:void(0);" onclick="profit();">
                                     <span>수익 관리 </span>
                                 </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0)">광고 관리</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" onclick="profit();">수익 관리</a>
-                                    </li>
-                                </ul>
                             </li>
-
+                     
                             <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
+                                <a href="javascript:void(0);"  onclick="help();">
                                     <span>게시판 관리</span>
                                 </a>
-                                <ul class="ml-menu"> 
-                                    <li>
-                                        <a href="javascript:void(0)" onclick="help();">도움말 관리</a>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </li>
@@ -269,7 +256,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/shop/order_select.jsp">주문조회</a>
+                                    	<a href="javascript:void(0);" onclick="location.href='orderSelect.mh'">주문조회</a>
+                                        <!-- <a href="index.jsp?inc=admin_pages/shop/order_select.jsp">주문조회</a> -->
                                     </li>
                                     <li>
                                         <a href="index.jsp?inc=admin_pages/shop/order_treat.jsp">주문처리</a>
@@ -285,7 +273,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="index.jsp?inc=admin_pages/shop/notice.jsp">공지사항</a>
+                                        <a href="javascript:void(0);" onclick="location.href='notice.mh'">자주하는 질문</a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0);" onclick="cmh.reviewSelect();">리뷰</a>
@@ -302,7 +290,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                             </li>
                              <li>
-                                <a href="index.jsp?inc=admin_pages/shop/shop_statistic.jsp">
+                             	<a href="javascript:void(0);" onclick="location.href='shop_statistic.mh'">
+                                <!-- <a href="index.jsp?inc=admin_pages/shop/shop_statistic.jsp"> -->
                                     <span>통계 관리</span>
                                 </a>
                             </li>

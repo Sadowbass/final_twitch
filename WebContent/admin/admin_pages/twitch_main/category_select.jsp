@@ -88,7 +88,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="modal-body">
             <form name="modal_form" id="modal_form" method="post" enctype='multipart/form-data'>
                 <div class="col-lg-12 col-md-12 col-xs-12">
-                    <img src="images/tft.PNG" class="img-rounded category_img" id="category_img">
+                    <img src="http://placehold.it/285x380" class="img-rounded category_img" id="category_img">
                      <div class="filebox3">
                          <label for="profile_img">프로필 사진 수정</label>
                          <input type="file" name="profile_img" id="profile_img" class="profile_img_button" />
@@ -97,7 +97,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 <div class="col-xs-12">
                     <div class="cate_name_label">카테고리 이름</div>
                     <div class="form-line">
-                        <input type="text" class="form-control category_name_modify" placeholder="Temfight Tactics" id="cate_name" name="cate_name">
+                        <input type="text" class="form-control category_name_modify" placeholder="" id="cate_name" name="cate_name">
                     </div>
                 </div>
                 <div class="col-xs-12">

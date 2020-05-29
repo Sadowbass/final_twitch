@@ -25,6 +25,12 @@ function LoadImg(value,i){
 	}
 }
 
+function noticeView(serial) {
+	
+	$('#noticeSerial').val(serial);
+	$('#frm_notice').submit();
+}
+
 var cmh = {}
 
 cmh.init = function(){	
@@ -42,6 +48,99 @@ cmh.review_view = function(serial){
 }
 
 cmh.func = function(){
+	
+	
+	// notice_modify.jsp
+	
+	$('#btn_modifyNotice').click(function(){
+					
+		let param = $('#frm_noticeModify').serialize();
+		
+		$.ajax({
+			url : "noticeModify.mh",
+			type : "post",
+			data : param,
+			success : function(data, xhr, state){
+				swal(data).then((v)=>{
+					location.href='notice.mh';
+				})
+			}
+		})
+		
+	});
+	
+	$('#btn_deleteNotice').click(function(){
+		$.ajax({
+			url : "noticeDelete.mh",
+			type : "post",
+			data : {"serial" : $('#noticeNO').val()},
+			success : function(data, xhr, state){
+				swal(data).then((v)=>{
+					location.href='notice.mh';
+				})
+			}
+		})
+	})
+	
+	// end notice_modify.jsp
+	
+	// noticeInsert.jsp
+	$('#btn_noticeInsert').click(function(){
+		
+		let param = $('#frm_noticeInsert').serialize();
+		
+		$.ajax({
+			url:"noticeInsertR.mh",
+			type : "POST",
+			data : param,
+			dataType : "text",
+			success : function(data, xhr, state){
+
+				swal(data).then((v)=>{
+					location.href='notice.mh'
+				})
+			}
+			
+		})
+	})
+	// end noticeInsert.jsp
+	
+	// order_view.jsp
+	$('#btn_orderDelete').click(function(){
+		swal({
+			title:"정말 삭제하시겠습니까?",
+			buttons:true,
+		}).then((v)=>{
+			if(v){
+				
+				$.ajax({
+					url : "orderViewDelete.mh",
+					type : "post",
+					data : {"order_serial" : $('#order_serial_mh').val()},
+					success : function(data, xhr, state){
+						swal("삭제되었습니다.").then((v)=>{
+							location.href='orderSelect.mh'
+						})
+					}
+					
+				})
+			}
+		})
+		
+	})
+	
+	// end order_view.jsp
+	
+	// order_select.jsp
+	// 검색버튼 누르면
+	$('#btn_orderSearch_mh').click(function(){
+		$('#orderSelect_nowPage').val(1);
+		$('#frm_orderSelect_mh').submit();
+	})
+	
+	// end order_select.jsp
+	
+	
 	
 	// review.jsp
 	
@@ -321,8 +420,11 @@ cmh.productView = function(product_id){
 	});*/
 }
 
-cmh.orderView = function(serial){
-	location.href = "index.jsp?inc=admin_pages/shop/order_view.jsp";
+cmh.orderView = function(serial, mem_id){
+	$('#orderSelect_orderSerial').val(serial);
+	$('#orderSelect_mem_id').val(mem_id);
+	$('#frm_orderSelect_mh').attr('action','orderView.mh');
+	$('#frm_orderSelect_mh').submit();
 }
 
 

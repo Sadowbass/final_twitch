@@ -283,7 +283,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 </ul>
                                             </div>
                                             <div class="body">
-                                                <div class="table-responsive">
+                                                <div class="table-responsive ">
                                                     <table id="he_table" class="hover mdl-data-table member_table"
                                                         style="width:100%">
                                                         <thead>
@@ -325,8 +325,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <div class="card">
                                             <div class="header">
                                                 <h2>
-                                                    결제 내역
-                                                    <small>구독하거나 도네이션 한 내역을 보여줍니다.</small>
+                                                    마일리지 충전 내역
                                                 </h2>
                                                 <ul class="header-dropdown m-r--5">
                                                     <li class="dropdown">
@@ -344,30 +343,83 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div class="body table-responsive">
-                                                <table class="table table-hover">
+                                             <div class="table-responsive mail">
+                                                <table id="mail_table2" class="hover mdl-data-table member_table"
+                                                        style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            <th>번호</th>
                                                             <th>날짜</th>
-                                                            <th>받은 스트리머 아이디</th>
-                                                            <th>금액</th>
+                                                            <th>충전 금액</th>
+                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <c:forEach begin="1" end="5" var="i">
+                                                       <c:forEach items="${payment}" var="i" varStatus="j">
                                                             <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
+                                                                <th scope="row">${j.count }</th>
+                                                                <td>${i.pay_date }</td>
+                                                                <td>${i.pay_money }</td>
+                                                            </tr>
+                                                        </c:forEach> 
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="header">
+                                                <h2>
+                                                    마일리지 사용 내역
+                                                </h2>
+                                                <ul class="header-dropdown m-r--5">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle"
+                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li><a href="javascript:void(0);">Action</a></li>
+                                                            <li><a href="javascript:void(0);">Another action</a></li>
+                                                            <li><a href="javascript:void(0);">Something else here</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="body">
+                                            <div class="table-responsive mail">
+                                                <table id="mail_table" class="hover mdl-data-table member_table"
+                                                        style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                        	<th>번호</th>
+                                                        	<th>분류</th>
+                                                            <th>날짜</th>
+                                                            <th>사용한 금액</th>
+                                                            <th>받은 스트리머</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${pay_use}" var="i" varStatus="j">
+                                                            <tr>
+                                                                <th scope="row">${j.count }</th>
+                                                                <td>${i.type }</td>
+                                                                <td>${i.don_rdate}</td>
+                                                                <td>${i.don_price}</td>
+                                                                <td>${i.don_mid}</td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
                                                 </table>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
@@ -397,7 +449,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
                                             <div class="header">
-                                                <h2>이주 방송 시청 시간</h2><span>총 시청 시간:200시간</span>
+                                                <h2>방송 시청 시간</h2><span>총 시청 시간:${tot_time}시간</span>
                                                 <ul class="header-dropdown m-r--5">
                                                     <li class="dropdown">
                                                         <a href="javascript:void(0);" class="dropdown-toggle"
@@ -431,25 +483,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
                                             <div class="header">
-                                                <h2>1년간 결제 금액 <small class="total_buy">결제 총액:122221원</small></h2>
+                                                <h2>지난 결제 금액 <small class="total_buy">결제 총액:${tot_pay }원</small></h2>
                                                 <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
+                                  
                                                 </ul>
                                             </div>
                                             <div class="body">
-                                                <canvas id="shop_buy_chart" height="100"></canvas>
+                                                <canvas id="shop_buy_chart" height="150"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -459,23 +499,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="header">
                                                 <h2>자주 이용하는 카테고리</h2>
                                                 <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="body">
-                                                <canvas id="shop_cate_chart" height="100"></canvas>
+                                                <canvas id="shop_cate_chart" height="150"></canvas>
                                             </div>
                                         </div>
                                     </div>
@@ -660,22 +687,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
             // The data for our dataset
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
                 datasets: [{
-                    label: 'My First dataset',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    label: '방송 시청 시간',
+                    data: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
                     borderColor: 'rgba(0, 188, 212, 0.75)',
                     backgroundColor: 'rgba(0, 188, 212, 0.3)',
                     pointBorderColor: 'rgba(0, 188, 212, 0)',
                     pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                    pointBorderWidth: 1
-                }, {
-                    label: "My Second dataset",
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    borderColor: 'rgba(233, 30, 99, 0.75)',
-                    backgroundColor: 'rgba(233, 30, 99, 0.3)',
-                    pointBorderColor: 'rgba(233, 30, 99, 0)',
-                    pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
                     pointBorderWidth: 1
                 }]
             },
@@ -684,17 +703,25 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 legend: false
             }
         });
+        
+        <c:forEach items="${watch}" var="i" varStatus="j">
+       	 chart.data.datasets[0].data[${j.index}] =${i}
+        </c:forEach>
+        
+        chart.update();
+        
+        
         var ctx2 = document.getElementById('shop_buy_chart').getContext('2d');
-        var chart = new Chart(ctx2, {
+        var chart2 = new Chart(ctx2, {
             // The type of chart we want to create
             type: 'line',
 
             // The data for our dataset
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월','8월','9월','10월','11월','12월'],
                 datasets: [{
-                    label: 'My First dataset',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    label: '월별 결제 금액',
+                    data: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
                     borderColor: 'rgba(0, 188, 212, 0.75)',
                     backgroundColor: 'rgba(0, 188, 212, 0.3)',
                     pointBorderColor: 'rgba(0, 188, 212, 0)',
@@ -707,6 +734,13 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 legend: false
             }
         });
+        
+        <c:forEach items="${last_pay}" var="i" varStatus="j">
+     	 chart2.data.datasets[0].data[${j.index}] =${i}
+      	</c:forEach>
+      	
+      	chart2.update();
+       
 
         var ctx3 = document.getElementById('category_chart').getContext('2d');
         var myPieChart = new Chart(ctx3, {
@@ -770,9 +804,27 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         		})
         	}
         }
-
-
         
+        $(document).ready(function() {
+            $('#mail_table').DataTable( {
+            	 "lengthChange": false,
+            	 "pageLength": 5,
+            	 columnDefs: [{
+                     targets: [0, 1, 2],
+                     className: 'mdl-data-table__cell--non-numeric'
+                 }]
+            	 
+            } );
+            
+            $('#mail_table2').DataTable( {
+            	 "lengthChange": false,
+            	 "pageLength": 5,
+            	 columnDefs: [{
+                     targets: [0, 1, 2],
+                     className: 'mdl-data-table__cell--non-numeric'
+                 }]
+            } );
+        } );
       
     </script>
 

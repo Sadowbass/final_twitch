@@ -67,6 +67,7 @@ a.dt-button:hover:not(.disabled) {
 
 .member_img {
 	width: 118px;
+	height: 115px;
 	margin-left: 15px;
 }
 
@@ -641,3 +642,26 @@ input[type="file"] {
 	background: #d54cc1;
     color: #fff;
 }
+
+/*streamer_detail*/
+
+.broadstop_btn{
+	display: inline-block;
+    margin-left: 22px;
+    position: relative;
+    top: 38px;
+}
+
+.broadstop_btn button{
+    background: linear-gradient(to bottom left, #e14eca, #ba54f5, #e14eca);
+    color:#fff;
+}
+
+.profit_pg{
+	text-align: center;
+}
+.profit_pg .pg{
+	background: none !important;
+    color: #fff !important;
+}
+

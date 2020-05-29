@@ -12,8 +12,30 @@ public class StreamerVo {
 	String sub_profit;//구독 수익;
 	String don_profit;//도네 수익;
 	String ph_sysfile;//프로필 사진
+	String don_mid;
+	String sub_mid;
+	int rn;//순번 
+	
+	public String getSub_mid() {
+		return sub_mid;
+	}
+	public void setSub_mid(String sub_mid) {
+		this.sub_mid = sub_mid;
+	}
 	
 	
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
+	public String getDon_mid() {
+		return don_mid;
+	}
+	public void setDon_mid(String don_mid) {
+		this.don_mid = don_mid;
+	}
 	public String getCnt2() {
 		return cnt2;
 	}
