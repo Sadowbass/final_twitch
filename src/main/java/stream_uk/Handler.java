@@ -40,8 +40,6 @@ public class Handler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		boolean reduplication=true;
 		boolean flag=false;
-		System.out.println(session);
-		System.out.println(session.getUri());
 		System.out.println(session.getAttributes());
 		/* 로그인 아이디 */
 		String mid = (String) session.getAttributes().get("session_id");
@@ -58,7 +56,11 @@ public class Handler extends TextWebSocketHandler {
 				List<WebSocketSession> list0=chatRoom.get(censorship);
 				/*중복 입장임*/
 				for(WebSocketSession s:list0) {
-					if(mid.equals((String)s.getAttributes().get("seesion_id"))) {
+					System.out.println(1111+mid);
+					System.out.println((String)s.getAttributes().get(2222+"session_id"));
+					if(mid.equals((String)s.getAttributes().get("session_id"))) {
+						System.out.println(3333+mid);
+						System.out.println((String)s.getAttributes().get(4444+"session_id"));
 						/* 중복 입장 알림 메세지 전송 */
 						JsonObject jsonObject3 = new JsonObject();
 						jsonObject3.addProperty("reduplication", "이미 채팅방에 접속해 있습니다.");
