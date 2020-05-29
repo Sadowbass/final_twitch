@@ -16,7 +16,7 @@
 
 	<div
 		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>
-		<div style='text-align: center; color: white'>0:00:00</div>
+		<div id='broadCastingTime' style='text-align: center; color: white'>0:00:00</div>
 		<div style='text-align: center'>방송시간</div>
 	</div>
 	<div
@@ -34,9 +34,9 @@
 		<div style='text-align: center; color: white' id='loginUserCnt'></div>
 		<div style='text-align: center'>채팅방 인원 수</div>
 	</div>
-	<div
+	<div onclick="followView()"
 		style='margin: 10px; background-color: rgb(14, 14, 16); border-radius: 1em'>
-		<div style='text-align: center; color: white'>0</div>
+		<div style='text-align: center; color: white' id='broadCastingFollow'>0</div>
 		<div style='text-align: center'>팔로워</div>
 	</div>
 
@@ -48,7 +48,7 @@
 			<a class="nav-link dropdown-toggle user-dropdown-link" href="#"
 			id="userDropdown" role="button" data-toggle="dropdown"
 			aria-haspopup="true" aria-expanded="false"> <img alt="Avatar"
-				src="../img/user.png"> <font color="white">BJ민호</font>
+				src="../img/user.png" id="memberPhoto"> <font color="white" id='memberName'>BJ민호</font>
 		</a>
 			<div class="dropdown-menu dropdown-menu-right"
 				aria-labelledby="userDropdown">

@@ -185,7 +185,7 @@
                         	
                             let divCol = document.createElement('div');
                             divCol.className="col-xl-2 col-sm-6 mb-3";
-                            divCol.setAttribute("onclick","broadCastingView("+"'"+i.air_mId+"'"+")");
+                            divCol.setAttribute("onclick","broadCastingView("+"'"+i.air_mid+"'"+")");
                             divCol.setAttribute("data-tooltip-text",i.air_content);
           
                             //data-toggle="tooltip" data-placement="top" title="${i.air_content}
@@ -208,12 +208,12 @@
                             h5.style.fontWeight = "bold"
          
                             let h6 = document.createElement('h6');
-                            h6.innerText = i.air_mId;
+                            h6.innerText = i.air_mid;
 		   					h6.style.color = "#7401DF";
 		   					h6.style.fontWeight = "bold"
 
                             let h7 = document.createElement('h6');
-                            h7.innerText = i.air_gName;
+                            h7.innerText = i.air_gname;
                             h7.style.fontWeight = "bold"
                             let p = document.createElement('h6');
                             p.innerText = "74,853 views";
@@ -247,10 +247,12 @@
         }
     })
 </script>
-<input type='text' id='findBc'/>
+<input type='hidden' id='findBc'/>
+
 <div id="topplace">
     <%@include file="/top.jsp" %>
 </div>
+
 <div id="wrapper">
     <div id="sidebarplace" style="margin-top: 53px;">
     </div>
@@ -341,7 +343,7 @@
                 <c:if test="${URI == 1}">
                     <div class='row itemrow' style='margin-top: 2%' id="gameRow">
                         <c:forEach var="i" items="${list}">
-                            <div class="col-xl-2 col-sm-6 mb-3" data-tooltip-text="${i.air_content}"  onclick="broadCastingView('${i.air_mId}')">
+                            <div class="col-xl-2 col-sm-6 mb-3" data-tooltip-text="${i.air_content}"  onclick="broadCastingView('${i.air_mid}')">
                                 <div class="category-item2 mt-0 mb-0" rownum="${i.rno}">
                                     <a href="javascript:void(0)">
                                         <c:choose>
@@ -352,16 +354,9 @@
                                                 <img class="img-fluid thumbnail" width="100%" height="auto" style="background-size:100% 100%;background-image : url(/uploads/${i.air_thumbnail})" />
                                             </c:otherwise>
                                         </c:choose>
-                                        
- 
-                                        
-                                        
-                                        <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
-                                        <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mId}</h6>
-                                        
-                      
-                                    
-                                        <h6 style='font-weight: bold'>${i.air_gName}</h6>
+					                    <h6 style='font-weight: bold;text-align: center;'>${i.air_subject}</h6>
+                                        <h6 style='font-weight: bold;text-align: center;color:#7401DF'>${i.air_mid}</h6>     
+                                        <h6 style='font-weight: bold'>${i.air_gname}</h6>
                                         <h6 style="color:red">74,853 views</h6>
                                     </a>
                                     <div class="col-xs-12" style="margin-top: 3%">

@@ -64,7 +64,7 @@
 						<form name="pk_broadCastingData" id="pk_broadCastingData"
 							method="post">
 							<input type='hidden' name='flagRul' id='flagRul' />
-							<input type='hidden' name='mId' id='mId' value='faker' /> <input
+							<input type='hidden' name='mId' id='mId' value='<%=session.getAttribute("session_id")%>' /> <input
 								type='hidden' name='tags' id='takTag' /> <input type='hidden'
 								name='gameName' id='takGame' />
 							<div id="modalBox" class="modal fade" id="myModal" tabindex="-1"
@@ -144,6 +144,40 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							<div id="modalBox2" class="modal fade" id="myModal" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel"
+								style="background-color: rgba(0, 0, 123, 0.4)">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content"
+										style="background-color: rgb(24, 24, 27) !important;">
+										<div class="modal-header" style='border: 0 !important'>
+											<img class="img-fluid" alt="" src="../img/favicon.png">&nbsp;<img
+												class="img-fluid" alt="" src="../img/Twitch_logo.png"
+												width="100px">&nbsp;&nbsp;
+											<h4 class="modal-title" id="myModalLabel"
+												style="color: white">팔로워 목록</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true" style="color: white">×</span>
+											</button>
+										</div>
+										<div class="modal-body" id='followList' style='height:300px;overflow: auto;'>
+										ㅂㅈㅇㅈㅂ
+										</div>
+										<div class="modal-footer">
+	
+											<button type="button" class="btn btn-outline-primary"
+												id="closeModalBtn2">닫기</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+
+							
+							
 
 							<div class="col-sm-12 pt-3">
 								<div class="card"
@@ -490,6 +524,8 @@
 		$(document)
 				.ready(
 						function() {
+									
+
 							$('#updateBroadCasting').hide();
 							// 방송스위치 --------------------------------------------------------------
 							$('#pk_switch').on('click', function() {
@@ -508,6 +544,14 @@
 
 								console.log("click close");
 							});
+							
+							$('#closeModalBtn2').on('click', function() {
+								$('#modalBox2').modal('hide');
+
+								console.log("click close");
+							});
+							
+							
 							$('#saveModalBtn').on('click', function() {
 
 								let count = 0;
@@ -623,244 +667,9 @@
 								console.log("hidden.bs.modal");
 							});
 
+							initUser();
+							initAir();
 
-
-
-							var time1 = setInterval(
-									function() {
-										let param = $('#mId').val();
-										$
-												.ajax({
-													url : 'selectDonation.bc?mId='
-															+ param,
-													type : 'post',
-													dataType : 'json',
-													async:false,
-													error : function(xhr,
-															status, error) {
-														console.log('실패');
-													},
-													success : function(data,
-															xhr, status) {
-														console.log(data);
-														if (data != null) {
-															for (let i = 0; i < data.length; i++) {
-
-																console
-																		.log(data[i]);
-																let divRow = document
-																		.createElement("div");
-																divRow.className = "row";
-																divRow.style.marginTop = "2%";
-
-																if (data[i].type == '0' || data[i].type =='2') {
-																	divRow.onclick = function() {
-																		voiceDonation(
-																				data[i].don_serial,
-																				data[i].don_oid,
-																				data[i].don_content,
-																				data[i].don_price,
-																				data[i].type);
-																	};
-
-																} else if (data[i].type == '1') {
-																	divRow.onclick = function() {
-																		videoDonation(
-																				data[i].don_serial,
-																				data[i].don_oid,
-																				data[i].don_content,
-																				data[i].don_price,
-																				data[i].url)
-																	};
-																}
-
-																let divCol1 = document
-																		.createElement("div");
-																divCol1.className = "col-1";
-
-																let j = document
-																		.createElement('i');
-																if (data[i].type == '0') {
-																	j.className = "fas fa-volume-up fa-3x";
-																} else if (data[i].type == '1') {
-																	j.className = "fas fa-video fa-3x";
-																} else if (data[i].type == '2'){
-																	j.className = "fas fa-question fa-3x";
-																}
-
-																let divCol8 = document
-																		.createElement("div");
-																divCol8.className = "col-8";
-
-																let divCol12 = document
-																		.createElement("div");
-																divCol12.className = "col-12";
-																divCol12.innerHTML = data[i].don_oid;
-																divCol12.style.color = "white";
-
-																let divCol122 = document
-																		.createElement("div");
-																divCol122.className = "col-12";
-																divCol122.innerHTML = "["
-																		+ data[i].don_price
-																		+ "]&nbsp;"
-																		+ data[i].don_content;
-
-																let divCol3 = document
-																		.createElement("div");
-																divCol3.className = 'col-3';
-																divCol3.style.textAlign = "center";
-																divCol3.style.paddingTop = "3px";
-																divCol3.innerHTML = data[i].don_rdate;
-
-																divRow
-																		.appendChild(divCol1);
-																divRow
-																		.appendChild(divCol8);
-																divRow
-																		.appendChild(divCol3);
-																divCol1
-																		.appendChild(j);
-																divCol8
-																		.appendChild(divCol12);
-																divCol8
-																		.appendChild(divCol122);
-																let donationDiv = document
-																		.getElementById('donationDiv');
-																donationDiv
-																		.appendChild(divRow);
-
-																/*
-																let html = '';
-																if(data[i].type == '0'){
-																html += '<div class="row" style="margin-top: 2%" onclick="voiceDonation(' + data[i].don_serial + ')">';
-																}else if(data[i].type =='1'){
-																html += '<div class="row" style="margin-top: 2%" onclick="videoDonation(' + data[i].don_serial + ')">';
-																}
-																html += "<div class='col-1'>";
-																if(data[i].type == '0'){
-																	html += "<i class='fas fa-volume-up fa-3x'></i>";
-																}else if(data[i].type =='1'){
-																	html += "<i class='fas fa-video fa-3x'></i>";
-																}
-																html += "</div>";
-																html += "<div class='col-8'>";
-																html += "<div class='col-12' style='color: white'>";
-																html += data[i].don_oid;
-																html += "</div>";
-																html += "<div class='col-12'>";
-																html += "<font size='2' color='white' face='돋움'>["+data[i].don_price+"]</font>" + data[i].don_content;
-																html += "</div>";
-																html += "</div>";
-																html += "<div class='col-3' style='text-align: center;padding-top: 10px'>";
-																html += data[i].don_rdate;
-																html += "</div>";
-																$('#donationDiv').append(html);
-
-																 */
-
-																toastr.options = {
-																	"closeButton" : false,
-																	"debug" : false,
-																	"newestOnTop" : false,
-																	"progressBar" : false,
-																	"positionClass" : "toast-top-center",
-																	"preventDuplicates" : false,
-																	"onclick" : null,
-																	"showDuration" : "300",
-																	"hideDuration" : "1000",
-																	"timeOut" : "3000",
-																	"extendedTimeOut" : "1000",
-																	"showEasing" : "swing",
-																	"hideEasing" : "linear",
-																	"showMethod" : "fadeIn",
-																	"hideMethod" : "fadeOut",
-																	"bdColor" : "#444"
-																}
-																toastr.options.onclick = function() {
-																	if (data[i].type == '0' || data[i].type =='2') {
-																		voiceDonation(
-																				data[i].don_serial,
-																				data[i].don_oid,
-																				data[i].don_content,
-																				data[i].don_price,
-																				data[i].type);
-																	} else if (data[i].type == '1') {
-																		videoDonation(
-																				data[i].don_serial,
-																				data[i].don_oid,
-																				data[i].don_content,
-																				data[i].don_price,
-																				data[i].url)
-																	}
-																}
-
-																if (data[i].type == '0') {
-																	toastr
-																			.success('음성후원이 도착하였습니다');
-																} else if (data[i].type == '1') {
-																	toastr
-																			.success('영상후원이 도착하였습니다');
-																} else if (data[i].type == '2'){
-																	toastr
-																		    .success('룰렛후원이 도착하였습니다');
-																}
-
-															}
-
-														}
-
-													}
-												});
-
-									}, 5000);
-
-							// 헤시태그------------------------------------------------------------------
-							/*
-
-
-							var tag = [];
-							var counter = 0;
-
-							// 태그를 추가한다.
-							function addTag (value) {
-							    tag[counter] = value;
-							    counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
-							}
-
-							$("#findTag").on("keypress", function (e) {
-							    var self = $(this);
-							    // input 에 focus 되있을 때 엔터
-							    if (e.key === "Enter") {
-							    if(counter > 4){
-							       alert("태그는 3개까지만 등록가능합니다.")
-							       return;
-							    }
-							        var tagValue = self.val(); // 값 가져오기
-
-							        // 값이 없으면 동작 ㄴㄴ
-							        if (tagValue !== "") {
-
-							            // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return
-							            var result = Object.values(tag).filter(function (word) {
-							                return word === tagValue;
-							            })
-
-							            // 태그 중복 검사
-							            if (result.length == 0) {
-							                $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' idx='"+counter+"'>x</span></li>");
-							                addTag(tagValue);
-							                self.val("");
-							            } else {
-							                alert("태그값이 중복됩니다.");
-							            }
-							        }
-							        e.preventDefault();
-							    }
-							});
-							 */
-
-							// 삭제 버튼
 						});
 	</script>
 	<script>

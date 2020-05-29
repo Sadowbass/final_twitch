@@ -130,6 +130,9 @@ $(document).keydown(function (e) {
 
 var pagemove = function(tg){
 
+	if(tg.id == "admin/index"){
+		location.href="/admin/index.jsp";		
+	}
 	if(tg.id == "broadCasting/index"){
 		location.href="/broadCasting/index.jsp";
 	}else{

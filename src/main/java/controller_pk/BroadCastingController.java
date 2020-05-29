@@ -1,12 +1,13 @@
 package controller_pk;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,12 @@ import bean.BroadCastingAirVo;
 import bean.BroadCastingCateVo;
 import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
+import bean.FollowListVo;
+import bean.MyPagePhotoUpload;
+import bean.MyPageTakDao;
+import bean.PaymentVo;
 import bean.RouletteVo;
+import bean.UserInfoVo;
 import bean.VideoTimeCut;
 import bean.timeCal;
 
@@ -73,7 +79,6 @@ public class BroadCastingController {
    @ResponseBody
    public String selectCate2() {
 
-      System.out.println("자동완성 들어옴");
       List<BroadCastingCateVo> list = dao.selectCate();
       String result = "";
       Gson gson = new Gson();
@@ -97,7 +102,6 @@ public class BroadCastingController {
 
    @RequestMapping(value = "*/insertAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
    public ModelAndView insertAir(HttpServletRequest req, HttpServletResponse resp) {
-      System.out.println("컨트롤러넘어옴");
       String msg = "";
       ModelAndView mv = new ModelAndView();
       String mId = req.getParameter("mId"); // 스트리머 아이디
@@ -119,9 +123,9 @@ public class BroadCastingController {
       vo.setAir_gname(gameName);
 
       msg = dao.startAir(vo);
-      if (msg.equals("입력성공")) {
+      if (msg.equals("성공")) {
          mv.setViewName("video_tak");
-      } else if (msg.equals("입력실패")) {
+      } else if (msg.equals("실패")) {
          mv.setViewName("video_tak2");
       }
       mv.addObject("sKey", sKey);
@@ -161,13 +165,14 @@ public class BroadCastingController {
       String msg = "";
       String mId = req.getParameter("mId"); // 스트리머 아이디
       String sKey = req.getParameter("streamKey"); // 스트림 키
+      String gameName = req.getParameter("gameName");
 
-      msg = dao.deleteAir(mId, sKey);
+      msg = dao.deleteAir(mId, sKey,gameName);
 
-      if (msg.equals("삭제성공")) {
-         mv.setViewName("video_tak2");
-      } else if (msg.equals("삭제실패")) {
+      if (msg.equals("중지성공")) {
          mv.setViewName("video_tak");
+      } else if (msg.equals("중지실패")) {
+         mv.setViewName("video_tak2");
       }
       mv.addObject("sKey", sKey);
       mv.addObject("msg", msg);
@@ -208,6 +213,44 @@ public class BroadCastingController {
       return result;
 
    }
+   
+   	   @RequestMapping(value = "*/selectFollow.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String selectFollow(HttpServletRequest req, HttpServletResponse resp) {
+	      String mId = req.getParameter("mId"); // 스트리머 아이디
+	      System.out.println("팔로우 컨트롤러 넘오옴");
+	      int result = dao.selectFollow(mId);
+	      System.out.println("다오 실행완료");
+
+	      Gson gson = new Gson();
+	      JsonObject jsonObject = new JsonObject();
+	      jsonObject.addProperty("result", result);
+	      String json = gson.toJson(jsonObject);
+	      System.out.println(json);
+
+	      return json;
+
+	   }
+   	   
+   	   
+   	 
+   	   @RequestMapping(value = "*/selectFollowList.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   public ModelAndView selectFollowList(HttpServletRequest req, HttpServletResponse resp) {
+  	      String mId = req.getParameter("mId"); // 스트리머 아이디
+  	      ModelAndView mv = new ModelAndView();
+  	      List<FollowListVo> list = dao.selectFollowList(mId);
+  	         
+  	      mv.addObject("list",list);
+  	      mv.setViewName("followView");
+
+  	      return mv;
+
+  	   }
+   
+   
+   
 
    @RequestMapping(value = "*/sendDonation.bc", method = { RequestMethod.GET,
          RequestMethod.POST }, produces = "application/text; charset=utf8")
@@ -237,15 +280,14 @@ public class BroadCastingController {
          jsonObject.addProperty("rul_serial", vo.getRul_serial());
          jsonObject.addProperty("rul_mid", vo.getRul_mId());
          jsonObject.addProperty("rul_data", vo.getRul_data());
-         jsonObject.addProperty("rul_result", "조회성공");
+         jsonObject.addProperty("rul_result", "성공");
 
          jsonArray.add(jsonObject);
 
          result = gson.toJson(jsonArray);
       } else {
-         System.out.println("데이터 없음");
          jsonObject = new JsonObject();
-         jsonObject.addProperty("rul_result", "조회실패");
+         jsonObject.addProperty("rul_result", "실패");
          jsonArray.add(jsonObject);
          result = gson.toJson(jsonArray);
       }
@@ -311,5 +353,257 @@ public class BroadCastingController {
       return result;
 
    }
+   
+   
+   	   @RequestMapping(value = "*/initUser.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String initUser(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      String mId = req.getParameter("mId");
+	      UserInfoVo vo = dao.initUser(mId);
+	      Gson gson = new Gson();
+	      result = gson.toJson(vo);
+	      System.out.println(result);
+
+	      return result;
+
+	   }
+   
+   
+   
+   @RequestMapping(value = "*/selectAir.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String selectAir(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      Gson gson = new Gson();
+	      JsonObject jsonObject = null;
+	      JsonArray jsonArray = new JsonArray();
+	      String mId = req.getParameter("mId");
+	      BroadCastingAirVo vo = dao.selectAir(mId);
+	      if(vo == null) {
+	          jsonObject = new JsonObject();
+	          jsonObject.addProperty("result", "실패");
+	          result = gson.toJson(jsonArray);
+	      }else {
+	          jsonObject = new JsonObject();
+	          jsonObject.addProperty("air_subject", vo.getAir_subject());
+	          jsonObject.addProperty("air_content", vo.getAir_content());
+	          jsonObject.addProperty("air_gname", vo.getAir_gname());
+	          jsonObject.addProperty("air_tnames", vo.getAir_tnames());
+	          jsonObject.addProperty("mem_skey", vo.getMem_skey());
+	          jsonObject.addProperty("cat_sysfile", vo.getCat_sysfile());
+	          jsonObject.addProperty("cat_genre", vo.getCat_genre());
+	          jsonObject.addProperty("air_starttime", vo.getAir_starttime());
+	          jsonObject.addProperty("result", "성공");
+
+	          jsonArray.add(jsonObject);
+
+	          result = gson.toJson(jsonArray);
+	      }
+	      
+	      System.out.println(result);
+
+	      return result;
+
+	   }
+   
+   
+   
+   @RequestMapping(value = "*/initAir.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView initAir(HttpServletRequest req, HttpServletResponse resp) {
+      String msg = "init성공";
+      ModelAndView mv = new ModelAndView();
+      String sKey = req.getParameter("sKey"); // 스트리머 아이디
+
+      mv.setViewName("video_tak");
+
+      mv.addObject("sKey", sKey);
+      mv.addObject("msg", msg);
+
+      return mv;
+
+   }
+   
+   @RequestMapping(value = "*/broadCastingTime.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String broadCastingTime(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      long time = System.currentTimeMillis();
+	      SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+	      result = sdf.format(new Date(time));
+
+	      return result;
+
+	   }
+   
+   // 마이페이지 --------------------------------------------------------------------------------------------------
+
+
+   @RequestMapping(value = "/userInit.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView userInit(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      MyPageTakDao dao = new MyPageTakDao();
+      UserInfoVo vo = dao.userInit(mId);
+      
+      mv.addObject("vo", vo);
+      mv.setViewName("./mypage/userPageMenu1");
+
+      return mv;
+
+   }
+   
+   
+   @RequestMapping(value = "/paymentInit.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView paymentInit(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      List<PaymentVo> list = null;
+      MyPageTakDao dao = new MyPageTakDao();
+      list = dao.paymentInit(mId);
+      
+      mv.addObject("list", list);
+      mv.setViewName("./mypage/userPageMenu4");
+
+      return mv;
+
+   }
+   
+   @RequestMapping(value = "/donationInit.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView donationInit(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      List<BroadCastingDonationVo> list = null;
+      MyPageTakDao dao = new MyPageTakDao();
+      list = dao.donationInit(mId);
+      
+      mv.addObject("list", list);
+      mv.setViewName("./mypage/userPageMenu2");
+
+      return mv;
+
+   }
+   
+   @RequestMapping(value = "/donation2Init.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView donation2Init(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      List<BroadCastingDonationVo> list = null;
+      MyPageTakDao dao = new MyPageTakDao();
+      list = dao.donation2Init(mId);
+      
+      mv.addObject("list", list);
+      mv.setViewName("./mypage/userPageMenu3");
+
+      return mv;
+
+   }
+   
+   
+   
+   
+   	   @RequestMapping(value = "/insertCoin.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String insertCoin(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      String mId = req.getParameter("mId");
+	      int money = Integer.parseInt(req.getParameter("money"));
+	      MyPageTakDao dao = new MyPageTakDao();
+	      result = dao.insertCoin(mId, money);
+	      
+	      return result;
+
+	   }
+   	   
+   	   
+   	   @RequestMapping(value = "/pwdCheck.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   @ResponseBody
+  	   public String pwdCheck(HttpServletRequest req, HttpServletResponse resp) {
+  	      String result = "";
+  	      int r = 0;
+  	      String mId = req.getParameter("mId");
+  	      String pwd = req.getParameter("pwd");
+  	      MyPageTakDao dao = new MyPageTakDao();
+  	      r = dao.pwdCheck(mId, pwd);
+  	      if(r == 0) {
+  	    	  result = "실패";
+  	      }else if(r == 1) {
+  	    	result = "성공";
+  	      }
+  	    
+  	      
+  	      return result;
+
+  	   }
+   	   
+   	   
+   	   @RequestMapping(value = "/nameCheck.bc", method = { RequestMethod.GET,
+    	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+    	   @ResponseBody
+    	   public String nameCheck(HttpServletRequest req, HttpServletResponse resp) {
+    	      String result = "";
+    	      int r = 0;
+    	      String name = req.getParameter("name");
+    	      String mId = req.getParameter("mId");
+    	      MyPageTakDao dao = new MyPageTakDao();
+    	      r = dao.nameCheck(name,mId);
+    	      if(r == 0) {
+    	    	  result = "성공";
+    	      }else if(r > 0) {
+    	    	result = "실패";
+    	      }
+    	    
+    	      return result;
+
+    	   }
+   	   
+   	   @RequestMapping(value = "/updatePwd.bc", method = { RequestMethod.GET,
+    	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+    	   @ResponseBody
+    	   public String updatePwd(HttpServletRequest req, HttpServletResponse resp) {
+    	      String result = "";
+    	      int r = 0;
+    	      String mId = req.getParameter("mId");
+    	      String pwd = req.getParameter("pwd");
+    	      MyPageTakDao dao = new MyPageTakDao();
+    	      r = dao.updatePwd(mId, pwd);
+    	      if(r == 0) {
+    	    	  result = "실패";
+    	      }else if(r == 1) {
+    	    	result = "성공";
+    	      }
+    	    
+    	      return result;
+
+    	   }
+   	   
+   	   @RequestMapping(value = "/updateProfill.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   @ResponseBody
+  	   public String updateProfill(HttpServletRequest req, HttpServletResponse resp) {
+  	      String result = "";
+  	      int r = 0;
+  	      
+  	      MyPageTakDao dao = new MyPageTakDao();
+  	      MyPagePhotoUpload upload = new MyPagePhotoUpload(req, resp);
+  	      UserInfoVo vo = upload.uploading();
+  	      r = dao.updateProfill(vo);
+  	      
+  	      
+  	      if(r == 0) {
+  	    	  result = "실패";
+  	      }else if(r == 1) {
+  	    	result = "성공";
+  	      }
+  	    
+  	      return result;
+
+  	   }
+   
 
 }
