@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>후원자</th>
+                <th>스트리머</th>
                 <th>내용</th>
                 <th>금액</th>
                 <th>날짜</th>
@@ -34,7 +34,7 @@
         <tfoot>
             <tr>
                 <th>No</th>
-                <th>후원자</th>
+                <th>스트리머</th>
                 <th>내용</th>
                 <th>금액</th>
                 <th>날짜</th>

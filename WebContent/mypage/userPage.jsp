@@ -93,9 +93,9 @@ transform: translate(-50%,-50%);
 				<li class="nav-item"><a class="nav-link active"
 					data-toggle="tab" href="#progfill">프로필</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#donationList">받은 후원 목록</a></li>
+					href="#donationList">보낸 후원 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#donationList2">보낸 후원 목록</a></li>
+					href="#donationList2">받은 후원 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#coinList">결제 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
