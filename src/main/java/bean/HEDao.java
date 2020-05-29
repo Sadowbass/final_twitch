@@ -62,9 +62,11 @@ public class HEDao {
 		 if(cnt<1) {
 			 throw new Exception("본문 저장중 오류 발생");
 		 }
-		 cnt = sqlSession.insert("member.insert_p", vo);
-		 if(cnt<1) {
-			 throw new Exception("사진 저장중 오류 발생");
+		 if(vo.ph_sysfile != null) {
+			 cnt = sqlSession.insert("member.insert_p", vo);
+			 if(cnt<1) {
+				 throw new Exception("사진 저장중 오류 발생");
+			 }
 		 }
 		 msg ="입력 성공";
 		 sqlSession.commit();
