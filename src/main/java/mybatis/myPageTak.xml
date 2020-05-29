@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myPageTak">
+	<select id='selectInfo' resultType="bean.UserInfoVo" parameterType="String">
+		select * from final_member m, final_photo p where m.mem_id = p.ph_id(+) and m.mem_id = #{_parameter}
+	</select>	
+	<select id='paymentInit' resultType="bean.PaymentVo" parameterType="String">
+		select * from final_payment where pay_mId = #{_parameter}
+	</select>	
+	<select id='donationInit' resultType="bean.BroadCastingDonationVo" parameterType="String">
+		select * from final_donation where don_mid = #{_parameter}
+	</select>	
+	<select id='donation2Init' resultType="bean.BroadCastingDonationVo" parameterType="String">
+		select * from final_donation where don_oid = #{_parameter}
+	</select>	
+	<update id='insertCoin' parameterType='hashMap'>
+	UPDATE final_member
+	SET 
+	mem_money = TO_CHAR((to_number(mem_money) + ${money}))
+	WHERE
+	mem_id = #{mId}
+	</update>
+	<update id='updateProfill' parameterType='bean.UserInfoVo'>
+		update final_member
+		SET 
+		mem_name= #{mem_name},
+		mem_profile = #{mem_profile},
+		mem_email = #{mem_email}
+		WHERE
+		mem_id = #{mem_id}
+	</update>
+	<update id='updateMemberPhoto' parameterType='bean.UserInfoVo'>
+	update final_photo
+	SET 
+	ph_orifile= #{ph_orifile},
+	ph_sysfile = #{ph_sysfile}
+	WHERE
+	ph_id = #{mem_id}
+	</update>
+	<insert id='insertMemberPhoto' parameterType='bean.UserInfoVo'>
+		insert into final_photo values(seq_mphoto.nextVal,#{ph_orifile},#{ph_sysfile},#{mem_id})
+	</insert>
+	<insert id='insertPay' parameterType='hashMap'>
+		INSERT into fianl_payment
+		VALUES (seq_payment.nextVal, #{mId}, #{money},sysdate)
+	</insert>
+	<select id='pwdCheck' parameterType='hashMap' resultType="Integer">
+	select count(mem_id) from final_member where mem_id = #{mId} and mem_pwd = #{pwd}
+	</select>
+	<select id='nameCheck' parameterType='hashMap' resultType="Integer">
+	select count(mem_id) from final_member where mem_name = #{name} and mem_id != #{mId}
+	</select>
+	<update id='updatePwd' parameterType='hashMap'>
+	UPDATE final_member
+	SET 
+	mem_pwd = #{pwd}
+	WHERE
+	mem_id = #{mId}
+	</update>
+</mapper>

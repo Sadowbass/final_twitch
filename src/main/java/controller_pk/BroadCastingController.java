@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +23,9 @@ import bean.BroadCastingCateVo;
 import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
 import bean.FollowListVo;
+import bean.MyPagePhotoUpload;
+import bean.MyPageTakDao;
+import bean.PaymentVo;
 import bean.RouletteVo;
 import bean.UserInfoVo;
 import bean.VideoTimeCut;
@@ -429,6 +431,172 @@ public class BroadCastingController {
 	      return result;
 
 	   }
+   
+   // 마이페이지 --------------------------------------------------------------------------------------------------
 
+
+   @RequestMapping(value = "/userInit.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView userInit(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      MyPageTakDao dao = new MyPageTakDao();
+      UserInfoVo vo = dao.userInit(mId);
+      
+      mv.addObject("vo", vo);
+      mv.setViewName("./mypage/userPageMenu1");
+
+      return mv;
+
+   }
+   
+   
+   @RequestMapping(value = "/paymentInit.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView paymentInit(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      List<PaymentVo> list = null;
+      MyPageTakDao dao = new MyPageTakDao();
+      list = dao.paymentInit(mId);
+      
+      mv.addObject("list", list);
+      mv.setViewName("./mypage/userPageMenu4");
+
+      return mv;
+
+   }
+   
+   @RequestMapping(value = "/donationInit.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView donationInit(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      List<BroadCastingDonationVo> list = null;
+      MyPageTakDao dao = new MyPageTakDao();
+      list = dao.donationInit(mId);
+      
+      mv.addObject("list", list);
+      mv.setViewName("./mypage/userPageMenu2");
+
+      return mv;
+
+   }
+   
+   @RequestMapping(value = "/donation2Init.bc", method = { RequestMethod.GET, RequestMethod.POST })
+   public ModelAndView donation2Init(HttpServletRequest req, HttpServletResponse resp) {
+      ModelAndView mv = new ModelAndView();
+      String mId = req.getParameter("mId"); // 회원 아이디
+      List<BroadCastingDonationVo> list = null;
+      MyPageTakDao dao = new MyPageTakDao();
+      list = dao.donation2Init(mId);
+      
+      mv.addObject("list", list);
+      mv.setViewName("./mypage/userPageMenu3");
+
+      return mv;
+
+   }
+   
+   
+   
+   
+   	   @RequestMapping(value = "/insertCoin.bc", method = { RequestMethod.GET,
+	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+	   @ResponseBody
+	   public String insertCoin(HttpServletRequest req, HttpServletResponse resp) {
+	      String result = "";
+	      String mId = req.getParameter("mId");
+	      int money = Integer.parseInt(req.getParameter("money"));
+	      MyPageTakDao dao = new MyPageTakDao();
+	      result = dao.insertCoin(mId, money);
+	      
+	      return result;
+
+	   }
+   	   
+   	   
+   	   @RequestMapping(value = "/pwdCheck.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   @ResponseBody
+  	   public String pwdCheck(HttpServletRequest req, HttpServletResponse resp) {
+  	      String result = "";
+  	      int r = 0;
+  	      String mId = req.getParameter("mId");
+  	      String pwd = req.getParameter("pwd");
+  	      MyPageTakDao dao = new MyPageTakDao();
+  	      r = dao.pwdCheck(mId, pwd);
+  	      if(r == 0) {
+  	    	  result = "실패";
+  	      }else if(r == 1) {
+  	    	result = "성공";
+  	      }
+  	    
+  	      
+  	      return result;
+
+  	   }
+   	   
+   	   
+   	   @RequestMapping(value = "/nameCheck.bc", method = { RequestMethod.GET,
+    	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+    	   @ResponseBody
+    	   public String nameCheck(HttpServletRequest req, HttpServletResponse resp) {
+    	      String result = "";
+    	      int r = 0;
+    	      String name = req.getParameter("name");
+    	      String mId = req.getParameter("mId");
+    	      MyPageTakDao dao = new MyPageTakDao();
+    	      r = dao.nameCheck(name,mId);
+    	      if(r == 0) {
+    	    	  result = "성공";
+    	      }else if(r > 0) {
+    	    	result = "실패";
+    	      }
+    	    
+    	      return result;
+
+    	   }
+   	   
+   	   @RequestMapping(value = "/updatePwd.bc", method = { RequestMethod.GET,
+    	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+    	   @ResponseBody
+    	   public String updatePwd(HttpServletRequest req, HttpServletResponse resp) {
+    	      String result = "";
+    	      int r = 0;
+    	      String mId = req.getParameter("mId");
+    	      String pwd = req.getParameter("pwd");
+    	      MyPageTakDao dao = new MyPageTakDao();
+    	      r = dao.updatePwd(mId, pwd);
+    	      if(r == 0) {
+    	    	  result = "실패";
+    	      }else if(r == 1) {
+    	    	result = "성공";
+    	      }
+    	    
+    	      return result;
+
+    	   }
+   	   
+   	   @RequestMapping(value = "/updateProfill.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   @ResponseBody
+  	   public String updateProfill(HttpServletRequest req, HttpServletResponse resp) {
+  	      String result = "";
+  	      int r = 0;
+  	      
+  	      MyPageTakDao dao = new MyPageTakDao();
+  	      MyPagePhotoUpload upload = new MyPagePhotoUpload(req, resp);
+  	      UserInfoVo vo = upload.uploading();
+  	      r = dao.updateProfill(vo);
+  	      
+  	      
+  	      if(r == 0) {
+  	    	  result = "실패";
+  	      }else if(r == 1) {
+  	    	result = "성공";
+  	      }
+  	    
+  	      return result;
+
+  	   }
+   
 
 }

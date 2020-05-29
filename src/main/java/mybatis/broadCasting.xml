@@ -35,7 +35,7 @@
 		delete from final_onair where air_mid = #{_parameter}
 	</delete>
 	<select id='selectDonation' resultType="bean.BroadCastingDonationVo" parameterType='String'>
-		select * from final_donation where don_push='0' and don_mid = #{mId} and to_char(don_rdate,'yyyyMMdd') = to_char(sysdate,'yyyyMMdd')
+		select * from final_donation where don_push='0' and don_oid = #{mId} and to_char(don_rdate,'yyyyMMdd') = to_char(sysdate,'yyyyMMdd')
 	</select>
 	<update id='readDonation' parameterType='Integer'>
 		update final_donation
@@ -52,7 +52,7 @@
 		don_serial = ${serial}
 	</update>
 	<select id='selectRoulette' resultType="bean.RouletteVo" parameterType='String'>
-		select * from final_roulette where rul_mId = #{_parameter}
+		select * from final_roulette where rul_oid = #{_parameter}
 	</select>
 	<update id='saveRoulette1' parameterType='hashMap'>
 		update FINAL_ROULETTE

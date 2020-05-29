@@ -466,14 +466,14 @@ bc.func = function(){
 
 
 
-function videoDonation(serial,oid,content,price,url) {
+function videoDonation(serial,mid,content,price,url) {
     var youtubeUrl = "https://www.youtube.com/embed/";
     var autoPlay = "?autoplay=1&mute=0";
 	let donationData = '';
 	donationData += '<iframe id="ytplayer" type="text/html" width="500" height="230" frameborder="0" src="' + youtubeUrl+url+autoPlay+'" allowfullscreen></iframe>';
 	donationData += '<br />';
 	donationData += '<span id="text-id" class="added-text"></span>';
-	donationData += '<span style="color:#CC2EFA">' + oid +'님이</span> '
+	donationData += '<span style="color:#CC2EFA">' + mid +'님이</span> '
 	donationData += '<span id="text-amount" class="added-text"></span>';
 	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
 	donationData += '<br />'
@@ -543,7 +543,7 @@ function videoDonation(serial,oid,content,price,url) {
 			})
 }
 
-function voiceDonation(serial,oid,content,price,type) {
+function voiceDonation(serial,mid,content,price,type) {
 	
 	responsiveVoice.speak(content,"Korean Female");
 
@@ -555,7 +555,7 @@ function voiceDonation(serial,oid,content,price,type) {
 	donationData += '<img src="https://toothcdn.xyz:8432/uploaded/c5ebb8db982555470878a53cc8304ab5/alert_donation_1.img?v=1" style="width: 40%; top:-10%">';
 	donationData += '<br />';
 	donationData += '<span id="text-id" class="added-text"></span>';
-	donationData += '<span style="color:#CC2EFA">' + oid +'님이</span> '
+	donationData += '<span style="color:#CC2EFA">' + mid +'님이</span> '
 	donationData += '<span id="text-amount" class="added-text"></span>';
 	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
 	donationData += '<br />'
@@ -715,7 +715,7 @@ function setDonation(){
 											divRow.onclick = function() {
 												voiceDonation(
 														data[i].don_serial,
-														data[i].don_oid,
+														data[i].don_mid,
 														data[i].don_content,
 														data[i].don_price,
 														data[i].type);
@@ -725,7 +725,7 @@ function setDonation(){
 											divRow.onclick = function() {
 												videoDonation(
 														data[i].don_serial,
-														data[i].don_oid,
+														data[i].don_mid,
 														data[i].don_content,
 														data[i].don_price,
 														data[i].url)
@@ -753,7 +753,7 @@ function setDonation(){
 										let divCol12 = document
 												.createElement("div");
 										divCol12.className = "col-12";
-										divCol12.innerHTML = data[i].don_oid;
+										divCol12.innerHTML = data[i].don_mid;
 										divCol12.style.color = "white";
 
 										let divCol122 = document
@@ -839,14 +839,14 @@ function setDonation(){
 											if (data[i].type == '0' || data[i].type =='2') {
 												voiceDonation(
 														data[i].don_serial,
-														data[i].don_oid,
+														data[i].don_mid,
 														data[i].don_content,
 														data[i].don_price,
 														data[i].type);
 											} else if (data[i].type == '1') {
 												videoDonation(
 														data[i].don_serial,
-														data[i].don_oid,
+														data[i].don_mid,
 														data[i].don_content,
 														data[i].don_price,
 														data[i].url)

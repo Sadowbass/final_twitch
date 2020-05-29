@@ -239,6 +239,7 @@
 <div id="topplace">
     <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
+
 <div id="wrapper">
     <div id="sidebarplace" style="margin-top: 53px;">
         <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
