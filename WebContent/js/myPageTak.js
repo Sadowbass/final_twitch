@@ -9,6 +9,16 @@ let my = {}
 
 my.func = function() {
 	
+	$('#takeyes').click(function() {
+		Swal.fire({
+			  position: 'center',
+			  icon: 'error',
+			  title: '<font color="black">연결된 캠코더가 없습니다.</font>',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+	})
+	
 	$('#changeProfill').click(function(){
 		$('#userPhoto').click();		
 	})	

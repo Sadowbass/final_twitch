@@ -106,6 +106,7 @@
 							<div class='col-12 text-right'>
 							<button style=''type="button" class="btn btn-outline-primary" id="updateProfill">변경 내용 저장</button>
 							<button style='' type="button" class="btn btn-outline-primary" id="deleteUser">회원탈퇴</button>
+							<button style='' type="button" class="btn btn-outline-primary" id="takeyes">홍채인식</button>
 							</div>
 						</div>
 					</div>
