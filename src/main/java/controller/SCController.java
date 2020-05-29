@@ -164,6 +164,7 @@ public class SCController {
         HttpSession session = req.getSession();
         String mId = (String) session.getAttribute("session_id");
         List<StreamingVo> list = new ArrayList<StreamingVo>();
+        System.out.println(mId);
 
         if (mId != null) {
             list = dao.nowStreaming(mId);
@@ -245,7 +246,7 @@ public class SCController {
         ModelAndView mv = new ModelAndView();
         StreamingVo vo = dao.streamInfo(id);
         if (vo == null) {
-            mv.setViewName("../404");
+            mv.setViewName("/404");
         } else {
             mv.addObject("mId", id);
             mv.setViewName("/chtstreamer");
@@ -275,6 +276,7 @@ public class SCController {
         vo = dao.donationView(mId);
         Gson gson = new Gson();
         String json = gson.toJson(vo);
+        System.out.println(json);
         return json;
     }
 
@@ -307,6 +309,7 @@ public class SCController {
             if(vo.getMem_admin() == 0) {
             req.getSession().setAttribute("session_id", vo.getMem_id());
             }else if(vo.getMem_admin() == 1) {
+                req.getSession().setAttribute("session_id", vo.getMem_id());
             	req.getSession().setAttribute("admin_id", vo.getMem_id());
             }
             

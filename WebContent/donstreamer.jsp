@@ -78,7 +78,7 @@ div.power_controls
 <body>
 	<form id="user-info">
 		<!--<input type="hidden" name="mId" id="mId" value="${mId}">-->
-		<input type="hidden" name="mId" id="mId" value="faker">
+		<input type="hidden" name="mId" id="mId" value=${mId}>
 	</form>
 	<div align="center" id='donationRoulette'>
             <table cellpadding="0" cellspacing="0" border="0">
@@ -131,6 +131,7 @@ div.power_controls
 							let fd = $('#user-info').serialize(); 
 							(function poll() {
 								console.log('...................');
+								console.log(fd);
 								$.ajax({
 									url : "/view-donation-list.sc",
 									type : 'post',
@@ -140,8 +141,8 @@ div.power_controls
 										console.log("에러");
 									},
 									success : function(data) {
+										console.log("데이터" + data);
 										if(data != null){
-
 											if (data.don_price >= 10000) {
 												award.play();
 											} else {
@@ -203,7 +204,6 @@ div.power_controls
 											        'textFontSize' : 28,    
 											        'segments'     :       
 											        [
-											        	
 											           {'fillStyle' : '#eae56f', 'text' : array[0]},
 											           {'fillStyle' : '#89f26e', 'text' : array[1]},
 											           {'fillStyle' : '#7de6ef', 'text' : array[2]},
@@ -226,7 +226,6 @@ div.power_controls
 												
 												function startSpin()
 											    {
-											        
 											        if (wheelSpinning == false) {
 											            
 											            theWheel.animation.spins = 3;
@@ -242,8 +241,6 @@ div.power_controls
 											    function alertPrize(indicatedSegment)
 											    {
 											    	responsiveVoice.speak(indicatedSegment.text,"Korean Female");
-											    	
-											    
 											    }
 											    
 											    function resetWheel()
@@ -256,10 +253,7 @@ div.power_controls
 											
 
 											   $('#donationRoulette').fadeIn(3500);
-												
 											   startSpin();
-												
-										
 												/*
 												$('#donationRoulette').fadeIn(3500, function(){
 													startSpin();
@@ -272,7 +266,6 @@ div.power_controls
 													})
 												})
 												*/
-
 												$('#text-id').html(data.don_oId);
 												$('#text-amount').html(data.don_price);
 												$('#text-content').html(data.don_content);
@@ -289,8 +282,6 @@ div.power_controls
 														})
 													})
 												})
-												
-												
 											} // 텍스트, 영상도네,룰렛 도네 구분 완료
 										} else {
 											setTimeout(function () {

@@ -79,7 +79,7 @@ public class SCDao {
     public DonationVo donationView(String mId) {
         DonationVo vo = new DonationVo();
         vo = sqlSession.selectOne("scbatis.donationView", mId);
-        /* sqlSession.update("scbatis.donationStatusChange", vo.getDon_serial()); */
+        sqlSession.update("scbatis.donationStatusChange", vo.getDon_serial());
         return vo;
     }
 

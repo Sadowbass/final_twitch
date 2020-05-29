@@ -25,12 +25,12 @@
 
          abouttext : "얍얍",
 
-         image: "../img/loding.png",
+         image: "/img/loding.png",
 
          aboutlink : "http://www.jhta.co.kr",
 
          sources : [ {
-            file : "rtmp://192.168.0.32/hls/${sKey}",
+            file : "rtmp://192.168.0.77/hls/${sKey}",
          }, {
             file : "http://192.168.0.32:8845/hls/${sKey}.m3u8"
          } ]
