@@ -87,7 +87,7 @@
     <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
 </div>
 <!-- video_main_uk -->
-<div class="video_main_uk" style="padding-top: 0px;">
+<div class="video_main_uk" style="padding-top: -54px;">
     <!-- video_top_uk -->
     <div class="d-flex justify-content-between" id="videoTop">
         <!-- 스트리머 -->
@@ -134,9 +134,9 @@
             <div class="px-1 pt-2">
                 <a href="/${vo.mem_id}/video">동영상</a>
             </div>
-            <div class="px-1 pt-2">
+<%--            <div class="px-1 pt-2">
                 <a href="#">클립</a>
-            </div>
+            </div>--%>
             <div class="px-1 pt-2">
                 <a href="/${vo.mem_id}/followers">팔로워</a>
             </div>
@@ -194,20 +194,20 @@
 
     <!-- 기타 정보 -->
     <div class="d-flex" id="videoEtc">
-        <div class="p-3">방송 제목</div>
         <div class="p-3">${vo.air_subject}</div>
+        <div class="p-3">${vo.air_content}</div>
         <div class="ml-auto">
             <button class="btn" type="button">
                 <i class="far fa-user p-1"></i>
             </button>
 
-            <span class="pr-2" id="totalUserCnt">${vo.cnt}</span>
+            <span class="pr-2" id="totalUserCnt"></span>
 
             <button class="btn" type="button">
                 <i class="fas fa-eye p-1"></i>
             </button>
 
-            <span class="pr-2" id="accArea">${vo.totCnt}</span>
+            <span class="pr-2" id="accArea"></span>
 
             <button
                     class="btn dropdown"
@@ -247,90 +247,14 @@
         </div>
     </div>
     <div class="d-flex d-flex flex-row" id="videoEtc2">
-        <div class="p-3">이미지</div>
         <div class="p-3">
-            <div>카테고리: just Chatting</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
-            <div>#리얼라이프</div>
+            <img src="/img/cate/${vo.ph_sysfile}" width="70px" height="100px";>
+        </div>
+        <div class="p-3">
+            <h4>${vo.air_gname}</h4>
+            <c:forEach var="i" items="${vo.tlist}">
+                <div>#${i}</div>
+            </c:forEach>
         </div>
     </div>
 </div>

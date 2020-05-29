@@ -1,5 +1,8 @@
 package bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StreamingVo {
     private int rno;
     private String mem_id;
@@ -11,8 +14,10 @@ public class StreamingVo {
     private String air_tnames;
     private String air_thumbnail;
     private String ph_sysfile;
+    private String cat_sysfile;
     private int cnt;
     private int totCnt;
+    private List<String> tlist = new ArrayList<String>();
 
     public int getTotCnt() {
         return totCnt;
@@ -20,6 +25,22 @@ public class StreamingVo {
 
     public void setTotCnt(int totCnt) {
         this.totCnt = totCnt;
+    }
+
+    public String getCat_sysfile() {
+        return cat_sysfile;
+    }
+
+    public void setCat_sysfile(String cat_sysfile) {
+        this.cat_sysfile = cat_sysfile;
+    }
+
+    public List<String> getTlist() {
+        return tlist;
+    }
+
+    public void setTlist(List<String> tlist) {
+        this.tlist = tlist;
     }
 
     public int getCnt() {
