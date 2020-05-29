@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 	 <form name="he_form" id="he_form" method="post">
                 	 <div class="row clearfix">
                                 <div class="col-xs-12">
-                                  <c:if test="${empty vo.ph_sysfile}">
+                                 <c:if test="${empty vo.ph_sysfile}">
                                    <img src="images/user.png" class="img-circle member_img" id="member_img" name="member_img">
                     			</c:if>
                     			<c:if test="${not empty vo.ph_sysfile}">

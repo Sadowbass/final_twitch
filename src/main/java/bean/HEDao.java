@@ -35,6 +35,7 @@ public class HEDao {
 		List<MemberVo> list =  null;
 		try {
 			list = sqlSession.selectList("member.select");
+			
 		}catch(Exception ex) { 
 			ex.printStackTrace();
 		}finally {

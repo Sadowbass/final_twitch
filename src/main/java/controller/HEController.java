@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.omg.CORBA.BAD_INV_ORDER;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,6 +72,9 @@ public class HEController {
 	@RequestMapping(value="*/member_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
+		
+		
+				
 		mv.setViewName("member/member_insert"); 
 		return mv;
 	}

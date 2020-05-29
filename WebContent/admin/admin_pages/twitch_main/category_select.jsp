@@ -48,7 +48,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <c:forEach var="i" items="${list }">
                         <div class="col-sm-6 col-md-3 col-lg-2 cate_width">
                             <div class="thumbnail">
-                                <img src="../img/cate/${i.cat_sysfile}">
+                             	<c:if test="${empty i.cat_sysfile}">
+										<img src="http://placehold.it/285x380">                    			
+								</c:if>
+                    			<c:if test="${not empty i.cat_sysfile}">
+ 										 <img src="../img/cate/${i.cat_sysfile}">                   				
+ 								</c:if>
                                 <div class="caption cate_thumnail">
                                     <h3>${i.cat_gname }</h3>
                                     <p>
