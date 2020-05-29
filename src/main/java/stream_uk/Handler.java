@@ -36,10 +36,11 @@ public class Handler extends TextWebSocketHandler {
 	Cht cht = new Cht(); /* cht vo 디비에 저장할거임 */
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
 
+	boolean reduplication=true; /*중복입장 확인*/
+
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		boolean reduplication=true;
-		boolean flag=false;
+		boolean flag=false; /*스트리머가 방송중인지*/
 		System.out.println(session.getAttributes());
 		/* 로그인 아이디 */
 		String mid = (String) session.getAttributes().get("session_id");
@@ -56,11 +57,12 @@ public class Handler extends TextWebSocketHandler {
 				List<WebSocketSession> list0=chatRoom.get(censorship);
 				/*중복 입장임*/
 				for(WebSocketSession s:list0) {
+					String compare=(String)s.getAttributes().get("session_id");
 					System.out.println(1111+mid);
-					System.out.println((String)s.getAttributes().get(2222+"session_id"));
-					if(mid.equals((String)s.getAttributes().get("session_id"))) {
+					System.out.println(2222+compare);
+					if(mid.equals(compare)) {
 						System.out.println(3333+mid);
-						System.out.println((String)s.getAttributes().get(4444+"session_id"));
+						System.out.println(4444+compare);
 						/* 중복 입장 알림 메세지 전송 */
 						JsonObject jsonObject3 = new JsonObject();
 						jsonObject3.addProperty("reduplication", "이미 채팅방에 접속해 있습니다.");
@@ -71,7 +73,10 @@ public class Handler extends TextWebSocketHandler {
 					}
 				}
 			}
+
+			System.out.println("reduplication11111::::"+reduplication);
 			if(reduplication) { /*중복입장 아니여아 입장함*/
+				System.out.println("reduplication22222::::"+reduplication);
 
 				/* 스트리머가 방송 시작 */
 				if (mid!=null && mid.equals(censorship)) {
@@ -182,7 +187,7 @@ public class Handler extends TextWebSocketHandler {
 		}
 
 		/*(1)단순 채팅 -> tx면*/
-		if(ele.getAsJsonObject().get("txt")!=null && flag) {
+		if(ele.getAsJsonObject().get("txt")!=null && flag && reduplication) {
 			String txt=ele.getAsJsonObject().get("txt").getAsString();
 			/* json으로 변환 */
 			JsonObject jsonObject = new JsonObject();

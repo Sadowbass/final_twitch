@@ -165,8 +165,8 @@ uk.connectWS = function (streamer, login) {
 			alert(jsObj.offAir+'님이 방송을 종료하였습니다.');
 		}
 		/*채팅방 중복 입장 알림 메세지*/
-		if(jsObj.offAir){
-			alert(jsObj.offAir);
+		if(jsObj.reduplication){
+			alert(jsObj.reduplication);
 		}
 	}
 
