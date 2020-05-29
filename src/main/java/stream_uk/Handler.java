@@ -40,7 +40,8 @@ public class Handler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		boolean flag=false; /*스트리머가 방송중인지*/
+		/*스트리머가 방송중인지*/
+		boolean flag=false;
 		System.out.println(session.getAttributes());
 		/* 로그인 아이디 */
 		String mid = (String) session.getAttributes().get("session_id");
@@ -58,11 +59,7 @@ public class Handler extends TextWebSocketHandler {
 				/*중복 입장임*/
 				for(WebSocketSession s:list0) {
 					String compare=(String)s.getAttributes().get("session_id");
-					System.out.println(1111+mid);
-					System.out.println(2222+compare);
 					if(mid.equals(compare)) {
-						System.out.println(3333+mid);
-						System.out.println(4444+compare);
 						/* 중복 입장 알림 메세지 전송 */
 						JsonObject jsonObject3 = new JsonObject();
 						jsonObject3.addProperty("reduplication", "이미 채팅방에 접속해 있습니다.");
@@ -74,9 +71,7 @@ public class Handler extends TextWebSocketHandler {
 				}
 			}
 
-			System.out.println("reduplication11111::::"+reduplication);
 			if(reduplication) { /*중복입장 아니여아 입장함*/
-				System.out.println("reduplication22222::::"+reduplication);
 
 				/* 스트리머가 방송 시작 */
 				if (mid!=null && mid.equals(censorship)) {
@@ -171,6 +166,7 @@ public class Handler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		/*스트리머가 방송중인지*/
 		boolean flag=false;
 		/* 로그인 아이디 */
 		String mid = (String) session.getAttributes().get("session_id");
