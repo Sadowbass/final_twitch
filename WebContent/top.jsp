@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%request.setCharacterEncoding("utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <script src="./js/login_m.js"></script>
 <style>
     .btn-disabled {
         cursor: not-allowed;
@@ -142,13 +143,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="margin-left: 20px;"><img src="/img/favicon.png"> 로그인</h5>
+                <h5 class="modal-title" style="margin-left: 20px;"><img src="/img/favicon.png"> 회원가입</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                아이디<br/>
+            
+             <%@include file="insertm.jsp" %> 
+              <!--   아이디<br/>
                 <input type="text" class="form-control sign-in" name="id" id="sign-in-id-field"
                        style="width: 100%;"><br/><br/>
                 비밀번호<br/>
@@ -169,7 +172,7 @@
             <button type="button" class="btn btn-primary btn-disabled"
                     style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;" id="button-sign-in" disabled>
                 회원가입
-            </button>
+            </button> -->
         </div>
     </div>
 </div>
@@ -207,9 +210,8 @@
             "pwd": $('#login-pwd-field').val()
         }
         
-        
         $.ajax({
-            url: "/idcheck.sc",
+            url: "idcheck.sc",
             data: fd,
             type: 'post',
             error: function (error) {
@@ -225,10 +227,10 @@
         })
     })
     /*로그인 끝*/
-
-    /*회원가입*/
+ /*회원가입*/
     /*아이디 입력 후*/
-    $('#sign-in-id-field').blur(function () {
+   
+   /*  $('#sign-in-id-field').blur(function () {
         if ($.trim($('#sign-in-id-field').val()).length > 0) {
             $.ajax({
                 data: {"mId": $('#sign-in-id-field').val()},
@@ -310,6 +312,7 @@
             }
         })
     })
-
+ */
+   
 
 </script>

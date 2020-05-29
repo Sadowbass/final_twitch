@@ -7,6 +7,8 @@ import javax.websocket.Session;
 
 import bean.*;
 import com.google.gson.Gson;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -276,7 +278,8 @@ public class SCController {
         String flag = "false";
         String id = req.getParameter("id");
         String pwd = req.getParameter("pwd");
-
+        System.out.println("id"+id);
+        System.out.println("pwd"+pwd);
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
         map.put("pwd", pwd);
@@ -303,7 +306,6 @@ public class SCController {
     	if(req.getSession().getAttribute("admin_id") != null) {
         req.getSession().removeAttribute("admin_id");
     	}
-        
     }
 
     /* 아이디 중복체크 */

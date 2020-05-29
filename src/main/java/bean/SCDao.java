@@ -176,6 +176,7 @@ public class SCDao {
 	/* 로그인시 id pwd 체크 */
 	public UserInfoVo idcheck(Map<String, String> map) {
 		UserInfoVo result = sqlSession.selectOne("scbatis.idcheck", map);
+		sqlSession.close();
 		return result;
 	}
 

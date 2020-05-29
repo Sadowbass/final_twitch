@@ -25,7 +25,7 @@ public class SendEmail {
 	      String host = "smtp.gmail.com";
 	      String user = "leemyly@gmail.com";
 	      String password = "dlaudfuf59486!!";
-	      
+	 
 	      
 	      // SMTP 서버 정보 설정
 	      Properties prop = new Properties();
@@ -34,7 +34,7 @@ public class SendEmail {
 	      prop.put("mail.smtp.auth", "true");
 	      prop.put("mail.smtp.ssl.enable", "true");
 	      prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-	      
+
 	      Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
 	         protected PasswordAuthentication getPasswordAuthentication() {
 	            return new PasswordAuthentication(user,password);

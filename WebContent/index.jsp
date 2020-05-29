@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" %> <% request.setCharacterEncoding("utf-8"); %> <%@taglib
-prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8" %> <% request.setCharacterEncoding("utf-8"); %> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,6 +38,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Custom scripts for all pages-->
     <script src="js/custom.js"></script>
     <script src="js/sc_custom.js"></script>
+    <script src="js/login_m.js"></script>
   </head>
   <body id="page-top">
     <div id="topplace">

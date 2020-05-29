@@ -1,7 +1,7 @@
 /**
  * 
  */
- let lm = {}
+ var lm = {}
  
  lm.goProfile = function(id){
 	 alert(id);
@@ -121,7 +121,7 @@
 			$('#btnsum').click(function(){
 				/*let a = $('#insertm').serialize();
 				alert(a);*/
-				$('#insertm').attr('action','insert.lm').submit();
+				$('#insert').attr('action','insert.lm').submit();
 			})
 			
 			

@@ -35,7 +35,7 @@ public class Member_mController {
 		this.dao = dao;
 	}
 //회원가입
-@RequestMapping(value="/insert.lm", method= {RequestMethod.POST})
+@RequestMapping(value="insert.lm", method= {RequestMethod.POST})
 	public ModelAndView insert(HttpServletRequest req, HttpServletResponse resp ) {
 	ModelAndView mv = new ModelAndView();
 	String msg = null;
@@ -64,12 +64,10 @@ public class Member_mController {
 //아이디 비밀번호 찾기 이메일 보내기
 @RequestMapping(value="*/email.lm", method = {RequestMethod.POST}, produces="application/text;charset=utf-8")
 public ModelAndView sendEmailAction (HttpServletRequest req, HttpServletResponse resp) throws Exception{System.out.println("23414");
-	System.out.println("123213");
+
 	ModelAndView mv = new ModelAndView();
 	
 	String mem_email = req.getParameter("mem_email");
-	System.out.println(mem_email);
-	
 	String msg = dao.email(mem_email);
 	
 	
