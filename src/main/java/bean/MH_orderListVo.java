@@ -11,6 +11,7 @@ public class MH_orderListVo {
 	String address2;
 	int amount;
 	String order_date;
+	String order_state;
 	
 	int orderDetails_serial;
 	String product_id;
@@ -22,6 +23,13 @@ public class MH_orderListVo {
 	String product_size;
 	
 	
+	
+	public String getOrder_state() {
+		return order_state;
+	}
+	public void setOrder_state(String order_state) {
+		this.order_state = order_state;
+	}
 	public String getSysfile() {
 		return sysfile;
 	}

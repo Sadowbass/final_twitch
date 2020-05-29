@@ -11,8 +11,16 @@ public class MH_orderVo {
 	String address2;
 	int amount;
 	String order_date;
+	String order_state;
 	
 	
+	
+	public String getOrder_state() {
+		return order_state;
+	}
+	public void setOrder_state(String order_state) {
+		this.order_state = order_state;
+	}
 	public String getOrder_serial() {
 		return order_serial;
 	}

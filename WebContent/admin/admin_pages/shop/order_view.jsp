@@ -54,9 +54,13 @@
 									<span>주문일자</span>&nbsp;&nbsp;
 									<span>${list[0].order_date }</span>
 								</div>
-								<div class="col-xs-8">
+								<div class="col-xs-4">
 									<span >주문번호</span>&nbsp;&nbsp;
 									<span style="color: yellow;">${list[0].order_serial }</span>
+								</div>
+								<div class="col-xs-4">
+									<span >주문 상태</span>&nbsp;&nbsp;
+									<span style="color: yellow;">${list[0].order_state }</span>
 								</div>
 							</div>
 							<div class="row" style="border-top: 2px solid white; border-bottom : 1px solid gray; padding-top: 15px;">

@@ -32,6 +32,7 @@ public class AdminController_mh {
 
 	// 생성자
 	public AdminController_mh(StoreMybatisDao_mh dao) {
+		
 		System.out.println("★★★★AdminController_mh 들어옴★★★★★★★");
 		this.dao = dao;
 	}
@@ -259,7 +260,7 @@ public class AdminController_mh {
 
 	}
 
-	@RequestMapping(value = "*/productInsert.mh", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "*/productInsert.mh", method = {RequestMethod.GET,RequestMethod.POST}, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String productInsert(HttpServletRequest req, HttpServletResponse resp) {
 		System.out.println("★★★★productInsert 메소드 들어옴★★★★★★★");

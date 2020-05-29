@@ -85,7 +85,7 @@
 	<select id="orderView" parameterType="bean.MH_orderVo" resultType="bean.MH_orderListVo">
 		select rownum rno, a. * 
 		from(SELECT row_number() over(PARTITION by j2.product_id order by j4.photo_serial asc ) as rnum, 
-		j1.order_serial, j1.mem_id, j1.get_name, j1.get_phone, j1.zip_code, j1.address1, j1.address2, j1.amount, j1.order_date,
+		j1.order_serial, j1.mem_id, j1.get_name, j1.get_phone, j1.order_state, j1.zip_code, j1.address1, j1.address2, j1.amount, j1.order_date,
 		j2.orderdetails_serial, j2.product_id, j2.cart_count,j3.product_name, j3.product_price, j3.product_size, j4.sysfile
 		FROM ( store_order j1 INNER JOIN order_details j2 ON j1.order_serial = j2.order_serial )
 		inner join product j3 on j2.product_id = j3.product_id inner join product_photo j4 on j3.product_id = j4.product_id
@@ -109,10 +109,11 @@
 		<result column="address2" property="address2" />
 		<result column="amount" property="amount" />
 		<result column="order_date" property="order_date" />
+		<result column="order_state" property="order_state" />
 	</resultMap>
 
 	<select id="orderSelect" parameterType="bean.mh_Page" resultMap="orderSelectMap">
-	 	select order_serial, mem_id, get_name, get_phone, zip_code, address1, address2, amount, order_date
+	 	select order_serial, mem_id, get_name, get_phone, zip_code, address1, address2, amount, order_date, order_state
 	 	from store_order
 	 	where mem_id like '%${findStr}%'
 	 	order by ORDER_SERIAL desc
