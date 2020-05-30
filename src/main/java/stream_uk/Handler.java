@@ -36,7 +36,7 @@ public class Handler extends TextWebSocketHandler {
 	Cht cht = new Cht(); /* cht vo 디비에 저장할거임 */
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
 
-	boolean reduplication=true; /*중복입장 확인*/
+	boolean reduplication=true; /*중복입장 확인(true=첫 입장)*/
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -140,19 +140,14 @@ public class Handler extends TextWebSocketHandler {
 						}
 					}
 
-					/*누적시창자수 총 시청자수 담을 json*/
+					/*총 시청자수 담을 json*/
 					JsonObject jsonObject4 = new JsonObject();
-					/* 누적 시청자수 카운트 josn에 담음*/
-					if (accumulate.get(censorship) != null) {
-						accumulate.put(censorship, accumulate.get(censorship) + 1);
-						jsonObject4.addProperty("accUser", accumulate.get(censorship));
-					}
 					/* 총 시청자수 카운트 json에 담음*/
 					if (totalUsers.get(censorship) != null) {
 						totalUsers.put(censorship, totalUsers.get(censorship) + 1);
 						jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
 					}
-					/*누적, 총 시청자수 카운트 josn으로 변환*/
+					/*총 시청자수 카운트 josn으로 변환*/
 					String jsonTxt4 = gson.toJson(jsonObject4);
 					/*채팅방 사람들에게 뿌려줌*/
 					List<WebSocketSession>list4=chatRoom.get(censorship);
@@ -182,7 +177,7 @@ public class Handler extends TextWebSocketHandler {
 			if(censorship.equals(iter.next())){flag=true;}
 		}
 
-		/*(1)단순 채팅 -> tx면*/
+		/*(1)단순 채팅 -> txt면*/
 		if(ele.getAsJsonObject().get("txt")!=null && flag && reduplication) {
 			String txt=ele.getAsJsonObject().get("txt").getAsString();
 			/* json으로 변환 */
@@ -204,6 +199,33 @@ public class Handler extends TextWebSocketHandler {
 			UkDao dao = new UkDao();
 			dao.chatting(cht);
 		}
+		/*(1.1) 누적 시청자*/
+		System.out.println("11:::"+ele.getAsJsonObject().get("accumulateCheck").getAsString());
+		if(ele.getAsJsonObject().get("accumulateCheck")!=null && flag && reduplication) {
+			JsonObject jsonObject = new JsonObject();
+			/*메세지로부터 타겟과 내용 얻음*/
+			String accumulateCheck=ele.getAsJsonObject().get("accumulateCheck").getAsString();
+			System.out.println("accumulateCheck"+accumulateCheck);
+			if(accumulateCheck.equals("true")) { /*등록된 로그인아이디&스트리머가 없으면*/
+				/* 누적 시청자수 카운트 +1 해서 전송*/
+				accumulate.put(censorship, accumulate.get(censorship) + 1);
+				jsonObject.addProperty("accUser", accumulate.get(censorship));
+				List<WebSocketSession>list=chatRoom.get(censorship);
+				String jsonTxt = gson.toJson(jsonObject);
+				for (WebSocketSession s : list) {
+					s.sendMessage(new TextMessage(jsonTxt));
+				}
+			}else { /*등록된 로그인아이디&스트리머가 있으면*/
+				/* 누적 시청자수 카운트 그냥 전송*/
+				jsonObject.addProperty("accUser", accumulate.get(censorship));
+				List<WebSocketSession>list=chatRoom.get(censorship);
+				String jsonTxt = gson.toJson(jsonObject);
+				for (WebSocketSession s : list) {
+					s.sendMessage(new TextMessage(jsonTxt));
+				}
+			}
+		}
+
 
 		/*(2)친구 추가 -> plus*/
 		if(ele.getAsJsonObject().get("plus")!=null) {
