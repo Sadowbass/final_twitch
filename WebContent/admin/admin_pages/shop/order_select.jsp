@@ -41,7 +41,11 @@
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 
-
+<style>
+	.input-sm {
+		color:black;
+	}
+</style>
 
 </head>
 <body>
@@ -104,9 +108,12 @@
 												<td>${i.amount}</td>
 												<td>${i.order_date }</td>
 												<td>
-												
-													${i.order_state}
-												
+													<c:if test="${i.order_state eq '0'}">
+														결제대기
+													</c:if>
+													<c:if test="${i.order_state eq '1'}">
+														결제완료
+													</c:if>
 												</td>
 
 

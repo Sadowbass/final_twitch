@@ -13,6 +13,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet">
     <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script> 
+    <style>
+    	.input-sm {
+    		color:black;
+    	}
+    </style>
 </head>
 
 
@@ -32,7 +37,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <h2>
                         	자주하는 질문 목록
                     </h2>
-                    <ul class="header-dropdown m-r--5">
+                   <!--  <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
@@ -44,7 +49,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="body">
                     <div class="table-responsive">

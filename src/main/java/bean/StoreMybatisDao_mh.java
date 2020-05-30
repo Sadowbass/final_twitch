@@ -21,6 +21,27 @@ public class StoreMybatisDao_mh {
 		System.out.println("★★★★★ 민호 DAO들어옴★★★★★");
 	}
 	
+	
+	public String pModify(ProductVo_mh vo) {
+		System.out.println("dao -> pModify()");
+		String msg = "";
+		int cnt = 0;
+		
+		try {
+			cnt = sqlSession.update("storeAdmin.pModify",vo);
+			if(cnt>0) {
+				msg="수정완료";
+				sqlSession.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return msg;
+		
+	}
+	
 	public String noticeDelete(int serial) {
 		int cnt = 0;
 		String msg="삭제 중 오류";

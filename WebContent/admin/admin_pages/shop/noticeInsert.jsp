@@ -42,7 +42,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
                     </div> -->
 
-                    <ul class="header-dropdown m-r--5">
+                    <!-- <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="body">
                     <form method="post" id="frm_noticeInsert">

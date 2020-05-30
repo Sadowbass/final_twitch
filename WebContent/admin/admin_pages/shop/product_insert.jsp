@@ -22,6 +22,12 @@
 <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<style>
+ #productName, #productPrice, #productCount, #explain {
+ 	color : black;
+ }
+</style>
 </head>
 <body class="theme-red">
 	<div class="container-fluid">

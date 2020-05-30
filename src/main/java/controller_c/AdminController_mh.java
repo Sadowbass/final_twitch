@@ -123,7 +123,9 @@ public class AdminController_mh {
 		
 		return "notice";
 	}
-
+	
+	
+	//통계 관리
 	@RequestMapping(value = "*/shop_statistic.mh", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = "application/text; charset=utf8")
 	public String shop_statistic(Model model) {
@@ -284,6 +286,7 @@ public class AdminController_mh {
 		return msg;
 	}
 
+	// 상품조회
 	@RequestMapping(value = "*/product_select.mh", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = "application/text; charset=utf8")
 	public String productSelect(Model model, String product_search, String nowPage) {
@@ -323,6 +326,38 @@ public class AdminController_mh {
 		model.addAttribute("p", p);
 
 		return "product_view";
+	}
+	
+	@RequestMapping(value = "*/pModify.mh", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String pModify(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("★★★controller -> pModify() 들어옴★★★");
+		String msg = null;
+
+		ProductVo_mh vo = new ProductVo_mh();
+		
+		vo.setProduct_id(Integer.parseInt(req.getParameter("product_id")));
+		vo.setProduct_name(req.getParameter("productName"));
+		vo.setProduct_explain(req.getParameter("explain"));
+		vo.setProduct_price(Integer.parseInt(req.getParameter("productPrice")));
+		vo.setProduct_cate(req.getParameter("category"));
+		vo.setProduct_count(Integer.parseInt(req.getParameter("productCount")));
+		vo.setProduct_size(req.getParameter("productSize"));
+		
+		msg= dao.pModify(vo);
+		
+		
+		// ProductPhotoUpload_mh fu = new ProductPhotoUpload_mh(req, resp);
+		// fu.uploading();
+
+		// vo = (ProductVo_mh) req.getAttribute("vo");
+		// List<ProductPhoto_mh> attList = (List<ProductPhoto_mh>) req.getAttribute("attList");
+
+		
+
+		//msg = dao.modify(vo, attList);
+		System.out.println("컨트롤러에서 msg : " + msg);
+		return msg;
 	}
 
 	@RequestMapping(value = "*/productModify.mh", method = RequestMethod.POST, produces = "application/text; charset=utf8")
