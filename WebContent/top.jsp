@@ -18,8 +18,6 @@
 
      <a class="" href="/categories" id="categories" style='font-size: 20px;color: #741CDF !important'><i style=''></i> &nbsp; 탐색</a>
 
-     <a class="" href="#" id="" style='font-size: 20px;color: #741CDF !important' onclick='uk.whisper()'><i style=''></i> &nbsp; 귓속말</a>
-     <a class="" href="#" id="" style='font-size: 20px;color: #741CDF !important' onclick='uk.plus()'><i style=''></i> &nbsp; 친구추가</a>
 
 <!-- Navbar Search -->
 <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
