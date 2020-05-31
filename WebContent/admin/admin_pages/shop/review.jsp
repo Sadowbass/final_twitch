@@ -60,7 +60,8 @@
 										type="hidden" id="nowPage" name="nowPage"
 										value="${p.nowPage }" /> <input type="hidden"
 										id="review_serial" name="review_serial" />
-
+<!-- 										<input type="hidden" id="product_name" name="product_name">
+ -->
 								</div>
 							</div>
 						</div>
@@ -91,7 +92,8 @@
 											<td><div class="review_1">
 													<c:if test="${!empty i.photos[0].image1  }">
 														<img
-															src="<%=request.getContextPath() %>/admin/admin_pages/product_photo/${i.photos[0].image1}"
+															<%-- src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[0].image1}" --%>
+															src="<%=request.getContextPath() %>/store/reviewimages/3290d4c4-0aea-410c-9ed9-26da39103619.jpg"
 															class="review_img">
 													</c:if>
 												</div></td>

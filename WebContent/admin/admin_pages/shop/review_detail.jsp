@@ -44,7 +44,7 @@
 											<div class="media-body">
 												<h2 class="media-heading">
 													작성일자&nbsp;&nbsp; ${vo.review_date } <br>
-													상품명&nbsp;&nbsp;&nbsp; ${param.product_name }<br>
+													상품명&nbsp;&nbsp;&nbsp; ${vo.product_name }<br>
 													작성자&nbsp;&nbsp;&nbsp; ${vo.mem_id }
 												</h2>
 											</div>
@@ -96,13 +96,13 @@
 											<!-- Wrapper for slides -->
 											<div class="carousel-inner" role="listbox">																													
 												<div class="item active" id="target1">
-													<img id="photo1" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589959506010-20200518_164104.png" />
+													<img id="photo1" src="<%=request.getContextPath() %>/store/reviewimages/3290d4c4-0aea-410c-9ed9-26da39103619.jpg" />
 												</div>
 												<div class="item" id="target2" >
-													<img id="photo2" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589959832883-20200518_164034.png" />
+													<img id="photo2" src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[1].image1}" />
 												</div>
 												<div class="item" id="target3" >
-													<img id="photo3" src="<%=request.getContextPath() %>\admin\admin_pages\product_photo\1589960200010-20200321_215711.png"  />
+													<img id="photo3" src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[2].image1}"  />
 												</div> 
 											</div>
 
