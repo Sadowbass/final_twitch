@@ -106,10 +106,6 @@ uk.connectWS = function (streamer, login) {
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
-//		/*accumulateCheck가 없으면 만들어 준다*/
-//		localStorage.getItem("accumulateCheck") || uk.accumulateCheckInit();
-//		/*누적 카운트 체크를 실행*/
-//		uk.accumulateCheck(streamerId, loginId);
 	}
 	ws.onclose = function (event) {
 		console.log("접속 종료");
@@ -135,8 +131,7 @@ uk.connectWS = function (streamer, login) {
 		}
 		/*누적 시청자수 accUser*/
 		if(jsObj.accUser){
-			let accUser=JSON.parse(jsObj.accUser)
-			uk.accUser(accUser[0], accUser[1]);
+			$("#accUser").html(jsObj.accUser);
 		}
 		/*다른 유저 입장*/
 		if (jsObj.addUser) {
@@ -219,20 +214,6 @@ uk.takTxt = function () {
 		ws.send(jsonStr);
 		$('input#sendArea').val('');
 	}
-}
-/*누적 시청자*/
-uk.accUser=function(mid, oid){
-	console.log(1,mid);
-	console.log(2,oid);
-	let param={
-		mid:mid,
-		oid:oid
-	}
-	$.get("accUser.uk", param, function(data){
-		console.log('여기 실행 되냐');
-		console.log(111,data);
-		$("#accUser").html(data);
-	});
 }
 
 /* socket close 메소드 */

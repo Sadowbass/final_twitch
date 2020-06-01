@@ -11,14 +11,14 @@ import bean.AccUk;
 
 @Controller
 public class Controller_uk {
-    @ResponseBody
-    @RequestMapping(value = "*/accUser.uk", method = RequestMethod.GET)
-    public String accUser(HttpServletRequest req, AccUk accUk) {
-    	System.out.println("mid:::"+accUk.getMid());
-    	System.out.println("oid:::"+accUk.getOid());
-    	UkDao dao=new UkDao();
-    	String acc=Integer.toString(dao.accUser(accUk));
-    	System.out.println("acc:::"+acc);
-        return acc;
-    }
+//   @ResponseBody
+//    @RequestMapping(value = "*/accUser.uk", method = RequestMethod.GET)
+//    public String accUser(HttpServletRequest req, AccUk accUk) {
+//    	System.out.println("mid:::"+accUk.getMid());
+//    	System.out.println("oid:::"+accUk.getOid());
+//    	UkDao dao=new UkDao();
+//    	String acc=Integer.toString(dao.accUser(accUk));
+//    	System.out.println("acc:::"+acc);
+//        return acc;
+//    }
 }

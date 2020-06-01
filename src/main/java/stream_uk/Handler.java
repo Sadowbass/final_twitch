@@ -27,13 +27,14 @@ public class Handler extends TextWebSocketHandler {
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
 	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
 	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 총 시청자수 */
-	Map<String, Integer> accumulate = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
-	Set<String> onePerPerson=new HashSet<String>();
+	Map<String, Set<String>> accumulate=new HashMap<String, Set<String>>();/*스트리머, 누적 시청자*/
+	Set<String> onePerPerson=new HashSet<String>(); /*josn gson*/
 	Gson gson = new Gson(); /*지슨*/
 	JsonParser parser=new JsonParser(); /*파서*/
 	UserList userList = new UserList(); /* userList Vo 디비에 저장할거임 */
 
 	Cht cht = new Cht(); /* cht vo 디비에 저장할거임 */
+
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
 
 	boolean reduplication=true; /*중복입장 확인(true=첫 입장)*/
@@ -93,7 +94,9 @@ public class Handler extends TextWebSocketHandler {
 					List<WebSocketSession> list=new ArrayList<WebSocketSession>(); /*채팅방 세션 리스트*/
 					chatRoom.put(censorship, list); /*채팅방 시작*/
 					totalUsers.put(censorship, 0); /* 총 시청자수 카운트 시작 */
-					accumulate.put(censorship, 0); /* 누적 시청자수 카운트 시작 */
+					Set<String> accUser=new HashSet<String>(); /*누적 시청자수셋*/
+					accumulate.put(censorship, accUser);/*누적 시청자수 카운트 시작*/
+
 				}
 
 				Iterator<String> iter=chatRoom.keySet().iterator();
@@ -144,18 +147,26 @@ public class Handler extends TextWebSocketHandler {
 
 					/*누적 및 총 시청자수 담을 json*/
 					JsonObject jsonObject4 = new JsonObject();
-					/*누적 시청자수 카운트 mid censorship jsond에 담음*/
-					midTxt[0]=mid;
-					midTxt[1]=censorship;
-					String json=gson.toJson(midTxt);
-					jsonObject4.addProperty("accUser",json);
+
+					/*스트리머가 방송중이라 누적 시청자수가 있으면*/
+					if(accumulate.get(censorship)!=null) {
+
+						if(session.getAttributes().get("session_id")!=null) {/*로그인 시청자면*/
+							accumulate.get(censorship).add((String)session.getAttributes().get("session_id"));
+						}else { /*비로그인 시청자면*/
+							accumulate.get(censorship).add((String)session.getAttributes().get("HTTP.SESSION.ID"));
+						}
+
+					}
+					/* 누적 시청자수 카운트 json에 담음*/
+						jsonObject4.addProperty("accUser", accumulate.get(censorship).size());
 
 					/* 총 시청자수 카운트 json에 담음*/
 					if (totalUsers.get(censorship) != null) {
 						totalUsers.put(censorship, totalUsers.get(censorship) + 1);
 						jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
 					}
-					/*총 시청자수 카운트 josn으로 변환*/
+					/*누적 및 총 시청자수 카운트 josn으로 변환*/
 					String jsonTxt4 = gson.toJson(jsonObject4);
 					/*채팅방 사람들에게 뿌려줌*/
 					List<WebSocketSession>list4=chatRoom.get(censorship);
@@ -207,32 +218,6 @@ public class Handler extends TextWebSocketHandler {
 			UkDao dao = new UkDao();
 			dao.chatting(cht);
 		}
-		/*(1.1) 누적 시청자*/
-		if(ele.getAsJsonObject().get("accumulateCheck")!=null && flag && reduplication) {
-			JsonObject jsonObject = new JsonObject();
-			/*메세지로부터 타겟과 내용 얻음*/
-			String accumulateCheck=ele.getAsJsonObject().get("accumulateCheck").getAsString();
-			System.out.println("accumulateCheck"+accumulateCheck);
-			if(accumulateCheck.equals("true")) { /*등록된 로그인아이디&스트리머가 없으면*/
-				/* 누적 시청자수 카운트 +1 해서 전송*/
-				accumulate.put(censorship, accumulate.get(censorship) + 1);
-				jsonObject.addProperty("accUser", accumulate.get(censorship));
-				List<WebSocketSession>list=chatRoom.get(censorship);
-				String jsonTxt = gson.toJson(jsonObject);
-				for (WebSocketSession s : list) {
-					s.sendMessage(new TextMessage(jsonTxt));
-				}
-			}else { /*등록된 로그인아이디&스트리머가 있으면*/
-				/* 누적 시청자수 카운트 그냥 전송*/
-				jsonObject.addProperty("accUser", accumulate.get(censorship));
-				List<WebSocketSession>list=chatRoom.get(censorship);
-				String jsonTxt = gson.toJson(jsonObject);
-				for (WebSocketSession s : list) {
-					s.sendMessage(new TextMessage(jsonTxt));
-				}
-			}
-		}
-
 
 		/*(2)친구 추가 -> plus*/
 		if(ele.getAsJsonObject().get("plus")!=null) {
@@ -294,17 +279,20 @@ public class Handler extends TextWebSocketHandler {
 					/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
 					List<WebSocketSession> list2=chatRoom.get(censorship);
 					for(WebSocketSession s:list2) {
-						String del_id=(String)s.getAttributes().get("session_id");
-						userList.setMid(del_id);
-						userList.setOid(censorship);
-						userList.setStatus(0);
-						UkDao dao = new UkDao();
-						dao.exit(userList);
+						if(s.getAttributes().get("session_id")!=null) {
+							String del_id=(String)s.getAttributes().get("session_id");
+							userList.setMid(del_id);
+							userList.setOid(censorship);
+							userList.setStatus(0);
+							UkDao dao = new UkDao();
+							dao.exit(userList);
+						}
 
 						s.sendMessage(new TextMessage(jsonTxt));
 					}
+					if(accumulate.get(censorship)!=null);
+					accumulate.remove(censorship); /*누적 시청자수 카운터에서 제거*/
 					totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
-					accumulate.remove(censorship); /* 누적 카운트에서 제거 */
 					chatRoom.remove(censorship); /*채팅방 폭파*/
 				}
 			}
