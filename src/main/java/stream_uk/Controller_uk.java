@@ -17,7 +17,7 @@ public class Controller_uk {
     	System.out.println("mid:::"+accUk.getMid());
     	System.out.println("oid:::"+accUk.getOid());
     	UkDao dao=new UkDao();
-    	String	acc=dao.accUser(accUk)+"";
+    	String acc=Integer.toString(dao.accUser(accUk));
     	System.out.println("acc:::"+acc);
         return acc;
     }
