@@ -89,7 +89,6 @@
                     </div>
                 </div>
             </c:forEach>
-
         </div>
     </div>
     <hr class="mt-0">
