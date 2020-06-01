@@ -279,77 +279,82 @@ public class Handler extends TextWebSocketHandler {
 
 		/* 채팅방 퇴장 */
 		if (!censorship.equals("justLogin")) {
-			/* 스트리머가 방송 종료 채팅방에 있던 모든사람 강제 퇴장*/
-			if (mid.equals(censorship)) {
-				/*스트리머 채팅방에서 제거*/
-				List<WebSocketSession>list1=chatRoom.get(censorship);
-				list1.remove(session);
-				chatRoom.put(censorship, list1);
-				/*채팅방에 있던 모든 사람에게 방종 메세지*/
-				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("offAir", censorship);
-				String jsonTxt = gson.toJson(jsonObject);
-				/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
-				List<WebSocketSession> list2=chatRoom.get(censorship);
-				for(WebSocketSession s:list2) {
-					String del_id=(String)s.getAttributes().get("session_id");
-					userList.setMid(del_id);
-					userList.setOid(censorship);
-					userList.setStatus(0);
-					UkDao dao = new UkDao();
-					dao.exit(userList);
 
-					s.sendMessage(new TextMessage(jsonTxt));
-				}
-				totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
-				accumulate.remove(censorship); /* 누적 카운트에서 제거 */
-				chatRoom.remove(censorship); /*채팅방 폭파*/
-			}else {
-				/*스트리머가 방송중이라 채팅방이 있으면*/
-				Iterator<String> iter=chatRoom.keySet().iterator();
-				while(iter.hasNext()){
-					if(censorship.equals(iter.next())){flag=true;}
-				}
-				/*채팅방에 있던 유저가 나감*/
-				if(flag) {
-					/* 나간사람 채팅방에서 제거 */
-					List<WebSocketSession>list=chatRoom.get(censorship);
-					list.remove(session);
-					chatRoom.put(censorship, list);
-					/* 로그인한 유저가 채팅방에서 퇴장 */
-					if (mid != null) {
-						/* 채팅방에서 나간 로그인한 유저 디비 status=0로 수정 */
-						userList.setMid(mid);
+			/* 스트리머가 방송 종료: 채팅방에 있던 모든사람 강제 퇴장*/
+			if(mid!=null) {
+				if (mid.equals(censorship)) {
+					/*스트리머 채팅방에서 제거*/
+					List<WebSocketSession>list1=chatRoom.get(censorship);
+					list1.remove(session);
+					chatRoom.put(censorship, list1);
+					/*채팅방에 있던 모든 사람에게 방종 메세지*/
+					JsonObject jsonObject = new JsonObject();
+					jsonObject.addProperty("offAir", censorship);
+					String jsonTxt = gson.toJson(jsonObject);
+					/*채팅방에 있던 모든 사람 status 0으로 바꿈*/
+					List<WebSocketSession> list2=chatRoom.get(censorship);
+					for(WebSocketSession s:list2) {
+						String del_id=(String)s.getAttributes().get("session_id");
+						userList.setMid(del_id);
 						userList.setOid(censorship);
 						userList.setStatus(0);
 						UkDao dao = new UkDao();
 						dao.exit(userList);
-						/* 채팅방에서 퇴장한 유저 아이디 json으로 변환 */
-						JsonObject jsonObject = new JsonObject();
-						jsonObject.addProperty("delUser", mid);
-						String jsonTxt = gson.toJson(jsonObject);
-						/*채팅방 모든 사람에게 전송*/
-						List<WebSocketSession> list1=chatRoom.get(censorship);
-						for (WebSocketSession s : list1) {
-							s.sendMessage(new TextMessage(jsonTxt));
-						}
+
+						s.sendMessage(new TextMessage(jsonTxt));
 					}
-					/*총 시청자수 담을 josn*/
-					JsonObject jsonObject4 = new JsonObject();
-					/* 총 시청자수 카운트  json에 담음*/
-					if (totalUsers.get(censorship) != null) {
-						totalUsers.put(censorship, totalUsers.get(censorship) - 1);
-						jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
-					}
-					/*총 시청자수 json으로 변환*/
-					String jsonTxt4 = gson.toJson(jsonObject4);
-					/*채팅방 모든 사람에게 전송*/
-					List<WebSocketSession> list2=chatRoom.get(censorship);
-					for (WebSocketSession s : list2) {
-						s.sendMessage(new TextMessage(jsonTxt4));
-					}
+					totalUsers.remove(censorship); /* 청시청자수 카운트에서 제거 */
+					accumulate.remove(censorship); /* 누적 카운트에서 제거 */
+					chatRoom.remove(censorship); /*채팅방 폭파*/
 				}
 			}
+
+			/*스트리머가 방송중이라 채팅방이 있으면*/
+			Iterator<String> iter=chatRoom.keySet().iterator();
+			while(iter.hasNext()){
+				if(censorship.equals(iter.next())){flag=true;}
+			}
+
+			/*채팅방에 있던 유저가 나감*/
+			if(flag) {
+				/* 나간사람 채팅방에서 제거 */
+				List<WebSocketSession>list=chatRoom.get(censorship);
+				list.remove(session);
+				chatRoom.put(censorship, list);
+				/* 로그인한 유저가 채팅방에서 퇴장 */
+				if (mid != null) {
+					/* 채팅방에서 나간 로그인한 유저 디비 status=0로 수정 */
+					userList.setMid(mid);
+					userList.setOid(censorship);
+					userList.setStatus(0);
+					UkDao dao = new UkDao();
+					dao.exit(userList);
+					/* 채팅방에서 퇴장한 유저 아이디 json으로 변환 */
+					JsonObject jsonObject = new JsonObject();
+					jsonObject.addProperty("delUser", mid);
+					String jsonTxt = gson.toJson(jsonObject);
+					/*채팅방 모든 사람에게 전송*/
+					List<WebSocketSession> list1=chatRoom.get(censorship);
+					for (WebSocketSession s : list1) {
+						s.sendMessage(new TextMessage(jsonTxt));
+					}
+				}
+				/*총 시청자수 담을 josn*/
+				JsonObject jsonObject4 = new JsonObject();
+				/* 총 시청자수 카운트  json에 담음*/
+				if (totalUsers.get(censorship) != null) {
+					totalUsers.put(censorship, totalUsers.get(censorship) - 1);
+					jsonObject4.addProperty("totalUsers", totalUsers.get(censorship));
+				}
+				/*총 시청자수 json으로 변환*/
+				String jsonTxt4 = gson.toJson(jsonObject4);
+				/*채팅방 모든 사람에게 전송*/
+				List<WebSocketSession> list2=chatRoom.get(censorship);
+				for (WebSocketSession s : list2) {
+					s.sendMessage(new TextMessage(jsonTxt4));
+				}
+			}
+
 		}
 	}
 }
