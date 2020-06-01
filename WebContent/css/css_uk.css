@@ -91,6 +91,9 @@
 
 .whisper_mid {
 	width: 100%;
+	white-space: normal;
+	word-break: break-word;
+	overflow-y: auto;
 }
 
 .whisper_bottom {
@@ -110,19 +113,19 @@
 	margin: 5px;
 }
 
+/* 스크롤바 안보이게 */
 .invisible-scrollbar::-webkit-scrollbar {
 	display: none;
 }
 
-/* Demonstrate a "mostly customized" scrollbar
- * (won't be visible otherwise if width/height is specified) */
+/* 스크롤바 커스텀 */
 .mostly-customized-scrollbar::-webkit-scrollbar {
 	width: 5px;
 	height: 8px;
 	background-color: #aaa; /* or add it to the track */
 }
 
-/* Add a thumb */
+/* 스크롤바 커스텀 */
 .mostly-customized-scrollbar::-webkit-scrollbar-thumb {
 	background: #000;
 }

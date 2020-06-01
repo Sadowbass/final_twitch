@@ -234,7 +234,6 @@ public class Handler extends TextWebSocketHandler {
 			JsonArray jsonArray=ele.getAsJsonObject().get("whisper").getAsJsonArray();
 			String whisperTarget=jsonArray.get(0).getAsString();
 			String whisperTxt=jsonArray.get(1).getAsString();
-			System.out.println(mid+"::: "+whisperTarget+"에게"+whisperTxt);
 			/* json으로 변환 */
 			JsonObject jsonObject = new JsonObject();
 			midTxt[0]= mid;
