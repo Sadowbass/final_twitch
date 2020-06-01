@@ -217,13 +217,13 @@ public class Handler extends TextWebSocketHandler {
 
 		/*(2)친구 추가 -> plus*/
 		if(ele.getAsJsonObject().get("plus")!=null) {
-			/*메세지로부터 타겟 얻음*/
+			/*메세지로부터 친구추가 타겟 얻음*/
 			String plus=ele.getAsJsonObject().get("plus").getAsString();
 			/* json으로 변환 */
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("plus", mid);
 			String jsonTxt = gson.toJson(jsonObject);
-			/*로그인중인 사람들에게 전송*/
+			/*친구추가 상대에게 전송*/
 			if(logins.get(plus)!=null)
 			logins.get(plus).sendMessage(new TextMessage(jsonTxt));
 		}
