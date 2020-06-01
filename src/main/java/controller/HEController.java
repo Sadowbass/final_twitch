@@ -33,6 +33,7 @@ import oracle.jdbc.replay.ReplayableConnection.StatisticsReportType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 @Controller
 public class HEController {
@@ -40,6 +41,16 @@ public class HEController {
 	public HEController(HEDao dao){
 		this.dao = dao;
 	}
+	
+	@RequestMapping(value="*/home.he", method= {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView home(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("test");
+		req.getSession().setAttribute("start", "ok");
+		mv.setViewName("/admin/index"); 
+		return mv;
+	}
+	
 	@RequestMapping(value="*/member_select.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView selectM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
@@ -65,14 +76,14 @@ public class HEController {
 		}
 		
 		mv.addObject("list", list);
-		mv.setViewName("member/member_select"); //select라는 페이지에 넘기겠다  ->resolver가 받음-> index.jsp?inc=./board/select.jsp가 로딩됨
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/member_select"); //select라는 페이지에 넘기겠다  ->resolver가 받음-> index.jsp?inc=./board/select.jsp가 로딩됨
 		return mv;
 	}
 	
 	@RequestMapping(value="*/member_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("member/member_insert"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/member_insert"); 
 		return mv;
 	}
 	
@@ -86,7 +97,7 @@ public class HEController {
 		
 		String msg = dao.member_insert(vo, req2);
 		mv.addObject("msg", msg);
-		mv.setViewName("member/result"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/result"); 
 		return mv;
 	}
 	
@@ -98,7 +109,7 @@ public class HEController {
 		vo=dao.member_view(mid);
 		
 		mv.addObject("vo", vo);
-		mv.setViewName("member/member_modify"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/member_modify"); 
 		return mv;
 	}
 	
@@ -171,7 +182,7 @@ public class HEController {
 		mv.addObject("pay_use", list2);
 		mv.addObject("payment", list);
 		mv.addObject("vo", vo);
-		mv.setViewName("member/member_view"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/member_view"); 
 		return mv;
 	}
 	
@@ -185,7 +196,7 @@ public class HEController {
 		
 		String msg = dao.member_modify(vo, req2);
 		mv.addObject("msg", msg);
-		mv.setViewName("member/result"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/result"); 
 		return mv;
 	}
 	
@@ -195,7 +206,7 @@ public class HEController {
 		String mid = (String)req.getParameter("member_id");
 		String msg = dao.member_delete(mid,req);
 		mv.addObject("msg", msg);
-		mv.setViewName("member/result"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/member/result"); 
 		return mv;
 	}
 	
@@ -205,7 +216,7 @@ public class HEController {
 		List<StreamingVo> list =  new ArrayList<StreamingVo>();
 		list = dao.onair();
 		mv.addObject("list", list);
-		mv.setViewName("twitch_main/live_broadcast"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/live_broadcast"); 
 		return mv;
 	}
 	
@@ -229,7 +240,7 @@ public class HEController {
 		}
 		mv.addObject("list", list);
 	
-		mv.setViewName("twitch_main/streamer"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/streamer"); 
 		return mv;
 	}
 	
@@ -376,7 +387,7 @@ public class HEController {
 		mv.addObject("bt2", board_time2);
 		mv.addObject("bt",board_time);
 		mv.addObject("vo", vo);
-		mv.setViewName("twitch_main/streamer_detail"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/streamer_detail"); 
 		return mv;
 	}
 	
@@ -386,7 +397,7 @@ public class HEController {
 		String mid= req.getParameter("he_serial");
 		dao.broadban(mid);
 		
-		mv.setViewName("twitch_main/streamer_detail"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/streamer_detail"); 
 		return mv;
 	}
 	
@@ -397,7 +408,7 @@ public class HEController {
 		String mid= req.getParameter("he_serial");
 		dao.broadok(mid);//방송정지 테이블에서 정보 삭제
 		
-		mv.setViewName("twitch_main/streamer_detail"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/streamer_detail"); 
 		return mv;
 	}
 	
@@ -410,7 +421,7 @@ public class HEController {
 
 		mv.addObject("list", list);
 
-		mv.setViewName("twitch_main/category_select"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/category_select"); 
 		return mv;
 	}
 	
@@ -430,7 +441,7 @@ public class HEController {
 	public ModelAndView insertC(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 	
-		mv.setViewName("twitch_main/category_insert"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/category_insert"); 
 		return mv;
 	}
 	
@@ -441,7 +452,7 @@ public class HEController {
 		BroadCastingCateVo vo = fu.boardUploading();
 		String msg = dao.cate_insert(vo, req);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/category_insert"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/category_insert"); 
 		return mv;
 	}
 	
@@ -454,7 +465,7 @@ public class HEController {
 		BroadCastingCateVo vo = fu.boardUploading();
 		String msg = dao.cate_modify(vo, req);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/category_select"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/category_select"); 
 		return mv;
 	}
 	
@@ -464,7 +475,7 @@ public class HEController {
 		String serial = req.getParameter("cat_serial");
 		String msg = dao.cate_delete(serial, req);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/category_select"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/category_select"); 
 		return mv;
 	}
 	
@@ -475,7 +486,7 @@ public class HEController {
 		list = dao.tag_select();
 		
 		mv.addObject("list", list);
-		mv.setViewName("twitch_main/tag_management");
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/tag_management");
 		return mv;
 	}
 	
@@ -497,7 +508,7 @@ public class HEController {
 		String serial = req.getParameter("tag_serial");
 		String msg = dao.tag_delete(serial);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/tag_management");
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/tag_management");
 		return mv;
 	}
 	
@@ -509,7 +520,7 @@ public class HEController {
 		for(int i=0; i<tag.length ; i++) {
 			dao.tag_insert(tag[i]);
 		}
-		mv.setViewName("twitch_main/tag_management");
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/tag_management");
 		return mv;
 	}
 	
@@ -557,7 +568,7 @@ public class HEController {
 		mv.addObject("s_list", s_list);
 		mv.addObject("p2", page2);
 		mv.addObject("p", page);
-		mv.setViewName("twitch_main/profit_management"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/profit_management"); 
 		return mv;
 	}
 	
@@ -566,7 +577,7 @@ public class HEController {
 	public ModelAndView help(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 	
-		mv.setViewName("twitch_main/help"); 
+		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/help"); 
 		return mv;
 	}
 	

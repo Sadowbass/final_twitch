@@ -461,8 +461,7 @@ public class BroadCastingController {
       list = dao.paymentInit(mId);
       
       List<StreamerVo> list2 = new ArrayList<StreamerVo>();
-      HEDao dao2  = new HEDao();
-      list2 =dao2.user_payment(mId);
+      list2 =this.dao.user_payment(mId);
      
       mv.addObject("payment",list2);//결제 금액 차트 정보
       mv.addObject("list", list);
@@ -481,8 +480,7 @@ public class BroadCastingController {
       list = dao.donationInit(mId);
       
       List<StreamerVo> list2 = new ArrayList<StreamerVo>();
-      HEDao dao2  = new HEDao();
-      list2 =dao2.send_dontion(mId);
+      list2 =this.dao.send_dontion(mId);
      
       mv.addObject("send_list",list2);//보낸 도네 차트 정보
       mv.addObject("list", list);
@@ -500,9 +498,8 @@ public class BroadCastingController {
       MyPageTakDao dao = new MyPageTakDao();
       list = dao.donation2Init(mId);
       
-      HEDao dao2  = new HEDao();
       List<StreamerVo> list3 = new ArrayList<StreamerVo>();
-      list3 = dao2.receive_dontion(mId);
+      list3 = this.dao.receive_dontion(mId);
       
       mv.addObject("receive_list", list3);//받은 도네 차트 정보 
       

@@ -28,7 +28,6 @@ $('.shop_menu_plus').click(function(){
                                         +'</li>'
          $('.parent_list').append(str);
                                         
-                                        
 })
 
 var delete_menu =function(del){

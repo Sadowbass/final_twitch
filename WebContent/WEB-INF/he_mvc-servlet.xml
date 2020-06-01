@@ -27,7 +27,6 @@
        
        <!-- view resolver -->  
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-           <property name="prefix" value="/admin/index.jsp?inc=./admin_pages/"></property>
            <property name="suffix" value=".jsp"></property>
         </bean>           
                      
