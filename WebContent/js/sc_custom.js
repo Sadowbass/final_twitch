@@ -36,7 +36,7 @@ $(document).on('keyup', '#sidebar-friend-search', function () {
                     if(i.ph_sysfile == null){
                         newImg.setAttribute("src", "./img/s1.png");
                     } else {
-                        newImg.setAttribute("src", i.ph_sysfile);
+                        newImg.setAttribute("src", "/img/user-photo/"+i.ph_sysfile);
                     }
 
 

@@ -37,9 +37,11 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class HEController {
 	HEDao dao;
+
 	public HEController(HEDao dao){
 		this.dao = dao;
 	}
+
 	@RequestMapping(value="*/member_select.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView selectM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();

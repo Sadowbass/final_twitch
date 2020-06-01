@@ -84,6 +84,7 @@ public class StoreController {
 		vo.setProduct_explain(vo.getProduct_explain().replace("\n","").replace("\r","<br/>"));
 		mv.addObject("vo",vo);
 		mv.setViewName("productDetail");
+		dao.close();
     	return mv;
     }
 	

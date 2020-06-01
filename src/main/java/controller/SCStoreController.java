@@ -18,11 +18,16 @@ import java.util.Map;
 @RestController
 public class SCStoreController {
 
+    SCDao dao;
+
+    public SCStoreController(SCDao dao) {
+        this.dao = dao;
+    }
+
     /*메인페이지 로드*/
     @RequestMapping(value = "/store/mainPage.sc", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     public ModelAndView listControl() {
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         List<ProductVo> list = dao.productListControl();
         Gson gson = new Gson();
 
@@ -58,7 +63,6 @@ public class SCStoreController {
     @RequestMapping(value = "/store/productList.sc")
     public ModelAndView listPage(HttpServletRequest req){
         ModelAndView mv = new ModelAndView();
-        SCDao dao = new SCDao();
         String cate = req.getParameter("cate");
         List<ProductVo> list = dao.productListControl(cate);
         Gson gson = new Gson();

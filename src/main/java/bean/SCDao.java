@@ -344,4 +344,8 @@ public class SCDao {
         return list;
     }
 
+    public void close(){
+        sqlSession.close();
+    }
+
 }

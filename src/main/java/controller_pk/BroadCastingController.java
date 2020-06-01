@@ -55,7 +55,6 @@ public class BroadCastingController {
    @ResponseBody
    public String selectCate() {
 
-      dao = new BroadCastingMybatisDao();
       List<BroadCastingCateVo> list = dao.selectCate();
       String result = "";
       Gson gson = new Gson();
