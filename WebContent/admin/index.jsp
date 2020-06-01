@@ -2,7 +2,6 @@
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -88,11 +87,27 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
   
 </head>
+
+
+<%
+	String admin_id = null;
+	System.out.println(session.getAttribute("admin_id"));
+	if(session.getAttribute("admin_id")==null){
+%>
+		<script>location.href="/index.jsp"</script>
+<% 	
+	}else{
+		admin_id = (String)session.getAttribute("admin_id");
+	}
+
+%>	
 <%
 	String inc ="home.jsp"; 
 	if(request.getParameter("inc") != null){
 		inc=request.getParameter("inc");
 	}
+	
+	
 %>
 
 
@@ -142,8 +157,8 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     <img src="images/user.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="email">관리자</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${admin_id }</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">keyboard_arrow_down</i>
