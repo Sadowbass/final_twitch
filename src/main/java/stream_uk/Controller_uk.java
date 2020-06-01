@@ -13,11 +13,11 @@ import bean.AccUk;
 public class Controller_uk {
     @ResponseBody
     @RequestMapping(value = "*/accUser.uk", method = RequestMethod.GET)
-    public int accUser(HttpServletRequest req, AccUk accUk) {
+    public String accUser(HttpServletRequest req, AccUk accUk) {
     	System.out.println("mid:::"+accUk.getMid());
     	System.out.println("oid:::"+accUk.getOid());
     	UkDao dao=new UkDao();
-    	int	acc=dao.accUser(accUk);
+    	String	acc=dao.accUser(accUk)+"";
     	System.out.println("acc:::"+acc);
         return acc;
     }
