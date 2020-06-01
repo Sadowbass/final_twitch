@@ -27,6 +27,7 @@
             rel="stylesheet"
             type="text/css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <style>
         textarea::placeholder{
             font-size:1.2rem;
@@ -186,6 +187,15 @@
                     </c:choose>
                 </div>
             </div>
+           <%if(session.getAttribute("admin_id") != null){ %>
+          <div class="text-right p-1">
+                <div class="channels-card-image-btn">
+   					         <button type="button" class="btn btn-outline-danger btn" onclick="adminStopAir('${vo.mem_id}','${vo.mem_skey}','${vo.air_gname}')" style="padding-top: 0px; padding-bottom: 0px; height: 30px;">
+                                <strong> <i class="fas fa-ban"></i></strong>생방송 정지
+                            </button>
+                </div>
+            </div>
+        <%}%>
         </div>
     </div>
 
@@ -286,6 +296,70 @@
     $(document).ready(function () {
         uk.stream();
     });
+    
+    function adminStopAir(mId,skey,gname){
+    	
+    	const swalWithBootstrapButtons = Swal.mixin({
+    		  customClass: {
+    		    confirmButton: 'btn btn-success',
+    		    cancelButton: 'btn btn-danger'
+    		  },
+    		  buttonsStyling: false
+    		})
+
+    		swalWithBootstrapButtons.fire({
+    		  title: '생방송 정지',
+    		  text: "정말로 정지하시겠습니까?",
+    		  icon: 'warning',
+    		  showCancelButton: true,
+    		  confirmButtonText: '삭제',
+    		  cancelButtonText: '취소',
+    		  reverseButtons: true
+    		}).then((result) => {
+    		  if (result.value) {
+    		       
+    			  
+    			  $.ajax({
+    		            type:'post',
+    		            data:{'mId':mId,'skey':skey,'gname':gname},
+    		            url:'deleteAir.sc',
+    		            dataType:'text',
+    		            success : function (data) {
+    		            	
+    		                if (data == '중지성공') {
+    		                	
+    		        		    swalWithBootstrapButtons.fire(
+    		        	    		      '생방송 정지',
+    		        	    		      '정상적으로 종료되었습니다.',
+    		        	    		      'success'
+    		        	    		    )
+    		                } else if(data == '중지실패') {
+    		        		    swalWithBootstrapButtons.fire(
+    		        	    		      '생방송 정지',
+    		        	    		      '생방송 중지 에러.',
+    		        	    		      'error'
+    		        	    		    )
+    		                }
+    		            }
+    		        })
+    			  
+    			  
+    			 
+    		  } else if (
+    		    /* Read more about handling dismissals below */
+    		    result.dismiss === Swal.DismissReason.cancel
+    		  ) {
+    		    swalWithBootstrapButtons.fire(
+    		      '생방송 정지',
+    		      '취소하셨습니다',
+    		      'error'
+    		    )
+    		  }
+    		})
+    	
+    	
+    	
+    }
 
     let uid = $('#uid').val();
     let sid = $('#sid').val();
