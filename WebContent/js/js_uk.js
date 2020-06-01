@@ -220,6 +220,7 @@ uk.takTxt = function () {
 		$('input#sendArea').val('');
 	}
 }
+/*누적 시청자*/
 uk.accUser=function(mid, oid){
 	console.log(1,mid);
 	console.log(2,oid);
