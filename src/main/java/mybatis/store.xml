@@ -3,8 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
-
-	<insert id="review_insert" parameterType="store.StoreReviewVo">
+     <!-- 장바구니 인서트 -->
+    <insert id="cart_insert" parameterType="bean.StoreCartVo">
+      
+      insert into cart(cart_id, mem_id, product_id, cart_count, cart_date, product_size)
+      values(seq_storecart.nextval, #{mem_id, jdbcType=VARCHAR}, #{product_id}, #{cart_count}, sysdate, #{product_size})
+      
+    </insert>
+    
+    
+     <!-- 리뷰 작성 -->
+	<insert id="review_insert" parameterType="bean.StoreReviewVo">
 	  
 	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
       values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
@@ -13,14 +22,55 @@
 	  
 	</insert>
 	
-	<insert id="review_photo_insert" parameterType="store.StoreReviewPhotoVo">
+	<insert id="review_photo_insert" parameterType="bean.StoreReviewPhotoVo">
 	  
 	  insert into review_photo(review_pid, review_id, image1, image2, rp_date)
       values( seq_storereview_photo.nextval, seq_storereview.currval, #{image1, jdbcType=VARCHAR}, #{image2, jdbcType=VARCHAR},  sysdate)
 	  
 	</insert>
 	
+	<!-- cart 조회 -->
+	<select id="cart_select" resultType="bean.StoreCartVo">
+    <!-- DAO에서 listCart라는 태그로 인해 실행되고 결과타입은 DTO타입으로 한다. (다른계층으로 보내기 위해서) -->
+    
+        select cart_id, p.product_id, c.mem_id, p.product_name, c.cart_count, p.product_price, pp.image1, (p.product_price*c.cart_count) money
+        <!-- 장바구니의 번호, 상품 번호, 회원번호, 회원이름, 상품이름, 상품의양, 상품1개의 가격, 상품의 전체가격을 검색한다.-->
+        <!--양쪽 테이블에 다 있는 속성이면 어떤 테이블의 속성인지 정확히 표기해주어야 한다.-->
+        
+        from , cart c, product p, product_photo pp
+        <!--  장바구니 테이블과, 상품테이블, 상품 포토테이블 로 부터 -->
+        
+        where c.product_id=p.product_id and p.product_id = pp.product_id and c.mem_id=#{mem_id} order by cart_id
+        <!--회원테이블의 회원id와 장바구니테이블의 회원id가 같고, 장바구니의 상품id와 상품테이블의 상품id가 같고, 장바구니테이블의 회원id가  장바구니에 저장되있는 회원id와 같을때-->
+        <!-- 장바구니에 관한 정보를 담은 sql문이다. -->
+                    
+    </select>
 	
+	<select id="cart_sumMoney" resultType="int">
+
+        select nvl(sum(p.product_price*c.cart_count),0)
+        <!--금액과 상품갯수를 곱한값과 0을더해서 0이 나오는 것을 검색한다. -->
+        <!--그러니까 아무것도 담지 않았을때를 확인하는 것이다. -->
+        <!--빈값이 null이면 안되기 때문에 대체값으로 0이 출력되게끔 만들었다-->
+
+        from cart c,product p
+        <!-- 장바구니 테이블과 상품 테이블로 부터 -->
+
+        where c.product_id=p.product_id and mem_id=#{mem_id}
+        <!--조건 : 장바구니테이블의 상품 id가 상품테이블의 상품 id와 같고, 요청하는 회원의 id와 같은 경우 -->
+
+    </select>
+	
+	<!-- 장바구니에 동일한 상품 있는 지 확인 -->
+	
+	<select id="countCart" resultType="int">
+	  select count(*)
+	  from cart
+	  where mem_id = #{mem_id}
+	  and product_id =#{product_id}
+	</select>
+	
+	<!-- 리뷰보기 -->
 	<select id="review_select" resultMap="store_map">
 	   
 	   select r.review_id , r.mem_id, r.product_id , r.rSubject, r.rContent, r.review_like , r.review_date, rp.review_id, rp.image1, rp.image2   
@@ -30,7 +80,7 @@
 	   
 	</select>
 	
-	<resultMap type="store.StoreReviewVo" id="store_map">
+	<resultMap type="bean.StoreReviewVo" id="store_map">
     <result column="review_id" property="review_id"/>
     <result column="mem_id" property="mem_id"/>
     <result column="product_id" property="product_id"/>
@@ -38,7 +88,7 @@
     <result column="rContent" property="rContent"/>
     <result column="review_like" property="review_like"/>
     <result column="review_date" property="review_date"/>
-      <collection property="rpList" javaType="java.util.ArrayList" ofType="store.StoreReviewPhotoVo"  >
+      <collection property="rpList" javaType="java.util.ArrayList" ofType="bean.StoreReviewPhotoVo"  >
          <result column="review_pid" property="review_pid"/>
          <result column="image1" property="image1"/>
          <result column="image2" property="image2"/>
@@ -46,8 +96,12 @@
   </resultMap>
 	
   
-  <select id="review_photo" parameterType='Integer' resultType='store.StoreReviewPhotoVo'>
-     select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=${_parameter}
+  <select id="faq_select"  resultType='bean.StoreFaqVo'>
+     select qna_id, qna_subject, qna_content from store_qna
+  </select>
+  
+  <select id="review_photo" parameterType='Integer' resultType='bean.StoreReviewPhotoVo'>
+     select review_pid, review_id, image1, image2, rp_date from review_photo where review_id=#{review_id}
   </select>
   
       <!--메인페이지 상품목록-->
@@ -87,12 +141,43 @@
         where p.PRODUCT_ID = ${value }
         order by PHOTO_SERIAL
     </select>
-  <delete id="review_delete" parameterType="store.StoreReviewVo">
+    <!-- 리뷰 지우기 -->
+  <delete id="review_delete" parameterType="bean.StoreReviewVo">
     delete from review where review_id = #{review_id}
   </delete>
   
-  <delete id="review_photo_delete" parameterType="store.StoreReviewPhotoVo">
+  <delete id="review_photo_delete" parameterType="bean.StoreReviewPhotoVo">
     delete from review_photo where review_id = #{review_id}
   </delete>
+  
+  <!-- 장바구니 비우기 -->
+    <delete id="cart_deleteAll">
+        delete from cart where mem_id=#{mem_id}
+        <!-- 장바구니테이블로부터 회원의 아이디와 삭제하고자하는 회원의 아이디가 같으면 장바구니에 있는 자료를 전부다 삭제 -->
+    </delete>
+    
+    <!-- 부분장바구니 삭제 -->
+    
+    <delete id="cart_delete">
+      delete from cart
+      where cart_id= #{cart_id}
+    </delete>
 	
+	<!-- 장바구니 수정 -->
+	<update id="cart_modify">
+	  update cart
+	  set cart_count = #{cart_count}
+	  where mem_id = #{mem_id}
+	  and product_id = #{product_id}
+	</update>
+	
+	<!-- 장바구니에 동일한 상품이 존재하면 수정 -->
+	
+	<update id="updateCart">
+	  update cart
+	  set cart_count = cart_count + #{cart_count}
+	  where mem_id = #{mem_id}
+	  and product_id = #{product_id}
+	</update>
 </mapper>
+

@@ -19,6 +19,10 @@
     max-width: 200px;
     margin: 3px;
   }
+  .imgs_review{
+     float: left;
+     margin: 5px;
+  }
   
 </style>
 </head>
@@ -37,7 +41,7 @@
 <div class="main">
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="localhost/store/index.jsp">Home</a></li>
+            <li><a href="./index.jsp">Home</a></li>
             <li><a href="">Store</a></li>
             <li class="active">Category</li>
         </ul>
@@ -98,13 +102,6 @@
 
                 <div class="sidebar-filter margin-bottom-25">
 
-
-                    <h3>Price</h3>
-                    <p>
-                        <label for="amount">Range:</label>
-                        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-                    </p>
-                    <div id="slider-range"></div>
                 </div>
 
                 <div class="sidebar-products clearfix">
@@ -167,8 +164,9 @@
                             <div class="product-page-options">
                                 <div class="pull-left">
                                     <label class="control-label">Size:</label>
-                                    <select class="form-control input-sm">
-                                        <option>FREE</option>
+                                    <select class="form-control input-sm" id="sizeOption">
+                                        <option value=1>Free</option>
+                                       
                                     </select>
                                 </div>
 
@@ -178,7 +176,9 @@
                                     <input id="product-quantity" type="text" value="1" readonly
                                            class="form-control input-sm">
                                 </div>
-                                <button class="btn btn-primary" type="submit">Add to cart</button>
+                                <input type="hidden" id="cart_product" value="${vo.product_id }">
+                                <input type="hidden" id="member_id" value="kim">
+                                <input type="button" id="addcart" class="btn btn-primary" value="Add to cart" onclick="store.addcart()">
                             </div>
                             <div class="review">
                                 <input type="range" value="4" step="0.25" id="backing4">
@@ -195,14 +195,16 @@
                                 <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
                                 <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
                             </ul>
-                <div class="product-page-content">
+                
+            </div>
+            <div class="product-page-content">
                   <ul id="myTab" class="nav nav-tabs">
                     <li id="item1"><a href="#Description"  data-toggle="tab">Description</a></li>
                     <li id="item2"><a href="#Reviews" data-toggle="tab" onclick="store.rSelect()">Reviews</a></li>
                   </ul>
                   <div id="myTabContent" class="tab-content">
                     <div class="tab-pane fade" id="Description">
-                      <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. </p>
+                      <p>${vo.product_explain}</p>
                     </div>
                     
                    
@@ -221,7 +223,7 @@
 			                          <div  class="rateit" data-rateit-value="${i.review_like }" data-rateit-ispreset="true" data-rateit-readonly="true">
 			                          
 			                          </div>
-			                          <input type="button" class="btn_review_delete" value="X" onclick="store.reviewDelete()" >
+			                          
 		                         </div>                                              
 			                      <div class="review-item-content">
 			                            <p>${i.rContent }</p>
@@ -233,11 +235,18 @@
                        <div id="" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 	                       
 	                        <div class="panel-body"> 
-		                        <c:forEach var='p' items='${i.rpList }'>
+		                       
 		                         <div class="imgs_review">
+		                         <c:forEach var='p' items='${i.rpList }'>
 								    <img src="./reviewimages/${p.image1 }">
+								     </c:forEach>
 								 </div>
-		                        </c:forEach>
+		                       
+		                        
+		                        <input type="hidden" name="rreview_id" value="${i.review_id }" >
+		                       
+		                        <input type="button" class="btn_review_delete" value="X" onclick="store.reviewDelete()" >
+		                       
 	                        </div>
 	                        
                         </div>
@@ -249,8 +258,10 @@
                       </div>
                       
                       <form name="frm_review" id="frm_review" method="post">
-					    <input type="hidden" name="product_id" >
+                      
+					    <input type="hidden" name="product_id">
 					    <input type="hidden" name="review_id" >
+					
 					  </form>
 
                       <!-- BEGIN FORM-->
@@ -284,6 +295,10 @@
                           <div class="rateit" data-rateit-backingfld="#backing5" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                           </div>
                         </div>
+                         <div class="padding-top-20">
+                                        <input type="button" id="btnSubmitReview" class="btn btn-primary" value="Send"
+                                               onclick="store.rInsert()">
+                                    </div>
 
                         <%--<div class="product-page-content">
                             <ul id="myTab" class="nav nav-tabs">
@@ -365,7 +380,6 @@
                       <!-- END FORM--> 
                     </div>
                 </div>
-            </div>
         </div>
         <!-- END SIDEBAR & CONTENT -->
       </div>

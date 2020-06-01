@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,22 @@
             <h1>Shopping cart</h1>
             <div class="goods-page">
               <div class="goods-data clearfix">
+               <c:choose>
+			    <c:when test="${map.count == 0 }">
+			    <!-- when은 ~~일때 라는 뜻 그러니까 map의 count가 0일때... -->
+			    <!-- xml파일에서 hashmap에 list를 넣어놓았기 때문에 현재 map에 자료가 들어있다.  -->
+			    <!-- map에 자료가 아무것도 없다면 -->
+			        장바구니가 비었습니다.
+			    </c:when>
+			    
+			    <c:otherwise>
+			    <!-- map.count가 0이 아닐때, 즉 자료가 있을때 -->
+			    <!-- form을 실행한다.  -->
+			    <!-- form의 id를 form1로 하고, method 방식을 post로 한다. 그리고 update.do페이지로 이동시킨다. -->
+			    <form id="form1" name="form1" method="post"
+			        action="${path}/store/cartupdate.str">
                 <div class="table-wrapper-responsive">
+               
                 <table summary="Shopping cart">
                   <tr>
                     <th class="goods-page-image">Image</th>
@@ -26,6 +42,7 @@
                     <th class="goods-page-price">Unit price</th>
                     <th class="goods-page-total" colspan="2">Total</th>
                   </tr>
+                  <c:forEach var="i" items=${map.list }>
                   <tr>
                     <td class="goods-page-image">
                       <a href="javascript:;"><img src="assets/pages/img/products/model3.jpg" alt="Berry Lace Dress"></a>
@@ -53,6 +70,7 @@
                       <a class="del-goods" href="javascript:;">&nbsp;</a>
                     </td>
                   </tr>
+                  </c:forEach>
                   <tr>
                     <td class="goods-page-image">
                       <a href="javascript:;"><img src="assets/pages/img/products/model4.jpg" alt="Berry Lace Dress"></a>
@@ -99,6 +117,9 @@
                     </li>
                   </ul>
                 </div>
+                </form>
+    </c:otherwise>
+</c:choose>
               </div>
               <button onclick= "store.pl()" class="btn btn-default" type="submit">Continue shopping <i class="fa fa-shopping-cart"></i></button>
               <button onclick="store.checkout()" class="btn btn-primary" type="submit">Checkout <i class="fa fa-check"></i></button>

@@ -87,12 +87,6 @@
 
                 <div class="sidebar-filter margin-bottom-25">
 
-                    <h3>Price</h3>
-                    <p>
-                        <label for="amount">Range:</label>
-                        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-                    </p>
-                    <div id="slider-range"></div>
                 </div>
 
                 <div class="sidebar-products clearfix">

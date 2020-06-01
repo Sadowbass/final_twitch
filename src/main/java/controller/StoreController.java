@@ -7,27 +7,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import bean.ProductVo;
 import bean.SCDao;
+import bean.StoreCartDao;
+import bean.StoreCartServiceif;
+import bean.StoreCartServiceDao;
+import bean.StoreCartVo;
+import bean.StoreFaqVo;
+
 import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.CachingResourceTransformer;
 
 import com.google.gson.Gson;
 
 
 import bean.StoreMybatisDao;
-
-import store.StoreReviewPhotoVo;
-import store.StoreReviewVo;
+import bean.StoreReviewPhotoVo;
+import bean.StoreReviewVo;
 
 
 
@@ -35,13 +45,17 @@ import store.StoreReviewVo;
 @Controller
 public class StoreController {
 	
+	@Inject
+	StoreCartServiceif cartservice;
+	
 	ServletContext c;
 	
 	StoreMybatisDao dao;
 	
-    public StoreController(StoreMybatisDao dao) {
+    public StoreController(StoreMybatisDao dao, StoreCartServiceDao csdao, StoreCartDao cdao) {
     	System.out.println("storedao입성");
 	 this.dao = dao;
+	 
 	}
     
 	@RequestMapping(value="/store/productList.str",  method={ RequestMethod.GET, RequestMethod.POST })
@@ -92,11 +106,7 @@ public class StoreController {
         if (!dir.isDirectory()) {
             dir.mkdirs();
         }
-
-	    /*
-		 * uploadFile : 경로 maxSize : 크기 제한 설정 encoding: 인코딩 타입 설정 new
-		 * DefaultFileRenamePolicy(); 동일한 이름일 경우 자동으로 (1),(2) 붙게 해줌
-		 */ 
+ 
 	    
 	    //int maxSize =1024 *1024 *10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
 	    
@@ -190,18 +200,19 @@ public class StoreController {
        return result;
     }
 	
-	@RequestMapping(value="/store/reviewDelete.str", method= {RequestMethod.POST})
+	@RequestMapping(value="/store/reviewDelete.str", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView reviewDelete(HttpServletRequest req) {
     	
 		ModelAndView mv = new ModelAndView();
     	
+		System.out.println("delete");
     	StoreReviewVo vo = new StoreReviewVo();
     	StoreReviewPhotoVo vo2 = new StoreReviewPhotoVo();
     	
     	List<StoreReviewPhotoVo> list = new ArrayList<StoreReviewPhotoVo>();
     	
     	int review_id = Integer.parseInt(req.getParameter("review_id"));
-    
+       
 		
 		vo.setReview_id(review_id);
 		vo2.setReview_id(review_id);
@@ -209,15 +220,140 @@ public class StoreController {
     	
     	String msg = dao.reviewDelete(vo,list);
     	
+    	
 	
     	mv.addObject("msg", msg);
-		mv.setViewName("productList");
+		mv.setViewName("productDetail");
     	
     	return mv;
     }
 	
 	
+	@RequestMapping(value="/store/faq.str", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView faq(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView();
+		
+		List<StoreFaqVo> list = dao.faqSelect();
+		
+		String url = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort();
+		System.out.println(url);
+		
+		mv.addObject("list", list);
+		mv.setViewName("qna");
+		return mv;
+	}
+	
+	//장바구니 인서트
+	
+	@RequestMapping(value="/store/addToCart.str", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView addToCart(HttpServletRequest req, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		
+	    System.out.println("addCart 들어았다");
+		//String mem_id = (String)session.getAttribute("mem_id");
+		String mem_id ="faker";
+		int product_id = Integer.parseInt(req.getParameter("product_id"));
+		int product_size = Integer.parseInt(req.getParameter("product_size"));
+		int cart_count = Integer.parseInt(req.getParameter("product_q"));
+		
+		StoreCartVo vo = new StoreCartVo();
+		
+		vo.setMem_id(mem_id);
+		vo.setProduct_id(product_id);
+		vo.setProduct_size(product_size);
+		vo.setCart_count(cart_count);
+		
+		cartservice.insert(vo); 
+		
+		//String msg = dao.cartInsert(vo);
+		mv.addObject("vo",vo);
+		mv.setViewName("viewCart");
+		return mv;
+	}
+	
+	//장바구니 목록 보기
+	 @RequestMapping("cartlist.str")
+	    public ModelAndView cartlist(ModelAndView mv, HttpSession session) {
+	 
+	        // 장바구니 목록, 금액 합계, 배송료, 리스트의 사이즈(주문 아이템 갯수) 등
+	        // StoreCartVo로 표현되지 않는 여러가지 정보를 담아 뷰로 넘겨야하므로 HashMap 사용
+	        Map<String, Object> map = new HashMap<String, Object>();
+	 
+	        String mem_id = (String) session.getAttribute("mem_id");
+	        if (mem_id != null) {// 로그인한 상태이면
+	            List<StoreCartVo> list = cartservice.listCart(mem_id);// 서비스단에서 장바구니 목록을 가져오고
+	            int sumMoney = cartservice.sumMoney(mem_id);// 금액 합계를 가져오고
+	            int fee = sumMoney >= 30000 ? 0 : 2500;// 금액 합계에 대한 배송료를 계산하고
+	            // 금액,배송비,총액,리스트사이즈,장바구니목록
+	            // 각 값들을 map에 넣어준다.
+	            map.put("sumMoney", sumMoney);
+	            map.put("fee", fee);
+	            map.put("sum", fee + sumMoney);
+	            map.put("list", list);
+	            map.put("count", list.size());
+	 
+	            mv.setViewName("viewCart"); // 장바구니리스트로 뷰 설정
+	            mv.addObject("map", map);
+	            // ModelAndView 객체에 map을 담고 리스트 뷰를 설정해준 뒤 포워딩.
+	 
+	            return mv;
+	 
+	        } else {
+	            // 로그인하지 않은 상태이면 로그인 페이지로
+	            // 아무 Object도 안줘도 되나?
+	            mv.setViewName("member/login");
+	            return mv;
+	        }
+	    }
+	 
+	 //장바구니 부분삭제
+	    @RequestMapping("cartdelete.str")
+	    public String cartdelete(int cart_id) {
+	 
+	        cartservice.delete(cart_id);
+	 
+	        return "redirect:/store/cartlist.str";
+	    }
+	 //장바구니 비우기
+	    @RequestMapping("deleteAll.str")
+	    public String cartdeleteAll(HttpSession session) {
+	 
+	        // 세션에셔 유저아이디 가져오는걸 service에서 안하고 서비스에서 하나?
+	        // StoreCartServiceDao에서 진행해도 되는 처리과정
+	        String mem_id = (String) session.getAttribute("mem_id");
+	        if (mem_id != null) {
+	            cartservice.deleteAll(mem_id);
+	        }
+	 
+	        return "redirect:/store/cartlist.str";
+	    }
+	 
+	    //장바구니 수정
+	    // StoreCartServiceDao의 modifyCart/delete 메서드 사용
+	    @RequestMapping("cartupdate.str")
+	    public String cartupdate(int[] cart_count, int[] cart_id, HttpSession session) {
+	 
+	        String mem_id = (String) session.getAttribute("mem_id");
+	 
+	        for (int i = 0; i < cart_id.length; i++) {
+	 
+	            // cart_count가 0이면 카트아이디를 삭제
+	            if (cart_count[i] == 0) {
+	                cartservice.delete(cart_id[i]);
+	            } else {
+	                StoreCartVo vo = new StoreCartVo();
+	                vo.setMem_id(mem_id);
+	                vo.setCart_id(cart_id[i]);
+	                vo.setCart_count(cart_count[i]);
+	                cartservice.modifyCart(vo);
+	            }
+	        }
+	 
+	        return "redirect:/store/cartlist.str";
+	    }
+	 
+	}
 
 	
 	
-}
+

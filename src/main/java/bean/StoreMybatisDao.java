@@ -4,15 +4,14 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 
 import mybatis.Factory;
-
-import store.StoreReviewPhotoVo;
-import store.StoreReviewVo;
 
 /**
  * @author silve
@@ -87,7 +86,10 @@ public String reviewDelete(StoreReviewVo vo,List<StoreReviewPhotoVo> list) {
 		
 		String msg = "게시물이 삭제 되었습니다.";
 		int cnt = 0;
+		System.out.println("delete2");
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("result1", list);
 		
 		try {		
 			
@@ -97,9 +99,12 @@ public String reviewDelete(StoreReviewVo vo,List<StoreReviewPhotoVo> list) {
 				throw new Exception("삭제 중 오류 발생");
 			}
 		
+			//첨부된 파일 목록
+			List<StoreReviewPhotoVo> rplist = sqlsession.selectList("store.review_photo", vo.getReview_id());
 			
 			//첨부 테이블 자료 삭제
-			for(StoreReviewPhotoVo pt : list) {
+			for(StoreReviewPhotoVo pt : rplist) {
+				
 				cnt  = sqlsession.delete("store.review_photo_delete", pt);
 				if(cnt<1) {
 					throw new Exception("첨부 자료 삭제 중 오류 발생");
@@ -137,6 +142,29 @@ public String reviewDelete(StoreReviewVo vo,List<StoreReviewPhotoVo> list) {
 		       return rpList;
 		    }
 	}
+	
+	public List<StoreFaqVo> faqSelect(){
+		List<StoreFaqVo> list = new ArrayList<StoreFaqVo>();
+
+		System.out.println("faq");
+		try {
+			list = sqlsession.selectList("store.faq_select");
+			for(StoreFaqVo temp : list){
+				//System.out.println("123"+temp.toString());
+			}
+		} catch (Exception e1) {
+
+			e1.printStackTrace();
+
+		} finally {
+
+			//sqlSession.close();
+			return list;
+
+		}
+	}
+	
+	
 		    
 	
 }
