@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import bean.AccUk;
 import bean.Cht;
 import bean.UserList;
 import mybatis.Factory;
@@ -40,12 +41,13 @@ SqlSession sqlSession;
       }
    }
 
-/*   public List<String> users(String streamer){
-      List<String> list=sqlSession.selectList("mybatis_uk.users", streamer);
+   public int accUser(AccUk accUk){
+      int acc=sqlSession.selectOne("mybatis_uk.accUser", accUk);
+      System.out.println("마이바티스 실행");
       sqlSession.close();
-      return list;
+      return acc;
    }
-*/
+
 
    public List<String> followList(String followList){
 	   List<String> list=sqlSession.selectList("mybatis_uk.followList",followList);

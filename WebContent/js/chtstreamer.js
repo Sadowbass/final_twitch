@@ -1,46 +1,35 @@
 let chtstreamer = {}
 
-var ws;
-
 chtstreamer.connectWS=function(mid){
 	ws = new WebSocket("ws://192.168.0.77:80/cht?"+mid);
 
-	ws.onopen = function (event) {console.log("open:::",event);}
-	ws.onclose = function (event) {console.log("close:::",event);}
-	ws.onerror = function (event) { console.log("error:::",event); };
+	ws.onopen = function (event) {console.log("채팅 접속");}
+	ws.onclose = function (event) {console.log("접속 종료");}
+	ws.onerror = function (event) { console.log("에러 발생"); };
 
 	ws.onmessage = function (event) {
+		/* 채팅! chtArea에 붙이기 */
+		let jsObj = JSON.parse(event.data);
+		if (jsObj.txt && $('#chtArea').length) {
+			let txt=JSON.parse(jsObj.txt)
 
-		let jsObj=JSON.parse(event.data);
-
-		/*채팅! 발신자랑 채팅내용 chtArea에 붙이기*/
-		if(jsObj.cht_oid && jsObj.cht_txt && $('#chtArea').length){
-			$('<div class="item"></div>').html(jsObj.cht_oid+': '+jsObj.cht_txt).appendTo('#chtArea');
+			$('<div class="item"></div>').html( txt[0]+': '+txt[1]).appendTo('#chtArea');
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+
+			/*
+			  $('<div class="dropdown">'+
+			  '<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+			    txt[0]+'&nbsp&nbsp'+
+			  '</a>'+
+			    txt[1]+
+			  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+			    '<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+			    '<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
+			    '<a class="dropdown-item" href="#">채팅 금지</a>'+
+			  '</div>'+
+			'</div>').appendTo('#chtArea');
+
+			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));*/
 		}
-
-		/*$('<div class="item"></div>').html(event.data).appendTo('#chtArea');
-		$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));*/
-	};
-
-/*	$('div[contenteditable]').keydown(function(e) {
-		if (e.keyCode === 13) {
-			if (!e.shiftKey) {
-				WSsend();
-				return false;
-			}
-		}
-	});*/
-}
-
-/*let WSsend=function(){
-	  let msg = $('div[contenteditable]').html();
-	  if(ws.readyState===1&& msg.trim().length!=0){
-		  ws.send(msg);
-		  $('div[contenteditable]').empty();
-	  }
-}*/
-
-let WSclose=function(){
-	ws.close();
+	}
 }

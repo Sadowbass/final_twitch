@@ -5,16 +5,19 @@
 
 <mapper namespace="mybatis_uk">
 
+	<!-- 채팅 기록 -->
 	<insert id="cht" parameterType="bean.Cht">
 		insert into final_cht(cht_serial, cht_mid, cht_oid, cht_txt, cht_date)
 		values(final_cht_seq.nextval, #{cht_mid}, #{cht_oid}, #{cht_txt}, sysdate)
 	</insert>
 
+	<!-- 유저 입장 -->
 	<insert id="enter" parameterType="bean.UserList">
 		insert into final_userlist(serial, mid, oid, status, enter_time)
 		values(final_userlist_seq.nextval, #{mid}, #{oid}, #{status}, sysdate)
 	</insert>
 
+	<!-- 유저 퇴장 -->
 	<update id="exit" parameterType="bean.UserList">
 		update final_userlist
 		set status=#{status}, exit_time=sysdate
@@ -23,17 +26,21 @@
 		and status=1
 	</update>
 
-	<!-- <select id="users" parameterType="String" resultType="String">
-		select mid
-		from final_userlist
-		where mid=#{_parameter}
-		and status=1
-	</select> -->
+	<!-- 누적 시청자수 카운트 필요함 -->
+	<select id="accUser" parameterType="bean.AccUk" resultType="int">
+		select  count(DISTINCT mid)
+		from 	final_userList
+		where 	mid=#{mid}
+		and 	oid=#{oid}
+	</select>
 
+	<!-- 팔로우 알림보낼려면 목록 필요함 -->
 	<select id="followList" parameterType="String" resultType="String">
 		select  mfo_oid
 		from final_mfollow
 		where mfo_mid=#{_parameter}
 	</select>
+
+
 
 </mapper>

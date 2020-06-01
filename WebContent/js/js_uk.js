@@ -100,15 +100,16 @@ uk.unfoldRightOrBottom = function () {
 uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
+	console.log(streamerId)
 
-	ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId);
+	ws = new WebSocket("ws://localhost/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
-		/*accumulateCheck가 없으면 만들어 준다*/
-		localStorage.getItem("accumulateCheck") || uk.accumulateCheckInit();
-		/*누적 카운트 체크를 실행*/
-		uk.accumulateCheck(streamerId, loginId);
+//		/*accumulateCheck가 없으면 만들어 준다*/
+//		localStorage.getItem("accumulateCheck") || uk.accumulateCheckInit();
+//		/*누적 카운트 체크를 실행*/
+//		uk.accumulateCheck(streamerId, loginId);
 	}
 	ws.onclose = function (event) {
 		console.log("접속 종료");
@@ -129,10 +130,13 @@ uk.connectWS = function (streamer, login) {
 		/*총 시청자수 totalUsers*/
 		if(jsObj.totalUsers){
 			$("#totalUsers").html(jsObj.totalUsers);
+			/*누적 시청자수*/
+
 		}
 		/*누적 시청자수 accUser*/
 		if(jsObj.accUser){
-			$('#accUser').html(jsObj.accUser);
+			let accUser=JSON.parse(jsObj.accUser)
+			uk.accUser(accUser[0], accUser[1]);
 		}
 		/*다른 유저 입장*/
 		if (jsObj.addUser) {
@@ -145,13 +149,13 @@ uk.connectWS = function (streamer, login) {
 		/* 채팅! chtArea에 붙이기 */
 		if (jsObj.txt && $('#chtArea').length) {
 			let txt=JSON.parse(jsObj.txt)
+			console.log("txt",txt);
 
 			$('<div class="dropdown">'+
 			  '<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
 			    txt[0]+'&nbsp&nbsp'+
 			  '</a>'+
 			    txt[1]+
-
 			  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
 			    '<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
 			    '<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
@@ -216,6 +220,20 @@ uk.takTxt = function () {
 		$('input#sendArea').val('');
 	}
 }
+uk.accUser=function(mid, oid){
+	console.log(1,mid);
+	console.log(2,oid);
+	let param={
+		mid:mid,
+		oid:oid
+	}
+	$.get("accUser.uk", param, function(data){
+		console.log('여기 실행 되냐');
+		console.log(111,data);
+		$("#accUser").html(data);
+	});
+}
+
 /* socket close 메소드 */
 uk.WSclose = function () {
 	ws.close();
@@ -344,7 +362,7 @@ uk.responsive = function () {
 
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://192.168.0.77/cht?justLogin");
+	allWs = new WebSocket("ws://localhost/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");
@@ -478,18 +496,23 @@ uk.accumulateCheck=function(streamerId, loginId){
 					smalFlag=false;
 				}
 			});
-			/*로그인했던 아이디는 있으나 스트리머 아이디는 없을때*/
-			if(smalFlag){
+		}
+	});
+	/*로그인했던 아이디는 있으나 스트리머 아이디는 없을때*/
+	if(smalFlag){
+		accumulateCheckArray.forEach(function(e){
 				/*스트리머 아이디 추가*/
 				e[mid].push(streamerId);
+				console.log(e[mid]);
 				/*스트리머 아이디 추가한 json을 로컬스토리지에 저장*/
 				let jsonStr=JSON.stringify(accumulateCheckArray);
 				localStorage.setItem("accumulateCheck",jsonStr);
-			}
 			bigFalg=false;
-		}
-		/*이 아이디로 첫 로그인했던 아이디없음*/
-		if(bigFlag){
+		});
+	}
+	/*이 아이디로 첫 로그인했던 아이디없음*/
+	if(smalFlag && bigFlag){
+		accumulateCheckArray.forEach(function(e){
 			/*배열 만들어서*/
 			e[mid]=[];
 			/*스트리머 아이디 추가*/
@@ -497,8 +520,8 @@ uk.accumulateCheck=function(streamerId, loginId){
 			/*스트리머 아이디 추가한 json을 로컬스토리지에 저장*/
 			let jsonStr=JSON.stringify(accumulateCheckArray);
 			localStorage.setItem("accumulateCheck",jsonStr);
-		}
-	});
+		});
+	}
 	/*서버에 flag json으로 변환해서 전송*/
 	let str={accumulateCheck:smalFlag}
 	jsonStr=JSON.stringify(str);
