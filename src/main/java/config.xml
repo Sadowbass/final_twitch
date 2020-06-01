@@ -13,8 +13,8 @@
       <environment id="development">
          <transactionManager type="JDBC"></transactionManager>
          <dataSource type="POOLED">
-         	<property name="poolMaximumCheckoutTime" value="20000"/>
-            <property name="poolTimeToWait" value="15000"/>
+         	<property name="poolMaximumCheckoutTime" value="1500"/>
+            <property name="poolTimeToWait" value="1500"/>
             <property name="poolMaximumIdleConnections" value="100"/>
              <property name="poolMaximumActiveConnections" value="50"/>
             <property name="driver" value="${driver}"/>

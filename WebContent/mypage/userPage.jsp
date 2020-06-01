@@ -115,15 +115,9 @@ transform: translate(-50%,-50%);
 
 			<div id='coinList' class='container tab-pane'>
 				<jsp:include page="./userPageMenu4.jsp" />
-
 			</div>
 
 			<div id='followList' class='container tab-pane'>
-				<div class='row' style='margin-top: 2%'>
-
-					<p>qwdwqdwqdq4</p>
-
-				</div>
 
 			</div>
 

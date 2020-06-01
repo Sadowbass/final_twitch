@@ -73,10 +73,12 @@
             </div>
 
             <c:forEach var="i" items="${catList}" begin="1" end="8">
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="video-card">
+                <div class="col-xl-3 col-sm-6 mb-3 text-center">
+                    <div class="video-card text-center" style="width: 78%;">
                         <div class="video-card-image">
-                            <a href="/categories/all?findTag=${i.cat_gname}"><img class="img-fluid" src="img/cate/${i.cat_sysfile}"> </a>
+                            <a href="/categories/all?findTag=${i.cat_gname}">
+                                <img class="img-fluid" src="img/cate/${i.cat_sysfile}" style="margin-top: 12px; width: 130px;">
+                            </a>
                         </div>
                         <div class="video-card-body">
                             <div class="video-title">
