@@ -13,8 +13,8 @@
 
 	<!-- 유저 입장 -->
 	<insert id="enter" parameterType="bean.UserList">
-		insert into final_userlist(serial, mid, oid, status, enter_time)
-		values(final_userlist_seq.nextval, #{mid}, #{oid}, #{status}, sysdate)
+		insert into final_userlist(serial, mid, oid, status, enter_time, gname)
+		values(final_userlist_seq.nextval, #{mid}, #{oid}, #{status}, sysdate, (select air_gname from final_onAir where air_mid=#{oid}))
 	</insert>
 
 	<!-- 유저 퇴장 -->

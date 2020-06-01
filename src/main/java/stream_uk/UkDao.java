@@ -27,7 +27,7 @@ SqlSession sqlSession;
 
    /*시청자 입장*/
    public void enter(UserList userList) {
-      int r=sqlSession.insert("mybatis_uk.enter", userList);
+	  int r=sqlSession.insert("mybatis_uk.enter", userList);
       if(r>0) {
          sqlSession.commit();
          sqlSession.close();

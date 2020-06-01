@@ -251,7 +251,7 @@
             <img src="/img/cate/${vo.cat_sysfile}" width="70px" height="100px";>
         </div>
         <div class="p-3">
-            <h4>${vo.air_gname}</h4>
+            <h4 id="userListGname">${vo.air_gname}</h4>
             <c:forEach var="i" items="${vo.tlist}">
                 <div>#${i}</div>
             </c:forEach>
