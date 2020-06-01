@@ -267,6 +267,13 @@ public class Handler extends TextWebSocketHandler {
 					/*스트리머 채팅방에서 제거*/
 					List<WebSocketSession>list1=chatRoom.get(censorship);
 					list1.remove(session);
+					/* 채팅방에서 나간 스트리머 디비 status=0로 수정 */
+					userList.setMid(mid);
+					userList.setOid(censorship);
+					userList.setStatus(0);
+					UkDao dao1 = new UkDao();
+					dao1.exit(userList);
+					/*스트리머를 제외한 시청자만*/
 					chatRoom.put(censorship, list1);
 					/*채팅방에 있던 모든 사람에게 방종 메세지*/
 					JsonObject jsonObject = new JsonObject();
