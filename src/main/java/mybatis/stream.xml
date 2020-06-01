@@ -239,6 +239,21 @@
 		  order by p.PRODUCT_ID
     </select>
     
+    <select id='send_donation' parameterType="hashmap" resultType="bean.StreamerVo">	 
+	select sum(don_price) profit,don_oid from final_donation 
+	where don_mid=#{mid} group by don_oid order by profit desc
+    </select>
+    
+    <select id='receive_donation' parameterType="hashmap" resultType="bean.StreamerVo">
+    	 select sum(don_price) profit,don_mid from final_donation 
+    	 where don_oid=#{mid} group by don_mid order by profit desc
+    </select>
+    
+     <select id='user_payment' parameterType="hashmap" resultType="bean.StatisticVo">
+    	select sum(pay_money)profit ,to_char(pay_date,'mm') month from final_payment 
+    	where pay_mid =#{mid} and to_char(pay_date,'rrrr')=#{year} 
+    	group by to_char(pay_date,'mm') order by month
+    </select>
    
 
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">

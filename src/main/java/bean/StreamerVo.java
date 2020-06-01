@@ -16,7 +16,14 @@ public class StreamerVo {
 	String sub_mid;
 	String don_oid;
 	String sub_oid;
+	String month;
 	
+	public String getMonth() {
+		return month;
+	}
+	public void setMonth(String month) {
+		this.month = month;
+	}
 	public String getDon_oid() {
 		return don_oid;
 	}

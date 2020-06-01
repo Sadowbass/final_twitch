@@ -161,6 +161,7 @@ public class HEController {
 		sb = dao.store_buylist(mid);
 		
 		
+		
 		mv.addObject("store_buylist", sb);
 		mv.addObject("store_cate", sc);
 		mv.addObject("tot_pay", tot_pay);
