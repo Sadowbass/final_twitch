@@ -14,6 +14,21 @@ public class StreamerVo {
 	String ph_sysfile;//프로필 사진
 	String don_mid;
 	String sub_mid;
+	String don_oid;
+	String sub_oid;
+	
+	public String getDon_oid() {
+		return don_oid;
+	}
+	public void setDon_oid(String don_oid) {
+		this.don_oid = don_oid;
+	}
+	public String getSub_oid() {
+		return sub_oid;
+	}
+	public void setSub_oid(String sub_oid) {
+		this.sub_oid = sub_oid;
+	}
 	int rn;//순번 
 	
 	public String getSub_mid() {

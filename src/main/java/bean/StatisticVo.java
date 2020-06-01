@@ -14,7 +14,14 @@ public class StatisticVo {
 	String type;
 	String time;
 	String oid;
+	String don_oid;
 	
+	public String getDon_oid() {
+		return don_oid;
+	}
+	public void setDon_oid(String don_oid) {
+		this.don_oid = don_oid;
+	}
 	public String getType() {
 		return type;
 	}

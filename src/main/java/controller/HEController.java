@@ -26,6 +26,7 @@ import bean.StatisticVo;
 import bean.StreamerVo;
 import bean.StreamingVo;
 import bean.TagVo;
+import bean.UserProductVo;
 import config.HE_FileUpload;
 import config.HE_FileUpload2;
 import oracle.jdbc.replay.ReplayableConnection.StatisticsReportType;
@@ -154,6 +155,14 @@ public class HEController {
 		
 		String tot_pay = dao.last_pay_tot(mid);
 		
+		List<UserProductVo> sc = new ArrayList<UserProductVo>();
+		sc=dao.store_cate(mid);
+		List<UserProductVo> sb = new ArrayList<UserProductVo>();
+		sb = dao.store_buylist(mid);
+		
+		
+		mv.addObject("store_buylist", sb);
+		mv.addObject("store_cate", sc);
 		mv.addObject("tot_pay", tot_pay);
 		mv.addObject("last_pay", list4);
 		mv.addObject("tot_time", tot_time);

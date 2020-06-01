@@ -99,7 +99,8 @@
                 columnDefs: [{
                     targets: [0, 1, 2,3,4,5],
                     className: 'mdl-data-table__cell--non-numeric'
-                }]
+                }],
+                "lengthChange": false
             });
 
             new $.fn.dataTable.Buttons(table, {

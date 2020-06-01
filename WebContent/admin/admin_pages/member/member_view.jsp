@@ -519,24 +519,24 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             </div>
                                             <div class="body">
                                                 <div class="bs-example" data-example-id="media-alignment">
-                                                    <c:forEach var="i" begin="1" end="10">
+                                                    <c:forEach var="i" items="${store_buylist}">
                                                         <div class="media">
                                                             <div class="media-left media-middle">
                                                                 <a href="javascript:void(0);">
                                                                     <img class="media-object member_shop_list"
-                                                                        src="images/goods.jpg">
+                                                                        src="admin_pages/product_photo/${i.sysfile }">
                                                                 </a>
                                                             </div>
                                                             <div class="media-body">
-                                                                <h4 class="media-heading">2020-12-02</h4>
+                                                                <h4 class="media-heading">${i.order_date }</h4>
                                                                 <p>
-                                                                    DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글
+                                                                    ${i.product_name } x ${i.cart_count }
                                                                 </p>
                                                                 <p>
-                                                                    175,000원
+                                                                    ${i.product_price }
                                                                 </p>
                                                                 <p>
-                                                                    배송완료
+                                                                    결제완료
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -773,7 +773,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [10, 20, 60, 10],
+                    data: [0],
                     backgroundColor: [
                         "rgb(233, 30, 99)",
                         "rgb(255, 193, 7)",
@@ -782,10 +782,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     ],
                 }],
                 labels: [
-                    "Pink",
-                    "Amber",
-                    "Cyan",
-                    "Light Green"
+              
                 ]
             },
             options: {
@@ -794,6 +791,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             }
 
         });
+        
+        <c:forEach items="${store_cate}" var="i" varStatus="j">
+        myPieChart.data.datasets[0].data[${j.index}] =${i.cnt}
+        myPieChart.data.labels[${j.index}] ='${i.product_cate}'
+        </c:forEach>
+        myPieChart.update();
         
         var member_modify =  function(){
         	$('#modify_btn').click=function(){

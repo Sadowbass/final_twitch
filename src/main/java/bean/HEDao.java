@@ -1179,6 +1179,34 @@ public class HEDao {
 			return cnt;
 		}
 	}
+	
+	public List<UserProductVo> store_cate(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        List<UserProductVo> list = new ArrayList<UserProductVo>();
+		try {
+	       list = sqlSession.selectList("stream.store_cate",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<UserProductVo> store_buylist(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        List<UserProductVo> list = new ArrayList<UserProductVo>();
+		try {
+	       list = sqlSession.selectList("stream.store_buylist",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	
 
 
 
