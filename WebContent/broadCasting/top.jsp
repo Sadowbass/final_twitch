@@ -59,5 +59,5 @@
 		</li>
 	</ul>
 
-
 </nav>
+<jsp:include page="/logout-modal.jsp" flush="false"></jsp:include>

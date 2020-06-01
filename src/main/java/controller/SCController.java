@@ -167,7 +167,7 @@ public class SCController {
 
         if (mId != null) {
             list = dao.nowStreaming(mId);
-
+            mv.addObject("login",1);
         } else {
             list = dao.nowStreaming();
         }
