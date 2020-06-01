@@ -207,7 +207,7 @@ public class SCController {
             mv.setViewName("404");
         } else {
             StreamingVo vo = dao.streamInfo(id);
-            if (vo == null) {
+            if (vo.getAir_mid() == null) {
                 /*방송중이 아니면 유저의 비디오페이지로 이동*/
                 String redirect = "http://192.168.0.77/"+id+"/video";
                 return new ModelAndView("redirect:"+redirect);
@@ -269,6 +269,26 @@ public class SCController {
         mv.addObject("list", list);
         mv.setViewName("/channels");
         return mv;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/myFollowers.sc", method = RequestMethod.POST, produces = "application/json; charset=utf-8;")
+    public String myFollowers(HttpServletRequest req){
+        Gson gson = new Gson();
+        List<UserInfoVo> list = new ArrayList<UserInfoVo>();
+        String mId = req.getParameter("mId");
+        int rno = 0;
+        if (req.getParameter("rno")!=null) {
+            rno = Integer.parseInt(req.getParameter("rno"));
+        }
+
+        if(req.getParameter("rno") == null){
+            list = dao.myFollow(mId);
+        } else {
+            list = dao.myFollow(mId, rno);
+        }
+
+        return gson.toJson(list);
     }
 
     /* 도네이션 출력 */

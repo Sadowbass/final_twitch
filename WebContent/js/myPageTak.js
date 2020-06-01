@@ -195,12 +195,111 @@ my.func = function() {
 			}
 				
 		})
-		
-		
-		
-	})	
-	
+	})
 }
+
+function followers() {
+	let mId = $('#userId').val();
+	$.ajax({
+		type:'post',
+		async:false,
+		url:'/myFollowers.sc',
+		data:{"mId":mId},
+		success:(data)=>{
+			for(i of data){
+				let divColXl3 = document.createElement('div');
+				divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+				let divChannelsCard = document.createElement('div');
+				divChannelsCard.className = "channels-card";
+				divChannelsCard.setAttribute("rownum", i.rno);
+				let channelsCardImage = document.createElement('div');
+				channelsCardImage.className = "channels-card-image";
+				let a = document.createElement('a');
+				a.className = "img-fluid";
+				a.href = "/"+i.mfo_oid;
+				let img = document.createElement("img");
+				if(i.ph_sysfile != null){
+					img.src = "/img/user-photo/"+i.ph_sysfile;
+				} else {
+					img.src = "/img/s1.png";
+				}
+
+				let divChannelBody = document.createElement('div');
+				divChannelBody.className = "channels-card-body";
+				let channelTitle = document.createElement('div');
+				channelTitle.className = "channels-title";
+				let a2 = document.createElement('a');
+				a2.href = "/"+i.mfo_oid;
+				a2.innerText = i.mfo_oid;
+
+
+				channelTitle.appendChild(a2);
+				divChannelBody.appendChild(channelTitle);
+				a.appendChild(img);
+				channelsCardImage.appendChild(a);
+				divChannelsCard.appendChild(channelsCardImage);
+				divChannelsCard.appendChild(divChannelBody);
+				divColXl3.appendChild(divChannelsCard);
+				$('.row-item').append(divColXl3);
+			}
+
+		}
+	})
+}
+
+$(window).scroll(function () {
+	var rno = $('.channels-card:last').attr('rownum');
+	let mId = $('#userId').val();
+	if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+		console.log("??");
+		$.ajax({
+			type:'post',
+			url:"/myFollowers.sc",
+			data : {'rno' : rno, 'mId' : mId},
+			error:(error)=>{
+			console.log(error)
+			},
+			success:(data)=>{
+				console.log(data);
+				for(i of data){
+					let divColXl3 = document.createElement('div');
+					divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+					let divChannelsCard = document.createElement('div');
+					divChannelsCard.className = "channels-card";
+					divChannelsCard.setAttribute("rownum", i.rno);
+					let channelsCardImage = document.createElement('div');
+					channelsCardImage.className = "channels-card-image";
+					let a = document.createElement('a');
+					a.className = "img-fluid";
+					a.href = "/"+i.mfo_oid;
+					let img = document.createElement("img");
+					if(i.ph_sysfile != null){
+						img.src = "/img/user-photo/"+i.ph_sysfile;
+					} else {
+						img.src = "/img/s1.png";
+					}
+
+					let divChannelBody = document.createElement('div');
+					divChannelBody.className = "channels-card-body";
+					let channelTitle = document.createElement('div');
+					channelTitle.className = "channels-title";
+					let a2 = document.createElement('a');
+					a2.href = "/"+i.mfo_oid;
+					a2.innerText = i.mfo_oid;
+
+					channelTitle.appendChild(a2);
+					divChannelBody.appendChild(channelTitle);
+					a.appendChild(img);
+					channelsCardImage.appendChild(a);
+					divChannelsCard.appendChild(channelsCardImage);
+					divChannelsCard.appendChild(divChannelBody);
+					divColXl3.appendChild(divChannelsCard);
+					$('.row-item').append(divColXl3);
+				}
+			}
+		})
+	}
+})
 
 function paymentInit(){
 	
@@ -319,8 +418,7 @@ function nameCheckBlur() {
 function userInit() {
 	
 	let userId = $('#userId').val();
-	
-	
+
 	$.ajax({
 		url : 'userInit.bc',
 		type : 'post',
@@ -335,8 +433,6 @@ function userInit() {
 		}
 			
 	})
-	
-	
 }
 
 function pwdBlur() {

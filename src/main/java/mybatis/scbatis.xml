@@ -201,4 +201,20 @@
     <select id="streamingTotCnt" parameterType="String" resultType="int">
     	select count(distinct fu.MID) from FINAL_ONAIR fo join FINAL_USERLIST fu on fo.AIR_MID = fu.OID where AIR_MID = #{value} and fu.ENTER_TIME > AIR_STARTTIME
     </select>
+    <!-- 내가 팔로우 중인 사람 -->
+    <select id="myFollow" parameterType="String" resultType="bean.UserInfoVo">
+    	select rownum rno, ab.* from (select * from FINAL_MFOLLOW ff left outer join FINAL_PHOTO fp on ff.MFO_OID = fp.PH_ID where ff.MFO_MID = #{value}) ab where rownum between 1 and 12
+    </select>
+    <!-- 내가 팔로우 중인 사람 페이징 -->
+    <select id="myFollowPaging" parameterType="hashmap" resultType="bean.UserInfoVo">
+    	select *
+		from (select rownum rno, ab.*
+      		from (select *
+        		    from FINAL_MFOLLOW ff
+          		           left outer join FINAL_PHOTO fp on ff.MFO_OID = fp.PH_ID
+         		   where ff.MFO_MID = #{mId}) ab
+     		 )
+		where rno between #{rno} + 1 and #{rno} + 12
+    </select>
+    
 </mapper>

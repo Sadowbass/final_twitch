@@ -117,12 +117,10 @@ transform: translate(-50%,-50%);
 				<jsp:include page="./userPageMenu4.jsp" />
 			</div>
 
-			<div id='followList' class='container tab-pane'>
-
+			<div id='followList' class='tab-pane'>
+				<jsp:include page="./follower.jsp" />
 			</div>
-
 		</div>
-
 	</div>
 
 	<%@include file="../footer.jsp"%>
@@ -131,6 +129,7 @@ transform: translate(-50%,-50%);
 	paymentInit();
 	donationInit();
 	donation2Init();
+	followers();
 	</script>
 </body>
 </html>

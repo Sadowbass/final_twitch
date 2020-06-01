@@ -329,4 +329,19 @@ public class SCDao {
         return sqlSession.selectOne("scbatis.streamingTotCnt", mId);
     }
 
+    /*나의 팔로워*/
+    public List<UserInfoVo> myFollow(String mId){
+        List<UserInfoVo> list = sqlSession.selectList("scbatis.myFollow",mId);
+        return list;
+    }
+
+    /*나의 팔로워 페이징*/
+    public List<UserInfoVo> myFollow(String mId, int rno){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("mId", mId);
+        map.put("rno", rno);
+        List<UserInfoVo> list = sqlSession.selectList("scbatis.myFollowPaging", map);
+        return list;
+    }
+
 }
