@@ -4,20 +4,100 @@
 
 var nameCheck;
 let my = {}
-
+var passwordCheck = 0;
 
 
 my.func = function() {
 	
-	$('#takeyes').click(function() {
-		Swal.fire({
-			  position: 'center',
-			  icon: 'error',
-			  title: '<font color="black">연결된 캠코더가 없습니다.</font>',
-			  showConfirmButton: false,
-			  timer: 1500
-			})
-	})
+	
+	
+    $("#btn01").on("click",function(){
+    	
+		if($('#capchaValue').val() == ''){
+			Swal.fire({
+				  position: 'center',
+				  icon: 'error',
+				  title: '<font color="black">자동가입문자를 확인해주세요.</font>',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+			return;		
+		}
+		
+        $.ajax({
+            url : "./mypage/capcha.jsp",
+            dataType:"json",
+            success : function(data) {
+               console.log(data.key);
+               $("#key").val(data.key);
+               $("#div01").html("<img src='./captchaImage/"+data.captchaImageName+"'>");
+               if($('#capchaFlag').val() == 'false'){
+            	   $("#div01").html('');
+               }
+            }
+         });
+         
+		
+		
+        let key = $('#key').val();
+        let value = $('#capchaValue').val();
+             
+        $.ajax({
+           url : "./mypage/capcha.jsp",
+           data : {"key":key,"value":value},
+           dataType:"text",
+           success : function(data) {
+              if(data == 'true'){
+  				toastr.options = {
+						"closeButton" : false,
+						"debug" : false,
+						"newestOnTop" : false,
+						"progressBar" : false,
+						"positionClass" : "toast-center-center",
+						"preventDuplicates" : false,
+						"onclick" : null,
+						"showDuration" : "300",
+						"hideDuration" : "1000",
+						"timeOut" : "2000",
+						"extendedTimeOut" : "1000",
+						"showEasing" : "swing",
+						"hideEasing" : "linear",
+						"showMethod" : "fadeIn",
+						"hideMethod" : "fadeOut",
+						"bdColor" : "#444"
+					}
+				toastr.success('확인이 완료되었습니다.');
+                 $('#capchaFlag').val('false');
+                 $('#div02').hide();
+              }else if(data == 'fals'){
+  				toastr.options = {
+						"closeButton" : false,
+						"debug" : false,
+						"newestOnTop" : false,
+						"progressBar" : false,
+						"positionClass" : "toast-center-center",
+						"preventDuplicates" : false,
+						"onclick" : null,
+						"showDuration" : "300",
+						"hideDuration" : "1000",
+						"timeOut" : "2000",
+						"extendedTimeOut" : "1000",
+						"showEasing" : "swing",
+						"hideEasing" : "linear",
+						"showMethod" : "fadeIn",
+						"hideMethod" : "fadeOut",
+						"bdColor" : "#444"
+					}
+				toastr.error('잘못 입력하셨습니다.');
+              }
+              
+           }
+        });
+     });
+	
+	
+	
+	
 	
 	$('#changeProfill').click(function(){
 		$('#userPhoto').click();		
@@ -25,6 +105,21 @@ my.func = function() {
 	
 	
 	$('#updateProfill').click(function(){
+		
+		if($('#capchaFlag').val() == 'true'){
+			
+			Swal.fire({
+				  position: 'center',
+				  icon: 'error',
+				  title: '<font color="black">자동가입문자를 확인해주세요.</font>',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+				return;
+	
+		}
+		
+
 			
 		if(nameCheck == false){
 			Swal.fire({
@@ -39,6 +134,9 @@ my.func = function() {
 			
 		}
 		
+		
+		
+		
 		if($('#userPwd').val() != $('#userPwdCheck').val()){
 			
 			Swal.fire({
@@ -48,6 +146,19 @@ my.func = function() {
 				  showConfirmButton: false,
 				  timer: 1500
 				})
+				
+				
+			      $.ajax({
+			          url : "./mypage/capcha.jsp",
+			          dataType:"json",
+			          success : function(data) {
+			             console.log(data.key);
+			             $("#key").val(data.key);
+			             $("#div01").html("<img src='./captchaImage/"+data.captchaImageName+"'>");
+			             $("#capchaFlag").val('true');
+			             $('#div02').show();
+			          }
+			       });
 				
 				return;
 		}
