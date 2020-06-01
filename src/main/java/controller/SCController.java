@@ -297,12 +297,14 @@ public class SCController {
     public String dtest(HttpServletRequest req) {
         DonationVo vo = new DonationVo();
         String mId = req.getParameter("mId");
+        System.out.println(mId);
         vo = dao.donationView(mId);
         Gson gson = new Gson();
         String json = "";
         if(vo != null){
             json = gson.toJson(vo);
         }
+        System.out.println("json"+json);
         return json;
     }
 

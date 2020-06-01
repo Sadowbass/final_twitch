@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="main-title">
-                    <h6>Channels Categories</h6>
+                    <h6>실시간 방송중</h6>
                 </div>
             </div>
             <div class="col-md-12">
@@ -84,8 +84,8 @@
                             <div class="video-title">
                                 <a href="/categories/all?findTag=${i.cat_gname}">${i.cat_gname}</a>
                             </div>
-                            <div class="video-view">
-                                    ${i.cnt}views &nbsp;
+                            <div class="video-view" style="color: red; font-size: 13px; font-family: 'Jeju Gothic'">
+                                    ${i.cnt} views &nbsp;
                             </div>
                         </div>
                     </div>

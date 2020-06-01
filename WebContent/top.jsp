@@ -34,7 +34,7 @@
 <c:choose>
     <c:when test="${loginInfo.mem_id == null}">
         <%--비회원일때 보이는 메뉴--%>
-        <ul class="guest-nav">
+        <ul class="guest-nav" style="margin-top: 7.51px; margin-bottom: 7.51px;">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login">로그인</button>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign-in">회원가입</button>
         </ul>

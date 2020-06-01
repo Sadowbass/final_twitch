@@ -139,6 +139,7 @@ div.power_controls
 									async : false,
 									error : function(data) {
 										console.log("에러");
+										console.log(data);
 										setTimeout(function(){
 											poll()
 										}, 5000);
@@ -286,7 +287,23 @@ div.power_controls
 														})
 													})
 												})
-											} // 텍스트, 영상도네,룰렛 도네 구분 완료
+											} else {
+												$('#imgDona').show();
+
+												$('#text-id').html(data.don_oId);
+												$('#text-content').html(data.oId+"님이 구독하셨습니다");
+												$('#text-view').fadeIn(2500, function(){
+													responsiveVoice.speak(data.don_content,"Korean Female");
+													setTimeout(function () {
+														$('#text-view').fadeOut(4000, function () {
+															$('#text-id').html();
+															$('#text-amount').html();
+															$('#text-content').html();
+															poll();
+														})
+													})
+												})
+											}// 텍스트, 영상도네,룰렛 도네 구분 완료
 										} else {
 											setTimeout(function () {
 												poll();
