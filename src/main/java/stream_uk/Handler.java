@@ -37,7 +37,6 @@ public class Handler extends TextWebSocketHandler {
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
 
 	boolean reduplication=true; /*중복입장 확인(true=첫 입장)*/
-	boolean chtstreamer=true; /*스트리머 인방송 채팅창 확인(false=인방송 채팅창임)*/
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -54,13 +53,13 @@ public class Handler extends TextWebSocketHandler {
 
 		/* 채팅방 입장 */
 		if (!censorship.equals("justLogin")) {
-			/*중복 입장인지 확인(중복에서 스트리머는 제외)*/
-			if(chatRoom.get(censorship)!=null && !mid.equals(censorship)) {
+			/*중복 입장인지 확인*/
+			if(chatRoom.get(censorship)!=null) {
 				List<WebSocketSession> list=chatRoom.get(censorship);
 				/*중복 입장임*/
 				for(WebSocketSession s:list) {
 					String compare=(String)s.getAttributes().get("session_id");
-					if(compare!=null) {
+					if(compare!=null && mid!=null) {
 						if(mid.equals(compare)) {
 							System.out.println("중복 입장 확인::"+mid);
 							/* 중복 입장 알림 메세지 전송 */
@@ -74,25 +73,10 @@ public class Handler extends TextWebSocketHandler {
 					}
 				}
 			}
-			/*chtstreamer(스트리머 인방송 채팅창)*/
-			if(chatRoom.get(censorship)!=null && mid.equals(censorship)) {
-				List<WebSocketSession> list=chatRoom.get(censorship);
-				/*중복 입장임*/
-				for(WebSocketSession s:list) {
-					String compare=(String)s.getAttributes().get("session_id");
-					if(compare!=null) {
-						if(mid.equals(compare)) {
-							System.out.println("인방송 채팅창 스트리머::"+mid);
-							chtstreamer=false;
-							break;
-						}
-					}
-				}
-			}
 
 			if(reduplication) { /*중복입장 아니여아 입장함*/
-				/* 스트리머가 방송 시작-스트리머 인방송 채팅창(chtstreamer)이 아닐때*/
-				if (mid!=null && mid.equals(censorship) && chtstreamer) {
+				/* 스트리머가 방송 시작*/
+				if (mid!=null && mid.equals(censorship)) {
 					/* 온에어 스트리머 json으로 변환 */
 					JsonObject jsonObject2 = new JsonObject();
 					jsonObject2.addProperty("onAir", mid);
@@ -140,7 +124,7 @@ public class Handler extends TextWebSocketHandler {
 
 
 					/* 로그인한 유저가 채팅방 입장 */
-					if (mid != null && chtstreamer) {
+					if (mid != null) {
 						/* 채팅방에 입장한 유저 채팅방 유저리스트 디비에 저장 */
 						userList.setMid(mid);
 						userList.setOid(censorship);
