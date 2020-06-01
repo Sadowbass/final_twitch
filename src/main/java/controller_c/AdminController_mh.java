@@ -37,6 +37,9 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
+	public String profile() {
+		return "profile";
+	}
 	
 	@RequestMapping(value="*/noticeDelete.mh", method=RequestMethod.POST, produces="application/text; charset=utf8")
 	@ResponseBody

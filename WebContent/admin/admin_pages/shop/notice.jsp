@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="card">
                 <div class="header">
                     <h2>
-                        	자주하는 질문 목록
+                        	자주하는 질문
                     </h2>
                    <!--  <ul class="header-dropdown m-r--5">
                         <li class="dropdown">

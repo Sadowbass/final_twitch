@@ -152,6 +152,7 @@
 		<result column="rContent" property="rContent" />
 		<result column="review_like" property="review_like" />
 		<result column="review_date" property="review_date" />
+		<result column="product_name" property="product_name" />
 		<collection property="photos" javaType="bean.MH_ReviewPhoto">
 			<result column="review_pid" property="review_pid" />
 			<result column="review_id" property="review_id" />
@@ -161,9 +162,10 @@
 	</resultMap>
 
 	<select id="reviewView" parameterType="Integer" resultMap="reviewDetailMap">
-		select r1.review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date, review_pid, image1, image2
+		select r1.review_id,mem_id, r3.product_name,r3.product_id, rsubject, rcontent, review_like, review_date, review_pid, image1, image2
 		from review r1 left outer join REVIEW_PHOTO r2
-		on r1.review_id = r2.review_id
+		on r1.review_id = r2.review_id join product r3
+		on r3.product_id = r1.product_id	
 		where r1.review_id = ${_parameter}
 	</select>
 

@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <div class="container-fluid">
     <div class="block-header">
-        <h2>게시글 관리</h2>
+        <h2>자주하는 질문</h2>
     </div>
 
     <!-- CKEditor -->
