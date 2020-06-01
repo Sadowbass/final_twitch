@@ -163,8 +163,6 @@ uk.connectWS = function (streamer, login) {
 		/*스트리머 방종 메세지*/
 		if(jsObj.offAir){
 			alert(jsObj.offAir+'님이 방송을 종료하였습니다.');
-			/*로컬스토리지에 저장된 누적 카운트 체크 부분의 스트리머 제거*/
-			uk.accumulateCheckDel();
 		}
 		/*채팅방 중복 입장 알림 메세지*/
 		if(jsObj.reduplication){
@@ -323,7 +321,7 @@ uk.minimization = function() {
       });
    }
 }
-
+/*반응형*/
 uk.responsive = function () {
 	uk.chtAndVideo();
 	uk.rightValue();
@@ -341,7 +339,7 @@ uk.responsive = function () {
 	uk.rightValue();
 	uk.leftValue();
 }
-
+/*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS=function(){
 
 	allWs = new WebSocket("ws://localhost/cht?justLogin");
@@ -448,89 +446,4 @@ uk.whisperCss=function(left){
 	$(".whisper_sendArea").width($(".whisper_bottom").width()-$(".whisper_btn").width());
 }
 
-/*채팅방 입장하면 로컬스토리지에 기록남겨서 누적카운트 중복 안되게 해놈*/
-/*로컬 스토리지에 저장된 accumulateCheck가 없을때*/
-uk.accumulateCheckInit=function(){
-	let obj={};
-	let array=[];
-	array.push(obj);
-	let jsonStr=JSON.stringify(array);
-	localStorage.setItem("accumulateCheck",jsonStr);
-}
-/*[{로그인 아이디1:[스트리머아아디1,2,3]},{로그인 아이디2:[스트리머아아디1,2,3]},{로그인 아이디3:[스트리머아아디1,2,3]}]*/
-uk.accumulateCheck=function(streamerId, loginId){
-	/*로그인한 아이디가 없으며 notLogin으로 저장*/
-	let mid = loginId || 'notLogin';
-	/*로그인 했던 아이디가 있냐 없냐*/
-	let bigFlag=true;
-	/*로그인했던 아이디는 있으나 스트리머 아이디( 없으면 true & +1 // 있으면 false & 변동없음 )*/
-	let smalFlag=true;
-	/*accumulateCheck을 parse함*/
-	let accumulateCheckArray=JSON.parse(localStorage.getItem("accumulateCheck"));
-
-	accumulateCheckArray.forEach(function(e){
-		/*로그인했던 아이디가 있을때*/
-		if(e[mid]){
-			/*로그인했던 아이디가 있고 스트리머아이디도 있을때*/
-			e[mid].forEach(function(el){
-				/*로컬 스토리지에 저장안함 & 누적 카운트 그대로 (false)*/
-				if(el==streamerId){
-					smalFlag=false;
-				}
-			});
-		}
-	});
-	/*로그인했던 아이디는 있으나 스트리머 아이디는 없을때*/
-	if(smalFlag){
-		accumulateCheckArray.forEach(function(e){
-				/*스트리머 아이디 추가*/
-				e[mid].push(streamerId);
-				console.log(e[mid]);
-				/*스트리머 아이디 추가한 json을 로컬스토리지에 저장*/
-				let jsonStr=JSON.stringify(accumulateCheckArray);
-				localStorage.setItem("accumulateCheck",jsonStr);
-			bigFalg=false;
-		});
-	}
-	/*이 아이디로 첫 로그인했던 아이디없음*/
-	if(smalFlag && bigFlag){
-		accumulateCheckArray.forEach(function(e){
-			/*배열 만들어서*/
-			e[mid]=[];
-			/*스트리머 아이디 추가*/
-			e[mid].push(streamerId);
-			/*스트리머 아이디 추가한 json을 로컬스토리지에 저장*/
-			let jsonStr=JSON.stringify(accumulateCheckArray);
-			localStorage.setItem("accumulateCheck",jsonStr);
-		});
-	}
-	/*서버에 flag json으로 변환해서 전송*/
-	let str={accumulateCheck:smalFlag}
-	jsonStr=JSON.stringify(str);
-	ws.send(jsonStr);
-}
-/*스트리머 방종하면 로컬스토리지에서 기록 삭제*/
-uk.accumulateCheckDel=function(streamerId, loginId){
-	/*로그인한 아이디가 없으며 notLogin으로 저장되어 있음*/
-	let mid = loginId || 'notLogin';
-
-	/*accumulateCheck을 parse함*/
-	let accumulateCheckArray=JSON.parse(localStorage.getItem("accumulateCheck"));
-
-	accumulateCheckArray.forEach(function(e){
-		/*로그인했던 아이디*/
-		if(e[mid]){
-			/*방종한 스트리머*/
-			let index=e[mid].indexOf(streamerId);
-			/*스트리머가 있으면*/
-			if(index>0){
-				/*스트리머 제거*/
-				e[mid].splice(index, 1);
-				/*스트리머 제거한 json을 다시 로컬스토리지에 저장*/
-				let jsonStr=JSON.stringify(accumulateCheckArray);
-				localStorage.setItem("accumulateCheck",jsonStr);
-			}
-		}
-	});
-}
 
