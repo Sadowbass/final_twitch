@@ -259,9 +259,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     	<a href="javascript:void(0);" onclick="location.href='orderSelect.mh'">주문조회</a>
                                         <!-- <a href="index.jsp?inc=admin_pages/shop/order_select.jsp">주문조회</a> -->
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="index.jsp?inc=admin_pages/shop/order_treat.jsp">주문처리</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
 
                             </li>
@@ -284,11 +284,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </ul>
 
                             </li>
-                            <li>
+                           <!--  <li>
                                 <a href="index.jsp?inc=admin_pages/shop/shop_category.jsp">
                                     <span>메뉴 관리</span>
                                 </a>
-                            </li>
+                            </li> -->
                              <li>
                              	<a href="javascript:void(0);" onclick="location.href='shop_statistic.mh'">
                                 <!-- <a href="index.jsp?inc=admin_pages/shop/shop_statistic.jsp"> -->
@@ -300,7 +300,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">library_books</i>
                             <span>트게더</span>
@@ -362,7 +362,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">

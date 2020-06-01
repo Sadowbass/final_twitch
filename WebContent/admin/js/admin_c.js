@@ -33,6 +33,7 @@ function noticeView(serial) {
 
 var cmh = {}
 
+// 상품 조회
 cmh.init = function(){	
 	location.href="product_select.mh";	
 }
@@ -341,11 +342,65 @@ cmh.func = function(){
 		cmh.init();
 	})
 	
+	// 상품 수정 버튼
 	$('#btn_productModify_c').click(function(){
 		
 		var fileCheck = document.getElementById('file1').value;
+		
+		// 사진은 수정하지 않고 내용만 수정할 경우
 		if(fileCheck==''){
-			swal("사진을 넣어주세요","","warning");
+			/*swal("사진을 넣어주세요","","warning");*/
+			$('#frm_productModify_c').attr("enctype","");
+			
+			var f = $('#first option:selected').val();
+			
+			switch(f){
+			case "HOODIES":
+				$('#category').val("HOODIES");
+				break;
+			case "TEES":
+				$('#category').val("TEES");
+				break; 
+			case "DOG":
+				$('#category').val("DOG");
+				break; 
+			case "BOTTOMS":
+				$('#category').val($('#sel1 option:selected').val());
+				break; 	
+			case "BAGS & ACCESSORIES":
+				$('#category').val($('#sel2 option:selected').val());
+				break; 	
+			case "STEALS":
+				$('#category').val($('#sel3 option:selected').val());
+				break; 	
+			}
+			/*let fd = new FormData($('#frm_productModify_c')[0]);*/
+			
+			let param = $('#frm_productModify_c').serialize();
+			
+			$.ajax({
+				url : 'pModify.mh',
+				type:'post',
+				data: param,
+				error : function(xhr, status, error){
+					alert("안된다")
+				},
+				success : function(data, xhr, status){
+					swal({
+						title:"수정 완료",
+						text:data,
+						icon:"success",
+						buttons:true,
+						dangerMode:false,
+					}).then((willDelete)=>{
+						if(willDelete){
+							cmh.init();
+						}
+					});
+						
+				}
+			})
+			
 		}else{
 			
 			var f = $('#first option:selected').val();

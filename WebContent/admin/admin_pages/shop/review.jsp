@@ -28,6 +28,12 @@
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 <script src="<%=request.getContextPath()%>/admin/js/admin_c.js"></script>
+
+<style>
+	.input-sm{
+		color:black;
+	}
+</style>
 </head>
 
 <form id="frm_reviewDetail_mh" name="frm_reviewDetail_mh"
@@ -47,10 +53,10 @@
 								class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-6 col-md-offset-6">
 								<div class="form-inline" align="right">
 
-									<input type="text" class="form-control" id="reviewFindStr"
-										name="reviewFindStr" value="${p.findStr }" /> <input
+									<input type="hidden" class="form-control" id="reviewFindStr"
+										name="reviewFindStr" value="${p.findStr }" /> <!-- <input
 										type="button" class="form-control" value="검색"
-										id="btn_reviewSearch_mh" name="btn_reviewSearch_mh" /> <input
+										id="btn_reviewSearch_mh" name="btn_reviewSearch_mh" /> --> <input
 										type="hidden" id="nowPage" name="nowPage"
 										value="${p.nowPage }" /> <input type="hidden"
 										id="review_serial" name="review_serial" />
@@ -231,13 +237,13 @@
 	                    dom: 'Bfrtip',
 	                    text: 'print',
 	                    extend: 'print'
-	                }, {
+	                }/* , {
 	                    text: '새글 등록',
 	                    action: function (e, dt, node, conf) {
-	                       /*  location.href = "index.jsp?inc=admin_pages/shop/new_notice.jsp" */
+	                        location.href = "index.jsp?inc=admin_pages/shop/new_notice.jsp" 
 	                    	location.href="productInsert.mh";
 	                    }
-	                }
+	                } */
 	            ]
 	        });
 

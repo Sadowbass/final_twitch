@@ -60,7 +60,15 @@
 								</div>
 								<div class="col-xs-4">
 									<span >주문 상태</span>&nbsp;&nbsp;
-									<span style="color: yellow;">${list[0].order_state }</span>
+									<span style="color: yellow;">
+										<c:if test="${list[0].order_state eq '0'}">
+											결제대기
+										</c:if>
+										<c:if test="${list[0].order_state eq '1'}">
+											결제완료
+										</c:if>
+										
+									</span>
 								</div>
 							</div>
 							<div class="row" style="border-top: 2px solid white; border-bottom : 1px solid gray; padding-top: 15px;">

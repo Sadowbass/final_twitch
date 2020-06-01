@@ -40,6 +40,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<style>
+	.input-sm{
+		color : black !important;
+	}
+	
+</style>
+	
 </head>
 
 <body>
@@ -54,8 +61,8 @@
 								<h2>상품 조회</h2>
 							</div>
 							<div align="right" style="margin-right: 10px;">
-								<input type="button" class="btn btn-info" id="btn_refleshList_c"
-									value="새로고침" />
+								<!-- <input type="button" class="btn btn-info" id="btn_refleshList_c"
+									value="새로고침" /> -->
 							</div>
 						</div>
 						<br>
@@ -225,33 +232,24 @@
 										<tr>
 											<th>상품 번호</th>
 											<th>상품 사진</th>
+											<th>카테고리</th>
 											<th>상품명</th>
 											<th>판매가</th>
-											<th>조회</th>
-											<th>주문</th>
-											<th>판매</th>
-											<th>관심</th>
-											<th>담기</th>
 											<th>재고</th>
-											
-
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="i" items="${list }">
-											<!-- 속성 list 값이 하나씩 vo에 들어옴 -->
+									
 											<tr onclick="cmh.productView(${i.product_id});">
 												<td>${i.product_id}</td>
-												<td><img
-												src="<%=request.getContextPath() %>/admin/admin_pages/product_photo/${i.photos[0].sysfile}"
-												alt="" style="width: 70px; height: 70px;" /></td>
+												<td>
+													<img src="<%=request.getContextPath() %>/admin/admin_pages/product_photo/${i.photos[0].sysfile}"
+														 alt="" style="width: 70px; height: 70px;" />
+												</td>
+												<td>${i.product_cate }</td>
 												<td>${i.product_name}</td>
-												<td>${i.product_price }</td>
-												<td>0</td>
-												<td>0</td>
-												<td>0</td>
-												<td>0</td>
-												<td>0</td>
+												<td>${i.product_price }</td>																						
 												<td>${i.product_count}</td>
 
 
@@ -280,11 +278,10 @@
 	 $(document).ready(function () {
 	        var table = $('#he_table').DataTable({
 	        	"lengthChange": false,
+	        	
 	            columnDefs: [{
-	            targets: [0, 1,2,3,4,5,6,7,8,9],
+	            targets: [0, 1,2,3,4,5],
 	            className: 'mdl-data-table__cell--non-numeric'
-	                	
-
 	            }]
 	        });
 
@@ -313,13 +310,12 @@
 	                    dom: 'Bfrtip',
 	                    text: 'print',
 	                    extend: 'print'
-	                }, {
+	                }/* , {
 	                    text: '새글 등록',
 	                    action: function (e, dt, node, conf) {
-	                       /*  location.href = "index.jsp?inc=admin_pages/shop/new_notice.jsp" */
 	                    	location.href="productInsert.mh";
 	                    }
-	                }
+	                } */
 	            ]
 	        });
 
@@ -328,8 +324,5 @@
 	        );
 	    });
 </script>
-
-
 </body>
-
 </html>

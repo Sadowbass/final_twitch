@@ -5,6 +5,14 @@
 
 <mapper namespace="storeAdmin">
 	
+	<update id="pModify" parameterType="bean.ProductVo_mh">
+		update product
+		set product_name = #{product_name}, product_explain = #{product_explain},
+			product_price = #{product_price}, product_cate = #{product_cate},
+			product_count = #{product_count}, product_size=#{product_size}
+			where product_id= #{product_id}
+	</update>
+	
 	<delete id="noticeDelete" parameterType="Integer">
 		delete from store_qna
 		where qna_id = ${_parameter}
@@ -39,13 +47,16 @@
 	</select>	
 	
 	<select id="cateCount" resultType="bean.MH_cateCountVo">
-		select  j2.product_cate, sum(j1.cart_count) as count
-		from order_details j1 join product j2
-		on j1.product_id = j2.product_id
-		group by j2.product_cate
-		order by sum(j1.cart_count) desc
+		select j3.product_cate, sum(j2.cart_count) as count
+		from STORE_ORDER j1 join ORDER_DETAILS j2
+		on  j1.order_serial = j2.order_serial join product j3 
+		on j3.product_id = j2.product_id
+		where order_state = 1
+		group by j3.product_cate
+		order by sum(j2.cart_count) desc
 	</select>
 	
+	<!-- 고객 연령대 비율 -->
 	<select id="ageCount" resultType="bean.MH_ageCountVo">
 		select age , count(*) as count
 		from ( 
@@ -57,20 +68,34 @@
 		order by age 
 	</select>
 	
+	
+	<!-- 통계 - 가장많이 팔린 순위 -->
 	<select id="rankproduct" resultType="bean.MH_rankproductVo">
-		select rownum rank,
+		<!-- select rownum rank,
 		a.* from(
 		select ROW_NUMBER() over(partition by d.product_id order by ph.photo_serial asc) as rnum,    sum(d.cart_count) as count, d.product_id, p.product_name, ph.sysfile,ph.PHOTO_SERIAL, p.PRODUCT_PRICE
 		from order_details d, PRODUCT p, PRODUCT_PHOTO ph
 		where d.PRODUCT_ID = p.product_id and d.product_id = ph.product_id
 		GROUP by  d.product_id, p.product_name, ph.sysfile, ph.PHOTO_SERIAL, p.PRODUCT_PRICE
 		order by count desc)a 
-		where rnum=1
+		where rnum=1 -->
+		
+		select rownum rank, b.* from(
+		select ROW_NUMBER() over(partition by j4.product_id order by ph.photo_serial asc) as rnum ,count, j4.product_id, ph.sysfile, j4.product_name,j4.product_price from
+		(
+		select sum(cart_count) as count, j1.product_id
+		from ORDER_DETAILS j1 join STORE_ORDER j2
+		on j1.order_serial = j2.order_serial
+		where order_state = 1
+		GROUP by product_id
+		) a join product j4
+		on a.product_id = j4.product_id join product_photo ph on ph.product_id = j4.product_id order by count desc) b where rnum=1 
 	</select>
 
 	<select id="amountMonth" resultType="bean.MH_monthAmountVo">
 		SELECT sum(amount) as amount, to_char(order_date,'yyyy-mm') as order_date
 		FROM store_order
+		where ORDER_STATE = 1
 		group by to_char(order_date,'yyyy-mm')
 	</select>
 

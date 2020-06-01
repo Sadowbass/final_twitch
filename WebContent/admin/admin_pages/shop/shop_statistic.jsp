@@ -11,6 +11,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" rel="stylesheet" />
     <link href="css/member.css" rel="stylesheet">
 </head>
 
@@ -27,7 +28,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="card">
                 <div class="header">
                     <h2>매출</h2>
-                    <ul class="header-dropdown m-r--5">
+                    <!-- <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
@@ -39,7 +40,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="body">
                     <canvas id="shop_profit_chart" height="100"></canvas>
@@ -80,7 +81,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="card">
                 <div class="header">
                     <h2>고객 연령대 비율</h2>
-                    <ul class="header-dropdown m-r--5">
+                    <!-- <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
@@ -92,7 +93,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="body">
                     <canvas id="shop_age_chart" height="150"></canvas>
@@ -105,7 +106,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="card">
                 <div class="header">
                     <h2>카테고리별 판매비율</h2>
-                    <ul class="header-dropdown m-r--5">
+                    <!-- <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
@@ -117,7 +118,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="body">
                     <canvas id="shop_cate_chart" height="150"></canvas>
@@ -129,7 +130,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="card">
                 <div class="header">
                     <h2>가장 많이 팔린 상품</h2>
-                    <ul class="header-dropdown m-r--5">
+                    <!-- <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">
@@ -141,7 +142,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <li><a href="javascript:void(0);">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="body">
                     <div class="body table-responsive">
@@ -182,7 +183,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.material.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
@@ -205,7 +206,36 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
      var ageCount1=[];
      var ageCount2=[];
     <c:forEach var="item" items="${ageCountList}">
-    	ageCount1.push("${item.age}");
+
+    	 <c:choose>
+    		<c:when test='${item.age == 0}' >
+				ageCount1.push("10대 미만");
+			</c:when>
+    		<c:when test='${item.age eq 10}'>
+    			ageCount1.push("10대");
+    		</c:when>
+    		<c:when test ='${item.age eq 20}'>
+    			ageCount1.push("20대");
+    		</c:when>
+    		<c:when test = '${item.age eq 30}'>
+    			ageCount1.push("30대");
+    		</c:when>
+    		<c:when test = '${item.age eq 40}'>
+				ageCount1.push("40대");
+			</c:when>
+			<c:when test = '${item.age eq 50}'>
+				ageCount1.push("50대");
+			</c:when>
+			<c:when test = '${item.age eq 60}'>
+				ageCount1.push("60대");
+			</c:when>
+			<c:when test = '${item.age eq 70}'>
+				ageCount1.push("70대");
+			</c:when>
+			<c:when test = '${item.age eq 80}'>
+				ageCount1.push("80대");
+			</c:when>
+    	</c:choose> 
     	ageCount2.push("${item.count}");
     </c:forEach> 
     
@@ -222,19 +252,22 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     
     var chart = new Chart(ctx, {
         // The type of chart we want to create
-        type: 'line',
+        // type: 'line',
+        type : 'bar',
 
         // The data for our dataset
         data: {
             labels: amountMonth2,
             datasets: [{
-                label: 'My First dataset',
+                /* label: 'My First dataset', */
                 data: amountMonth,
-                borderColor: 'rgba(0, 188, 212, 0.75)',
+                barThickness: 50,
+                /* borderColor: 'rgba(0, 188, 212, 0.75)',
                 backgroundColor: 'rgba(0, 188, 212, 0.3)',
                 pointBorderColor: 'rgba(0, 188, 212, 0)',
                 pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-                pointBorderWidth: 1
+                pointBorderWidth: 1 */
+                backgroundColor: 'rgba(0, 188, 212, 0.3)'
             }]
         },
         options: {
@@ -264,20 +297,30 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             legend: false
         }
     }); */
+    
+    // 고객 연령대 비율
     var ctx3 = document.getElementById('shop_age_chart').getContext('2d');
     new Chart(ctx3, {
-        type: 'bar',
+        type: 'pie',
         data: {
             labels: ageCount1,
             datasets: [{
-                label: "My First dataset",
+               /*  label: "My First dataset", */
                 data: ageCount2,
-                backgroundColor: 'rgba(0, 188, 212, 0.8)'
+                backgroundColor: [
+                    "rgb(233, 30, 99)",
+                    "rgb(255, 193, 7)",
+                    "rgb(0, 188, 212)",
+                    "rgb(139, 195, 74)",
+                    "rgb(0, 195, 74)",
+                    "rgb(0, 5, 74)"
+                ],
             }]
         },
         options: {
-            responsive: true,
-            legend: false
+            /* responsive: true,
+            legend: false */
+        	responsive: true,
         }
     });
     var ctx4 = document.getElementById('shop_cate_chart').getContext('2d');
@@ -341,9 +384,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             ]
         }); */
 
-        table.buttons(0, null).container().prependTo(
+        /* table.buttons(0, null).container().prependTo(
             table.table().container()
-        );
+        ); */
     });
 </script>
 
