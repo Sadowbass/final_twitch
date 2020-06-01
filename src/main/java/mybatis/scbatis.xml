@@ -91,7 +91,7 @@
 
     <!--추천채널-->
     <select id="recommend" resultType="bean.StreamingVo">
-        select * from FINAL_ONAIR where rownum between 1 and 10
+        select * from FINAL_ONAIR left outer join final_photo on air_mid = ph_id where rownum between 1 and 10
     </select>
 
     <!--스트리머가 재생한 도네이션 확인-->

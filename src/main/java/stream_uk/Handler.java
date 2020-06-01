@@ -42,7 +42,6 @@ public class Handler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		/*스트리머가 방송중인지*/
 		boolean flag=false;
-		System.out.println(session.getAttributes());
 		/* 로그인 아이디 */
 		String mid = (String) session.getAttributes().get("session_id");
 		/* 단순 로그인인지 방송 입장인지 검열 */
@@ -200,7 +199,6 @@ public class Handler extends TextWebSocketHandler {
 			dao.chatting(cht);
 		}
 		/*(1.1) 누적 시청자*/
-		System.out.println("11:::"+ele.getAsJsonObject().get("accumulateCheck").getAsString());
 		if(ele.getAsJsonObject().get("accumulateCheck")!=null && flag && reduplication) {
 			JsonObject jsonObject = new JsonObject();
 			/*메세지로부터 타겟과 내용 얻음*/

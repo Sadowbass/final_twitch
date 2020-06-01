@@ -343,7 +343,7 @@ bc.func = function(){
                     success: function(data) {
                         response(
                             $.map(data, function(item) {   
-                            	if ( item.cat_gname.indexOf($("#findCate").val()) != -1) {
+                            	if ( item.cat_gname.toLowerCase().indexOf($("#findCate").val().toLowerCase()) != -1) {
                             		
                             		return {
                                         label: item.cat_gname,    

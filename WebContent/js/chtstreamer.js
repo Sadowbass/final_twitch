@@ -3,7 +3,7 @@ let chtstreamer = {}
 var ws;
 
 chtstreamer.connectWS=function(mid){
-	ws = new WebSocket("ws://192.168.0.57:80/cht?"+mid);
+	ws = new WebSocket("ws://192.168.0.77:80/cht?"+mid);
 
 	ws.onopen = function (event) {console.log("open:::",event);}
 	ws.onclose = function (event) {console.log("close:::",event);}

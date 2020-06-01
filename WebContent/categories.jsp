@@ -426,7 +426,7 @@
                         success: function(data) {
                             response(
                                 $.map(data, function(item) {   
-                                	if ( item.cat_gname.indexOf($("#findTag2").val()) != -1) {
+                                	if ( item.cat_gname.toLowerCase().indexOf($("#findTag2").val().toLowerCase()) != -1) {
                                 		
                                 		return {
                                             label: item.cat_gname,    

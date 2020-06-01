@@ -164,7 +164,6 @@ public class SCController {
         HttpSession session = req.getSession();
         String mId = (String) session.getAttribute("session_id");
         List<StreamingVo> list = new ArrayList<StreamingVo>();
-        System.out.println(mId);
 
         if (mId != null) {
             list = dao.nowStreaming(mId);
@@ -210,7 +209,6 @@ public class SCController {
                 /*방송중이면 방송페이지로 이동*/
                 vo.setCnt(dao.streamingCnt(vo.getAir_mid()));
                 vo.setTotCnt(dao.streamingTotCnt(vo.getAir_mid()));
-                System.out.println(vo.getCat_sysfile());
 
                 String[] t = vo.getAir_tnames().split(",");
                 for(String temp : t){
@@ -369,7 +367,6 @@ public class SCController {
         map.put("uid", uid);
 
         int r = dao.subCheck(map);
-        System.out.println(r);
         if(r > 31 ){
             int money = dao.moneyCheck((String) map.get("uid"));
             map.put("money", money);
