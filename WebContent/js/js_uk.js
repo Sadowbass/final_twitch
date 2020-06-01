@@ -101,7 +101,7 @@ uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
 
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
@@ -167,9 +167,8 @@ uk.connectWS = function (streamer, login) {
 			alert(jsObj.reduplication);
 		}
 	}
-
 	/* 엔터키 누르면 전송 내꺼 */
-	$('div[contenteditable]').keydown(function (e) {
+	$('div[contenteditable].cht_send_uk ').keydown(function (e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
 				uk.ukTxt();
@@ -190,13 +189,13 @@ uk.connectWS = function (streamer, login) {
 /* socket 전송 메소드 (1)관욱:단순 채팅 -> txt*/
 uk.ukTxt = function () {
 
-	let str={txt:$('div[contenteditable]').html()}
+	let str={txt:$('div[contenteditable].cht_send_uk ').html()}
 	let jsonStr=JSON.stringify(str);
 
 	/* 내꺼 전송 */
-	if (ws.readyState === 1 && loginId && $('div[contenteditable]').html()) {
+	if (ws.readyState === 1 && loginId && $('div[contenteditable].cht_send_uk ').html()) {
 		ws.send(jsonStr);
-		$('div[contenteditable]').empty();
+		$('div[contenteditable].cht_send_uk ').empty();
 	}
 }
 /* socket 전송 메소드 (1)영탁:단순 채팅 -> txt*/
@@ -340,7 +339,7 @@ uk.responsive = function () {
 /*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://localhost/cht?justLogin");
+	allWs = new WebSocket("ws://192.168.0.57/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");
@@ -359,15 +358,16 @@ uk.connectAllWS=function(){
 		if(jsObj.onAir)
 		alert(jsObj.onAir+'님이 방송을 시작하였습니다.');
 		/*친구 추가 알림 받음 plus*/
-		if(jsObj.plus)
-		alert(jsObj.plus+'님이 친구추가를 신청하였습니다.');
+		if(jsObj.plus){
+			alert(jsObj.plus+'님이 친구추가를 신청하였습니다.');
+		}
 		/*귓속말 whisper*/
 		if(jsObj.whisper){
 			let whisper=JSON.parse(jsObj.whisper);
 			if($("div[whisperTarget='"+whisper[0]+"']").length){
 				$("<span>"+whisper[0]+": "+whisper[1]+"</span>").appendTo(".whisper_mid");
 			}else{
-			/*귓속말 폼*/
+			/*귓속말 폼 (귓속말 받음)*/
 			$('<div class="whisper" whisperTarget="'+whisper[0]+'">'+
 					  '<div class="whisper_top">'+
 					    	'<div class="whisperOid">'+whisper[0]+'</div>'+
@@ -376,14 +376,25 @@ uk.connectAllWS=function(){
 					  '</div>'+
 					  '<div class="whisper_mid"></div>'+
 					  '<div class="whisper_bottom">'+
-					  '<div class="whisper_sendArea"></div>'+
-					  '<div class="whisper_btn" conclick=uk.whisperSend("'+whisper[0]+'",'+$(".whisper_sendArea").val()+')><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
+					  '<div class="whisper_sendArea" contenteditable="true"></div>'+
+					  '<div class="whisper_btn" onclick=uk.whisperSend("'+whisper[0]+'")><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
 					  '</div>'+
 					'</div>').appendTo(".whisperArea");
 				uk.whisperCss($('#sidebar-navmain').width());
 			}
 		}
 	}
+	/* 엔터키 누르면 귓속말 전송 */
+	$("div[contenteditable].whisper_sendArea").keydown(function (e) {
+		console.log('key');
+		if (e.keyCode === 13) {
+			if (!e.shiftKey) {
+				console.log('enter');
+				uk.whisperSend();
+				return false;
+			}
+		}
+	});
 }
 
 /* socket 전송 메소드 (2)친구 추가 -> plus*/
@@ -396,21 +407,21 @@ uk.plus=function(plusOid){
 	}
 }
 
-/*귓속말 대화메세지 화면*/
+/*귓속말 대화메세지 화면(귓속말 보냄)*/
 uk.whisper=function(whisperTarget){
 	if($("div[whisperTarget='"+whisperTarget+"']").length){
 
 	}else{
 		$('<div class="whisper" whisperTarget="'+whisperTarget+'">'+
 			  '<div class="whisper_top">'+
-			    	'<div class="whisperOid">'+whisperTarget+'</div>'+
+			    	'<div class="whisperOid">"'+whisperTarget+'"</div>'+
 			    	'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>'+
 			    	'<div class="whisper_close"><a href="#"><i class="fas fa-times"></i></a></div>'+
 			  '</div>'+
 			  '<div class="whisper_mid"></div>'+
 			  '<div class="whisper_bottom">'+
-			  '<div class="whisper_sendArea"></div>'+
-			  '<div class="whisper_btn" conclick=uk.whisperSend("'+whisperTarget+'",'+$(".whisper_sendArea").val()+')><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
+			  '<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>'+
+			  '<div class="whisper_btn" onclick=uk.whisperSend("'+whisperTarget+'")><a href="#"><i class="far fa-paper-plane"></i></a></div>'+
 			  '</div>'+
 			'</div>').appendTo(".whisperArea");
 		uk.whisperCss($('#sidebar-navmain').width());
@@ -419,17 +430,18 @@ uk.whisper=function(whisperTarget){
 }
 
 /* socket 전송 메소드 (3)귓속말 -> whisper*/
-uk.whisperSend=function(whisperTarget, whisperTxt){
-	$("<span>"+whisperTarget+": "+whisperTxt+"</span>").appendTo(".whisper_mid");
+uk.whisperSend=function(whisperTarget){
+	console.log($("div[contenteditable].whisper_sendArea").html());
+	let whisperTxt=$("div[contenteditable].whisper_sendArea").html();
+	$("<div>"+loginId+": "+whisperTxt+"</div>").appendTo(".whisper_mid");
 	/*socket에 id전달*/
 	let str={whisper:[whisperTarget, whisperTxt]}
 	let jsonStr=JSON.stringify(str);
 
 	if (allWs.readyState === 1 ) {
 		allWs.send(jsonStr);
+		$("div[contenteditable].whisper_sendArea").empty();
 	}
-
-
 }
 /* socket close 메소드 */
 uk.allWSclose = function () {
