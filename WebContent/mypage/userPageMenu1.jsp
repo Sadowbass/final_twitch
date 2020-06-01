@@ -98,16 +98,24 @@
 									</tr>
 									
 
-								</tbody>
-								
-								
+								</tbody>		
 							</table>
-							
+							   
+  							 <input type='hidden' id='capchaFlag'/>
+     						 <input type="hidden" id="key" name='key'>
+     						 <div id='div02' class='col-12 text-center' style='display: none'>
+     						 <div id="div01">
+  								</div>
+  							 
+      						 <input type="text" id="capchaValue" name='value' style='height:30px;background-color: rgb(233,236,239);border: 1px solid rgb(232, 86, 133);margin-top: 1%'>
+      						 <button type="button" class="btn btn-outline-primary" id="btn01">전송</button>
+      						 </div>
+      						 
 							<div class='col-12 text-right'>
 							<button style=''type="button" class="btn btn-outline-primary" id="updateProfill">변경 내용 저장</button>
 							<button style='' type="button" class="btn btn-outline-primary" id="deleteUser">회원탈퇴</button>
-							<button style='' type="button" class="btn btn-outline-primary" id="takeyes">홍채인식</button>
 							</div>
+							
 						</div>
 					</div>
 				</div>
