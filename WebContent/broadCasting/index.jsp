@@ -675,6 +675,9 @@
 	<script>
 		bc.func()
 	</script>
+	<script>
+		uk.connectAllWS();
+	</script>
 
 </body>
 </html>

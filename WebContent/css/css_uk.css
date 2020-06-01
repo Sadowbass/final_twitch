@@ -71,9 +71,9 @@
 
 .whisper {
 	position: absolute;
-	bottom: 60px;
+	bottom: 70px;
 	left: 0;
-	background-color: #ddd;
+	background-color: white;
 	border: solid 1px black;
 	height: 200px;
 }
@@ -95,9 +95,18 @@
 
 .whisper_bottom {
 	width: 100%;
-	display:flex;
+	display: flex;
+	background-color: #D1B2FF;
 }
-.whisper_btn{
+
+.whisper_sendArea {
+	height: 23px;
+	white-space: normal;
+	word-break: break-word;
+	overflow-y: auto;
+}
+
+.whisper_btn {
 	margin: 5px;
 }
 
