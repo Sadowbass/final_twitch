@@ -74,7 +74,7 @@ transform: translate(-50%,-50%);
 	href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' />
 <script
 	src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
-
+  
 </head>
 <body>
 	<div class='container-fluid' id='userPage' style='margin-top: 5%'>

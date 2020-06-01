@@ -4,6 +4,9 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.semanticui.min.css" />
+<div class="body">
+    <canvas id="donation_chart2" height="150"></canvas>    
+</div>
 <table id="donationTable2" class="ui celled table" style="width:100%">
         <thead>
             <tr>
@@ -47,4 +50,47 @@
         $('#donationTable2').DataTable();
         
     } );
+    
+    var myBarChart2;
+    var ad_chart = function(){
+    	
+        var ctx5 = document.getElementById('donation_chart2').getContext('2d');
+         myBarChart2 = new Chart(ctx5, {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [0,0,0,0,0],
+                    fill: false,
+                    label: "받은 도네이션 top 5",
+                    backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 99, 132, 0.2)",
+                        "rgba(255, 99, 132, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 99, 132, 0.2)",
+                        "rgba(255, 99, 132, 0.2)", "rgba(255, 99, 132, 0.2)","rgba(255, 99, 132, 0.2)","rgba(255, 99, 132, 0.2)",
+                        "rgba(255, 99, 132, 0.2)","rgba(255, 99, 132, 0.2)","rgba(255, 99, 132, 0.2)"
+                    ],
+                    borderColor: ["rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)",
+                        "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)","rgb(255, 99, 132)","rgb(255, 99, 132)",
+                        "rgb(255, 99, 132)","rgb(255, 99, 132)","rgb(255, 99, 132)","rgb(255, 99, 132)"
+                    ],
+                    borderWidth: 1
+
+                }]
+            },
+            options: {
+                responsive: true
+         
+            }
+        });
+
+        <c:forEach items="${receive_list}" var="i" varStatus="j" end="5">
+        myBarChart2.data.labels[${j.index}] = '${i.don_mid}'
+        myBarChart2.data.datasets[0].data[${j.index}] =${i.profit}
+        </c:forEach>
+
+        myBarChart2.update();
+        
+        
+    }
+    
+    ad_chart();
     </script>
