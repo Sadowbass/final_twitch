@@ -151,8 +151,14 @@ public class SCController {
     public ModelAndView mainLoad(HttpServletRequest req) {
         ModelAndView mv = new ModelAndView();
 
-        HttpSession session = req.getSession();
+        List<StreamingVo> recList = dao.nowStreaming();
+        for(StreamingVo vo : recList){
+            vo.setCnt(dao.streamingCnt(vo.getAir_mid()));
+        }
+        List<CategoriesVo> catList = dao.categories("");
 
+        mv.addObject("recList", recList);
+        mv.addObject("catList", catList);
         mv.setViewName("main");
         return mv;
     }
