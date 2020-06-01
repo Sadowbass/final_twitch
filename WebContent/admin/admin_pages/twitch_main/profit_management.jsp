@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                      			<c:forEach var="i" items="${d_list }" end="4" varStatus="j">
                      		     <tr onclick="s_detail('${i.don_mid}')">
                                     <th scope="row">${i.rn}</th>
-                                    <td>${i.don_mid}</td>
+                                    <td>${i.don_oid}</td>
                                     <td>${i.mem_name }</td>
                                     <td>${i.profit }</td>
                                 </tr>
@@ -183,7 +183,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                <c:forEach var="i" items="${s_list }"  varStatus="j">
                      		     <tr onclick="s_detail('${i.sub_mid}')">
                                     <th scope="row">${i.rn}</th>
-                                    <td>${i.sub_mid}</td>
+                                    <td>${i.sub_oid}</td>
                                     <td>${i.mem_name }</td>
                                     <td>${i.profit }</td>
                                 </tr>

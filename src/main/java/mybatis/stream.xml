@@ -5,16 +5,16 @@
     
 <mapper namespace="stream">
 	<select id="select" resultType="bean.StreamerVo">
-		select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
-	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*5000 profit 
+		select mem_id,mem_name,mem_email,mem_status,(select count(mfo_serial) from final_mfollow where mfo_oid=mem_id)cnt,
+	    (select sum(don_price)*0.5 from final_donation where don_oid=mem_id)+(select count(sub_serial) from final_subscription where sub_oid=mem_id)*5000 profit 
 		from final_member where MEM_SKEY is not null
 	</select>
 	 <select id='view' parameterType="String" resultType="bean.StreamerVo">
-    	select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
-	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*5000 profit,
-	    (select sum(don_price) from final_donation where don_mid=mem_id) don_profit,
-	    (select count(sub_serial) from final_subscription where sub_mid=mem_id)*5000 sub_profit,
-	    (select count(sub_serial) from final_subscription where sub_mid=mem_id) cnt2,
+    	select mem_id,mem_name,mem_email,mem_status,(select count(mfo_serial) from final_mfollow where mfo_oid=mem_id)cnt,
+	    (select sum(don_price)*0.5 from final_donation where don_oid=mem_id)+(select count(sub_serial) from final_subscription where sub_oid=mem_id)*5000 profit,
+	    (select sum(don_price) from final_donation where don_oid=mem_id) don_profit,
+	    (select count(sub_serial) from final_subscription where sub_oid=mem_id)*5000 sub_profit,
+	    (select count(sub_serial) from final_subscription where sub_oid=mem_id) cnt2,
 	    (select ph_sysfile from final_photo where mem_id =ph_id) ph_sysfile
 		from final_member where mem_id='${_parameter}'
     </select>
@@ -32,77 +32,77 @@
 	</select>
 	
 	<select id="weekly_follow" parameterType="hashmap" resultType="String">
-		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr-mm-dd') = #{day}
+		select count(mfo_serial) from final_mfollow where mfo_oid=#{mid} and to_char(mfo_date,'rrrr-mm-dd') = #{day}
 	</select>
 	
 	<select id="weekly_sub" parameterType="hashmap" resultType="String">
-		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day}
+		select count(sub_serial) from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day}
 	</select>
 	
 	<select id="weekly_follow_tot" parameterType="hashmap" resultType="String">
 		select count(mfo_serial) 
 		from final_mfollow 
-		where mfo_mid=#{mid} and mfo_date &lt; #{day}
+		where mfo_oid=#{mid} and mfo_date &lt; #{day}
 	</select>
 	
 	<select id="weekly_sub_tot" parameterType="hashmap" resultType="String">
-		select count(sub_serial) from final_subscription where sub_mid=#{mid} and sub_rdate &lt; #{day}
+		select count(sub_serial) from final_subscription where sub_oid=#{mid} and sub_rdate &lt; #{day}
 	</select>
 	
 	<select id="monthly_sub" parameterType="hashmap" resultType="String">
-		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
+		select count(sub_serial) from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
 	</select>
 	
 	<select id="monthly_follow" parameterType="hashmap" resultType="String">
-		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') = #{month} and to_char(mfo_date,'rrrr')= #{year}
+		select count(mfo_serial) from final_mfollow where mfo_oid=#{mid} and to_char(mfo_date,'mm') = #{month} and to_char(mfo_date,'rrrr')= #{year}
 	</select>
 	
 	<select id="monthly_sub_tot" parameterType="hashmap" resultType="String">
-		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') &lt; #{month} and to_char(sub_rdate,'rrrr')= #{year}
+		select count(sub_serial) from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'mm') &lt; #{month} and to_char(sub_rdate,'rrrr')= #{year}
 	</select>
 	
 	<select id="monthly_follow_tot" parameterType="hashmap" resultType="String">
-		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'mm') &lt; #{month} and to_char(mfo_date,'rrrr')= #{year}
+		select count(mfo_serial) from final_mfollow where mfo_oid=#{mid} and to_char(mfo_date,'mm') &lt; #{month} and to_char(mfo_date,'rrrr')= #{year}
 	</select>
 	
 	<select id="year_sub" parameterType="hashmap" resultType="String">
-		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr') = #{year}
+		select count(sub_serial) from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'rrrr') = #{year}
 	</select>
 	
 	<select id="year_follow" parameterType="hashmap" resultType="String">
-		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr') = #{year}
+		select count(mfo_serial) from final_mfollow where mfo_oid=#{mid} and to_char(mfo_date,'rrrr') = #{year}
 	</select>
 	
 	<select id="year_sub_tot" parameterType="hashmap" resultType="String">
-		select count(sub_serial) from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr') &lt; #{year}
+		select count(sub_serial) from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'rrrr') &lt; #{year}
 	</select>
 	
 	<select id="year_follow_tot" parameterType="hashmap" resultType="String">
-		select count(mfo_serial) from final_mfollow where mfo_mid=#{mid} and to_char(mfo_date,'rrrr') &lt; #{year}
+		select count(mfo_serial) from final_mfollow where mfo_oid=#{mid} and to_char(mfo_date,'rrrr') &lt; #{year}
 	</select>
 	
 	<select id="weekly_don" parameterType="hashmap" resultType="String">
-		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr-mm-dd') = #{day} and type!=3
+		select sum(don_price)*0.5 from final_donation where don_oid=#{mid} and to_char(don_rdate,'rrrr-mm-dd') = #{day} and type!=3
 	</select>
 	
 	<select id="weekly_subprofit" parameterType="hashmap" resultType="String">
-		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day} 
+		select count(sub_serial)*5000 from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'rrrr-mm-dd') = #{day} 
 	</select>
 	
 	<select id="monthly_subprofit" parameterType="hashmap" resultType="String">
-		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
+		select count(sub_serial)*5000 from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'mm') = #{month} and to_char(sub_rdate,'rrrr')= #{year}
 	</select>
 	
 	<select id="monthly_don" parameterType="hashmap" resultType="String">
-		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'mm') = #{month} and to_char(don_rdate,'rrrr') =#{year} and type!=3
+		select sum(don_price)*0.5 from final_donation where don_oid=#{mid} and to_char(don_rdate,'mm') = #{month} and to_char(don_rdate,'rrrr') =#{year} and type!=3
 	</select>
 	
 	<select id="year_subprofit" parameterType="hashmap" resultType="String">
-		select count(sub_serial)*5000 from final_subscription where sub_mid=#{mid} and to_char(sub_rdate,'rrrr')= #{year}
+		select count(sub_serial)*5000 from final_subscription where sub_oid=#{mid} and to_char(sub_rdate,'rrrr')= #{year}
 	</select>
 	
 	<select id="year_don" parameterType="hashmap" resultType="String">
-		select sum(don_price) from final_donation where don_mid=#{mid} and to_char(don_rdate,'rrrr') =#{year} and type!=3
+		select sum(don_price)*0.5 from final_donation where don_oid=#{mid} and to_char(don_rdate,'rrrr') =#{year} and type!=3
 	</select>
 	
 	 <insert id="broadban" parameterType='String'>
@@ -134,31 +134,31 @@
     </select>
     
     <select id='d_profit' parameterType="hashmap" resultType="bean.StreamerVo">
-    	select don_mid,sum(don_price) profit,(select mem_name from final_member where mem_id=don_mid) mem_name from final_donation
-        where to_char(don_rdate,'rrrr')=${year} group by don_mid order by profit desc
+    	select don_oid,sum(don_price)*0.5 profit,(select mem_name from final_member where mem_id=don_oid) mem_name from final_donation
+        where to_char(don_rdate,'rrrr')=${year} group by don_oid order by profit desc
     </select>
     
     <select id='d_profit2' parameterType="bean.Page" resultType="bean.StreamerVo">
     	select * from
 		(select rownum rn,M.* from(
-			select don_mid,sum(don_price) profit,(select mem_name from final_member where mem_id=don_mid) mem_name 
+			select don_oid,sum(don_price)*0.5 profit,(select mem_name from final_member where mem_id=don_oid) mem_name 
 			from final_donation
         	where to_char(don_rdate,'rrrr')=#{year} 
-       		group by don_mid order by profit desc)M
+       		group by don_oid order by profit desc)M
 		) where rn between #{startNo} and #{endNo}
     </select>
     
     <select id='s_profit' parameterType="bean.Page" resultType="bean.StreamerVo">
-    select count(sub_serial)cnt,sub_mid from final_subscription where to_char(sub_rdate,'rrrr')=#{year} group by sub_mid
+    select count(sub_serial)cnt,sub_oid from final_subscription where to_char(sub_rdate,'rrrr')=#{year} group by sub_oid
     </select>
     
     <select id='s_profit2' parameterType="bean.Page" resultType="bean.StreamerVo">
     select * from
 		(select rownum rn,M.* from(
-			 select count(sub_serial)*5000 profit,sub_mid,(select mem_name from final_member where mem_id=sub_mid)mem_name 
+			 select count(sub_serial)*5000 profit,sub_oid,(select mem_name from final_member where mem_id=sub_oid)mem_name 
 			 from final_subscription 
 			 where to_char(sub_rdate,'rrrr')=#{year} 
-			 group by sub_mid order by profit desc)M
+			 group by sub_oid order by profit desc)M
 		) where rn between #{startNo} and #{endNo}
     </select>
     
@@ -190,8 +190,8 @@
 	</select>
 	
 	<select id="mileage_use" parameterType="String"  resultType="bean.StatisticVo">
-		select don_mid,don_price,don_rdate,type from final_donation 
-		where don_oid='${_parameter}' order by don_rdate desc
+		select don_oid,don_price,don_rdate,type from final_donation 
+		where don_mid='${_parameter}' order by don_rdate desc
 	</select>
 	
 	<select id='watching_time' parameterType="hashmap" resultType="String">
@@ -222,6 +222,23 @@
     <select id='last_pay_tot' parameterType="hashmap" resultType="String">
     	  select sum(amount)tot from store_order where mem_id=#{mid}
     </select>
+    
+     <select id='store_cate' parameterType="hashmap" resultType="bean.UserProductVo">
+    	  select product_cate,count(product_cate) cnt from order_details od,product p
+		  where mem_id=#{mid} and od.product_id =p.product_id group by product_cate
+    </select>
+    
+    <select id='store_buylist' parameterType="hashmap" resultType="bean.UserProductVo">
+    	  select DISTINCT p.PRODUCT_ID, p.PRODUCT_PRICE, p.PRODUCT_NAME,min(SYSFILE) sysfile,to_char(order_date,'rrrr-mm-dd')order_date,od.cart_count
+		  from PRODUCT_PHOTO ph,
+     	  PRODUCT p,
+     	  ORDER_DETAILS od,
+     	  store_order s
+		  where ph.PRODUCT_ID = p.PRODUCT_ID and od.PRODUCT_ID = p.PRODUCT_ID and od.MEM_ID =#{mid} and s.order_serial = od.order_serial
+		  group by p.product_id, p.PRODUCT_PRICE, p.PRODUCT_NAME,order_date,od.cart_count
+		  order by p.PRODUCT_ID
+    </select>
+    
    
 
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
