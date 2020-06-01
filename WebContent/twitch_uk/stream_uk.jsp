@@ -83,7 +83,7 @@
 <div id="topplace">
     <jsp:include page="/userinfo.sc" flush="false"></jsp:include>
 </div>
-<div id="sidebarplace" style="margin-top: 53px;">
+<div id="sidebarplace">
     <jsp:include page="/sidebar.sc" flush="false"></jsp:include>
 </div>
 <!-- video_main_uk -->
