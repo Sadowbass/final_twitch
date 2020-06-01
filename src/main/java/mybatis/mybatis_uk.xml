@@ -26,21 +26,11 @@
 		and status=1
 	</update>
 
-	<!-- 누적 시청자수 카운트 필요함 -->
-	<select id="accUser" parameterType="bean.AccUk" resultType="int">
-		select  count(DISTINCT mid)
-		from 	final_userList
-		where 	mid=#{mid}
-		and 	oid=#{oid}
-	</select>
-
 	<!-- 팔로우 알림보낼려면 목록 필요함 -->
 	<select id="followList" parameterType="String" resultType="String">
 		select  mfo_oid
 		from final_mfollow
 		where mfo_mid=#{_parameter}
 	</select>
-
-
 
 </mapper>
