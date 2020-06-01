@@ -100,7 +100,6 @@ uk.unfoldRightOrBottom = function () {
 uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
-	console.log(streamerId)
 
 	ws = new WebSocket("ws://localhost/cht?" + streamerId);
 
@@ -144,7 +143,6 @@ uk.connectWS = function (streamer, login) {
 		/* 채팅! chtArea에 붙이기 */
 		if (jsObj.txt && $('#chtArea').length) {
 			let txt=JSON.parse(jsObj.txt)
-			console.log("txt",txt);
 
 			$('<div class="dropdown">'+
 			  '<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
