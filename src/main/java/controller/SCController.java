@@ -367,6 +367,20 @@ public class SCController {
         map.put("result", i);
         return gson.toJson(map);
     }
+    
+    //생방속 삭제
+    @ResponseBody
+    @RequestMapping(value = "deleteAir.sc", method = RequestMethod.POST, produces = "application/text; charset=utf-8;")
+    public String deleteAir(HttpServletRequest req) {
+        String msg = "";
+    	String mId = req.getParameter("mId");
+        String sKey = req.getParameter("skey");
+        String gameName = req.getParameter("gname");
+        BroadCastingMybatisDao dao2 = new BroadCastingMybatisDao();
+        msg = dao2.deleteAir(mId, sKey, gameName);
+
+        return msg;
+    }
 
     /*팔로우 추가*/
     @RequestMapping(value = "/{id}/follow", method = RequestMethod.POST)

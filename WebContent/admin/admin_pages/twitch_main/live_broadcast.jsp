@@ -50,7 +50,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
             <div class="video-card">
                 <div class="video-card-image">
-                    <a class="play-icon" href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp"><i
+                    <a class="play-icon" href="/${i.air_mid }"><i
                             class="fas fa-play-circle"></i></a>
                     <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">
                     <c:if test="${empty i.air_thumbnail}">

@@ -557,7 +557,11 @@ function voiceDonation(serial,mid,content,price,type) {
 	donationData += '<span id="text-id" class="added-text"></span>';
 	donationData += '<span style="color:#CC2EFA">' + mid +'님이</span> '
 	donationData += '<span id="text-amount" class="added-text"></span>';
+	if(type == '3'){
+		donationData += '<span style="color:#CC2EFA">1개월 구독하셨습니다.</span>';
+	}else{
 	donationData += '<span style="color:#CC2EFA">'+ price + '원을 후원하셨습니다.</span>';
+	}
 	donationData += '<br />'
 	donationData += '<span id="text-content" style="color:white">'+content+'</span>';
 	donationData += '</div>';
@@ -566,8 +570,9 @@ function voiceDonation(serial,mid,content,price,type) {
 		dType = '음성 후원'
 	}else if (type == '2'){
 		dType = '룰렛 후원'
+	}else if (type == '3'){
+		dType = '구독'
 	}
-
 	Swal.fire({
 		  title: '<font color="white">'+ dType + '</font>',
 		  width: 600,
@@ -711,7 +716,7 @@ function setDonation(){
 										divRow.className = "row";
 										divRow.style.marginTop = "2%";
 
-										if (data[i].type == '0' || data[i].type =='2') {
+										if (data[i].type == '0' || data[i].type =='2' || data[i].type =='3') {
 											divRow.onclick = function() {
 												voiceDonation(
 														data[i].don_serial,
@@ -744,7 +749,8 @@ function setDonation(){
 											j.className = "fas fa-video fa-3x";
 										} else if (data[i].type == '2'){
 											j.className = "fas fa-question fa-3x";
-										}
+										}else if (data[i].type == '3'){
+											j.className = "fas fa-book fa-3x";
 
 										let divCol8 = document
 												.createElement("div");
@@ -836,7 +842,7 @@ function setDonation(){
 											"bdColor" : "#444"
 										}
 										toastr.options.onclick = function() {
-											if (data[i].type == '0' || data[i].type =='2') {
+											if (data[i].type == '0' || data[i].type =='2' || data[i].type =='3') {
 												voiceDonation(
 														data[i].don_serial,
 														data[i].don_mid,
@@ -862,6 +868,11 @@ function setDonation(){
 										} else if (data[i].type == '2'){
 											toastr
 												    .success('룰렛후원이 도착하였습니다');
+										} else if(data[i].type == '3'){
+											toastr
+										    .success('구독이 도착하였습니다');
+										
+										}
 										}
 
 									}
