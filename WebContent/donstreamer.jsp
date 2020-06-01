@@ -98,9 +98,9 @@ div.power_controls
 			style="width: 40%; top:-10%" id='imgDona'>
         <br />
 		<span id="text-id" class="added-text"></span>
-        <span>님이 </span> 
+        <span id="selectId">님이 </span>
         <span id="text-amount" class="added-text"></span>
-        <span>원을 후원하셨습니다.</span>
+        <span id="selectDon">원을 후원하셨습니다.</span>
         <br />
 		<span id="text-content"></span>
 	</div>
@@ -156,16 +156,16 @@ div.power_controls
 												
 												$('#imgDona').show();
 												
-												$('#text-id').html(data.don_oId);
+												$('#text-id').html(data.don_mId);
 												$('#text-amount').html(data.don_price);
 												$('#text-content').html(data.don_content);
 												$('#text-view').fadeIn(2500, function(){
 													responsiveVoice.speak(data.don_content,"Korean Female");
 													setTimeout(function () {
 														$('#text-view').fadeOut(4000, function () {
-															$('#text-id').html();
-															$('#text-amount').html();
-															$('#text-content').html();
+															$('#text-id').html("");
+															$('#text-amount').html("");
+															$('#text-content').html("");
 															poll();
 														})
 													})
@@ -174,16 +174,16 @@ div.power_controls
 												
 												$('#imgDona').show();
 												
-												$('#text-id').html(data.don_oId);
+												$('#text-id').html(data.don_mId);
 												$('#text-amount').html(data.don_price);
 												$('#text-content').html("영상 후원");
 												$('#text-view').fadeIn(2500, function(){
 													setTimeout(function () {
 														$('#text-view').fadeOut(2000, function () {
 															var url = data.url.split(".be/")[1];
-															$('#text-id').html();
-															$('#text-amount').html();
-															$('#text-content').html();
+															$('#text-id').html("");
+															$('#text-amount').html("");
+															$('#text-content').html("");
 															$('#ytplayer').attr('style','display:inline-block;');
 															$('#ytplayer').attr('src',youtubeUrl+url+autoPlay);
 															setTimeout(function () {
@@ -271,16 +271,16 @@ div.power_controls
 													})
 												})
 												*/
-												$('#text-id').html(data.don_oId);
+												$('#text-id').html(data.don_mId);
 												$('#text-amount').html(data.don_price);
 												$('#text-content').html(data.don_content);
 												$('#text-view').fadeIn(3500, function(){
 													setTimeout(function () {
 														$('#donationRoulette').fadeOut(5000);
 														$('#text-view').fadeOut(5000, function () {
-															$('#text-id').html();
-															$('#text-amount').html();
-															$('#text-content').html();
+															$('#text-id').html("");
+															$('#text-amount').html("");
+															$('#text-content').html("");
 															resetWheel();
 															
 															poll();
@@ -289,16 +289,20 @@ div.power_controls
 												})
 											} else {
 												$('#imgDona').show();
+												$('#selectDon').attr('style','display:none');
+												$('#selectId').attr('style','display:none');
 
-												$('#text-id').html(data.don_oId);
-												$('#text-content').html(data.oId+"님이 구독하셨습니다");
+												$('#text-id').html("");
+												$('#text-content').html(data.don_mId+"님이 구독하셨습니다");
 												$('#text-view').fadeIn(2500, function(){
 													responsiveVoice.speak(data.don_content,"Korean Female");
 													setTimeout(function () {
 														$('#text-view').fadeOut(4000, function () {
-															$('#text-id').html();
-															$('#text-amount').html();
-															$('#text-content').html();
+															$('#text-id').html("");
+															$('#selectDon').attr('style','display:inline');
+															$('#selectId').attr('style','display:inline');
+															$('#text-amount').html("");
+															$('#text-content').html("");
 															poll();
 														})
 													})
