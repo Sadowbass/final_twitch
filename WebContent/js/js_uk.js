@@ -101,7 +101,7 @@ uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
 
-	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
+	ws = new WebSocket("ws://localhost/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
@@ -162,16 +162,46 @@ uk.connectWS = function (streamer, login) {
 		if(jsObj.offAir){
 			Swal.fire({
 				  position: 'center',
-				  icon: 'error',
+				  icon: 'warning',
 				  title: '<font color="white">'+jsObj.offAir+'님이 방송을 종료하였습니다.</font>',
+				  html: ' 메인 화면으로 이동합니다 (time: <b></b>) ',
 				  background: '#18181b',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
+				  timer: 2000,
+				  timerProgressBar: true,
+				  onBeforeOpen: () => {
+				    Swal.showLoading()
+				    timerInterval = setInterval(() => {
+				      const content = Swal.getContent()
+				      if (content) {
+				        const b = content.querySelector('b')
+				        if (b) {
+				          b.textContent = Swal.getTimerLeft()/1000;
+				        }
+				      }
+				    }, 100)
+				  },
+				  onClose: () => {
+				    clearInterval(timerInterval)
+				  }
+				}).then((result) => {
+				  /* Read more about handling dismissals below */
+				  if (result.dismiss === Swal.DismissReason.timer) {
+					  location.href="/";
+				    console.log('I was closed by the timer')
+				  }
+				});
 		}
 		/*채팅방 중복 입장 알림 메세지*/
 		if(jsObj.reduplication){
-			alert(jsObj.reduplication);
+			Swal.fire({
+				  position: 'center',
+				  icon: 'warning',
+				  title: '<font color="white">'+jsObj.reduplication+'</font>',
+				  background: '#18181b',
+				  confirmButtonText: '확인'
+				}).then((result)=>{
+					location.href='/';
+				});
 		}
 	}
 	/* 엔터키 누르면 전송 내꺼 */
@@ -346,7 +376,7 @@ uk.responsive = function () {
 /*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://192.168.0.57/cht?justLogin");
+	allWs = new WebSocket("ws://localhost/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");
@@ -363,9 +393,23 @@ uk.connectAllWS=function(){
 
 		/*방송시작 알람 받음 onAir*/
 		if(jsObj.onAir)
-		alert(jsObj.onAir+'님이 방송을 시작하였습니다.');
+			console.log('ddd');
+			Swal.fire({
+				  icon: 'info',
+				  title: '<font color="white">'+jsObj.onAir+'님이 방송을 시작하였습니다.</font>',
+				  background: '#18181b',
+				  /*timer: 1500,*/
+				  showCancelButton:true,
+				  confirmButton
+				}).then((result)=>{
+					if(result) location.href='/'+jsObj.onAir;
+
+				});
 		/*친구 추가 알림 받음 plus*/
 		if(jsObj.plus){
+			swal(jsObj.plus+'님이 친구추가를 신청하였습니다.', {
+				  buttons: ["Oh noez!", "Aww yiss!"],
+				});
 			alert(jsObj.plus+'님이 친구추가를 신청하였습니다.');
 		}
 		/*귓속말 whisper*/

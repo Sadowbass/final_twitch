@@ -79,6 +79,7 @@
     <script src="/js/sc_custom.js"></script>
     <script src="/js/js_uk.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body class="mostly-customized-scrollbar" id="page-top" style="width: 100%;">
 <div id="topplace">

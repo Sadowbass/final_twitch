@@ -33,4 +33,10 @@
 		where mfo_mid=#{_parameter}
 	</select>
 
+	<!-- 하은이꺼 -->
+	<select id="onAir" resultType="String">
+		select mid
+		from final_onair
+	</select>
+
 </mapper>
