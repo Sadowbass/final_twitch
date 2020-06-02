@@ -46,8 +46,8 @@
 							<div class="col-xs-2">
 								<h2>수정 및 삭제</h2>
 							</div>
-							<div class="col-xs-8"></div>
-							<div class="col-xs-2" style="text-align: right;">
+							<div class="col-xs-6"></div>
+							<div class="col-xs-4" style="text-align: right;">
 
 								<input type="button" id="btn_productModify_c" class="btn btn-info"
 									value="수정" style="color: white" /> 

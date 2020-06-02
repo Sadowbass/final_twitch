@@ -162,7 +162,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <!-- 속성 list 값이 하나씩 vo에 들어옴 -->
                                     <tr onclick="member_view()">
                                         <td>${i.rank }</td>
-                                        <td><img src="<%=request.getContextPath() %>/admin/admin_pages/product_photo/${i.sysfile}" class="goods_img"></td>
+                                        <td><img src="<%=request.getContextPath() %>/admin/admin_pages/product_photo/${i.sysfile}" class="goods_img" style="width : 60px;"></td>
                                         <td>${i.product_id }</td>
                                         <td>${i.product_name }</td>
                                         <td>${i.count }</td>

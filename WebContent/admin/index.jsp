@@ -154,7 +154,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="images/admin.png" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
                     <div class="email">관리자</div>
@@ -198,7 +198,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">live_tv</i>
@@ -238,8 +237,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <a href="javascript:void(0);" onclick="profit();">
                                     <span>수익 관리 </span>
                                 </a>
-                            </li>
-                     
+                            </li>                    
                             <li>
                                 <a href="javascript:void(0);"  onclick="help();">
                                     <span>게시판 관리</span>
@@ -266,7 +264,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/product_insert.jsp">상품추가</a>
                                     </li>
                                 </ul>
-
                             </li>
                             <li>
                                 <a href="javascript:void(0);" class="menu-toggle">
@@ -281,10 +278,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/order_treat.jsp">주문처리</a>
                                     </li> -->
                                 </ul>
-
-                            </li>
-                        
-                          
+                            </li>                   
                             <li>
                                 <a href="javascript:void(0);" class="menu-toggle">
                                     <span>게시판 관리</span>
@@ -300,7 +294,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <a href="index.jsp?inc=admin_pages/shop/QandA.jsp">Q&A</a>
                                     </li>
                                 </ul>
-
                             </li>
                            <!--  <li>
                                 <a href="index.jsp?inc=admin_pages/shop/shop_category.jsp">
@@ -313,9 +306,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <span>통계 관리</span>
                                 </a>
                             </li>
-
-
-
                         </ul>
                     </li>
                     <!-- <li>
