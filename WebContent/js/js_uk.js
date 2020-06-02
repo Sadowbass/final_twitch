@@ -101,7 +101,9 @@ uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
 
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
+
+	uk.heCnt(streamerId, loginId); /*하은 부탁*/
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
@@ -175,7 +177,7 @@ uk.connectWS = function (streamer, login) {
 				      if (content) {
 				        const b = content.querySelector('b')
 				        if (b) {
-				          b.textContent = Swal.getTimerLeft()/1000;
+				          b.textContent = parSwal.getTimerLeft();
 				        }
 				      }
 				    }, 100)
@@ -187,7 +189,6 @@ uk.connectWS = function (streamer, login) {
 				  /* Read more about handling dismissals below */
 				  if (result.dismiss === Swal.DismissReason.timer) {
 					  location.href="/";
-				    console.log('I was closed by the timer')
 				  }
 				});
 		}
@@ -198,7 +199,8 @@ uk.connectWS = function (streamer, login) {
 				  icon: 'warning',
 				  title: '<font color="white">'+jsObj.reduplication+'</font>',
 				  background: '#18181b',
-				  confirmButtonText: '확인'
+				  confirmButtonText: '확인',
+				  timer:1000
 				}).then((result)=>{
 					location.href='/';
 				});
@@ -376,7 +378,7 @@ uk.responsive = function () {
 /*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://localhost/cht?justLogin");
+	allWs = new WebSocket("ws://192.168.0.57/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");
@@ -393,24 +395,30 @@ uk.connectAllWS=function(){
 
 		/*방송시작 알람 받음 onAir*/
 		if(jsObj.onAir)
-			console.log('ddd');
 			Swal.fire({
 				  icon: 'info',
 				  title: '<font color="white">'+jsObj.onAir+'님이 방송을 시작하였습니다.</font>',
 				  background: '#18181b',
-				  /*timer: 1500,*/
-				  showCancelButton:true,
-				  confirmButton
+				  timer: 3000,
+				  confirmButtonText: "이동",
+				  showCancelButton: true,
+				  cancelButtonText: "확인"
 				}).then((result)=>{
-					if(result) location.href='/'+jsObj.onAir;
-
+					if(result.value) location.href='/'+jsObj.onAir;
 				});
 		/*친구 추가 알림 받음 plus*/
 		if(jsObj.plus){
-			swal(jsObj.plus+'님이 친구추가를 신청하였습니다.', {
-				  buttons: ["Oh noez!", "Aww yiss!"],
+			Swal.fire({
+				  icon: 'info',
+				  title: '<font color="white">'+jsObj.plus+'님이 친구추가를 요청하였습니다.</font>',
+				  background: '#18181b',
+				  timer: 3000,
+				  confirmButtonText: "수락",
+				  showCancelButton: true,
+				  cancelButtonText: "거절"
+				}).then((result)=>{
+
 				});
-			alert(jsObj.plus+'님이 친구추가를 신청하였습니다.');
 		}
 		/*귓속말 whisper*/
 		if(jsObj.whisper){
@@ -510,6 +518,16 @@ uk.whisperCss=function(left){
 	$(".whisper_mid").height($(".whisper").height()-$(".whisper_top").height()-$(".whisper_bottom").height());/*귓속말 미드*/
 	$(".whisper_sendArea").width($(".whisper_bottom").width()-$(".whisper_btn").width());
 }
+/*하은 부탁*/
+uk.heCnt=function(streamerId, loginId){
+	if(streamerId==loginId){
+		let str={heCntRun:1}
+		let jsonStr=JSON.stringify(str);
+		setInterval(function(){
+			ws.send(jsonStr);
+		}, 60000);
+	}
 
+}
 
 

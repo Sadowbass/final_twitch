@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import bean.Cht;
 import bean.UserList;
+import bean.ViewerCnt;
 import mybatis.Factory;
 
 public class UkDao {
@@ -50,10 +51,12 @@ SqlSession sqlSession;
 	   return list;
    }
 
-   /*하은이꺼*/
-   public List<String> onAir(){
-	   List<String> list=sqlSession.selectList("mybatis_uk.onAir");
-	   sqlSession.close();
-	   return list;
+   /*하은 부탁*/
+   public void viewerCnt(ViewerCnt viewerCnt) {
+	   int r=sqlSession.update("mybatis_uk.viewerCnt", viewerCnt);
+	      if(r>0) {
+	         sqlSession.commit();
+	         sqlSession.close();
+	      }
    }
 }

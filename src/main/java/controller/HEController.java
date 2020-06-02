@@ -570,24 +570,4 @@ public class HEController {
 		return mv;
 	}
 
-	@RequestMapping(value = "*/chatting.uk", method = { RequestMethod.GET, RequestMethod.POST })
-	@ResponseBody
-	public String chatting(HttpServletRequest req) {
-		Map<String, Integer> map=new HashMap<String, Integer>();
-		Gson gson=new Gson();
-		UkDao dao=new UkDao();
-		List<String> list=dao.onAir();
-
-		for(int i=0; i<list.size(); i++) {
-			String streamer=list.get(i);
-			int cnt=Handler.getChatRoom().get(streamer).size();
-			map.put(streamer, cnt);
-		}
-		String str=gson.toJson(map);
-		return str;
-	}
-
-
-
-
 }
