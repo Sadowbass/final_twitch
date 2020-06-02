@@ -342,19 +342,32 @@ public class StoreController {
 	    	 String mem_id ="faker";
 	    	 
 	    	 String[] a = req.getParameterValues("cart_count");
+	    	 
+	    	 //System.out.println(a.length);
+	    	 
 	    	 int[] cart_count = new int[a.length];
 	    	 
 	    	 String[] b = req.getParameterValues("cart_id");
 	    	 int[] cart_id = new int[b.length];
 	    	 
+	    	 String[] c = req.getParameterValues("product_id");
+	    	 int[] product_id = new int[c.length];
+	    	 
 	        for (int i = 0; i < cart_id.length; i++) {
-	 
+	              
+	        	cart_count[i] = Integer.parseInt(a[i]);
+	        	cart_id[i] = Integer.parseInt(b[i]);
+	        	product_id[i] = Integer.parseInt(c[i]);
+	        	
+	        	//System.out.println(cart_count[i]);
+	        	//System.out.println(cart_id[i]);
 	            // cart_count가 0이면 카트아이디를 삭제
 	            if (cart_count[i] == 0) {
 	                cartservice.delete(cart_id[i]);
 	            } else {
 	                StoreCartVo vo = new StoreCartVo();
 	                vo.setMem_id(mem_id);
+	                vo.setProduct_id(product_id[i]);
 	                vo.setCart_id(cart_id[i]);
 	                vo.setCart_count(cart_count[i]);
 	                cartservice.modifyCart(vo);
