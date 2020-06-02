@@ -102,9 +102,9 @@ public class AdminController_mh {
 	}
 	
 	@RequestMapping(value="*/profile.mh", method= {RequestMethod.GET,RequestMethod.POST}, produces="application/text; charset=utf-8;")
-	public String profile(Model model, String mId) {
+	public String profile(Model model, String userId) {
 		
-		UserInfoVo vo = dao.profile(mId);
+		UserInfoVo vo = dao.profile(userId);
 		model.addAttribute("vo",vo);
 				
 		return "profile";

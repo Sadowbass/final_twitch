@@ -72,9 +72,10 @@ cmh.func = function(){
 			text:"수정하시겠습니까?",
 			icon:"warning",
 			buttons:true,
-			dangerMode:true,
-		}).then((v)=>{
-			if(v){
+			dangerMode:true
+		}).then((v1)=>{
+			if(v1){
+				
 				$.ajax({
 					url : "adminPwdModify.mh",
 					type : "post",

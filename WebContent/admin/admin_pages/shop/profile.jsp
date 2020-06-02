@@ -126,7 +126,7 @@
 												<div class="col-xs-2" style="padding-left: 1px;">
 													<input type="text" class="form-control" id="day" placeholder="일"  style = "color : black; " value="${fn:substring(vo.mem_birth,8,10) }"/>
 												</div>
-												<input type="text" id="birth" name="birth" />
+												<input type="hidden" id="birth" name="birth" />
 											</div>
 										</div>
 
@@ -172,7 +172,7 @@
 
 									<div class="form-group">
 										<div class="col-sm-offset-3 col-sm-9">
-											<button disabled type="submit" class="btn btn-danger" id="adminPwdModify">수정</button>
+											<input type="button" class="btn btn-danger" disabled value="수정" id="adminPwdModify">
 										</div>
 									</div>
 								

@@ -171,7 +171,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 </div>
             </div>
             <form id="goProfile" name="goProfile" method="post" action="profile.mh">
-            	<input type="hidden" name="mId" value="${admin_id }"/>
+            	<input type="hidden" name="userId" value="${admin_id }"/>
             </form>
             <!-- #User Info -->
             <!-- Menu -->
