@@ -11,9 +11,16 @@
 
 <title>Insert title here</title>
 <style type="text/css">
+.btn btn-outline-dark{
+  text-align:center;
+}
   .imgs_wrap{
     width: 800px;
    
+  }
+  .imgs_wraps img {
+    max-width: 200px;
+    margin: 3px;
   }
   .imgs_wrap img {
     max-width: 200px;
@@ -245,7 +252,7 @@
 		                        
 		                        <input type="hidden" name="rreview_id" value="${i.review_id }" >
 		                       
-		                        <input type="button" class="btn_review_delete" value="X" onclick="store.reviewDelete()" >
+		                        <input type="button" class="btn btn-outline-dark" value="X" onclick="store.reviewDelete()" >
 		                       
 	                        </div>
 	                        
@@ -386,6 +393,14 @@
     <script src="./assets/plugins/rateit/src/jquery.rateit.js" type="text/javascript"></script>
     <script>
     $(document).ready(function(){
+    	
+    	  $(".product-quantity .form-control").TouchSpin({
+    	        buttondown_class: "btn quantity-down",
+    	        buttonup_class: "btn quantity-up"
+    	    });
+    	    $(".quantity-down").html("<i class='fa fa-angle-down'></i>");
+    	    $(".quantity-up").html("<i class='fa fa-angle-up'></i>");
+    	
 		$("#input_imgs").on("change", handleImages);
 		 $(".sidebar .dropdown > a").click(function (event) {
 	            if ($(this).next().hasClass('dropdown-menu')) {
@@ -401,6 +416,8 @@
 	        });
         Layout.initImageZoom();
 	});
+    
+    
     
 	function handleImages(e){	
 		var sel_files = [];

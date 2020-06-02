@@ -12,6 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import bean.ProductPhoto_mh;
 import bean.ProductVo;
 import bean.SCDao;
 import bean.StoreCartDao;
@@ -247,8 +248,8 @@ public class StoreController {
 	//장바구니 인서트
 	
 	@RequestMapping(value="/store/addToCart.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView addToCart(HttpServletRequest req, HttpSession session) {
-		ModelAndView mv = new ModelAndView();
+	public String addToCart(HttpServletRequest req, HttpSession session) {
+		
 		
 	    System.out.println("addCart 들어았다");
 		//String mem_id = (String)session.getAttribute("mem_id");
@@ -267,24 +268,25 @@ public class StoreController {
 		cartservice.insert(vo); 
 		
 		//String msg = dao.cartInsert(vo);
-		mv.addObject("vo",vo);
-		mv.setViewName("viewCart");
-		return mv;
+	
+		return "redirect:/store/cartlist.str";
 	}
 	
 	//장바구니 목록 보기
-	 @RequestMapping("cartlist.str")
+	 @RequestMapping(value="/store/cartlist.str", method= {RequestMethod.GET, RequestMethod.POST})
 	    public ModelAndView cartlist(ModelAndView mv, HttpSession session) {
 	 
 	        // 장바구니 목록, 금액 합계, 배송료, 리스트의 사이즈(주문 아이템 갯수) 등
 	        // StoreCartVo로 표현되지 않는 여러가지 정보를 담아 뷰로 넘겨야하므로 HashMap 사용
 	        Map<String, Object> map = new HashMap<String, Object>();
 	 
-	        String mem_id = (String) session.getAttribute("mem_id");
+	        //String mem_id = (String) session.getAttribute("mem_id");
+	        String mem_id ="faker";
 	        if (mem_id != null) {// 로그인한 상태이면
 	            List<StoreCartVo> list = cartservice.listCart(mem_id);// 서비스단에서 장바구니 목록을 가져오고
+	          
 	            int sumMoney = cartservice.sumMoney(mem_id);// 금액 합계를 가져오고
-	            int fee = sumMoney >= 30000 ? 0 : 2500;// 금액 합계에 대한 배송료를 계산하고
+	            int fee = sumMoney >= 100000 ? 0 : 2500;// 금액 합계에 대한 배송료를 계산하고
 	            // 금액,배송비,총액,리스트사이즈,장바구니목록
 	            // 각 값들을 map에 넣어준다.
 	            map.put("sumMoney", sumMoney);
@@ -302,26 +304,29 @@ public class StoreController {
 	        } else {
 	            // 로그인하지 않은 상태이면 로그인 페이지로
 	            // 아무 Object도 안줘도 되나?
-	            mv.setViewName("member/login");
+	           // mv.setViewName("member/login");
+	        	mv.setViewName("viewCart");
 	            return mv;
 	        }
 	    }
 	 
 	 //장바구니 부분삭제
-	    @RequestMapping("cartdelete.str")
-	    public String cartdelete(int cart_id) {
-	 
+	    @RequestMapping(value="/store/cartdelete.str", method= {RequestMethod.GET, RequestMethod.POST})
+	    public String cartdelete(HttpServletRequest req) {
+	        int cart_id = Integer.parseInt(req.getParameter("cart_id"));
 	        cartservice.delete(cart_id);
 	 
 	        return "redirect:/store/cartlist.str";
 	    }
 	 //장바구니 비우기
-	    @RequestMapping("deleteAll.str")
+	    @RequestMapping(value="/store/deleteAll.str", method= {RequestMethod.GET, RequestMethod.POST})
 	    public String cartdeleteAll(HttpSession session) {
 	 
 	        // 세션에셔 유저아이디 가져오는걸 service에서 안하고 서비스에서 하나?
 	        // StoreCartServiceDao에서 진행해도 되는 처리과정
-	        String mem_id = (String) session.getAttribute("mem_id");
+	       // String mem_id = (String) session.getAttribute("mem_id");
+	    	
+	    	 String mem_id ="faker";
 	        if (mem_id != null) {
 	            cartservice.deleteAll(mem_id);
 	        }
@@ -331,11 +336,18 @@ public class StoreController {
 	 
 	    //장바구니 수정
 	    // StoreCartServiceDao의 modifyCart/delete 메서드 사용
-	    @RequestMapping("cartupdate.str")
-	    public String cartupdate(int[] cart_count, int[] cart_id, HttpSession session) {
+	    @RequestMapping(value="/store/cartupdate.str", method= {RequestMethod.GET, RequestMethod.POST})
+	    public String cartupdate( HttpServletRequest req, HttpSession session) {
 	 
-	        String mem_id = (String) session.getAttribute("mem_id");
-	 
+	        //String mem_id = (String) session.getAttribute("mem_id");
+	    	 String mem_id ="faker";
+	    	 
+	    	 String[] a = req.getParameterValues("cart_count");
+	    	 int[] cart_count = new int[a.length];
+	    	 
+	    	 String[] b = req.getParameterValues("cart_id");
+	    	 int[] cart_id = new int[b.length];
+	    	 
 	        for (int i = 0; i < cart_id.length; i++) {
 	 
 	            // cart_count가 0이면 카트아이디를 삭제
