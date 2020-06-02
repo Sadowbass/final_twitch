@@ -3,6 +3,7 @@
  */
 package bean;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,124 @@ public class StoreMybatisDao_mh {
 		System.out.println("★★★★★ 민호 DAO들어옴★★★★★");
 	}
 	
+	public String adminPwdModify(UserInfoVo vo) {
+		String msg = "";
+		
+		try {
+			int cnt = sqlSession.update("storeAdmin.adminPwdModify",vo);
+			if(cnt>0) {
+				msg="수정 완료";
+			}
+			sqlSession.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	
+	public String adminModify(UserInfoVo vo) {
+		String msg = "";
+		
+		try {
+			int cnt = sqlSession.update("storeAdmin.adminModify",vo);
+			if(cnt>0) {
+				msg="수정 완료";
+			}
+			sqlSession.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	
+	public int updateProfill(UserInfoVo vo) {
+		int result = 0;
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
+		
+		try {
+			
+			if(vo.getPh_sysfile() != null) {
+				if(vo.getFlag() == 1) {
+	
+				result2 = sqlSession.update("myPageTak.updateMemberPhoto",vo);
+				if(result2 <1) {
+					throw new Exception("유저정보업뎃에러");
+				}
+				}else if(vo.getFlag() == 0) {
+					result2 = sqlSession.insert("myPageTak.insertMemberPhoto",vo);
+					if(result2 <1) {
+						throw new Exception("유저포토인섯에러");
+					}
+				}
+			}else {
+				result3 = 1;
+			}
+		}catch (Exception e) {
+			
+			if(vo.getPh_sysfile() != null) {
+			File file = new File(
+					"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/img/user-photo/" + vo.getPh_sysfile());
+			if (file.exists()) {
+				if (file.delete()) {
+
+				} else {
+
+				}
+			} else {
+
+			}
+			}
+		
+			sqlSession.rollback();
+		}finally {
+			if((result2>0) || result3>0) {
+				
+				if(vo.getFlag() == 1 && result3 == 0) {
+				
+				File file = new File(
+						"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/img/user-photo/" + vo.getPh_delfile());
+				if (file.exists()) {
+					if (file.delete()) {
+
+					} else {
+
+					}
+				} else {
+
+				}
+				
+				}
+				
+				sqlSession.commit();
+				
+			}
+			if(result2>0) {
+				result4 = 1;
+			}
+			if(result3 == 1) {
+				result4 = 1;
+			}
+			return result4;
+		}
+		
+		
+	}
+	
+	
+	public UserInfoVo profile(String mId) {
+		UserInfoVo vo = null;
+		
+		try {
+			vo = sqlSession.selectOne("storeAdmin.profile",mId);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return vo;
+	}
 	
 	public String pModify(ProductVo_mh vo) {
 		System.out.println("dao -> pModify()");

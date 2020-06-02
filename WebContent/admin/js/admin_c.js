@@ -31,7 +31,12 @@ function noticeView(serial) {
 	$('#frm_notice').submit();
 }
 
+function goProfile1(){
+	$('#goProfile').submit();
+}
+
 var cmh = {}
+
 
 // 상품 조회
 cmh.init = function(){	
@@ -49,6 +54,76 @@ cmh.review_view = function(serial){
 }
 
 cmh.func = function(){
+	
+	$('#NewPasswordConfirm').blur(function(){
+		if($('#NewPassword').val() != $('#NewPasswordConfirm').val()){
+			$('#adminPwdModify').attr('disabled',true);
+		}else{
+			$('#adminPwdModify').attr('disabled',false);
+		}
+	})
+	
+	$('#adminPwdModify').click(function(){
+			
+		let param = $('#frm_profile').serialize();
+		
+		swal({
+			title:"수정",
+			text:"수정하시겠습니까?",
+			icon:"warning",
+			buttons:true,
+			dangerMode:true
+		}).then((v1)=>{
+			if(v1){
+				
+				$.ajax({
+					url : "adminPwdModify.mh",
+					type : "post",
+					data : param,
+					success : function(data, xhr, state){
+						swal(data,{
+							icon: "success",
+						})												
+					}
+				})	
+			}
+		});
+		
+	})
+	
+	$('#adminModifyBtn').click(function(){
+		let y= $('#year').val();
+		let m= $('#month').val();
+		let d= $('#day').val();
+		let birth =y+'-'+m+'-'+d;
+		
+		$('#birth').val(birth);
+		
+		let param = $('#frm_profile').serialize();
+		
+		swal({
+			title:"수정",
+			text:"수정하시겠습니까?",
+			icon:"warning",
+			buttons:true,
+			dangerMode:true,
+		}).then((v)=>{
+			if(v){
+				$.ajax({
+					url : "adminModify.mh",
+					type : "post",
+					data : param,
+					success : function(data, xhr, state){
+						swal(data,{
+							icon: "success",
+						})												
+					}
+				})	
+			}
+		});
+		
+	})
+	
 	
 	
 	// notice_modify.jsp
@@ -267,18 +342,32 @@ cmh.func = function(){
 		
 	/* end product_insert.jsp */
 	
-	$('.swalUpdate').click(function(){
+	$('#adminPhotoModify').click(function(){
+		
+		$('#frm_profile').attr('enctype','multipart/form-data');
+		
+		let fd = new FormData($('#frm_profile')[0]);
+		
 		swal({
 			title:"수정",
 			text:"수정하시겠습니까?",
 			icon:"warning",
 			buttons:true,
 			dangerMode:true,
-		}).then((willDelete)=>{
-			if(willDelete){
-				swal("수정되었습니다.",{
-					icon:"success",
-				});
+		}).then((v)=>{
+			if(v){
+				$.ajax({
+					url : "adminPhotoModify.mh",
+					type : "post",
+					data : fd,
+					contentType : false,
+					processData : false,
+					success : function(data, xhr, state){
+						swal(data,{
+							icon: "success",
+						})												
+					}
+				})	
 			}
 		});
 	});
@@ -292,6 +381,8 @@ cmh.func = function(){
 			$('#adminModifyBtn').attr('disabled',true);
 		}
 	})
+	
+	
 	/* end profile.jsp */
 	
 	/* product_select.jsp*/
@@ -318,8 +409,7 @@ cmh.func = function(){
 			buttons:true,
 			dangerMode : true,
 		}).then((v)=>{
-			if(v) {
-				
+			if(v) {			
 				$.ajax({
 					url : "productDelete.mh",
 					type : "post",
@@ -377,6 +467,7 @@ cmh.func = function(){
 			/*let fd = new FormData($('#frm_productModify_c')[0]);*/
 			
 			let param = $('#frm_productModify_c').serialize();
+			
 			
 			$.ajax({
 				url : 'pModify.mh',
