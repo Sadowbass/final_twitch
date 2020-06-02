@@ -254,7 +254,7 @@ public class StoreController {
 		//String mem_id = (String)session.getAttribute("mem_id");
 		String mem_id ="faker";
 		int product_id = Integer.parseInt(req.getParameter("product_id"));
-		int product_size = Integer.parseInt(req.getParameter("product_size"));
+		String product_size = req.getParameter("product_size");
 		int cart_count = Integer.parseInt(req.getParameter("product_q"));
 		
 		StoreCartVo vo = new StoreCartVo();
@@ -376,6 +376,17 @@ public class StoreController {
 	 
 	        return "redirect:/store/cartlist.str";
 	    }
+	    
+		//장바구니 목록 보기
+		 @RequestMapping(value="/store/order.str", method= {RequestMethod.GET, RequestMethod.POST})
+		    public ModelAndView order(ModelAndView mv, HttpSession session) {
+			 
+			 
+			 
+				return mv;
+			 
+			 
+		 }
 	 
 	}
 

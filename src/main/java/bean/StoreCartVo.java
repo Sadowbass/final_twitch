@@ -8,7 +8,7 @@ public class StoreCartVo {
 	int cart_id; //카트 시리얼
 	String mem_id;//회원아이디
 	int product_id;//상품 아이디
-	int product_size;//상품 사이즈
+	String product_size;//상품 사이즈
 	String product_name;//상품이름
 	int cart_count;//상품 개수
 	int product_price; //상품 가격
@@ -29,7 +29,7 @@ public class StoreCartVo {
        
     }
 	
-	public StoreCartVo(int cart_id, String mem_id, int product_id,int product_size, String product_name, int cart_count, int totPrice, Date cart_date) {
+	public StoreCartVo(int cart_id, String mem_id, int product_id,String product_size, String product_name, int cart_count, int totPrice, Date cart_date) {
         this.cart_id = cart_id;
 		this.mem_id = mem_id;
         this.product_id = product_id;
@@ -66,11 +66,13 @@ public class StoreCartVo {
 		this.product_price = product_price;
 	}
 
-	public int getProduct_size() {
+	
+
+	public String getProduct_size() {
 		return product_size;
 	}
 
-	public void setProduct_size(int product_size) {
+	public void setProduct_size(String product_size) {
 		this.product_size = product_size;
 	}
 

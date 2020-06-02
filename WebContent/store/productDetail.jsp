@@ -172,7 +172,7 @@
                                 <div class="pull-left">
                                     <label class="control-label">Size:</label>
                                     <select class="form-control input-sm" id="sizeOption">
-                                        <option value=1>Free</option>
+                                        <option value="FREE">Free</option>
                                        
                                     </select>
                                 </div>
