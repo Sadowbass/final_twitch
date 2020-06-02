@@ -21,6 +21,7 @@ import com.google.gson.JsonParser;
 
 import bean.Cht;
 import bean.UserList;
+import bean.ViewerCnt;
 
 public class Handler extends TextWebSocketHandler {
 
@@ -32,6 +33,7 @@ public class Handler extends TextWebSocketHandler {
 	Gson gson = new Gson(); /*지슨*/
 	JsonParser parser=new JsonParser(); /*파서*/
 	UserList userList = new UserList(); /* userList Vo 디비에 저장할거임 */
+	ViewerCnt viewerCnt=new ViewerCnt(); /*하은 부탁*/
 
 	Cht cht = new Cht(); /* cht vo 디비에 저장할거임 */
 
@@ -80,6 +82,8 @@ public class Handler extends TextWebSocketHandler {
 							session.sendMessage(new TextMessage(jsonTxt3));
 							reduplication=false;
 							break;
+						}else {
+							reduplication=true;
 						}
 					}
 				}
@@ -204,7 +208,7 @@ public class Handler extends TextWebSocketHandler {
 		}
 
 		/*(1)단순 채팅 -> txt면*/
-		if(ele.getAsJsonObject().get("txt")!=null && flag && reduplication) {
+		if(ele.getAsJsonObject().get("txt")!=null && flag) {
 			String txt=ele.getAsJsonObject().get("txt").getAsString();
 			/* json으로 변환 */
 			JsonObject jsonObject = new JsonObject();
@@ -257,6 +261,13 @@ public class Handler extends TextWebSocketHandler {
 			/*로그인중인 사람들에게 전송*/
 			if(logins.get(whisperTarget)!=null)
 			logins.get(whisperTarget).sendMessage(new TextMessage(jsonTxt));
+		}
+		/*(4) 하은 부탁*/
+		if(ele.getAsJsonObject().get("heCntRun")!=null) {
+			viewerCnt.setMid(mid);
+			viewerCnt.setViewer(chatRoom.get(mid).size());
+			UkDao heDao=new UkDao();
+			heDao.viewerCnt(viewerCnt);
 		}
 	}
 
