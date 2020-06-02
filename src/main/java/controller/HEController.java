@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import bean.BroadCastingCateVo;
 import bean.GCategoryVo;
 import bean.HEDao;
+import bean.ListComparator;
 import bean.MemberVo;
+import bean.OnAirVo;
 import bean.Page;
 import bean.StatisticVo;
 import bean.StreamerVo;
@@ -30,6 +35,8 @@ import bean.UserProductVo;
 import config.HE_FileUpload;
 import config.HE_FileUpload2;
 import oracle.jdbc.replay.ReplayableConnection.StatisticsReportType;
+import stream_uk.Handler;
+import stream_uk.UkDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +52,33 @@ public class HEController {
 	@RequestMapping(value="*/home.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView home(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("test");
+		List<String> list = new ArrayList<String>();
+		list = dao.now_live();
+		
+		/*Map<String, Integer> map=new HashMap<String, Integer>();
+	    Gson gson=new Gson();*/
+	    List<OnAirVo> list2 =dao.onAir();
+	    
+	    for(int i=0; i<list2.size(); i++) {
+	         String streamer=list2.get(i).getAir_mid();
+	         if(Handler.getChatRoom().get(streamer) != null) {
+	        	 int cnt=Handler.getChatRoom().get(streamer).size();//방송인원 가져옴 
+	        	 list2.get(i).setCnt(cnt);
+	         }else {
+	        	 list2.get(i).setCnt(0);
+	         }
+	    }
+	    
+	    Collections.sort(list2, new ListComparator());//시청자 순으로 정렬
+	    
+	    for(int i=0; i<list2.size(); i++) {
+	    	
+	    	System.out.println(list2.get(i).getAir_mid());
+	    	System.out.println(list2.get(i).getCnt());
+	    }
+	    
+	    mv.addObject("onair", list2);//시청자 많은 방송 
+		mv.addObject("now", list);
 		req.getSession().setAttribute("start", "ok");
 		mv.setViewName("/admin/index"); 
 		return mv;

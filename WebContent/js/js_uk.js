@@ -102,7 +102,7 @@ uk.connectWS = function (streamer, login) {
 	loginId=login;
 	console.log(streamerId)
 
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.78/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
@@ -363,7 +363,7 @@ uk.responsive = function () {
 
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://localhost/cht?justLogin");
+	allWs = new WebSocket("ws://192.168.0.78/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");

@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="content">
                             <div class="text">생방송 중인 채널</div>
                             <div class="number count-to" data-from="0" data-to="125" data-speed="15"
-                                data-fresh-interval="20">30</div>
+                                data-fresh-interval="20">${now[0] }</div>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="content">
                             <div class="text">오늘의 새로운 주문</div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
-                                data-fresh-interval="20">40</div>
+                                data-fresh-interval="20">${now[1] }</div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="content">
                             <div class="text">오늘의 새로운 리뷰</div>
                             <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
-                                data-fresh-interval="20">9</div>
+                                data-fresh-interval="20">${now[2] }</div>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <div class="content">
                             <div class="text">오늘의 새로운 회원</div>
                             <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
-                                data-fresh-interval="20">3</div>
+                                data-fresh-interval="20">${now[3] }</div>
                         </div>
                     </div>
                 </div>
@@ -141,12 +141,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach begin="1" end="5" var="i">
+                                	<c:forEach items="${onair}" end="5" var="i" varStatus="j">
 	                                    <tr>
-	                                        <th scope="row">${i }</th>
-	                                        <td>faker</td>
-	                                        <td>legue of legend</td>
-	                                        <td>30000</td>
+	                                        <th scope="row">${j.count}</th>
+	                                        <td>${i.air_mid}</td>
+	                                        <td>${i.air_gname}</td>
+	                                        <td>${i.cnt}</td>
 	                                    </tr>
                                 	</c:forEach>
                                 </tbody>
@@ -350,7 +350,7 @@ var chart = new Chart(ctx, {
 
 
 	$(document).ready(function(){
-
+		
 		$('.today_hot_goods').each(function(){
 			
 			var highestBox = 0;
@@ -363,9 +363,11 @@ var chart = new Chart(ctx, {
 
 		});
 		
-		
-		/*start();*/
-		
+		<%if(session.getAttribute("start") == null){ %>
+		  start();
+		<%
+		}%>
+		<%session.removeAttribute("start");%>
 		});
 	
 	
