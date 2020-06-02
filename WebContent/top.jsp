@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%request.setCharacterEncoding("utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <script src="./js/login_m.js"></script>
+ <script src="/js/login_m.js"></script>
 <style>
     .btn-disabled {
         cursor: not-allowed;
@@ -325,7 +325,7 @@
                 console.log(data);
             }
         })
-    })
+    }) */
 
 
 </script>

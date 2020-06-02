@@ -378,7 +378,7 @@ uk.responsive = function () {
 /*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS = function () {
 
-	allWs = new WebSocket("ws://daum123.gonetis.com/cht?justLogin");
+	allWs = new WebSocket("ws://192.168.0.77/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");

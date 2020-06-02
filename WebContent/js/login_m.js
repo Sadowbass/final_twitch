@@ -119,9 +119,10 @@
 			
 			//회원 가입 클릭 
 			$('#btnsum').click(function(){
+				console.log("클릭");
 				/*let a = $('#insertm').serialize();
 				alert(a);*/
-				$('#insert').attr('action','insert.lm').submit();
+				$('#insert_m').attr('action','insert.lm').submit();
 			})
 			
 			

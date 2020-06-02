@@ -27,8 +27,6 @@
 	<bean id="sc_storecontroller" class="controller.SCStoreController">
 		<constructor-arg ref="SCDao"></constructor-arg>
 	</bean>
-	<bean id="test_controller" class="controller.SCStoreController">
-	</bean>
 
 	<!-- view resolver -->
 	<bean class='org.springframework.web.servlet.view.InternalResourceViewResolver'>
