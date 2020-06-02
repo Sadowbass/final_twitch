@@ -351,7 +351,6 @@ public class SCController {
     	if(req.getSession().getAttribute("admin_id") != null) {
         req.getSession().removeAttribute("admin_id");
     	}
-        
     }
 
     /* 아이디 중복체크 */

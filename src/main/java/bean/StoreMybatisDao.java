@@ -13,6 +13,9 @@ import org.apache.ibatis.session.SqlSession;
 
 import mybatis.Factory;
 
+import store.StoreReviewPhotoVo;
+import store.StoreReviewVo;
+
 /**
  * @author silve
  *

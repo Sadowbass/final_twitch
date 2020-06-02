@@ -104,7 +104,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 		                    <input type="text" class="form-control streamer_profile" placeholder="${vo.profit }">
                 		</div>
                 	</div>
-                	</form>
                 </div>
             </div>
         </div>

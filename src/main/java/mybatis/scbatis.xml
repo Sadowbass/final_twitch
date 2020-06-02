@@ -47,7 +47,6 @@
 
     <!--현재 생방송들의 정보-->
     <select id="nowStreaming" resultType="bean.StreamingVo" parameterType="String">
-
         select rownum rno, a.*
         from (select *
               from FINAL_ONAIR o
@@ -74,7 +73,6 @@
                     from FINAL_ONAIR o
                              left outer join FINAL_PHOTO p on o.AIR_MID = p.PH_ID where air_mId like '%${findStr}%' or air_subject like '%${findStr}%' or air_gname like '%${findStr}%') a)
         where rno between ${rno} + 1 and ${rno} + 12
-
     </select>
 
     <!--팔로우중인 이용자의 생방송정보-->

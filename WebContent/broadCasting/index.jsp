@@ -167,7 +167,6 @@
 										ㅂㅈㅇㅈㅂ
 										</div>
 										<div class="modal-footer">
-
 											<button type="button" class="btn btn-outline-primary"
 												id="closeModalBtn2">닫기</button>
 										</div>
@@ -525,7 +524,6 @@
 				.ready(
 						function() {
 
-
 							$('#updateBroadCasting').hide();
 							// 방송스위치 --------------------------------------------------------------
 							$('#pk_switch').on('click', function() {
@@ -544,7 +542,6 @@
 
 								console.log("click close");
 							});
-
 							$('#closeModalBtn2').on('click', function() {
 								$('#modalBox2').modal('hide');
 

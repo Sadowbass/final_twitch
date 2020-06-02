@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.omg.CORBA.BAD_INV_ORDER;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,13 +97,11 @@ public class HEController {
 		list = dao.member_select();
 		for(int i=0;i <list.size();i++) {
 			if(list.get(i).getMem_admin()!=null && list.get(i).getMem_status()!=null) {
-
 				if(list.get(i).getMem_admin().equals("0")) {
 					list.get(i).setMem_admin("일반회원");
 				}else {
 					list.get(i).setMem_admin("관리자");
 				}
-
 				if(list.get(i).getMem_status().equals("0")) {
 					list.get(i).setMem_status("오프라인");
 				}else if(list.get(i).getMem_status().equals("1")) {
@@ -164,7 +165,6 @@ public class HEController {
 				}else {
 					vo.setMem_admin("관리자");
 				}
-
 				if(vo.getMem_status().equals("0")) {
 					vo.setMem_status("오프라인");
 				}else if(vo.getMem_status().equals("1")) {
@@ -263,7 +263,6 @@ public class HEController {
 		list =dao.streamer_select();
 		for(int i=0;i <list.size();i++) {
 			if(list.get(i).getMem_status()!=null ) {
-
 				if(list.get(i).getMem_status().equals("0")) {
 					list.get(i).setMem_status("오프라인");
 				}else if(list.get(i).getMem_status().equals("1")) {
@@ -285,7 +284,6 @@ public class HEController {
 		String mid =(String)req.getParameter("he_serial");
 		StreamerVo vo = new StreamerVo();
 		vo = dao.streamer_view(mid);
-
 		if(vo != null) {
 			if( vo.getMem_status()!=null) {
 				if(vo.getMem_status().equals("0")) {
@@ -314,7 +312,6 @@ public class HEController {
 			String t = time+"";
 			board_time.add(t);
 		}
-
 		list = dao.monthly_broad_time(mid);
 		List<String> board_time2 = new ArrayList<String>();
 		for(int i=0; i<list.size();i++) {
@@ -331,7 +328,6 @@ public class HEController {
 			String t = time+"";
 			board_time2.add(t);
 		}
-
 		list = dao.year_broad_time(mid);
 		List<String> board_time3 = new ArrayList<String>();
 		for(int i=0; i<list.size();i++) {
@@ -471,7 +467,6 @@ public class HEController {
 		String json = om.writeValueAsString(map);
 		return json;
 	}
-
 	@RequestMapping(value="*/category_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertC(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();

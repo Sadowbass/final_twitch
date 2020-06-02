@@ -12,7 +12,6 @@ public class MH_ReviewVo {
 	int review_like; // 리뷰 별점
 	String review_date; // 리뷰 작성일
 	String product_name; //	
-	
 	List<MH_ReviewPhoto> photos = new ArrayList<MH_ReviewPhoto>(); // 사진 리스트
 	
 	public int getReview_id() {

@@ -106,7 +106,6 @@ public class BroadCastingController {
       String msg = "";
       ModelAndView mv = new ModelAndView();
       String mId = req.getParameter("mId"); // 스트리머 아이디
-      System.out.println("123"+mId);
       String title = req.getParameter("broadCastingTitle"); // 제목
       String content = req.getParameter("broadCastingContent"); // 내용
       String sKey = req.getParameter("streamKey"); // 스트림 키
@@ -215,7 +214,6 @@ public class BroadCastingController {
       return result;
 
    }
-
    	   @RequestMapping(value = "*/selectFollow.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody
@@ -240,7 +238,6 @@ public class BroadCastingController {
   	      String mId = req.getParameter("mId"); // 스트리머 아이디
   	      ModelAndView mv = new ModelAndView();
   	      List<FollowListVo> list = dao.selectFollowList(mId);
-
   	      mv.addObject("list",list);
   	      mv.setViewName("followView");
 
@@ -269,8 +266,7 @@ public class BroadCastingController {
    public String selectRoulette(HttpServletRequest req, HttpServletResponse resp) {
       String result = "조회실패";
       String mId = req.getParameter("mId"); // 스트리머 아이디
-       System.out.println(mId);
-       RouletteVo vo = dao.selectRoulette(mId);
+      RouletteVo vo = dao.selectRoulette(mId);
       Gson gson = new Gson();
       JsonObject jsonObject = null;
       JsonArray jsonArray = new JsonArray();
@@ -400,7 +396,6 @@ public class BroadCastingController {
 	          result = gson.toJson(jsonArray);
 	      }
 
-
 	      return result;
 
 	   }
@@ -421,7 +416,6 @@ public class BroadCastingController {
       return mv;
 
    }
-
    @RequestMapping(value = "*/broadCastingTime.bc", method = { RequestMethod.GET,
 	         RequestMethod.POST }, produces = "application/text; charset=utf8")
 	   @ResponseBody

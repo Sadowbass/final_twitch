@@ -896,3 +896,238 @@ function broadCastingSetting() {
 }
 
 
+function setDonation(){
+	time1 = setInterval(
+			function() {
+				let param = $('#mId').val();
+				$
+						.ajax({
+							url : 'selectDonation.bc?mId='
+									+ param,
+							type : 'post',
+							dataType : 'json',
+							async:false,
+							error : function(xhr,
+									status, error) {
+								console.log('실패');
+							},
+							success : function(data,
+									xhr, status) {
+								console.log(data);
+								if (data != null) {
+									for (let i = 0; i < data.length; i++) {
+
+										console
+												.log(data[i]);
+										let divRow = document
+												.createElement("div");
+										divRow.className = "row";
+										divRow.style.marginTop = "2%";
+
+										if (data[i].type == '0' || data[i].type =='2') {
+											divRow.onclick = function() {
+												voiceDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].type);
+											};
+
+										} else if (data[i].type == '1') {
+											divRow.onclick = function() {
+												videoDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].url)
+											};
+										}
+
+										let divCol1 = document
+												.createElement("div");
+										divCol1.className = "col-1";
+
+										let j = document
+												.createElement('i');
+										if (data[i].type == '0') {
+											j.className = "fas fa-volume-up fa-3x";
+										} else if (data[i].type == '1') {
+											j.className = "fas fa-video fa-3x";
+										} else if (data[i].type == '2'){
+											j.className = "fas fa-question fa-3x";
+										}
+
+										let divCol8 = document
+												.createElement("div");
+										divCol8.className = "col-8";
+
+										let divCol12 = document
+												.createElement("div");
+										divCol12.className = "col-12";
+										divCol12.innerHTML = data[i].don_oid;
+										divCol12.style.color = "white";
+
+										let divCol122 = document
+												.createElement("div");
+										divCol122.className = "col-12";
+										divCol122.innerHTML = "["
+												+ data[i].don_price
+												+ "]&nbsp;"
+												+ data[i].don_content;
+
+										let divCol3 = document
+												.createElement("div");
+										divCol3.className = 'col-3';
+										divCol3.style.textAlign = "center";
+										divCol3.style.paddingTop = "3px";
+										divCol3.innerHTML = data[i].don_rdate;
+
+										divRow
+												.appendChild(divCol1);
+										divRow
+												.appendChild(divCol8);
+										divRow
+												.appendChild(divCol3);
+										divCol1
+												.appendChild(j);
+										divCol8
+												.appendChild(divCol12);
+										divCol8
+												.appendChild(divCol122);
+										let donationDiv = document
+												.getElementById('donationDiv');
+										donationDiv
+												.appendChild(divRow);
+
+										/*
+										let html = '';
+										if(data[i].type == '0'){
+										html += '<div class="row" style="margin-top: 2%" onclick="voiceDonation(' + data[i].don_serial + ')">';
+										}else if(data[i].type =='1'){
+										html += '<div class="row" style="margin-top: 2%" onclick="videoDonation(' + data[i].don_serial + ')">';
+										}
+										html += "<div class='col-1'>";
+										if(data[i].type == '0'){
+											html += "<i class='fas fa-volume-up fa-3x'></i>";
+										}else if(data[i].type =='1'){
+											html += "<i class='fas fa-video fa-3x'></i>";
+										}
+										html += "</div>";
+										html += "<div class='col-8'>";
+										html += "<div class='col-12' style='color: white'>";
+										html += data[i].don_oid;
+										html += "</div>";
+										html += "<div class='col-12'>";
+										html += "<font size='2' color='white' face='돋움'>["+data[i].don_price+"]</font>" + data[i].don_content;
+										html += "</div>";
+										html += "</div>";
+										html += "<div class='col-3' style='text-align: center;padding-top: 10px'>";
+										html += data[i].don_rdate;
+										html += "</div>";
+										$('#donationDiv').append(html);
+
+										 */
+
+										toastr.options = {
+											"closeButton" : false,
+											"debug" : false,
+											"newestOnTop" : false,
+											"progressBar" : false,
+											"positionClass" : "toast-top-center",
+											"preventDuplicates" : false,
+											"onclick" : null,
+											"showDuration" : "300",
+											"hideDuration" : "1000",
+											"timeOut" : "3000",
+											"extendedTimeOut" : "1000",
+											"showEasing" : "swing",
+											"hideEasing" : "linear",
+											"showMethod" : "fadeIn",
+											"hideMethod" : "fadeOut",
+											"bdColor" : "#444"
+										}
+										toastr.options.onclick = function() {
+											if (data[i].type == '0' || data[i].type =='2') {
+												voiceDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].type);
+											} else if (data[i].type == '1') {
+												videoDonation(
+														data[i].don_serial,
+														data[i].don_oid,
+														data[i].don_content,
+														data[i].don_price,
+														data[i].url)
+											}
+										}
+
+										if (data[i].type == '0') {
+											toastr
+													.success('음성후원이 도착하였습니다');
+										} else if (data[i].type == '1') {
+											toastr
+													.success('영상후원이 도착하였습니다');
+										} else if (data[i].type == '2'){
+											toastr
+												    .success('룰렛후원이 도착하였습니다');
+										}
+
+									}
+
+								}
+
+							}
+						});
+
+			}, 5000);
+	
+}
+
+
+
+function broadCastingSetting() {
+	let mId = $('#mId').val();
+	$('#rul1').val('');
+	$('#rul2').val('');
+	$('#rul3').val('');
+	$('#rul4').val('');
+	$('#rul5').val('');
+	
+	$.ajax({
+		url : 'selectRoulette.bc',
+		type : 'post',
+		data : {"mId":mId},
+		dataType : 'json',
+		async:false,
+		error : function(xhr, status, error){
+
+		},
+		success : function(data, xhr, status ){	
+			
+			if(data != null){
+				if(data[0].rul_result == '성공'){
+				let array = data[0].rul_data.split(',');
+				for(let i = 0; i<array.length;i++){
+					console.log(array[i]);
+					$('#rul'+(i+1)).val(array[i].trim());
+				}
+				$('#flagRul').val('true');
+				}else if(data[0].rul_result == '실패'){
+					$('#flagRul').val('false');
+				}
+				
+			}
+		}
+			
+	})
+	
+	$('#modalBox').modal('show');
+
+}
+
+

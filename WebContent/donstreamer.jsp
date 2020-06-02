@@ -131,7 +131,6 @@ div.power_controls
 							let fd = $('#user-info').serialize(); 
 							(function poll() {
 								console.log('...................');
-								console.log(fd);
 								$.ajax({
 									url : "/view-donation-list.sc",
 									type : 'post',
@@ -195,7 +194,6 @@ div.power_controls
 													}, 3000)
 												})
 											} else if(data.type == 2){ // 룰렛 도네이션
-												console.log(data);
 												var array = data.rul_data.split(",");
 												
 												$('#imgDona').hide();

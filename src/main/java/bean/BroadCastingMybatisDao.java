@@ -54,7 +54,6 @@ public class BroadCastingMybatisDao {
 		try {
 			list = sqlSession.selectList("broadCasting.selectDonation", mId);
 
-
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
 					readDonation(list.get(i).don_serial);
@@ -160,8 +159,6 @@ public class BroadCastingMybatisDao {
 		int flag = 0;
 		try {
 			flag = sqlSession.update("broadCasting.updateKey", vo);
-			System.out.println(vo.getAir_mid());
-			System.out.println(vo.getMem_skey());
 			if (flag < 1)
 				throw new Exception("방송시작 에러");
 
@@ -212,14 +209,11 @@ public class BroadCastingMybatisDao {
 
 	}
 
-
-	
 	public String deleteAir(String mId, String sKey,String gameName) {
 		String result = "";
 		int flag = 0;
 		BroadCastingAirVo vo = new BroadCastingAirVo();
 		vo.setAir_gname(gameName);
-		System.out.println("123"+vo.getAir_gname());
 		vo.setAir_mid(mId);
 
 		try {
@@ -238,7 +232,6 @@ public class BroadCastingMybatisDao {
 			sqlSession.rollback();
 		} finally {
 			if (flag > 0) {
-					
 				File file = new File(
 						"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/uploads/" + sKey + ".m3u8.png");
 				if (file.exists()) {
@@ -269,8 +262,6 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
-	
-	
 
 
 	public String saveRoulette(String mId, String newRouletteData, String flagRul) {
@@ -351,14 +342,12 @@ public class BroadCastingMybatisDao {
 		}
 
 	}
-
 	public BroadCastingAirVo selectAir(String mId) {
 		BroadCastingAirVo vo = null;
 		try {
 			vo = sqlSession.selectOne("broadCasting.selectAir",mId);
 
 		}catch (Exception e) {
-
 		}finally {
 			return vo;
 		}

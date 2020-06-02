@@ -497,7 +497,6 @@ let year_chart3 = function(d,s){
 }
 
 
-
 let month_chart5 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2,k2,l2){
 	chart6.destroy();
 	var ctx2 = document.getElementById('follow_chart').getContext('2d');

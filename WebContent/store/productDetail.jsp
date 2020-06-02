@@ -417,8 +417,6 @@
         Layout.initImageZoom();
 	});
     
-    
-    
 	function handleImages(e){	
 		var sel_files = [];
 		var files = e.target.files;
