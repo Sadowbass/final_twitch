@@ -49,4 +49,11 @@ SqlSession sqlSession;
 	   sqlSession.close();
 	   return list;
    }
+
+   /*하은이꺼*/
+   public List<String> onAir(){
+	   List<String> list=sqlSession.selectList("mybatis_uk.onAir");
+	   sqlSession.close();
+	   return list;
+   }
 }

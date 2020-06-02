@@ -1,21 +1,24 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
 
-import org.omg.CORBA.BAD_INV_ORDER;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import bean.BroadCastingCateVo;
 import bean.GCategoryVo;
@@ -29,10 +32,8 @@ import bean.TagVo;
 import bean.UserProductVo;
 import config.HE_FileUpload;
 import config.HE_FileUpload2;
-import oracle.jdbc.replay.ReplayableConnection.StatisticsReportType;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import stream_uk.Handler;
+import stream_uk.UkDao;
 
 @Controller
 public class HEController {
@@ -47,13 +48,13 @@ public class HEController {
 		list = dao.member_select();
 		for(int i=0;i <list.size();i++) {
 			if(list.get(i).getMem_admin()!=null && list.get(i).getMem_status()!=null) {
-				
+
 				if(list.get(i).getMem_admin().equals("0")) {
 					list.get(i).setMem_admin("일반회원");
 				}else {
 					list.get(i).setMem_admin("관리자");
 				}
-				
+
 				if(list.get(i).getMem_status().equals("0")) {
 					list.get(i).setMem_status("오프라인");
 				}else if(list.get(i).getMem_status().equals("1")) {
@@ -63,61 +64,61 @@ public class HEController {
 				}
 			}
 		}
-		
+
 		mv.addObject("list", list);
 		mv.setViewName("member/member_select"); //select라는 페이지에 넘기겠다  ->resolver가 받음-> index.jsp?inc=./board/select.jsp가 로딩됨
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/member_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("member/member_insert"); 
+		mv.setViewName("member/member_insert");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/member_result.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertResult(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		HE_FileUpload fu = new HE_FileUpload(req, resp);
 		HttpServletRequest req2 = fu.boardUploading();
-		
+
 		MemberVo vo = (MemberVo)req2.getAttribute("vo");
-		
+
 		String msg = dao.member_insert(vo, req2);
 		mv.addObject("msg", msg);
-		mv.setViewName("member/result"); 
+		mv.setViewName("member/result");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/member_modify.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView modifyM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MemberVo vo =  null;
 		String mid =(String)req.getParameter("member_id");
 		vo=dao.member_view(mid);
-		
+
 		mv.addObject("vo", vo);
-		mv.setViewName("member/member_modify"); 
+		mv.setViewName("member/member_modify");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/member_view.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView viewM(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		MemberVo vo =  null;
 		String mid =(String)req.getParameter("he_serial");
 		vo=dao.member_view(mid);
-		
+
 		if(vo != null) {
 			if(vo.getMem_admin()!=null && vo.getMem_status()!=null) {
-				
+
 				if(vo.getMem_admin().equals("0")) {
 					vo.setMem_admin("일반회원");
 				}else {
 					vo.setMem_admin("관리자");
 				}
-				
+
 				if(vo.getMem_status().equals("0")) {
 					vo.setMem_status("오프라인");
 				}else if(vo.getMem_status().equals("1")) {
@@ -127,40 +128,40 @@ public class HEController {
 				}
 			}
 		}
-		
+
 		List<StatisticVo> list = new ArrayList<StatisticVo>();
 		list = dao.mileage(vo.getMem_id());
 		List<StatisticVo> list2 = new ArrayList<StatisticVo>();
 		list2 = dao.mileage_use(vo.getMem_id());
-		
+
 		for(int i=0;i <list2.size();i++) {
 			if(list2.get(i).getType()!=null) {
-				
+
 				if(list2.get(i).getType().equals("3")) {
 					list2.get(i).setType("구독");
 				}else {
 					list2.get(i).setType("도네이션");
 				}
-				
+
 			}
 		}
-		
+
 		List<String> list3 = new ArrayList<String>();
 		list3 = dao.Watching(mid);
-		
+
 		String tot_time = dao.Watching_tot(mid);
-		
+
 		List<String> list4 = new ArrayList<String>();
 		list4 = dao.last_pay(mid);
-		
+
 		String tot_pay = dao.last_pay_tot(mid);
-		
+
 		List<UserProductVo> sc = new ArrayList<UserProductVo>();
 		sc=dao.store_cate(mid);
 		List<UserProductVo> sb = new ArrayList<UserProductVo>();
 		sb = dao.store_buylist(mid);
-		
-		
+
+
 		mv.addObject("store_buylist", sb);
 		mv.addObject("store_cate", sc);
 		mv.addObject("tot_pay", tot_pay);
@@ -170,53 +171,53 @@ public class HEController {
 		mv.addObject("pay_use", list2);
 		mv.addObject("payment", list);
 		mv.addObject("vo", vo);
-		mv.setViewName("member/member_view"); 
+		mv.setViewName("member/member_view");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/modify_result.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView modifyResult(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		HE_FileUpload fu = new HE_FileUpload(req, resp);
 		HttpServletRequest req2 = fu.boardUploading();
-		
+
 		MemberVo vo = (MemberVo)req2.getAttribute("vo");
-		
+
 		String msg = dao.member_modify(vo, req2);
 		mv.addObject("msg", msg);
-		mv.setViewName("member/result"); 
+		mv.setViewName("member/result");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/delete_result.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView deleteResult(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		String mid = (String)req.getParameter("member_id");
 		String msg = dao.member_delete(mid,req);
 		mv.addObject("msg", msg);
-		mv.setViewName("member/result"); 
+		mv.setViewName("member/result");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/live_broadcast.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView LiveBroadcast(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		List<StreamingVo> list =  new ArrayList<StreamingVo>();
 		list = dao.onair();
 		mv.addObject("list", list);
-		mv.setViewName("twitch_main/live_broadcast"); 
+		mv.setViewName("twitch_main/live_broadcast");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/streamer.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView Streamer(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		List<StreamerVo> list = new ArrayList<StreamerVo>();
 		list =dao.streamer_select();
 		for(int i=0;i <list.size();i++) {
 			if(list.get(i).getMem_status()!=null ) {
-				
+
 				if(list.get(i).getMem_status().equals("0")) {
 					list.get(i).setMem_status("오프라인");
 				}else if(list.get(i).getMem_status().equals("1")) {
@@ -227,18 +228,18 @@ public class HEController {
 			}
 		}
 		mv.addObject("list", list);
-	
-		mv.setViewName("twitch_main/streamer"); 
+
+		mv.setViewName("twitch_main/streamer");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/streamer_view.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView viewS(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		String mid =(String)req.getParameter("he_serial");
 		StreamerVo vo = new StreamerVo();
 		vo = dao.streamer_view(mid);
-		
+
 		if(vo != null) {
 			if( vo.getMem_status()!=null) {
 				if(vo.getMem_status().equals("0")) {
@@ -267,7 +268,7 @@ public class HEController {
 			String t = time+"";
 			board_time.add(t);
 		}
-		
+
 		list = dao.monthly_broad_time(mid);
 		List<String> board_time2 = new ArrayList<String>();
 		for(int i=0; i<list.size();i++) {
@@ -284,7 +285,7 @@ public class HEController {
 			String t = time+"";
 			board_time2.add(t);
 		}
-		
+
 		list = dao.year_broad_time(mid);
 		List<String> board_time3 = new ArrayList<String>();
 		for(int i=0; i<list.size();i++) {
@@ -301,8 +302,8 @@ public class HEController {
 			String t = time+"";
 			board_time3.add(t);
 		}
-		
-		
+
+
 		List<String> cnt = new ArrayList<String>();
 		cnt = dao.weekly_follow(mid);
 		List<String> tot_cnt = new ArrayList<String>();
@@ -339,16 +340,16 @@ public class HEController {
 		m_sub = dao.monthly_subprofit(mid);
 		List<String> y_sub = new ArrayList<String>();
 		y_sub = dao.year_subprofit(mid);
-		
+
 		int isban = dao.isban(mid);//방송금지인지 확인
-		
+
 		List<GCategoryVo> g_cate = new ArrayList<GCategoryVo>();
 		g_cate = dao.gcategory(mid);
 		List<GCategoryVo> g_cate_m = new ArrayList<GCategoryVo>();
 		g_cate_m = dao.gcategory_m(mid);
 		List<GCategoryVo> g_cate_y = new ArrayList<GCategoryVo>();
 		g_cate_y = dao.gcategory_y(mid);
-		
+
 		mv.addObject("gm", g_cate_m);
 		mv.addObject("gy", g_cate_y);
 		mv.addObject("g_cate", g_cate);
@@ -375,32 +376,32 @@ public class HEController {
 		mv.addObject("bt2", board_time2);
 		mv.addObject("bt",board_time);
 		mv.addObject("vo", vo);
-		mv.setViewName("twitch_main/streamer_detail"); 
+		mv.setViewName("twitch_main/streamer_detail");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/broadstop.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView broadstop(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		String mid= req.getParameter("he_serial");
 		dao.broadban(mid);
-		
-		mv.setViewName("twitch_main/streamer_detail"); 
+
+		mv.setViewName("twitch_main/streamer_detail");
 		return mv;
 	}
-	
+
 
 	@RequestMapping(value="*/broadok.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView broadok(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		String mid= req.getParameter("he_serial");
 		dao.broadok(mid);//방송정지 테이블에서 정보 삭제
-		
-		mv.setViewName("twitch_main/streamer_detail"); 
+
+		mv.setViewName("twitch_main/streamer_detail");
 		return mv;
 	}
-	
-	
+
+
 	@RequestMapping(value="*/category_select.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView selectC(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
@@ -409,10 +410,10 @@ public class HEController {
 
 		mv.addObject("list", list);
 
-		mv.setViewName("twitch_main/category_select"); 
+		mv.setViewName("twitch_main/category_select");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/category_view.he", method= {RequestMethod.GET,RequestMethod.POST},produces = "application/json; charset=utf8")
 	public @ResponseBody String viewC(BroadCastingCateVo vo) throws Exception {
 
@@ -424,15 +425,15 @@ public class HEController {
 		String json = om.writeValueAsString(map);
 		return json;
 	}
-	
+
 	@RequestMapping(value="*/category_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertC(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
-	
-		mv.setViewName("twitch_main/category_insert"); 
+
+		mv.setViewName("twitch_main/category_insert");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/category_insertR.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView insertR(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
@@ -440,12 +441,12 @@ public class HEController {
 		BroadCastingCateVo vo = fu.boardUploading();
 		String msg = dao.cate_insert(vo, req);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/category_insert"); 
+		mv.setViewName("twitch_main/category_insert");
 		return mv;
 	}
-	
-	
-	
+
+
+
 	@RequestMapping(value="*/category_modifyR.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView modifyC(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
@@ -453,31 +454,31 @@ public class HEController {
 		BroadCastingCateVo vo = fu.boardUploading();
 		String msg = dao.cate_modify(vo, req);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/category_select"); 
+		mv.setViewName("twitch_main/category_select");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/category_delete.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView deleteC(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		String serial = req.getParameter("cat_serial");
 		String msg = dao.cate_delete(serial, req);
 		mv.addObject("msg", msg);
-		mv.setViewName("twitch_main/category_select"); 
+		mv.setViewName("twitch_main/category_select");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/tag_management.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView tag(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		List<TagVo> list = new ArrayList<TagVo>();
 		list = dao.tag_select();
-		
+
 		mv.addObject("list", list);
 		mv.setViewName("twitch_main/tag_management");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/tag_search.he", method= {RequestMethod.GET,RequestMethod.POST},produces = "application/json; charset=utf8")
 	public @ResponseBody String tagSearch(HttpServletRequest req) throws Exception {
 		String findStr =req.getParameter("findTag");
@@ -486,10 +487,10 @@ public class HEController {
 		list = dao.tag_search(findStr);
 		ObjectMapper om = new ObjectMapper();
 		String json = om.writeValueAsString(list);
-		
+
 		return json;
 	}
-	
+
 	@RequestMapping(value="*/tag_delete.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView tagDelete(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
@@ -499,7 +500,7 @@ public class HEController {
 		mv.setViewName("twitch_main/tag_management");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="*/tag_insert.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView tagInsert(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
@@ -511,7 +512,7 @@ public class HEController {
 		mv.setViewName("twitch_main/tag_management");
 		return mv;
 	}
-	
+
 
 	@RequestMapping(value="*/profit.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView profit(HttpServletRequest req, HttpServletResponse resp) {
@@ -537,17 +538,17 @@ public class HEController {
 			page2.setNowPage(p);
 		}
 		List<StreamerVo> s_list = new ArrayList<StreamerVo>();
-		s_list = dao.s_profit(page2);//구독 수익 랭킹 
-		
+		s_list = dao.s_profit(page2);//구독 수익 랭킹
+
 		List<StatisticVo> done_list = new ArrayList<StatisticVo>();
 		done_list = dao.done_profit();
-		
+
 		List<StatisticVo> sub_list = new ArrayList<StatisticVo>();
 		sub_list = dao.sub_profit();
-		
+
 		List<StatisticVo> pay_list = new ArrayList<StatisticVo>();
 		pay_list = dao.payment();
-		
+
 		mv.addObject("p", page);
 		mv.addObject("d_list", d_list);
 		mv.addObject("pay", pay_list);
@@ -556,19 +557,37 @@ public class HEController {
 		mv.addObject("s_list", s_list);
 		mv.addObject("p2", page2);
 		mv.addObject("p", page);
-		mv.setViewName("twitch_main/profit_management"); 
+		mv.setViewName("twitch_main/profit_management");
 		return mv;
 	}
-	
-	
+
+
 	@RequestMapping(value="*/help.he", method= {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView help(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
-	
-		mv.setViewName("twitch_main/help"); 
+
+		mv.setViewName("twitch_main/help");
 		return mv;
 	}
-	
-	
+
+	@RequestMapping(value = "*/chatting.uk", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public String chatting(HttpServletRequest req) {
+		Map<String, Integer> map=new HashMap<String, Integer>();
+		Gson gson=new Gson();
+		UkDao dao=new UkDao();
+		List<String> list=dao.onAir();
+
+		for(int i=0; i<list.size(); i++) {
+			String streamer=list.get(i);
+			int cnt=Handler.getChatRoom().get(streamer).size();
+			map.put(streamer, cnt);
+		}
+		String str=gson.toJson(map);
+		return str;
+	}
+
+
+
 
 }
