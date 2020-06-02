@@ -1232,6 +1232,11 @@ public class HEDao {
 		}
 	}
 	
+	public List<OnAirVo> onAir(){
+	     List<OnAirVo> list=sqlSession.selectList("stream.onAir");
+	     return list;
+	}
+	
 	
 	
 

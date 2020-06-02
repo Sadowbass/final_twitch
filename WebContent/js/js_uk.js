@@ -101,7 +101,7 @@ uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
 
-	ws = new WebSocket("ws://localhost/cht?" + streamerId);
+	ws = new WebSocket("ws://192.168.0.78/cht?" + streamerId);
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
@@ -376,7 +376,7 @@ uk.responsive = function () {
 /*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://localhost/cht?justLogin");
+	allWs = new WebSocket("ws://192.168.0.78/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");

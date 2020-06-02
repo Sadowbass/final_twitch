@@ -256,7 +256,7 @@
     </select>
     
      <select id='now_live' parameterType="hashmap" resultType="String">
-   		select count(air_serial)cnt from FINAL_ONAIR;
+   		select count(air_serial)cnt from FINAL_ONAIR
      </select>
      
      <select id='today_order' parameterType="hashmap" resultType="String">
@@ -272,6 +272,10 @@
      <select id='today_member' parameterType="hashmap" resultType="String">
    		select count(mem_id) from final_member 
    		where to_char(mem_rdate ,'rrrr-mm-dd')= #{day}
+     </select>
+     
+     <select id='onAir' resultType="bean.OnAirVo">
+   		select air_mid,air_gname from final_onair
      </select>
    
 

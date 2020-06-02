@@ -26,8 +26,9 @@ public class Handler extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
 	static Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
-	Map<String, Set<String>> accumulate=new HashMap<String, Set<String>>();/*스트리머, 누적 시청자*/
-	Set<String> onePerPerson=new HashSet<String>(); /*josn gson*/
+	Map<String, Integer> totalUsers = new HashMap<String, Integer>(); /* 스트리머, 총 시청자수 */
+	Map<String, Integer> accumulate = new HashMap<String, Integer>(); /* 스트리머, 누적 시청자수 */
+	Set<String> onePerPerson=new HashSet<String>();
 	Gson gson = new Gson(); /*지슨*/
 	JsonParser parser=new JsonParser(); /*파서*/
 	UserList userList = new UserList(); /* userList Vo 디비에 저장할거임 */
@@ -37,6 +38,12 @@ public class Handler extends TextWebSocketHandler {
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
 
 	boolean reduplication=true; /*중복입장 확인(true=첫 입장)*/
+	
+	
+
+	public static Map<String, List<WebSocketSession>> getChatRoom() {
+		return chatRoom;
+	}
 
 
 
