@@ -18,6 +18,7 @@ public class StoreOrderDetailVo {
 	String mem_id;
 	String order_size;
 	
+	
 	public int getOrderdetails_serial() {
 		return orderdetails_serial;
 	}

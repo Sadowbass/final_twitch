@@ -265,7 +265,15 @@ public class StoreController {
 		vo.setProduct_size(product_size);
 		vo.setCart_count(cart_count);
 		
-		cartservice.insert(vo); 
+		int count = cartservice.countCart(mem_id, product_id);
+        
+		if(count==0) {
+			cartservice.insert(vo);
+		}else {
+		    cartservice.updateCart(vo);
+		}
+		
+		
 		
 		//String msg = dao.cartInsert(vo);
 	
@@ -384,6 +392,7 @@ public class StoreController {
 			 
 			 
 			 
+			    mv.setViewName("checkout");
 				return mv;
 			 
 			 

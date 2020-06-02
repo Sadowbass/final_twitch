@@ -46,7 +46,7 @@ store.func = function () {
 
     })
 
-    //My wishlist 눌렀을때 wishlist 페이지로 이동	
+    /*My wishlist 눌렀을때 wishlist 페이지로 이동	
     $('#myWishlist').click(function () {
 
         $.post("wishlist.jsp", function (data, state) {
@@ -55,11 +55,12 @@ store.func = function () {
 
 
     })
+    */
 
     //checkout 눌렀을때  checkout 페이지로 이동	
     $('#checkout').click(function () {
 
-        $.post("checkout.jsp", function (data, state) {
+        $.post("checkout.str", function (data, state) {
             $('#sh_main').html(data)
         });
 
@@ -159,7 +160,7 @@ store.addcart = function(){
 	let param2 = $("#sizeOption option:selected").val();
 	let param3 = $("#product-quantity").val();
 	
-    console.log(param3);
+    console.log(param2);
 	
     $.ajax({
         url: 'addToCart.str',
@@ -258,7 +259,7 @@ store.viewCart = function () {
 //주문하기
 store.checkout = function () {
 
-    $.post("checkout.jsp", function (data, state) {
+    $.post("order.str", function (data, state) {
         $('#sh_main').html(data)
     });
 

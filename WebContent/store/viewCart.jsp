@@ -103,7 +103,7 @@
 </c:choose>
               </div>
               <button onclick= "store.pl()" class="btn btn-default" type="button">Continue shopping <i class="fa fa-shopping-cart"></i></button>
-           
+            
               <button onclick="store.checkout()" class="btn btn-primary" type="button">Checkout <i class="fa fa-check"></i></button>
             </div>
           </div>
