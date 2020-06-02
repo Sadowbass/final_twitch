@@ -336,10 +336,17 @@ public class StoreController {
 	    //장바구니 수정
 	    // StoreCartServiceDao의 modifyCart/delete 메서드 사용
 	    @RequestMapping(value="/store/cartupdate.str", method= {RequestMethod.GET, RequestMethod.POST})
-	    public String cartupdate(int[] cart_count, int[] cart_id, HttpSession session) {
+	    public String cartupdate( HttpServletRequest req, HttpSession session) {
 	 
 	        //String mem_id = (String) session.getAttribute("mem_id");
 	    	 String mem_id ="faker";
+	    	 
+	    	 String[] a = req.getParameterValues("cart_count");
+	    	 int[] cart_count = new int[a.length];
+	    	 
+	    	 String[] b = req.getParameterValues("cart_id");
+	    	 int[] cart_id = new int[b.length];
+	    	 
 	        for (int i = 0; i < cart_id.length; i++) {
 	 
 	            // cart_count가 0이면 카트아이디를 삭제

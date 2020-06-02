@@ -122,7 +122,6 @@ store.cartdeleteAll = function(){
 store.cartmodify = function(){
 	//장바구니 수정
 
-		
 		 let data = new FormData($('#form1')[0]);
 			//console.log(param);
 			$.post('cartupdate.str', function(data, state){
@@ -130,7 +129,6 @@ store.cartmodify = function(){
 				$('#sh_main').html(data);
 				
 	
-		
 	})
 	
 }
