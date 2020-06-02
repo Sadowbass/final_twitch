@@ -23,7 +23,7 @@ import bean.Cht;
 import bean.UserList;
 import bean.ViewerCnt;
 
-public class Handler extends TextWebSocketHandler {
+public class Handler_one extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
 	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */

@@ -83,7 +83,7 @@
 
          $('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
          $('#streamKey').prop('readonly',false);
- 		 uk.WSclose(); /* 소켓 종료 */
+ 		 uk.WScloseSend(); /* 소켓 종료 */
       }else if($('#msgBroadCasting').val()=='중지실패'){
          Swal.fire({
               position: 'center',

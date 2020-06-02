@@ -521,13 +521,28 @@ uk.whisperCss=function(left){
 /*하은 부탁*/
 uk.heCnt=function(streamerId, loginId){
 	if(streamerId==loginId){
-		let str={heCntRun:1}
+		let str={heCntRun:1};
 		let jsonStr=JSON.stringify(str);
 		setInterval(function(){
 			ws.send(jsonStr);
 		}, 60000);
 	}
-
+}
+/*방종 메세지*/
+uk.WScloseSend=function(){
+	let str={realClose:1};
+	let jsonStr=JSON.stringify(str);
+	ws.send(jsonStr);
+}
+/*스트리머 방송 출력 페이지 소켓 다시 접속*/
+uk.reSocket=function(mid){
+	console.log(mid);
+	let param={mid:mid};
+	$.get("reSocket.uk", param, function(data){
+		if(data=="reS"){
+			uk.connectWS(mid,mid); /* 소켓 재접속 */
+		}
+	});
 }
 
 

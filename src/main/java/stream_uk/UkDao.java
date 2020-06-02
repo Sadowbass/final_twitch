@@ -51,6 +51,13 @@ SqlSession sqlSession;
 	   return list;
    }
 
+    /*스트리머 영상 출력 화면 채팅 재접속*/
+   public String reSocket(String mid) {
+	   String result=sqlSession.selectOne("mybatis_uk.reSocket", mid);
+	   sqlSession.close();
+	   return result;
+   }
+
    /*하은 부탁*/
    public void viewerCnt(ViewerCnt viewerCnt) {
 	   int r=sqlSession.update("mybatis_uk.viewerCnt", viewerCnt);
