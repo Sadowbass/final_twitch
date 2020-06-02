@@ -24,7 +24,7 @@
     <insert id="cart_insert" parameterType="bean.StoreCartVo">
       
       insert into cart(cart_id, mem_id, product_id, cart_count, cart_date, product_size)
-      values(seq_storecart.nextval, #{mem_id, jdbcType=VARCHAR}, #{product_id}, #{cart_count}, sysdate, ${product_size})
+      values(seq_storecart.nextval, #{mem_id}, #{product_id}, #{cart_count}, sysdate, #{product_size})
       
     </insert>
     
@@ -33,9 +33,9 @@
 	<insert id="review_insert" parameterType="bean.StoreReviewVo">
 	  
 	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
-      values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
-      		#{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String}, 
-      		#{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},  sysdate)
+      values( seq_storereview.nextval , #{mem_id}, 
+      		#{product_id}, #{rSubject}, 
+      		#{rContent}, #{review_like},  sysdate)
 	  
 	</insert>
 	
@@ -196,7 +196,7 @@
 	<update id="updateCart">
 	  update cart
 	  set cart_count = cart_count + #{cart_count}
-	  where mem_id = #{mem_id}
+	  where mem_id = #{mem_id, jdbcType=VARCHAR}
 	  and product_id = #{product_id}
 	</update>
 	

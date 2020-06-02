@@ -184,7 +184,7 @@
                                            class="form-control input-sm">
                                 </div>
                                 <input type="hidden" id="cart_product" value="${vo.product_id }">
-                                <input type="hidden" id="member_id" value="kim">
+                                <input type="hidden" id="member_id" value="sliver">
                                 <input type="button" id="addcart" class="btn btn-primary" value="Add to cart" onclick="store.addcart()">
                             </div>
                             <div class="review">
@@ -381,7 +381,7 @@
                                 <!-- END FORM-->
                             </div>
                         </div>--%>
-                        <input type="hidden" id="pId" name="pId" value=101>
+                        <input type="hidden" id="pId" name="pId" value="${vo.product_id }">
                        
                       </form>
                       <!-- END FORM--> 

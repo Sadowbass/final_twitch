@@ -90,10 +90,10 @@ public class StoreController {
     }
 	
 	@RequestMapping(value="/store/reviewInsert.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView reviewInsert(MultipartHttpServletRequest req) {
+	public String reviewInsert(MultipartHttpServletRequest req) {
     	
 		System.out.println("리뷰입력");
-    	ModelAndView mv = new ModelAndView();
+    	
     	
     	//FileUpload
     	//ServletContext c;
@@ -112,11 +112,11 @@ public class StoreController {
 	    
 	    //int maxSize =1024 *1024 *10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
 	    
-	    String mId = "";
-	    int pId;
+	    String mem_id = "";
+	    int product_id;
 	    String rContent ="";
 	    String rSubject ="";
-	    Double rLike;
+	    Double review_like;
 	         
 	    String image1 ="";// 중복처리된 이름
 	    String image2 ="";// 중복 처리전 실제 원본 이름
@@ -133,19 +133,19 @@ public class StoreController {
 	    try{
 	    	    	
 	        // form내의 input name="mId" 인 녀석 value를 가져옴
-	        mId = req.getParameter("mId");
+	        mem_id = req.getParameter("mId");
 	        // form내의 input name="pId" 인 녀석 value를 가져옴
-	        pId = Integer.parseInt(req.getParameter("pId"));
+	        product_id = Integer.parseInt(req.getParameter("pId"));
 	        // form내의 input name="rContent" 인 녀석 value를 가져옴
 	        rContent = req.getParameter("rContent");
 	        // name="rSubject" 인 녀석 value를 가져옴
 	        rSubject = req.getParameter("rSubject");
 	     // name="rLike" 인 녀석 value를 가져옴
-	        rLike = Double.parseDouble(req.getParameter("rLike"));
+	        review_like = Double.parseDouble(req.getParameter("rLike"));
 	        
-	        System.out.println(pId);
+	        System.out.println(product_id);
 	        
-	        vo = new StoreReviewVo(mId, pId, rSubject, rContent, rLike);
+	        vo = new StoreReviewVo(mem_id, product_id, rSubject, rContent, review_like);
 	        
 	        // 전송한 전체 파일이름들을 가져옴
 	        List<MultipartFile> mf = req.getFiles("reviewFile");
@@ -178,10 +178,10 @@ public class StoreController {
 	        e.printStackTrace();
 	    }
     	
-    	mv.setViewName("productDetail");
+    	
     	
     	System.out.println(req.getRequestURI());
-    	return mv;
+    	return "redirect:/store/productDetail.str";
     }
 
 	private String getExtension(String image2) {
@@ -253,7 +253,7 @@ public class StoreController {
 		
 	    System.out.println("addCart 들어았다");
 		//String mem_id = (String)session.getAttribute("mem_id");
-		String mem_id ="faker";
+		String mem_id ="sliver";
 		int product_id = Integer.parseInt(req.getParameter("product_id"));
 		String product_size = req.getParameter("product_size");
 		int cart_count = Integer.parseInt(req.getParameter("product_q"));
@@ -289,7 +289,7 @@ public class StoreController {
 	        Map<String, Object> map = new HashMap<String, Object>();
 	 
 	        //String mem_id = (String) session.getAttribute("mem_id");
-	        String mem_id ="faker";
+	        String mem_id ="sliver";
 	        if (mem_id != null) {// 로그인한 상태이면
 	            List<StoreCartVo> list = cartservice.listCart(mem_id);// 서비스단에서 장바구니 목록을 가져오고
 	          
@@ -334,7 +334,7 @@ public class StoreController {
 	        // StoreCartServiceDao에서 진행해도 되는 처리과정
 	       // String mem_id = (String) session.getAttribute("mem_id");
 	    	
-	    	 String mem_id ="faker";
+	    	 String mem_id ="sliver";
 	        if (mem_id != null) {
 	            cartservice.deleteAll(mem_id);
 	        }
@@ -348,7 +348,7 @@ public class StoreController {
 	    public String cartupdate( HttpServletRequest req, HttpSession session) {
 	 
 	        //String mem_id = (String) session.getAttribute("mem_id");
-	    	 String mem_id ="faker";
+	    	 String mem_id ="sliver";
 	    	 
 	    	 String[] a = req.getParameterValues("cart_count");
 	    	 

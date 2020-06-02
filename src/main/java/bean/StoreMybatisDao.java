@@ -32,7 +32,7 @@ public class StoreMybatisDao {
 		System.out.println("dao inset들어옴");
 	    int cnt;
 	
-
+        System.out.println(vo.getMem_id());
 			try {			
 						cnt = sqlsession.insert("store.review_insert", vo);
 						if(cnt<1) {
