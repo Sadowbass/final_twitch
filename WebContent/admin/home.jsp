@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -141,7 +142,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach items="${onair}" end="5" var="i" varStatus="j">
+                                	<c:forEach items="${onair}" end="4" var="i" varStatus="j">
 	                                    <tr>
 	                                        <th scope="row">${j.count}</th>
 	                                        <td>${i.air_mid}</td>
@@ -149,6 +150,16 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 	                                        <td>${i.cnt}</td>
 	                                    </tr>
                                 	</c:forEach>
+                                <c:if test="${fn:length(onair) <5}">
+                     			 <c:forEach  begin="1" end="${5-fn:length(onair)}" varStatus="j">
+                     				<tr>
+                                    <th scope="row">#</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                	</tr>
+                     			 </c:forEach>
+                     			</c:if>
                                 </tbody>
                             </table>
                         </div>
@@ -188,15 +199,26 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach begin="1" end="5" var="i">
+                                	<c:forEach items="${cate}" end="5" var="i" varStatus="j">
 	                                    <tr>
-	                                        <th scope="row">${i }</th>
-	                                        <td>legue of legend</td>
-	                                        <td>10</td>
-	                                        <td>30000</td>
+	                                        <th scope="row">${j.count}</th>
+	                                        <td>${i.air_gname}</td>
+	                                        <td>${i.cnt2}</td>
+	                                        <td>${i.cnt}</td>
 	                                    </tr>
                                 	</c:forEach>
+                                <c:if test="${fn:length(cate) <5}">
+                     			 <c:forEach  begin="1" end="${5-fn:length(cate)}" varStatus="j">
+                     				<tr>
+                                    <th scope="row">#</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                	</tr>
+                     			 </c:forEach>
+                     			</c:if>
                                 </tbody>
+         
                             </table>
                         </div>
                     </div>
@@ -232,21 +254,21 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <th style="width:10%">상품이미지</th>
                                         <th>상품번호</th>
                                 		<th>상품명</th>
-                                		<th>재고</th>
-                                		<th>등록일</th>
+                                		<th>팔린 갯수</th>
+                                		<th>카테고리</th>
                                 		<th>가격</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach begin="1" end="5" var="i">
+                                	<c:forEach items="${hit }" end="5" var="i" varStatus="j">
 	                                    <tr>
-	                                        <th scope="row">${i }</th>
-	                                        <td><img src="images/goods.jpg" class="main_goods_img"></td>
-	                                        <td>1233454-232131254</td>
-	                                    	<td> DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글</td>
-	                                    	<td>61</td>
-	                                    	<td>2011/04/25</td>
-	                                    	<td>$320,800</td>
+	                                        <th scope="row">${j.count }</th>
+	                                        <td><img src="admin_pages/product_photo/${i.sysfile }" class="main_goods_img"></td>
+	                                        <td>${i.product_id }</td>
+	                                    	<td>${i.product_name }</td>
+	                                    	<td>${i.cnt}</td>
+	                                    	<td>${i.product_cate }</td>
+	                                    	<td>${i.product_price }</td>
 	                                    	</tr>
                                 	</c:forEach>
                                 </tbody>
@@ -315,7 +337,7 @@ var chart = new Chart(ctx, {
 
     // The data for our dataset
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: [getbefore(4), getbefore(3), getbefore(2), getbefore(1), getToday()],
         datasets: [{
             label: '트위치 메인 페이지 수익',
             data: [40, 70, 20, 50, 20, 30, 45],
@@ -363,19 +385,20 @@ var chart = new Chart(ctx, {
 
 		});
 		
-		<%if(session.getAttribute("start") == null){ %>
-		  start();
-		<%
-		}%>
-		<%session.removeAttribute("start");%>
 		});
 	
-	
-	
-let start = function(){
-	location.href = "home.he"
+function getToday(){//오늘날짜
+	var date = new Date();
+	return date.getFullYear() +"-" +("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
 }
 
-
-
+function getbefore(cnt){//전날짜
+	var before = new Date(getToday());
+	before.setDate(before.getDate()-Number(cnt));
+	var df = new Date(before);
+	
+	var lday = df.getFullYear() +"-" +("0"+(df.getMonth()+1)).slice(-2)+"-"+("0"+df.getDate()).slice(-2);
+	
+	return lday
+}
 </script>

@@ -277,6 +277,25 @@
      <select id='onAir' resultType="bean.OnAirVo">
    		select air_mid,air_gname from final_onair
      </select>
+     
+     <select id='onAir_cate' resultType="bean.OnAirVo">
+   		select air_gname, count(air_mid)cnt2 from final_onair group by air_gname
+     </select>
+     
+     <select id='onAir_shop' parameterType="hashmap" resultType="bean.UserProductVo">
+      select rownum rank, b.* from(
+      select ROW_NUMBER() over(partition by j4.product_id order by ph.photo_serial asc) 
+      as rnum ,cnt, j4.product_id, ph.sysfile, j4.product_name,j4.product_price,j4.product_cate,j4.product_count from
+      (
+      select sum(cart_count) as cnt, j1.product_id
+      from ORDER_DETAILS j1 join STORE_ORDER j2
+      on j1.order_serial = j2.order_serial
+      where order_state =1 and to_char(order_date ,'rrrr-mm-dd') =#{day} 
+      GROUP by product_id
+      )a join product j4
+      on a.product_id = j4.product_id join product_photo ph on ph.product_id = j4.product_id order by cnt desc)b
+      where rnum=1
+     </select>
    
 
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">

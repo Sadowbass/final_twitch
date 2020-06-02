@@ -1237,6 +1237,33 @@ public class HEDao {
 	     return list;
 	}
 	
+	public List<OnAirVo> onAir_cate(){
+	     List<OnAirVo> list=sqlSession.selectList("stream.onAir_cate");
+	     
+	     return list;
+	}
+	
+	public List<UserProductVo> day_hit(){
+		List<UserProductVo> list= new ArrayList<UserProductVo>();
+		
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    Calendar cal = GregorianCalendar.getInstance();
+	    cal.setTime(new Date());
+	    String day = format.format(cal.getTime());
+	        
+	    Map<String,Object> map = new HashMap<String, Object>();
+	    map.put("day",day);
+	    
+		try {
+			list = sqlSession.selectList("stream.onAir_shop",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	
 	
 	
 

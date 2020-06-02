@@ -9,7 +9,15 @@ public class UserProductVo {
 	String cart_count;
 	String sysfile;
 	String order_date;
+	String product_count;
 	
+	
+	public String getProduct_count() {
+		return product_count;
+	}
+	public void setProduct_count(String product_count) {
+		this.product_count = product_count;
+	}
 	public String getOrder_date() {
 		return order_date;
 	}

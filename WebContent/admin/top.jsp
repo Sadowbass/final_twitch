@@ -4,7 +4,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.jsp">
+                <a class="navbar-brand" href="home.he">
                  <i><img src="images/favicon.png"/></i>&nbsp<img src="images/Twitch_logo.png" class="top_logo"/></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">

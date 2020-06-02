@@ -71,17 +71,33 @@ public class HEController {
 	    
 	    Collections.sort(list2, new ListComparator());//시청자 순으로 정렬
 	    
-	    for(int i=0; i<list2.size(); i++) {
-	    	
-	    	System.out.println(list2.get(i).getAir_mid());
-	    	System.out.println(list2.get(i).getCnt());
+	    List<OnAirVo> list3 = dao.onAir_cate(); //카테고리별 시청자수 정보
+	    
+	    for(int i=0; i<list3.size(); i++) {
+	    	String gname = list3.get(i).getAir_gname();//방송중인 카테고리 하나씩 가져옴 
+	    	int cnt = 0;
+	    	for(int j=0; j<list2.size(); j++) {
+	    		String streamer=list2.get(i).getAir_mid();//방송중인 스트리머 아이디 하나씩 가져옴
+	    		String gname2 = list2.get(i).getAir_gname(); //방송중인 스트리머가 하는 게임 하나씩 가져옴
+	    		if(gname.equals(gname2)) {
+	    			cnt += list2.get(i).getCnt(); //시청자수 가져와서 같은 카테고리면 합한다
+	    		}
+	    	}
+	    	list3.get(i).setCnt(cnt);//카테고리별 총 시청자수 
 	    }
 	    
+	    Collections.sort(list3, new ListComparator()); //총시청자 별로 정렬
+	    
+	    List<UserProductVo> list4 = dao.day_hit();
+	    
+	    mv.addObject("hit", list4);//오늘의 인기 상품 
+	    mv.addObject("cate", list3);//시청자 많은 카테고리
 	    mv.addObject("onair", list2);//시청자 많은 방송 
 		mv.addObject("now", list);
 		req.getSession().setAttribute("start", "ok");
 		mv.setViewName("/admin/index"); 
 		return mv;
+		
 	}
 	
 	@RequestMapping(value="*/member_select.he", method= {RequestMethod.GET,RequestMethod.POST})
