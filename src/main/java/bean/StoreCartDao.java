@@ -111,6 +111,7 @@ public class StoreCartDao implements StoreCartDaoif{
 	@Override
 	public void modifyCart(StoreCartVo vo) {
 		try {
+			System.out.println(vo.getProduct_id());
 			sqlsession.update("store.cart_modify", vo);
 			sqlsession.commit();
 		    }catch(Exception e1) {

@@ -122,9 +122,9 @@ store.cartdeleteAll = function(){
 store.cartmodify = function(){
 	//장바구니 수정
 
-		 let data = new FormData($('#form1')[0]);
+	    let param = $('#form1').serialize();
 			//console.log(param);
-			$.post('cartupdate.str', function(data, state){
+			$.post('cartupdate.str',param, function(data, state){
 				
 				$('#sh_main').html(data);
 				
@@ -186,7 +186,7 @@ store.inquiry = function () {
         $('#sh_main').html(data)
     });
     
-    alert(document.domain)
+   
 
 }
 //자주문는 질문 페이지
@@ -493,8 +493,8 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                   <div class="product-page-options">
                     <div class="pull-left">
                       <label class="control-label">Size:</label>
-                      <select class="form-control input-sm">
-                        <option>FREE</option>
+                      <select class="form-control input-sm" id="sizeOption">
+                        <option value="FREE">FREE</option>
                       </select>
                     </div>
                   </div>
@@ -502,11 +502,12 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                     <div class="product-quantity">
                         <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
                     </div>
-                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                    <input type="button" id="addcart" class="btn btn-primary" value="Add to cart" onclick="store.addcart()">
                     <button onclick="store.viewItem()" class="btn btn-default">More details</button>
                   </div>
                 </div>
                 <input type="hidden" name="pid" id="pidField" value="${pid}">
+                <input type="hidden" name="product_id" id="cart_product" value="${pid}">
                 <div class="sticker sticker-sale"></div>
               </div>
             </div>`
