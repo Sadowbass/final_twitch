@@ -534,7 +534,6 @@ public class HEDao {
 	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	        Calendar cal = GregorianCalendar.getInstance();
 	        cal.setTime(new Date());
-	        
 	        for(int i=1 ; i<8; i++) {
 	        	cal.set(Calendar.DAY_OF_WEEK, i);
 	        	cal.add(Calendar.DATE, 1);//날짜+1
@@ -1206,49 +1205,36 @@ public class HEDao {
 		}
 	}
 	
-	public List<StreamerVo> send_dontion(String mid){
-		Map<String,Object> map = new HashMap<String, Object>();
-        map.put("mid", mid);
-        List<StreamerVo> list = new ArrayList<StreamerVo>();
-		try {
-	       list = sqlSession.selectList("stream.send_donation",map);
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally {
-			return list;
-		}
-	}
-	
-	public List<StreamerVo> receive_dontion(String mid){
-		Map<String,Object> map = new HashMap<String, Object>();
-        map.put("mid", mid);
-        List<StreamerVo> list = new ArrayList<StreamerVo>();
-		try {
-	       list = sqlSession.selectList("stream.receive_donation",map);
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}finally {
-			return list;
-		}
-	}
-	
-	public List<StreamerVo> user_payment(String mid){
-		Map<String,Object> map = new HashMap<String, Object>();
-        map.put("mid", mid);
-        DecimalFormat df = new DecimalFormat("00");
-		Calendar currentCalendar = Calendar.getInstance();
-		String year  = df.format(currentCalendar.get(Calendar.YEAR));
+	public List<String> now_live(){
 		
-		map.put("year", year);
-        List<StreamerVo> list = new ArrayList<StreamerVo>();
+        List<String> list = new ArrayList<String>();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTime(new Date());
+        String day = format.format(cal.getTime());
+        
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("day",day);
 		try {
-	       list = sqlSession.selectList("stream.user_payment",map);
+	       String cnt = sqlSession.selectOne("stream.now_live",map);//생방
+	       list.add(cnt);
+	       cnt = sqlSession.selectOne("stream.today_order",map);//오늘 주문 수
+	       list.add(cnt);
+	       cnt = sqlSession.selectOne("stream.today_review",map);//오늘 리뷰 수
+	       list.add(cnt);
+	       cnt = sqlSession.selectOne("stream.today_member",map);// 오늘 회원 수 
+	       list.add(cnt);
+	       
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
 			return list;
 		}
 	}
+	
+	
+	
+
 
 
 	

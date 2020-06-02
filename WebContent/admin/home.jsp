@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             <i class="material-icons">forum</i>
                         </div>
                         <div class="content">
-                            <div class="text">오늘의 새로운 게시글</div>
+                            <div class="text">오늘의 새로운 리뷰</div>
                             <div class="number count-to" data-from="0" data-to="243" data-speed="1000"
                                 data-fresh-interval="20">9</div>
                         </div>
@@ -347,31 +347,7 @@ var chart = new Chart(ctx, {
         
     }
 });
-/*var ctx4 = document.getElementById('today_cate_chart').getContext('2d');
-var myPieChart = new Chart(ctx4, {
-    type: 'pie',
-    data:  {
-        datasets: [{
-            data: [10, 20, 60,10],
-            backgroundColor: [
-                "rgb(233, 30, 99)",
-                "rgb(255, 193, 7)",
-                "rgb(0, 188, 212)",
-                "rgb(139, 195, 74)"
-        	],
-        }],
-        labels: [
-        	 "Pink",
-             "Amber",
-             "Cyan",
-             "Light Green"
-        ]
-	},
-	options: {
-		
-    }
-    
-});*/
+
 
 	$(document).ready(function(){
 
@@ -386,8 +362,17 @@ var myPieChart = new Chart(ctx4, {
 			$('.hot1',this).height(highestBox);
 
 		});
-
+		
+		
+		/*start();*/
+		
 		});
+	
+	
+	
+let start = function(){
+	location.href = "home.he"
+}
 
 
 

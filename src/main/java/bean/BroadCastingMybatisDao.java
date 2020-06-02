@@ -1,9 +1,12 @@
 package bean;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -357,6 +360,50 @@ public class BroadCastingMybatisDao {
 
 		}finally {
 			return vo;
+		}
+	}
+	
+	public List<StreamerVo> send_dontion(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        List<StreamerVo> list = new ArrayList<StreamerVo>();
+		try {
+	       list = sqlSession.selectList("stream.send_donation",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StreamerVo> receive_dontion(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        List<StreamerVo> list = new ArrayList<StreamerVo>();
+		try {
+	       list = sqlSession.selectList("stream.receive_donation",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StreamerVo> user_payment(String mid){
+		Map<String,Object> map = new HashMap<String, Object>();
+        map.put("mid", mid);
+        DecimalFormat df = new DecimalFormat("00");
+		Calendar currentCalendar = Calendar.getInstance();
+		String year  = df.format(currentCalendar.get(Calendar.YEAR));
+		
+		map.put("year", year);
+        List<StreamerVo> list = new ArrayList<StreamerVo>();
+		try {
+	       list = sqlSession.selectList("stream.user_payment",map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
 		}
 	}
 

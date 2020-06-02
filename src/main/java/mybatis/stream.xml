@@ -254,6 +254,25 @@
     	where pay_mid =#{mid} and to_char(pay_date,'rrrr')=#{year} 
     	group by to_char(pay_date,'mm') order by month
     </select>
+    
+     <select id='now_live' parameterType="hashmap" resultType="String">
+   		select count(air_serial)cnt from FINAL_ONAIR;
+     </select>
+     
+     <select id='today_order' parameterType="hashmap" resultType="String">
+   		select count(order_serial) from store_order 
+   		where to_char(order_date,'rrrr-mm-dd') = #{day}
+     </select>
+     
+     <select id='today_review' parameterType="hashmap" resultType="String">
+   		select count(review_id) from review 
+   		where to_char(review_date,'rrrr-mm-dd')= #{day}
+     </select>
+     
+     <select id='today_member' parameterType="hashmap" resultType="String">
+   		select count(mem_id) from final_member 
+   		where to_char(mem_rdate ,'rrrr-mm-dd')= #{day}
+     </select>
    
 
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
