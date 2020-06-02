@@ -13,6 +13,7 @@ public class UserInfoVo {
     private String mfo_oid;
     private String mem_money;
     private String ph_delfile;
+    private String mem_birth;
     private int flag;
 
 
@@ -24,7 +25,15 @@ public class UserInfoVo {
         this.mfo_oid = mfo_oid;
     }
 
-    public int getRno() {
+    public String getMem_birth() {
+		return mem_birth;
+	}
+
+	public void setMem_birth(String mem_birth) {
+		this.mem_birth = mem_birth;
+	}
+
+	public int getRno() {
         return rno;
     }
 
