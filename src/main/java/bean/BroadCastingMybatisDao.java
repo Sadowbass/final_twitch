@@ -219,6 +219,7 @@ public class BroadCastingMybatisDao {
 		int flag = 0;
 		BroadCastingAirVo vo = new BroadCastingAirVo();
 		vo.setAir_gname(gameName);
+		System.out.println("123"+vo.getAir_gname());
 		vo.setAir_mid(mId);
 
 		try {

@@ -5,7 +5,7 @@
    </script>
 
    <input type='hidden' value='${msg }' id='msgBroadCasting'/>
-   <input type='text' value='<%=session.getAttribute("session_id") %>' id='bid'/>
+   <input type='hidden' value='<%=session.getAttribute("session_id") %>' id='bid'/>
    <div id="main" style="width: 100%;">
       <div id="mediaplayer"></div>
    </div>
@@ -30,9 +30,9 @@
          aboutlink : "http://www.jhta.co.kr",
 
          sources : [ {
-            file : "rtmp://192.168.0.77/hls/${sKey}",
+            file : "rtmp://daum123.gonetis.com/hls/${sKey}",
          }, {
-            file : "http://192.168.0.32:8845/hls/${sKey}.m3u8"
+            file : "http://daum123.gonetis.com:8845/hls/${sKey}.m3u8"
          } ]
       });
 

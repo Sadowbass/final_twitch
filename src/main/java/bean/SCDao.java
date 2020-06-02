@@ -259,6 +259,8 @@ public class SCDao {
         Map<String, String> map = new HashMap<String, String>();
         map.put("mid", mid);
         map.put("sid", sid);
+        System.out.println(mid);
+        System.out.println(sid);
         result = sqlSession.delete("scbatis.deleteFollow",map);
         sqlSession.commit();
         return result;

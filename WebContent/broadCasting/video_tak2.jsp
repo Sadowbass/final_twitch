@@ -29,9 +29,9 @@
          aboutlink : "http://www.jhta.co.kr",
 
          sources : [ {
-            file : "rtmp://192.168.0.32/hls/",
+            file : "rtmp://daum123.gonetis.com/hls/",
          }, {
-            file : "http://192.168.0.32:8845/hls/.m3u8"
+            file : "http://daum123.gonetis.com:8845/hls/.m3u8"
          } ]
       });
 

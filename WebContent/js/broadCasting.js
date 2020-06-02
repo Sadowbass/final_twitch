@@ -872,6 +872,7 @@ function broadCastingSetting() {
 
         },
         success: function (data, xhr, status) {
+            console.log(data);
 
             if (data != null) {
                 if (data[0].rul_result == '성공') {

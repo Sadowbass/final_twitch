@@ -13,7 +13,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class ProductPhotoUpload_mh {
-	public static String upload = "C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/admin/admin_pages/product_photo/";
+	public static String upload = "D:/JavaStudy/final_twitch/WebContent/admin/admin_pages/product_photo/";
 	                               
 	String tempDir = "c:/temp/";
 	

@@ -26,7 +26,7 @@ import bean.ViewerCnt;
 public class Handler extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
-	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /*
+	static Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /*
 																									 * 스트리머, session
 																									 * List
 																									 */
@@ -42,6 +42,12 @@ public class Handler extends TextWebSocketHandler {
 	String[] midTxt = new String[2]; /* 메세지 전송할때 mid, txt 담는 배열 */
 
 	boolean reduplication = true; /* 중복입장 확인(true=첫 입장) */
+
+	
+	
+	public static Map<String, List<WebSocketSession>> getChatRoom() {
+		return chatRoom;
+	}
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {

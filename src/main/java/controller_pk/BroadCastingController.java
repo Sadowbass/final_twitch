@@ -167,8 +167,9 @@ public class BroadCastingController {
       String mId = req.getParameter("mId"); // 스트리머 아이디
       String sKey = req.getParameter("streamKey"); // 스트림 키
       String gameName = req.getParameter("gameName");
+       System.out.println(gameName+"321");
 
-      msg = dao.deleteAir(mId, sKey,gameName);
+       msg = dao.deleteAir(mId, sKey, gameName);
 
       if (msg.equals("중지성공")) {
          mv.setViewName("video_tak");
@@ -268,7 +269,8 @@ public class BroadCastingController {
    public String selectRoulette(HttpServletRequest req, HttpServletResponse resp) {
       String result = "조회실패";
       String mId = req.getParameter("mId"); // 스트리머 아이디
-      RouletteVo vo = dao.selectRoulette(mId);
+       System.out.println(mId);
+       RouletteVo vo = dao.selectRoulette(mId);
       Gson gson = new Gson();
       JsonObject jsonObject = null;
       JsonArray jsonArray = new JsonArray();

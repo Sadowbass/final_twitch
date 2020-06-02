@@ -273,7 +273,7 @@ div.power_controls
 												*/
 												$('#text-id').html(data.don_mId);
 												$('#text-amount').html(data.don_price);
-												$('#text-content').html(data.don_content);
+												$('#text-content').html("돌아라 돌아라~");
 												$('#text-view').fadeIn(3500, function(){
 													setTimeout(function () {
 														$('#donationRoulette').fadeOut(5000);

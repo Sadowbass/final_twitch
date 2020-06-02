@@ -79,7 +79,6 @@
     <script src="/js/sc_custom.js"></script>
     <script src="/js/js_uk.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body class="mostly-customized-scrollbar" id="page-top" style="width: 100%;">
 <div id="topplace">
@@ -382,6 +381,7 @@
         }
 
         if (followCheck == true) {
+            console.log($('#sid').val());
             $.ajax({
                 url: "/" + $('#uid').val() + "/follow",
                 type: 'delete',
@@ -575,7 +575,7 @@
                             <img src="/img/user-photo/guest-icon.png" style="width: 50px; height: 50px;">
                         </c:when>
                         <c:otherwise>
-                            <img src="/img/user-photo/${ph_sysfile}" style="width: 50px; height: 50px;">
+                            <img src="/img/user-photo/${vo.ph_sysfile}" style="width: 50px; height: 50px;">
                         </c:otherwise>
                     </c:choose>${vo.mem_id}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

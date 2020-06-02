@@ -122,6 +122,7 @@ transform: translate(-50%,-50%);
 			</div>
 		</div>
 	</div>
+	<jsp:include page="/logout-modal.jsp"></jsp:include>
 
 	<%@include file="../footer.jsp"%>
 	<script>

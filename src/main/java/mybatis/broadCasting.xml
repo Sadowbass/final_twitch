@@ -52,7 +52,7 @@
 		don_serial = ${serial}
 	</update>
 	<select id='selectRoulette' resultType="bean.RouletteVo" parameterType='String'>
-		select * from final_roulette where rul_oid = #{_parameter}
+		select * from final_roulette where rul_mid = #{_parameter}
 	</select>
 	<update id='saveRoulette1' parameterType='hashMap'>
 		update FINAL_ROULETTE
