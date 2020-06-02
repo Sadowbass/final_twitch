@@ -45,11 +45,11 @@ public class Handler extends TextWebSocketHandler {
 		return chatRoom;
 	}
 
-
+/*
 
 	public static Map<String, List<WebSocketSession>> getChatRoom() {
 		return chatRoom;
-	}
+	}*/
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {

@@ -11,18 +11,18 @@ public class VideoTimeCut {
 	
 	public void thumbnail(String sKey,String time) {
 		System.out.println(sKey +"Å°");
-		System.out.println(time +"½Ã°£");
+		System.out.println(time +"ï¿½Ã°ï¿½");
 		Runtime run = Runtime.getRuntime();
-		String videofile = "C:/Users/JHTA/Desktop/nginx/nginx-rtmp-win32-1.17.0_V3_20190527/html/hls/"+sKey +".m3u8";
-		String dataUrl = "C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/uploads/"+ sKey+".m3u8";
-		String command = "C:/ffmpeg-4.2.2-win64-static/bin/ffmpeg.exe  -y -i \"" + videofile + "\" -ss 00:00:01 -vcodec png -vframes 1 \""  +dataUrl + ".png\""; // µ¿¿µ»ó 1ÃÊ¿¡¼­ Thumbnail ÃßÃâ
-		//String command = "C:/ffmpeg-20191109-0f89a22-win64-static/bin/ffmpeg.exe -i \"" + videofile + "\" -ss 00:00:01 -vcodec png -vframes 1 \""  +videofile + "_%2d.png\""; // µ¿¿µ»ó 
+		String videofile = "C:/Users/User/Downloads/nginx-rtmp-win32-1.17.9_2020-0303/html/hls/"+sKey +".m3u8";
+		String dataUrl = "D:/JavaStudy/final_twitch/WebContent/uploads/"+ sKey+".m3u8";
+		String command = "D:/JavaStudy/final_twitch/ffmpeg-4.2.2-win64-static/bin/ffmpeg.exe  -y -i \"" + videofile + "\" -ss 00:00:01 -vcodec png -vframes 1 \""  +dataUrl + ".png\""; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½Ê¿ï¿½ï¿½ï¿½ Thumbnail ï¿½ï¿½ï¿½ï¿½
+		//String command = "C:/ffmpeg-20191109-0f89a22-win64-static/bin/ffmpeg.exe -i \"" + videofile + "\" -ss 00:00:01 -vcodec png -vframes 1 \""  +videofile + "_%2d.png\""; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		System.out.println(command);
 		try{
-		    run.exec("cmd.exe chcp 65001");  // cmd¿¡¼­ ÇÑ±Û¹®Á¦·Î ½æ³×ÀÏÀÌ ¸¸µé¾îÁöÁö¾ÊÀ»½Ã cmdÃ¢¿¡¼­ utf-8·Î º¯È¯ÇÏ´Â ¸í·É
+		    run.exec("cmd.exe chcp 65001");  // cmdï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±Û¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cmdÃ¢ï¿½ï¿½ï¿½ï¿½ utf-8ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 		    run.exec(command);
 		}catch(Exception e){
-		    System.out.println("¿¡·¯³µ´Ù : "+e.getMessage());
+		    System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : "+e.getMessage());
 		    //e.printStackTrace();
 		}       
 
