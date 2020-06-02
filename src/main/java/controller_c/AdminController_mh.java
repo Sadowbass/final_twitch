@@ -19,10 +19,13 @@ import bean.MH_noticeVo;
 import bean.MH_orderListVo;
 import bean.MH_orderVo;
 import bean.MH_rankproductVo;
+import bean.MyPagePhotoUpload;
+import bean.MyPageTakDao;
 import bean.ProductPhotoUpload_mh;
 import bean.ProductPhoto_mh;
 import bean.ProductVo_mh;
 import bean.StoreMybatisDao_mh;
+import bean.UserInfoVo;
 import bean.mh_Page;
 
 @Controller
@@ -37,10 +40,76 @@ public class AdminController_mh {
 		this.dao = dao;
 	}
 	
-	public String profile() {
-		return "profile";
+	@RequestMapping(value="*/adminPwdModify.mh", method=RequestMethod.POST, produces="application/text; charset=utf8;")
+	@ResponseBody
+	public String adminPwdModify(String userId, String NewPasswordConfirm) {
+		String msg="";
+		UserInfoVo vo = new UserInfoVo();
+		System.out.println("userId : "+userId);
+		System.out.println("pwd : "+NewPasswordConfirm);
+		vo.setMem_id(userId);
+		vo.setMem_pwd(NewPasswordConfirm);
+		
+		msg = dao.adminPwdModify(vo);
+		
+		return msg;
+		
 	}
 	
+	@RequestMapping(value="*/adminModify.mh", method=RequestMethod.POST, produces="application/text; charset=utf8;")
+	@ResponseBody
+	public String adminModify(String userId, String birth, String email, String adminName) {
+		String msg="";
+		UserInfoVo vo = new UserInfoVo();
+		vo.setMem_id(userId);
+		vo.setMem_birth(birth);
+		vo.setMem_name(adminName);
+		vo.setMem_email(email);
+		
+		msg = dao.adminModify(vo);
+		
+		return msg;
+		
+	}
+	@RequestMapping(value="*/adminPhotoModify.mh", method=RequestMethod.POST, produces="application/text; charset=utf8;")
+	@ResponseBody
+	public String adminPhotoModify(HttpServletRequest req, HttpServletResponse resp) {
+		String msg="테스트";
+		int r =0;
+		
+		MyPagePhotoUpload upload = new MyPagePhotoUpload(req, resp);
+		UserInfoVo vo = upload.uploading();
+		System.out.println("★★★★ vo.getFlag() :" + vo.getFlag());
+		System.out.println("★★★★ vo.getMem_id() :" + vo.getMem_id());
+		System.out.println("★★★★ vo.getPh_sysfile() :" + vo.getPh_sysfile());
+		System.out.println("★★★★ vo.getPh_orifile() :" + vo.getPh_orifile());
+		System.out.println("★★★★ vo.getPh_delfile() :" + vo.getPh_delfile());
+	      r = dao.updateProfill(vo);
+	      
+	      
+	      if(r == 0) {
+	    	  msg = "실패";
+	      }else if(r == 1) {
+	    	  msg = "성공";
+	      }
+		
+		
+		
+		
+		
+		
+		return msg;
+	}
+	
+	@RequestMapping(value="*/profile.mh", method= {RequestMethod.GET,RequestMethod.POST}, produces="application/text; charset=utf-8;")
+	public String profile(Model model, String mId) {
+		
+		UserInfoVo vo = dao.profile(mId);
+		model.addAttribute("vo",vo);
+				
+		return "profile";
+	}
+			
 	@RequestMapping(value="*/noticeDelete.mh", method=RequestMethod.POST, produces="application/text; charset=utf8")
 	@ResponseBody
 	public String noticeDelete(int serial) {

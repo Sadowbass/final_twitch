@@ -79,6 +79,7 @@ public class MyPagePhotoUpload {
 					}
 				}else { // <input type='file'/>
 					if(fi.getSize()>0) {
+						
 						String f = fi.getName();
 						String sysfile = new Date().getTime() + "-" +f ;		
 						

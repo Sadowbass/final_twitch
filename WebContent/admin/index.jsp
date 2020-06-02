@@ -163,13 +163,16 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="index.jsp?inc=admin_pages/member/profile.jsp"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="javascript:void(0);" onclick="goProfile1()"><i class="material-icons">person</i>Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="javascript:void(0);" onclick="logout_modal()" ><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
+            <form id="goProfile" name="goProfile" method="post" action="profile.mh">
+            	<input type="hidden" name="mId" value="${admin_id }"/>
+            </form>
             <!-- #User Info -->
             <!-- Menu -->
             <div class="menu">
@@ -731,5 +734,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
  var logout_modal = function(){
 	 $('#admin_logout_btn').trigger('click');
  }
+
 </script>
 </html>
