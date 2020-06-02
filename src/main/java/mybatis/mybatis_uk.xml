@@ -33,10 +33,10 @@
 		where mfo_mid=#{_parameter}
 	</select>
 
-	<!-- 하은이꺼 -->
-	<select id="onAir" resultType="String">
-		select mid
-		from final_onair
-	</select>
+	<!-- 하은 부탁 -->
+	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
+		insert into fianl_viewerCnt
+		values(seq_viewerCnt.nextval, #{mid}, ${viewer}, sysdate)
+	</insert>
 
 </mapper>
