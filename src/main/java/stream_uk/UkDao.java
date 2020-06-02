@@ -51,9 +51,9 @@ SqlSession sqlSession;
 	   return list;
    }
 
-    /*스트리머 영상 출력 화면 채팅 재접속*/
-   public String reSocket(String mid) {
-	   String result=sqlSession.selectOne("mybatis_uk.reSocket", mid);
+    /*스트리머 방송중*/
+   public String onAir(String mid) {
+	   String result=sqlSession.selectOne("mybatis_uk.onAir", mid);
 	   sqlSession.close();
 	   return result;
    }

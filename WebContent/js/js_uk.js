@@ -96,14 +96,16 @@ uk.unfoldRightOrBottom = function () {
 
 }
 
-/* 소켓 연결시 */
+/* 시청자 소켓 */
 uk.connectWS = function (streamer, login) {
 	streamerId = streamer;
 	loginId=login;
 
-	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
-
-	uk.heCnt(streamerId, loginId); /*하은 부탁*/
+	if(streamer==login){
+		ws = new WebSocket("ws://localhost/cht?air"); /*스트리머 소켓*/
+	}else{
+		ws = new WebSocket("ws://localhost/cht?" + streamerId); /*시청자 소켓*/
+	}
 
 	ws.onopen = function (event) {
 		console.log("채팅 접속")
@@ -147,15 +149,15 @@ uk.connectWS = function (streamer, login) {
 			let txt=JSON.parse(jsObj.txt)
 
 			$('<div class="dropdown">'+
-			  '<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-			    txt[0]+'&nbsp&nbsp'+
-			  '</a>'+
-			    txt[1]+
-			  '<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-			    '<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
-			    '<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
-			    '<a class="dropdown-item" href="#">채팅 금지</a>'+
-			  '</div>'+
+					'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+					txt[0]+'&nbsp&nbsp'+
+					'</a>'+
+					txt[1]+
+					'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+					'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+					'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
+					'<a class="dropdown-item" href="#">채팅 금지</a>'+
+					'</div>'+
 			'</div>').appendTo('#chtArea');
 
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
@@ -163,47 +165,47 @@ uk.connectWS = function (streamer, login) {
 		/*스트리머 방종 메세지*/
 		if(jsObj.offAir){
 			Swal.fire({
-				  position: 'center',
-				  icon: 'warning',
-				  title: '<font color="white">'+jsObj.offAir+'님이 방송을 종료하였습니다.</font>',
-				  html: ' 메인 화면으로 이동합니다 (time: <b></b>) ',
-				  background: '#18181b',
-				  timer: 2000,
-				  timerProgressBar: true,
-				  onBeforeOpen: () => {
-				    Swal.showLoading()
-				    timerInterval = setInterval(() => {
-				      const content = Swal.getContent()
-				      if (content) {
-				        const b = content.querySelector('b')
-				        if (b) {
-				          b.textContent = parSwal.getTimerLeft();
-				        }
-				      }
-				    }, 100)
-				  },
-				  onClose: () => {
-				    clearInterval(timerInterval)
-				  }
-				}).then((result) => {
-				  /* Read more about handling dismissals below */
-				  if (result.dismiss === Swal.DismissReason.timer) {
-					  location.href="/";
-				  }
-				});
+				position: 'center',
+				icon: 'warning',
+				title: '<font color="white">'+jsObj.offAir+'님이 방송을 종료하였습니다.</font>',
+				html: ' 메인 화면으로 이동합니다 (time: <b></b>) ',
+				background: '#18181b',
+				timer: 2000,
+				timerProgressBar: true,
+				onBeforeOpen: () => {
+					Swal.showLoading()
+					timerInterval = setInterval(() => {
+						const content = Swal.getContent()
+						if (content) {
+							const b = content.querySelector('b')
+							if (b) {
+								b.textContent = parSwal.getTimerLeft();
+							}
+						}
+					}, 100)
+				},
+				onClose: () => {
+					clearInterval(timerInterval)
+				}
+			}).then((result) => {
+				/* Read more about handling dismissals below */
+				if (result.dismiss === Swal.DismissReason.timer) {
+					location.href="/";
+				}
+			});
 		}
 		/*채팅방 중복 입장 알림 메세지*/
 		if(jsObj.reduplication){
 			Swal.fire({
-				  position: 'center',
-				  icon: 'warning',
-				  title: '<font color="white">'+jsObj.reduplication+'</font>',
-				  background: '#18181b',
-				  confirmButtonText: '확인',
-				  timer:1000
-				}).then((result)=>{
-					location.href='/';
-				});
+				position: 'center',
+				icon: 'warning',
+				title: '<font color="white">'+jsObj.reduplication+'</font>',
+				background: '#18181b',
+				confirmButtonText: '확인',
+				timer:1000
+			}).then((result)=>{
+				location.href='/';
+			});
 		}
 	}
 	/* 엔터키 누르면 전송 내꺼 */
@@ -251,7 +253,7 @@ uk.takTxt = function () {
 }
 
 /* socket close 메소드 */
-uk.WSclose = function () {
+uk.closeWS = function () {
 	ws.close();
 	/*유저목록 지우기*/
 	if($("#userList").length){
@@ -378,7 +380,7 @@ uk.responsive = function () {
 /*로그인시 인덱스 화면에서 소켓 접속*/
 uk.connectAllWS=function(){
 
-	allWs = new WebSocket("ws://192.168.0.57/cht?justLogin");
+	allWs = new WebSocket("ws://localhost/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");
@@ -527,12 +529,6 @@ uk.heCnt=function(streamerId, loginId){
 			ws.send(jsonStr);
 		}, 60000);
 	}
-}
-/*방종 메세지*/
-uk.WScloseSend=function(){
-	let str={realClose:1};
-	let jsonStr=JSON.stringify(str);
-	ws.send(jsonStr);
 }
 /*스트리머 방송 출력 페이지 소켓 다시 접속*/
 uk.reSocket=function(mid){

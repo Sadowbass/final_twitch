@@ -14,11 +14,9 @@ public class Controller_uk {
 	public String reSocket(HttpServletRequest req) {
 		String str=null;
 		String mid=req.getParameter("mid");
-		System.out.println("reSocket! mid:::"+mid);
 
 		UkDao dao=new UkDao();
-		String result=dao.reSocket(mid);
-		System.out.println("result::::"+result);
+		String result=dao.onAir(mid);
 		if(result!=null) {
 			str="reS";
 		}

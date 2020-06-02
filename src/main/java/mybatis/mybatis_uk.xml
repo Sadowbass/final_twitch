@@ -33,8 +33,8 @@
 		where mfo_mid=#{_parameter}
 	</select>
 
-	<!-- 스트리머 채팅 재접속 -->
-	<select id="reSocket" parameterType="String" resultType="String">
+	<!-- 스트리머 방송중 -->
+	<select id="onAir" parameterType="String" resultType="String">
 		select air_mid
 		from final_onair
 		where air_mid=#{_parameter}
@@ -42,7 +42,7 @@
 
 	<!-- 하은 부탁 -->
 	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
-		insert into fianl_viewerCnt
+		insert into final_viewercnt
 		values(seq_viewerCnt.nextval, #{mid}, ${viewer}, sysdate)
 	</insert>
 
