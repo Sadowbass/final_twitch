@@ -51,6 +51,13 @@ SqlSession sqlSession;
 	   return list;
    }
 
+    /*스트리머 방송중*/
+   public String onAir(String mid) {
+	   String result=sqlSession.selectOne("mybatis_uk.onAir", mid);
+	   sqlSession.close();
+	   return result;
+   }
+
    /*하은 부탁*/
    public void viewerCnt(ViewerCnt viewerCnt) {
 	   int r=sqlSession.update("mybatis_uk.viewerCnt", viewerCnt);
