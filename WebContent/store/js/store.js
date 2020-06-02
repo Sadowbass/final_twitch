@@ -7,6 +7,33 @@
 let store = {}
 
 store.func = function () {
+	
+	//장바구니 비우기
+	
+	$('#btnCartDelete').click(function(){
+		
+		 let data = new FormData($('#form1')[0]);
+			//console.log(param);
+			$.post('deleteAll.str', function(data, state){
+				
+				$('#sh_main').html(data);
+				
+			});
+		
+	})
+	
+	//장바구니 수정
+	$('#btnCartModify').click(function(){
+		
+		 let data = new FormData($('#form1')[0]);
+			//console.log(param);
+			$.post('cartupdate.str', function(data, state){
+				
+				$('#sh_main').html(data);
+				
+			});
+		
+	})
 
 
     //My Page 눌렀을때 mypage 페이지로 이동	
@@ -74,7 +101,60 @@ store.func = function () {
         })
     })
 }
+store.cartdeleteAll = function(){
+//장바구니 비우기
+	
 
+		
+		 let data = new FormData($('#form1')[0]);
+			//console.log(param);
+			$.post('deleteAll.str', function(data, state){
+				
+				$('#sh_main').html(data);
+				
+			});
+		
+	
+	
+	
+}
+
+store.cartmodify = function(){
+	//장바구니 수정
+
+		
+		 let data = new FormData($('#form1')[0]);
+			//console.log(param);
+			$.post('cartupdate.str', function(data, state){
+				
+				$('#sh_main').html(data);
+				
+	
+		
+	})
+	
+}
+
+
+//카트 부분 삭제
+store.cartdelete = function(cart_id){
+	
+	form1.cart_id.value = cart_id;
+	alert(cart_id);
+   let param = $('#form1').serialize();
+	//console.log(param);
+		
+		
+		$.post('cartdelete.str',param , function(data, state){
+			
+			$('#sh_main').html(data);
+			
+		});
+	
+	
+}
+
+//장바구니 추가
 store.addcart = function(){
 	
 	let param1 = $('#cart_product').val();
@@ -101,6 +181,7 @@ store.addcart = function(){
     })
 }
 
+//1:1 문의페이지
 store.inquiry = function () {
 
     $.post('inquiry.jsp', function (data, state) {
@@ -110,7 +191,7 @@ store.inquiry = function () {
     alert(document.domain)
 
 }
-
+//자주문는 질문 페이지
 store.qna = function () {
 
 	$.post('faq.str', function (data, state) {
@@ -119,6 +200,7 @@ store.qna = function () {
 
 }
 
+//우편번호 입력
 store.addressInsert = function () {
 
     $.post("addressForm.jsp", function (data, state) {
@@ -127,6 +209,7 @@ store.addressInsert = function () {
 
 }
 
+//마이페이지
 store.myPage = function () {
 
 
@@ -145,7 +228,7 @@ store.wishList = function () {
 
 }
 
-
+//상품 상세보기
 store.viewItem = function () {
     let param = $('#pidField').val();
     $.ajax({
@@ -164,15 +247,17 @@ store.viewItem = function () {
 
 }
 
+//장바구니 보기
 store.viewCart = function () {
 
-    $.post("viewCart.jsp", function (data, state) {
+    $.post("cartlist.str", function (data, state) {
         $('#sh_main').html(data)
     });
 
 
 }
 
+//주문하기
 store.checkout = function () {
 
     $.post("checkout.jsp", function (data, state) {
@@ -181,6 +266,7 @@ store.checkout = function () {
 
 }
 
+//상품 select
 store.pl = function (cate) {
     cate = cate.toLowerCase();
     cate = {'cate':cate};
@@ -226,6 +312,7 @@ store.rInsert = function () {
 
 }
 
+//리뷰 지우기
 store.reviewDelete = function(rreview_id){
 	alert(rreview_id)
 	frm_review.review_id.value = rreview_id;
@@ -240,7 +327,7 @@ store.reviewDelete = function(rreview_id){
 	
 }
 
-
+//리뷰 조회
 store.rSelect = function(){
 	
 	//console.log("dsdsdsdsdhfgjksdhjfhsdkjfh")
@@ -315,7 +402,7 @@ store.rSelect = function(){
             
            
                 let photo = document.createElement('div')
-            	photo.className ="imgs_wrap";
+            	photo.className ="imgs_wraps";
             
             for(p of temp.rpList){
             	

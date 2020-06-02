@@ -59,6 +59,8 @@ public class StoreCartDao implements StoreCartDaoif{
 		try {
 			sqlsession.delete("store.cart_delete", cart_id);	
 			sqlsession.commit();
+			
+			System.out.println("cartdelete");
 		    }catch(Exception e1) {
 		    	e1.printStackTrace();
 		    }finally{

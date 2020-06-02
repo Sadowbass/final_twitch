@@ -1,6 +1,7 @@
 package bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class StoreCartVo {
 
@@ -10,8 +11,12 @@ public class StoreCartVo {
 	int product_size;//상품 사이즈
 	String product_name;//상품이름
 	int cart_count;//상품 개수
+	int product_price; //상품 가격
 	int totPrice;//총 금액
 	Date cart_date;//카트 담은 날짜
+	
+	List<ProductPhoto_mh> photo;
+	String sysfile;
 	
 	public StoreCartVo() {
 		// TODO Auto-generated constructor stub
@@ -37,6 +42,30 @@ public class StoreCartVo {
 	
 	
 	
+	public String getSysfile() {
+		return sysfile;
+	}
+
+	public void setSysfile(String sysfile) {
+		this.sysfile = sysfile;
+	}
+
+	public List<ProductPhoto_mh> getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(List<ProductPhoto_mh> photo) {
+		this.photo = photo;
+	}
+
+	public int getProduct_price() {
+		return product_price;
+	}
+
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
+	}
+
 	public int getProduct_size() {
 		return product_size;
 	}
