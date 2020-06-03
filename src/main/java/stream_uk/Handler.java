@@ -283,7 +283,7 @@ public class Handler extends TextWebSocketHandler {
 			whisper.setReader(whisperTarget);
 			whisper.setTxt(whisperTxt);
 			UkDao dao=new UkDao();
-			dao.whisper(whisper); /*디비에 저장*/
+			dao.whisperIn(whisper); /*디비에 저장*/
 
 			JsonObject jsonObject = new JsonObject();
 			midTxt[0]= mid;

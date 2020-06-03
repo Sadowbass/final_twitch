@@ -70,13 +70,20 @@ SqlSession sqlSession;
       }
    }
 
-   /*귓속말*/
-   public void whisper(Whisper whisper) {
+   /*귓속말 저장*/
+   public void whisperIn(Whisper whisper) {
 	   int r=sqlSession.insert("mybatis_uk.whisperIn", whisper);
 	   if(r>0) {
          sqlSession.commit();
          sqlSession.close();
       }
+   }
+
+   /*귓속말 조회*/
+   public List<Whisper> whisperSel(Whisper whisper) {
+	  List<Whisper> list=sqlSession.selectList("mybatis_uk.whisperSel", whisper);
+	  sqlSession.close();
+	   return list;
    }
 
    /*하은 부탁*/

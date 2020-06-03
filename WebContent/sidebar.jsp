@@ -47,7 +47,6 @@
         </li>
     </c:forEach>
 
-    <div class="whisperArea"></div>
 
 </ul>
 

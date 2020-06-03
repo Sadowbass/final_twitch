@@ -58,6 +58,14 @@
 		values(seq_whisper.nextval, #{writer}, #{reader}, #{txt}, sysdate)
 	</insert>
 
+	<!-- 귓속말 조회 -->
+	<select id="whisperSel" parameterType="bean.Whisper" resultType="bean.Whisper">
+		select writer, txt
+		from final_whisper
+		where (writer=#{writer} and reader=#{reader})
+		or (writer=#{reader} and reader=#{writer})
+	</select>
+
 	<!-- 하은 부탁 -->
 	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
 		insert into final_viewercnt
