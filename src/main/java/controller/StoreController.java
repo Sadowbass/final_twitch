@@ -482,6 +482,7 @@ public class StoreController {
 		        String address1 = element.getAsJsonObject().get("address1").getAsString();
 		        String address2 = element.getAsJsonObject().get("address2").getAsString();
 		        int amount = element.getAsJsonObject().get("amount").getAsInt();
+		       // int cart_count = element.getAsJsonObject().get("count_cart").getAsInt();
 		        
 		        vo = new StoreOrderVo(mem_id, get_name, get_phone, zip_code, address1, address2, amount);
 		        

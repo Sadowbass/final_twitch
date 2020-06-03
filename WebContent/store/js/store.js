@@ -147,9 +147,13 @@ store.order = function () {
     		jjj: '돼냐'
     }
     
+    
+    
     $.post('orderComplete.str',param,function(data){
     	console.log(data);
     	 $("#sh_main").html(data);
+    	 
+    	
     });
 
 //    $.ajax({
@@ -183,12 +187,21 @@ store.cartdeleteAll = function(){
 		
 		 let data = new FormData($('#form1')[0]);
 			//console.log(param);
+		 
+		 swal({
+				title:"정말 삭제하시겠습니까?",
+				icon : "warning",
+				buttons:true,
+				dangerMode : true,
+			}).then((v)=>{
+				if(v) {	
 			$.post('deleteAll.str', function(data, state){
 				
 				$('#sh_main').html(data);
 				
 			});
-		
+				}
+			})
 	
 	
 	
@@ -392,11 +405,20 @@ store.reviewDelete = function(rreview_id){
 	//alert('ss');
    let param = $('#frm_review').serialize();
 	//console.log(param);
+   swal({
+		title:"삭제하시겠습니까?",
+		icon : "warning",
+		buttons:true,
+		dangerMode : true,
+	}).then((v)=>{
+		if(v) {	
 	$.post('reviewDelete.str',param , function(data, state){
 		
 		$('#sh_main').html(data);
 		
 	});
+		}
+	})
 	
 }
 
