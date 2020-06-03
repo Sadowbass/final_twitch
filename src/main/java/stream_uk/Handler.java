@@ -41,7 +41,6 @@ public class Handler extends TextWebSocketHandler {
 	public String onOrOff(String streamer) {
 		UkDao onAirDao=new UkDao();
 		String onAirStreamer=onAirDao.onAir(streamer);
-		System.out.println("onAirStreamer::"+onAirStreamer);
 		return onAirStreamer;
 	}
 
@@ -51,40 +50,42 @@ public class Handler extends TextWebSocketHandler {
 		String mid = (String)session.getAttributes().get("session_id");/* 로그인 아이디 */
 		String httpSession=(String)session.getAttributes().get("HTTP.SESSION.ID");
 		String streamer = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1); /* 스트리머 */
-		boolean reduplication=false; /*true면 입장, false면 입장거부(중복)*/
+		boolean reduplication=true; /*true면 입장, false면 입장거부(중복)*/
 
-//		/*2.2.1 중복 입장 확인*/
-//		List<WebSocketSession> reduplicationList=chatRoom.get(streamer);
-//		String compare="";
-//		boolean twice=false;
-//		for(WebSocketSession s:reduplicationList) {
-//			if(mid!=null) {
-//				compare=(String)s.getAttributes().get("session_id");
-//				if(mid.equals(compare))twice=true; /*true중복입장*/
-//			}else if(httpSession!=null){
-//				compare=(String)s.getAttributes().get("HTTP.SESSION.ID");
-//				if(httpSession.equals(compare))twice=true; /*true중복입장*/
-//			}
-//
-//			if(twice) {/*중복 입장임*/
-//				JsonObject jsonObject = new JsonObject();
-//				jsonObject.addProperty("reduplication", "이미 채팅방에 접속해 있습니다.");
-//				String jsonTxt = gson.toJson(jsonObject);
-//				session.sendMessage(new TextMessage(jsonTxt)); /* 중복 입장 알림 메세지 전송 */
-//				reduplication=false; /*입장 거부*/
-//				break;
-//			}
-//		}
+		if(streamer.equals("justLogin")) {
 
-//		if(reduplication) { /*중복 아니면*/
+		}else if(streamer.equals("air")) { /*스트리머 입장*/
+			if(onOrOff(mid)!=null && chatRoom.get(mid)!=null) { /*방송중일때*/
+				List<WebSocketSession>list=chatRoom.get(mid);
+				for(WebSocketSession s:list) {
+					if(s.getAttributes().get("session_id").equals(mid))reduplication=false; /*중복입장불가*/
+				}
+			}
+		}else {/*시청자 입장*/
+			if(onOrOff(streamer)!=null && chatRoom.get(streamer)!=null) {/*스트리머가 방송중일때*/
+				List<WebSocketSession>list=chatRoom.get(streamer);
+				for(WebSocketSession s:list) {
+					if(mid!=null) {/*로그인 시청자*/
+						if(s.getAttributes().get("session_id").equals(mid))reduplication=false;/*중복입장불가*/
+					}else { /*비로그인 시청자*/
+						if(s.getAttributes().get("HTTP.SESSION.ID").equals(httpSession))reduplication=false;/*중복입장불가*/
+					}
+				}
+			}
+		}
+
+		if(!reduplication) {/*중복입장 메시지*/
+			JsonObject jsonObject3 = new JsonObject();
+			jsonObject3.addProperty("reduplication", "이미 채팅방에 접속해 있습니다.");
+			String jsonTxt3 = gson.toJson(jsonObject3);
+			session.sendMessage(new TextMessage(jsonTxt3));
+		}
 
 		if (streamer.equals("justLogin")) {/* 1. 단순 로그인 */
 			if(mid != null) {logins.put(mid, session);}
 		}else if(streamer.equals("air")) {/* 2. 방송 onAir */
-			System.out.println("onOrOff 호출 1번");
-			if(onOrOff(mid)!=null) {
+			if(onOrOff(mid)!=null && reduplication) { /*방송중 & 중복입장 체크*/
 
-				System.out.println("1111111111111");
 				if(chatRoom.get(mid)==null) {/*2.1.1 스트리머 첫 입장*/
 					JsonObject jsonObject2 = new JsonObject();/* 온에어 스트리머 json으로 변환 */
 					jsonObject2.addProperty("onAir", mid);
@@ -108,10 +109,9 @@ public class Handler extends TextWebSocketHandler {
 					UkDao dao = new UkDao();
 					dao.enter(userList); /* 방송 시작한 스트리머 디비에 저장 */
 				}
-				/*2.1.2  스트리머 chatRoom에 추가*/
-				chatRoom.get(mid).add(session);
 
-				/*2.1.3 스트리머에게 유저목록, 누적 시청자, 총 시청자 송출*/
+
+				/*2.1.2 스트리머에게 유저목록 송출*/
 				List<WebSocketSession>list=chatRoom.get(mid);/* 스트리머에게 보낼 로그인한 유저 목록 */
 				List<String> nameList=new ArrayList<String>();
 				for(WebSocketSession s:list) {
@@ -123,22 +123,32 @@ public class Handler extends TextWebSocketHandler {
 				String jsonTxt = gson.toJson(jsonObject); /* 채팅방 유저 목록 json으로 변환해서 */
 				session.sendMessage(new TextMessage(jsonTxt));/*스트리머에게  보냄 */
 
-				JsonObject jsonObject4 = new JsonObject();/*누적 및 총 시청자수 담을 json*/
+				/*2.1.3  스트리머 chatRoom에 추가*/
+				chatRoom.get(mid).add(session);
+
+				JsonObject jsonObject4 = new JsonObject();/*스트리머 아이디, 누적 및 총 시청자수 담을 json*/
+				jsonObject4.addProperty("addUser", mid);
 				jsonObject4.addProperty("accUser", accumulate.get(mid).size()); /* 누적 시청자 카운트 json에 담음*/
 				jsonObject4.addProperty("totalUsers", chatRoom.get(mid).size()); /*총시청자수 카운트 json에 담음*/
 				String jsonTxt4 = gson.toJson(jsonObject4); /*누적 및 총 시청자수 카운트 josn으로 변환*/
-				session.sendMessage(new TextMessage(jsonTxt4)); /* 재접속 스트리머에게 전*/
+				List<WebSocketSession>list4=chatRoom.get(mid);
+				for (WebSocketSession s4 : list4) {
+					s4.sendMessage(new TextMessage(jsonTxt4)); /* 재접속 스트리머에게 전*/
+				}
+
+				/*2.1.4 입장한 스트리머 아이디, 시청자수 송출, 누적 시청자수 송출*/
 			}
 
 		}else {/*3. 시청자 입장 */
 
-			if(onOrOff(streamer)!=null) {/*방송중이면*/
-				System.out.println("시청자 입장");
+			if(onOrOff(streamer)!=null && reduplication) {/*방송중 & 중복입장 체크*/
 
 				/*3.1 입장한 시청자에게 유저 목록 전송*/
 				List<WebSocketSession>list=chatRoom.get(streamer);/* 입장한 유저에게 보낼 로그인한 유저 목록 */
 				List<String> nameList=new ArrayList<String>();
-				for(WebSocketSession s:list) nameList.add((String)s.getAttributes().get("session_id"));
+				for(WebSocketSession s:list) {
+					if(s.getAttributes().get("session_id")!=null)nameList.add((String)s.getAttributes().get("session_id"));
+				}
 				JsonObject jsonObject = new JsonObject();
 				String jsonLIst = gson.toJson(nameList);
 				jsonObject.addProperty("userLIst", jsonLIst);
@@ -159,7 +169,9 @@ public class Handler extends TextWebSocketHandler {
 					String jsonTxt2 = gson.toJson(jsonObject2);/* 채팅방 입장한 유저 아이디 json으로 변환 */
 
 					List<WebSocketSession>list2=chatRoom.get(streamer);
-					for (WebSocketSession s2 : list2) s2.sendMessage(new TextMessage(jsonTxt2));/*채팅방 사람들에게 로그인 아이디 뿌려줌*/
+					for (WebSocketSession s2 : list2) {
+						s2.sendMessage(new TextMessage(jsonTxt2));/*채팅방 사람들에게 로그인 아이디 뿌려줌*/
+					}
 				}
 
 				/*3.3 누적 및 총 시청자 전송*/
@@ -176,7 +188,9 @@ public class Handler extends TextWebSocketHandler {
 				String jsonTxt4 = gson.toJson(jsonObject4);/*누적 및 총 시청자수 카운트 josn으로 변환*/
 
 				List<WebSocketSession>list4=chatRoom.get(streamer);
-				for (WebSocketSession s : list4) { s.sendMessage(new TextMessage(jsonTxt4)); }/*채팅방 사람들에게 뿌려줌*/
+				for (WebSocketSession s : list4) {
+					s.sendMessage(new TextMessage(jsonTxt4)); /*채팅방 사람들에게 뿌려줌*/
+				}
 
 			}
 		}
@@ -184,7 +198,6 @@ public class Handler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println(session+"::"+message.getPayload());
 
 		String mid = (String) session.getAttributes().get("session_id"); /* 로그인 아이디 */
 		String streamer = session.getUri().toString().substring(session.getUri().toString().lastIndexOf("?") + 1); /* 스트리머 */
@@ -207,13 +220,14 @@ public class Handler extends TextWebSocketHandler {
 				JsonObject jsonObject = new JsonObject();
 				midTxt[0]= mid;
 				midTxt[1]= txt;
-				System.out.println(mid+":::"+txt);
 				String json=gson.toJson(midTxt);
 				jsonObject.addProperty("txt",json);
 				String jsonTxt = gson.toJson(jsonObject);/* json으로 변환 */
 
 				List<WebSocketSession>list=chatRoom.get(target);
-				for (WebSocketSession s : list) {s.sendMessage(new TextMessage(jsonTxt));} /*채팅방 모든사람에게 전송*/
+				for (WebSocketSession s : list) {
+					s.sendMessage(new TextMessage(jsonTxt));/*채팅방 모든사람에게 전송*/
+				}
 
 				cht.setCht_mid(mid); cht.setCht_oid(target); cht.setCht_txt(txt);
 				UkDao dao = new UkDao(); dao.chatting(cht);/* 보낸이, 스트리머, 채팅 내용 디비에 저장 */
@@ -270,16 +284,8 @@ public class Handler extends TextWebSocketHandler {
 			if(mid != null) {logins.remove(mid);}
 		}else if(streamer.equals("air")) { /* 2.스트리머 로그아웃 */
 			if(onOrOff(mid)!=null) {/*onAir*/
-				System.out.println("가짜방종 ");
 				List<WebSocketSession>list=chatRoom.get(mid);
-				for(WebSocketSession sss:list) {
-					System.out.println("11@@"+sss.getAttributes().get("session_id"));
-				}
 				list.remove(session);
-				for(WebSocketSession sss:list) {
-					System.out.println("22@@"+sss.getAttributes().get("session_id"));
-				}
-				System.out.println("제거완료");
 			}else { /*찐종료*/
 				JsonObject jsonObject = new JsonObject();
 				jsonObject.addProperty("offAir", mid);
@@ -301,11 +307,9 @@ public class Handler extends TextWebSocketHandler {
 				}
 				accumulate.remove(mid);/*누적 시청자수 카운터에서 제거*/
 				chatRoom.remove(mid); /*채팅방 폭파*/
-				System.out.println("33@@"+chatRoom.get(mid));
-				System.out.println("스티리머가 방종 찐찐찐 방종");
 			}
 		}else { /*3.시청자 로그아웃*/
-			if(onOrOff(streamer)!=null && chatRoom.get(streamer)!=null) { /*스트리머가 방송중이면*/
+			if(onOrOff(streamer)!=null) { /*스트리머가 방송중이면*/
 
 				/* 3.1 채팅방에 있던 유저가 나감*/
 				List<WebSocketSession>list=chatRoom.get(streamer);
@@ -325,7 +329,9 @@ public class Handler extends TextWebSocketHandler {
 					String jsonTxt = gson.toJson(jsonObject); /* 채팅방에서 퇴장한 유저 아이디 json으로 변환 */
 
 					List<WebSocketSession> list1=chatRoom.get(streamer);
-					for (WebSocketSession s : list1) { s.sendMessage(new TextMessage(jsonTxt)); } /*채팅방 모든 사람에게 전송*/
+					for (WebSocketSession s : list1) {
+						s.sendMessage(new TextMessage(jsonTxt)); /*채팅방 모든 사람에게 전송*/
+					}
 				}
 				/*3.1.2 총시청자수 전송*/
 				JsonObject jsonObject2 = new JsonObject();/*총 시청자수 담을 josn*/
@@ -333,7 +339,9 @@ public class Handler extends TextWebSocketHandler {
 				String jsonTxt2 = gson.toJson(jsonObject2); /*총 시청자수 json으로 변환*/
 
 				List<WebSocketSession> list2=chatRoom.get(streamer);
-				for (WebSocketSession s2 : list2) { s2.sendMessage(new TextMessage(jsonTxt2)); }/*채팅방 모든 사람에게 전송*/
+				for (WebSocketSession s2 : list2) {
+					s2.sendMessage(new TextMessage(jsonTxt2)); /*채팅방 모든 사람에게 전송*/
+				}
 			}
 		}
 	}
