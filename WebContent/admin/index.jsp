@@ -296,9 +296,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <li>
                                         <a href="javascript:void(0);" onclick="cmh.reviewSelect();">리뷰</a>
                                     </li>
-                                      <li>
+                                      <!-- <li>
                                         <a href="index.jsp?inc=admin_pages/shop/QandA.jsp">Q&A</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
 
                             </li>

@@ -93,8 +93,8 @@
 													<c:if test="${!empty i.photos[0].image1  }">
 														<img
 															<%-- src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[0].image1}" --%>
-															src="<%=request.getContextPath() %>/store/reviewimages/3290d4c4-0aea-410c-9ed9-26da39103619.jpg"
-															class="review_img">
+															src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[0].image1}"
+															class="review_img" style="width : 60px"/>
 													</c:if>
 												</div></td>
 											<td><div class="review_2">
@@ -122,6 +122,7 @@
 							<!-- #END# Basic Examples -->
 							<!-- Exportable Table -->
 						</div>
+						
 
 
 						<%-- <c:forEach var="i" items="${list }">

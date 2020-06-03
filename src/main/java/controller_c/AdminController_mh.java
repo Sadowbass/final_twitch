@@ -355,6 +355,7 @@ public class AdminController_mh {
 		System.out.println(vo.getProduct_explain());
 		System.out.println(vo.getProduct_price());
 		System.out.println(vo.getProduct_size());
+		System.out.println("사진 리스트 사이즈 : " + attList.size());
 
 		msg = dao.insert(vo, attList);
 		return msg;

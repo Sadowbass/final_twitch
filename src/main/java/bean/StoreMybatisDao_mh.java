@@ -511,6 +511,7 @@ public class StoreMybatisDao_mh {
 			p.pageCompute();
 			
 			list = sqlSession.selectList("storeAdmin.select", p);
+			
 			System.out.println(list.size());
 		} catch (Exception ex) {
 			ex.printStackTrace();

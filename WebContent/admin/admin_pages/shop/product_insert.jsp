@@ -47,7 +47,8 @@
 							<div class="col-xs-2" style="text-align: right;">
 
 								<input type="button" id="productInsert_c" class="btn btn-info"
-									value="등록" style="color: white" /> <input type="button"
+									value="등록" style="color: white" /> 
+								<input type="button"
 									class="btn btn-info" value="초기화" id="btn_reset" name="btn_reset" style="color: white" />
 							</div>
 						</div>

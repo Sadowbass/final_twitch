@@ -50,6 +50,7 @@
 				<div class="profile-header">&nbsp;</div>
 				<div class="profile-body">
 					<div class="image-area">
+					
 						<img src="<%=request.getContextPath() %>/<%=img %>"
 							style="width: 127px; height: 127px;"
 							alt="AdminBSB - Profile Image" id="adminImgTarget"
@@ -99,7 +100,7 @@
 										<div class="col-sm-10">
 											<div class="form-line">
 												<input type="text" class="form-control" id="adminName"
-													name="adminName" value="${vo.mem_name }" required  style = "color : whith; background : none;">
+													name="adminName" value="${vo.mem_name }" required  style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
@@ -108,7 +109,7 @@
 										<div class="col-sm-10">
 											<div class="form-line">
 												<input type="email" class="form-control" id="email" name="email" placeholder="Email"
-													value="${vo.mem_email }" required style = "color : whith; background : none;">
+													value="${vo.mem_email }" required style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
@@ -128,7 +129,7 @@
 												<input type="hidden" id="birth" name="birth" />
 											</div> --%>
 											<div class="form-line">
-												<input type="date" class="form-contorl" id="birth" name="birth" style = "color : whith; background : none; border : 0;"
+												<input type="date" class="form-contorl" id="birth" name="birth" style = "color : white; background : none; border : 0;"
 													value="${vo.mem_birth}" />
 											</div>
 										</div>
@@ -156,7 +157,7 @@
 										<div class="col-sm-9">
 											<div class="form-line">
 												<input type="password" class="form-control" id="NewPassword"
-													name="NewPassword" placeholder="New Password" required style = "color : whith; background : none;">
+													name="NewPassword" placeholder="New Password" required style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
@@ -167,7 +168,7 @@
 											<div class="form-line">
 												<input type="password" class="form-control"
 													id="NewPasswordConfirm" name="NewPasswordConfirm"
-													placeholder="New Password (Confirm)" required style = "color : whith; background : none;">
+													placeholder="New Password (Confirm)" required style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>

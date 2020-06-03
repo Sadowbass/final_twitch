@@ -381,7 +381,7 @@
                                 <!-- END FORM-->
                             </div>
                         </div>--%>
-                        <input type="hidden" id="pId" name="pId" value=101>
+                        <input type="hidden" id="pId" name="pId" value="${vo.product_id }">
                        
                       </form>
                       <!-- END FORM--> 
