@@ -18,8 +18,9 @@
 		src="/img/Twitch_logo.png" width="100px"></a>
 
      <a class="" href="/categories" id="categories" style='font-size: 20px;color: rgb(232, 86, 133) !important'><i style=''></i> &nbsp; <font style="font-weight: bold">탐색</font></a>
+	 <%if(session.getAttribute("session_id") != null){ %>
 	 <a class="" href="/store/" id="store" style='font-size: 20px;color: rgb(232, 86, 133) !important'><i style=''></i> &nbsp; <font style="font-weight: bold">스토어</font></a>
-
+	 <%} %>
 <!-- Navbar Search -->
 <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
     <div class="input-group">
