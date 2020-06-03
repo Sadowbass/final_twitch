@@ -4,6 +4,7 @@ let uk = {}
 let ws;
 let streamerId;
 let loginId;
+let loginAllWS;
 
 /*그냥 로그인시*/
 let allWs;
@@ -383,7 +384,8 @@ uk.responsive = function () {
 	uk.leftValue();
 }
 /*로그인시 인덱스 화면에서 소켓 접속*/
-uk.connectAllWS = function () {
+uk.connectAllWS = function (login) {
+	loginAllWS=login;
 
 	allWs = new WebSocket("ws://localhost/cht?justLogin");
 
@@ -424,7 +426,57 @@ uk.connectAllWS = function () {
 				showCancelButton: true,
 				cancelButtonText: "거절"
 			}).then((result) => {
+				if(result.value){
+					Swal.fire({
+						icon: 'info',
+						title: '<font color="white">' + jsObj.plus + '님과 친구가 되었습니다.</font>',
+						background: '#18181b',
+						timer: 1000,
+						confirmButtonText: "확인",
+					});
+					let str={
+						plusOk:jsObj.plus
+					}
+					let jsonStr = JSON.stringify(str);
+					if (allWs.readyState === 1)	allWs.send(jsonStr);
 
+					console.log(loginAllWS+'가'+jsObj.plus+'의 친구요청을 수락했습니다.');
+				}else{
+					Swal.fire({
+						icon: 'info',
+						title: '<font color="white">' + jsObj.plus + '님의 친구요청을 거절하였습니다.</font>',
+						background: '#18181b',
+						timer: 1000,
+						confirmButtonText: "확인",
+					});
+					let str={
+						plusNo:jsObj.plus
+					}
+					let jsonStr = JSON.stringify(str);
+					if (allWs.readyState === 1)	allWs.send(jsonStr);
+
+					console.log(loginAllWS+'가'+jsObj.plus+'의 친구요청을 거절했습니다.');
+				}
+			});
+		}
+		/*친구 신청 수락했을때*/
+		if (jsObj.plusOK) {
+			Swal.fire({
+				icon: 'info',
+				title: '<font color="white">' + jsObj.plusOk + '님이 친구요청을 수락하였습니다.</font>',
+				background: '#18181b',
+				timer: 2000,
+				confirmButtonText: "확인",
+			});
+		}
+		/*친구 거절 수락했을때*/
+		if (jsObj.plusNo) {
+			Swal.fire({
+				icon: 'info',
+				title: '<font color="white">' + jsObj.plusNo + '님이 친구요청을 거절하였습니다.</font>',
+				background: '#18181b',
+				timer: 2000,
+				confirmButtonText: "확인",
 			});
 		}
 		/*귓속말 whisper*/

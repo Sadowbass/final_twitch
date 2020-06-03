@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import bean.Cht;
+import bean.Friend;
 import bean.UserList;
 import bean.ViewerCnt;
 import mybatis.Factory;
@@ -56,6 +57,15 @@ SqlSession sqlSession;
 	   String result=sqlSession.selectOne("mybatis_uk.onAir", mid);
 	   sqlSession.close();
 	   return result;
+   }
+
+   /*친추 수락*/
+   public void plusOk(Friend friend) {
+	  int r=sqlSession.insert("mybatis_uk.plusOk", friend);
+      if(r>0) {
+         sqlSession.commit();
+         sqlSession.close();
+      }
    }
 
    /*하은 부탁*/

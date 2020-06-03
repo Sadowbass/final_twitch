@@ -40,6 +40,12 @@
 		where air_mid=#{_parameter}
 	</select>
 
+	<!-- 친추 수락 -->
+	<insert id="plusOk" parameterType="bean.Friend">
+		insert into final_friend
+		values(seq_friend.nextval, sysdate, 1, #{fr_oid}, #{fr_mid})
+	</insert>
+
 	<!-- 하은 부탁 -->
 	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
 		insert into final_viewercnt

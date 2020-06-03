@@ -30,6 +30,7 @@
         </div>
     </div>
 </form>
+<input type='hidden' id="loginId" value="${loginInfo.mem_id}"/>
 <!-- Navbar -->
 <c:choose>
     <c:when test="${loginInfo.mem_id == null}">
@@ -323,5 +324,5 @@
 </script>
 
 <script>
-	uk.connectAllWS();
+	if($("#loginId").val()!=null)uk.connectAllWS($("#loginId").val());
 </script>

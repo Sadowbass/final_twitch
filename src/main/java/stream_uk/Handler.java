@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import bean.Cht;
+import bean.Friend;
 import bean.UserList;
 import bean.ViewerCnt;
 
@@ -237,13 +238,37 @@ public class Handler extends TextWebSocketHandler {
 		/*(2)친구 추가 -> plus*/
 		if(ele.getAsJsonObject().get("plus")!=null) {
 
-			String plus=ele.getAsJsonObject().get("plus").getAsString();/*메세지로부터 친구추가 타겟 얻음*/
+			String sendTo=ele.getAsJsonObject().get("plus").getAsString();/*메세지로부터 친구추가 타겟 얻음*/
 
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("plus", mid);
 			String jsonTxt = gson.toJson(jsonObject);	/* json으로 변환 */
 
-			if(logins.get(plus)!=null) {logins.get(plus).sendMessage(new TextMessage(jsonTxt));}/*친구추가 상대에게 전송*/
+			if(logins.get(sendTo)!=null) {logins.get(sendTo).sendMessage(new TextMessage(jsonTxt));}/*친구추가 상대에게 전송*/
+		}
+		/*(2-1)친구 수락*/
+		if(ele.getAsJsonObject().get("plusOk")!=null) {
+			String sendTo=ele.getAsJsonObject().get("plusOk").getAsString();
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("plusOK", mid);
+			String jsonTxt = gson.toJson(jsonObject);	/* json으로 변환 */
+			if(logins.get(sendTo)!=null) {logins.get(sendTo).sendMessage(new TextMessage(jsonTxt));}/*친구추가 상대에게 전송*/
+
+			Friend friend=new Friend();
+			friend.setFr_mid(sendTo); /*요청한 사람*/
+			friend.setFr_oid(mid); /*수락한 사람*/
+			UkDao dao=new UkDao();
+			dao.plusOk(friend);
+
+		}
+		/*(2-2)친구 거절*/
+		if(ele.getAsJsonObject().get("plusNo")!=null) {
+			String sendTo=ele.getAsJsonObject().get("plusNo").getAsString();
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("plusNo", mid);
+			String jsonTxt = gson.toJson(jsonObject);	/* json으로 변환 */
+			if(logins.get(sendTo)!=null) {logins.get(sendTo).sendMessage(new TextMessage(jsonTxt));}/*친구추가 상대에게 전송*/
+
 		}
 
 		/*(3)귓속말  -> whisper*/
