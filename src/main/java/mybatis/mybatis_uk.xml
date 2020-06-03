@@ -40,10 +40,22 @@
 		where air_mid=#{_parameter}
 	</select>
 
-	<!-- 친추 수락 -->
-	<insert id="plusOk" parameterType="bean.Friend">
+	<!-- 친추 수락1 -->
+	<insert id="plusOk1" parameterType="bean.Friend">
 		insert into final_friend
 		values(seq_friend.nextval, sysdate, 1, #{fr_oid}, #{fr_mid})
+	</insert>
+
+	<!-- 친추 수락2 -->
+	<insert id="plusOk2" parameterType="bean.Friend">
+		insert into final_friend
+		values(seq_friend.nextval, sysdate, 1, #{fr_mid}, #{fr_oid})
+	</insert>
+
+	<!-- 귓속말 저장-->
+	<insert id="whisperIn" parameterType="bean.Whisper">
+		insert into final_whisper
+		values(seq_whisper.nextval, #{writer}, #{reader}, #{txt}, sysdate)
 	</insert>
 
 	<!-- 하은 부탁 -->

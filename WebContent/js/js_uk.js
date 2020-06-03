@@ -415,16 +415,16 @@ uk.connectAllWS = function (login) {
 			}).then((result) => {
 				if (result.value) location.href = '/' + jsObj.onAir;
 			});
-		/*친구 추가 알림 받음 plus*/
+		/*친구 추가 수락 거절 여부 알림 받음 plus*/
 		if (jsObj.plus) {
 			Swal.fire({
 				icon: 'info',
 				title: '<font color="white">' + jsObj.plus + '님이 친구추가를 요청하였습니다.</font>',
 				background: '#18181b',
-				timer: 3000,
 				confirmButtonText: "수락",
 				showCancelButton: true,
-				cancelButtonText: "거절"
+				cancelButtonText: "거절",
+				allowOutsideClick:false
 			}).then((result) => {
 				if(result.value){
 					Swal.fire({
@@ -479,22 +479,23 @@ uk.connectAllWS = function (login) {
 				confirmButtonText: "확인",
 			});
 		}
-		/*귓속말 whisper*/
+		/*귓속말 받음 whisper*/
 		if (jsObj.whisper) {
 			let whisper = JSON.parse(jsObj.whisper);
+			console.log('whisper',whisper[0],whisper[1]);
 			if ($("div[whisperTarget='" + whisper[0] + "']").length) {
-				$("<span>" + whisper[0] + ": " + whisper[1] + "</span>").appendTo(".whisper_mid");
+				$("<div>" + whisper[0] + "&nbsp&nbsp" + whisper[1] + "</div>").appendTo(".whisper_mid");
 			} else {
-				/*귓속말 폼 (귓속말 받음)*/
+				/*귓속말 폼 */
 				$('<div class="whisper" whisperTarget="' + whisper[0] + '">' +
 					'<div class="whisper_top">' +
 					'<div class="whisperOid">' + whisper[0] + '</div>' +
 					'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
-					'<div class="whisper_close"><a href="#"><i class="fas fa-times"></i></a></div>' +
+					'<div class="whisper_close" onclick=uk.whisperClose("'+whisper[0]+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
 					'</div>' +
-					'<div class="whisper_mid"></div>' +
+					'<div class="whisper_mid mostly-customized-scrollbar"><div>'+whisper[0]+'&nbsp&nbsp'+whisper[1]+'</div></div>' +
 					'<div class="whisper_bottom">' +
-					'<div class="whisper_sendArea" contenteditable="true"></div>' +
+					'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
 					'<div class="whisper_btn" onclick=uk.whisperSend("' + whisper[0] + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
 					'</div>' +
 					'</div>').appendTo(".whisperArea");
@@ -523,7 +524,7 @@ uk.whisper = function (whisperTarget) {
 			'<div class="whisper_top">' +
 			'<div class="whisperOid">"' + whisperTarget + '"</div>' +
 			'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
-			'<div class="whisper_close"><a href="#"><i class="fas fa-times"></i></a></div>' +
+			'<div class="whisper_close" onclick=uk.whisperClose("'+whisperTarget+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
 			'</div>' +
 			'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
 			'<div class="whisper_bottom">' +
@@ -534,15 +535,10 @@ uk.whisper = function (whisperTarget) {
 		uk.whisperCss($('#sidebar-navmain').width());
 	}
 	/* 엔터키 누르면 귓속말 전송 */
-	if ($("div[contenteditable].whisper_sendArea").length) {
-		console.log('keykeykey')
-	}
 	$("div[contenteditable].whisper_sendArea").keydown(function (e) {
-		console.log('key');
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				console.log('enter');
-				uk.whisperSend();
+				uk.whisperSend(whisperTarget);
 				$("div[contenteditable].whisper_sendArea").empty();
 				return false;
 			}
@@ -551,7 +547,7 @@ uk.whisper = function (whisperTarget) {
 
 }
 
-/* socket 전송 메소드 (3)귓속말 -> whisper*/
+/* socket 전송 메소드 (3)귓속말 -> whisperSend*/
 uk.whisperSend = function (whisperTarget) {
 	console.log($("div[contenteditable].whisper_sendArea").html());
 	let whisperTxt = $("div[contenteditable].whisper_sendArea").html();
@@ -565,10 +561,14 @@ uk.whisperSend = function (whisperTarget) {
 		allWs.send(jsonStr);
 	}
 }
-/* socket close 메소드 */
-uk.allWSclose = function () {
-	allWs.close();
+
+/*귓속말 닫기 버튼*/
+uk.whisperClose=function(whisperTarget){
+	console.log('whisperClose');
+	$("div[whisperTarget='"+whisperTarget+"']").remove();
+	console.log('testtttt');
 }
+
 
 /*귓속말 css*/
 uk.whisperCss = function (left) {
@@ -577,16 +577,12 @@ uk.whisperCss = function (left) {
 	$(".whisper_mid").height($(".whisper").height() - $(".whisper_top").height() - $(".whisper_bottom").height());/*귓속말 미드*/
 	$(".whisper_sendArea").width($(".whisper_bottom").width() - $(".whisper_btn").width());
 }
-/*하은 부탁*/
-uk.heCnt = function (streamerId, loginId) {
-	if (streamerId == loginId) {
-		let str = { heCntRun: 1 }
-		let jsonStr = JSON.stringify(str);
-		setInterval(function () {
-			ws.send(jsonStr);
-		}, 60000);
-	}
+
+/* socket close 메소드 */
+uk.allWSclose = function () {
+	allWs.close();
 }
+
 /*스트리머 방송 출력 페이지 소켓 다시 접속*/
 uk.reSocket=function(mid){
 	console.log(mid);
@@ -596,6 +592,17 @@ uk.reSocket=function(mid){
 			uk.connectWS(mid,mid); /* 소켓 재접속 */
 		}
 	});
+}
+
+/*하은 부탁*/
+uk.heCnt = function (streamerId, loginId) {
+	if (streamerId == loginId) {
+		let str = { heCntRun: 1 }
+		let jsonStr = JSON.stringify(str);
+		setInterval(function () {
+			ws.send(jsonStr);
+		}, 60000);
+	}
 }
 
 

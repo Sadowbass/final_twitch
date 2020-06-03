@@ -22,6 +22,7 @@ import bean.Cht;
 import bean.Friend;
 import bean.UserList;
 import bean.ViewerCnt;
+import bean.Whisper;
 
 public class Handler extends TextWebSocketHandler {
 
@@ -277,13 +278,20 @@ public class Handler extends TextWebSocketHandler {
 			String whisperTarget=jsonArray.get(0).getAsString();
 			String whisperTxt=jsonArray.get(1).getAsString();
 
+			Whisper whisper=new Whisper();
+			whisper.setWriter(mid);
+			whisper.setReader(whisperTarget);
+			whisper.setTxt(whisperTxt);
+			UkDao dao=new UkDao();
+			dao.whisper(whisper); /*디비에 저장*/
+
 			JsonObject jsonObject = new JsonObject();
 			midTxt[0]= mid;
 			midTxt[1]= whisperTxt;
 			String json=gson.toJson(midTxt);
 			jsonObject.addProperty("whisper", json);
 			String jsonTxt = gson.toJson(jsonObject);	/* json으로 변환 */
-			if(logins.get(whisperTarget)!=null) {logins.get(whisperTarget).sendMessage(new TextMessage(jsonTxt));}/*로그인중인 사람들에게 전송*/
+			if(logins.get(whisperTarget)!=null) logins.get(whisperTarget).sendMessage(new TextMessage(jsonTxt));/*로그인중인 사람들에게 전송*/
 		}
 		/*(4) 하은 부탁*/
 		if(ele.getAsJsonObject().get("heCntRun")!=null) {

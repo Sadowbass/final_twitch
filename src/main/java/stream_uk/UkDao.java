@@ -8,6 +8,7 @@ import bean.Cht;
 import bean.Friend;
 import bean.UserList;
 import bean.ViewerCnt;
+import bean.Whisper;
 import mybatis.Factory;
 
 public class UkDao {
@@ -61,8 +62,18 @@ SqlSession sqlSession;
 
    /*친추 수락*/
    public void plusOk(Friend friend) {
-	  int r=sqlSession.insert("mybatis_uk.plusOk", friend);
-      if(r>0) {
+	  int r1=sqlSession.insert("mybatis_uk.plusOk1", friend);
+	  int r2=sqlSession.insert("mybatis_uk.plusOk2", friend);
+      if(r1>0 && r2>0) {
+         sqlSession.commit();
+         sqlSession.close();
+      }
+   }
+
+   /*귓속말*/
+   public void whisper(Whisper whisper) {
+	   int r=sqlSession.insert("mybatis_uk.whisperIn", whisper);
+	   if(r>0) {
          sqlSession.commit();
          sqlSession.close();
       }
