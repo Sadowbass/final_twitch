@@ -198,6 +198,140 @@ my.func = function() {
 	})
 }
 
+function followDelete(followId) {
+	
+	
+	let mId = $('#followMid').val();
+	
+	
+	Swal.fire({
+		  title: '<img src="../img/Twitch_logo.png" width="100px">',
+		  html: "<font color='black' style='font-weight: bold'>팔로우 해제</font>" +
+	  		"<br/><br/><div class='warning'>" +
+	  		"<b>"+followId +"</b>님의 팔로우를 정말로 해제하시겠습니까?" +
+	  		"</div>",
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgb(232, 86, 133)',
+		  cancelButtonColor: 'gray',
+		  cancelButtonText: '취소',
+		  confirmButtonText: '팔로우 끊기',
+		  backdrop: `
+			    rgba(232, 86, 133,0.4)
+			    left top
+			    no-repeat
+			  `
+		}).then((result) => {
+			if(result.dismiss == 'cancel'){
+				return;
+			}
+			
+        	$.ajax({
+        		url : 'followDelete.bc',
+        		type : 'post',
+        		async: false,
+        		data : {"mId": mId,"oId":followId},
+        		dataType : 'text',
+        		error : function(xhr, status, error){
+        			  console.log(xhr);
+        		},
+        		success : function(data, xhr, status ){	
+        			if(data == '성공'){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'success',
+  						  title: '<font color="black">팔로우가 해제되었습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+  						
+  						 followers();
+        				
+        			}else if(data == "실패"){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'error',
+  						  title: '<font color="black">팔로우 해제에 실패하였습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+        				
+        			}
+        			
+        		}
+        			
+        	})
+		})
+}
+
+
+
+function friendDelete(friendId) {
+	
+	
+	let mId = $('#userId').val();
+	
+	
+	Swal.fire({
+		  title: '<img src="../img/Twitch_logo.png" width="100px">',
+		  html: "<font color='black' style='font-weight: bold'>친구 해제</font>" +
+	  		"<br/><br/><div class='warning'>" +
+	  		"<b>"+friendId +"</b>님과 친구를 끊으시겠습니까?" +
+	  		"</div>",
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgb(232, 86, 133)',
+		  cancelButtonColor: 'gray',
+		  cancelButtonText: '취소',
+		  confirmButtonText: '친구 끊기',
+		  backdrop: `
+			    rgba(232, 86, 133,0.4)
+			    left top
+			    no-repeat
+			  `
+		}).then((result) => {
+			if(result.dismiss == 'cancel'){
+				return;
+			}
+			
+			
+        	$.ajax({
+        		url : 'friendDelete.bc',
+        		type : 'post',
+        		async: false,
+        		data : {"mId": mId,"oId":friendId},
+        		dataType : 'text',
+        		error : function(xhr, status, error){
+        			  console.log(xhr);
+        		},
+        		success : function(data, xhr, status ){	
+        			if(data == '성공'){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'success',
+  						  title: '<font color="black">친구가 해제되었습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+  						
+  						 friends();
+        				
+        			}else if(data == "실패"){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'error',
+  						  title: '<font color="black">친구 해제에 실패하였습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+        				
+        			}
+        			
+        		}
+        			
+        	})
+		})
+}
+
+
 function followers() {
 	let mId = $('#userId').val();
 	$.ajax({
@@ -206,6 +340,8 @@ function followers() {
 		url:'/myFollowers.sc',
 		data:{"mId":mId},
 		success:(data)=>{
+			$('.row-item').html('');
+			
 			for(i of data){
 				let divColXl3 = document.createElement('div');
 				divColXl3.className = "col-xl-3 col-sm-6 mb-3"
@@ -221,7 +357,7 @@ function followers() {
 				if(i.ph_sysfile != null){
 					img.src = "/img/user-photo/"+i.ph_sysfile;
 				} else {
-					img.src = "/img/s1.png";
+					img.src = "/img/user-photo/guest-icon.png";
 				}
 
 				let divChannelBody = document.createElement('div');
@@ -237,6 +373,12 @@ function followers() {
 				divChannelBody.appendChild(channelTitle);
 				a.appendChild(img);
 				channelsCardImage.appendChild(a);
+				
+				let spanDelete = document.createElement('div');
+				spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+				spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block;");
+				spanDelete.setAttribute("onclick", "followDelete('"+i.mfo_oid +"')");
+				divChannelsCard.appendChild(spanDelete);
 				divChannelsCard.appendChild(channelsCardImage);
 				divChannelsCard.appendChild(divChannelBody);
 				divColXl3.appendChild(divChannelsCard);
@@ -247,58 +389,189 @@ function followers() {
 	})
 }
 
-$(window).scroll(function () {
-	var rno = $('.channels-card:last').attr('rownum');
+function friends(){
 	let mId = $('#userId').val();
-	if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-		console.log("??");
-		$.ajax({
-			type:'post',
-			url:"/myFollowers.sc",
-			data : {'rno' : rno, 'mId' : mId},
-			error:(error)=>{
-			console.log(error)
-			},
-			success:(data)=>{
-				console.log(data);
-				for(i of data){
-					let divColXl3 = document.createElement('div');
-					divColXl3.className = "col-xl-3 col-sm-6 mb-3"
-					let divChannelsCard = document.createElement('div');
-					divChannelsCard.className = "channels-card";
-					divChannelsCard.setAttribute("rownum", i.rno);
-					let channelsCardImage = document.createElement('div');
-					channelsCardImage.className = "channels-card-image";
-					let a = document.createElement('a');
-					a.className = "img-fluid";
-					a.href = "/"+i.mfo_oid;
-					let img = document.createElement("img");
-					if(i.ph_sysfile != null){
-						img.src = "/img/user-photo/"+i.ph_sysfile;
-					} else {
-						img.src = "/img/s1.png";
-					}
-
-					let divChannelBody = document.createElement('div');
-					divChannelBody.className = "channels-card-body";
-					let channelTitle = document.createElement('div');
-					channelTitle.className = "channels-title";
-					let a2 = document.createElement('a');
-					a2.href = "/"+i.mfo_oid;
-					a2.innerText = i.mfo_oid;
-
-					channelTitle.appendChild(a2);
-					divChannelBody.appendChild(channelTitle);
-					a.appendChild(img);
-					channelsCardImage.appendChild(a);
-					divChannelsCard.appendChild(channelsCardImage);
-					divChannelsCard.appendChild(divChannelBody);
-					divColXl3.appendChild(divChannelsCard);
-					$('.row-item').append(divColXl3);
+	
+    $.ajax({
+        url: 'selectFriends.bc',
+        type: 'post',
+        async: false,
+        data: {"mId": mId},
+        error: function (xhr, status, error) {
+            
+        },
+        success: function (data, xhr, status) {
+        	$('.row-item2').html('');
+			for(i of data){
+				let divColXl3 = document.createElement('div');
+				divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+				let divChannelsCard = document.createElement('div');
+				divChannelsCard.className = "channels-card2";
+				divChannelsCard.setAttribute("rownum", i.rno);
+				let channelsCardImage = document.createElement('div');
+				channelsCardImage.className = "channels-card-image2";
+				let a = document.createElement('a');
+				a.className = "img-fluid";
+				a.href = "/"+i.fr_oid;
+				let img = document.createElement("img");
+				if(i.ph_sysfile != null){
+					img.src = "/img/user-photo/"+i.ph_sysfile;
+				} else {
+					img.src = "/img/user-photo/guest-icon.png";
 				}
+
+				let divChannelBody = document.createElement('div');
+				divChannelBody.className = "channels-card-body2";
+				let channelTitle = document.createElement('div');
+				channelTitle.className = "channels-title2";
+				let a2 = document.createElement('a');
+				a2.href = "/"+i.fr_oid;
+				a2.innerText = i.fr_oid;
+
+
+				channelTitle.appendChild(a2);
+				divChannelBody.appendChild(channelTitle);
+				a.appendChild(img);
+				channelsCardImage.appendChild(a);
+				
+				let spanDelete = document.createElement('div');
+				spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+				spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block;");
+				spanDelete.setAttribute("onclick", "friendDelete('"+i.fr_oid +"')");
+				
+				divChannelsCard.appendChild(spanDelete);
+				divChannelsCard.appendChild(channelsCardImage);
+				divChannelsCard.appendChild(divChannelBody);
+				divColXl3.appendChild(divChannelsCard);
+				$('.row-item2').append(divColXl3);
 			}
-		})
+        }
+
+    })
+	
+}
+
+
+$(window).scroll(function () {
+	
+	if($('#scrollFlag').val() == '1'){
+		var rno = $('.channels-card:last').attr('rownum');
+		let mId = $('#userId').val();
+		if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+			console.log("??");
+			$.ajax({
+				type:'post',
+				url:"/myFollowers.sc",
+				data : {'rno' : rno, 'mId' : mId},
+				error:(error)=>{
+				console.log(error)
+				},
+				success:(data)=>{
+					console.log(data);
+					for(i of data){
+						let divColXl3 = document.createElement('div');
+						divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+						let divChannelsCard = document.createElement('div');
+						divChannelsCard.className = "channels-card";
+						divChannelsCard.setAttribute("rownum", i.rno);
+						let channelsCardImage = document.createElement('div');
+						channelsCardImage.className = "channels-card-image";
+						let a = document.createElement('a');
+						a.className = "img-fluid";
+						a.href = "/"+i.mfo_oid;
+						let img = document.createElement("img");
+						if(i.ph_sysfile != null){
+							img.src = "/img/user-photo/"+i.ph_sysfile;
+						} else {
+							img.src = "/img/user-photo/guest-icon.png";
+						}
+
+						let divChannelBody = document.createElement('div');
+						divChannelBody.className = "channels-card-body";
+						let channelTitle = document.createElement('div');
+						channelTitle.className = "channels-title";
+						let a2 = document.createElement('a');
+						a2.href = "/"+i.mfo_oid;
+						a2.innerText = i.mfo_oid;
+
+						channelTitle.appendChild(a2);
+						divChannelBody.appendChild(channelTitle);
+						a.appendChild(img);
+						channelsCardImage.appendChild(a);
+						let spanDelete = document.createElement('div');
+						spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+						spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block");
+						spanDelete.setAttribute("onclick", "followDelete('"+i.mfo_oid +"')");
+						divChannelsCard.appendChild(spanDelete);
+						divChannelsCard.appendChild(channelsCardImage);
+						divChannelsCard.appendChild(divChannelBody);
+						divColXl3.appendChild(divChannelsCard);
+						$('.row-item').append(divColXl3);
+					}
+				}
+			})
+		}
+	}else if($('#scrollFlag').val() == '2'){
+		var rno = $('.channels-card2:last').attr('rownum');
+		let mId = $('#userId').val();
+		if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+			console.log("??");
+			$.ajax({
+				type:'post',
+				url:"selectFriends.bc",
+				data : {'rno' : rno, 'mId' : mId},
+				error:(error)=>{
+				console.log(error)
+				},
+				success:(data)=>{
+					console.log(data);
+					for(i of data){
+						let divColXl3 = document.createElement('div');
+						divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+						let divChannelsCard = document.createElement('div');
+						divChannelsCard.className = "channels-card2";
+						divChannelsCard.setAttribute("rownum", i.rno);
+						let channelsCardImage = document.createElement('div');
+						channelsCardImage.className = "channels-card-image2";
+						let a = document.createElement('a');
+						a.className = "img-fluid";
+						a.href = "/"+i.fr_oid;
+						let img = document.createElement("img");
+						if(i.ph_sysfile != null){
+							img.src = "/img/user-photo/"+i.ph_sysfile;
+						} else {
+							img.src = "/img/user-photo/guest-icon.png";
+						}
+
+						let divChannelBody = document.createElement('div');
+						divChannelBody.className = "channels-card-body2";
+						let channelTitle = document.createElement('div');
+						channelTitle.className = "channels-title2";
+						let a2 = document.createElement('a');
+						a2.href = "/"+i.fr_oid;
+						a2.innerText = i.fr_oid;
+
+						channelTitle.appendChild(a2);
+						divChannelBody.appendChild(channelTitle);
+						a.appendChild(img);
+						channelsCardImage.appendChild(a);
+						let spanDelete = document.createElement('div');
+						spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+						spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block");
+						spanDelete.setAttribute("onclick", "friendDelete('"+i.fr_oid +"')");
+						divChannelsCard.appendChild(spanDelete);
+						divChannelsCard.appendChild(channelsCardImage);
+						divChannelsCard.appendChild(divChannelBody);
+						divColXl3.appendChild(divChannelsCard);
+						$('.row-item2').append(divColXl3);
+					}
+				}
+			})
+		}
 	}
+	
+	
+
 })
 
 function paymentInit(){

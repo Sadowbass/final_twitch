@@ -13,8 +13,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class MyPagePhotoUpload {
-	
-	public static String upload = "D:/JavaStudy/final_twitch/WebContent/img/user-photo/";
+	//C:\Users\JHTA\eclipse-workspace\final_twitch\WebContent\img
+	//public static String upload = "D:/JavaStudy/final_twitch/WebContent/img/user-photo/";
+	public static String upload = "C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/img/user-photo/";
     
 	String tempDir = "c:/temp/";
 	

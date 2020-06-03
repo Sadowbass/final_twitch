@@ -10,6 +10,7 @@ public class BroadCastingDonationVo {
 	String don_push;
 	String don_content;
 	String url;
+	String ph_sysfile;
 	int type;
 	
 	
@@ -106,6 +107,17 @@ public class BroadCastingDonationVo {
 	public void setType(int type) {
 		this.type = type;
 	}
+
+
+	public String getPh_sysfile() {
+		return ph_sysfile;
+	}
+
+
+	public void setPh_sysfile(String ph_sysfile) {
+		this.ph_sysfile = ph_sysfile;
+	}
+	
 	
 
 	

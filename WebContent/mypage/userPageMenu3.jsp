@@ -22,15 +22,17 @@
 
 			<c:forEach var='i' items='${list }' varStatus="status">
 	            <tr>
-	                <td>${status.count}</td>
-	                <td>${i.don_mid}</td>
-	                <td>${i.don_content }</td>
-	                <td>${i.don_price }</td>    
-	                <td>${i.don_rdate }</td> 
-	                <c:if test="${i.type eq '0' }"><td>음성후원</td> </c:if>
-	                <c:if test="${i.type eq '1' }"><td>영상후원</td> </c:if>
-	                <c:if test="${i.type eq '2' }"><td>룰렛후원</td> </c:if>
-	                <c:if test="${i.type eq '3' }"><td>구독</td> </c:if>   
+	                <td><font style='font-weight: bold'>${status.count}</font></td>
+	                	                <td><c:if test="${empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px" src="../img/user-photo/guest-icon.png" id="memberPhoto"></c:if>
+	                <c:if test = "${not empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px" src="../img/user-photo/${i.ph_sysfile }" id="memberPhoto"></c:if>
+	                <font style="font-weight: bold">&nbsp;&nbsp;${i.don_mid}</font></td>
+	                <td><font style='font-weight: bold'>${i.don_content }</font></td>
+	                <td><font style='font-weight: bold'>${i.don_price }</font></td>    
+	                <td><font style='font-weight: bold'>${i.don_rdate }</font></td> 
+	                <c:if test="${i.type eq '0' }"><td><div style='display:inline-block;background-color:rgb(232, 86, 133);color: white'>&nbsp;음성후원&nbsp;</div></td> </c:if>
+	                <c:if test="${i.type eq '1' }"><td><div style='display:inline-block;background-color:rgb(232, 86, 133);color: white'>&nbsp;영상후원&nbsp;</div></td> </c:if>
+	                <c:if test="${i.type eq '2' }"><td><div style='display:inline-block;background-color:rgb(232, 86, 133);color: white'>&nbsp;룰렛후원&nbsp;</div></td> </c:if>
+	                <c:if test="${i.type eq '3' }"><td><div style='display:inline-block;background-color:rgb(232, 86, 133);color: white'>&nbsp;구독&nbsp;</div></td> </c:if>   
 	            </tr>
 			</c:forEach>
         </tbody>

@@ -94,7 +94,12 @@ function initUser() {
         success: function (data, xhr, status) {
 
             $('#memberName').html(data.mem_name);
+            if(data.ph_sysfile != null){
             $('#memberPhoto').attr("src", "../img/user-photo/" + data.ph_sysfile);
+            }else{
+            	 $('#memberPhoto').attr("src", "../img/user-photo/guest-icon.png");
+            	
+            }
 
         }
 
