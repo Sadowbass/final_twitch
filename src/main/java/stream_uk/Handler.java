@@ -83,7 +83,7 @@ public class Handler extends TextWebSocketHandler {
 
 		if (streamer.equals("justLogin")) {/* 1. 단순 로그인 */
 			if(mid != null) {logins.put(mid, session);}
-		}else if(streamer.equals("air")) {/* 2. 방송 onAir */
+		}else if(streamer.equals("air")) {/* 2. 스트리머 입장 */
 			if(onOrOff(mid)!=null && reduplication) { /*방송중 & 중복입장 체크*/
 
 				if(chatRoom.get(mid)==null) {/*2.1.1 스트리머 첫 입장*/
@@ -126,8 +126,8 @@ public class Handler extends TextWebSocketHandler {
 				/*2.1.3  스트리머 chatRoom에 추가*/
 				chatRoom.get(mid).add(session);
 
-				JsonObject jsonObject4 = new JsonObject();/*스트리머 아이디, 누적 및 총 시청자수 담을 json*/
-				jsonObject4.addProperty("addUser", mid);
+				/*2.1.4 누적 및 총 시청자수 송출*/
+				JsonObject jsonObject4 = new JsonObject();/*누적 및 총 시청자수 담을 json*/
 				jsonObject4.addProperty("accUser", accumulate.get(mid).size()); /* 누적 시청자 카운트 json에 담음*/
 				jsonObject4.addProperty("totalUsers", chatRoom.get(mid).size()); /*총시청자수 카운트 json에 담음*/
 				String jsonTxt4 = gson.toJson(jsonObject4); /*누적 및 총 시청자수 카운트 josn으로 변환*/
@@ -136,7 +136,7 @@ public class Handler extends TextWebSocketHandler {
 					s4.sendMessage(new TextMessage(jsonTxt4)); /* 재접속 스트리머에게 전*/
 				}
 
-				/*2.1.4 입장한 스트리머 아이디, 시청자수 송출, 누적 시청자수 송출*/
+
 			}
 
 		}else {/*3. 시청자 입장 */

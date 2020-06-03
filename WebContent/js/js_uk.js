@@ -110,7 +110,8 @@ uk.connectWS = function (streamer, login) {
 	}
 
 	ws.onopen = function (event) {
-		console.log("채팅 접속")
+		console.log("채팅 접속");
+		$('<div style="display:flex;"><i class="fas fa-crown" style="color: #FFA833; padding-top:3px; padding-right:5px;"></i><div class=' + streamerId + '>'+streamerId+'</div></div>').appendTo('#userList');
 	}
 	ws.onclose = function (event) {
 		console.log("접속 종료");
@@ -125,7 +126,9 @@ uk.connectWS = function (streamer, login) {
 		/*내가 입장시! 유저 목록jsonLIst*/
 		if (jsObj.userLIst) {
 			$(JSON.parse(jsObj.userLIst)).each(function (index, item) {
-				$('<div class=' + item + '></div>').html(item).appendTo('#userList');
+				if(item!=streamerId)$('<div class=' + item + '></div>').html(item).appendTo('#userList');
+
+
 			});
 		}
 		/*총 시청자수 totalUsers*/
@@ -403,7 +406,7 @@ uk.connectAllWS = function () {
 				icon: 'info',
 				title: '<font color="white">' + jsObj.onAir + '님이 방송을 시작하였습니다.</font>',
 				background: '#18181b',
-				timer: 3000,
+				timer: 2000,
 				confirmButtonText: "이동",
 				showCancelButton: true,
 				cancelButtonText: "확인"
