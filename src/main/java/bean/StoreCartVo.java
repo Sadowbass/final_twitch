@@ -18,6 +18,10 @@ public class StoreCartVo {
 	List<ProductPhoto_mh> photo;
 	String sysfile;
 	
+	String mem_name;
+	String mem_email;
+	int mem_money;
+	
 	public StoreCartVo() {
 		// TODO Auto-generated constructor stub
 	}
@@ -42,6 +46,30 @@ public class StoreCartVo {
 	
 	
 	
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+
+	public String getMem_email() {
+		return mem_email;
+	}
+
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
+	}
+
+	public int getMem_money() {
+		return mem_money;
+	}
+
+	public void setMem_money(int mem_money) {
+		this.mem_money = mem_money;
+	}
+
 	public String getSysfile() {
 		return sysfile;
 	}

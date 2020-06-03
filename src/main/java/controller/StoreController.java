@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +21,13 @@ import bean.StoreCartServiceif;
 import bean.StoreCartServiceDao;
 import bean.StoreCartVo;
 import bean.StoreFaqVo;
+import bean.StoreMember;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +43,8 @@ import com.google.gson.Gson;
 
 
 import bean.StoreMybatisDao;
+import bean.StoreOrderDetailVo;
+import bean.StoreOrderVo;
 import bean.StoreReviewPhotoVo;
 import bean.StoreReviewVo;
 
@@ -386,17 +394,136 @@ public class StoreController {
 	        return "redirect:/store/cartlist.str";
 	    }
 	    
-		//장바구니 목록 보기
+		//order페이지로 넘어가기
 		 @RequestMapping(value="/store/order.str", method= {RequestMethod.GET, RequestMethod.POST})
 		    public ModelAndView order(ModelAndView mv, HttpSession session) {
 			 
+			// 장바구니 목록, 금액 합계, 배송료, 리스트의 사이즈(주문 아이템 갯수) 등
+		        // StoreCartVo로 표현되지 않는 여러가지 정보를 담아 뷰로 넘겨야하므로 HashMap 사용
+		        Map<String, Object> map = new HashMap<String, Object>();
+		 
+		        //String mem_id = (String) session.getAttribute("mem_id");
+		        String mem_id ="sliver";
+		        if (mem_id != null) {// 로그인한 상태이면
+		            List<StoreCartVo> list = cartservice.listCart(mem_id);// 서비스단에서 장바구니 목록을 가져오고
+		            List<StoreMember> list2 = cartservice.listMember(mem_id);
+		          
+		            int sumMoney = cartservice.sumMoney(mem_id);// 금액 합계를 가져오고
+		            int fee = sumMoney >= 100000 ? 0 : 2500;// 금액 합계에 대한 배송료를 계산하고
+		            // 금액,배송비,총액,리스트사이즈,장바구니목록
+		            // 각 값들을 map에 넣어준다.
+		            map.put("sumMoney", sumMoney);
+		            map.put("fee", fee);
+		            map.put("sum", fee + sumMoney);
+		            map.put("list", list);
+		            map.put("list2", list2);
+		            map.put("count", list.size());
+		 
+		          
+		            mv.addObject("map", map);
+		            // ModelAndView 객체에 map을 담고 리스트 뷰를 설정해준 뒤 포워딩.
+		 
+		            mv.setViewName("checkout");
+					return mv;
+		 
+		        } else {
+		            // 로그인하지 않은 상태이면 로그인 페이지로
+		            // 아무 Object도 안줘도 되나?
+		           // mv.setViewName("member/login");
+		        	   mv.setViewName("checkout");
+						return mv;
+		        }
 			 
 			 
-			    mv.setViewName("checkout");
-				return mv;
 			 
 			 
 		 }
+		 
+		 
+		//주문하기
+		 @RequestMapping(value="/store/orderComplete.str", method= {RequestMethod.GET, RequestMethod.POST,},produces = "application/json; charset=utf-8")
+		    public ModelAndView orderComplete(ModelAndView mv, HttpServletRequest req, HttpSession session) {
+			 
+			  /*String mem_id = (String) session.getAttribute("mem_id");
+			
+				String get_name = req.getParameter("get_name");
+				String get_phone = req.getParameter("get_phone");
+				String zip_code = req.getParameter("zip_code");
+				String address1 = req.getParameter("address1");
+				String address2 = req.getParameter("address2");
+				
+				System.out.println(req.getParameter("address1"));
+				System.out.println(req.getParameter("amount"));
+				
+				int amount = Integer.parseInt(req.getParameter("amount"));
+				
+				*/
+		
+			    String mem_id = "sliver";
+				StoreOrderVo vo = new StoreOrderVo();
+				StoreOrderDetailVo dVo = new StoreOrderDetailVo();
+		
+		       
+		        //List<StoreOrderDetailVo> olist = cartservice.countC(mem_id);
+		        List<StoreOrderDetailVo> olist = new ArrayList<StoreOrderDetailVo>();
+		        
+		        JsonParser parser=new JsonParser();
+		        String str=req.getParameter("iii");
+		        String str1=req.getParameter("jjj");
+		        
+		        System.out.println(str);
+		        System.out.println(str1);
+		        
+		        JsonElement element=parser.parse(str);
+		        
+		        String get_name = element.getAsJsonObject().get("get_name").getAsString();
+		        String get_phone = element.getAsJsonObject().get("get_phone").getAsString();
+		        String zip_code = element.getAsJsonObject().get("zip_code").getAsString();
+		        String address1 = element.getAsJsonObject().get("address1").getAsString();
+		        String address2 = element.getAsJsonObject().get("address2").getAsString();
+		        int amount = element.getAsJsonObject().get("amount").getAsInt();
+		        
+		        vo = new StoreOrderVo(mem_id, get_name, get_phone, zip_code, address1, address2, amount);
+		        
+		        
+		        JsonArray array=element.getAsJsonObject().get("product_id").getAsJsonArray();
+		        JsonArray array1=element.getAsJsonObject().get("cart_count").getAsJsonArray();
+		        JsonArray array2=element.getAsJsonObject().get("order_size").getAsJsonArray();
+		        
+		        for(int i = 0; i<array.size(); i++) {
+		        	System.out.println(array.get(i).getAsString());
+		        	int product_id = array.get(i).getAsInt();
+		        	int cart_count = array1.get(i).getAsInt();
+		        	String order_size = array2.get(i).getAsString();
+		        	
+		        	dVo = new StoreOrderDetailVo(product_id, cart_count, order_size, mem_id);
+		        	
+		        	olist.add(dVo);
+		        	
+		        }
+		        
+		        
+		        
+		       /*
+		        dVo.setCart_count(cart_count);
+		        dVo.setMem_id(mem_id);
+		        dVo.setProduct_id(product_id);
+		        dVo.setOrder_size(order_size);
+		        
+		        olist.add(dVo);
+		        */
+		        cartservice.orderInsert(vo);
+		        cartservice.orderDetails(olist);
+		        cartservice.deleteAll(mem_id);
+		     
+		        	   mv.setViewName("mypage");
+						return mv;
+		        
+			 
+			 
+			 
+		 }
+		 
 	 
 	}
 

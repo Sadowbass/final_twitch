@@ -130,5 +130,40 @@ public class StoreCartDao implements StoreCartDaoif{
 	
 		
 	}
+
+
+
+	@Override
+	public void orderInsert(StoreOrderVo vo) {
+		
+		sqlsession.insert("store.order", vo);
+		sqlsession.commit();
+	}
+
+
+
+	@Override
+	public void orderDetails(List<StoreOrderDetailVo> olist) {
+		for(StoreOrderDetailVo dVo : olist) {
+		sqlsession.insert("store.order_details", dVo);
+		}
+		sqlsession.commit();
+	}
+
+
+
+	@Override
+	public List<StoreMember> listMember(String mem_id) {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList("store.cart_member", mem_id);
+	}
+
+
+
+	@Override
+	public List<StoreOrderDetailVo> countC(String mem_id) {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList("store.cart_count2", mem_id);
+	}
 	
 }

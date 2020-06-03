@@ -102,6 +102,80 @@ store.func = function () {
         })
     })
 }
+
+
+store.order = function () {	
+    //let fd = new FormData($('#frm_check')[0]);
+	let product_id=[];
+		for(let i=0; i<$("input[name='product_id']").length; i++ ){
+			product_id.push($("input[name='product_id']").eq(i).val());
+		}
+		let cart_count=[];
+		for(let i=0; i<$("input[name='cart_count']").length; i++ ){
+			cart_count.push($("input[name='cart_count']").eq(i).val());
+		}
+		let order_size=[];
+		for(let i=0; i<$("input[name='order_size']").length; i++ ){
+			order_size.push($("input[name='order_size']").eq(i).val());
+		}
+	
+
+	
+    
+    let str={
+    		
+    		
+    	get_name : $('#firstname-dd').val(),
+    	get_phone : $('#telephone-dd').val(),
+    	zip_code : $('#sample4_postcode').val(),
+    	address1 : $('#sample4_roadAddress').val(),
+    	address2 : $('#address3').val(),
+    	amount : $('#amount').val(),
+    		
+    	product_id : product_id,
+    	cart_count : cart_count,
+    	order_size : order_size
+    	
+    }
+    
+    console.log(str);
+    
+    let jsonstr = JSON.stringify(str);
+    
+    let param={
+    		iii : jsonstr,
+    		jjj: '돼냐'
+    }
+    
+    $.post('orderComplete.str',param,function(data){
+    	console.log(data);
+    	 $("#sh_main").html(data);
+    });
+
+//    $.ajax({
+//        url: 'orderComplete.str',
+//        type: 'post',
+//        data: {
+//        	iii : jsonstr,
+//        	jjj : '왜안돼'
+//        },
+//        dataType: "json",
+//        contentType: false,
+//        processData: false,
+//        error: function (xhr, status, error) {
+//            swal("실패", "주문에 실패했습니다!", "error");
+//        },
+//
+//        success: function (data, xhr, status) {
+//            swal("Success!", "주문이 완료 되었습니다.", "success");
+//            $("#sh_main").html(data);
+//        }
+//    })
+
+
+}
+
+
 store.cartdeleteAll = function(){
 //장바구니 비우기
 	
@@ -256,7 +330,7 @@ store.viewCart = function () {
 
 }
 
-//주문하기
+//주문하러가기
 store.checkout = function () {
 
     $.post("order.str", function (data, state) {

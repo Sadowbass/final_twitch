@@ -18,6 +18,16 @@ public class StoreOrderDetailVo {
 	String mem_id;
 	String order_size;
 	
+	public StoreOrderDetailVo() {
+		
+	}
+	
+	public StoreOrderDetailVo(int product_id, int cart_count, String order_size,String mem_id) {
+		this.product_id = product_id;
+		this.cart_count = cart_count;
+		this.order_size = order_size;
+		this.mem_id = mem_id;
+	}
 	
 	public int getOrderdetails_serial() {
 		return orderdetails_serial;

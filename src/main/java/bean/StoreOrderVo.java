@@ -27,6 +27,21 @@ public class StoreOrderVo {
 	int order_state;
 	Date order_date;
 	
+	public StoreOrderVo() {
+		
+	}
+	
+	public StoreOrderVo(String mem_id,String get_name,String get_phone,String zip_code,String address1,String address2,int amount) {
+		
+		this.mem_id =mem_id;
+		this.get_name = get_name;
+		this.get_phone = get_phone;
+		this.zip_code = zip_code;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.amount = amount;
+		
+	}
 	
 	public String getOrder_serial() {
 		return order_serial;
