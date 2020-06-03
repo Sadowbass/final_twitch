@@ -32,6 +32,7 @@
 </form>
 <!-- Navbar -->
 <c:choose>
+
     <c:when test="${loginInfo.mem_id == null}">
         <%--비회원일때 보이는 메뉴--%>
         <ul class="guest-nav" style="margin-top: 7.51px; margin-bottom: 7.51px;">
@@ -40,6 +41,7 @@
         </ul>
         </nav>
     </c:when>
+   
     <c:otherwise>
         <%--회원 로그인시 보이는 메뉴--%>
         <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar" id="user-nav">

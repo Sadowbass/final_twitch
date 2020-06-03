@@ -56,6 +56,8 @@ public class AdminController_mh {
 		
 	}
 	
+	
+	// 관리자 기본 정보 변경
 	@RequestMapping(value="*/adminModify.mh", method=RequestMethod.POST, produces="application/text; charset=utf8;")
 	@ResponseBody
 	public String adminModify(String userId, String birth, String email, String adminName) {

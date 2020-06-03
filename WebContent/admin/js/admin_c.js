@@ -55,49 +55,59 @@ cmh.review_view = function(serial){
 
 cmh.func = function(){
 	
-	$('#NewPasswordConfirm').blur(function(){
+	/*$('#NewPasswordConfirm').blur(function(){
 		if($('#NewPassword').val() != $('#NewPasswordConfirm').val()){
 			$('#adminPwdModify').attr('disabled',true);
 		}else{
 			$('#adminPwdModify').attr('disabled',false);
 		}
-	})
+	})*/
 	
 	$('#adminPwdModify').click(function(){
-			
-		let param = $('#frm_profile').serialize();
 		
-		swal({
-			title:"수정",
-			text:"수정하시겠습니까?",
-			icon:"warning",
-			buttons:true,
-			dangerMode:true
-		}).then((v1)=>{
-			if(v1){
-				
-				$.ajax({
-					url : "adminPwdModify.mh",
-					type : "post",
-					data : param,
-					success : function(data, xhr, state){
-						swal(data,{
-							icon: "success",
-						})												
-					}
-				})	
-			}
-		});
+		if($('#NewPassword').val() != $('#NewPasswordConfirm').val()){
+			/*$('#adminPwdModify').attr('disabled',true);*/
+			swal("비밀번호가 일치하지 않습니다.");
+			
+		}else{
+			/*$('#adminPwdModify').attr('disabled',false);*/
+		
+			let param = $('#frm_profile').serialize();
+			
+			swal({
+				title:"수정",
+				text:"수정하시겠습니까?",
+				icon:"warning",
+				buttons:true,
+				dangerMode:true
+			}).then((v1)=>{
+				if(v1){
+					
+					$.ajax({
+						url : "adminPwdModify.mh",
+						type : "post",
+						data : param,
+						success : function(data, xhr, state){
+							swal(data,{
+								icon: "success",
+							})												
+						}
+					})	
+				}
+			});
+		}
 		
 	})
 	
+	
+	// 관리자 프로필 -> 기본 정보 변경 수정 버튼
 	$('#adminModifyBtn').click(function(){
-		let y= $('#year').val();
+		/*let y= $('#year').val();
 		let m= $('#month').val();
 		let d= $('#day').val();
 		let birth =y+'-'+m+'-'+d;
 		
-		$('#birth').val(birth);
+		$('#birth').val(birth);*/
 		
 		let param = $('#frm_profile').serialize();
 		

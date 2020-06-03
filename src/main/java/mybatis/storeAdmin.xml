@@ -119,6 +119,7 @@
 		FROM store_order
 		where ORDER_STATE = 1
 		group by to_char(order_date,'yyyy-mm')
+		order by order_date
 	</select>
 
 	<delete id="orderDetailDelete" parameterType="Integer">
