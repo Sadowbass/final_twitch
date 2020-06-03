@@ -9,6 +9,7 @@
 <body>
 	<%
 		session.removeAttribute("admin_id");
+		session.removeAttribute("session_id");
 		response.sendRedirect("../index.jsp");
 	%>
 </body>
