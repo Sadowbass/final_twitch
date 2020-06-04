@@ -678,3 +678,8 @@ input[type="file"] {
 	background:#202238;
 	cursor:pointer;
 }
+
+/*stream*/
+.live_thum{
+	height:145px;
+}
