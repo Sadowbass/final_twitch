@@ -53,8 +53,6 @@
     <script>
     $(document).ready(function() {
         $('#donationTable').DataTable();
-
-        
     } );
     
     var myBarChart;

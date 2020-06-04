@@ -27,7 +27,7 @@ pageEncoding="UTF-8"%>
 
     sources: [
       {
-        file: "rtmp://daum123.gonetis.com/hls/${vo.mem_skey}",
+        file: "rtmp://192.168.0.77/hls/${vo.mem_skey}",
       },
       {
         file: "http://daum123.gonetis.com:8882/hls/${vo.mem_skey}.m3u8",

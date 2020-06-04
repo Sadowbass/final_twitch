@@ -25,7 +25,7 @@ my.func = function() {
 		}
 		
         $.ajax({
-            url : "./mypage/capcha.jsp",
+            url : "/mypage/capcha.jsp",
             dataType:"json",
             success : function(data) {
                console.log(data.key);
@@ -43,7 +43,7 @@ my.func = function() {
         let value = $('#capchaValue').val();
              
         $.ajax({
-           url : "./mypage/capcha.jsp",
+           url : "/mypage/capcha.jsp",
            data : {"key":key,"value":value},
            dataType:"text",
            success : function(data) {
@@ -149,7 +149,7 @@ my.func = function() {
 				
 				
 			      $.ajax({
-			          url : "./mypage/capcha.jsp",
+			          url : "/mypage/capcha.jsp",
 			          dataType:"json",
 			          success : function(data) {
 			             console.log(data.key);
@@ -166,7 +166,7 @@ my.func = function() {
 		let fd =  new FormData($('#frm_myPage')[0]);
 		
 		$.ajax({
-			url : 'updateProfill.bc',
+			url : '/updateProfill.bc',
 			type : 'post',
 			data : fd,
 			contentType : false,
@@ -226,7 +226,7 @@ function followDelete(followId) {
 			}
 			
         	$.ajax({
-        		url : 'followDelete.bc',
+        		url : '/followDelete.bc',
         		type : 'post',
         		async: false,
         		data : {"mId": mId,"oId":followId},
@@ -294,7 +294,7 @@ function friendDelete(friendId) {
 			
 			
         	$.ajax({
-        		url : 'friendDelete.bc',
+        		url : '/friendDelete.bc',
         		type : 'post',
         		async: false,
         		data : {"mId": mId,"oId":friendId},
@@ -361,7 +361,7 @@ function ignoreDelete(ignoreId) {
 			
 			
         	$.ajax({
-        		url : 'ignoreDelete.bc',
+        		url : '/ignoreDelete.bc',
         		type : 'post',
         		async: false,
         		data : {"mId": mId,"oId":ignoreId},
@@ -428,7 +428,7 @@ function ignoreDelete2(ignoreId) {
 			
 			
         	$.ajax({
-        		url : 'ignoreDelete.bc',
+        		url : '/ignoreDelete.bc',
         		type : 'post',
         		async: false,
         		data : {"mId": mId,"oId":ignoreId,"flag":flag},
@@ -527,7 +527,7 @@ function friends(){
 	let mId = $('#userId').val();
 	
     $.ajax({
-        url: 'selectFriends.bc',
+        url: '/selectFriends.bc',
         type: 'post',
         async: false,
         data: {"mId": mId},
@@ -590,7 +590,7 @@ function Ignores(){
 	let mId = $('#userId').val();
 	
     $.ajax({
-        url: 'selectIgnores.bc',
+        url: '/selectIgnores.bc',
         type: 'post',
         async: false,
         data: {"mId": mId},
@@ -653,7 +653,7 @@ function Ignores2(){
 	let mId = $('#userId').val();
 	let flag = 1;
     $.ajax({
-        url: 'selectIgnores.bc',
+        url: '/selectIgnores.bc',
         type: 'post',
         async: false,
         data: {"mId": mId,"flag":flag},
@@ -778,7 +778,7 @@ $(window).scroll(function () {
 			console.log("??");
 			$.ajax({
 				type:'post',
-				url:"selectFriends.bc",
+				url:"/selectFriends.bc",
 				data : {'rno' : rno, 'mId' : mId},
 				error:(error)=>{
 				console.log(error)
@@ -835,7 +835,7 @@ $(window).scroll(function () {
 			console.log("??");
 			$.ajax({
 				type:'post',
-				url:"selectIgnores.bc",
+				url:"/selectIgnores.bc",
 				data : {'rno' : rno, 'mId' : mId},
 				error:(error)=>{
 				console.log(error)
@@ -893,7 +893,7 @@ $(window).scroll(function () {
 			console.log("??");
 			$.ajax({
 				type:'post',
-				url:"selectIgnores.bc",
+				url:"/selectIgnores.bc",
 				data : {'rno' : rno, 'mId' : mId,'flag':flag},
 				error:(error)=>{
 				console.log(error)
@@ -956,7 +956,7 @@ function paymentInit(){
 	let mId = $('#userId').val();
 	
 	$.ajax({
-		url : 'paymentInit.bc',
+		url : '/paymentInit.bc',
 		type : 'post',
 		async: false,
 		data : {"mId": mId},
@@ -980,7 +980,7 @@ function donationInit(){
 	let mId = $('#userId').val();
 	
 	$.ajax({
-		url : 'donationInit.bc',
+		url : '/donationInit.bc',
 		type : 'post',
 		async: false,
 		data : {"mId": mId},
@@ -1003,7 +1003,7 @@ function donation2Init(){
 	let mId = $('#userId').val();
 	
 	$.ajax({
-		url : 'donation2Init.bc',
+		url : '/donation2Init.bc',
 		type : 'post',
 		async: false,
 		data : {"mId": mId},
@@ -1036,7 +1036,7 @@ function nameCheckBlur() {
 	let userId = $('#userId').val();
 	
 	$.ajax({
-		url : 'nameCheck.bc',
+		url : '/nameCheck.bc',
 		type : 'post',
 		async: false,
 		data : {"name": userName, "mId" : userId},
@@ -1070,7 +1070,7 @@ function userInit() {
 	let userId = $('#userId').val();
 
 	$.ajax({
-		url : 'userInit.bc',
+		url : '/userInit.bc',
 		type : 'post',
 		async: false,
 		data : {"mId": userId},
@@ -1090,7 +1090,7 @@ function pwdBlur() {
 	let pwd = $('#pwdCheck').val();
 	let mId = $('#userId').val();
 	$.ajax({
-		url : 'pwdCheck.bc',
+		url : '/pwdCheck.bc',
 		type : 'post',
 		dataType : 'text',
 		async: false,
@@ -1213,7 +1213,7 @@ function updatePwd() {
 				   let mId = $('#userId').val();
 					
 				   $.ajax({
-						url : 'updatePwd.bc',
+						url : '/updatePwd.bc',
 						type : 'post',
 						dataType : 'text',
 						async: false,
@@ -1372,7 +1372,7 @@ function insertCoin() {
 				        	let msg = '';
 				        	
 				        	$.ajax({
-				        		url : 'insertCoin.bc',
+				        		url : '/insertCoin.bc',
 				        		type : 'post',
 				        		async: false,
 				        		data : {"mId": userId,"money":money},

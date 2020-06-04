@@ -13,16 +13,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"/>
 </head>
-<%
-if(session.getAttribute("start") == null) {
-%>
-	    <script>location.href="home.he"</script>
-<% 
-}
-session.removeAttribute("strat");
-
-	
-%>	
  <div class="container-fluid">
             <div class="block-header">
                 <h2>DASHBOARD</h2>
@@ -168,7 +158,7 @@ session.removeAttribute("strat");
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach items="${cate}" end="5" var="i" varStatus="j">
+                                	<c:forEach items="${cate}" end="4" var="i" varStatus="j">
 	                                    <tr>
 	                                        <th scope="row">${j.count}</th>
 	                                        <td>${i.air_gname}</td>

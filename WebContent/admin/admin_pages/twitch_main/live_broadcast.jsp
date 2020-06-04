@@ -45,10 +45,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             class="fas fa-play-circle"></i></a>
                     <a href="index.jsp?inc=admin_pages/twitch_main/live_broadcast_detail.jsp">
                     <c:if test="${empty i.air_thumbnail}">
-                      <img src="../uploads/notThumbnail.png" class="img-fluid">
+                      <img src="/uploads/notThumbnail.png" class="img-fluid">
                     </c:if>
                     <c:if test="${not empty i.air_thumbnail}">
-                      <img src="../uploads/${vo.ph_sysfile }" class="img-fluid">
+                      <img src="/uploads/${vo.ph_sysfile }" class="img-fluid">
                    </c:if>
                     </a>
                     

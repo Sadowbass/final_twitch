@@ -110,9 +110,9 @@ uk.connectWS = function (streamer, login) {
 	uk.heCnt(streamerId, loginId); /*하은 부탁*/
 
 	if(streamer==login){
-		ws = new WebSocket("ws://192.168.0.57/cht?air"); /*스트리머 소켓*/
+		ws = new WebSocket("ws://192.168.0.77/cht?air"); /*스트리머 소켓*/
 	}else{
-		ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId); /*시청자 소켓*/
+		ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId); /*시청자 소켓*/
 	}
 
 	ws.onopen = function (event) {

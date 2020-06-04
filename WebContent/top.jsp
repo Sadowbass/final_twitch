@@ -101,7 +101,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 	<%if(session.getAttribute("admin_id")!=null) { %>
 
-                		<a class="dropdown-item" href="/admin/" id="admin/index"><i class="fas fa-fw fa-user-circle"></i> &nbsp; 관리자페이지</a>
+                		<a class="dropdown-item" href="/admin/home.he" id="admin/index"><i class="fas fa-fw fa-user-circle"></i> &nbsp; 관리자페이지</a>
 
                 	<%}else{%>
 

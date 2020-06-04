@@ -53,7 +53,7 @@ a {
 }
 
 a:hover {
-    color: #fff
+    /*color: #fff*/
 }
 
 img {

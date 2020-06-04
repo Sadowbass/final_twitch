@@ -129,7 +129,6 @@ $(document).keydown(function (e) {
 })(jQuery); // End of use strict
 
 var pagemove = function(tg){
-
 	if(tg.id == "admin/index"){
 		location.href="/admin/index.jsp";		
 	}
