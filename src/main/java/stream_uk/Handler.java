@@ -293,7 +293,22 @@ public class Handler extends TextWebSocketHandler {
 			String jsonTxt = gson.toJson(jsonObject);	/* json으로 변환 */
 			if(logins.get(whisperTarget)!=null) logins.get(whisperTarget).sendMessage(new TextMessage(jsonTxt));/*로그인중인 사람들에게 전송*/
 		}
-		/*(4) 하은 부탁*/
+
+		/*4.1 스트리머가 시청자 채팅 금지 신호*/
+		if(ele.getAsJsonObject().get("ignoreFromStreamer")!=null) {
+			String sendTo=ele.getAsJsonObject().get("ignoreFromStreamer").getAsString();
+			List<WebSocketSession> list= chatRoom.get(mid);
+			for(WebSocketSession w:list) {
+				if(w.getAttributes().get("session_id").equals(sendTo)) {
+					JsonObject jsonObject = new JsonObject();
+					jsonObject.addProperty("ignored", 1 );
+					String jsonTxt = gson.toJson(jsonObject);
+					w.sendMessage(new TextMessage(jsonTxt));
+				}
+			}
+		}
+
+		/*(5) 하은 부탁*/
 		if(ele.getAsJsonObject().get("heCntRun")!=null) {
 			viewerCnt.setMid(mid);
 			if(chatRoom.get(mid)!=null) {

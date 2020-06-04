@@ -74,7 +74,6 @@ public class Controller_uk {
 	@RequestMapping(value = "/ignoreSel.uk", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public String ignoreSelUser(HttpServletRequest req) {
 		String mid=req.getParameter("mid");
-		System.out.println(mid);
 		UkDao dao=new UkDao();
 		List<Ignore> list=dao.ignoreSel(mid);
 		Gson gson=new Gson();
@@ -87,7 +86,6 @@ public class Controller_uk {
 	@RequestMapping(value = "*/ignoreSel.uk", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public String ignoreSelStreamer(HttpServletRequest req) {
 		String mid=req.getParameter("mid");
-		System.out.println(mid);
 		UkDao dao=new UkDao();
 		List<Ignore> list=dao.ignoreSel(mid);
 		Gson gson=new Gson();

@@ -240,6 +240,18 @@ uk.connectWS = function (streamer, login) {
 				location.href='/';
 			});
 		}
+		/*스트리머가 나를 채팅 금지했다고 신호 받음*/
+		if(jsObj.ignored){
+			ignoredFromStreamer=false;
+			$(".chtArea").empty();
+			Swal.fire({
+				icon: 'error',
+				title: '<font color="white">' + streamerId+ '님이 채팅을 금지하였습니다.</font>',
+				background: '#18181b',
+				timer: 2000,
+				confirmButtonText: "확인",
+			});
+		}
 	}
 	/* 엔터키 누르면 전송 내꺼 */
 	$('div[contenteditable].cht_send_uk ').keydown(function (e) {
@@ -279,6 +291,7 @@ uk.ukTxt = function () {
 				timer: 2000,
 				confirmButtonText: "확인",
 			});
+			$('div[contenteditable].cht_send_uk ').empty();
 		}
 	}
 }
@@ -700,9 +713,17 @@ uk.ignoreIn=function(mid, oid, global){
 			ign_tid : oid,
 			ign_global : global
 	}
-	$.get("/ignoreIn.uk", param, function(data){
-		/*oid에게 신호주기*/
-	});
+	uk.ignoreFromStreamer(oid);
+}
+
+/*스트리머가 채팅 금지 신호*/
+uk.ignoreFromStreamer=function(oid){
+	console.log('스트리머가 채팅 금지 신호');
+	let str={
+		ignoreFromStreamer : oid
+	}
+	let jsonStr=JSON.stringify(str);
+	ws.send(jsonStr);
 }
 
 /*하은 부탁*/
