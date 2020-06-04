@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import bean.Cht;
 import bean.Friend;
+import bean.Ignore;
 import bean.UserList;
 import bean.ViewerCnt;
 import bean.Whisper;
@@ -83,6 +84,22 @@ SqlSession sqlSession;
    public List<Whisper> whisperSel(Whisper whisper) {
 	  List<Whisper> list=sqlSession.selectList("mybatis_uk.whisperSel", whisper);
 	  sqlSession.close();
+	   return list;
+   }
+
+   /*채팅 금지 저장*/
+   public int ignoreIn(Ignore ignore) {
+	   int r=sqlSession.insert("mybatis_uk.ignoreIn", ignore);
+	   if(r>0) {
+	         sqlSession.commit();
+	         sqlSession.close();
+	      }
+	   return r;
+   }
+   /*채팅 금지 조회*/
+   public List<Ignore> ignoreSel(String mid) {
+	   List<Ignore> list=sqlSession.selectList("mybatis_uk.ignoreSel", mid);
+	   sqlSession.close();
 	   return list;
    }
 

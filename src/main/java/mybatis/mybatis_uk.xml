@@ -66,6 +66,20 @@
 		or (writer=#{reader} and reader=#{writer})
 	</select>
 
+	<!-- 채팅 금지 저장 -->
+	<insert id="ignoreIn" parameterType="bean.Ignore">
+		insert into final_ignore
+		values(seq_ignore.nextval, #{ign_mid}, #{ign_tid}, #{ign_global} )
+	</insert>
+
+	<!-- 채팅 금지 조회 -->
+	<select id="ignoreSel" parameterType="String" resultType="bean.Ignore">
+		select ign_mid, ign_global
+		from final_ignore
+		where ign_tid=#{_parameter}
+
+	</select>
+
 	<!-- 하은 부탁 -->
 	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
 		insert into final_viewercnt
