@@ -1281,6 +1281,112 @@ h6 {
 .channels-card-image-btn2 {
   margin: 3px 0 7px;
 }
+
+.channels-card3 {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 2px;
+  box-shadow: 0 0 11px #ececec;
+  padding: 24px 12px;
+  position: relative;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+.channels-card3::after {
+  background: #dcdcdc none repeat scroll 0 0;
+  border-radius: 0 0 5px 6px;
+  bottom: -4px;
+  content: "";
+  height: 7px;
+  left: 15px;
+  position: absolute;
+  right: 15px;
+  z-index: -1;
+}
+.channels-card3:hover::after {
+  background: #cccccc none repeat scroll 0 0;
+}
+.channels-title3 a {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+.channels-view3 {
+  color: #acacac;
+}
+.channels-card-image3 .btn {
+  font-size: 12px;
+  padding: 3px 10px;
+}
+.channels-card-image3 .btn strong {
+  margin: 0 0 0 5px;
+}
+.channels-card-image3 img {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 50px;
+  box-shadow: 0 0 2px #ccc;
+  height: 80px;
+  margin: 1px 0 8px;
+  object-fit: scale-down;
+  transform: scale(1);
+  width: 80px;
+}
+.channels-card-image-btn3 {
+  margin: 3px 0 7px;
+}
+
+
+.channels-card4 {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 2px;
+  box-shadow: 0 0 11px #ececec;
+  padding: 24px 12px;
+  position: relative;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+.channels-card4::after {
+  background: #dcdcdc none repeat scroll 0 0;
+  border-radius: 0 0 5px 6px;
+  bottom: -4px;
+  content: "";
+  height: 7px;
+  left: 15px;
+  position: absolute;
+  right: 15px;
+  z-index: -1;
+}
+.channels-card4:hover::after {
+  background: #cccccc none repeat scroll 0 0;
+}
+.channels-title4 a {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+.channels-view4 {
+  color: #acacac;
+}
+.channels-card-image4 .btn {
+  font-size: 12px;
+  padding: 3px 10px;
+}
+.channels-card-image4 .btn strong {
+  margin: 0 0 0 5px;
+}
+.channels-card-image4 img {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 50px;
+  box-shadow: 0 0 2px #ccc;
+  height: 80px;
+  margin: 1px 0 8px;
+  object-fit: scale-down;
+  transform: scale(1);
+  width: 80px;
+}
+.channels-card-image-btn4 {
+  margin: 3px 0 7px;
+}
+
 /* Login Pages */
 .login-main-wrapper {
   background: #ff516b;

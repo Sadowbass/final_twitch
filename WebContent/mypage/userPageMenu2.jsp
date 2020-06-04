@@ -83,7 +83,31 @@
                 }]
             },
             options: {
-                responsive: true
+            	 responsive: true,
+                 legend: {
+                    labels: {
+                       fontColor: "#9a9a9a",
+                    }
+                 },
+                 scales: {
+                    yAxes: [{
+                       ticks: {
+                          beginAtZero: true,
+                          fontColor : "#9a9a9a",
+                       },
+                       gridLines:{
+                          /*color: '#eee'*/
+                       }
+                    }],
+                    xAxes: [{
+                       ticks:{
+                          fontColor : '#9a9a9a'
+                       },
+                       gridLines:{
+                          /*color: "#eee"*/
+                       }
+                    }]
+                 }
          
             }
         });

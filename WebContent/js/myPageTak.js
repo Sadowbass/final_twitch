@@ -332,6 +332,140 @@ function friendDelete(friendId) {
 }
 
 
+function ignoreDelete(ignoreId) {
+	
+	
+	let mId = $('#userId').val();
+	
+	
+	Swal.fire({
+		  title: '<img src="../img/Twitch_logo.png" width="100px">',
+		  html: "<font color='black' style='font-weight: bold'>차단 해제</font>" +
+	  		"<br/><br/><div class='warning'>" +
+	  		"<b>"+ignoreId +"</b>님 차단을 해제하시겠습니까?" +
+	  		"</div>",
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgb(232, 86, 133)',
+		  cancelButtonColor: 'gray',
+		  cancelButtonText: '취소',
+		  confirmButtonText: '차단 해제',
+		  backdrop: `
+			    rgba(232, 86, 133,0.4)
+			    left top
+			    no-repeat
+			  `
+		}).then((result) => {
+			if(result.dismiss == 'cancel'){
+				return;
+			}
+			
+			
+        	$.ajax({
+        		url : 'ignoreDelete.bc',
+        		type : 'post',
+        		async: false,
+        		data : {"mId": mId,"oId":ignoreId},
+        		dataType : 'text',
+        		error : function(xhr, status, error){
+        			  console.log(xhr);
+        		},
+        		success : function(data, xhr, status ){	
+        			if(data == '성공'){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'success',
+  						  title: '<font color="black">차단이 해제되었습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+  						
+  						Ignores();
+        				
+        			}else if(data == "실패"){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'error',
+  						  title: '<font color="black">해제에 실패하였습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+        				
+        			}
+        			
+        		}
+        			
+        	})
+		})
+}
+
+
+function ignoreDelete2(ignoreId) {
+	
+	
+	let mId = $('#userId').val();
+	let flag = 1;
+	
+	Swal.fire({
+		  title: '<img src="../img/Twitch_logo.png" width="100px">',
+		  html: "<font color='black' style='font-weight: bold'>차단 해제</font>" +
+	  		"<br/><br/><div class='warning'>" +
+	  		"<b>"+ignoreId +"</b>님 차단을 해제하시겠습니까?" +
+	  		"</div>",
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgb(232, 86, 133)',
+		  cancelButtonColor: 'gray',
+		  cancelButtonText: '취소',
+		  confirmButtonText: '차단 해제',
+		  backdrop: `
+			    rgba(232, 86, 133,0.4)
+			    left top
+			    no-repeat
+			  `
+		}).then((result) => {
+			if(result.dismiss == 'cancel'){
+				return;
+			}
+			
+			
+        	$.ajax({
+        		url : 'ignoreDelete.bc',
+        		type : 'post',
+        		async: false,
+        		data : {"mId": mId,"oId":ignoreId,"flag":flag},
+        		dataType : 'text',
+        		error : function(xhr, status, error){
+        			  console.log(xhr);
+        		},
+        		success : function(data, xhr, status ){	
+        			if(data == '성공'){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'success',
+  						  title: '<font color="black">차단이 해제되었습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+  						
+  						Ignores2();
+        				
+        			}else if(data == "실패"){
+    					Swal.fire({
+  						  position: 'center',
+  						  icon: 'error',
+  						  title: '<font color="black">해제에 실패하였습니다.</font>',
+  						  showConfirmButton: false,
+  						  timer: 1500
+  						})
+        				
+        			}
+        			
+        		}
+        			
+        	})
+		})
+}
+
+
 function followers() {
 	let mId = $('#userId').val();
 	$.ajax({
@@ -444,6 +578,132 @@ function friends(){
 				divChannelsCard.appendChild(divChannelBody);
 				divColXl3.appendChild(divChannelsCard);
 				$('.row-item2').append(divColXl3);
+			}
+        }
+
+    })
+	
+}
+
+
+function Ignores(){
+	let mId = $('#userId').val();
+	
+    $.ajax({
+        url: 'selectIgnores.bc',
+        type: 'post',
+        async: false,
+        data: {"mId": mId},
+        error: function (xhr, status, error) {
+            
+        },
+        success: function (data, xhr, status) {
+        	$('.row-item3').html('');
+			for(i of data){
+				let divColXl3 = document.createElement('div');
+				divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+				let divChannelsCard = document.createElement('div');
+				divChannelsCard.className = "channels-card3";
+				divChannelsCard.setAttribute("rownum", i.rno);
+				let channelsCardImage = document.createElement('div');
+				channelsCardImage.className = "channels-card-image3";
+				let a = document.createElement('a');
+				a.className = "img-fluid";
+				a.href = "/"+i.ign_tid;
+				let img = document.createElement("img");
+				if(i.ph_sysfile != null){
+					img.src = "/img/user-photo/"+i.ph_sysfile;
+				} else {
+					img.src = "/img/user-photo/guest-icon.png";
+				}
+
+				let divChannelBody = document.createElement('div');
+				divChannelBody.className = "channels-card-body3";
+				let channelTitle = document.createElement('div');
+				channelTitle.className = "channels-title3";
+				let a2 = document.createElement('a');
+				a2.href = "/"+i.ign_tid;
+				a2.innerText = i.ign_tid;
+
+
+				channelTitle.appendChild(a2);
+				divChannelBody.appendChild(channelTitle);
+				a.appendChild(img);
+				channelsCardImage.appendChild(a);
+				
+				let spanDelete = document.createElement('div');
+				spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+				spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block;");
+				spanDelete.setAttribute("onclick", "ignoreDelete('"+i.ign_tid +"')");
+				
+				divChannelsCard.appendChild(spanDelete);
+				divChannelsCard.appendChild(channelsCardImage);
+				divChannelsCard.appendChild(divChannelBody);
+				divColXl3.appendChild(divChannelsCard);
+				$('.row-item3').append(divColXl3);
+			}
+        }
+
+    })
+	
+}
+
+
+function Ignores2(){
+	let mId = $('#userId').val();
+	let flag = 1;
+    $.ajax({
+        url: 'selectIgnores.bc',
+        type: 'post',
+        async: false,
+        data: {"mId": mId,"flag":flag},
+        error: function (xhr, status, error) {
+            
+        },
+        success: function (data, xhr, status) {
+        	$('.row-item4').html('');
+			for(i of data){
+				let divColXl3 = document.createElement('div');
+				divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+				let divChannelsCard = document.createElement('div');
+				divChannelsCard.className = "channels-card4";
+				divChannelsCard.setAttribute("rownum", i.rno);
+				let channelsCardImage = document.createElement('div');
+				channelsCardImage.className = "channels-card-image4";
+				let a = document.createElement('a');
+				a.className = "img-fluid";
+				a.href = "/"+i.ign_tid;
+				let img = document.createElement("img");
+				if(i.ph_sysfile != null){
+					img.src = "/img/user-photo/"+i.ph_sysfile;
+				} else {
+					img.src = "/img/user-photo/guest-icon.png";
+				}
+
+				let divChannelBody = document.createElement('div');
+				divChannelBody.className = "channels-card-body4";
+				let channelTitle = document.createElement('div');
+				channelTitle.className = "channels-title4";
+				let a2 = document.createElement('a');
+				a2.href = "/"+i.ign_tid;
+				a2.innerText = i.ign_tid;
+
+
+				channelTitle.appendChild(a2);
+				divChannelBody.appendChild(channelTitle);
+				a.appendChild(img);
+				channelsCardImage.appendChild(a);
+				
+				let spanDelete = document.createElement('div');
+				spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+				spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block;");
+				spanDelete.setAttribute("onclick", "ignoreDelete2('"+i.ign_tid +"')");
+				
+				divChannelsCard.appendChild(spanDelete);
+				divChannelsCard.appendChild(channelsCardImage);
+				divChannelsCard.appendChild(divChannelBody);
+				divColXl3.appendChild(divChannelsCard);
+				$('.row-item4').append(divColXl3);
 			}
         }
 
@@ -568,11 +828,128 @@ $(window).scroll(function () {
 				}
 			})
 		}
+	}else if($('#scrollFlag').val() == '3'){
+		var rno = $('.channels-card3:last').attr('rownum');
+		let mId = $('#userId').val();
+		if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+			console.log("??");
+			$.ajax({
+				type:'post',
+				url:"selectIgnores.bc",
+				data : {'rno' : rno, 'mId' : mId},
+				error:(error)=>{
+				console.log(error)
+				},
+				success:(data)=>{
+					console.log(data);
+					for(i of data){
+						let divColXl3 = document.createElement('div');
+						divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+						let divChannelsCard = document.createElement('div');
+						divChannelsCard.className = "channels-card3";
+						divChannelsCard.setAttribute("rownum", i.rno);
+						let channelsCardImage = document.createElement('div');
+						channelsCardImage.className = "channels-card-image3";
+						let a = document.createElement('a');
+						a.className = "img-fluid";
+						a.href = "/"+i.ign_tid;
+						let img = document.createElement("img");
+						if(i.ph_sysfile != null){
+							img.src = "/img/user-photo/"+i.ph_sysfile;
+						} else {
+							img.src = "/img/user-photo/guest-icon.png";
+						}
+
+						let divChannelBody = document.createElement('div');
+						divChannelBody.className = "channels-card-body3";
+						let channelTitle = document.createElement('div');
+						channelTitle.className = "channels-title3";
+						let a2 = document.createElement('a');
+						a2.href = "/"+i.ign_tid;
+						a2.innerText = i.ign_tid;
+
+						channelTitle.appendChild(a2);
+						divChannelBody.appendChild(channelTitle);
+						a.appendChild(img);
+						channelsCardImage.appendChild(a);
+						let spanDelete = document.createElement('div');
+						spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+						spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block");
+						spanDelete.setAttribute("onclick", "ignoreDelete('"+i.ign_tid +"')");
+						divChannelsCard.appendChild(spanDelete);
+						divChannelsCard.appendChild(channelsCardImage);
+						divChannelsCard.appendChild(divChannelBody);
+						divColXl3.appendChild(divChannelsCard);
+						$('.row-item3').append(divColXl3);
+					}
+				}
+			})
+		}
+	}else if($('#scrollFlag').val() == '4'){
+		var rno = $('.channels-card4:last').attr('rownum');
+		let mId = $('#userId').val();
+		let flag = 1;
+		if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+			console.log("??");
+			$.ajax({
+				type:'post',
+				url:"selectIgnores.bc",
+				data : {'rno' : rno, 'mId' : mId,'flag':flag},
+				error:(error)=>{
+				console.log(error)
+				},
+				success:(data)=>{
+					console.log(data);
+					for(i of data){
+						let divColXl3 = document.createElement('div');
+						divColXl3.className = "col-xl-3 col-sm-6 mb-3"
+						let divChannelsCard = document.createElement('div');
+						divChannelsCard.className = "channels-card4";
+						divChannelsCard.setAttribute("rownum", i.rno);
+						let channelsCardImage = document.createElement('div');
+						channelsCardImage.className = "channels-card-image4";
+						let a = document.createElement('a');
+						a.className = "img-fluid";
+						a.href = "/"+i.ign_tid;
+						let img = document.createElement("img");
+						if(i.ph_sysfile != null){
+							img.src = "/img/user-photo/"+i.ph_sysfile;
+						} else {
+							img.src = "/img/user-photo/guest-icon.png";
+						}
+
+						let divChannelBody = document.createElement('div');
+						divChannelBody.className = "channels-card-body4";
+						let channelTitle = document.createElement('div');
+						channelTitle.className = "channels-title4";
+						let a2 = document.createElement('a');
+						a2.href = "/"+i.ign_tid;
+						a2.innerText = i.ign_tid;
+
+						channelTitle.appendChild(a2);
+						divChannelBody.appendChild(channelTitle);
+						a.appendChild(img);
+						channelsCardImage.appendChild(a);
+						let spanDelete = document.createElement('div');
+						spanDelete.innerHTML = "<i class='fas fa-backspace fa-2x'></i>";
+						spanDelete.setAttribute("style", "color:rgb(232, 86, 133);font-weight:bold;display: inline-block");
+						spanDelete.setAttribute("onclick", "ignoreDelete2('"+i.ign_tid +"')");
+						divChannelsCard.appendChild(spanDelete);
+						divChannelsCard.appendChild(channelsCardImage);
+						divChannelsCard.appendChild(divChannelBody);
+						divColXl3.appendChild(divChannelsCard);
+						$('.row-item4').append(divColXl3);
+					}
+				}
+			})
+		}
+		
 	}
 	
 	
 
 })
+
 
 function paymentInit(){
 	
