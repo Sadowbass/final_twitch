@@ -297,7 +297,6 @@ public class Handler extends TextWebSocketHandler {
 			whisperArray[1]=whisperTarget;
 			whisperArray[2]=whisperTxt;
 
-			System.out.println((mid+"->"+whisperTarget+"::"+whisperTxt));
 			String json=gson.toJson(whisperArray);
 			jsonObject.addProperty("whisper", json);
 			String jsonTxt = gson.toJson(jsonObject);	/* json으로 변환 */
