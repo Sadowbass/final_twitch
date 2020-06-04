@@ -429,8 +429,8 @@ store.rSelect = function(){
 	
 	
 	let param = $('#frm_review').serialize();
-	
-	$.post('reviewSelect.str',param , function(data, state){
+    console.log(param);
+    $.post('reviewSelect.str',param , function(data, state){
 		
 		console.log(data);
 		$('#Reviews').html('');

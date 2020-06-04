@@ -266,7 +266,7 @@
                       
                       <form name="frm_review" id="frm_review" method="post">
                       
-					    <input type="hidden" name="product_id">
+					    <input type="hidden" name="product_id" value="${vo.product_id }">
 					    <input type="hidden" name="review_id" >
 					
 					  </form>

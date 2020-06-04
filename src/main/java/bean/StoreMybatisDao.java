@@ -13,8 +13,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import mybatis.Factory;
 
-import store.StoreReviewPhotoVo;
-import store.StoreReviewVo;
+import bean.StoreReviewPhotoVo;
+import bean.StoreReviewVo;
 
 /**
  * @author silve
@@ -64,21 +64,14 @@ public class StoreMybatisDao {
 				
 			}
 	
-	public List<StoreReviewVo> reviewSelect(){
+	public List<StoreReviewVo> reviewSelect(String pid){
 		List<StoreReviewVo> list = new ArrayList<StoreReviewVo>();
 
-		System.out.println("reviewselectdao,xncm");
 		try {
-			list = sqlsession.selectList("store.review_select");
-			for(StoreReviewVo temp : list){
-				System.out.println("123"+temp.toString());
-			}
+			list = sqlsession.selectList("store.review_select", pid);
 		} catch (Exception e1) {
-
 			e1.printStackTrace();
-
 		} finally {
-
 			//sqlSession.close();
 			return list;
 

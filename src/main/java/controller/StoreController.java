@@ -203,7 +203,8 @@ public class StoreController {
 	public String reviewSelect(HttpServletRequest req) {
        int p =0;
        String result = "";
-       List<StoreReviewVo> list = dao.reviewSelect();
+       String pid = req.getParameter("product_id");
+       List<StoreReviewVo> list = dao.reviewSelect(pid);
 		Gson gson = new Gson();
 		result = gson.toJson(list);
 
