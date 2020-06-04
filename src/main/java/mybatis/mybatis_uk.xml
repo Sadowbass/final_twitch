@@ -28,9 +28,9 @@
 
 	<!-- 팔로우 알림보낼려면 목록 필요함 -->
 	<select id="followList" parameterType="String" resultType="String">
-		select  mfo_oid
+		select  mfo_mid
 		from final_mfollow
-		where mfo_mid=#{_parameter}
+		where mfo_oid=#{_parameter}
 	</select>
 
 	<!-- 스트리머 방송중 -->
