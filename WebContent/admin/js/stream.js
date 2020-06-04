@@ -193,8 +193,27 @@ let month_chart = function(a,b,c,d,e,f,g,h,i,j,k,l){
 	        }]
 	    },
 	    options: {
-	        responsive: true,
-	        legend: false
+	    	responsive: true,
+			legend:false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	    }
 	});
 	
@@ -221,7 +240,26 @@ let week_chart =function(mon,tue,wen,thr,fri,sat,sun){
 		},
 		options: {
 			responsive: true,
-			legend: false
+			legend:false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 		}
 	}); 
 }
@@ -247,7 +285,26 @@ let year_chart =function(a,b,c,d,e,f,g,h,i,j){
 		},
 		options: {
 			responsive: true,
-			legend: false
+			legend:false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 		}
 	}); 
 }
@@ -282,7 +339,31 @@ let month_chart2 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j
 	             }]
 	    },
 	    options: {
-	        responsive: true,
+	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	        
 	    }
 	});
@@ -317,7 +398,31 @@ let week_chart2 =function(mon,tue,wen,thr,fri,sat,sun,mon2,tue2,wen2,thr2,fri2,s
 	             }]
 	    },
 	    options: {
-	        responsive: true,
+	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	        
 	    }
 	});
@@ -351,7 +456,31 @@ let year_chart2 =function(a,b,c,d,e,f,g,h,i,j,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2){
 	             }]
 	    },
 	    options: {
-	        responsive: true,
+	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	        
 	    }
 	});
@@ -398,6 +527,30 @@ let month_chart3 = function(m,d){
 		    },
 		    options: {
 		    	responsive: true,
+				legend: {
+					labels: {
+						fontColor: "#9a9a9a",
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontColor : "#9a9a9a",
+						},
+						gridLines:{
+							/*color: '#eee'*/
+						}
+					}],
+					xAxes: [{
+						ticks:{
+							fontColor : '#9a9a9a'
+						},
+						gridLines:{
+							/*color: "#eee"*/
+						}
+					}]
+				}
 		    
 		    }
 	
@@ -444,6 +597,30 @@ let week_chart3 = function(d,s){
 		    },
 		    options: {
 		    	responsive: true,
+				legend: {
+					labels: {
+						fontColor: "#9a9a9a",
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontColor : "#9a9a9a",
+						},
+						gridLines:{
+							/*color: '#eee'*/
+						}
+					}],
+					xAxes: [{
+						ticks:{
+							fontColor : '#9a9a9a'
+						},
+						gridLines:{
+							/*color: "#eee"*/
+						}
+					}]
+				}
 		    
 		    }
 	
@@ -490,6 +667,30 @@ let year_chart3 = function(d,s){
 		    },
 		    options: {
 		    	responsive: true,
+				legend: {
+					labels: {
+						fontColor: "#9a9a9a",
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontColor : "#9a9a9a",
+						},
+						gridLines:{
+							/*color: '#eee'*/
+						}
+					}],
+					xAxes: [{
+						ticks:{
+							fontColor : '#9a9a9a'
+						},
+						gridLines:{
+							/*color: "#eee"*/
+						}
+					}]
+				}
 		    
 		    }
 	
@@ -526,7 +727,31 @@ let month_chart5 = function(a,b,c,d,e,f,g,h,i,j,k,l,a2,b2,c2,d2,e2,f2,g2,h2,i2,j
 	             }]
 	    },
 	    options: {
-	        responsive: true,
+	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	        
 	    }
 	});
@@ -561,7 +786,31 @@ let week_chart5 =function(mon,tue,wen,thr,fri,sat,sun,mon2,tue2,wen2,thr2,fri2,s
 	             }]
 	    },
 	    options: {
-	        responsive: true,
+	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	        
 	    }
 	});
@@ -595,7 +844,31 @@ let year_chart5 =function(a,b,c,d,e,f,g,h,i,j,a2,b2,c2,d2,e2,f2,g2,h2,i2,j2){
 	             }]
 	    },
 	    options: {
-	        responsive: true,
+	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	        
 	    }
 	});

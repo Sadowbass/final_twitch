@@ -104,7 +104,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </thead>
                             <tbody>
                      			<c:forEach var="i" items="${d_list }" end="4" varStatus="j">
-                     		     <tr onclick="s_detail('${i.don_mid}')">
+                     		     <tr onclick="s_detail('${i.don_oid}')">
                                     <th scope="row">${i.rn}</th>
                                     <td>${i.don_oid}</td>
                                     <td>${i.mem_name }</td>
@@ -127,17 +127,20 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </div>
                      <nav class="profit_pg">
                                 <ul class="pagination">
+                                <c:if test="${p.nowPage >1 }">
                                     <li>
                                         <a href="javascript:void(0);" class="waves-effect pg" onclick="d_list_b()">
                                             <i class="material-icons" >chevron_left</i>
                                         </a>
-                                    </li>
-                                 
+                                    </li>                                 
+                                </c:if>
+                                <c:if test="${p.nowPage <p.totPage}">
                                     <li>
                                         <a href="javascript:void(0);" class="waves-effect pg" onclick="d_list_n()">
                                             <i class="material-icons">chevron_right</i>
                                         </a>
-                                    </li>
+                                    </li>                                
+                                </c:if>
                                 </ul>
                        </nav>
                 </div>
@@ -181,7 +184,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             </thead>
                             <tbody>
                                <c:forEach var="i" items="${s_list }"  varStatus="j">
-                     		     <tr onclick="s_detail('${i.sub_mid}')">
+                     		     <tr onclick="s_detail('${i.sub_oid}')">
                                     <th scope="row">${i.rn}</th>
                                     <td>${i.sub_oid}</td>
                                     <td>${i.mem_name }</td>
@@ -204,17 +207,20 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     </div>
                      <nav class="profit_pg">
                                 <ul class="pagination">
+                                <c:if test="${p2.nowPage >1 }">
                                     <li>
                                         <a href="javascript:void(0);" class="waves-effect pg" onclick="s_list_b()">
                                             <i class="material-icons" >chevron_left</i>
                                         </a>
                                     </li>
-                                 
+                                </c:if>
+                                <c:if test="${p2.nowPage <p2.totPage}">
                                     <li>
                                         <a href="javascript:void(0);" class="waves-effect pg" onclick="s_list_n()">
                                             <i class="material-icons">chevron_right</i>
                                         </a>
                                     </li>
+                                </c:if>
                                 </ul>
                        </nav>
                 </div>
@@ -327,7 +333,31 @@ var donation_chart = function(){
            }]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
        }
    });
 
@@ -402,7 +432,31 @@ var donation_q = function(){
            }]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
        }
    });
 }
@@ -437,7 +491,31 @@ var sub_chart = function(){
            }]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
        }
    });
     
@@ -507,7 +585,31 @@ var sub_q = function(){
            }]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
        }
    });
 }
@@ -542,7 +644,31 @@ var total_chart = function(){
            }]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
        }
    });
     
@@ -592,7 +718,31 @@ var tot_y = function(){
            }]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
            
        }
    });
@@ -619,8 +769,31 @@ var percent_chart = function(){
            ]
        },
        options: {
-           responsive: true,
-
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
        }
 
    });
@@ -659,7 +832,31 @@ var per_y = function(){
            ]
        },
        options: {
-           responsive: true,
+    	   responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 
        }
 
@@ -691,7 +888,31 @@ var ad_chart = function(){
             }]
         },
         options: {
-           // responsive: true,
+        	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
      
         }
     });

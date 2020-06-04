@@ -47,3 +47,11 @@ var help= function(){
 	location.href = "help.he"
 }
 
+var product_view = function(pid){
+	$('#productSerial').val(pid);
+	$('#he_form').attr('action','product_view2.mh').submit();	
+}
+
+var broad_view = function(mid){
+	location.href ="/"+mid
+}

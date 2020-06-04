@@ -91,21 +91,21 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <%
 	String admin_id = null;
-	System.out.println(session.getAttribute("admin_id"));
 	if(session.getAttribute("admin_id")==null){
 %>
 		<script>location.href="/index.jsp"</script>
 <% 	
 	}else{
 		admin_id = (String)session.getAttribute("admin_id");
-		
-		if(session.getAttribute("start") == null) {
-%>
-	    <script>location.href="home.he"</script>
-<% 
-		session.removeAttribute("start");
-		}
 	}
+	
+	//if(session.getAttribute("start") == null) {
+%>
+	 <!--   <script>location.href="home.he"</script> -->
+<% 
+	//}
+
+	
 %>	
 <%
 	String inc ="home.jsp"; 

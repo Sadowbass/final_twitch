@@ -10,8 +10,15 @@ public class UserProductVo {
 	String sysfile;
 	String order_date;
 	String product_count;
+	String order_serial;
 	
 	
+	public String getOrder_serial() {
+		return order_serial;
+	}
+	public void setOrder_serial(String order_serial) {
+		this.order_serial = order_serial;
+	}
 	public String getProduct_count() {
 		return product_count;
 	}

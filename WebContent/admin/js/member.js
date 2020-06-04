@@ -64,3 +64,12 @@ if(btn != null){
 		}
 	}
 }
+
+let backSelect= function(){
+	$('#he_form').attr('action','member_view.he').submit();	
+}
+
+let order_detail= function(serial,mid){
+	$('#s_serial').val(serial);
+	$('#he_form').attr('action','orderView2.mh').submit();	
+}

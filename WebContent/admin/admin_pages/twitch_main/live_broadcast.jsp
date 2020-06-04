@@ -30,16 +30,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <div class="row clearfix">
         <div class="col-xs-12">
             <div class="main-title">
-                <div class="btn-group float-right right-action">
-                    <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false"> Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </a>
-                    <div class="dropdown-menu pull-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a> <a
-                            class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a> <a
-                            class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
-                    </div>
-                </div>
+
                 <h6>생방송 목록</h6>
             </div>
         </div>
@@ -74,7 +65,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                             data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
                     </div>
                     <div class="video-view">
-                        1.8M views
+                        ${i.cnt}
                     </div>
                 </div>
             </div>

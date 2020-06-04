@@ -27,17 +27,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 <div class="header">
                     <h2>스트리머 프로필</h2>
                     <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
                 <div class="body">
@@ -58,50 +47,50 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 	<div class="row">
                 		<div class="col-xs-6">
 		                    <label class="str_profile_label">아이디</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_id }" name="he_serial">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_id }" name="he_serial" readonly>
                 		</div>
                 		<div class="col-xs-6">
 		                    <label class="str_profile_label">이름</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_name }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_name }" readonly>
                 		</div>
                 	
                 	</div>
                 	<div class="row">
                 		<div class="col-xs-6">
 		                    <label class="str_profile_label">이메일</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_email }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_email }" readonly>
                 		</div>
                 		<div class="col-xs-6">
 		                    <label class="str_profile_label">현재상태</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_status }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.mem_status }" readonly>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="col-xs-4">
                 			<label class="str_profile_label">팔로워 수</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.cnt }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.cnt }" readonly>
                 		</div>
                 		<div class="col-xs-4">
                 			<label class="str_profile_label">구독자 수</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.cnt2 }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.cnt2 }" readonly>
                 		</div>
                 		<div class="col-xs-4">
                 			<label class="str_profile_label">평균 시청자수</label>
-		                    <input type="text" class="form-control streamer_profile" placeholder="">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.avg eq null? 0:vo.avg }" readonly>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="col-xs-4">
                 			<label class="str_profile_label">총 구독 수익</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.sub_profit }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.sub_profit }" readonly>
                 		</div>
                 		<div class="col-xs-4">
                 			<label class="str_profile_label">총 도네 수익</label>
-		                    <input type="text" class="form-control streamer_profile" value="${vo.don_profit }">
+		                    <input type="text" class="form-control streamer_profile" value="${vo.don_profit }" readonly>
                 		</div>
                 		<div class="col-xs-4">
                 			<label class="str_profile_label">총 수익</label>
-		                    <input type="text" class="form-control streamer_profile" placeholder="${vo.profit }">
+		                    <input type="text" class="form-control streamer_profile" placeholder="${vo.profit }" readonly>
                 		</div>
                 	</div>
                 	</form>
@@ -285,8 +274,27 @@ var chart = new Chart(ctx1,{
         }]
     },
     options: {
-        responsive: true,
-        legend: false
+    	responsive: true,
+		legend: false,
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true,
+					fontColor : "#9a9a9a",
+				},
+				gridLines:{
+					/*color: '#eee'*/
+				}
+			}],
+			xAxes: [{
+				ticks:{
+					fontColor : '#9a9a9a'
+				},
+				gridLines:{
+					/*color: "#eee"*/
+				}
+			}]
+		}
     }
 }); 
 
@@ -304,7 +312,7 @@ var chart3 = new Chart(ctx3,{
              backgroundColor: 'rgba(0, 188, 212, 0.3)',
              pointBorderColor: 'rgba(0, 188, 212, 0)',
              pointBackgroundColor: 'rgba(0, 188, 212, 0.9)',
-             pointBorderWidth: 1
+             pointBorderWidth: 1,
          }, {
                  label: "누적 구독자 수",
                  data: [${tot_cnt2[0]}, ${tot_cnt2[1]}, ${tot_cnt2[2]}, ${tot_cnt2[3]}, ${tot_cnt2[4]}, ${tot_cnt2[5]}, ${tot_cnt2[6]}],
@@ -314,9 +322,33 @@ var chart3 = new Chart(ctx3,{
                  pointBackgroundColor: 'rgba(233, 30, 99, 0.9)',
                  pointBorderWidth: 1
              }]
-     },
+     },	     
      options: {
-         responsive: true,
+    	 responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
          
      }
 }); 
@@ -346,7 +378,31 @@ var chart6 = new Chart(ctx6,{
              }]
      },
      options: {
-         responsive: true,
+    	 responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
          
      }
 }); 
@@ -386,6 +442,30 @@ var chart4 = new Chart(ctx4,{
 	    },
 	    options: {
 	    	responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
 	    
 	    }
 }); 
@@ -400,8 +480,12 @@ var chart5 = new Chart(ctx5,{
                  "rgb(233, 30, 99)",
                  "rgb(255, 193, 7)",
                  "rgb(0, 188, 212)",
-                 "rgb(139, 195, 74)"
-             ],
+                 "rgb(139, 195, 74)",
+                 "#3d1ee9",
+                 "#00d4ad",
+                 "#d400ba",
+                 "#af07b3"
+             ]
          }],
          labels: [
           	"null"
@@ -409,6 +493,11 @@ var chart5 = new Chart(ctx5,{
      },
      options: {
          responsive: true,
+         legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			}
      }
 });
 
@@ -449,7 +538,11 @@ let month_chart4= function(){
 	                 "rgb(233, 30, 99)",
 	                 "rgb(255, 193, 7)",
 	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
+	                 "rgb(139, 195, 74)",
+	                 "#3d1ee9",
+	                 "#00d4ad",
+	                 "#d400ba",
+	                 "#af07b3"
 	             ],
 	         }],
 	         labels: [
@@ -459,12 +552,17 @@ let month_chart4= function(){
 	     },
 	     options: {
 	         responsive: true,
+	         legend: {
+					labels: {
+						fontColor: "#9a9a9a",
+					}
+				}
 	         
 	     }
 	});
 	 
 
-	 <c:forEach items="${gm}" var="i" varStatus="j">
+	 <c:forEach items="${gm}" var="i" varStatus="j" end="7">
 	 chart5.data.datasets[0].data[${j.index}] =${i.cnt}
 	 chart5.data.labels[${j.index}] ='${i.gamename}'
 	 </c:forEach>
@@ -488,7 +586,11 @@ let week_chart4= function(g){
 	                 "rgb(233, 30, 99)",
 	                 "rgb(255, 193, 7)",
 	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
+	                 "rgb(139, 195, 74)",
+	                 "#3d1ee9",
+	                 "#00d4ad",
+	                 "#d400ba",
+	                 "#af07b3"
 	             ],
 	         }],
 	         labels: [
@@ -497,11 +599,16 @@ let week_chart4= function(g){
 	     },
 	     options: {
 	         responsive: true,
+	         legend: {
+					labels: {
+						fontColor: "#9a9a9a",
+					}
+				}
 	         
 	     }
 	});
 	 
-	 <c:forEach items="${g_cate}" var="i" varStatus="j">
+	 <c:forEach items="${g_cate}" var="i" varStatus="j" end="7">
 	 chart5.data.datasets[0].data[${j.index}] =${i.cnt}
 	 chart5.data.labels[${j.index}] ='${i.gamename}'
 	 </c:forEach>
@@ -523,7 +630,11 @@ let year_chart4= function(){
 	                 "rgb(233, 30, 99)",
 	                 "rgb(255, 193, 7)",
 	                 "rgb(0, 188, 212)",
-	                 "rgb(139, 195, 74)"
+	                 "rgb(139, 195, 74)",
+	                 "#3d1ee9",
+	                 "#00d4ad",
+	                 "#d400ba",
+	                 "#af07b3"
 	             ],
 	         }],
 	         labels: [
@@ -533,11 +644,16 @@ let year_chart4= function(){
 	     },
 	     options: {
 	         responsive: true,
+	         legend: {
+					labels: {
+						fontColor: "#9a9a9a",
+					}
+				}
 	         
 	     }
 	});
 	 
-	 <c:forEach items="${gy}" var="i" varStatus="j">
+	 <c:forEach items="${gy}" var="i" varStatus="j" end="7">
 	 chart5.data.datasets[0].data[${j.index}] =${i.cnt}
 	 chart5.data.labels[${j.index}] ='${i.gamename}'
 	 </c:forEach>

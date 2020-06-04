@@ -1147,8 +1147,8 @@ public class HEDao {
 		}
 	}
 	
-	public List<String> last_pay(String mid){
-		List<String> list = new ArrayList<String>();
+	public List<StatisticVo> last_pay(String mid){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
 		Map<String,Object> map = new HashMap<String, Object>();
         map.put("mid", mid);
         
@@ -1264,6 +1264,66 @@ public class HEDao {
 		
 	}
 	
+	public List<StatisticVo> main_profit(){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        String day1 = format.format(cal.getTime());
+	        map.put("day1", day1);
+	        
+	        cal.add(Calendar.DATE, -4);//날짜-4
+	        String day2 = format.format(cal.getTime());
+	        map.put("day2", day2);
+	        	        
+	        list = sqlSession.selectList("stream.main_profit", map);
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<StatisticVo> main_profit2(){
+		List<StatisticVo> list = new ArrayList<StatisticVo>();
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+	        
+	        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        Calendar cal = GregorianCalendar.getInstance();
+	        cal.setTime(new Date());
+	        String day1 = format.format(cal.getTime());
+	        map.put("day1", day1);
+	        
+	        cal.add(Calendar.DATE, -4);//날짜-4
+	        String day2 = format.format(cal.getTime());
+	        map.put("day2", day2);
+	        	        
+	        list = sqlSession.selectList("stream.main_profit2", map);
+	        
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			return list;
+		}
+	}
+	
+	public List<GCategoryVo> userLikeCate(String mid){
+		List<GCategoryVo> list = new ArrayList<GCategoryVo>();
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("mid", mid);
+		try {
+			list = sqlSession.selectList("stream.user_like_cate", map);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return list;
+	}
 	
 	
 
