@@ -72,14 +72,21 @@
 		values(seq_ignore.nextval, #{ign_mid}, #{ign_tid}, #{ign_global} )
 	</insert>
 
-	<!-- 채팅 금지 조회 -->
-	<select id="ignoreSel" parameterType="String" resultType="bean.Ignore">
-		select ign_mid, ign_global
+	<!-- 나를 채팅 금지한 스트리머 조회 -->
+	<select id="ignoredSel" parameterType="String" resultType="String">
+		select ign_mid
 		from final_ignore
 		where ign_tid=#{_parameter}
-
+		and ign_global=1
 	</select>
 
+	<!-- 내가 채팅 금지한 사람 목록 조회 -->
+	<select id="ignoringSel" parameterType="String" resultType="String">
+		select ign_tid
+		from final_ignore
+		where ign_mid=#{_parameter}
+		and ign_global=0
+	</select>
 	<!-- 하은 부탁 -->
 	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
 		insert into final_viewercnt

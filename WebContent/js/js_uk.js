@@ -6,8 +6,7 @@ let streamerId;
 let loginId;
 let loginAllWS;
 let ignoredFromStreamer=true; /*스트리머가 채금 먹이면 false*/
-let ignoredFromUser;
-
+let ignoringList;
 
 /*그냥 로그인시*/
 let allWs;
@@ -121,24 +120,22 @@ uk.connectWS = function (streamer, login) {
 		/*스트리머 아이디 왕관 붙여서 맨위에 붙이기*/
 		$('<div style="display:flex;"><i class="fas fa-crown" style="color: #FFA833; padding-top:3px; padding-right:5px;"></i><div class=' + streamerId + '>'+streamerId+'</div></div>').appendTo('#userList');
 
-		/*나를 채팅 금지한 사람 목록*/
+		/*채팅 금지 알아보기 위한 파라미터*/
 		let param={
 			mid : loginId,
 		}
 
-		$.getJSON("/ignoreSel.uk", param, function(data){
+		/*스트리머가 나를 채금*/
+		$.getJSON("/ignoredSel.uk", param, function(data){
 			$.each(data, function(index, item){
-				if(item.ign_global==1){/*스트리머가 채금*/
-					if(item.ign_mid==streamerId){
-						ignoredFromStreamer=false;
-					}
-				}else{/*시청자가 채금*/
-
+				if(item.ign_mid==streamerId){
+					ignoredFromStreamer=false;
 				}
-
-
 			});
 		});
+
+		/*내가 채팅 금지한 사람 목록 조회*/
+		uk.ignoringSel();
 
 	}
 	ws.onclose = function (event) {
@@ -177,10 +174,18 @@ uk.connectWS = function (streamer, login) {
 		if (jsObj.delUser) {
 			$('div[class=' + jsObj.delUser + ']').remove();
 		}
+		/*시청자가 채팅 금지한 시청자 목록 받음*/
+		if(jsObj.ignoringSel){
+			ignoringList=JSON.parse(jsObj.ignoringSel)
+			console.log('목록 받아따!!',ignoringList);
+		}
 		/* 채팅! chtArea에 붙이기 */
 		if (jsObj.txt && $('#chtArea').length && ignoredFromStreamer) {
 			let txt=JSON.parse(jsObj.txt);
-
+			console.log('ignoringList',ignoringList);
+//			$.each(ignoringList,function(index,item){
+//				console.log(item);
+//			});
 			$('<div class="dropdown">'+
 					'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
 					txt[0]+'&nbsp&nbsp'+
@@ -194,6 +199,7 @@ uk.connectWS = function (streamer, login) {
 			'</div>').appendTo('#chtArea');
 
 			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+
 		}
 		/*스트리머 방종 메세지*/
 		if (jsObj.offAir) {
@@ -252,6 +258,7 @@ uk.connectWS = function (streamer, login) {
 				confirmButtonText: "확인",
 			});
 		}
+
 	}
 	/* 엔터키 누르면 전송 내꺼 */
 	$('div[contenteditable].cht_send_uk ').keydown(function (e) {
@@ -577,7 +584,6 @@ uk.connectAllWS = function (login) {
 					'</div>' +
 					'</div>').appendTo(".whisperArea");
 				uk.whisperCss( $("#cht_div").width(), $(".chtArea ").height());
-				$(function() {$(".whisper").draggable()});
 
 				/* 엔터키 누르면 귓속말 전송 */
 				$("div[contenteditable].whisper_sendArea").keydown(function (e) {
@@ -713,14 +719,41 @@ uk.ignoreIn=function(mid, oid, global){
 			ign_tid : oid,
 			ign_global : global
 	}
-	uk.ignoreFromStreamer(oid);
+	$.get("ignoreIn.uk", param, function(data){
+		Swal.fire({
+			icon: 'error',
+			title: '<font color="white">' + oid+ '님을 채팅을 금지하였습니다.</font>',
+			background: '#18181b',
+			timer: 2000,
+			confirmButtonText: "확인",
+		});
+
+		if(mid==streamerId){
+			uk.ignoreFromStreamer(oid);
+		}
+		if(mid==loginId){
+			uk.ignoringSel();
+		}
+
+	});
+
+
+
 }
 
 /*스트리머가 채팅 금지 신호*/
 uk.ignoreFromStreamer=function(oid){
-	console.log('스트리머가 채팅 금지 신호');
 	let str={
 		ignoreFromStreamer : oid
+	}
+	let jsonStr=JSON.stringify(str);
+	ws.send(jsonStr);
+}
+
+/*시청자가 채팅 금지목록 조회*/
+uk.ignoringSel=function(){
+	let str={
+		ignoringSel :loginId
 	}
 	let jsonStr=JSON.stringify(str);
 	ws.send(jsonStr);

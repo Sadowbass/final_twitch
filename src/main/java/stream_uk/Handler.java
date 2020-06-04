@@ -27,7 +27,7 @@ import bean.Whisper;
 public class Handler extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
-	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
+	static Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
 	Map<String, Set<String>> accumulate=new HashMap<String, Set<String>>();/*스트리머, 누적 시청자*/
 
 	Gson gson = new Gson(); /*지슨*/
@@ -38,6 +38,13 @@ public class Handler extends TextWebSocketHandler {
 	ViewerCnt viewerCnt=new ViewerCnt(); /*하은 부탁*/
 
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
+
+
+
+	public static Map<String, List<WebSocketSession>> getChatRoom() {
+		return chatRoom;
+	}
+
 
 	/*스트리머 방송중이면 true 아니면 false*/
 	public String onOrOff(String streamer) {
@@ -219,6 +226,7 @@ public class Handler extends TextWebSocketHandler {
 
 			if(onOrOff(target)!=null) {
 				txt=ele.getAsJsonObject().get("txt").getAsString();
+				System.out.println(mid+":::"+txt);
 				JsonObject jsonObject = new JsonObject();
 				midTxt[0]= mid;
 				midTxt[1]= txt;
@@ -306,6 +314,18 @@ public class Handler extends TextWebSocketHandler {
 					w.sendMessage(new TextMessage(jsonTxt));
 				}
 			}
+		}
+
+		/*(4.2) 시청자가 채팅 금지목록 조회*/
+		if(ele.getAsJsonObject().get("ignoringSel")!=null) {
+			String tid=ele.getAsJsonObject().get("ignoringSel").getAsString();
+			UkDao dao=new UkDao();
+			JsonObject jsonObject = new JsonObject();
+			List<String> list=dao.ignoringSel(tid);
+			String jsonList=gson.toJson(list);
+			jsonObject.addProperty("ignoringSel", jsonList);
+			String jsonTxt = gson.toJson(jsonObject);
+			session.sendMessage(new TextMessage(jsonTxt));
 		}
 
 		/*(5) 하은 부탁*/

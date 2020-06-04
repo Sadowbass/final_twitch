@@ -69,29 +69,15 @@ public class Controller_uk {
 		dao.ignoreIn(ignore);
 	}
 
-	/*시청자가 채팅금지 조회*/
+	/*나를 채팅 금지한 스트리머 조회*/
 	@ResponseBody
-	@RequestMapping(value = "/ignoreSel.uk", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public String ignoreSelUser(HttpServletRequest req) {
+	@RequestMapping(value = "/ignoredSel.uk", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public String ignoredSel(HttpServletRequest req) {
 		String mid=req.getParameter("mid");
 		UkDao dao=new UkDao();
-		List<Ignore> list=dao.ignoreSel(mid);
+		List<String> list=dao.ignoredSel(mid);
 		Gson gson=new Gson();
 		String josnStr=gson.toJson(list);
 		return josnStr;
 	}
-
-	/*스트리머가 채팅금지 조회*/
-	@ResponseBody
-	@RequestMapping(value = "*/ignoreSel.uk", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public String ignoreSelStreamer(HttpServletRequest req) {
-		String mid=req.getParameter("mid");
-		UkDao dao=new UkDao();
-		List<Ignore> list=dao.ignoreSel(mid);
-		Gson gson=new Gson();
-		String josnStr=gson.toJson(list);
-		return josnStr;
-	}
-
-
 }
