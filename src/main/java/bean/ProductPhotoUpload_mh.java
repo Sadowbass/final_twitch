@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.omg.CORBA.Request;
 
 public class ProductPhotoUpload_mh {
 	public static String upload = "D:/Java_Study/final_twitch/WebContent/admin/admin_pages/product_photo/";
@@ -21,9 +22,12 @@ public class ProductPhotoUpload_mh {
 	HttpServletRequest req;
 	HttpServletResponse resp;
 	
+	
 	public ProductPhotoUpload_mh(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
+		  
+
 	}
 	public boolean uploadFormCheck() {
 		boolean flag = ServletFileUpload.isMultipartContent(req);

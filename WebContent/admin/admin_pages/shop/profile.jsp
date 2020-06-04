@@ -50,6 +50,7 @@
 				<div class="profile-header">&nbsp;</div>
 				<div class="profile-body">
 					<div class="image-area">
+					
 						<img src="<%=request.getContextPath() %>/<%=img %>"
 							style="width: 127px; height: 127px;"
 							alt="AdminBSB - Profile Image" id="adminImgTarget"
@@ -99,7 +100,7 @@
 										<div class="col-sm-10">
 											<div class="form-line">
 												<input type="text" class="form-control" id="adminName"
-													name="adminName" value="${vo.mem_name }" required  style = "color : black; ">
+													name="adminName" value="${vo.mem_name }" required  style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
@@ -107,16 +108,15 @@
 										<label for="Email" class="col-sm-2 control-label">이메일</label>
 										<div class="col-sm-10">
 											<div class="form-line">
-												<input type="email" class="form-control" id="email"
-													name="email" placeholder="Email"
-													value="${vo.mem_email }" required style = "color : black; ">
+												<input type="email" class="form-control" id="email" name="email" placeholder="Email"
+													value="${vo.mem_email }" required style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label for="birth" class="col-sm-2 control-label">생일</label>
 										<div class="col-sm-10">
-											<div>
+											<%-- <div>
 												<div class="col-xs-2" style="padding-left: 0;">
 													<input type="text" class="form-control" id="year" placeholder="년"  style = "color : black; " value="${fn:substring(vo.mem_birth,0,4)}"/>
 												</div>
@@ -127,6 +127,10 @@
 													<input type="text" class="form-control" id="day" placeholder="일"  style = "color : black; " value="${fn:substring(vo.mem_birth,8,10) }"/>
 												</div>
 												<input type="hidden" id="birth" name="birth" />
+											</div> --%>
+											<div class="form-line">
+												<input type="date" class="form-contorl" id="birth" name="birth" style = "color : white; background : none; border : 0;"
+													value="${vo.mem_birth}" />
 											</div>
 										</div>
 
@@ -140,7 +144,7 @@
 									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-2 col-sm-10">
-											<button disabled class="btn btn-danger" id="adminModifyBtn">수정</button>
+											<input type="button" disabled class="btn btn-danger" id="adminModifyBtn" value="수정"/>
 										</div>
 									</div>
 								
@@ -149,12 +153,11 @@
 								id="change_password_settings">
 								
 									<div class="form-group">
-										<label for="NewPassword" class="col-sm-3 control-label">새
-											비밀번호</label>
+										<label for="NewPassword" class="col-sm-3 control-label">새 비밀번호</label>
 										<div class="col-sm-9">
 											<div class="form-line">
 												<input type="password" class="form-control" id="NewPassword"
-													name="NewPassword" placeholder="New Password" required style = "color : black; ">
+													name="NewPassword" placeholder="New Password" required style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
@@ -165,14 +168,14 @@
 											<div class="form-line">
 												<input type="password" class="form-control"
 													id="NewPasswordConfirm" name="NewPasswordConfirm"
-													placeholder="New Password (Confirm)" required style = "color : black; ">
+													placeholder="New Password (Confirm)" required style = "color : white; background : none;">
 											</div>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<div class="col-sm-offset-3 col-sm-9">
-											<input type="button" class="btn btn-danger" disabled value="수정" id="adminPwdModify">
+											<input type="button" class="btn btn-danger" id="adminPwdModify" value="수정" />
 										</div>
 									</div>
 								

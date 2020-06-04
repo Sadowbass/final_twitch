@@ -296,9 +296,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <li>
                                         <a href="javascript:void(0);" onclick="cmh.reviewSelect();">리뷰</a>
                                     </li>
-                                      <li>
+                                      <!-- <li>
                                         <a href="index.jsp?inc=admin_pages/shop/QandA.jsp">Q&A</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
 
                             </li>
@@ -721,7 +721,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                            <p>로그아웃 하시면 트위치 메인 페이지로 이동합니다.</p>
                         </div>
                         <div class="modal-footer logout_footer">
-                            <button type="button" class="btn btn-link waves-effect logout_modal_btn">네</button>
+                            <button type="button" class="btn btn-link waves-effect logout_modal_btn" onclick="logout();">네</button>
                             <button type="button" class="btn btn-link waves-effect logout_modal_btn" data-dismiss="modal">아니요</button>
                         </div>
                     </div>
@@ -733,6 +733,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <script>
  var logout_modal = function(){
 	 $('#admin_logout_btn').trigger('click');
+ }
+ 
+ function logout(){
+	 location.href="logout.jsp";
  }
 
 </script>

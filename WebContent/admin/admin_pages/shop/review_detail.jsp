@@ -96,13 +96,13 @@
 											<!-- Wrapper for slides -->
 											<div class="carousel-inner" role="listbox">																													
 												<div class="item active" id="target1">
-													<img id="photo1" src="<%=request.getContextPath() %>/store/reviewimages/3290d4c4-0aea-410c-9ed9-26da39103619.jpg" />
+													<img id="photo1" src="<%=request.getContextPath() %>/store/reviewimages/${vo.photos[0].image1}" />
 												</div>
 												<div class="item" id="target2" >
-													<img id="photo2" src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[1].image1}" />
+													<img id="photo2" src="<%=request.getContextPath() %>/store/reviewimages/${vo.photos[1].image1}" />
 												</div>
 												<div class="item" id="target3" >
-													<img id="photo3" src="<%=request.getContextPath() %>/store/reviewimages/${i.photos[2].image1}"  />
+													<img id="photo3" src="<%=request.getContextPath() %>/store/reviewimages/${vo.photos[2].image1}"  />
 												</div> 
 											</div>
 
@@ -123,14 +123,15 @@
 									
 									<script>
 												if("${!empty vo.photos}"){
-													if("${empty vo.photos[2]}"){
-														$('#target3').remove();
-													}else if("${empty vo.photos[1]}"){
+													if("${empty vo.photos[1]}"){
 														$('#target2').remove();
+														$('#target3').remove();
+													}else if("${empty vo.photos[2]}"){
+														
 														$('#target3').remove();
 													}							
 												}else{
-													alert("비어있음")
+												
 													$('#reviewPhotoList').hide();
 												}
 											</script>

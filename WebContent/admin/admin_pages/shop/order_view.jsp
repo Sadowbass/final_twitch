@@ -62,7 +62,7 @@
 									<span >주문 상태</span>&nbsp;&nbsp;
 									<span style="color: yellow;">
 										<c:if test="${list[0].order_state eq '0'}">
-											결제대기
+											결제완료
 										</c:if>
 										<c:if test="${list[0].order_state eq '1'}">
 											결제완료
@@ -94,11 +94,14 @@
 									<div class="col-xs-3">
 										<span>${i.product_name } / </span> 
 										<span>
+											${i.product_size}
+										
+											<%-- <c:if test="${i.product_size eq '1'}">Free</c:if>
 											<c:if test="${i.product_size eq '2'}">X_LARGE</c:if>
 											<c:if test="${i.product_size eq '3'}">LARGE</c:if>
 											<c:if test="${i.product_size eq '4'}">Medium</c:if>
 											<c:if test="${i.product_size eq '5'}">Small</c:if>
-											<c:if test="${i.product_size eq '6'}">Free</c:if>
+											<c:if test="${i.product_size eq '6'}">Free</c:if> --%>
 										</span>
 									</div>
 									<div class="col-xs-3">

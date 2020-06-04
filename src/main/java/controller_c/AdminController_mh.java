@@ -56,6 +56,8 @@ public class AdminController_mh {
 		
 	}
 	
+	
+	// 관리자 기본 정보 변경
 	@RequestMapping(value="*/adminModify.mh", method=RequestMethod.POST, produces="application/text; charset=utf8;")
 	@ResponseBody
 	public String adminModify(String userId, String birth, String email, String adminName) {
@@ -244,6 +246,8 @@ public class AdminController_mh {
 		System.out.println("★★★mem_id : " + orderSelect_mem_id);
 		System.out.println("★★★serial : " + orderSelect_orderSerial);
 		List<MH_orderListVo> list = dao.orderDetail(vo);
+		
+		System.out.println("★★★list.get(0).getProduct_size() : " + list.get(0).getProduct_size());
 
 		model.addAttribute("list", list);
 		model.addAttribute("p", p);
@@ -353,6 +357,7 @@ public class AdminController_mh {
 		System.out.println(vo.getProduct_explain());
 		System.out.println(vo.getProduct_price());
 		System.out.println(vo.getProduct_size());
+		System.out.println("사진 리스트 사이즈 : " + attList.size());
 
 		msg = dao.insert(vo, attList);
 		return msg;

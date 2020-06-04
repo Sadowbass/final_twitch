@@ -68,12 +68,13 @@
 		where qna_id like '%${findStr}%' or QNA_SUBJECT like '%${findStr}%'
 	</select>	
 	
+	<!-- 카테고리별 판매비율 -->
 	<select id="cateCount" resultType="bean.MH_cateCountVo">
 		select j3.product_cate, sum(j2.cart_count) as count
 		from STORE_ORDER j1 join ORDER_DETAILS j2
 		on  j1.order_serial = j2.order_serial join product j3 
 		on j3.product_id = j2.product_id
-		where order_state = 1
+		where order_state = 0
 		group by j3.product_cate
 		order by sum(j2.cart_count) desc
 	</select>
@@ -108,7 +109,7 @@
 		select sum(cart_count) as count, j1.product_id
 		from ORDER_DETAILS j1 join STORE_ORDER j2
 		on j1.order_serial = j2.order_serial
-		where order_state = 1
+		where order_state = 0
 		GROUP by product_id
 		) a join product j4
 		on a.product_id = j4.product_id join product_photo ph on ph.product_id = j4.product_id order by count desc) b where rnum=1 
@@ -117,8 +118,9 @@
 	<select id="amountMonth" resultType="bean.MH_monthAmountVo">
 		SELECT sum(amount) as amount, to_char(order_date,'yyyy-mm') as order_date
 		FROM store_order
-		where ORDER_STATE = 1
+		where ORDER_STATE = 0
 		group by to_char(order_date,'yyyy-mm')
+		order by order_date
 	</select>
 
 	<delete id="orderDetailDelete" parameterType="Integer">

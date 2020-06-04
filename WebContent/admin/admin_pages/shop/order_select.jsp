@@ -109,7 +109,7 @@
 												<td>${i.order_date }</td>
 												<td>
 													<c:if test="${i.order_state eq '0'}">
-														결제대기
+														결제완료
 													</c:if>
 													<c:if test="${i.order_state eq '1'}">
 														결제완료
