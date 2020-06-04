@@ -279,6 +279,64 @@ public class MyPageTakDao {
 	}
 	
 	
+	public List<Ignore> selectIgnores(String mId){
+		List<Ignore> list = null;
+		try {
+			list = sqlSession.selectList("myPageTak.selectIgnore",mId);
+		}catch (Exception e) {
+			sqlSession.close();
+		}finally {
+			sqlSession.close();
+			return list;
+		}
+		
+	}
+	
+	public List<Ignore> selectIgnores(String mId,int rno){
+		List<Ignore> list = null;
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("mId", mId);
+		map.put("rno", rno);
+		try {
+			list = sqlSession.selectList("myPageTak.selectIgnorePaging",map);
+		}catch (Exception e) {
+			sqlSession.close();
+		}finally {
+			sqlSession.close();
+			return list;
+		}
+	}
+	
+	
+	public List<Ignore> selectIgnores2(String mId){
+		List<Ignore> list = null;
+		try {
+			list = sqlSession.selectList("myPageTak.selectIgnore2",mId);
+		}catch (Exception e) {
+			sqlSession.close();
+		}finally {
+			sqlSession.close();
+			return list;
+		}
+		
+	}
+	
+	public List<Ignore> selectIgnores2(String mId,int rno){
+		List<Ignore> list = null;
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("mId", mId);
+		map.put("rno", rno);
+		try {
+			list = sqlSession.selectList("myPageTak.selectIgnorePaging2",map);
+		}catch (Exception e) {
+			sqlSession.close();
+		}finally {
+			sqlSession.close();
+			return list;
+		}
+	}
+	
+	
 	public String insertCoin(String mId, int money) {
 		int result = 0;
 		String msg = "실패";
@@ -338,6 +396,59 @@ public class MyPageTakDao {
 			sqlSession.rollback();
 		}finally {
 			if(flag>0 && flag2>0) {
+			result = "성공";
+			sqlSession.commit();
+			}
+			sqlSession.close();
+			return result;
+		}
+		
+		
+	}
+	
+	public String ignoreDelete(String mId, String oId) {
+		String result = "실패";
+		int flag = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("oId", oId);
+			
+		try {
+			flag = sqlSession.delete("myPageTak.ignoreDelete",map);
+			if(flag<1) {
+				throw new Exception("차단해제 에러");	
+			}
+		}catch (Exception e) {
+			sqlSession.rollback();
+		}finally {
+			if(flag>0) {
+			result = "성공";
+			sqlSession.commit();
+			}
+			sqlSession.close();
+			return result;
+		}
+		
+		
+	}
+	
+	
+	public String ignoreDelete2(String mId, String oId) {
+		String result = "실패";
+		int flag = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("oId", oId);
+			
+		try {
+			flag = sqlSession.delete("myPageTak.ignoreDelete2",map);
+			if(flag<1) {
+				throw new Exception("차단해제 에러");	
+			}
+		}catch (Exception e) {
+			sqlSession.rollback();
+		}finally {
+			if(flag>0) {
 			result = "성공";
 			sqlSession.commit();
 			}

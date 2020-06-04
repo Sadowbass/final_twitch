@@ -81,4 +81,30 @@
 	<delete id='friendDelete2' parameterType='hashMap'>
 	delete from final_friend where fr_mid = #{oId} and fr_oid = #{mId}
 	</delete>
+	<select id='selectIgnore' resultType="bean.Ignore" parameterType="String">
+		select rownum rno, ab.* from (select * from final_ignore i, final_photo p where i.ign_tid = p.ph_id(+) and i.ign_mid = #{_parameter} and i.ign_global = 0) ab where rownum between 1 and 12
+	</select>	
+	    <select id="selectIgnorePaging" parameterType="hashmap" resultType="bean.Ignore">
+    	select *
+		from (select rownum rno, ab.*
+      		from (select * from final_ignore i, final_photo p where i.ign_tid = p.ph_id(+) and i.ign_mid = #{_parameter} and i.ign_global = 0) ab
+     		 )
+		where rno between #{rno} + 1 and #{rno} + 12
+    </select>
+    <delete id='ignoreDelete' parameterType='hashMap'>
+	delete from final_ignore where ign_mid = #{mId} and ign_tid = #{oId} and ign_global = 0
+	</delete>
+	<delete id='ignoreDelete2' parameterType='hashMap'>
+	delete from final_ignore where ign_mid = #{mId} and ign_tid = #{oId} and ign_global = 1
+	</delete>
+	<select id='selectIgnore2' resultType="bean.Ignore" parameterType="String">
+		select rownum rno, ab.* from (select * from final_ignore i, final_photo p where i.ign_tid = p.ph_id(+) and i.ign_mid = #{_parameter} and i.ign_global = 1) ab where rownum between 1 and 12
+	</select>	
+	    <select id="selectIgnorePaging2" parameterType="hashmap" resultType="bean.Ignore">
+    	select *
+		from (select rownum rno, ab.*
+      		from (select * from final_ignore i, final_photo p where i.ign_tid = p.ph_id(+) and i.ign_mid = #{_parameter} and i.ign_global = 1) ab
+     		 )
+		where rno between #{rno} + 1 and #{rno} + 12
+    </select>
 </mapper>

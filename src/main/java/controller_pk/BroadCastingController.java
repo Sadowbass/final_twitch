@@ -24,6 +24,7 @@ import bean.BroadCastingDonationVo;
 import bean.BroadCastingMybatisDao;
 import bean.FollowListVo;
 import bean.HEDao;
+import bean.Ignore;
 import bean.MyPagePhotoUpload;
 import bean.MyPageTakDao;
 import bean.PaymentVo;
@@ -557,6 +558,28 @@ public class BroadCastingController {
 
     	   }
    	   
+   	   
+   	   @RequestMapping(value = "/ignoreDelete.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   @ResponseBody
+  	   public String IgnoreDelete(HttpServletRequest req, HttpServletResponse resp) {
+  	      String result = "";
+  	      String mId = req.getParameter("mId");
+  	      String oId = req.getParameter("oId");
+  	      
+  	      MyPageTakDao dao = new MyPageTakDao();
+  	      
+  	      if(req.getParameter("flag") != null) {
+  	    	result = dao.ignoreDelete2(mId,oId);
+  	      }else{
+  	    	result = dao.ignoreDelete(mId,oId);
+  	      }
+  	      
+
+  	      return result;
+
+  	   }
+   	   
    	   @RequestMapping(value = "/selectFriends.bc", method = { RequestMethod.GET,
     	         RequestMethod.POST }, produces = "application/json; charset=utf8")
     	   @ResponseBody
@@ -579,6 +602,37 @@ public class BroadCastingController {
            return gson.toJson(list);
 
     	   }
+   	   
+   	   @RequestMapping(value = "/selectIgnores.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/json; charset=utf8")
+  	   @ResponseBody
+  	   public String selectIgnores(HttpServletRequest req, HttpServletResponse resp) {
+         Gson gson = new Gson();
+         List<Ignore> list = new ArrayList<Ignore>();
+         MyPageTakDao dao = new MyPageTakDao();
+         String mId = req.getParameter("mId");
+         int rno = 0;
+         if (req.getParameter("rno")!=null) {
+             rno = Integer.parseInt(req.getParameter("rno"));
+         }
+         if(req.getParameter("flag") != null) {
+        	    if(req.getParameter("rno") == null){
+                    list = dao.selectIgnores2(mId);
+                } else {
+                    list = dao.selectIgnores2(mId, rno);
+                }
+         }else {
+             if(req.getParameter("rno") == null){
+                 list = dao.selectIgnores(mId);
+             } else {
+                 list = dao.selectIgnores(mId, rno);
+             }
+         }
+         
+ 
+         return gson.toJson(list);
+
+  	   }
    	   
    	   
    	   @RequestMapping(value = "/pwdCheck.bc", method = { RequestMethod.GET,

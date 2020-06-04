@@ -109,6 +109,10 @@ transform: translate(-50%,-50%);
 					href="#followList"style='font-weight: bold' onclick="$('#scrollFlag').val('1')">팔로우 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
 					href="#friendList"style='font-weight: bold' onclick="$('#scrollFlag').val('2')">친구 목록</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					href="#ignoreList"style='font-weight: bold' onclick="$('#scrollFlag').val('3')">개인 차단 목록</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+				href="#ignoreList2"style='font-weight: bold' onclick="$('#scrollFlag').val('4')">생방송 차단 목록</a></li>
 			</ul>
 		</div>
 		<div class='tab-content'>
@@ -132,6 +136,12 @@ transform: translate(-50%,-50%);
 			<div id='friendList' class='tab-pane'>
 				<jsp:include page="./userPageMenu5.jsp" />
 			</div>
+			<div id='ignoreList' class='tab-pane'>
+				<jsp:include page="./userPageMenu6.jsp" />
+			</div>
+			<div id='ignoreList2' class='tab-pane'>
+				<jsp:include page="./userPageMenu7.jsp" />
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/logout-modal.jsp"></jsp:include>
@@ -144,6 +154,8 @@ transform: translate(-50%,-50%);
 	donation2Init();
 	followers();
 	friends();
+	Ignores();
+	Ignores2();
 	</script>
 </body>
 </html>
