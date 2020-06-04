@@ -177,28 +177,45 @@ uk.connectWS = function (streamer, login) {
 		/*시청자가 채팅 금지한 시청자 목록 받음*/
 		if(jsObj.ignoringSel){
 			ignoringList=JSON.parse(jsObj.ignoringSel)
-			console.log('목록 받아따!!',ignoringList);
 		}
 		/* 채팅! chtArea에 붙이기 */
 		if (jsObj.txt && $('#chtArea').length && ignoredFromStreamer) {
 			let txt=JSON.parse(jsObj.txt);
-			console.log('ignoringList',ignoringList);
-//			$.each(ignoringList,function(index,item){
-//				console.log(item);
-//			});
-			$('<div class="dropdown">'+
-					'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-					txt[0]+'&nbsp&nbsp'+
-					'</a>'+
-					txt[1]+
-					'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-					'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
-					'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
-					'<a class="dropdown-item" href="#" onclick=uk.ignoreIn("'+loginId+'","'+txt[0]+'","'+global+'")>채팅 금지</a>'+
-					'</div>'+
-			'</div>').appendTo('#chtArea');
+			if(ignoringList.length){
+				$.each(ignoringList,function(index,item){
+					if(item!=txt[0]){
+						$('<div class="dropdown">'+
+								'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+								txt[0]+'&nbsp&nbsp'+
+								'</a>'+
+								txt[1]+
+								'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+								'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+								'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
+								'<a class="dropdown-item" href="#" onclick=uk.ignoreIn("'+loginId+'","'+txt[0]+'","'+global+'")>채팅 금지</a>'+
+								'</div>'+
+						'</div>').appendTo('#chtArea');
 
-			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+						$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+					}
+				});
+			}else{
+				$('<div class="dropdown">'+
+						'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+						txt[0]+'&nbsp&nbsp'+
+						'</a>'+
+						txt[1]+
+						'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+						'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+						'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
+						'<a class="dropdown-item" href="#" onclick=uk.ignoreIn("'+loginId+'","'+txt[0]+'","'+global+'")>채팅 금지</a>'+
+						'</div>'+
+				'</div>').appendTo('#chtArea');
+
+				$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+			}
+
+
 
 		}
 		/*스트리머 방종 메세지*/
