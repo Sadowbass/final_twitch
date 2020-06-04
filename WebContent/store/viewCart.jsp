@@ -29,8 +29,10 @@
 			    <!-- map.count가 0이 아닐때, 즉 자료가 있을때 -->
 			    <!-- form을 실행한다.  -->
 			    <!-- form의 id를 form1로 하고, method 방식을 post로 한다. 그리고 update.do페이지로 이동시킨다. -->
-			    <form id="form1" name="form1" method="post"
-			       >
+			    <form id="form1" name="form1" method="post">
+			    
+			     <input type="hidden" name="amount" value="${map.sum}">
+			    
                 <div class="table-wrapper-responsive">
                    <input  class="btn btn-primary" type="button" id="btnCartDelete" value="비우기" onclick="store.cartdeleteAll()">
                    <input  class="btn btn-primary" type="button" id="btnCartModify" value="수정" onclick="store.cartmodify()">
@@ -103,7 +105,7 @@
 </c:choose>
               </div>
               <button onclick= "store.pl()" class="btn btn-default" type="button">Continue shopping <i class="fa fa-shopping-cart"></i></button>
-           
+            
               <button onclick="store.checkout()" class="btn btn-primary" type="button">Checkout <i class="fa fa-check"></i></button>
             </div>
           </div>

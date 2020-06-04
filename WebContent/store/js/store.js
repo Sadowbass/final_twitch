@@ -46,7 +46,7 @@ store.func = function () {
 
     })
 
-    //My wishlist 눌렀을때 wishlist 페이지로 이동	
+    /*My wishlist 눌렀을때 wishlist 페이지로 이동	
     $('#myWishlist').click(function () {
 
         $.post("wishlist.jsp", function (data, state) {
@@ -55,11 +55,12 @@ store.func = function () {
 
 
     })
+    */
 
     //checkout 눌렀을때  checkout 페이지로 이동	
     $('#checkout').click(function () {
 
-        $.post("checkout.jsp", function (data, state) {
+        $.post("checkout.str", function (data, state) {
             $('#sh_main').html(data)
         });
 
@@ -101,6 +102,84 @@ store.func = function () {
         })
     })
 }
+
+
+store.order = function () {	
+    //let fd = new FormData($('#frm_check')[0]);
+	let product_id=[];
+		for(let i=0; i<$("input[name='product_id']").length; i++ ){
+			product_id.push($("input[name='product_id']").eq(i).val());
+		}
+		let cart_count=[];
+		for(let i=0; i<$("input[name='cart_count']").length; i++ ){
+			cart_count.push($("input[name='cart_count']").eq(i).val());
+		}
+		let order_size=[];
+		for(let i=0; i<$("input[name='order_size']").length; i++ ){
+			order_size.push($("input[name='order_size']").eq(i).val());
+		}
+	
+
+	
+    
+    let str={
+    		
+    		
+    	get_name : $('#firstname-dd').val(),
+    	get_phone : $('#telephone-dd').val(),
+    	zip_code : $('#sample4_postcode').val(),
+    	address1 : $('#sample4_roadAddress').val(),
+    	address2 : $('#address3').val(),
+    	amount : $('#amount').val(),
+    		
+    	product_id : product_id,
+    	cart_count : cart_count,
+    	order_size : order_size
+    	
+    }
+    
+    console.log(str);
+    
+    let jsonstr = JSON.stringify(str);
+    
+    let param={
+    		iii : jsonstr,
+    		jjj: '돼냐'
+    }
+    
+    
+    
+    $.post('orderComplete.str',param,function(data){
+    	console.log(data);
+    	 $("#sh_main").html(data);
+    	 
+    	
+    });
+
+//    $.ajax({
+//        url: 'orderComplete.str',
+//        type: 'post',
+//        data: {
+//        	iii : jsonstr,
+//        	jjj : '왜안돼'
+//        },
+//        dataType: "json",
+//        contentType: false,
+//        processData: false,
+//        error: function (xhr, status, error) {
+//            swal("실패", "주문에 실패했습니다!", "error");
+//        },
+//
+//        success: function (data, xhr, status) {
+//            swal("Success!", "주문이 완료 되었습니다.", "success");
+//            $("#sh_main").html(data);
+//        }
+//    })
+
+
+}
+
+
 store.cartdeleteAll = function(){
 //장바구니 비우기
 	
@@ -108,12 +187,21 @@ store.cartdeleteAll = function(){
 		
 		 let data = new FormData($('#form1')[0]);
 			//console.log(param);
+		 
+		 swal({
+				title:"정말 삭제하시겠습니까?",
+				icon : "warning",
+				buttons:true,
+				dangerMode : true,
+			}).then((v)=>{
+				if(v) {	
 			$.post('deleteAll.str', function(data, state){
 				
 				$('#sh_main').html(data);
 				
 			});
-		
+				}
+			})
 	
 	
 	
@@ -122,9 +210,9 @@ store.cartdeleteAll = function(){
 store.cartmodify = function(){
 	//장바구니 수정
 
-		 let data = new FormData($('#form1')[0]);
+	    let param = $('#form1').serialize();
 			//console.log(param);
-			$.post('cartupdate.str', function(data, state){
+			$.post('cartupdate.str',param, function(data, state){
 				
 				$('#sh_main').html(data);
 				
@@ -159,7 +247,7 @@ store.addcart = function(){
 	let param2 = $("#sizeOption option:selected").val();
 	let param3 = $("#product-quantity").val();
 	
-    console.log(param3);
+    console.log(param2);
 	
     $.ajax({
         url: 'addToCart.str',
@@ -186,7 +274,7 @@ store.inquiry = function () {
         $('#sh_main').html(data)
     });
     
-    alert(document.domain)
+   
 
 }
 //자주문는 질문 페이지
@@ -255,10 +343,10 @@ store.viewCart = function () {
 
 }
 
-//주문하기
+//주문하러가기
 store.checkout = function () {
 
-    $.post("checkout.jsp", function (data, state) {
+    $.post("order.str", function (data, state) {
         $('#sh_main').html(data)
     });
 
@@ -317,11 +405,20 @@ store.reviewDelete = function(rreview_id){
 	//alert('ss');
    let param = $('#frm_review').serialize();
 	//console.log(param);
+   swal({
+		title:"삭제하시겠습니까?",
+		icon : "warning",
+		buttons:true,
+		dangerMode : true,
+	}).then((v)=>{
+		if(v) {	
 	$.post('reviewDelete.str',param , function(data, state){
 		
 		$('#sh_main').html(data);
 		
 	});
+		}
+	})
 	
 }
 
@@ -493,8 +590,8 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                   <div class="product-page-options">
                     <div class="pull-left">
                       <label class="control-label">Size:</label>
-                      <select class="form-control input-sm">
-                        <option>FREE</option>
+                      <select class="form-control input-sm" id="sizeOption">
+                        <option value="FREE">FREE</option>
                       </select>
                     </div>
                   </div>
@@ -502,11 +599,12 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                     <div class="product-quantity">
                         <input id="product-quantity" type="text" value="1" readonly name="product-quantity" class="form-control input-sm">
                     </div>
-                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                    <input type="button" id="addcart" class="btn btn-primary" value="Add to cart" onclick="store.addcart()">
                     <button onclick="store.viewItem()" class="btn btn-default">More details</button>
                   </div>
                 </div>
                 <input type="hidden" name="pid" id="pidField" value="${pid}">
+                <input type="hidden" name="product_id" id="cart_product" value="${pid}">
                 <div class="sticker sticker-sale"></div>
               </div>
             </div>`

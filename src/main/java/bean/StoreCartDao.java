@@ -1,6 +1,8 @@
 package bean;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import mybatis.Factory;
+
 
 @Repository
 public class StoreCartDao implements StoreCartDaoif{
@@ -38,6 +41,7 @@ public class StoreCartDao implements StoreCartDaoif{
 	public void insert(StoreCartVo vo) {
 	    System.out.println("장바구니 담기 들어옴");
 	    System.out.println(vo.getMem_id());
+	    System.out.println(vo.getProduct_size());
 	    try {
 		sqlsession.insert("store.cart_insert", vo);
 		sqlsession.commit();
@@ -98,19 +102,24 @@ public class StoreCartDao implements StoreCartDaoif{
 
 	@Override
 	public int countCart(String mem_id, int product_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mem_id", mem_id);
+		map.put("product_id", product_id);
+		return sqlsession.selectOne("store.countCart", map);
 	}
 
 	@Override
 	public void updateCart(StoreCartVo vo) {
-		// TODO Auto-generated method stub
+	   
+		sqlsession.update("store.updateCart", vo);
+		sqlsession.commit();
 		
 	}
 
 	@Override
 	public void modifyCart(StoreCartVo vo) {
 		try {
+			System.out.println(vo.getProduct_id());
 			sqlsession.update("store.cart_modify", vo);
 			sqlsession.commit();
 		    }catch(Exception e1) {
@@ -120,6 +129,41 @@ public class StoreCartDao implements StoreCartDaoif{
 		    }
 	
 		
+	}
+
+
+
+	@Override
+	public void orderInsert(StoreOrderVo vo) {
+		
+		sqlsession.insert("store.order", vo);
+		sqlsession.commit();
+	}
+
+
+
+	@Override
+	public void orderDetails(List<StoreOrderDetailVo> olist) {
+		for(StoreOrderDetailVo dVo : olist) {
+		sqlsession.insert("store.order_details", dVo);
+		}
+		sqlsession.commit();
+	}
+
+
+
+	@Override
+	public List<StoreMember> listMember(String mem_id) {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList("store.cart_member", mem_id);
+	}
+
+
+
+	@Override
+	public List<StoreOrderDetailVo> countC(String mem_id) {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList("store.cart_count2", mem_id);
 	}
 	
 }

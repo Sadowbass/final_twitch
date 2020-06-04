@@ -73,4 +73,30 @@ public class StoreCartServiceDao implements StoreCartServiceif {
 		cartDaoif.modifyCart(vo);
 	}
 
+	@Override
+	public void orderInsert(StoreOrderVo vo) {
+		// TODO Auto-generated method stub
+		cartDaoif.orderInsert(vo);
+	}
+
+	@Override
+	public void orderDetails(List<StoreOrderDetailVo> olist) {
+		// TODO Auto-generated method stub
+		cartDaoif.orderDetails(olist);
+	}
+
+	@Override
+	public List<StoreMember> listMember(String mem_id) {
+		// TODO Auto-generated method stub
+		return cartDaoif.listMember(mem_id);
+	}
+
+	
+
+	@Override
+	public List<StoreOrderDetailVo> countC(String mem_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

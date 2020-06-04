@@ -8,7 +8,7 @@ public class StoreCartVo {
 	int cart_id; //카트 시리얼
 	String mem_id;//회원아이디
 	int product_id;//상품 아이디
-	int product_size;//상품 사이즈
+	String product_size;//상품 사이즈
 	String product_name;//상품이름
 	int cart_count;//상품 개수
 	int product_price; //상품 가격
@@ -17,6 +17,10 @@ public class StoreCartVo {
 	
 	List<ProductPhoto_mh> photo;
 	String sysfile;
+	
+	String mem_name;
+	String mem_email;
+	int mem_money;
 	
 	public StoreCartVo() {
 		// TODO Auto-generated constructor stub
@@ -29,7 +33,7 @@ public class StoreCartVo {
        
     }
 	
-	public StoreCartVo(int cart_id, String mem_id, int product_id,int product_size, String product_name, int cart_count, int totPrice, Date cart_date) {
+	public StoreCartVo(int cart_id, String mem_id, int product_id,String product_size, String product_name, int cart_count, int totPrice, Date cart_date) {
         this.cart_id = cart_id;
 		this.mem_id = mem_id;
         this.product_id = product_id;
@@ -42,6 +46,30 @@ public class StoreCartVo {
 	
 	
 	
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+
+	public String getMem_email() {
+		return mem_email;
+	}
+
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
+	}
+
+	public int getMem_money() {
+		return mem_money;
+	}
+
+	public void setMem_money(int mem_money) {
+		this.mem_money = mem_money;
+	}
+
 	public String getSysfile() {
 		return sysfile;
 	}
@@ -66,11 +94,13 @@ public class StoreCartVo {
 		this.product_price = product_price;
 	}
 
-	public int getProduct_size() {
+	
+
+	public String getProduct_size() {
 		return product_size;
 	}
 
-	public void setProduct_size(int product_size) {
+	public void setProduct_size(String product_size) {
 		this.product_size = product_size;
 	}
 

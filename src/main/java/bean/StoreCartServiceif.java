@@ -13,4 +13,11 @@ public interface StoreCartServiceif {
     int countCart(String mem_id, int product_id);
     void updateCart(StoreCartVo vo);
     void modifyCart(StoreCartVo vo);
+    
+    List<StoreMember> listMember(String mem_id);//주문할때 회원정보 불러오기
+    
+    void orderInsert(StoreOrderVo vo);//주문
+    void orderDetails(List<StoreOrderDetailVo> olist);//주문 상세
+    
+    List<StoreOrderDetailVo> countC(String mem_id);//장바구니 상품 숫자
 }

@@ -3,11 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
+
+     <!-- 상품 주문 -->
+     
+     <insert id="order">
+     
+     insert into store_order(order_serial, mem_id, get_name, get_phone, zip_code, address1, address2, amount, order_date, order_state)
+     values(seq_storeorder.nextval, #{mem_id, jdbcType=VARCHAR}, #{get_name, jdbcType=VARCHAR}, #{get_phone, jdbcType=VARCHAR}, #{zip_code, jdbcType=VARCHAR}, #{address1, jdbcType=VARCHAR}, #{address2, jdbcType=VARCHAR}, #{amount}, sysdate, 0)
+     
+     </insert>
+     
+     <insert id="order_details">
+     
+     insert into order_details(ORDERDETAILS_SERIAL, ORDER_SERIAL, PRODUCT_ID, CART_COUNT, MEM_ID, ORDER_SIZE)
+     values(seq_orderdetails.nextval, seq_storeorder.currval, #{product_id}, #{cart_count}, #{mem_id, jdbcType=VARCHAR}, #{order_size, jdbcType=VARCHAR} )
+     
+     </insert>
+
      <!-- 장바구니 인서트 -->
     <insert id="cart_insert" parameterType="bean.StoreCartVo">
       
       insert into cart(cart_id, mem_id, product_id, cart_count, cart_date, product_size)
-      values(seq_storecart.nextval, #{mem_id, jdbcType=VARCHAR}, #{product_id}, #{cart_count}, sysdate, #{product_size})
+      values(seq_storecart.nextval, #{mem_id}, #{product_id}, #{cart_count}, sysdate, #{product_size})
       
     </insert>
     
@@ -16,9 +33,9 @@
 	<insert id="review_insert" parameterType="bean.StoreReviewVo">
 	  
 	  insert into review(review_id, mem_id, product_id, rsubject, rcontent, review_like, review_date)
-      values( seq_storereview.nextval , #{mem_id, jdbcType=VARCHAR, javaType=String}, 
-      		#{product_id, jdbcType=VARCHAR, javaType=Integer}, #{rSubject, jdbcType=VARCHAR, javaType=String}, 
-      		#{rContent, jdbcType=VARCHAR, javaType=String}, #{review_like, jdbcType=VARCHAR, javaType=Double},  sysdate)
+      values( seq_storereview.nextval , #{mem_id}, 
+      		#{product_id}, #{rSubject}, 
+      		#{rContent}, #{review_like},  sysdate)
 	  
 	</insert>
 	
@@ -29,21 +46,36 @@
 	  
 	</insert>
 	
+	
+	<!-- 장바구니 불러오기 -->
+	<select id="cart_count2" resultType="bean.StoreCartVo">
+	  select cart_id, mem_id, product_id, cart_count, product_size
+	  from cart
+	  where mem_id = #{mem_id}
+	</select>
+	
+	<!-- 회원 조회 -->
+	<select id="cart_member" resultType="bean.StoreMember">
+	   select mem_name, mem_email, mem_money
+	   from final_member
+	   where mem_id =#{mem_id}
+	</select>
+	
 	<!-- cart 조회 -->
 	<select id="cart_select" resultType="bean.StoreCartVo">
     <!-- DAO에서 listCart라는 태그로 인해 실행되고 결과타입은 DTO타입으로 한다. (다른계층으로 보내기 위해서) -->
     
-        select cart_id, p.product_id, c.mem_id, p.product_name, c.cart_count, p.product_price, min(pp.sysfile) sysfile, (p.product_price*c.cart_count) totPrice
+        select  cart_id, p.product_id, c.mem_id, p.product_name, c.cart_count, c.product_size, p.product_price, min(pp.sysfile) sysfile, (p.product_price*c.cart_count) totPrice
         <!-- 장바구니의 번호, 상품 번호, 회원번호, 회원이름, 상품이름, 상품의양, 상품1개의 가격, 상품의 전체가격을 검색한다.-->
         <!--양쪽 테이블에 다 있는 속성이면 어떤 테이블의 속성인지 정확히 표기해주어야 한다.-->
         
-        from cart c, product p, product_photo pp
+        from  cart c, product p, product_photo pp
         <!--  장바구니 테이블과, 상품테이블, 상품 포토테이블 로 부터 -->
         
-        where c.product_id=p.product_id and p.product_id = pp.product_id and c.mem_id=#{mem_id} 
-        <!--회원테이블의 회원id와 장바구니테이블의 회원id가 같고, 장바구니의 상품id와 상품테이블의 상품id가 같고, 장바구니테이블의 회원id가  장바구니에 저장되있는 회원id와 같을때-->
+        where   c.product_id=p.product_id and p.product_id = pp.product_id and c.mem_id=#{mem_id} 
+        <!-- 장바구니의 상품id와 상품테이블의 상품id가 같고, 장바구니테이블의 회원id가  장바구니에 저장되있는 회원id와 같을때-->
         <!-- 장바구니에 관한 정보를 담은 sql문이다. -->
-        group by cart_id, p.product_id, c.mem_id, p.product_name, c.cart_count, p.product_price
+        group by cart_id, p.product_id, c.mem_id, p.product_name, c.cart_count, c.product_size, p.product_price
         
         order by cart_id
                     
@@ -79,6 +111,7 @@
 	   select r.review_id , r.mem_id, r.product_id , r.rSubject, r.rContent, r.review_like , r.review_date, rp.review_id, rp.image1, rp.image2   
 	   from review r left outer join review_photo rp
 	   on r.review_id = rp.review_id
+	   where product_id= #{product_id}
 	   order by review_date desc
 	   
 	</select>
@@ -179,7 +212,7 @@
 	<update id="updateCart">
 	  update cart
 	  set cart_count = cart_count + #{cart_count}
-	  where mem_id = #{mem_id}
+	  where mem_id = #{mem_id, jdbcType=VARCHAR}
 	  and product_id = #{product_id}
 	</update>
 	
