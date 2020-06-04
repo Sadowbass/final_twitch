@@ -27,7 +27,7 @@ import bean.Whisper;
 public class Handler extends TextWebSocketHandler {
 
 	Map<String, WebSocketSession> logins = new HashMap<String, WebSocketSession>(); /* id, session */
-	Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
+	public static Map<String, List<WebSocketSession>> chatRoom = new HashMap<String, List<WebSocketSession>>(); /* 스트리머, session List */
 	Map<String, Set<String>> accumulate=new HashMap<String, Set<String>>();/*스트리머, 누적 시청자*/
 
 	Gson gson = new Gson(); /*지슨*/
@@ -38,6 +38,17 @@ public class Handler extends TextWebSocketHandler {
 	ViewerCnt viewerCnt=new ViewerCnt(); /*하은 부탁*/
 
 	String[] midTxt=new String[2]; /*메세지 전송할때 mid, txt 담는 배열*/
+
+
+	public static Map<String, List<WebSocketSession>> getChatRoom() {
+		return chatRoom;
+	}
+
+
+	public static void setChatRoom(Map<String, List<WebSocketSession>> chatRoom) {
+		Handler.chatRoom = chatRoom;
+	}
+
 
 	/*스트리머 방송중이면 true 아니면 false*/
 	public String onOrOff(String streamer) {

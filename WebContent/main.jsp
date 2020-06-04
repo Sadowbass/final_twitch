@@ -494,7 +494,7 @@ a:hover,
         <div class="row">
             <div class="col-md-12">
                 <div class="main-title">
-                    <h4 style='font-weight: bold;color: rgb(232, 86, 133)'>생방송 채널</h6>
+                    <h4 style='font-weight: bold;'>생방송 채널</h6>
                 </div>
             </div>
             <div class="col-md-12">
@@ -534,7 +534,7 @@ a:hover,
         <div class="row">
             <div class="col-md-12">
                 <div class="main-title">
-                   <h4 style='font-weight: bold;color:rgb(232, 86, 133)'>추천 카테고리</h6>
+                   <h4 style='font-weight: bold;'>추천 카테고리</h6>
                 </div>
             </div>
 

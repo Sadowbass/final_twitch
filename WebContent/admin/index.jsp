@@ -741,6 +741,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
  var logout_modal = function(){
 	 $('#admin_logout_btn').trigger('click');
  }
+
+ function logout(){
+     location.href="logout.jsp";
+ }
  
 
 </script>

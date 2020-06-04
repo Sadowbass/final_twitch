@@ -66,7 +66,7 @@ public class HEController {
 	    List<OnAirVo> list2 =dao.onAir();
 	    
 	    for(int i=0; i<list2.size(); i++) {
-	         String streamer=list2.get(i).getAir_mid();
+	         String streamer=list2.get(i).getAir_mid(); 
 	         if(Handler.getChatRoom().get(streamer) != null) {
 	        	 int cnt=Handler.getChatRoom().get(streamer).size();//방송인원 가져옴 
 	        	 list2.get(i).setCnt(cnt);
