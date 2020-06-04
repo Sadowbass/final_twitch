@@ -667,13 +667,13 @@
 							initUser();
 							initAir();
 
+							/* 관욱 */
+							uk.connectAllWS(); /* 로그인 소켓 */
+							uk.reSocket($("#mId").val()); /* 채팅 끊어지면 재접속 소켓 */
 						});
 	</script>
 	<script>
 		bc.func()
-	</script>
-	<script>
-		uk.connectAllWS();
 	</script>
 
 </body>

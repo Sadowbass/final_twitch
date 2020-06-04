@@ -43,9 +43,6 @@
 		uk.connectWS($('input#streamer_id').val(), $('input#session_id').val());
 	});
 </script>
-<script>
-uk.enter();
-</script>
 
 
 

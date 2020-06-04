@@ -55,7 +55,7 @@
          $('#updateBroadCasting').show();
          $('#streamKey').prop('readonly',true); // 스트림키 값 못바꾸게
          console.log('mmmmmid',$("#bid").val());
-		 uk.connectWS($("#bid").val(),$("#bid").val()); /* 소켓 접속 */
+         uk.connectWS($("#bid").val(),$("#bid").val()); /* 소켓 접속 */
 
       }else if($('#msgBroadCasting').val() == '실패'){
          Swal.fire({
@@ -83,7 +83,7 @@
 
          $('#updateBroadCasting').hide(); // 스트림키 값 수정할 수 있게
          $('#streamKey').prop('readonly',false);
- 		 uk.WSclose(); /* 소켓 종료 */
+         uk.closeWS(); //소켓 종료
       }else if($('#msgBroadCasting').val()=='중지실패'){
          Swal.fire({
               position: 'center',

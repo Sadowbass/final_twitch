@@ -285,6 +285,7 @@
 </div>
 
 <!-- 채팅화면 -->
+<div class="whisperArea"></div>
 <div class="cht_main_uk" id="cht_div">
     <jsp:include page="./cht_uk.jsp"/>
 </div>
@@ -296,9 +297,9 @@
     $(document).ready(function () {
         uk.stream();
     });
-    
+
     function adminStopAir(mId,skey,gname){
-    	
+
     	const swalWithBootstrapButtons = Swal.mixin({
     		  customClass: {
     		    confirmButton: 'btn btn-success',
@@ -317,17 +318,17 @@
     		  reverseButtons: true
     		}).then((result) => {
     		  if (result.value) {
-    		       
-    			  
+
+
     			  $.ajax({
     		            type:'post',
     		            data:{'mId':mId,'skey':skey,'gname':gname},
     		            url:'deleteAir.sc',
     		            dataType:'text',
     		            success : function (data) {
-    		            	
+
     		                if (data == '중지성공') {
-    		                	
+
     		        		    swalWithBootstrapButtons.fire(
     		        	    		      '생방송 정지',
     		        	    		      '정상적으로 종료되었습니다.',
@@ -342,9 +343,9 @@
     		                }
     		            }
     		        })
-    			  
-    			  
-    			 
+
+
+
     		  } else if (
     		    /* Read more about handling dismissals below */
     		    result.dismiss === Swal.DismissReason.cancel
@@ -356,9 +357,9 @@
     		    )
     		  }
     		})
-    	
-    	
-    	
+
+
+
     }
 
     let uid = $('#uid').val();

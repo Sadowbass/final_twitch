@@ -33,9 +33,56 @@
 		where mfo_mid=#{_parameter}
 	</select>
 
+	<!-- 스트리머 방송중 -->
+	<select id="onAir" parameterType="String" resultType="String">
+		select air_mid
+		from final_onair
+		where air_mid=#{_parameter}
+	</select>
+
+	<!-- 친추 수락1 -->
+	<insert id="plusOk1" parameterType="bean.Friend">
+		insert into final_friend
+		values(seq_friend.nextval, sysdate, 1, #{fr_oid}, #{fr_mid})
+	</insert>
+
+	<!-- 친추 수락2 -->
+	<insert id="plusOk2" parameterType="bean.Friend">
+		insert into final_friend
+		values(seq_friend.nextval, sysdate, 1, #{fr_mid}, #{fr_oid})
+	</insert>
+
+	<!-- 귓속말 저장-->
+	<insert id="whisperIn" parameterType="bean.Whisper">
+		insert into final_whisper
+		values(seq_whisper.nextval, #{writer}, #{reader}, #{txt}, sysdate)
+	</insert>
+
+	<!-- 귓속말 조회 -->
+	<select id="whisperSel" parameterType="bean.Whisper" resultType="bean.Whisper">
+		select writer, txt
+		from final_whisper
+		where (writer=#{writer} and reader=#{reader})
+		or (writer=#{reader} and reader=#{writer})
+	</select>
+
+	<!-- 채팅 금지 저장 -->
+	<insert id="ignoreIn" parameterType="bean.Ignore">
+		insert into final_ignore
+		values(seq_ignore.nextval, #{ign_mid}, #{ign_tid}, #{ign_global} )
+	</insert>
+
+	<!-- 채팅 금지 조회 -->
+	<select id="ignoreSel" parameterType="String" resultType="bean.Ignore">
+		select ign_mid, ign_global
+		from final_ignore
+		where ign_tid=#{_parameter}
+
+	</select>
+
 	<!-- 하은 부탁 -->
 	<insert id="viewerCnt" parameterType="bean.ViewerCnt">
-		insert into fianl_viewerCnt
+		insert into final_viewercnt
 		values(seq_viewerCnt.nextval, #{mid}, ${viewer}, sysdate)
 	</insert>
 

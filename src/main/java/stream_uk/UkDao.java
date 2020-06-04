@@ -5,8 +5,11 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import bean.Cht;
+import bean.Friend;
+import bean.Ignore;
 import bean.UserList;
 import bean.ViewerCnt;
+import bean.Whisper;
 import mybatis.Factory;
 
 public class UkDao {
@@ -47,6 +50,55 @@ SqlSession sqlSession;
    /*스트리머 팔로워*/
    public List<String> followList(String followList){
 	   List<String> list=sqlSession.selectList("mybatis_uk.followList",followList);
+	   sqlSession.close();
+	   return list;
+   }
+
+    /*스트리머 방송중*/
+   public String onAir(String mid) {
+	   String result=sqlSession.selectOne("mybatis_uk.onAir", mid);
+	   sqlSession.close();
+	   return result;
+   }
+
+   /*친추 수락*/
+   public void plusOk(Friend friend) {
+	  int r1=sqlSession.insert("mybatis_uk.plusOk1", friend);
+	  int r2=sqlSession.insert("mybatis_uk.plusOk2", friend);
+      if(r1>0 && r2>0) {
+         sqlSession.commit();
+         sqlSession.close();
+      }
+   }
+
+   /*귓속말 저장*/
+   public void whisperIn(Whisper whisper) {
+	   int r=sqlSession.insert("mybatis_uk.whisperIn", whisper);
+	   if(r>0) {
+         sqlSession.commit();
+         sqlSession.close();
+      }
+   }
+
+   /*귓속말 조회*/
+   public List<Whisper> whisperSel(Whisper whisper) {
+	  List<Whisper> list=sqlSession.selectList("mybatis_uk.whisperSel", whisper);
+	  sqlSession.close();
+	   return list;
+   }
+
+   /*채팅 금지 저장*/
+   public int ignoreIn(Ignore ignore) {
+	   int r=sqlSession.insert("mybatis_uk.ignoreIn", ignore);
+	   if(r>0) {
+	         sqlSession.commit();
+	         sqlSession.close();
+	      }
+	   return r;
+   }
+   /*채팅 금지 조회*/
+   public List<Ignore> ignoreSel(String mid) {
+	   List<Ignore> list=sqlSession.selectList("mybatis_uk.ignoreSel", mid);
 	   sqlSession.close();
 	   return list;
    }
