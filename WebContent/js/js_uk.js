@@ -372,6 +372,14 @@ uk.rightValue = function () {
 		}
 	}
 	$(".video_main_uk").css('padding-right', right + 'px');
+	/*귓속말 css*/
+	if(right==0){ /*안보이게*/
+		$(".whisper").css('display','none');
+	}else{ /*채팅창 넓이에 맞춤*/
+		$(".whisper").css('display','block');
+		uk.whisperCss(right, $(".chtArea ").height())
+	}
+
 }
 
 /*채팅 과 비디오*/
@@ -667,7 +675,6 @@ uk.whisper = function (whisperTarget) {
 			'</div>' +
 			'</div>').appendTo(".whisperArea");
 		uk.whisperCss( $("#cht_div").width(), $(".chtArea ").height());
-		$(function() {$(".whisper").draggable()});
 	}
 	/* 엔터키 누르면 귓속말 전송 */
 	$("div[contenteditable].whisper_sendArea").keydown(function (e) {

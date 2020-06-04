@@ -226,7 +226,6 @@ public class Handler extends TextWebSocketHandler {
 
 			if(onOrOff(target)!=null) {
 				txt=ele.getAsJsonObject().get("txt").getAsString();
-				System.out.println(mid+":::"+txt);
 				JsonObject jsonObject = new JsonObject();
 				midTxt[0]= mid;
 				midTxt[1]= txt;
