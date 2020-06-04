@@ -191,7 +191,7 @@ footer {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(232, 86, 133,0.8);
+    background: rgba(148, 194, 156, 0.25);
     padding: 10px;
     text-align: center;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=($opacity * 100))";

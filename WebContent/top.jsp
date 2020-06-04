@@ -18,7 +18,7 @@
     <img class="img-fluid" alt="" src="/img/favicon.png"> &nbsp;&nbsp;<img class="img-fluid" alt=""
 		src="/img/Twitch_logo.png" width="100px"></a>
 
-     <a class="" href="/categories" id="categories" style='font-size: 20px;'><i style=''></i> &nbsp; <font style="font-weight: bold">탐색</font></a>
+     <a class="" href="/categories" id="categories" style='font-size: 20px;'><font style="font-weight: bold">&nbsp;탐색</font></a>
 	 <%if(session.getAttribute("session_id") != null){ %>
 	 <a class="" href="/store/" id="store" style='font-size: 20px;'><i style=''></i> &nbsp; <font style="font-weight: bold">스토어</font></a>
 	 <%} %>
@@ -101,7 +101,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 	<%if(session.getAttribute("admin_id")!=null) { %>
 
-                		<a class="dropdown-item" href="#" id="admin/index" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; 관리자페이지</a>
+                		<a class="dropdown-item" href="/admin/" id="admin/index"><i class="fas fa-fw fa-user-circle"></i> &nbsp; 관리자페이지</a>
 
                 	<%}else{%>
 

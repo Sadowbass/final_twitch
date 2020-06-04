@@ -23,8 +23,8 @@
 			<c:forEach var='i' items='${list }' varStatus="status">
 	            <tr>
 	                <td><font style='font-weight: bold'>${status.count}</font></td>
-	                	                <td><c:if test="${empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px" src="../img/user-photo/guest-icon.png" id="memberPhoto"></c:if>
-	                <c:if test = "${not empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px" src="../img/user-photo/${i.ph_sysfile }" id="memberPhoto"></c:if>
+	                	                <td><c:if test="${empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px;height:40px" src="../img/user-photo/guest-icon.png" id="memberPhoto"></c:if>
+	                <c:if test = "${not empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px;height:40px" src="../img/user-photo/${i.ph_sysfile }" id="memberPhoto"></c:if>
 	                <font style="font-weight: bold">&nbsp;&nbsp;${i.don_mid}</font></td>
 	                <td><font style='font-weight: bold'>${i.don_content }</font></td>
 	                <td><font style='font-weight: bold'>${i.don_price }</font></td>    
