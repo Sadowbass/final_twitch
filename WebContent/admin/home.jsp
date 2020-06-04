@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,6 +13,16 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet"/>
 </head>
+<%
+if(session.getAttribute("start") == null) {
+%>
+	    <script>location.href="home.he"</script>
+<% 
+}
+session.removeAttribute("strat");
+
+	
+%>	
  <div class="container-fluid">
             <div class="block-header">
                 <h2>DASHBOARD</h2>
@@ -78,27 +89,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 <div class="col-xs-12 col-sm-6">
                                     <h2>수익 현황 </h2>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 align-right">
-                                    <div class="switch panel-switch-btn">
-                                        <span class="m-r-10 font-12">REAL TIME</span>
-                                        <label>OFF<input type="checkbox" id="realtime" checked><span
-                                                class="lever switch-col-cyan"></span>ON</label>
-                                    </div>
-                                </div>
+                       
                             </div>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
-                                        role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                    
                         </div>
                         <div class="body">
                             <canvas id="total_profit_chart" height="80"></canvas>
@@ -117,21 +110,9 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 많이 시청중인 방송 
                                 <small>시청자수가 많은 방송 상위5</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                         <div class="body table-responsive">
-                            <table class="table table-condensed">
+                            <table class="table table-condensed table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -141,14 +122,24 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach items="${onair}" end="5" var="i" varStatus="j">
-	                                    <tr>
+                                	<c:forEach items="${onair}" end="4" var="i" varStatus="j">
+	                                    <tr onclick= "broad_view('${i.air_mid}')">
 	                                        <th scope="row">${j.count}</th>
 	                                        <td>${i.air_mid}</td>
 	                                        <td>${i.air_gname}</td>
 	                                        <td>${i.cnt}</td>
 	                                    </tr>
                                 	</c:forEach>
+                                <c:if test="${fn:length(onair) <5}">
+                     			 <c:forEach  begin="1" end="${5-fn:length(onair)}" varStatus="j">
+                     				<tr>
+                                    <th scope="row">#</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                	</tr>
+                     			 </c:forEach>
+                     			</c:if>
                                 </tbody>
                             </table>
                         </div>
@@ -164,21 +155,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                 많이 시청중인 카테고리 
                                 <small>시청자수가 많은 카테고리 상위5</small>
                             </h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+   
                         </div>
                         <div class="body table-responsive">
-                            <table class="table table-condensed">
+                            <table class="table table-condensed table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -188,15 +168,26 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach begin="1" end="5" var="i">
+                                	<c:forEach items="${cate}" end="5" var="i" varStatus="j">
 	                                    <tr>
-	                                        <th scope="row">${i }</th>
-	                                        <td>legue of legend</td>
-	                                        <td>10</td>
-	                                        <td>30000</td>
+	                                        <th scope="row">${j.count}</th>
+	                                        <td>${i.air_gname}</td>
+	                                        <td>${i.cnt2}</td>
+	                                        <td>${i.cnt}</td>
 	                                    </tr>
                                 	</c:forEach>
+                                <c:if test="${fn:length(cate) <5}">
+                     			 <c:forEach  begin="1" end="${5-fn:length(cate)}" varStatus="j">
+                     				<tr>
+                                    <th scope="row">#</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                	</tr>
+                     			 </c:forEach>
+                     			</c:if>
                                 </tbody>
+         
                             </table>
                         </div>
                     </div>
@@ -207,46 +198,34 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
             <div class="row clearfix today_hot_goods">
                 <!-- Task Info -->
-                <div class="col-xs-12 col-sm-12  col-lg-8 hot_cate">
+                <div class="col-xs-12 col-sm-12  col-lg-12 hot_cate">
            <div class="card hot1">
                         <div class="header">
                             <h2>오늘의 인기 상품</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </div>
                                <div class="body table-responsive">
-                            <table class="table table-condensed table-bordered">
+                            <table class="table table-condensed table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th style="width:10%">상품이미지</th>
                                         <th>상품번호</th>
                                 		<th>상품명</th>
-                                		<th>재고</th>
-                                		<th>등록일</th>
+                                		<th>팔린 갯수</th>
+                                		<th>카테고리</th>
                                 		<th>가격</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	<c:forEach begin="1" end="5" var="i">
-	                                    <tr>
-	                                        <th scope="row">${i }</th>
-	                                        <td><img src="images/goods.jpg" class="main_goods_img"></td>
-	                                        <td>1233454-232131254</td>
-	                                    	<td> DIATEC 필코 마제스터치 컨버터블2 크림치즈 한글</td>
-	                                    	<td>61</td>
-	                                    	<td>2011/04/25</td>
-	                                    	<td>$320,800</td>
+                                	<c:forEach items="${hit }" end="5" var="i" varStatus="j">
+	                                    <tr onclick = "product_view('${i.product_id}')">
+	                                        <th scope="row">${j.count }</th>
+	                                        <td><img src="admin_pages/product_photo/${i.sysfile }" class="main_goods_img"></td>
+	                                        <td>${i.product_id }</td>
+	                                    	<td>${i.product_name }</td>
+	                                    	<td>${i.cnt}</td>
+	                                    	<td>${i.product_cate }</td>
+	                                    	<td>${i.product_price }</td>
 	                                    	</tr>
                                 	</c:forEach>
                                 </tbody>
@@ -255,9 +234,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                      
                     </div>
                 </div>
+                <form id="he_form" name="he_form" method="post">
+                	<input type="hidden" id="productSerial" name="productSerial"/>
+                </form>
                 <!-- #END# Task Info -->
                 <!-- Browser Usage -->
-                <div class="col-xs-12 col-sm-12  col-lg-4 hot_cate">
+              <%--   <div class="col-xs-12 col-sm-12  col-lg-4 hot_cate">
                    <div class="card hot1">
                         <div class="header">
                             <h2>오늘의 인기 카테고리</h2>
@@ -292,7 +274,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                
                         </div>
                     </div>
-                </div>
+                </div> --%>
                 <!-- #END# Browser Usage -->
             </div>
         </div>
@@ -315,10 +297,10 @@ var chart = new Chart(ctx, {
 
     // The data for our dataset
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: [getbefore(4), getbefore(3), getbefore(2), getbefore(1), getToday()],
         datasets: [{
             label: '트위치 메인 페이지 수익',
-            data: [40, 70, 20, 50, 20, 30, 45],
+            data: [0, 0, 0, 0, 0],
             borderColor: 'rgba(102, 102, 153, 0.75)',
             backgroundColor: 'rgba(102, 102, 153, 0.3)',
             pointBorderColor: 'rgba(102, 102, 153, 0)',
@@ -326,7 +308,7 @@ var chart = new Chart(ctx, {
             pointBorderWidth: 1
         },{
         	 label: "쇼핑몰 페이지 수익",
-             data: [28, 48, 40, 19, 86, 27, 90],
+             data: [0, 0, 0, 0, 0],
              borderColor: 'rgba(233, 30, 99, 0.75)',
              backgroundColor: 'rgba(233, 30, 99, 0.3)',
              pointBorderColor: 'rgba(233, 30, 99, 0)',
@@ -343,10 +325,57 @@ var chart = new Chart(ctx, {
         }]
     },
     options: {
-    	responsive: true,
+    	 responsive: true,
+			legend: {
+				labels: {
+					fontColor: "#9a9a9a",
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						fontColor : "#9a9a9a",
+					},
+					gridLines:{
+						/*color: '#eee'*/
+					}
+				}],
+				xAxes: [{
+					ticks:{
+						fontColor : '#9a9a9a'
+					},
+					gridLines:{
+						/*color: "#eee"*/
+					}
+				}]
+			}
         
     }
 });
+
+<c:forEach items="${main}" var="i" varStatus="j">
+ for(var i=0 ; i<5; i++){
+	 if(chart.data.labels[i] == '${i.pay_date}'){
+		 chart.data.datasets[1].data[i] = ${i.profit}
+	 }
+ }
+</c:forEach>
+
+<c:forEach items="${main2}" var="i" varStatus="j">
+for(var i=0 ; i<5; i++){
+	 if(chart.data.labels[i] == '${i.pay_date}'){
+		 chart.data.datasets[0].data[i] = ${i.profit}
+	 }
+}
+</c:forEach>
+
+for(var i=0; i<5; i++){
+	var total = chart.data.datasets[1].data[i]+chart.data.datasets[0].data[i];
+	chart.data.datasets[2].data[i] = total;
+}
+
+chart.update();
 
 
 	$(document).ready(function(){
@@ -363,19 +392,20 @@ var chart = new Chart(ctx, {
 
 		});
 		
-		<%if(session.getAttribute("start") == null){ %>
-		  start();
-		<%
-		}%>
-		<%session.removeAttribute("start");%>
 		});
 	
-	
-	
-let start = function(){
-	location.href = "home.he"
+function getToday(){//오늘날짜
+	var date = new Date();
+	return date.getFullYear() +"-" +("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
 }
 
-
-
+function getbefore(cnt){//전날짜
+	var before = new Date(getToday());
+	before.setDate(before.getDate()-Number(cnt));
+	var df = new Date(before);
+	
+	var lday = df.getFullYear() +"-" +("0"+(df.getMonth()+1)).slice(-2)+"-"+("0"+df.getDate()).slice(-2);
+	
+	return lday
+}
 </script>

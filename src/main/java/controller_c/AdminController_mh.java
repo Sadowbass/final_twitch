@@ -232,7 +232,6 @@ public class AdminController_mh {
 	@RequestMapping(value = "*/orderView.mh", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public String orderView(Model model, String orderSelect_mem_id, String orderSelect_orderSerial,
 			int orderSelect_nowPage, String order_search_mh) {
-		System.out.println("★★★★★orderView");
 
 		MH_orderVo vo = new MH_orderVo();
 		mh_Page p = new mh_Page();
@@ -243,14 +242,27 @@ public class AdminController_mh {
 		p.setFindStr(order_search_mh);
 		p.setNowPage(orderSelect_nowPage);
 
-		System.out.println("★★★mem_id : " + orderSelect_mem_id);
-		System.out.println("★★★serial : " + orderSelect_orderSerial);
 		List<MH_orderListVo> list = dao.orderDetail(vo);
 		
 		System.out.println("★★★list.get(0).getProduct_size() : " + list.get(0).getProduct_size());
 
 		model.addAttribute("list", list);
 		model.addAttribute("p", p);
+
+		return "order_view";
+	}
+	
+	@RequestMapping(value = "*/orderView2.mh", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String orderView(Model model, String member_id, String s_serial) {
+
+		MH_orderVo vo = new MH_orderVo();
+
+		vo.setMem_id(member_id);
+		vo.setOrder_serial(s_serial);
+
+		List<MH_orderListVo> list = dao.orderDetail(vo);
+
+		model.addAttribute("list", list);
 
 		return "order_view";
 	}
@@ -401,6 +413,20 @@ public class AdminController_mh {
 
 		model.addAttribute("vo", vo);
 		model.addAttribute("p", p);
+
+		return "product_view";
+	}
+	
+	@RequestMapping(value = "*/product_view2.mh", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String product_view(Model model, int productSerial) {
+
+		ProductVo_mh vo = null;
+		mh_Page p = new mh_Page();
+
+		vo = dao.productView(productSerial);
+
+
+		model.addAttribute("vo", vo);
 
 		return "product_view";
 	}

@@ -18,6 +18,7 @@ public class StreamingVo {
     private int cnt;
     private int totCnt;
     private List<String> tlist = new ArrayList<String>();
+    
 
     public int getTotCnt() {
         return totCnt;

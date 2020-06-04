@@ -665,3 +665,16 @@ input[type="file"] {
     color: #fff !important;
 }
 
+/*member_view*/
+.iga{
+	width:81px;
+}
+
+.backSelect{
+	margin-right: 12px;
+    font-size: 40px !important;
+}
+.media:hover{
+	background:#202238;
+	cursor:pointer;
+}

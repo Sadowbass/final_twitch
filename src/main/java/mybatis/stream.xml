@@ -5,17 +5,18 @@
     
 <mapper namespace="stream">
 	<select id="select" resultType="bean.StreamerVo">
-		select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
-	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 profit 
+		select mem_id,mem_name,mem_email,mem_status,(select count(mfo_serial) from final_mfollow where mfo_oid=mem_id)cnt,
+	    (select nvl(sum(don_price)*0.5,0) from final_donation where don_oid=mem_id)+(select count(sub_serial)*5000 from final_subscription where sub_oid=mem_id) profit
 		from final_member where MEM_SKEY is not null
 	</select>
 	 <select id='view' parameterType="String" resultType="bean.StreamerVo">
-    	select mem_id,mem_name,mem_email,mem_status,(select count(mfo_mid) from final_mfollow where mfo_mid=mem_id)cnt,
-	    (select sum(don_price) from final_donation where don_mid=mem_id)+(select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 profit,
-	    (select sum(don_price) from final_donation where don_mid=mem_id) don_profit,
-	    (select count(sub_serial) from final_subscription where sub_mid=mem_id)*10000 sub_profit,
-	    (select count(sub_serial) from final_subscription where sub_mid=mem_id) cnt2,
-	    (select ph_sysfile from final_photo where mem_id =ph_id) ph_sysfile
+    	select mem_id,mem_name,mem_email,mem_status,(select count(mfo_serial) from final_mfollow where mfo_oid=mem_id)cnt,
+	    (select nvl(sum(don_price)*0.5,0) from final_donation where don_oid=mem_id)+(select count(sub_serial)*5000 from final_subscription where sub_oid=mem_id) profit,
+	    (select nvl(sum(don_price)*0.5,0) from final_donation where don_oid=mem_id) don_profit,
+	    (select count(sub_serial)*5000 from final_subscription where sub_oid=mem_id) sub_profit,
+	    (select count(sub_serial) from final_subscription where sub_oid=mem_id) cnt2,
+	    (select ph_sysfile from final_photo where mem_id =ph_id) ph_sysfile,
+	    (select round(avg(viewer),1) from FINAL_VIEWERCNT where mem_id=mid)avg
 		from final_member where mem_id='${_parameter}'
     </select>
     
@@ -66,6 +67,133 @@
 	</select>
 	
 	
+	<select id="mileage_use" parameterType="String"  resultType="bean.StatisticVo">
+		select don_oid,don_price,don_rdate,type from final_donation 
+		where don_mid='${_parameter}' order by don_rdate desc
+	</select>
+	
+	<select id='watching_time' parameterType="hashmap" resultType="String">
+    	select 
+     	sum(round(EXTRACT(day FROM exit_time-enter_time)*24 
+    	+EXTRACT(HOUR   FROM exit_time-enter_time) 
+     	+EXTRACT(MINUTE FROM exit_time-enter_time)/60 
+     	+EXTRACT(SECOND FROM exit_time-enter_time)/60/60,1)) time
+ 		FROM final_userlist where mid=#{mid} and to_char(exit_time,'mm')=#{month} 
+ 		and to_char(exit_time,'rrrr')=#{year} group by mid
+    </select>
+    
+    <select id='watching_tot' parameterType="hashmap" resultType="String">
+    	select 
+     	sum(round(EXTRACT(day FROM exit_time-enter_time)*24 
+    	+EXTRACT(HOUR   FROM exit_time-enter_time) 
+     	+EXTRACT(MINUTE FROM exit_time-enter_time)/60 
+     	+EXTRACT(SECOND FROM exit_time-enter_time)/60/60,1)) time
+ 		FROM final_userlist where mid=#{mid} group by mid
+    </select>
+    
+    <select id='last_pay' parameterType="hashmap" resultType="bean.StatisticVo">
+    	select  sum(amount)pay_money ,to_char(order_date,'mm')month from store_order 
+    	where mem_id=#{mid} and to_char(order_date,'rrrr')=#{year} 
+    	group by to_char(order_date,'mm') order by to_char(order_date,'mm')
+    </select>
+    
+    <select id='last_pay_tot' parameterType="hashmap" resultType="String">
+    	  select sum(amount)tot from store_order where mem_id=#{mid}
+    </select>
+    
+     <select id='store_cate' parameterType="hashmap" resultType="bean.UserProductVo">
+    	  select product_cate,count(product_cate) cnt from order_details od,product p
+		  where mem_id=#{mid} and od.product_id =p.product_id group by product_cate
+    </select>
+    
+    <select id='store_buylist' parameterType="hashmap" resultType="bean.UserProductVo">
+    	  select DISTINCT p.PRODUCT_ID, p.PRODUCT_PRICE, p.PRODUCT_NAME,min(SYSFILE) sysfile,s.order_serial,to_char(order_date,'rrrr-mm-dd')order_date,od.cart_count
+		  from PRODUCT_PHOTO ph,
+     	  PRODUCT p,
+     	  ORDER_DETAILS od,
+     	  store_order s
+		  where ph.PRODUCT_ID = p.PRODUCT_ID and od.PRODUCT_ID = p.PRODUCT_ID and od.MEM_ID =#{mid} and s.order_serial = od.order_serial
+		  group by p.product_id, p.PRODUCT_PRICE, p.PRODUCT_NAME,order_date,od.cart_count,s.order_serial
+		  order by p.PRODUCT_ID
+    </select>
+    
+    <select id='send_donation' parameterType="hashmap" resultType="bean.StreamerVo">	 
+	select sum(don_price) profit,don_oid from final_donation 
+	where don_mid=#{mid} group by don_oid order by profit desc
+    </select>
+    
+    <select id='receive_donation' parameterType="hashmap" resultType="bean.StreamerVo">
+    	 select sum(don_price) profit,don_mid from final_donation 
+    	 where don_oid=#{mid} group by don_mid order by profit desc
+    </select>
+    
+     <select id='user_payment' parameterType="hashmap" resultType="bean.StatisticVo">
+    	select sum(pay_money)profit ,to_char(pay_date,'mm') month from final_payment 
+    	where pay_mid =#{mid} and to_char(pay_date,'rrrr')=#{year} 
+    	group by to_char(pay_date,'mm') order by month
+    </select>
+    
+     <select id='now_live' parameterType="hashmap" resultType="String">
+   		select count(air_serial)cnt from FINAL_ONAIR
+     </select>
+     
+     <select id='today_order' parameterType="hashmap" resultType="String">
+   		select count(order_serial) from store_order 
+   		where to_char(order_date,'rrrr-mm-dd') = #{day}
+     </select>
+     
+     <select id='today_review' parameterType="hashmap" resultType="String">
+   		select count(review_id) from review 
+   		where to_char(review_date,'rrrr-mm-dd')= #{day}
+     </select>
+     
+     <select id='today_member' parameterType="hashmap" resultType="String">
+   		select count(mem_id) from final_member 
+   		where to_char(mem_rdate ,'rrrr-mm-dd')= #{day}
+     </select>
+     
+     <select id='onAir' resultType="bean.OnAirVo">
+   		select air_mid,air_gname from final_onair
+     </select>
+     
+     <select id='onAir_cate' resultType="bean.OnAirVo">
+   		select air_gname, count(air_mid)cnt2 from final_onair group by air_gname
+     </select>
+     
+     <select id='onAir_shop' parameterType="hashmap" resultType="bean.UserProductVo">
+      select rownum rank, b.* from(
+      select ROW_NUMBER() over(partition by j4.product_id order by ph.photo_serial asc) 
+      as rnum ,cnt, j4.product_id, ph.sysfile, j4.product_name,j4.product_price,j4.product_cate,j4.product_count from
+      (
+      select sum(cart_count) as cnt, j1.product_id
+      from ORDER_DETAILS j1 join STORE_ORDER j2
+      on j1.order_serial = j2.order_serial
+      where to_char(order_date ,'rrrr-mm-dd') =#{day} 
+      GROUP by product_id
+      )a join product j4
+      on a.product_id = j4.product_id join product_photo ph on ph.product_id = j4.product_id order by cnt desc)b
+      where rnum=1
+     </select>
+     
+     <select id="main_profit" parameterType="hashmap"  resultType="bean.StatisticVo">
+      select sum(amount)profit ,to_char(order_date,'rrrr-mm-dd')pay_date
+	  from store_order where to_char(order_date,'rrrr-mm-dd') between #{day2} and #{day1}
+	  group by to_char(order_date,'rrrr-mm-dd') order by pay_date
+     </select>
+     
+     <select id="main_profit2" parameterType="hashmap"  resultType="bean.StatisticVo">
+      select sub+don as profit,pay_date from (
+	  select count(case when type =3 then 1 end)*5000 as sub ,sum(case when type !=3 then don_price end)*0.5 as don
+	  ,to_char(don_rdate,'rrrr-mm-dd')pay_date from final_donation
+	  where to_char(don_rdate,'rrrr-mm-dd') between #{day2} and #{day1}
+	  group by to_char(don_rdate,'rrrr-mm-dd')) order by pay_date
+     </select>
+     
+     <select id="user_like_cate" parameterType="hashmap"  resultType="bean.GCategoryVo">
+      select count(gname)cnt,gname gamename from final_userlist 
+      where mid =#{mid} and  gname is not null group by gname
+     </select>
+     
 	<!--<select id="select" resultType="bean.BroadCastingCateVo">
 		select * from final_category
 	</select>

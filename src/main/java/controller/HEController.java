@@ -77,17 +77,39 @@ public class HEController {
 	    
 	    Collections.sort(list2, new ListComparator());//시청자 순으로 정렬
 	    
-	    for(int i=0; i<list2.size(); i++) {
-	    	
-	    	System.out.println(list2.get(i).getAir_mid());
-	    	System.out.println(list2.get(i).getCnt());
+	    List<OnAirVo> list3 = dao.onAir_cate(); //카테고리별 시청자수 정보
+	    
+	    for(int i=0; i<list3.size(); i++) {
+	    	String gname = list3.get(i).getAir_gname();//방송중인 카테고리 하나씩 가져옴 
+	    	int cnt = 0;
+	    	for(int j=0; j<list2.size(); j++) {
+	    		String streamer=list2.get(i).getAir_mid();//방송중인 스트리머 아이디 하나씩 가져옴
+	    		String gname2 = list2.get(i).getAir_gname(); //방송중인 스트리머가 하는 게임 하나씩 가져옴
+	    		if(gname.equals(gname2)) {
+	    			cnt += list2.get(i).getCnt(); //시청자수 가져와서 같은 카테고리면 합한다
+	    		}
+	    	}
+	    	list3.get(i).setCnt(cnt);//카테고리별 총 시청자수 
 	    }
 	    
+	    Collections.sort(list3, new ListComparator()); //총시청자 별로 정렬
+	    
+	    List<UserProductVo> list4 = dao.day_hit();
+	    
+	    List<StatisticVo> main =dao.main_profit();
+	    List<StatisticVo> main2 =dao.main_profit2();
+
+	    
+	    mv.addObject("main2", main2);//방송국 수익
+	    mv.addObject("main", main);//쇼핑몰 수익
+	    mv.addObject("hit", list4);//오늘의 인기 상품 
+	    mv.addObject("cate", list3);//시청자 많은 카테고리
 	    mv.addObject("onair", list2);//시청자 많은 방송 
 		mv.addObject("now", list);
 		req.getSession().setAttribute("start", "ok");
 		mv.setViewName("/admin/index"); 
 		return mv;
+		
 	}
 	
 	@RequestMapping(value="*/member_select.he", method= {RequestMethod.GET,RequestMethod.POST})
@@ -151,10 +173,15 @@ public class HEController {
 	}
 
 	@RequestMapping(value="*/member_view.he", method= {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView viewM(HttpServletRequest req) {
+	public ModelAndView viewM(HttpServletRequest req, HttpServletResponse resp) {
 		ModelAndView mv = new ModelAndView();
 		MemberVo vo =  null;
 		String mid =(String)req.getParameter("he_serial");
+		System.out.println(mid);
+		if(req.getParameter("he_serial") == null) {
+			HE_FileUpload fu = new HE_FileUpload(req,resp);
+			mid =fu.getmid();
+		}
 		vo=dao.member_view(mid);
 
 		if(vo != null) {
@@ -196,8 +223,8 @@ public class HEController {
 		list3 = dao.Watching(mid);
 
 		String tot_time = dao.Watching_tot(mid);
-
-		List<String> list4 = new ArrayList<String>();
+		
+		List<StatisticVo> list4 = new ArrayList<StatisticVo>();
 		list4 = dao.last_pay(mid);
 
 		String tot_pay = dao.last_pay_tot(mid);
@@ -206,8 +233,10 @@ public class HEController {
 		sc=dao.store_cate(mid);
 		List<UserProductVo> sb = new ArrayList<UserProductVo>();
 		sb = dao.store_buylist(mid);
-
-
+		
+		List<GCategoryVo> userlike  = dao.userLikeCate(mid);//자주보는 게임 카체테 고리
+		
+		mv.addObject("ulc", userlike);
 		mv.addObject("store_buylist", sb);
 		mv.addObject("store_cate", sc);
 		mv.addObject("tot_pay", tot_pay);
@@ -250,6 +279,13 @@ public class HEController {
 		ModelAndView mv = new ModelAndView();
 		List<StreamingVo> list =  new ArrayList<StreamingVo>();
 		list = dao.onair();
+		for(int i=0 ; i<list.size(); i++ ) {
+			String streamer= list.get(i).getAir_mid();
+			if(Handler.getChatRoom().get(streamer) != null) {
+				int cnt=Handler.getChatRoom().get(streamer).size();//방송인원 가져옴
+				list.get(i).setCnt(cnt);
+			}
+		}
 		mv.addObject("list", list);
 		mv.setViewName("/admin/index.jsp?inc=./admin_pages/twitch_main/live_broadcast"); 
 		return mv;
@@ -589,8 +625,7 @@ public class HEController {
 
 		List<StatisticVo> pay_list = new ArrayList<StatisticVo>();
 		pay_list = dao.payment();
-
-		mv.addObject("p", page);
+		
 		mv.addObject("d_list", d_list);
 		mv.addObject("pay", pay_list);
 		mv.addObject("sub_list", sub_list);

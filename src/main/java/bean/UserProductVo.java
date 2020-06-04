@@ -9,7 +9,22 @@ public class UserProductVo {
 	String cart_count;
 	String sysfile;
 	String order_date;
+	String product_count;
+	String order_serial;
 	
+	
+	public String getOrder_serial() {
+		return order_serial;
+	}
+	public void setOrder_serial(String order_serial) {
+		this.order_serial = order_serial;
+	}
+	public String getProduct_count() {
+		return product_count;
+	}
+	public void setProduct_count(String product_count) {
+		this.product_count = product_count;
+	}
 	public String getOrder_date() {
 		return order_date;
 	}

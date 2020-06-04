@@ -21,19 +21,6 @@
                     <h2>
                         스트리머 목록
                     </h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">주별</a></li>
-                                <li><a href="javascript:void(0);">월별</a></li>
-                                <li><a href="javascript:void(0);">연도별</a></li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
                 <div class="body">
                     <div class="table-responsive">

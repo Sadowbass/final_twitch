@@ -17,7 +17,14 @@ public class StreamerVo {
 	String don_oid;
 	String sub_oid;
 	String month;
+	String avg; //평균 시청자 수 
 	
+	public String getAvg() {
+		return avg;
+	}
+	public void setAvg(String avg) {
+		this.avg = avg;
+	}
 	public String getMonth() {
 		return month;
 	}

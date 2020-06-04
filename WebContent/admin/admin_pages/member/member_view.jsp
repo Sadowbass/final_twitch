@@ -54,15 +54,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                <a href="member_select.he" 
                                     role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
+                                    <i class="material-icons backSelect">keyboard_backspace</i>
                                 </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -84,11 +79,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                     <i class="material-icons">local_mall</i> 쇼핑 이용내역
                                 </a>
                             </li>
-                            <li role="presentation">
+                           <!--  <li role="presentation">
                                 <a href="#profile_with_icon_title" data-toggle="tab">
                                     <i class="material-icons">library_books</i> 트게더 이용내역
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
 
                         <!-- Tab panes -->
@@ -113,7 +108,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             </div>
                                             <div class="row clearfix">
                                                 <div class="col-md-12 col-sm-12">
-                                                    <textarea class="form-control introduce" rows="3"
+                                                    <textarea class="form-control introduce" rows="3" readonly
                                                          >${vo.mem_profile }</textarea>
                                                 </div>
                                             </div>
@@ -121,21 +116,21 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                           		  아이디
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" value="${vo.mem_id }" name="member_id" >
+                                                            <input class="form-control" type="text" value="${vo.mem_id }" name="member_id" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                           		 구분
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" value="${vo.mem_admin }">
+                                                            <input class="form-control" type="text" value="${vo.mem_admin }" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,21 +139,21 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	이름
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value=${vo.mem_name }>
+                                                            <input type="text" class="form-control" value=${vo.mem_name } readonly>
                                                         </div>
                                                     </div>
                                                 </div>
                                                  <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	현재상태
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.mem_status }">
+                                                            <input type="text" class="form-control" value="${vo.mem_status }" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,22 +162,22 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	이메일	
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="email" class="form-control" value="${vo.mem_email }">
+                                                            <input type="email" class="form-control" value="${vo.mem_email }" readonly>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             		보유잔액
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="email" class="form-control" value="${vo.mem_money }">
+                                                            <input type="email" class="form-control" value="${vo.mem_money }" readonly>
                                                         </div>
 
                                                     </div>
@@ -192,22 +187,22 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                  <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	등록일	
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="date" class="form-control" value="${vo.mem_rDate }">
+                                                            <input type="date" class="form-control" value="${vo.mem_rDate }" readonly>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                  <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	생일	
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="date" class="form-control" value="${vo.mem_birth }">
+                                                            <input type="date" class="form-control" value="${vo.mem_birth }" readonly>
                                                         </div>
 
                                                     </div>
@@ -217,33 +212,31 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                              <div class="row clearfix">
                                                 <div class="col-md-3 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	우편번호
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.mem_zcode }">
+                                                            <input type="text" class="form-control" value="${vo.mem_zcode }" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
                                                  <div class="col-md-9 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	집주소 
                                                         </span>
                                                         <div class="form-line">
-                                                            <input type="text" class="form-control" value="${vo.mem_add1 } ${vo.mem_add2}">
+                                                            <input type="text" class="form-control" value="${vo.mem_add1 } ${vo.mem_add2}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="s_serial" name="s_serial"/>
                                            </form>
                                             
                                             <div class="row clearfix js-sweetalert">
                                                 <div class="col-lg-12 col-sm-12 saveButton">
-                                                    <button type="button" class="btn waves-effect" data-toggle="modal" data-target="#stopModal">
-                                                        <i class="material-icons">block</i>
-                                                        <span>계정 이용 정지</span>
-                                                    </button>
+                           
                                                     <button type="button" class="btn waves-effect" data-type="cancel">
                                                         <i class="material-icons">delete</i>
                                                         <span>계정 삭제</span>
@@ -327,24 +320,10 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 <h2>
                                                     마일리지 충전 내역
                                                 </h2>
-                                                <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+
                                             </div>
                                              <div class="table-responsive mail">
-                                                <table id="mail_table2" class="hover mdl-data-table member_table"
+                                                <table id="mail_table2" class="mdl-data-table member_table"
                                                         style="width:100%">
                                                     <thead>
                                                         <tr>
@@ -374,26 +353,12 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 <h2>
                                                     마일리지 사용 내역
                                                 </h2>
-                                                <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+
                                             </div>
                                             
                                             <div class="body">
                                             <div class="table-responsive mail">
-                                                <table id="mail_table" class="hover mdl-data-table member_table"
+                                                <table id="mail_table" class="mdl-data-table member_table"
                                                         style="width:100%">
                                                     <thead>
                                                         <tr>
@@ -411,7 +376,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                                 <td>${i.type }</td>
                                                                 <td>${i.don_rdate}</td>
                                                                 <td>${i.don_price}</td>
-                                                                <td>${i.don_mid}</td>
+                                                                <td>${i.don_oid}</td>
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -425,45 +390,17 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                         <div class="card">
                                             <div class="header">
                                                 <h2>자주 보는 게임 카테고리</h2>
-                                                <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
                                             </div>
                                             <div class="body">
-                                                <canvas id="category_chart" height="170"></canvas>
+                                                <canvas id="category_chart" height="150"></canvas>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <div class="card">
                                             <div class="header">
-                                                <h2>방송 시청 시간</h2><span>총 시청 시간:${tot_time}시간</span>
+                                                <h2>방송 시청 시간<small class="total_buy">총 시청 시간:${tot_time}시간</small></h2>
                                                 <ul class="header-dropdown m-r--5">
-                                                    <li class="dropdown">
-                                                        <a href="javascript:void(0);" class="dropdown-toggle"
-                                                            data-toggle="dropdown" role="button" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="material-icons">more_vert</i>
-                                                        </a>
-                                                        <ul class="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="body">
@@ -520,7 +457,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="body">
                                                 <div class="bs-example" data-example-id="media-alignment">
                                                     <c:forEach var="i" items="${store_buylist}">
-                                                        <div class="media">
+                                                        <div class="media" onclick="order_detail('${i.order_serial}')">
                                                             <div class="media-left media-middle">
                                                                 <a href="javascript:void(0);">
                                                                     <img class="media-object member_shop_list"
@@ -699,8 +636,27 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 }]
             },
             options: {
-                responsive: true,
-                legend: false
+            	responsive: true,
+    			legend:false,
+    			scales: {
+    				yAxes: [{
+    					ticks: {
+    						beginAtZero: true,
+    						fontColor : "#9a9a9a",
+    					},
+    					gridLines:{
+    						/*color: '#eee'*/
+    					}
+    				}],
+    				xAxes: [{
+    					ticks:{
+    						fontColor : '#9a9a9a'
+    					},
+    					gridLines:{
+    						/*color: "#eee"*/
+    					}
+    				}]
+    			}
             }
         });
         
@@ -731,23 +687,42 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
             },
             options: {
                 responsive: true,
-                legend: false
+                legend:false,
+    			scales: {
+    				yAxes: [{
+    					ticks: {
+    						beginAtZero: true,
+    						fontColor : "#9a9a9a",
+    					},
+    					gridLines:{
+    						/*color: '#eee'*/
+    					}
+    				}],
+    				xAxes: [{
+    					ticks:{
+    						fontColor : '#9a9a9a'
+    					},
+    					gridLines:{
+    						/*color: "#eee"*/
+    					}
+    				}]
+    			}
             }
         });
         
         <c:forEach items="${last_pay}" var="i" varStatus="j">
-     	 chart2.data.datasets[0].data[${j.index}] =${i}
+     	 chart2.data.datasets[0].data[${i.month}-1] =${i.pay_money}
       	</c:forEach>
       	
       	chart2.update();
        
 
         var ctx3 = document.getElementById('category_chart').getContext('2d');
-        var myPieChart = new Chart(ctx3, {
+        var myPieChart2 = new Chart(ctx3, {
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [10, 20, 60, 10],
+                    data: [100],
                     backgroundColor: [
                         "rgb(233, 30, 99)",
                         "rgb(255, 193, 7)",
@@ -756,24 +731,33 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     ],
                 }],
                 labels: [
-                    "Pink",
-                    "Amber",
-                    "Cyan",
-                    "Light Green"
+                	"null"
                 ]
             },
             options: {
-                responsive: true,
+            	responsive: true,
+    			legend: {
+    				labels: {
+    					fontColor: "#9a9a9a",
+    				}
+    			}
 
             }
 
         });
+        
+        <c:forEach items="${ulc}" var="i" varStatus="j">
+        myPieChart2.data.datasets[0].data[${j.index}] =${i.cnt}
+        myPieChart2.data.labels[${j.index}] ='${i.gamename}'
+        </c:forEach>
+        myPieChart2.update();
+        
         var ctx4 = document.getElementById('shop_cate_chart').getContext('2d');
         var myPieChart = new Chart(ctx4, {
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [0],
+                    data: [100],
                     backgroundColor: [
                         "rgb(233, 30, 99)",
                         "rgb(255, 193, 7)",
@@ -782,11 +766,16 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                     ],
                 }],
                 labels: [
-              
+              		"null"
                 ]
             },
             options: {
                 responsive: true,
+                legend: {
+    				labels: {
+    					fontColor: "#9a9a9a",
+    				}
+    			}
 
             }
 
@@ -800,7 +789,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
         
         var member_modify =  function(){
         	$('#modify_btn').click=function(){
-        		console.log('test');
         		let param = $('#he_form').serialize();
         		$.post("member_modify.he",param,function(data,state){
         			$('#main_body').html(data);

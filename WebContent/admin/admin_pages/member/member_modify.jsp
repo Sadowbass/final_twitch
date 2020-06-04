@@ -112,17 +112,17 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                           		  아이디
                                                         </span>
                                                         <div class="form-line">
-                                                            <input class="form-control" type="text" value="${vo.mem_id }" name="member_id">
+                                                            <input class="form-control" type="text" value="${vo.mem_id }" name="member_id" >
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                           		 구분
                                                         </span>
                                                         <div class="form-line">
@@ -139,7 +139,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	이름
                                                         </span>
                                                         <div class="form-line">
@@ -149,7 +149,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 </div>
                                                  <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	현재상태
                                                         </span>
                                                         <div class="form-line">
@@ -167,7 +167,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	이메일	
                                                         </span>
                                                         <div class="form-line">
@@ -178,7 +178,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 </div>
                                                 <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             		보유잔액
                                                         </span>
                                                         <div class="form-line">
@@ -192,7 +192,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                             <div class="row clearfix">
                                                  <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	등록일	
                                                         </span>
                                                         <div class="form-line">
@@ -203,7 +203,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 </div>
                                                  <div class="col-md-6 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	생일	
                                                         </span>
                                                         <div class="form-line">
@@ -217,7 +217,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                              <div class="row clearfix">
                                                 <div class="col-md-3 col-sm-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	우편번호
                                                         </span>
                                                         <div class="form-line">
@@ -227,7 +227,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                 </div>
                                                  <div class="col-md-3 col-sm-6 col-xs-12">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">
+                                                        <span class="input-group-addon iga">
                                                             	집주소 
                                                         </span>
                                                         <div class="form-line">
@@ -251,7 +251,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                                                         <i class="material-icons">build</i>
                                                         <span>수정 저장</span>
                                                     </button>
-                                                    <button type="button" class="btn waves-effect">
+                                                    <button type="button" class="btn waves-effect" onclick="backSelect()">
                                                     <i class="material-icons">cached</i>
                                                         <span>취소</span>
                                                     </button>
@@ -323,7 +323,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
     <script src="js/member.js"></script>
     <script>
-    	modify_result();
+    	/*modify_result();*/
     </script>
 
 

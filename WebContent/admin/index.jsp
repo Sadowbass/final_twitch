@@ -91,7 +91,6 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 
 <%
 	String admin_id = null;
-	System.out.println(session.getAttribute("admin_id"));
 	if(session.getAttribute("admin_id")==null){
 %>
 		<script>location.href="/index.jsp"</script>
@@ -99,7 +98,14 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 	}else{
 		admin_id = (String)session.getAttribute("admin_id");
 	}
+	
+	//if(session.getAttribute("start") == null) {
+%>
+	 <!--   <script>location.href="home.he"</script> -->
+<% 
+	//}
 
+	
 %>	
 <%
 	String inc ="home.jsp"; 
@@ -179,7 +185,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                 <ul class="list">
 
                     <li class="active">
-                        <a href="index.jsp">
+                        <a href="home.he">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
@@ -731,13 +737,11 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
 </body>
 <script src="js/index.js"></script>
 <script>
+
  var logout_modal = function(){
 	 $('#admin_logout_btn').trigger('click');
  }
  
- function logout(){
-	 location.href="logout.jsp";
- }
 
 </script>
 </html>
