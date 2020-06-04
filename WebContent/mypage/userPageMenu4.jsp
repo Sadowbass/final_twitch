@@ -20,10 +20,12 @@
 
 			<c:forEach var='i' items='${list }' varStatus="status">
 	            <tr>
-	                <td>${status.count}</td>
-	                <td>${i.pay_mid }</td>
-	                <td>${i.pay_money }</td>
-	                <td>${i.pay_date }</td>     
+	                <td><font style='font-weight: bold'>${status.count}</font></td>
+	                <td><c:if test="${empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px" src="../img/user-photo/guest-icon.png" id="memberPhoto"></c:if>
+	                <c:if test = "${not empty i.ph_sysfile }"><img class='img-fluid imgTak' style="width: 40px" src="../img/user-photo/${i.ph_sysfile }" id="memberPhoto"></c:if>
+	                <font style="font-weight: bold">&nbsp;&nbsp;${i.pay_mid}</font></td>
+	                <td><font style='font-weight: bold'>${i.pay_money }</font></td>
+	                <td><font style='font-weight: bold'>${i.pay_date }</font></td>     
 	            </tr>
 			</c:forEach>
         </tbody>

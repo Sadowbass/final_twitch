@@ -7,13 +7,13 @@
 		select * from final_member m, final_photo p where m.mem_id = p.ph_id(+) and m.mem_id = #{_parameter}
 	</select>	
 	<select id='paymentInit' resultType="bean.PaymentVo" parameterType="String">
-		select * from final_payment where pay_mId = #{_parameter}
+		select * from final_payment pay, final_photo p where pay.pay_mid = p.ph_id(+) and pay.pay_mId = #{_parameter}
 	</select>	
 	<select id='donationInit' resultType="bean.BroadCastingDonationVo" parameterType="String">
-		select * from final_donation where don_mid = #{_parameter}
+		select * from final_donation d,final_photo p where d.don_oid = p.ph_id(+) and  d.don_mid = #{_parameter}
 	</select>	
 	<select id='donation2Init' resultType="bean.BroadCastingDonationVo" parameterType="String">
-		select * from final_donation where don_oid = #{_parameter}
+		select * from final_donation d,final_photo p where d.don_mid = p.ph_id(+) and  d.don_oid = #{_parameter}
 	</select>	
 	<update id='insertCoin' parameterType='hashMap'>
 	UPDATE final_member
@@ -59,4 +59,26 @@
 	WHERE
 	mem_id = #{mId}
 	</update>
+	<delete id='followDelete' parameterType='hashMap'>
+	delete from final_mfollow where mfo_mid = #{mId} and mfo_oid = #{oId}
+	</delete>
+	<select id='selectfriends' resultType="bean.friendVo" parameterType="String">
+		select rownum rno, ab.* from (select * from final_friend f left outer join FINAL_PHOTO p on f.fr_oid = p.PH_ID where f.fr_MID = #{_parameter} and fr_status = 1 ) ab where rownum between 1 and 12
+	</select>	
+	    <select id="selectfriendsPaging" parameterType="hashmap" resultType="bean.friendVo">
+    	select *
+		from (select rownum rno, ab.*
+      		from (select *
+        		    from final_friend ff
+          		           left outer join FINAL_PHOTO fp on ff.fr_OID = fp.PH_ID
+         		   where ff.fr_MID = #{mId} and fr_status = 1) ab
+     		 )
+		where rno between #{rno} + 1 and #{rno} + 12
+    </select>
+    <delete id='friendDelete' parameterType='hashMap'>
+	delete from final_friend where fr_mid = #{mId} and fr_oid = #{oId}
+	</delete>
+	<delete id='friendDelete2' parameterType='hashMap'>
+	delete from final_friend where fr_mid = #{oId} and fr_oid = #{mId}
+	</delete>
 </mapper>

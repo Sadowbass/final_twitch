@@ -28,9 +28,11 @@ import bean.MyPagePhotoUpload;
 import bean.MyPageTakDao;
 import bean.PaymentVo;
 import bean.RouletteVo;
+import bean.SCDao;
 import bean.StreamerVo;
 import bean.UserInfoVo;
 import bean.VideoTimeCut;
+import bean.friendVo;
 import bean.timeCal;
 
 @Controller
@@ -521,6 +523,62 @@ public class BroadCastingController {
 	      return result;
 
 	   }
+   	   
+   	   
+   	   @RequestMapping(value = "/followDelete.bc", method = { RequestMethod.GET,
+  	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+  	   @ResponseBody
+  	   public String followDelete(HttpServletRequest req, HttpServletResponse resp) {
+  	      String result = "";
+  	      String mId = req.getParameter("mId");
+  	      String oId = req.getParameter("oId");
+  	      
+  	      MyPageTakDao dao = new MyPageTakDao();
+  	      
+  	      result = dao.followDelete(mId,oId);
+
+  	      return result;
+
+  	   }
+   	   
+   	   @RequestMapping(value = "/friendDelete.bc", method = { RequestMethod.GET,
+    	         RequestMethod.POST }, produces = "application/text; charset=utf8")
+    	   @ResponseBody
+    	   public String friendDelete(HttpServletRequest req, HttpServletResponse resp) {
+    	      String result = "";
+    	      String mId = req.getParameter("mId");
+    	      String oId = req.getParameter("oId");
+    	      
+    	      MyPageTakDao dao = new MyPageTakDao();
+    	      
+    	      result = dao.friendDelete(mId,oId);
+
+    	      return result;
+
+    	   }
+   	   
+   	   @RequestMapping(value = "/selectFriends.bc", method = { RequestMethod.GET,
+    	         RequestMethod.POST }, produces = "application/json; charset=utf8")
+    	   @ResponseBody
+    	   public String selectFriends(HttpServletRequest req, HttpServletResponse resp) {
+           Gson gson = new Gson();
+           List<friendVo> list = new ArrayList<friendVo>();
+           MyPageTakDao dao = new MyPageTakDao();
+           String mId = req.getParameter("mId");
+           int rno = 0;
+           if (req.getParameter("rno")!=null) {
+               rno = Integer.parseInt(req.getParameter("rno"));
+           }
+
+           if(req.getParameter("rno") == null){
+               list = dao.selectFriends(mId);
+           } else {
+               list = dao.selectFriends(mId, rno);
+           }
+
+           return gson.toJson(list);
+
+    	   }
    	   
    	   
    	   @RequestMapping(value = "/pwdCheck.bc", method = { RequestMethod.GET,

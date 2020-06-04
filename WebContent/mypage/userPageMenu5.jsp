@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<input type='hidden' id='followMid' value='<%=session.getAttribute("session_id") %>'/>
-        <div class="row row-item">
+        <div class="row row-item2">
 
         </div>

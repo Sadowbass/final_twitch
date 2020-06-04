@@ -6,14 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+.imgTak {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 50px;
+  box-shadow: 0 0 2px #ccc;
+  margin: 1px 0 8px;
+  object-fit: scale-down;
+  transform: scale(1);
+}
 .nav-item {
 	font-size: 15px; 
 }
 
 .jumbotron {
-	background-color: rgb(232, 86, 133);
 	text-shadow: black 0.2em 0.2em 0.2em;
 	color: white;
+	background-color: rgb(232, 86, 133);
+	
 }
 
 .toast-center-center {
@@ -63,7 +72,6 @@ transform: translate(-50%,-50%);
 .ui.pagination.menu .item{
 	color:rgb(232, 86, 133);
 }
-
 </style>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -76,29 +84,31 @@ transform: translate(-50%,-50%);
 	src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
 </head>
 <body>
-	<div class='container-fluid' id='userPage' style='margin-top: 5%'>
+	<div class='container-fluid' id='userPage'style='margin-top: 4%'>
 		<div class="jumbotron">
 			<h1 class="text-center" style='color: white'>Twitch</h1>
 			<p class="text-center">자신만의 방송채널을 가져보세요!</p>
 			<p class="text-center">
-				<a class="btn btn-primary btn-lg" href="#" role="button" style='border: 1px solid white !important'>방송 하러가기</a>
+				<a class="btn btn-primary btn-lg" href="/broadCasting/index.jsp" role="button" style='border: 1px solid white !important'>방송 하러가기</a>
 			</p>
 		</div>
 		<input type='hidden' id='userId' value='<%=session.getAttribute("session_id")%>'>
-
+		<input type='hidden' id='scrollFlag' value=''/>
 
 		<div class='row'>
 			<ul class="nav nav-tabs" style='border: 0 !important'>
 				<li class="nav-item"><a class="nav-link active"
-					data-toggle="tab" href="#progfill">프로필</a></li>
+					data-toggle="tab" href="#progfill" style='font-weight: bold'>프로필</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#donationList">보낸 후원 목록</a></li>
+					href="#donationList" style='font-weight: bold'>보낸 후원 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#donationList2">받은 후원 목록</a></li>
+					href="#donationList2" style='font-weight: bold'>받은 후원 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#coinList">결제 목록</a></li>
+					href="#coinList" style='font-weight: bold'>결제 목록</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#followList">팔로우 목록</a></li>
+					href="#followList"style='font-weight: bold' onclick="$('#scrollFlag').val('1')">팔로우 목록</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab"
+					href="#friendList"style='font-weight: bold' onclick="$('#scrollFlag').val('2')">친구 목록</a></li>
 			</ul>
 		</div>
 		<div class='tab-content'>
@@ -119,6 +129,9 @@ transform: translate(-50%,-50%);
 			<div id='followList' class='tab-pane'>
 				<jsp:include page="./follower.jsp" />
 			</div>
+			<div id='friendList' class='tab-pane'>
+				<jsp:include page="./userPageMenu5.jsp" />
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/logout-modal.jsp"></jsp:include>
@@ -130,6 +143,7 @@ transform: translate(-50%,-50%);
 	donationInit();
 	donation2Init();
 	followers();
+	friends();
 	</script>
 </body>
 </html>

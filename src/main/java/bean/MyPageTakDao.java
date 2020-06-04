@@ -3,6 +3,7 @@ package bean;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -217,6 +218,66 @@ public class MyPageTakDao {
 	}
 	
 	
+	public String followDelete(String mId, String oId) {
+		String result = "실패";
+		int flag = 0;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("oId", oId);
+		
+		
+		try {
+			flag = sqlSession.delete("myPageTak.followDelete",map);
+			if(flag<1) {
+				throw new Exception("삭제 에러");
+			}
+		}catch (Exception e) {
+			sqlSession.rollback();
+			sqlSession.close();
+		}finally {
+			if(flag>0) {
+				result = "성공";
+				sqlSession.commit();
+				sqlSession.close();
+				
+			}
+			return result;
+		}
+		
+
+		
+	}
+	
+	
+	public List<friendVo> selectFriends(String mId){
+		List<friendVo> list = null;
+		try {
+			list = sqlSession.selectList("myPageTak.selectfriends",mId);
+		}catch (Exception e) {
+			sqlSession.close();
+		}finally {
+			sqlSession.close();
+			return list;
+		}
+		
+	}
+	
+	public List<friendVo> selectFriends(String mId,int rno){
+		List<friendVo> list = null;
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("mId", mId);
+		map.put("rno", rno);
+		try {
+			list = sqlSession.selectList("myPageTak.selectfriendsPaging",map);
+		}catch (Exception e) {
+			sqlSession.close();
+		}finally {
+			sqlSession.close();
+			return list;
+		}
+	}
+	
 	
 	public String insertCoin(String mId, int money) {
 		int result = 0;
@@ -252,5 +313,38 @@ public class MyPageTakDao {
 			return msg;
 
 		}
+	}
+
+
+	public String friendDelete(String mId, String oId) {
+		String result = "실패";
+		int flag = 0;
+		int flag2 = 0;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("oId", oId);
+			
+		try {
+			flag = sqlSession.delete("myPageTak.friendDelete",map);
+			if(flag<1) {
+				throw new Exception("친구삭제 에러");	
+			}else {
+			flag2 = sqlSession.delete("myPageTak.friendDelete2",map);
+			if(flag2<1) {
+				throw new Exception("친구삭제 에러");	
+			}
+			}
+		}catch (Exception e) {
+			sqlSession.rollback();
+		}finally {
+			if(flag>0 && flag2>0) {
+			result = "성공";
+			sqlSession.commit();
+			}
+			sqlSession.close();
+			return result;
+		}
+		
+		
 	}
 }

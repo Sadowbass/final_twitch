@@ -4,6 +4,7 @@ public class PaymentVo {
 	String pay_mid;
 	String pay_money;
 	String pay_date;
+	String ph_sysfile;
 	
 	public PaymentVo() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +32,14 @@ public class PaymentVo {
 
 	public void setPay_date(String pay_date) {
 		this.pay_date = pay_date;
+	}
+
+	public String getPh_sysfile() {
+		return ph_sysfile;
+	}
+
+	public void setPh_sysfile(String ph_sysfile) {
+		this.ph_sysfile = ph_sysfile;
 	}
 	
 	
