@@ -611,15 +611,15 @@ uk.connectAllWS = function (login) {
 
 					/*귓속말 폼*/
 					$('<div class="whisper" whisperTarget="' + whisper[0] + '">' +
-						'<div class="whisper_top">' +
-						'<div class="whisperOid">' + whisper[0] + '</div>' +
-						'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
-						'<div class="whisper_close" onclick=uk.whisperClose("'+whisper[0]+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
+							'<div class="whisper_top">' +
+							'<div class="whisperOid">' + whisper[0] + '</div>' +
+							'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
+							'<div class="whisper_close" onclick=uk.whisperClose("'+whisper[0]+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
 						'</div>' +
 						'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
 						'<div class="whisper_bottom">' +
-						'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
-						'<div class="whisper_btn" onclick=uk.whisperSend("' + whisper[0] + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
+							'<div class="whisper_sendArea invisible-scrollbar" whisperSendArea="'+whisper[0]+'" contenteditable="true"></div>' +
+							'<div class="whisper_btn" onclick=uk.whisperSend("' + whisper[0] + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
 						'</div>' +
 						'</div>').appendTo(".whisperArea");
 					/*css*/
@@ -736,7 +736,7 @@ uk.whisper = function (whisperTarget) {
 			'</div>' +
 			'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
 			'<div class="whisper_bottom">' +
-				'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
+				'<div class="whisper_sendArea invisible-scrollbar" whisperSendArea="'+whisperTarget+'" contenteditable="true"></div>' +
 				'<div class="whisper_btn" onclick=uk.whisperSend("' + whisperTarget + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
 			'</div>' +
 			'</div>').appendTo(".whisperArea");
@@ -756,8 +756,8 @@ uk.whisper = function (whisperTarget) {
 
 /* socket 전송 메소드 (3)귓속말 -> whisperSend*/
 uk.whisperSend = function (whisperTarget) {
-	let whisperTxt = $("div[contenteditable].whisper_sendArea").html();
-	$("div[contenteditable].whisper_sendArea").empty();
+	let whisperTxt = $("div[whisperSendArea='"+whisperTarget+"'].whisper_sendArea").html();
+	$("div[whisperSendArea='"+whisperTarget+"'].whisper_sendArea").empty();
 
 	/*socket에 id전달*/
 	let str = { whisper: [whisperTarget, whisperTxt] }
