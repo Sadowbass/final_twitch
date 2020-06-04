@@ -588,7 +588,27 @@ uk.connectAllWS = function (login) {
 					}
 					/*스크롤 내리기*/
 					$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
-				}else{/*폼 없으면 폼 만들고 메세지 붙여주기 */
+				}else{/*지난 대화 불러오고, 폼 만들고 메세지 붙여주기 */
+
+					/*지난 대화 객체*/
+					let param={
+						writer : whisper[0],
+						reader : whisper[1]
+					}
+
+					/*지난 대화 */
+					$.getJSON("whisperSel.uk", param, function(data){
+						$.each(data, function(index, item){
+							if(item[loginAllWS]){
+								$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ item[loginAllWS] + "</div>").appendTo(".whisper_mid");
+								$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+							}else if(item[whisper[0]]){
+								$("<div style='height: 18px; padding-left: 5px;'>" + item[whisper[0]] + "</div>").appendTo(".whisper_mid");
+								$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+							}
+						})
+					});
+
 					/*귓속말 폼*/
 					$('<div class="whisper" whisperTarget="' + whisper[0] + '">' +
 						'<div class="whisper_top">' +
@@ -687,24 +707,24 @@ uk.plus = function (plusOid) {
 /*귓속말 대화메세지 화면(귓속말 보냄)*/
 uk.whisper = function (whisperTarget) {
 
-//	/*지난 대화 객체*/
-//	let param={
-//		writer : loginAllWS,
-//		reader : whisperTarget
-//	}
-//
-//	/*지난 대화*/
-//	$.getJSON("whisperSel.uk", param, function(data){
-//		$.each(data, function(index, item){
-//			if(item[loginAllWS]){
-//				$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ item[loginAllWS] + "</div>").appendTo(".whisper_mid");
-//				$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
-//			}else if(item[whisperTarget]){
-//				$("<div style='height: 18px; padding-left: 5px;'>" + item[whisperTarget] + "</div>").appendTo(".whisper_mid");
-//				$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
-//			}
-//		})
-//	});
+	/*지난 대화 객체*/
+	let param={
+		writer : loginAllWS,
+		reader : whisperTarget
+	}
+
+	/*지난 대화*/
+	$.getJSON("whisperSel.uk", param, function(data){
+		$.each(data, function(index, item){
+			if(item[loginAllWS]){
+				$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ item[loginAllWS] + "</div>").appendTo(".whisper_mid");
+				$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+			}else if(item[whisperTarget]){
+				$("<div style='height: 18px; padding-left: 5px;'>" + item[whisperTarget] + "</div>").appendTo(".whisper_mid");
+				$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+			}
+		})
+	});
 
 	/*귓속말 폼*/
 	if ($("div[whisperTarget='" + whisperTarget + "']").length==0) {
