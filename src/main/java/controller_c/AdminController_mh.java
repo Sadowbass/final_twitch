@@ -246,6 +246,8 @@ public class AdminController_mh {
 		System.out.println("★★★mem_id : " + orderSelect_mem_id);
 		System.out.println("★★★serial : " + orderSelect_orderSerial);
 		List<MH_orderListVo> list = dao.orderDetail(vo);
+		
+		System.out.println("★★★list.get(0).getProduct_size() : " + list.get(0).getProduct_size());
 
 		model.addAttribute("list", list);
 		model.addAttribute("p", p);
