@@ -6,8 +6,7 @@ let streamerId;
 let loginId;
 let loginAllWS;
 let ignoredFromStreamer=true; /*스트리머가 채금 먹이면 false*/
-let ignoredFromUser;
-
+let ignoringList;
 
 /*그냥 로그인시*/
 let allWs;
@@ -121,24 +120,22 @@ uk.connectWS = function (streamer, login) {
 		/*스트리머 아이디 왕관 붙여서 맨위에 붙이기*/
 		$('<div style="display:flex;"><i class="fas fa-crown" style="color: #FFA833; padding-top:3px; padding-right:5px;"></i><div class=' + streamerId + '>'+streamerId+'</div></div>').appendTo('#userList');
 
-		/*나를 채팅 금지한 사람 목록*/
+		/*채팅 금지 알아보기 위한 파라미터*/
 		let param={
 			mid : loginId,
 		}
 
-		$.getJSON("/ignoreSel.uk", param, function(data){
+		/*스트리머가 나를 채금*/
+		$.getJSON("/ignoredSel.uk", param, function(data){
 			$.each(data, function(index, item){
-				if(item.ign_global==1){/*스트리머가 채금*/
-					if(item.ign_mid==streamerId){
-						ignoredFromStreamer=false;
-					}
-				}else{/*시청자가 채금*/
-
+				if(item.ign_mid==streamerId){
+					ignoredFromStreamer=false;
 				}
-
-
 			});
 		});
+
+		/*내가 채팅 금지한 사람 목록 조회*/
+		uk.ignoringSel();
 
 	}
 	ws.onclose = function (event) {
@@ -177,23 +174,49 @@ uk.connectWS = function (streamer, login) {
 		if (jsObj.delUser) {
 			$('div[class=' + jsObj.delUser + ']').remove();
 		}
+		/*시청자가 채팅 금지한 시청자 목록 받음*/
+		if(jsObj.ignoringSel){
+			ignoringList=JSON.parse(jsObj.ignoringSel)
+		}
 		/* 채팅! chtArea에 붙이기 */
 		if (jsObj.txt && $('#chtArea').length && ignoredFromStreamer) {
 			let txt=JSON.parse(jsObj.txt);
+			if(ignoringList.length){
+				$.each(ignoringList,function(index,item){
+					if(item!=txt[0]){
+						$('<div class="dropdown">'+
+								'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+								txt[0]+'&nbsp&nbsp'+
+								'</a>'+
+								txt[1]+
+								'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+								'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+								'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
+								'<a class="dropdown-item" href="#" onclick=uk.ignoreIn("'+loginId+'","'+txt[0]+'","'+global+'")>채팅 금지</a>'+
+								'</div>'+
+						'</div>').appendTo('#chtArea');
 
-			$('<div class="dropdown">'+
-					'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-					txt[0]+'&nbsp&nbsp'+
-					'</a>'+
-					txt[1]+
-					'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
-					'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
-					'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
-					'<a class="dropdown-item" href="#" onclick=uk.ignoreIn("'+loginId+'","'+txt[0]+'","'+global+'")>채팅 금지</a>'+
-					'</div>'+
-			'</div>').appendTo('#chtArea');
+						$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+					}
+				});
+			}else{
+				$('<div class="dropdown">'+
+						'<a class="dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+						txt[0]+'&nbsp&nbsp'+
+						'</a>'+
+						txt[1]+
+						'<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">'+
+						'<a class="dropdown-item" href="#" onclick=uk.plus("'+txt[0]+'")>친구 추가</a>'+
+						'<a class="dropdown-item" href="#" onclick=uk.whisper("'+txt[0]+'")>귓속말</a>'+
+						'<a class="dropdown-item" href="#" onclick=uk.ignoreIn("'+loginId+'","'+txt[0]+'","'+global+'")>채팅 금지</a>'+
+						'</div>'+
+				'</div>').appendTo('#chtArea');
 
-			$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+				$('#chtArea').scrollTop($('#chtArea').prop('scrollHeight'));
+			}
+
+
+
 		}
 		/*스트리머 방종 메세지*/
 		if (jsObj.offAir) {
@@ -252,6 +275,7 @@ uk.connectWS = function (streamer, login) {
 				confirmButtonText: "확인",
 			});
 		}
+
 	}
 	/* 엔터키 누르면 전송 내꺼 */
 	$('div[contenteditable].cht_send_uk ').keydown(function (e) {
@@ -348,6 +372,14 @@ uk.rightValue = function () {
 		}
 	}
 	$(".video_main_uk").css('padding-right', right + 'px');
+	/*귓속말 css*/
+	if(right==0){ /*안보이게*/
+		$(".whisper").css('display','none');
+	}else{ /*채팅창 넓이에 맞춤*/
+		$(".whisper").css('display','block');
+		uk.whisperCss(right, $(".chtArea ").height())
+	}
+
 }
 
 /*채팅 과 비디오*/
@@ -531,66 +563,132 @@ uk.connectAllWS = function (login) {
 		if (jsObj.whisper) {
 			let whisper = JSON.parse(jsObj.whisper);
 
-			/*귓속말 전송한 사람이 받는 메세지*/
-			if ($("div[whisperTarget='" + loginAllWS + "']").length) {
-				if(whisper[0]==loginAllWS){
-					$("<div style='height: 18px; padding-left: 5px;'>" + whisper[1] + "</div>").appendTo(".whisper_mid");
+			/*보낸사람*/
+			if(loginAllWS==whisper[0] && $("div[whisperTarget='"+whisper[1]+"']").length!=0){
+
+				if(loginAllWS==whisper[0]){/* 귓속말 보낸이가 보낸 메세지 */
+					$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid");
+				}else{/*귓속말 보낸이가 받는 메세지*/
+					$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
+				}
+				/*스크롤 내리기*/
+				$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+
+			}
+
+			/*받는사람*/
+			if(loginAllWS==whisper[1]){
+
+
+				if($("div[whisperTarget='"+whisper[0]+"']").length!=0){ /*폼 있으면 메세지만 붙여주고*/
+					if(loginAllWS==whisper[0]){/* 귓속말 받는이가 보낸 메세지*/
+						$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid");
+					}else{/*귓속말 받는이가 받는 메세지*/
+						$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
+					}
+					/*스크롤 내리기*/
+					$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+				}else{/*지난 대화 불러오고, 폼 만들고 메세지 붙여주기 */
+
+					/*지난 대화 객체*/
+					let param={
+						writer : whisper[0],
+						reader : whisper[1]
+					}
+
+					/*지난 대화 */
+					$.getJSON("whisperSel.uk", param, function(data){
+						$.each(data, function(index, item){
+							if(item[loginAllWS]){
+								$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ item[loginAllWS] + "</div>").appendTo(".whisper_mid");
+								$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+							}else if(item[whisper[0]]){
+								$("<div style='height: 18px; padding-left: 5px;'>" + item[whisper[0]] + "</div>").appendTo(".whisper_mid");
+								$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+							}
+						})
+					});
+
+					/*귓속말 폼*/
+					$('<div class="whisper" whisperTarget="' + whisper[0] + '">' +
+						'<div class="whisper_top">' +
+						'<div class="whisperOid">' + whisper[0] + '</div>' +
+						'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
+						'<div class="whisper_close" onclick=uk.whisperClose("'+whisper[0]+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
+						'</div>' +
+						'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
+						'<div class="whisper_bottom">' +
+						'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
+						'<div class="whisper_btn" onclick=uk.whisperSend("' + whisper[0] + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
+						'</div>' +
+						'</div>').appendTo(".whisperArea");
+					/*css*/
+					uk.whisperCss( $("#cht_div").width(), $(".chtArea ").height());
+					/*스크롤 내리기*/
+					$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+					/*받은 메세지*/
+					$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
+
+					/* 엔터키 누르면 귓속말 전송 */
+					$("div[contenteditable].whisper_sendArea").keydown(function (e) {
+						if (e.keyCode === 13) {
+							if (!e.shiftKey) {
+								uk.whisperSend(whisper[0]);
+								return false;
+							}
+						}
+					});
 				}
 
 			}
 
 
-			/*지난 대화 객체*/
-			let param={
-				writer : whisper[0],
-				reader : loginAllWS
+//			/*귓속말 받는 메세지*/
+//			if ($("div[whisperTarget='" + whisper[1] + "']").length) {
+//				if(whisper[0]==loginAllWS){
+//					$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
+//				}else{
+//					$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid");
+//				}
+//			}
+
+
+//			/*지난 대화 객체*/
+//			let param={
+//				writer : whisper[0],
+//				reader : whisper[1]
+//			}
+//
+//			/*지난 대화 */
+//			$.getJSON("whisperSel.uk", param, function(data){
+//				$.each(data, function(index, item){
+//					if(item[loginAllWS]){
+//						$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ item[loginAllWS] + "</div>").appendTo(".whisper_mid");
+//						$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+//					}else if(item[whisper[0]]){
+//						$("<div style='height: 18px; padding-left: 5px;'>" + item[whisper[0]] + "</div>").appendTo(".whisper_mid");
+//						$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+//					}
+//				})
+//			});
+
+
+			if(whisper[1]==loginAllWS){ /*상대가 로그인해 있으면*/
+				if($("div[whisperTarget='"+whisper[0]+"']").length==0){
+
+				}
 			}
 
-			/*지난 대화 */
-			$.getJSON("whisperSel.uk", param, function(data){
-				$.each(data, function(index, item){
-					if(item[loginAllWS]){
-						$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ item[loginAllWS] + "</div>").appendTo(".whisper_mid");
-						$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
-					}else if(item[whisper[0]]){
-						$("<div style='height: 18px; padding-left: 5px;'>" + item[whisper[0]] + "</div>").appendTo(".whisper_mid");
-						$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
-					}
-				})
-			});
 
 
 			if ($("div[whisperTarget='" + whisper[0] + "']").length) {
-				$("<div style='height: 18px; padding-left: 5px;'>" + whisper[1] + "</div>").appendTo(".whisper_mid");
-			} else {
-				/*귓속말 폼 */
-				$('<div class="whisper" whisperTarget="' + whisper[0] + '">' +
-					'<div class="whisper_top">' +
-					'<div class="whisperOid">' + whisper[0] + '</div>' +
-					'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
-					'<div class="whisper_close" onclick=uk.whisperClose("'+whisper[0]+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
-					'</div>' +
-					'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
-					'<div class="whisper_bottom">' +
-					'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
-					'<div class="whisper_btn" onclick=uk.whisperSend("' + whisper[0] + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
-					'</div>' +
-					'</div>').appendTo(".whisperArea");
-				uk.whisperCss( $("#cht_div").width(), $(".chtArea ").height());
-				$(function() {$(".whisper").draggable()});
+//				$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
 
-				/* 엔터키 누르면 귓속말 전송 */
-				$("div[contenteditable].whisper_sendArea").keydown(function (e) {
-					if (e.keyCode === 13) {
-						if (!e.shiftKey) {
-							uk.whisperSend(whisper[0]);
-							return false;
-						}
-					}
-				});
+			} else {
+
 
 				/*방금 받은 귓속말*/
-				$("<div style='height: 18px; padding-left: 5px;'>" + whisper[1] + "</div>").appendTo(".whisper_mid");
+//				$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
 			}
 		}
 	}
@@ -628,29 +726,27 @@ uk.whisper = function (whisperTarget) {
 		})
 	});
 
-	if ($("div[whisperTarget='" + whisperTarget + "']").length) {
-
-	} else { /*귓속말 폼*/
+	/*귓속말 폼*/
+	if ($("div[whisperTarget='" + whisperTarget + "']").length==0) {
 		$('<div class="whisper" whisperTarget="' + whisperTarget + '">' +
 			'<div class="whisper_top">' +
-			'<div class="whisperOid">' + whisperTarget + '</div>' +
-			'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
-			'<div class="whisper_close" onclick=uk.whisperClose("'+whisperTarget+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
+				'<div class="whisperOid">' + whisperTarget + '</div>' +
+				'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
+				'<div class="whisper_close" onclick=uk.whisperClose("'+whisperTarget+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
 			'</div>' +
 			'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
 			'<div class="whisper_bottom">' +
-			'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
-			'<div class="whisper_btn" onclick=uk.whisperSend("' + whisperTarget + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
+				'<div class="whisper_sendArea invisible-scrollbar" contenteditable="true"></div>' +
+				'<div class="whisper_btn" onclick=uk.whisperSend("' + whisperTarget + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
 			'</div>' +
 			'</div>').appendTo(".whisperArea");
 		uk.whisperCss( $("#cht_div").width(), $(".chtArea ").height());
-		$(function() {$(".whisper").draggable()});
 	}
 	/* 엔터키 누르면 귓속말 전송 */
 	$("div[contenteditable].whisper_sendArea").keydown(function (e) {
 		if (e.keyCode === 13) {
 			if (!e.shiftKey) {
-				uk.whisperSend(whisperTarget);
+				uk.whisperSend($(this).parents("div[class='whisper']").attr('whisperTarget'));
 				return false;
 			}
 		}
@@ -661,9 +757,8 @@ uk.whisper = function (whisperTarget) {
 /* socket 전송 메소드 (3)귓속말 -> whisperSend*/
 uk.whisperSend = function (whisperTarget) {
 	let whisperTxt = $("div[contenteditable].whisper_sendArea").html();
-	$("<div style='height: 18px; padding-right: 5px; text-align: right;'>" + whisperTxt + "</div>").appendTo(".whisper_mid");
-	$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
 	$("div[contenteditable].whisper_sendArea").empty();
+
 	/*socket에 id전달*/
 	let str = { whisper: [whisperTarget, whisperTxt] }
 	let jsonStr = JSON.stringify(str);
@@ -713,14 +808,41 @@ uk.ignoreIn=function(mid, oid, global){
 			ign_tid : oid,
 			ign_global : global
 	}
-	uk.ignoreFromStreamer(oid);
+	$.get("ignoreIn.uk", param, function(data){
+		Swal.fire({
+			icon: 'error',
+			title: '<font color="white">' + oid+ '님을 채팅을 금지하였습니다.</font>',
+			background: '#18181b',
+			timer: 2000,
+			confirmButtonText: "확인",
+		});
+
+		if(mid==streamerId){
+			uk.ignoreFromStreamer(oid);
+		}
+		if(mid==loginId){
+			uk.ignoringSel();
+		}
+
+	});
+
+
+
 }
 
 /*스트리머가 채팅 금지 신호*/
 uk.ignoreFromStreamer=function(oid){
-	console.log('스트리머가 채팅 금지 신호');
 	let str={
 		ignoreFromStreamer : oid
+	}
+	let jsonStr=JSON.stringify(str);
+	ws.send(jsonStr);
+}
+
+/*시청자가 채팅 금지목록 조회*/
+uk.ignoringSel=function(){
+	let str={
+		ignoringSel :loginId
 	}
 	let jsonStr=JSON.stringify(str);
 	ws.send(jsonStr);

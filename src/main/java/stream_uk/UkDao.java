@@ -96,9 +96,16 @@ SqlSession sqlSession;
 	      }
 	   return r;
    }
-   /*채팅 금지 조회*/
-   public List<Ignore> ignoreSel(String mid) {
-	   List<Ignore> list=sqlSession.selectList("mybatis_uk.ignoreSel", mid);
+   /*나를 채팅 금지한 스트리머 조회*/
+   public List<String> ignoredSel(String mid) {
+	   List<String> list=sqlSession.selectList("mybatis_uk.ignoredSel", mid);
+	   sqlSession.close();
+	   return list;
+   }
+
+   /*내가 채팅 금지한 사람 목록 조회*/
+   public List<String> ignoringSel(String mid) {
+	   List<String> list=sqlSession.selectList("mybatis_uk.ignoringSel", mid);
 	   sqlSession.close();
 	   return list;
    }
