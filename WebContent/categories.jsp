@@ -251,7 +251,7 @@
                     <div class="col-md-12">
                         <div class="main-title">
                         	<input type='hidden' id='findSave' value='${findChannel}'/>
-                            <h2 style="font-weight: bold;color:rgb(232, 86, 133);display: inline;margin-right: 2%">탐색</h2>
+                            <h2 style="font-weight: bold;display: inline;margin-right: 2%">탐색</h2>
                             <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 1%">
                                 <c:if test="${URI == 0}">
                                     <button type="button" class="btn btn-primary button-class1"

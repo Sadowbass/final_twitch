@@ -4,8 +4,8 @@
 <%@ page import="java.net.*"%>
 <%@ page import="java.util.*"%>
 <%!
-    String clientId = "UdSSA5my3ifrAdfbfw_e"; //애플리케이션 클라이언트 아이디값";
-   String clientSecret = "w4Q9L5UhGS"; //애플리케이션 클라이언트 시크릿값";
+    String clientId = "7pLM9jZ7npba6hTGc64q"; //애플리케이션 클라이언트 아이디값";
+   String clientSecret = "Xzh9wqJGz_"; //애플리케이션 클라이언트 시크릿값";
 
    public String captchaNkey() {
       String result = null;

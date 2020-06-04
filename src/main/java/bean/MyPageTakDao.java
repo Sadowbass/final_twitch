@@ -170,7 +170,7 @@ public class MyPageTakDao {
 			
 			if(vo.getPh_sysfile() != null) {
 			File file = new File(
-					"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/img/user-photo/" + vo.getPh_sysfile());
+					"D:/Java_Study/final_twitch/WebContent/img/user-photo/" + vo.getPh_sysfile());
 			if (file.exists()) {
 				if (file.delete()) {
 
@@ -189,7 +189,7 @@ public class MyPageTakDao {
 				if(vo.getFlag() == 1 && result3 == 0) {
 				
 				File file = new File(
-						"C:/Users/JHTA/eclipse-workspace/final_twitch/WebContent/img/user-photo/" + vo.getPh_delfile());
+						"D:/Java_Study/final_twitch/WebContent/img/user-photo/" + vo.getPh_delfile());
 				if (file.exists()) {
 					if (file.delete()) {
 

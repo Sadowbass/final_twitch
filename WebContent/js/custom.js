@@ -136,7 +136,7 @@ var pagemove = function(tg){
 	if(tg.id == "broadCasting/index"){
 		location.href="/broadCasting/index.jsp";
 	}else{
-		$('#content-wrapper').load(tg.id+".jsp");
+		$('#content-wrapper').load("/"+tg.id+".jsp");
 	}
 
 }
