@@ -38,6 +38,7 @@
     <script src="/js/custom.js"></script>
     <script src="/js/sc_custom.js"></script>
     <script src="/js/js_uk.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>

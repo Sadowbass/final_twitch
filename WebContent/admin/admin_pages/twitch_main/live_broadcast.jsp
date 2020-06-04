@@ -48,7 +48,7 @@ pageEncoding="UTF-8"%> <%request.setCharacterEncoding("utf-8"); %>
                       <img src="/uploads/notThumbnail.png" class="img-fluid">
                     </c:if>
                     <c:if test="${not empty i.air_thumbnail}">
-                      <img src="/uploads/${vo.ph_sysfile }" class="img-fluid">
+                      <img src="/uploads/${i.air_thumbnail }" class="img-fluid">
                    </c:if>
                     </a>
                     

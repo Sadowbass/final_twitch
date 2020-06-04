@@ -193,7 +193,7 @@
     </update>
     <!-- 현재 시청자수 -->
     <select id="streamingCnt" parameterType="String" resultType="int">
-    	select count(distinct ul.MID) from FINAL_USERLIST ul where ul.ENTER_TIME >= (select max(AIR_STARTTIME) from FINAL_ONAIR where AIR_MID = #{value}) and ul.STATUS = 1
+    	select count(distinct ul.MID) from FINAL_USERLIST ul where ul.ENTER_TIME >= (select max(AIR_STARTTIME) from FINAL_ONAIR where AIR_MID = #{value}) and ul.STATUS = 1 and ul.oid=#{value}
     </select>
     <!-- 총시청자수 -->
     <select id="streamingTotCnt" parameterType="String" resultType="int">

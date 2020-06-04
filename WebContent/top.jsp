@@ -100,12 +100,9 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 	<%if(session.getAttribute("admin_id")!=null) { %>
-
                 		<a class="dropdown-item" href="/admin/home.he" id="admin/index"><i class="fas fa-fw fa-user-circle"></i> &nbsp; 관리자페이지</a>
-
                 	<%}else{%>
-
-					<a class="dropdown-item" href="#" id="mypage/userPage" onclick="pagemove(this)"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My
+					<a class="dropdown-item" href="/mypage/userPage.jsp" id="mypage/userPage" ><i class="fas fa-fw fa-user-circle"></i> &nbsp; My
                     Account</a>
                     <a class="dropdown-item" href="#" id="broadCasting/index" onclick="pagemove(this)"><i
                             class="fas fa-fw fa-video"></i> &nbsp;
@@ -166,7 +163,7 @@
             <div class="modal-body">
                <%--  아이디<br/> #3 --%>
             
-             <%@include file="insertm.jsp" %> 
+             <%@include file="/insertm.jsp" %>
               <!--   아이디<br/>
                 <input type="text" class="form-control sign-in" name="id" id="sign-in-id-field"
                        style="width: 100%;"><br/><br/>
