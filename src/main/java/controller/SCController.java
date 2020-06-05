@@ -208,7 +208,7 @@ public class SCController {
             StreamingVo vo = dao.streamInfo(id);
             if (vo.getAir_mid() == null) {
                 /*방송중이 아니면 유저의 비디오페이지로 이동*/
-                String redirect = "http://192.168.0.77/"+id+"/video";
+                String redirect = "/"+id+"/video";
                 return new ModelAndView("redirect:"+redirect);
             } else {
                 /*방송중이면 방송페이지로 이동*/

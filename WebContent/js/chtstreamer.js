@@ -1,7 +1,7 @@
 let chtstreamer = {}
 
 chtstreamer.connectWS=function(mid){
-	ws = new WebSocket("ws://localhost/cht?"+mid);
+	ws = new WebSocket("ws://daum123.gonetis.com/cht?"+mid);
 
 	ws.onopen = function (event) {console.log("채팅 접속");}
 	ws.onclose = function (event) {console.log("접속 종료");}
