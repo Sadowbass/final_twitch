@@ -47,9 +47,9 @@ public class Handler extends TextWebSocketHandler {
 
 
 
-	public static Map<String, List<WebSocketSession>> getChatRoom() {
+/*	public static Map<String, List<WebSocketSession>> getChatRoom() {
 		return chatRoom;
-	}
+	}*/
 
 
 	public static void setChatRoom(Map<String, List<WebSocketSession>> chatRoom) {
