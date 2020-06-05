@@ -224,7 +224,7 @@
                   <c:forEach var="i" items="${map.list }">
                   
                   <input type ="hidden" value="${i.cart_id }" name = "cart_id" />
-                 <input type ="text" value="${i.product_id }" name = "product_id" />
+                 <input type ="hidden" value="${i.product_id }" name = "product_id" />
                  <input type ="hidden" value="${i.product_size }" name = "order_size" />
                   
                   <tr>
