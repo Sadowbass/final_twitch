@@ -107,7 +107,10 @@ store.func = function () {
 store.order = function () {	
     //let fd = new FormData($('#frm_check')[0]);
 	let product_id=[];
+	console.log($("input[name='product_id']").length);
+	
 		for(let i=0; i<$("input[name='product_id']").length; i++ ){
+			console.log($("input[name='product_id']").eq(i).val());
 			product_id.push($("input[name='product_id']").eq(i).val());
 		}
 		let cart_count=[];
@@ -378,6 +381,8 @@ store.pl = function (cate) {
 store.rInsert = function () {
 
     let fd = new FormData($('#frm_store')[0]);
+    console.log($('#frm_store').serialize());
+    
 
     $.ajax({
         url: 'reviewInsert.str',
@@ -604,7 +609,7 @@ let detailView = function (pid, subject, retailprice, saleprice, content, img) {
                   </div>
                 </div>
                 <input type="hidden" name="pid" id="pidField" value="${pid}">
-                <input type="hidden" name="product_id" id="cart_product" value="${pid}">
+                <input type="hidden" name="product_id1" id="cart_product" value="${pid}">
                 <div class="sticker sticker-sale"></div>
               </div>
             </div>`

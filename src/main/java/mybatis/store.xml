@@ -111,7 +111,7 @@
 	   select r.review_id , r.mem_id, r.product_id , r.rSubject, r.rContent, r.review_like , r.review_date, rp.review_id, rp.image1, rp.image2   
 	   from review r left outer join review_photo rp
 	   on r.review_id = rp.review_id
-	   where product_id= #{value}
+	   where product_id= #{vo.product_id }
 	   order by review_date desc
 	   
 	</select>
@@ -174,7 +174,7 @@
                p.PRODUCT_EXPLAIN product_explain
         from PRODUCT p
                  join PRODUCT_PHOTO PP on p.PRODUCT_ID = PP.PRODUCT_ID
-        where p.PRODUCT_ID = ${value }
+        where p.PRODUCT_ID = #{value}
         order by PHOTO_SERIAL
     </select>
     <!-- 리뷰 지우기 -->
