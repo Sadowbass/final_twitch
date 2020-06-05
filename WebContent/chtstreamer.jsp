@@ -33,7 +33,7 @@
 </style>
 <!-- mid(메인 채팅창) -->
 <div>
-	<div class="chtArea" id="chtArea" style="color:#ffffff;"></div>
+	<div class="chtArea" id="chtArea" style="color:#ffffff; padding-left: 10px;"></div>
 </div>
 <input type="hidden" value="${mId }"/>
 

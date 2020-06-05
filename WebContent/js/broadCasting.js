@@ -543,7 +543,7 @@ function videoDonation(serial, mid, content, price, url) {
 
 function voiceDonation(serial, mid, content, price, type) {
 
-    responsiveVoice.speak(content, "Korean Female");
+    //responsiveVoice.speak(content, "Korean Female");
 
 
     let donationData = '';
@@ -710,7 +710,9 @@ function setDonation() {
                                 divRow.style.marginTop = "2%";
 
                                 if (data[i].type == '0' || data[i].type == '2' || data[i].type == '3') {
+                                	console.log(data[i].type);
                                     divRow.onclick = function () {
+                                    	console.log("시발");
                                         voiceDonation(
                                             data[i].don_serial,
                                             data[i].don_mid,

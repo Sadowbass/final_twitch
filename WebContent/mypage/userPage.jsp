@@ -51,6 +51,7 @@
 		  href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' />
 	<script
 			src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<style>
 		.imgTak {
 			background: #fff none repeat scroll 0 0;

@@ -154,7 +154,7 @@ my.func = function() {
 			          success : function(data) {
 			             console.log(data.key);
 			             $("#key").val(data.key);
-			             $("#div01").html("<img src='./captchaImage/"+data.captchaImageName+"'>");
+			             $("#div01").html("<img src='/captchaImage/"+data.captchaImageName+"'>");
 			             $("#capchaFlag").val('true');
 			             $('#div02').show();
 			          }

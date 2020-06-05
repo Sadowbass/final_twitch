@@ -47,9 +47,9 @@ public class Handler extends TextWebSocketHandler {
 
 
 
-	public static Map<String, List<WebSocketSession>> getChatRoom() {
+/*	public static Map<String, List<WebSocketSession>> getChatRoom() {
 		return chatRoom;
-	}
+	}*/
 
 
 	public static void setChatRoom(Map<String, List<WebSocketSession>> chatRoom) {
@@ -86,7 +86,9 @@ public class Handler extends TextWebSocketHandler {
 				List<WebSocketSession>list=chatRoom.get(streamer);
 				for(WebSocketSession s:list) {
 					if(mid!=null) {/*로그인 시청자*/
-						if(s.getAttributes().get("session_id").equals(mid))reduplication=false;/*중복입장불가*/
+						if(s.getAttributes().get("session_id")!=null) {
+							if(s.getAttributes().get("session_id").equals(mid))reduplication=false;/*중복입장불가*/
+						}
 					}else { /*비로그인 시청자*/
 						if(s.getAttributes().get("HTTP.SESSION.ID").equals(httpSession))reduplication=false;/*중복입장불가*/
 					}
