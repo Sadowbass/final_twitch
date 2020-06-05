@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.resource.CachingResourceTransformer;
 
 import com.google.gson.Gson;
@@ -98,7 +99,7 @@ public class StoreController {
     }
 	
 	@RequestMapping(value="/store/reviewInsert.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public String reviewInsert(MultipartHttpServletRequest req) {
+	public String reviewInsert(MultipartHttpServletRequest req, RedirectAttributes redirectAttributes) {
     	
 		System.out.println("리뷰입력");
     	
@@ -121,7 +122,7 @@ public class StoreController {
 	    //int maxSize =1024 *1024 *10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
 	    
 	    String mem_id = "";
-	    int product_id;
+	    int product_id = 0;
 	    String rContent ="";
 	    String rSubject ="";
 	    Double review_like;
@@ -139,12 +140,12 @@ public class StoreController {
 	    List<StoreReviewPhotoVo> list = new ArrayList<StoreReviewPhotoVo>();
 		     
 	    try{
-	    	    	
 	        // form내의 input name="mId" 인 녀석 value를 가져옴
 	        mem_id = req.getParameter("mId");
 	        // form내의 input name="pId" 인 녀석 value를 가져옴
 	        product_id = Integer.parseInt(req.getParameter("pId"));
-	        // form내의 input name="rContent" 인 녀석 value를 가져옴
+			System.out.println("product_id"+product_id);
+			// form내의 input name="rContent" 인 녀석 value를 가져옴
 	        rContent = req.getParameter("rContent");
 	        // name="rSubject" 인 녀석 value를 가져옴
 	        rSubject = req.getParameter("rSubject");
@@ -185,9 +186,8 @@ public class StoreController {
 	    }catch(Exception e){
 	        e.printStackTrace();
 	    }
-    	
-    	
-    	
+
+	    redirectAttributes.addAttribute("pid",product_id);
     	System.out.println(req.getRequestURI());
     	return "redirect:/store/productDetail.str";
     }
