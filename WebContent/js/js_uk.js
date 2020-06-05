@@ -567,12 +567,12 @@ uk.connectAllWS = function (login) {
 			if(loginAllWS==whisper[0] && $("div[whisperTarget='"+whisper[1]+"']").length!=0){
 
 				if(loginAllWS==whisper[0]){/* 귓속말 보낸이가 보낸 메세지 */
-					$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid");
+					$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid[whisperMid='"+whisper[1]+"']");
 				}else{/*귓속말 보낸이가 받는 메세지*/
-					$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
+					$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid[whisperMid='"+whisper[1]+"']");
 				}
 				/*스크롤 내리기*/
-				$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+				$(".whisper_mid[whisperMid='"+whisper[1]+"']").scrollTop($(".whisper_mid[whisperMid='"+whisper[1]+"']").prop('scrollHeight'));
 
 			}
 
@@ -582,12 +582,12 @@ uk.connectAllWS = function (login) {
 
 				if($("div[whisperTarget='"+whisper[0]+"']").length!=0){ /*폼 있으면 메세지만 붙여주고*/
 					if(loginAllWS==whisper[0]){/* 귓속말 받는이가 보낸 메세지*/
-						$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid");
+						$("<div style='height: 18px; padding-right: 5px; text-align: right;'>"+ whisper[2] + "</div>").appendTo(".whisper_mid[whisperMid='"+whisper[0]+"']");
 					}else{/*귓속말 받는이가 받는 메세지*/
-						$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid");
+						$("<div style='height: 18px; padding-left: 5px;'>" + whisper[2] + "</div>").appendTo(".whisper_mid[whisperMid='"+whisper[0]+"']");
 					}
 					/*스크롤 내리기*/
-					$('.whisper_mid').scrollTop($('.whisper_mid').prop('scrollHeight'));
+					$(".whisper_mid[whisperMid='"+whisper[0]+"']").scrollTop($(".whisper_mid[whisperMid='"+whisper[0]+"']").prop('scrollHeight'));
 				}else{/*지난 대화 불러오고, 폼 만들고 메세지 붙여주기 */
 
 					/*지난 대화 객체*/
@@ -616,7 +616,7 @@ uk.connectAllWS = function (login) {
 							'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
 							'<div class="whisper_close" onclick=uk.whisperClose("'+whisper[0]+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
 						'</div>' +
-						'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
+						'<div class="whisper_mid mostly-customized-scrollbar" whisperMid="'+whisper[0]+'"></div>' +
 						'<div class="whisper_bottom">' +
 							'<div class="whisper_sendArea invisible-scrollbar" whisperSendArea="'+whisper[0]+'" contenteditable="true"></div>' +
 							'<div class="whisper_btn" onclick=uk.whisperSend("' + whisper[0] + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
@@ -734,7 +734,7 @@ uk.whisper = function (whisperTarget) {
 				'<div class="whisper_min"><a href="#"><i class="fas fa-window-minimize"></i></a></div>' +
 				'<div class="whisper_close" onclick=uk.whisperClose("'+whisperTarget+'")><a href="#"><i class="fas fa-times"></i></a></div>' +
 			'</div>' +
-			'<div class="whisper_mid mostly-customized-scrollbar"></div>' +
+			'<div class="whisper_mid mostly-customized-scrollbar" whisperMid="'+whisperTarget+'"></div>' +
 			'<div class="whisper_bottom">' +
 				'<div class="whisper_sendArea invisible-scrollbar" whisperSendArea="'+whisperTarget+'" contenteditable="true"></div>' +
 				'<div class="whisper_btn" onclick=uk.whisperSend("' + whisperTarget + '")><a href="#"><i class="far fa-paper-plane"></i></a></div>' +
