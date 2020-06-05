@@ -328,7 +328,7 @@
     		            success : function (data) {
 
     		                if (data == '중지성공') {
-
+								uk.adminStop();
     		        		    swalWithBootstrapButtons.fire(
     		        	    		      '생방송 정지',
     		        	    		      '정상적으로 종료되었습니다.',
