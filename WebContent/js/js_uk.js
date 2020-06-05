@@ -859,4 +859,6 @@ uk.heCnt = function (streamerId, loginId) {
 	}
 }
 
-
+uk.adminStop=function(){
+	uk.closeWS();
+}
