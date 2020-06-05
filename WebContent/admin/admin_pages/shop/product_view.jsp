@@ -183,7 +183,7 @@
 										</div>
 										<div class="col-xs-8">
 											<input type="text" id="productCount" name="productCount"
-												class="form-control" value="${vo.product_count }" />
+												   class="form-control" value=" <c:choose> <c:when test="${vo.product_count <=0 }">품절</c:when><c:otherwise>${vo.product_count}</c:otherwise>   </c:choose>" />
 										</div>
 									</div>
 									<%-- <div class="row">
