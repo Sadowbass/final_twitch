@@ -250,7 +250,7 @@
 												<td>${i.product_cate }</td>
 												<td>${i.product_name}</td>
 												<td>${i.product_price }</td>																						
-												<td>${i.product_count}</td>
+												<td><c:choose> <c:when test="${i.product_count <=0 }">품절</c:when><c:otherwise>${i.product_count}</c:otherwise>   </c:choose></td>
 
 
 											</tr>
