@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.resource.CachingResourceTransformer;
 
 import com.google.gson.Gson;
@@ -89,6 +90,7 @@ public class StoreController {
 		SCDao dao = new SCDao();
 		String pId = req.getParameter("pid");
 
+		System.out.println("pId"+pId);
 		ProductVo vo = dao.productDetail(pId);
 		vo.setProduct_explain(vo.getProduct_explain().replace("\n","").replace("\r","<br/>"));
 		mv.addObject("vo",vo);
@@ -98,7 +100,7 @@ public class StoreController {
     }
 	
 	@RequestMapping(value="/store/reviewInsert.str", method= {RequestMethod.GET, RequestMethod.POST})
-	public String reviewInsert(MultipartHttpServletRequest req) {
+	public String reviewInsert(MultipartHttpServletRequest req, RedirectAttributes redirectAttributes) {
     	
 		System.out.println("리뷰입력");
     	
@@ -121,7 +123,7 @@ public class StoreController {
 	    //int maxSize =1024 *1024 *10;// 한번에 올릴 수 있는 파일 용량 : 10M로 제한
 	    
 	    String mem_id = "";
-	    int product_id;
+	    int product_id = 0;
 	    String rContent ="";
 	    String rSubject ="";
 	    Double review_like;
@@ -139,12 +141,17 @@ public class StoreController {
 	    List<StoreReviewPhotoVo> list = new ArrayList<StoreReviewPhotoVo>();
 		     
 	    try{
-	    	    	
 	        // form내의 input name="mId" 인 녀석 value를 가져옴
 	        mem_id = req.getParameter("mId");
 	        // form내의 input name="pId" 인 녀석 value를 가져옴
-	        product_id = Integer.parseInt(req.getParameter("pId"));
+
+	        product_id = Integer.parseInt(req.getParameter("pid"));
 	        // form내의 input name="rContent" 인 녀석 value를 가져옴
+
+	       
+			System.out.println("product_id"+product_id);
+			// form내의 input name="rContent" 인 녀석 value를 가져옴
+
 	        rContent = req.getParameter("rContent");
 	        // name="rSubject" 인 녀석 value를 가져옴
 	        rSubject = req.getParameter("rSubject");
@@ -185,16 +192,20 @@ public class StoreController {
 	    }catch(Exception e){
 	        e.printStackTrace();
 	    }
+
     	
     	
-    	
+    	redirectAttributes.addAttribute("pid", product_id);
+
+
+
     	System.out.println(req.getRequestURI());
     	return "redirect:/store/productDetail.str";
     }
 
 	private String getExtension(String image2) {
 		String mm = "jpg";
-		// TODO Auto-generated method stub
+		
 		return mm ;
 	}
 
@@ -492,10 +503,20 @@ public class StoreController {
 		        JsonArray array1=element.getAsJsonObject().get("cart_count").getAsJsonArray();
 		        JsonArray array2=element.getAsJsonObject().get("order_size").getAsJsonArray();
 		        
+		        System.out.println("길이"+array.size());
+		        System.out.println("길이2"+array1.size());
+		        
 		        for(int i = 0; i<array.size(); i++) {
-		        	System.out.println(array.get(i).getAsString());
+		        	System.out.println(array.get(i)+":::"+array.get(i).getAsInt());
+		        	System.out.println(array1.get(i)+":::"+array1.get(i).getAsInt());
 		        	int product_id = array.get(i).getAsInt();
 		        	int cart_count = array1.get(i).getAsInt();
+		        	
+		        	
+		        	
+		        	//System.out.println(product_id);
+		        	//System.out.println(cart_count);
+		        	
 		        	String order_size = array2.get(i).getAsString();
 		        	
 		        	dVo = new StoreOrderDetailVo(product_id, cart_count, order_size, mem_id);
