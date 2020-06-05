@@ -109,9 +109,9 @@ uk.connectWS = function (streamer, login) {
 	uk.heCnt(streamerId, loginId); /*하은 부탁*/
 
 	if(streamer==login){
-		ws = new WebSocket("ws://192.168.0.77/cht?air"); /*스트리머 소켓*/
+		ws = new WebSocket("ws://daum123.gonetis.com/cht?air"); /*스트리머 소켓*/
 	}else{
-		ws = new WebSocket("ws://192.168.0.77/cht?" + streamerId); /*시청자 소켓*/
+		ws = new WebSocket("ws://daum123.gonetis.com/cht?" + streamerId); /*시청자 소켓*/
 	}
 
 	ws.onopen = function (event) {
@@ -469,7 +469,7 @@ uk.responsive = function () {
 uk.connectAllWS = function (login) {
 	loginAllWS=login;
 
-	allWs = new WebSocket("ws://192.168.0.77/cht?justLogin");
+	allWs = new WebSocket("ws://daum123.gonetis.com/cht?justLogin");
 
 	allWs.onopen = function (event) {
 		console.log("all ws open");

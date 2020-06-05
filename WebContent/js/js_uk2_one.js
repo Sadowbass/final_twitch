@@ -127,7 +127,7 @@ uk.connectWS = function(streamer, login) {
 	/* loginId=login; */
 	loginId = '임시';
 
-	ws = new WebSocket("ws://192.168.0.57/cht?" + streamerId);
+	ws = new WebSocket("ws://daum123.gonetis.com/cht?" + streamerId);
 
 	ws.onopen = function(event) {
 		console.log("채팅 서버 접속 완료");

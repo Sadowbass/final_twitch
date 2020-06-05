@@ -23,9 +23,6 @@
 				//$(msg).text(data);
 				//$(msg).css('color', '#ff0055');				
 		});
-	 
-	 
-	 
  }
  
  lm.func= function(){	 

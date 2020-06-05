@@ -139,7 +139,7 @@
                            style="width: 100%;"><br/><br/>
                 </form>
                 <%-- <a href="#"><span id="forget-pwd" style="color: mediumpurple;">비밀번호 찾기</span></a> #1 --%>
-                <a href="./member_m/memberSearch.jsp"><span id="forget-pwd" style="color: mediumpurple;">비밀번호 찾기</span></a>
+                <a href="/member_m/memberSearch.jsp"><span id="forget-pwd" style="color: mediumpurple;">비밀번호 찾기</span></a>
             </div>
             <button type="button" class="btn btn-primary btn-disabled" id="button-login"
                     style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;" disabled>로그인

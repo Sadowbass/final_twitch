@@ -15,7 +15,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 
 public class Member_mPhotoUpload {
-	public static String upload = "C:/User/JHTA/eclipse-workspace3/final_twitch/WebContent/img";
+	public static String upload = "D:/JavaStudy/final_twitch/WebContent/img/user-photo";
 	                               
 	String tempDir = "c:/temp/";
 	

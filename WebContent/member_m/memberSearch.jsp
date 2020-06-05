@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="../js/login_m.js"></script>
+ <script src="/js/login_m.js"></script>
 </head>
 <body>
 <body id="page-top2">
 <%@include file="top2.jsp" %>
 <form id="signupform" class="form-horizontal" role="form" commandName = "userDto" method="post">
 		<div>
-
 			<div>
 				<h1 class='text-center'> 계정으로 들아가기</h1>
 				<div>
@@ -28,7 +26,7 @@
 					</div>
 					<div class='text-center'>
 						<button disabled="true" id="btnNextm">계속</button>
-               			<a href = "../index.jsp">홈으로</a>
+               			<a href = "/">홈으로</a>
 					</div>
 				</div>
 			</div>
@@ -49,9 +47,6 @@
 			}
 			
 		})
-		
 	})
-	
-
 </script>
 </html>
