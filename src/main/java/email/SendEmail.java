@@ -54,7 +54,7 @@ public class SendEmail {
 	            
 	            //내용
 	            message.setContent("<h1>[개인정보 안내]</h1><br>"
-	                  + "<p>아이디는 <b> "+ vo.getMem_Id() + "<p>비밀번호는 <b> "+ vo.getMem_pwd() + "</b> 입니다.</p><br> <a href='http://localhost:80/index.jsp'><b>Twitch</b></a> 으로 이동", "text/html; charset=utf-8");
+	                  + "<p>아이디는 <b> "+ vo.getMem_Id() + "<p>비밀번호는 <b> "+ vo.getMem_pwd() + "</b> 입니다.</p><br> <a href='daum123.gonetis.com'><b>Twitch</b></a> 으로 이동", "text/html; charset=utf-8");
 	            
 	            Transport.send(message); // 전송
 	           
