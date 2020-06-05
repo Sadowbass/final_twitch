@@ -141,12 +141,17 @@ public class StoreController {
 	    List<StoreReviewPhotoVo> list = new ArrayList<StoreReviewPhotoVo>();
 		     
 	    try{
-	    	    	
 	        // form내의 input name="mId" 인 녀석 value를 가져옴
 	        mem_id = req.getParameter("mId");
 	        // form내의 input name="pId" 인 녀석 value를 가져옴
+
 	        product_id = Integer.parseInt(req.getParameter("pid"));
 	        // form내의 input name="rContent" 인 녀석 value를 가져옴
+
+	       
+			System.out.println("product_id"+product_id);
+			// form내의 input name="rContent" 인 녀석 value를 가져옴
+
 	        rContent = req.getParameter("rContent");
 	        // name="rSubject" 인 녀석 value를 가져옴
 	        rSubject = req.getParameter("rSubject");
@@ -187,16 +192,20 @@ public class StoreController {
 	    }catch(Exception e){
 	        e.printStackTrace();
 	    }
+
     	
     	
     	redirectAttributes.addAttribute("pid", product_id);
+
+
+
     	System.out.println(req.getRequestURI());
     	return "redirect:/store/productDetail.str";
     }
 
 	private String getExtension(String image2) {
 		String mm = "jpg";
-		// TODO Auto-generated method stub
+		
 		return mm ;
 	}
 
