@@ -462,7 +462,7 @@ public class StoreController {
 				
 				*/
 		
-			    String mem_id = "sliver";
+			    String mem_id = "sendin";
 				StoreOrderVo vo = new StoreOrderVo();
 				StoreOrderDetailVo dVo = new StoreOrderDetailVo();
 		
