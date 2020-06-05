@@ -344,6 +344,21 @@ public class Handler extends TextWebSocketHandler {
 				heDao.viewerCnt(viewerCnt);
 			}
 		}
+
+		/*(6) 하은 관리자 강제 중지*/
+		if(ele.getAsJsonObject().get("adminStop")!=null) {
+			List<WebSocketSession> list=chatRoom.get(streamer);
+			String stopTarget=ele.getAsJsonObject().get("adminStop").getAsString();
+			for(WebSocketSession w:list) {
+				if(w.getAttributes().get("session_id").equals(stopTarget)) {
+					JsonObject jsonObject = new JsonObject();
+					jsonObject.addProperty("adminStop", streamer );
+					String jsonTxt = gson.toJson(jsonObject);
+					w.sendMessage(new TextMessage(jsonTxt));
+					break;
+				}
+			}
+		}
 	}
 
 	@Override

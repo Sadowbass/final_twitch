@@ -3,16 +3,16 @@
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="broadCasting">
-	
+
 	<select id='selectTag' resultType="String">
 		SELECT tag_name FROM FINAL_TAG
-	</select>	       
+	</select>
 	<select id='selectCate' resultType="bean.BroadCastingCateVo">
 		select * from final_category
 	</select>
 	<update id='updateKey' parameterType='bean.BroadCastingAirVo' >
 		update final_member
-		SET 
+		SET
 		mem_skey = #{mem_skey}
 		WHERE
 		mem_id = #{air_mid}
@@ -23,7 +23,7 @@
 	</insert>
 	<update id='updateAir' parameterType='bean.BroadCastingAirVo' >
 		update final_onair
-		SET 
+		SET
 		air_subject = #{air_subject},
 		air_content = #{air_content},
 		air_gname = #{air_gname},
@@ -39,14 +39,14 @@
 	</select>
 	<update id='readDonation' parameterType='Integer'>
 		update final_donation
-		SET 
+		SET
 		don_push = '1'
 		WHERE
 		don_serial = ${serial}
 	</update>
 		<update id='sendDonation' parameterType='Integer'>
 		update final_donation
-		SET 
+		SET
 		don_push = '2'
 		WHERE
 		don_serial = ${serial}
@@ -56,7 +56,7 @@
 	</select>
 	<update id='saveRoulette1' parameterType='hashMap'>
 		update FINAL_ROULETTE
-		SET 
+		SET
 		rul_data = #{newRouletteData}
 		WHERE
 		rul_mId = #{mId}
@@ -70,26 +70,25 @@
 	</delete>
 	<update id='imageThumbnail' parameterType='hashMap'>
 		update FINAL_onair
-		SET 
+		SET
 		air_thumbnail = #{path}
 		WHERE
 		air_mId = #{mId}
 	</update>
 	<select id='selectAir' resultType="bean.BroadCastingAirVo" parameterType='String'>
-		select * from final_onair a, final_member m,final_category c where a.air_mid = m.mem_id and a.air_gname = c.cat_gname and a.air_mId = #{_parameter} 
+		select * from final_onair a, final_member m,final_category c where a.air_mid = m.mem_id and a.air_gname = c.cat_gname and a.air_mId = #{_parameter}
 	</select>
 	<insert id='insertInfo' parameterType='bean.BroadCastingAirVo'>
 		INSERT into FINAL_broadCastingInfo
 		VALUES (seq_info.nextVal, #{air_mid}, #{air_gname},sysdate)
 	</insert>
 	<select id='selectFollow' resultType="Integer" parameterType='String'>
-		select count(mfo_serial) from final_mfollow where mfo_mid = #{_parameter}
+		select count(mfo_serial) from final_mfollow where mfo_oid = #{_parameter}
 	</select>
 		<select id='selectFollowList' resultType="bean.FollowListVo" parameterType='String'>
-		select * from final_mfollow where mfo_mid = #{_parameter} order by mfo_date desc
+		select * from final_mfollow where mfo_oid = #{_parameter} order by mfo_date desc
 	</select>
 	<select id='initUser' resultType="bean.UserInfoVo" parameterType='String'>
 		select * from final_member m,final_photo p where m.mem_id = p.ph_id(+) and mem_id = #{_parameter}
 	</select>
 </mapper>
-   

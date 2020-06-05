@@ -276,6 +276,15 @@ uk.connectWS = function (streamer, login) {
 			});
 		}
 
+		/*하은 관리자 강제 중지 신호 받음*/
+		if(jsObj.adminStop){
+			if(jsObj.adminStop==streamerId){
+				console.log(jsObj.adminStop,streamerId);
+				uk.closeWS();
+			}
+
+		}
+
 	}
 	/* 엔터키 누르면 전송 내꺼 */
 	$('div[contenteditable].cht_send_uk ').keydown(function (e) {
@@ -334,6 +343,7 @@ uk.takTxt = function () {
 
 /* socket close 메소드 */
 uk.closeWS = function () {
+	console.log('closeWS');
 	ws.close();
 	/*유저목록 지우기*/
 	if ($("#userList").length) {
@@ -859,6 +869,13 @@ uk.heCnt = function (streamerId, loginId) {
 	}
 }
 
+/*하은 관리자 강제 중지 신호 보냄*/
 uk.adminStop=function(){
-	uk.closeWS();
+	console.log("adminStop");
+	let str={
+			adminStop : streamerId
+	}
+	let jsonStr = JSON.stringify(str);
+	ws.send(jsonStr);
+
 }
