@@ -476,8 +476,6 @@ public class AdminController_mh {
 		vo = (ProductVo_mh) req.getAttribute("vo");
 		List<ProductPhoto_mh> attList = (List<ProductPhoto_mh>) req.getAttribute("attList");
 
-		System.out.println("시발" + vo.getProduct_explain());
-
 		System.out.println(vo.getProduct_id());
 		System.out.println(vo.getProduct_name());
 		System.out.println(vo.getProduct_cate());
